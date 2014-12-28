@@ -1,0 +1,240 @@
+\documentclass[11pt]{article}
+\pagestyle{empty}
+
+\setlength{\textheight}{8.5in}
+\setlength{\topmargin}{0.5in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+% %% \setlength{\footheight}{0in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\textwidth}{6.5in}
+
+\usepackage{times,url}
+
+\begin{document}
+\begin{center}
+\LARGE CAS CS 132\\
+\Large Object-Oriented Programming\\
+\Large\rm Spring 2104\\~\\
+\end{center}
+
+\noindent{\large\bf Meeting Place:} PSY B50\\[\baselineskip]
+\noindent{\large\bf Meeting
+Time:} MW 1 -- 2:30 pm 
+\\[\baselineskip] 
+
+\noindent{\large\bf Instructor:} Professor Mark Crovella\\[0.75\baselineskip]
+\begin{minipage}[t]{0.60\textwidth}
+\begin{itemize}
+\item {\bf Office:} MCS-140E
+\item {\bf Office Hours:} {\small Tues 3-4, Th 4-5}
+\item {\bf Email:} crovella@bu.edu
+\end{itemize}
+\end{minipage}
+~\\~\\~\\~\\
+ \noindent{\large\bf Teaching Fellow:} Mr.\ William Blair\\[0.75\baselineskip]
+ \begin{minipage}[t]{0.60\textwidth}
+ \begin{itemize}
+ \item {\bf Office:} TBD
+ \item {\bf Office Hours:} {\small In lab: Wed 3-4, plus additional TBD}
+ \item {\bf Email:} wdblair@bu.edu
+ \end{itemize}
+ \end{minipage}
+
+\section*{Overview of the Course}
+
+This course will introduce you to Object-Oriented Programming by focusing on application development for the iOS platform, in Objective-C.
+
+\section*{Readings} 
+There is no textbook for this course.  We will rely on the documentation
+available in the iPhone development center.   This is available locally
+once you install the SDK, or online at \url{developer.apple.com}.
+
+Principal references that you will use are:
+\begin{enumerate}
+\item Learning Objective-C: A Primer (Mac OS X Core Library)
+\item Object-Oriented Programming with Objective C: Introduction (iPhone OS Library)
+\end{enumerate}
+
+You will also make extensive use of the online class library (Cocoa) documentation.
+
+\section*{Web Sites} 
+
+This term we will be using Piazza for class discussion. The system is highly catered to getting you help fast and efficiently from classmates, the TF, and myself. Rather than emailing questions to the teaching staff, I encourage you to post your questions on Piazza.   Our class Piazza page  is at: \url{https://piazza.com/bu/spring2014/cs211/home}.
+
+\section*{Grades}
+\begin{itemize}
+\item Ten programming assignments, totaling 60\% of final grade.
+\item A final project, totaling 40\% of final grade.
+\end{itemize}
+
+You will have about a week to complete each homework assignment.  The final
+project will be chosen in consultation with me;  you goal in choosing a
+final project should be to demonstrate what you have learned.    For the
+final project you may work alone or in teams of 2.   If you work in a
+team, you will be required to specify clearly what portion of the
+project was your contribution, and the project should be correspondingly
+more ambitious.    Each project will have an in-class status report in
+mid-course.  Final projects will be demonstrated in class.
+
+\section*{Course and Grading Administration}
+
+Grading of each assignment will be on a scale of check-plus, check,
+check-minus, or zero.    Check-plus corresponds to fully completing the
+assignment, handling special cases, and structuring code well.   Check
+corresponds to completing the assignment with a functioning submission.
+Check minus corresponds to submissions that are missing some required
+functionality or aspects.   Zero corresponds to assignments that are not
+submitted.
+
+Assignments will be submitted using \texttt{gsubmit}.   Assignments will
+generally be due on Wednesdays at 1pm.
+
+You have a total of three late days that you can use without penalty.
+After you have used your three late days, each day reduces the
+assignment grade by one step (eg, from check-plus to check, etc).
+
+\sloppypar
+Lecture slides, homework assignments, and this syllabus will be available
+online on Blackboard.  Incompletes will not be given. 
+
+\section*{Assignments}
+
+There will be weekly assignments.   After a few warmup assignments, we
+will develop a full-fledged iPhone app.  Once we've finished with that,
+we'll move on to a multi-week final project of your choice.
+
+There will not be a final exam.  Instead, you will do a brief
+presentation of your final project during the final exam slot.
+
+\section*{Academic Honesty}
+One of the goals of this course is to provide you with an intensive
+programming experience that will raise your level of programming
+skills.  You will come out of this course with the ability to take on
+larger programming projects than you could before.  
+
+Hence this is a programming-intensive course;  almost all of your grade will
+be based on code that you submit.   
+
+Some of the homework assignments given in this course were originally developed
+at other institutions.  Undoubtedly, you will be able to find examples of
+assignment solutions online.   Likewise, your classmates will be solving
+the same assignments as you.
+
+I have two messages with respect to academic honesty in this course: (1)
+submitting someone else's code means you lose about 90\% of the value of
+being in the course at all;  and (2) you will probably get caught, which
+will have very serious consequences.
+
+This doesn't mean you shouldn't ask for help;  what it means is that
+\emph{you must indicate on your submission any help you received.}  That
+includes discussions with the TF, grader, or other students.  Do this in
+the comments at the beginning of the code.
+
+This discussion should make clear that \emph{you must not share code
+  with other students.}  Don't ask for someone's code, and don't provide
+  it.  Discuss ideas and strategies freely, but write your own code.
+
+Also, \emph{you must not look a solutions from other courses or other
+  years.}  The assignments in this course will be different in some ways
+  from other courses and years, so using ``found'' code in this way is
+  dangerous as well as being dishonest.
+
+To back this up, keep in mind two things:  first, you must be prepared
+to explain any program code you submit.   The TF, the grader, and I may
+ask any of you to explain your code at any time.   And finally, I use
+automated plagiarism detection tools.  These tools compare code between
+students, as well as code that is available online.  I have used these
+tools for some time and (unfortunately) they regularly turn up cases of
+academic dishonesty.
+
+\newpage
+\section*{Syllabus}
+
+\small
+\begin{centering}
+\begin{tabular}{||l|p{3in}|l|l||}
+\hline\hline
+Date & Topics  & Assigned & Due  \\
+\hline\hline
+% Asst 1 = Interface Builder
+1/15 & 1: Intro to Mac OS & Asst 1 & \\
+\hline
+
+% Asst 2 = Objective C commandline
+1/22 & 2: Using Objective-C, Foundation objects & Asst 2 & Asst 1\\
+\hline
+
+% Asst 3 = Custom Class (Polygon) 
+1/27 & 3: Custom Classes, memory management, properties & Asst 3 & \\
+1/29 & 4: MVC, Interface Builder & & Asst 2\\
+\hline
+
+% Asst 4 = Hello Poly and Custom View (nb there is a walkthrough for this)
+2/3 & MVC, IB Cont'd & Asst 4 & \\
+2/5 & 5: Views &  & Asst 3\\
+\hline
+
+% Asst 5 = Tweeter pt 1 (old asst6)
+2/10 & Graphics, Open GL, View Controllers & Asst 5& \\
+2/12 & 6: Custom Views and View Controllers &  & Asst 4 \\
+\hline
+
+% Asst 6 = Tweeter pt 2 (old asst 7)
+2/17 & Holiday - Classes Suspended & & \\
+2/19 & 7: Tab Bar and Navigation Controllers & Asst 6 & Asst 5\\
+\hline
+
+% Asst 7 = Tweeter pt 4 (old asst 9, leave out part 3, database)
+2/24 & 8: Scroll Views & Asst 7& \\
+2/26 & Table Views and Delegates &  & Asst 6\\
+\hline
+
+% Asst 8 = Either Tweeter pt 5 (old asst 10) or IOT = esimote app
+3/3 & Table Views and Web Services & Asst 8 & \\
+3/5 & 9: Data &  &Asst 7\\
+\hline
+
+3/10 & Spring Break &&\\
+3/12 & Spring Break &&\\
+\hline
+
+% Asst 9 = first 1/2 of game
+3/17 & 10: Web Services, Performance, Threading, Map Kit & Asst 9 & \\
+3/19 & 12:  Keyboard, Modal Views, Core Location &  & \\
+3/21 &&& Asst 8 \\
+\hline
+
+% Asst 10 = second 1/2 of game
+3/24 & Core Location & Asst 10 & \\
+3/26 & Game Engine & & Proj Proposals \\
+3/28 &&& Asst 9 \\
+\hline
+
+3/31 & Game Engine & Asst 11 & \\
+4/2 & 13: Core Foundation, Address Book  & & \\
+4/4 & & & Asst 10\\
+
+\hline
+% Objective-C vs.\ Smalltalk vs.\ Java
+4/7 & 14: Touch Events and Multitouch  & &\\
+4/9 & No Class & &  Asst 11 \\
+\hline
+
+4/14 & Guest Lecture: Joyce Walsh & & \\
+4/16 & Status Reports  & & In-class Presentation\\
+ \hline
+
+4/21 & No Class - Patriots Day and Marathon & & \\
+4/23 & 16: Audio, Video, Settings & & \\
+\hline
+% 18: Unit Testing, Fun
+4/28 & 17: Bonjour and Streams, App Store &&\\
+4/30 & Final Project Presentations && In-class Presentation\\
+\hline\hline
+
+\end{tabular}\\
+\end{centering}
+
+
+\end{document}
