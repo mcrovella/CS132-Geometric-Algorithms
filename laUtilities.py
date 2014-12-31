@@ -29,7 +29,7 @@ def formatEqn(coefs, b):
     # and the rest of the terms if any exist
     for j in range(i+1,len(coefs)):
         if (np.abs(coefs[j]) == 1):
-            label = followingLabel[np.sign(coefs[j])].format('',j+1)
+            label = label + followingLabel[np.sign(coefs[j])].format('',j+1)
         else:
             label = label + followingLabel[np.sign(coefs[j])].format(np.abs(coefs[j]),j+1)
     label = label + ' = {}'.format(b)
@@ -60,42 +60,39 @@ def plotSetup3d(xmin = -3.0, xmax = 3.0, ymin = -3.0, ymax = 3.0, zmin = -3.0, z
     ax.axes.set_xlim([xmin, xmax])
     ax.axes.set_ylim([ymin, ymax])
     ax.axes.set_zlim([zmin, zmax])
+    ax.axes.set_xlabel('$x_1$')
+    ax.axes.set_ylabel('$x_2$')
+    ax.axes.set_zlabel('$x_3$')
     return ax
 
-def plotLinEqn3d(ax, a1, a2, a3, b, color):
-    from matplotlib.tri import Triangulation
+def plotLinEqn3d(ax, l1, color='Green'):
     # a1 x + a2 y + a3 z = b
-    pts = intersectionPlaneCube(ax, a1, a2, a3, b)
-    ptlist = triangulatePoints(pts)
+    pts = intersectionPlaneCube(ax, l1)
+    ptlist = np.array([np.array(i) for i in pts])
     x = ptlist[:,0]
     y = ptlist[:,1]
     z = ptlist[:,2]
-    tris = []
-    for i in range(len(ptlist)-2):
-        tris.append([0,i+1,i+2])
-    tri = Triangulation(x, y, tris)
-    ax.plot_trisurf(tri, z, color=color, alpha=0.3, linewidth=0)
+    if (len(x) > 2):
+        try:
+            triang = mp.tri.Triangulation(x, y)
+        except:
+            # this happens where there are triangles parallel to the z axis
+            # so some points in the x,y plane are repeated (which is illegal for a triangulation)
+            # this is a hack but it works!
+            try:
+                triang = mp.tri.Triangulation(x, z)
+                triang.y = y
+            except:
+                triang = mp.tri.Triangulation(z, y)
+                triang.x = x
+        ax.plot_trisurf(triang, z, color=color, alpha=0.3, linewidth=0, shade=False)
 
-def triangulatePoints(p):
-    # construct a correct triangulation of the input points 
-    pts = [np.array(i) for i in p]
-    next = pts.pop(0)
-    tset = [next]
-    while (len(pts)>0):
-        dists = [np.linalg.norm(next-pts[i]) for i in range(len(pts))]
-        next = pts.pop(np.argmin(dists))
-        tset.append(next)
-    return np.array(tset)
-    
-
-def intersectionPlaneCube(ax, a1, a2, a3, b):
+def intersectionPlaneCube(ax, l1):
     # returns the vertices of the polygon defined by the intersection of a plane
     # and the rectangular prism defined by the limits of the axes
-    xmin, xmax = ax.axes.get_xlim()
-    ymin, ymax = ax.axes.get_ylim()
-    zmin, zmax = ax.axes.get_zlim()
-    bounds = [[xmin, xmax], [ymin, ymax], [zmin, zmax]]
-    coefs = [a1, a2, a3]
+    bounds = np.array([ax.axes.get_xlim(), ax.axes.get_ylim(), ax.axes.get_zlim()])
+    coefs = l1[0:3]
+    b = l1[3]
     points = []
     for x in [0, 1]:
         for y in [0, 1]:
@@ -107,36 +104,34 @@ def intersectionPlaneCube(ax, a1, a2, a3, b):
                     if corner[i] == 0:
                         # we are looking for the intesection of the line defined by
                         # the two constant values with the plane
-                        isect = (b - np.sum([coefs[k] * corner[k] for k in range(3) if k != i]))/float(coefs[i])
+                        isect = (b - np.sum([coefs[k] * bounds[k][corner[k]] for k in range(3) if k != i]))/float(coefs[i])
                         if ((isect >= bounds[i][0]) & (isect <= bounds[i][1])):
                             pt = [bounds[k][corner[k]] for k in range(3)]
                             pt[i] = isect
                             points.append(tuple(pt))
     return set(points)
 
-def plotIntersection3d(ax, a1, a2, a3, b, c1, c2, c3, d):
-    xmin, xmax = ax.axes.get_xlim()
-    ymin, ymax = ax.axes.get_ylim()
-    zmin, zmax = ax.axes.get_zlim()
-    def yzForx(x):
-        y = (a3*d - a3*c1*x - c3*b + c3*a1*x)/float(a3*c2 - c3*a2)
-        z = (b - a1*x - a2*y)/float(a3)
-        return x,y
-    x1 = xmin
-    y1, z1 = yzForx(x1)
-    x2 = xmax
-    y2, z2 = yzForx(x2)
-    ax.plot([x1, x2],[y1,y2],zs=[z1,z2])
+def plotIntersection3d(ax, eq1, eq2, color='Blue'):
+    bounds = np.array([ax.axes.get_xlim(), ax.axes.get_ylim(), ax.axes.get_zlim()])
+    tmp = np.array([np.array(eq1), np.array(eq2)])
+    A = tmp[:,:-1]
+    b = tmp[:,-1]
+    ptlist = []
+    for i in range(3):
+        vars = [k for k in range(3) if k != i]
+        A2 = A[:][:,vars]
+        for j in range(2):
+            b2 = b - bounds[i,j] * A[:,i]
+            try:
+                pt = np.linalg.inv(A2).dot(b2)
+            except:
+                continue
+            if (pt[0] >= bounds[vars[0]][0]) & (pt[0] <= bounds[vars[0]][1]) & (pt[1] >= bounds[vars[1]][0]) & (pt[1] <= bounds[vars[1]][1]):
+                point = [0,0,0]
+                point[vars[0]] = pt[0]
+                point[vars[1]] = pt[1]
+                point[i] = bounds[i,j]
+                ptlist.append(point)
+    ptlist = np.array(ptlist).T
+    ax.plot(ptlist[0,:], ptlist[1,:], zs = ptlist[2,:], color=color)
 
-# current status:
-# these work:
-ax = ut.plotSetup3d(0,1,0,1,0,1)
-ut.plotLinEqn3d(ax, 1, 1, 1, 1, 'Beige')
-ut.plotLinEqn3d(ax, 1, 1, 1, 1.5, 'Navy')
-ut.plotLinEqn3d(ax, 1, 1, 1, 2, 'Green')
-# this doesnt:
-ax = ut.plotSetup3d()
-ut.plotLinEqn3d(ax, 1, 1, 0.1, 0, 'Beige')
-# nor does this:
-ax = ut.plotSetup3d(0,1,0,1,0,1)
-ut.plotLinEqn3d(ax, 1, 1, 0.1, 0, 'Beige')
