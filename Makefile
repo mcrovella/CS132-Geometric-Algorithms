@@ -1,7 +1,9 @@
 DOCNAME = book
 
 SRCS = \
-L1LinearEquations.ipynb
+L0Introduction.ipynb \
+L1LinearEquations.ipynb \
+L2RowReductions.ipynb
 
 TEXS=$(SRCS:.ipynb=.tex)
 
