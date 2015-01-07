@@ -5,7 +5,7 @@ L0Introduction.ipynb \
 L1LinearEquations.ipynb \
 L2RowReductions.ipynb
 
-TEXS=$(SRCS:.ipynb=.tex)
+# TEXS=$(SRCS:.ipynb=.tex)
 
 TGTS=$(SRCS:.ipynb=.pdf)
 
