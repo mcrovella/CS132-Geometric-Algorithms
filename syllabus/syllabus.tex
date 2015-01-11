@@ -12,9 +12,10 @@
 \usepackage{times,url}
 
 \begin{document}
+\sloppy 
 \begin{center}
 \LARGE CAS CS 132\\
-\Large Object-Oriented Programming\\
+\Large Geometric Algorithms\\
 \Large\rm Spring 2015\\~\\
 \end{center}
 
@@ -23,19 +24,19 @@
 Time:} TR 3:30 -- 5:00 pm 
 \\[\baselineskip] 
 
-\noindent{\large\bf Instructor:} Professor Mark Crovella\\[0.75\baselineskip]
+\noindent{\large\bf Instructor:} Prof.\ Mark Crovella\\[0.75\baselineskip]
 \begin{minipage}[t]{0.60\textwidth}
 \begin{itemize}
 \item {\bf Office:} MCS-140E
-\item {\bf Office Hours:} {\small TBD}
+\item {\bf Office Hours:} {\small W 3-4,  F 2-3}
 \item {\bf Email:} crovella@bu.edu
 \end{itemize}
 \end{minipage}
 ~\\~\\~\\~\\
- \noindent{\large\bf Teaching Fellow:} QInxun Bai\\[0.75\baselineskip]
+ \noindent{\large\bf Teaching Fellow:} Mr.\ Qinxun Bai\\[0.75\baselineskip]
  \begin{minipage}[t]{0.60\textwidth}
  \begin{itemize}
- \item {\bf Office:} TBD
+ \item {\bf Office:} MCS-208
  \item {\bf Office Hours:} {\small TBD}
  \item {\bf Email:} qinxun@bu.edu
  \end{itemize}
@@ -43,12 +44,31 @@ Time:} TR 3:30 -- 5:00 pm
 
 \section*{Overview of the Course}
 
-This course will ...
+This course will introduce you to linear algebra from an algorithmic
+standpoint.  Linear algebra is such a useful tool that it is crucially
+important to a number of areas in Computer Science. For example, if you study
+optimization, the starting point is linear algebra. If you study
+computer graphics, the language you use every day is linear algebra. If
+you study the performance of computer systems, you need linear
+algebra. If you study algorithms -- especially graph algorithms -- you
+will absolutely need linear algebra. If you study data mining, you will
+use linear algebra all the time. 
+
+The dominance of linear algebra arises because it is so fundamental, and
+in some ways, very simple. It deals with objects that almost always can
+be interpreted geometrically. So often we can use linear algebra in a
+very intuitive manner -- so much so that many times it is actually the
+best way to think about geometric problems. But it is also rigorous and so
+captures situations that sometimes we would overlook if we were
+proceeding purely intuitively. This is because it is also about solving
+equations, and finding solutions to various kinds of problems. So the
+advantage of being basic and fundamental is that it can be used and
+applied in so many ways. 
 
 \section*{Readings} 
 
 The textbook for the course is David C. Lay, \emph{Linear Algebra and
-  Its Applications} (LAA), 4th edition.    Assignments will be taken
+  Its Applications} (LAA), 4th edition.    Many assignments will be taken
 from the book.
 
 \section*{Web Resources} 
@@ -60,21 +80,22 @@ modify them any way you'd like, play around with them, experiment, etc.
 
 The slides I use in lecture are published on \texttt{github.}   The
 repository is
-\texttt{https://github.com/mcrovella/CS132-Geometric-Algorithms}.  The TF
+\texttt{https://github.com/mcrovella/CS132-Geometric-Algorithms}.  Mr.\ Bai
 will describe how to access the repository using \texttt{git,} but you
 can simply download directly from the web site if you prefer.
  
 We will be using Piazza for class discussion. The system is highly
-tuned to getting you help fast and efficiently from classmates, the
-TF, and myself. Rather than emailing questions to the teaching staff,
+tuned to getting you help fast and efficiently from classmates, Mr.\ Bai,
+and myself. Rather than emailing questions to the teaching staff,
 I encourage you to post your questions on Piazza.   Our class Piazza
-page  is at: \url{https://piazza.com/bu/...}. 
+page  is at: \url{https://piazza.com/bu/spring2015/cs132/home}. 
 
 \section*{Reading and Homeworks}
 
 \begin{enumerate}
 \item  You have about 10-12 pages of reading for each class.   Class will be
-more understandable if you do the reading first.
+more understandable if you do the reading first.   A good plan is to set aside
+time on Mondays and Wednesdays to do readings.
 \item  Homeworks will be assigned on Thursdays.
 \item Homeworks are due at 3:30 pm on Tuesdays.  This means they are due
 before the start of Tuesday's class.
@@ -84,79 +105,83 @@ answer specific questions!
 \item Homeworks will be submitted via \emph{websubmit} (instructions in class).
 \end{enumerate}
 
-\section*{Grades}
-
 \section*{Programming Environment}
 
 We will use \texttt{python} as the language for teaching and for
-submitting assignments that require coding.
-
-
+assignments that require coding.  
 
 \section*{Course and Grading Administration}
 
+Assignments will be submitted using \texttt{websubmit}.   Mr.\ Bai will
+explain how to submit assignments.  
 
-Assignments will be submitted using \texttt{websubmit}.   Assignments will
-generally be due \emph{WHEN?}
+\emph{NOTE: IMPORTANT:} Late assignments \textbf{WILL NOT} be accepted.   However, your final
+grade will be based on the top 10 homeworks submitted (out of 12).   
 
-\emph{LATE POLICY: You have a total of three late days that you can use without penalty.
-After you have used your three late days, each day reduces the
-assignment grade by one step (eg, from check-plus to check, etc).}
+Final grades will be computed based on the following:
+\begin{description}
+\item[60\%] Homework assignments: 60\%  The top 10 homework grades (out of the
+  12 assigned) will be used to compute this score
+\item[15\%] Midterm
+\item[25\%] Final (Cumulative)
+\end{description}
 
-\sloppypar
-Lecture slides, homework assignments, and this syllabus will be available
-online on the website.  Incompletes will not be given. 
+The exact cutoffs for final grades will be determined after the class is
+complete, but you can assume that they will approximately follow the
+typical pattern in which scores of 85-100 are in the A range (A-, A,
+A+), 70-85 are in the B range (B-, B, B+), and 60-70 are in the
+``counting'' C range (C, C+).
 
-\section*{Assignments}
-
-There will be weekly assignments.
+This grading policy implies the following:
+\begin{enumerate}
+\item You need to consistently work the problem sets each week.   Plan
+  to set aside a regular time each week to do them.
+\item The final, which is cumulative, is important to getting a good
+  final grade.   You could conceivably miss or fail the midterm and
+  still do reasonably well (but I don't recommend counting on this strategy).
+\end{enumerate}
 
 \section*{Academic Honesty}
-One of the goals of this course is to provide you with an intensive
-programming experience that will raise your level of programming
-skills.  You will come out of this course with the ability to take on
-larger programming projects than you could before.  
 
-Hence this is a programming-intensive course;  almost all of your grade will
-be based on code that you submit.   
+You may discuss homework assignments with classmates, but you are 
+solely responsible for what you turn in. Collaboration in the form of
+discussion is allowed, but all forms of cheating (copying parts of a
+classmate's assignment, plagiarism from books or old posted solutions)
+are NOT allowed. We -- both teaching staff and students -- are expected
+to abide by the guidelines and rules of the Academic Code of Conduct
+(which is at
+\url{http://www.bu.edu/dos/policies/student-responsibilities/}).
 
-Some of the homework assignments given in this course were originally developed
-at other institutions.  Undoubtedly, you will be able to find examples of
-assignment solutions online.   Likewise, your classmates will be solving
-the same assignments as you.
-
-I have two messages with respect to academic honesty in this course: (1)
-submitting someone else's code means you lose about 90\% of the value of
-being in the course at all;  and (2) you will probably get caught, which
-will have very serious consequences.
-
-This doesn't mean you shouldn't ask for help;  what it means is that
-\emph{you must indicate on your submission any help you received.}  That
-includes discussions with the TF, grader, or other students.  Do this in
-the comments at the beginning of the code.
-
-This discussion should make clear that \emph{you must not share code
-  with other students.}  Don't ask for someone's code, and don't provide
-  it.  Discuss ideas and strategies freely, but write your own code.
-
-Also, \emph{you must not look a solutions from other courses or other
-  years.}  The assignments in this course will be different in some ways
-  from other courses and years, so using ``found'' code in this way is
-  dangerous as well as being dishonest.
-
-To back this up, keep in mind two things:  first, you must be prepared
-to explain any program code you submit.   The TF, the grader, and I may
-ask any of you to explain your code at any time.   And finally, I use
-automated plagiarism detection tools.  These tools compare code between
-students, as well as code that is available online.  I have used these
-tools for some time and (unfortunately) they regularly turn up cases of
-academic dishonesty.
+You can probably, if you try hard enough, find solutions for homework
+problems online.    Given the nature of the Internet, this is
+inevitable.   Let me make a couple of comments about that:
+\begin{enumerate}
+\item If you are looking online for an answer because you don't know how
+  to start thinking about a problem, talk to Mr.\ Bai or myself, who may be
+  able to give you pointers to get you started.  Piazza is great for
+  this -- you can usually get an answer in an hour if not a few minutes.
+\item If you are looking online for an answer because you want to see if
+  your solution is correct, ask yourself if there is some way to verify
+  the solution yourself.   Usually, there is.  You will understand what you have done
+  \emph{much} better if you do that.
+\item If you are looking online for an answer because you don't have
+  enough time and are getting close to the assignment deadline, think about this:
+  \begin{enumerate}
+  \item what you are doing is intellectually dishonest,
+  \item you are going to have to solve problems like this on the midterm
+    and final, and
+  \item you can miss up to two homeworks without penalty.
+  \end{enumerate}
+So ... it would be better to simply submit what you have at the deadline
+(without going online to cheat) and plan to allocate more time for
+homeworks in the future.
+\end{enumerate}
 
 \newpage
 \section*{Syllabus}
 
-Note: the best strategy is to do the reading \emph{before} the class on
-which it is based.   All readings are from [LAA].
+\textbf{IMPORTANT:} The best strategy is to do the reading \emph{before} the class on
+which it is based.   All readings are from LAA.
 \\~\\
 \small
 \begin{centering}
@@ -176,27 +201,27 @@ Date & Topics  & Reading & Assigned & Due  \\
 
 %  Lay 1.4, 1.5
 2/3 & 4: $Ax = b$ & 1.4 & & H2 \\
-2/5 & & & & \\
+2/5 & 5: Solution Sets & 1.5, 1.6 & H3 & \\
 \hline
 
 %  Lay 1.7, 1.8
-2/10 & & & & \\
-2/12 & & & & \\
+2/10 & 6: Linear Independence & 1.7 & & H3 \\
+2/12 & 7: Linear Transformations & 1.8 & H4 & \\
 \hline
 
 % Lay 2.1
-2/17 & Substitute Monday - No Classes & & &\\
-2/19 & & & &\\
+2/17 & Substitute Monday - NO CLASS & & &\\
+2/19 & 8: Matrix Operations  & 2.1 & H5 & H4 \\
 \hline
 
 %  Lay 2.2, 2.3
-2/24 & & & &\\
-2/26 & & & &\\
+2/24 & 9: Matrix Inverse & 2.2 & & H5\\
+2/26 & 10: Invertible Matrices & 2.3 & H6 &\\
 \hline
 
 % Lay 4.1, 4.2
-3/3 & & & &\\
-3/5 & & & &\\
+3/3 & 11: Vector Spaces & 4.1 & & H6\\
+3/5 & 12: Null and Column Spaces & 4.2 & &\\
 \hline
 
 3/10 & Spring Break &&&\\
@@ -205,37 +230,37 @@ Date & Topics  & Reading & Assigned & Due  \\
 
 % Lay 4.3
 3/17 & Midterm & & &\\
-3/19 & & & &\\
+3/19 & 13: Bases & 4.3 & H7 &\\
 \hline
 
 % Lay 4.4, 4.5
-3/24 & & & &\\
-3/26 & & & &\\
+3/24 & 14: Coordinate Systems & 4.4 & & H7\\
+3/26 & 15: Dimension & 4.5 & H8 &\\
 \hline
 
 % Lay 4.6, 5.1
-3/31 & & & &\\
-4/2 & & & &\\
+3/31 & 16: Rank & 4.6 &  & H8\\
+4/2 & 17: Eigenvectors and Eigenvalues & 5.1 & H9 &\\
 \hline
 
 % Lay 5.2, 5.3
-4/7 & & & &\\
-4/9 & & & &\\
+4/7 & 18: Characteristic Equation & 5.2 & & H9\\
+4/9 & 19: Diagonalization & 5.3 & H10 &\\
 \hline
 
 % Lay 6.1, 6.2
-4/14 & & & &\\
-4/16 & & & &\\
+4/14 & 20: Inner Product & 6.1 & & H10\\
+4/16 & 21: Orthogonal Sets & 6.2 & H11 &\\
  \hline
 
-% Lay 6.4, 6.5
-4/21 & (Guest lecture) & & &\\
-4/23 & & & & \\
+% Lay 6.3, 6.5
+4/21 & 22: (Guest lecture) Projections & 6.3 & & H11\\
+4/23 & 23: Least Squares & 6.5 & H12 & \\
 \hline
 
 % Lay 7.1, 7.2
-4/28 & & & &\\
-4/30 & & & &\\
+4/28 & 24: Symmetric Matrices & 7.1 & & H12\\
+4/30 & 25: Quadratic Forms & 7.2 &  &\\
 \hline\hline
 
 \end{tabular}\\
