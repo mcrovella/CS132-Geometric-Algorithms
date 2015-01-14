@@ -2,8 +2,10 @@ DOCNAME = book
 
 SRCS = \
 L0Introduction.ipynb \
+L0Clickers.ipynb \
 L1LinearEquations.ipynb \
-L2RowReductions.ipynb
+L2RowReductions.ipynb \
+L3VectorEquations.ipynb
 
 # TEXS=$(SRCS:.ipynb=.tex)
 
