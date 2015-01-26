@@ -8,6 +8,7 @@ def plotSetup(xmin = -6.0, xmax = 6.0, ymin = -2.0, ymax = 4.0):
     ax = fig.add_subplot(1, 1, 1)
     plt.xlim([xmin, xmax])
     plt.ylim([ymin, ymax])
+    ax.axes.set_xlim([xmin, xmax])
     return ax
 
 def formatEqn(coefs, b):
@@ -34,6 +35,12 @@ def formatEqn(coefs, b):
             label = label + followingLabel[np.sign(coefs[j])].format(np.abs(coefs[j]),j+1)
     label = label + ' = {}'.format(b)
     return label
+
+def plotPoint (ax, x1, x2):
+    ax.plot(x1, x2, 'ro')
+
+def plotArrow (ax, x1, x2):
+    ax.arrow(0.0, 0.0, x1, x2)
 
 def plotLinEqn (a1, a2, b):
     # a1 x + a2 y = b
