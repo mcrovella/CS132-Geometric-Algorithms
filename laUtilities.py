@@ -36,8 +36,8 @@ def formatEqn(coefs, b):
     label = label + ' = {}'.format(b)
     return label
 
-def plotPoint (ax, x1, x2):
-    ax.plot(x1, x2, 'ro')
+def plotPoint (ax, x1, x2, color='r'):
+    ax.plot(x1, x2, '{}o'.format(color))
 
 def plotArrow (ax, x1, x2):
     ax.arrow(0.0, 0.0, x1, x2)
@@ -119,6 +119,9 @@ def intersectionPlaneCube(ax, l1):
     return set(points)
 
 def plotIntersection3d(ax, eq1, eq2, color='Blue'):
+    """
+    plot the intersection of two linear equations in 3d
+    """
     bounds = np.array([ax.axes.get_xlim(), ax.axes.get_ylim(), ax.axes.get_zlim()])
     tmp = np.array([np.array(eq1), np.array(eq2)])
     A = tmp[:,:-1]
@@ -141,4 +144,20 @@ def plotIntersection3d(ax, eq1, eq2, color='Blue'):
                 ptlist.append(point)
     ptlist = np.array(ptlist).T
     ax.plot(ptlist[0,:], ptlist[1,:], zs = ptlist[2,:], color=color)
+
+def plotCube(ax, pt, color='Blue'):
+    """
+    plot a 3d wireframe parallelipiped with one corner on the origin
+    """
+    endpoints = np.concatenate((np.array([[0,0,0]]),np.array([pt])))
+    for x in [0, 1]:
+        for y in [0, 1]:
+            for z in [0, 1]:
+                # we are plotting each line twice; not bothering to fix this
+                corner = [endpoints[x,0],endpoints[y,1], endpoints[z,2]]
+                # from each corner, plot the edges adjacent to that corner
+                ax.plot([endpoints[x,0],endpoints[1-x,0]],[endpoints[y,1],endpoints[y,1]],zs=[endpoints[z,2],endpoints[z,2]],color=color)
+                ax.plot([endpoints[x,0],endpoints[x,0]],[endpoints[y,1],endpoints[1-y,1]],zs=[endpoints[z,2],endpoints[z,2]],color=color)
+                ax.plot([endpoints[x,0],endpoints[x,0]],[endpoints[y,1],endpoints[y,1]],zs=[endpoints[z,2],endpoints[1-z,2]],color=color)
+                
 
