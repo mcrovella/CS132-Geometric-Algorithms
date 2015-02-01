@@ -4,6 +4,9 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 def plotSetup(xmin = -6.0, xmax = 6.0, ymin = -2.0, ymax = 4.0):
+    """
+    basics of 2D plot setup
+    """
     fig = plt.figure()
     ax = fig.add_subplot(1, 1, 1)
     plt.xlim([xmin, xmax])
@@ -12,6 +15,9 @@ def plotSetup(xmin = -6.0, xmax = 6.0, ymin = -2.0, ymax = 4.0):
     return ax
 
 def formatEqn(coefs, b):
+    """
+    format a set of coefficients as a linear equation in text
+    """
     leadingLabel = {-1: '-{} x_{}', 0: '', 1: '{} x_{}'}
     followingLabel = {-1: ' - {} x_{}', 0: '', 1: ' + {} x_{}'}
     nterms = len(coefs)
@@ -43,7 +49,10 @@ def plotArrow (ax, x1, x2):
     ax.arrow(0.0, 0.0, x1, x2)
 
 def plotLinEqn (a1, a2, b):
-    # a1 x + a2 y = b
+    """
+    plot line line corresponding to the linear equation
+    a1 x + a2 y = b
+    """
     [xmin, xmax] = plt.xlim()
     x1 = xmin
     y1 = (b - (x1 * a1))/float(a2)
@@ -72,8 +81,15 @@ def plotSetup3d(xmin = -3.0, xmax = 3.0, ymin = -3.0, ymax = 3.0, zmin = -3.0, z
     ax.axes.set_zlabel('$x_3$')
     return ax
 
+def plotPoint3d (ax, x1, x2, x3, color='r'):
+    ax.plot([x1], [x2], '{}o'.format(color), zs=[x3])
+    
 def plotLinEqn3d(ax, l1, color='Green'):
-    # a1 x + a2 y + a3 z = b
+    """
+    plot the plane corresponding to the linear equation
+    a1 x + a2 y + a3 z = b
+    where l1 = [a1, a3, a3, b]
+    """
     pts = intersectionPlaneCube(ax, l1)
     ptlist = np.array([np.array(i) for i in pts])
     x = ptlist[:,0]
@@ -118,7 +134,7 @@ def intersectionPlaneCube(ax, l1):
                             points.append(tuple(pt))
     return set(points)
 
-def plotIntersection3d(ax, eq1, eq2, color='Blue'):
+def plotIntersection3d(ax, eq1, eq2, type='-',color='Blue'):
     """
     plot the intersection of two linear equations in 3d
     """
@@ -143,7 +159,7 @@ def plotIntersection3d(ax, eq1, eq2, color='Blue'):
                 point[i] = bounds[i,j]
                 ptlist.append(point)
     ptlist = np.array(ptlist).T
-    ax.plot(ptlist[0,:], ptlist[1,:], zs = ptlist[2,:], color=color)
+    ax.plot(ptlist[0,:], ptlist[1,:], type, zs = ptlist[2,:], color=color)
 
 def plotCube(ax, pt, color='Blue'):
     """
@@ -160,4 +176,26 @@ def plotCube(ax, pt, color='Blue'):
                 ax.plot([endpoints[x,0],endpoints[x,0]],[endpoints[y,1],endpoints[1-y,1]],zs=[endpoints[z,2],endpoints[z,2]],color=color)
                 ax.plot([endpoints[x,0],endpoints[x,0]],[endpoints[y,1],endpoints[y,1]],zs=[endpoints[z,2],endpoints[1-z,2]],color=color)
                 
-
+def plotSpan3d(ax, u, v, color='Blue'):
+    """
+    Plot the plane that is the span of u and v
+    """
+    # we are looking for a single equation ax1 + bx2 + cx3 = 0
+    # it is homogeneous because it is a subspace (span)
+    # we have two solutions [a b c]'u = 0 and [a b c]'v = 0
+    # this corresponds to a linear system in [a b c]
+    # with coefficient matrix [u; v; 0]
+    A = np.array([u, v])
+    # put A in reduced row echelon form
+    # assumes the line connecting the two points is
+    # not parallel to any axes!
+    A[0] = A[0]/A[0][0]
+    A[1] = A[1] - A[1][0] * A[0]
+    A[1] = A[1] / A[1][1]
+    A[0] = A[0] - A[0][1] * A[1]
+    # now use c=1 to fix a single solution
+    a = -A[0][2]
+    b = -A[1][2]
+    c = 1.0
+    plotLinEqn3d(ax, [a, b, c, 0.0], color)
+    
