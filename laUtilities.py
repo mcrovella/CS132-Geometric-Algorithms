@@ -76,9 +76,9 @@ def plotSetup3d(xmin = -3.0, xmax = 3.0, ymin = -3.0, ymax = 3.0, zmin = -3.0, z
     ax.axes.set_xlim([xmin, xmax])
     ax.axes.set_ylim([ymin, ymax])
     ax.axes.set_zlim([zmin, zmax])
-    ax.axes.set_xlabel('$x_1$')
-    ax.axes.set_ylabel('$x_2$')
-    ax.axes.set_zlabel('$x_3$')
+    ax.axes.set_xlabel('$x_1$',size=15)
+    ax.axes.set_ylabel('$x_2$',size=15)
+    ax.axes.set_zlabel('$x_3$',size=15)
     return ax
 
 def plotPoint3d (ax, x1, x2, x3, color='r'):
