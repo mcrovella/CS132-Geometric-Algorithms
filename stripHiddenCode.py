@@ -3,7 +3,7 @@ import sys
 inVerbatim = 0
 for line in sys.stdin:
     # correct for missing package that is used in typesetting tables
-    if ((line.find("usepackage{graphicx}"))):
+    if (line.find("usepackage{longtable}") > -1):
         print "\usepackage{booktabs}"
     if ((line.find("\\begin{Verbatim}") > -1) or (line.find("\\begin{verbatim}") > -1)):
         inVerbatim = 1
