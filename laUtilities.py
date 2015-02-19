@@ -69,7 +69,10 @@ def centerAxes (ax):
     ax.spines['bottom'].set_smart_bounds(True)
     ax.xaxis.set_ticks_position('bottom')
     ax.yaxis.set_ticks_position('left')
-
+    bounds = np.array([ax.axes.get_xlim(), ax.axes.get_ylim()])
+    ax.plot(bounds[0][0],bounds[1][0],'')
+    ax.plot(bounds[0][1],bounds[1][1],'')
+        
 def plotSetup3d(xmin = -3.0, xmax = 3.0, ymin = -3.0, ymax = 3.0, zmin = -3.0, zmax = 3.0):
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
