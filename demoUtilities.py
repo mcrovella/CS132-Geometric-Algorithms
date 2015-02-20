@@ -70,19 +70,19 @@ def centerAxes (ax):
     ax.plot(bounds[0][1],bounds[1][1],'')
     # ax.plot(bounds, '')
 
-def plotSquare(x):
+def plotSquare(x,color='b'):
     y = np.concatenate((x,x[:,[0]]),axis=1)
     plt.plot(y[0],y[1],'b-')
     plt.plot(y[0,0],y[1,0],'ro')
     plt.plot(y[0,1],y[1,1],'go')
     plt.plot(y[0,2],y[1,2],'co')
     plt.plot(y[0,3],y[1,3],'yo')
-    plt.fill(x[0],x[1],'b',alpha=0.15)
+    plt.fill(x[0],x[1],color,alpha=0.15)
 
-def plotShape(x):
+def plotShape(x,color='b'):
     y = np.concatenate((x,x[:,[0]]),axis=1)
     plt.plot(y[0],y[1],'b-')
-    plt.fill(x[0],x[1],'b',alpha=0.15)
+    plt.fill(x[0],x[1],color,alpha=0.15)
     
 
 if __name__ == "__main__":
