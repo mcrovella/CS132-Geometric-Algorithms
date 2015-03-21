@@ -14,11 +14,11 @@ for line in sys.stdin:
             inVerbatim = 0
             # Things that we omit as verbatim: blocks containing
             # hide_code_in_slideshow
-            # %matplotlib inline
+            # %matplotlib 
             # IPython.core.display.HTML
             # %%html
             if ((vblock.find('hide\\PYZus{}code\\PYZus{}in\\PYZus{}slideshow') < 0) 
-            and (vblock.find('\\PY{k}{matplotlib} \\PY{n}{inline}') < 0)
+            and (vblock.find('\\PY{k}{matplotlib}') < 0)
             and (vblock.find('IPython.core.display.HTML') < 0)
             and (vblock.find('\\PY{o}{\\PYZpc{}\\PYZpc{}}\\PY{k}{html}') < 0)):
                 print vblock,
