@@ -2,7 +2,7 @@ CS132
 =====
 
 These are lecture notes for Computer Science 132, _Geometric
-Algorithms,_ which I am teaching at Boston University.
+Algorithms,_ which I am teaching at Boston University during Spring 2015.
 
 This course is based on _Linear Algebra and its Applications,_ by David
 C. Lay, Addison-Wesley (Pearson), 4th edition.
