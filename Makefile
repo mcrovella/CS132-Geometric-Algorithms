@@ -23,7 +23,8 @@ LATEX  = pdflatex
 	/bin/rm -rf tmpFile
 	ipython nbconvert $< --to latex
 	# this is fixing a bug in ipython nbconvert 3.0 - misnames graphics files
-	sed 's/.jpe}/.jpeg}/g' < $@ > tmpFile
+	# sed 's/.jpe}/.jpeg}/g' < $@ > tmpFile
+	mv $@ tmpFile
 	python stripHiddenCode.py < tmpFile > $@
 	rm tmpFile
 
