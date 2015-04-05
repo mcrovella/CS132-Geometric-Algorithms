@@ -45,10 +45,13 @@ def formatEqn(coefs, b):
 def plotPoint (ax, x1, x2, color='r'):
     ax.plot(x1, x2, '{}o'.format(color))
 
+def plotVec (ax, x1, color='r'):
+    ax.plot(x1[0], x1[1], '{}o'.format(color))
+
 def plotArrow (ax, x1, x2):
     ax.arrow(0.0, 0.0, x1, x2)
 
-def plotLinEqn (a1, a2, b):
+def plotLinEqn (a1, a2, b, format='-', color='r'):
     """
     plot line line corresponding to the linear equation
     a1 x + a2 y = b
@@ -58,7 +61,7 @@ def plotLinEqn (a1, a2, b):
     y1 = (b - (x1 * a1))/float(a2)
     x2 = xmax
     y2 = (b - (x2 * a1))/float(a2)
-    plt.plot([x1, x2],[y1, y2], label='${}$'.format(formatEqn([a1, a2],b)))
+    plt.plot([x1, x2],[y1, y2], format, label='${}$'.format(formatEqn([a1, a2],b)),color=color)
 
 def centerAxes (ax):
     ax.spines['left'].set_position('zero')
