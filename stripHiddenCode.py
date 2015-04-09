@@ -5,6 +5,9 @@ for line in sys.stdin:
     # correct for missing package that is used in typesetting tables
     if (line.find("usepackage{longtable}") > -1):
         print "\usepackage{booktabs}"
+    # correct for the bug in nbconvert that is naming jpg files using .jpe
+    if (line.find("maketitle") > -1):
+        print "\DeclareGraphicsRule{.jpe}{jpg}{*}{}"
     if ((line.find("\\begin{Verbatim}") > -1) or (line.find("\\begin{verbatim}") > -1)):
         inVerbatim = 1
         vblock = line
