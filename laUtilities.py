@@ -3,11 +3,11 @@ import matplotlib as mp
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-def plotSetup(xmin = -6.0, xmax = 6.0, ymin = -2.0, ymax = 4.0):
+def plotSetup(xmin = -6.0, xmax = 6.0, ymin = -2.0, ymax = 4.0, size=(6,4)):
     """
     basics of 2D plot setup
     """
-    fig = plt.figure()
+    fig = plt.figure(figsize=size)
     ax = fig.add_subplot(1, 1, 1)
     plt.xlim([xmin, xmax])
     plt.ylim([ymin, ymax])
