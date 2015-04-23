@@ -76,8 +76,8 @@ def centerAxes (ax):
     ax.plot(bounds[0][0],bounds[1][0],'')
     ax.plot(bounds[0][1],bounds[1][1],'')
         
-def plotSetup3d(xmin = -3.0, xmax = 3.0, ymin = -3.0, ymax = 3.0, zmin = -3.0, zmax = 3.0):
-    fig = plt.figure()
+def plotSetup3d(xmin = -3.0, xmax = 3.0, ymin = -3.0, ymax = 3.0, zmin = -3.0, zmax = 3.0, figsize=(6,4)):
+    fig = plt.figure(figsize=figsize)
     ax = fig.add_subplot(111, projection='3d')
     ax.axes.set_xlim([xmin, xmax])
     ax.axes.set_ylim([ymin, ymax])
