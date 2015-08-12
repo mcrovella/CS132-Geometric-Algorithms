@@ -2,10 +2,11 @@ from IPython.display import display_html
 from IPython.display import display
 import matplotlib.pyplot as plt
 from IPython.display import HTML
+import binascii
 
 def hide_code_in_slideshow():
     import os
-    uid = os.urandom(8).encode("hex")
+    uid = binascii.hexlify(os.urandom(8)).decode('UTF-8')
     html = """<div id="%s"></div>
     <script type="text/javascript">
         $(function(){
@@ -22,6 +23,7 @@ def hide_code_in_slideshow():
         });
     </script>""" % (uid, uid)
     display_html(html, raw=True)
+    return html
 
 ##########################
 # python notebook does not support matplotlib animations
