@@ -4,10 +4,10 @@ inVerbatim = 0
 for line in sys.stdin:
     # correct for missing package that is used in typesetting tables
     if (line.find("usepackage{longtable}") > -1):
-        print "\usepackage{booktabs}"
+        print(r"\usepackage{booktabs}")
     # correct for the bug in nbconvert that is naming jpg files using .jpe
     if (line.find("maketitle") > -1):
-        print "\DeclareGraphicsRule{.jpe}{jpg}{*}{}"
+        print(r"\DeclareGraphicsRule{.jpe}{jpg}{*}{}")
     if ((line.find("\\begin{Verbatim}") > -1) or (line.find("\\begin{verbatim}") > -1)):
         inVerbatim = 1
         vblock = line
@@ -24,6 +24,6 @@ for line in sys.stdin:
             and (vblock.find('\\PY{k}{matplotlib}') < 0)
             and (vblock.find('IPython.core.display.HTML') < 0)
             and (vblock.find('\\PY{o}{\\PYZpc{}\\PYZpc{}}\\PY{k}{html}') < 0)):
-                print vblock,
+                print(vblock, end=" ")
     else:
-        print line,
+        print (line, end=" ")
