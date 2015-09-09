@@ -2,7 +2,7 @@ CS132
 =====
 
 These are lecture notes for Computer Science 132, _Geometric
-Algorithms,_ as taught by me at Boston University
+Algorithms,_ as taught by me at Boston University.
 * Fall 2015 - current version.  This semester, as I work through the
   course, I am converting to Python 3.4 and the 5th edition of the text.
 * Spring 2015 (4th edition of text, Python 2.7 code) - available as the
