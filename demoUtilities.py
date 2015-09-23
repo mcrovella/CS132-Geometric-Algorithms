@@ -3,12 +3,16 @@ import matplotlib as mp
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-def plotSetup(xmin = -6.0, xmax = 6.0, ymin = -2.0, ymax = 4.0):
+
+def plotSetup(xmin = -3.0, xmax = 3.0, ymin = -3.0, ymax = 3.0, size=(6,6)):
     """
+    refactored version of ut.plotSetup to hide as much as possible when showing code
     basics of 2D plot setup
+    defaults: xmin = -3.0, xmax = 3.0, ymin = -3.0, ymax = 3.0, size=(6,6)
+    size is by default 6 inches by 6 inches
     """
-    fig = plt.figure()
-    ax = fig.add_subplot(111, aspect='equal')
+    fig = plt.figure(figsize=size)
+    ax = fig.add_subplot(1, 1, 1, aspect='equal')
     plt.xlim([xmin, xmax])
     plt.ylim([ymin, ymax])
     ax.axes.set_xlim([xmin, xmax])
