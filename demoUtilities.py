@@ -85,7 +85,7 @@ def plotSquare(x,color='b'):
 
 def plotShape(x,color='b'):
     y = np.concatenate((x,x[:,[0]]),axis=1)
-    plt.plot(y[0],y[1],'b-')
+    plt.plot(y[0],y[1],'{}-'.format(color))
     plt.fill(x[0],x[1],color,alpha=0.15)
     
 
