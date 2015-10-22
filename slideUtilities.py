@@ -32,6 +32,9 @@ def hide_code_in_slideshow():
 ##########################
 
 # Source: http://nbviewer.ipython.org/url/jakevdp.github.io/downloads/notebooks/AnimationEmbedding.ipynb
+
+# updated to python3, now uses package base64 to do the encoding
+
 from tempfile import NamedTemporaryFile
 
 VIDEO_TAG = """<video controls>
@@ -44,7 +47,7 @@ def anim_to_html(anim):
         with NamedTemporaryFile(suffix='.mp4') as f:
             anim.save(f.name, fps=20, extra_args=['-vcodec', 'libx264'])
             video = open(f.name, "rb").read()
-        anim._encoded_video = video.encode("base64")
+        anim._encoded_video = base64.b64encode(video).decode('utf-8')
     
     return VIDEO_TAG.format(anim._encoded_video)
 
@@ -55,4 +58,4 @@ def display_animation(anim):
 def display_saved_anim(fname):
     with open(fname,'rb') as f:
         video = f.read()
-    return HTML(VIDEO_TAG.format(video.encode("base64")))
+    return HTML(VIDEO_TAG.format(base64.b64encode(video).decode('utf-8'))

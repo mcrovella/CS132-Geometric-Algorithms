@@ -67,7 +67,7 @@ def wrl2flist(fp):
         elif (C2 and line.find("]") == -1):
             tk = line.rstrip(',\n').split()
             vertices.append([float(tk[0]),float(tk[1]),float(tk[2])])
-            if (debug): print "appending vertex {}".format(vertices[-1])
+            if (debug): print("appending vertex {}".format(vertices[-1]))
         elif (C2 and line.find("]") != -1):
             C2 = False
             base = True
@@ -80,9 +80,9 @@ def wrl2flist(fp):
         elif (F2 and line.find("]") == -1):
             tk = line.split(',')
             if (tk[-2] != "-1"):
-                print "error in parsing faces; line doesnt end a face (-1)"
+                print("error in parsing faces; line doesnt end a face (-1)")
             faces.append([int(f) for f in tk[:-2]])
-            if (debug): print "appending face {}".format(faces[-1])
+            if (debug): print("appending face {}".format(faces[-1]))
         elif (F2 and line.find("]") != -1):
             F2 = False
             base = True
