@@ -59,4 +59,4 @@ def display_animation(anim):
 def display_saved_anim(fname):
     with open(fname,'rb') as f:
         video = f.read()
-    return HTML(VIDEO_TAG.format(base64.b64encode(video).decode('utf-8'))
+    return HTML(VIDEO_TAG.format(base64.b64encode(video).decode('utf-8')))
