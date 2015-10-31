@@ -53,6 +53,13 @@ def plotVec (ax, x1, color='r'):
 def plotArrow (ax, x1, x2):
     ax.arrow(0.0, 0.0, x1, x2)
 
+def plotArrowVec(ax, v, start = [0,0], head_width=0.2, head_length=0.2, length_includes_head = True, color='Red'):
+    try:
+        ax.arrow(start[0],start[1],v[0]-start[0],v[1]-start[1],head_width=head_width, head_length=head_length, length_includes_head = length_includes_head, color=color)
+    # if the arrow length is zero, raises an IndexError
+    except IndexError:
+        pass
+
 def plotLinEqn (a1, a2, b, format='-', color='r'):
     """
     plot line line corresponding to the linear equation
