@@ -3,6 +3,7 @@ from IPython.display import display
 import matplotlib.pyplot as plt
 from IPython.display import HTML
 import binascii
+import base64
 
 def hide_code_in_slideshow():
     import os
@@ -32,7 +33,6 @@ def hide_code_in_slideshow():
 ##########################
 
 # Source: http://nbviewer.ipython.org/url/jakevdp.github.io/downloads/notebooks/AnimationEmbedding.ipynb
-
 
 # updated to python3, now uses package base64 to do the encoding, reading comments from this post:
 # http://jakevdp.github.io/blog/2013/05/12/embedding-matplotlib-animations/
