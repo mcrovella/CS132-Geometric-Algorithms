@@ -34,6 +34,7 @@ def hide_code_in_slideshow():
 
 # Source: http://nbviewer.ipython.org/url/jakevdp.github.io/downloads/notebooks/AnimationEmbedding.ipynb
 
+
 # updated to python3, now uses package base64 to do the encoding, reading comments from this post:
 # http://jakevdp.github.io/blog/2013/05/12/embedding-matplotlib-animations/
 from tempfile import NamedTemporaryFile
@@ -53,7 +54,7 @@ def anim_to_html(anim):
     return VIDEO_TAG.format(anim._encoded_video)
 
 def display_animation(anim):
-    plt.close(anim._fig)
+    # plt.close(anim._fig)
     return HTML(anim_to_html(anim))
 
 def display_saved_anim(fname):
