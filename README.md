@@ -2,19 +2,17 @@ CS132
 =====
 
 These are lecture notes for Computer Science 132, _Geometric
-Algorithms,_ as taught by me at Boston University.
-
-This course is based on _Linear Algebra and its Applications,_ by David
+Algorithms,_ as taught by me at Boston University.  The overall
+structure of the course is based on _Linear Algebra and its Applications,_ by David
 C. Lay, Addison-Wesley (Pearson).
 
 The notes are in the form of Jupyter notebooks.   Demos and most figures
-are included as executable Python code. 
+are included as executable Python code. Lecture notes are also available
+in pdf, as converted using nbconvert. 
 
 The rationale for the teaching approach used in this course is [here.](https://github.com/mcrovella/CS132-Geometric-Algorithms/blob/master/CS132-Teaching-Philosophy.pdf)
 
-Lecture notes are also available in pdf, as converted using nbconvert.
-
-A separate set of questions, used for in-class peer instruction with clickers, are
+A separate set of questions, used for in-class peer instruction with clickers, is
 available on request.
 
 __Course Versions__
