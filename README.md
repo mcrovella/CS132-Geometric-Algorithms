@@ -7,7 +7,7 @@ Algorithms,_ as taught by me at Boston University.
 This course is based on _Linear Algebra and its Applications,_ by David
 C. Lay, Addison-Wesley (Pearson).
 
-The notes are in the form of ipython notebooks.   Demos and most figures
+The notes are in the form of Jupyter notebooks.   Demos and most figures
 are included as executable Python code. 
 
 The rationale for the teaching approach used in this course is [here.](https://github.com/mcrovella/CS132-Geometric-Algorithms/blob/master/CS132-Teaching-Philosophy.pdf)
