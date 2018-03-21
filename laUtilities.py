@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib as mp
+import matplotlib.colors as colors
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import itertools
@@ -117,18 +118,20 @@ class three_d_figure:
         self.desc['zlabel'] = 'x_3'
         self.desc['objects'] = []
 
-    def plotPoint (self, x1, x2, x3, color='r'):
+    def plotPoint (self, x1, x2, x3, color='r', alpha=1.0):
+        # do the plotting
         self.ax.plot([x1], [x2], '{}o'.format(color), zs=[x3])
-        self.desc['objects'].append(['point', x1, x2, x3, color])
+        # save the graphics element
+        hex_color = colors.to_hex(color)
+        self.desc['objects'].append(['point', x1, x2, x3, hex_color, alpha])
 
-    def plotLinEqn(self, l1, color='Green'):
+    def plotLinEqn(self, l1, color='Green', alpha=0.3):
         """
         plot the plane corresponding to the linear equation
         a1 x + a2 y + a3 z = b
-        where l1 = [a1, a3, a3, b]
+        where l1 = [a1, a2, a3, b]
         """
         pts = self.intersectionPlaneCube(l1)
-        self.desc['objects'].append(['polygon_surface', color, list(pts)])
         ptlist = np.array([np.array(i) for i in pts])
         x = ptlist[:,0]
         y = ptlist[:,1]
@@ -147,10 +150,19 @@ class three_d_figure:
                 except:
                     triang = mp.tri.Triangulation(z, y)
                     triang.x = x
+            # save the graphics element
+            hex_color = colors.to_hex(color)
+            self.desc['objects'].append(['polygon_surface',
+                                        hex_color,
+                                        alpha,
+                                        list(pts),
+                                        [[int(y) for y in x]
+                                             for x in triang.triangles]])
+            # do the plotting
             self.ax.plot_trisurf(triang,
                                      z,
                                      color=color,
-                                     alpha=0.3,
+                                     alpha=alpha,
                                      linewidth=0,
                                      shade=False)
 
@@ -163,7 +175,7 @@ class three_d_figure:
         bounds = np.array([self.ax.axes.get_xlim(),
                                self.ax.axes.get_ylim(),
                                self.ax.axes.get_zlim()])
-        coefs = l1[0:3]
+        coefs = l1[:3]
         b = l1[3]
         points = []
         for x, y, z in itertools.product([0,1],repeat=3):
@@ -171,15 +183,18 @@ class three_d_figure:
             # 24 corner-pairs 
             for i in range(3):
                 # but only consider each edge once (12 unique edges)
-                if corner[i] == 0:
-                    # we are looking for the intesection of the line defined by
-                    # the two constant values with the plane
-                    isect = (b - np.sum([coefs[k] * bounds[k][corner[k]]
-                                for k in range(3) if k != i]))/float(coefs[i])
-                    if ((isect >= bounds[i][0]) & (isect <= bounds[i][1])):
-                        pt = [bounds[k][corner[k]] for k in range(3)]
-                        pt[i] = isect
-                        points.append(tuple(pt))
+                if corner[i] == 1:
+                    continue
+                # we are looking for the intesection of the line defined by
+                # the two constant values with the plane
+                if coefs[i] == 0.0:
+                    continue
+                isect = (b - np.sum([coefs[k] * bounds[k][corner[k]]
+                            for k in range(3) if k != i]))/float(coefs[i])
+                if ((isect >= bounds[i][0]) & (isect <= bounds[i][1])):
+                    pt = [bounds[k][corner[k]] for k in range(3)]
+                    pt[i] = isect
+                    points.append(tuple(pt))
         return set(points)
 
     def text(self, x, y, z, mpl_label, json_label, size):
@@ -190,9 +205,10 @@ class three_d_figure:
         self.ax.set_title(mpl_title, size=size)
         self.desc['title'] = [json_title, size]
 
-    def plotLine(self, in_ptlist, color, type='-'):
+    def plotLine(self, in_ptlist, color, type='-', alpha=1.0):
         ptlist = [[float(i) for i in j] for j in in_ptlist]
-        self.desc['objects'].append(['line', color, type, ptlist])
+        hex_color = colors.to_hex(color)
+        self.desc['objects'].append(['line', hex_color, alpha, type, ptlist])
         ptlist = np.array(ptlist).T
         self.ax.plot(ptlist[0,:],
                          ptlist[1,:],
@@ -204,6 +220,7 @@ class three_d_figure:
         """
         plot the intersection of two linear equations in 3d
         """
+        hex_color = colors.to_hex(color)
         bounds = np.array([self.ax.axes.get_xlim(),
                                self.ax.axes.get_ylim(),
                                self.ax.axes.get_zlim()])
@@ -406,25 +423,29 @@ def plotLinEqn3d(ax, l1, color='Green'):
 def intersectionPlaneCube(ax, l1):
     # returns the vertices of the polygon defined by the intersection of a plane
     # and the rectangular prism defined by the limits of the axes
-    bounds = np.array([ax.axes.get_xlim(), ax.axes.get_ylim(), ax.axes.get_zlim()])
-    coefs = l1[0:3]
+    bounds = np.array([ax.axes.get_xlim(),
+                           ax.axes.get_ylim(),
+                           ax.axes.get_zlim()])
+    coefs = l1[:3]
     b = l1[3]
     points = []
-    for x in [0, 1]:
-        for y in [0, 1]:
-            for z in [0, 1]:
-                corner = [x, y, z]
-                # 24 corner-pairs 
-                for i in range(3):
-                    # but only consider each edge once (12 unique edges)
-                    if corner[i] == 0:
-                        # we are looking for the intesection of the line defined by
-                        # the two constant values with the plane
-                        isect = (b - np.sum([coefs[k] * bounds[k][corner[k]] for k in range(3) if k != i]))/float(coefs[i])
-                        if ((isect >= bounds[i][0]) & (isect <= bounds[i][1])):
-                            pt = [bounds[k][corner[k]] for k in range(3)]
-                            pt[i] = isect
-                            points.append(tuple(pt))
+    for x, y, z in itertools.product([0,1],repeat=3):
+        corner = [x, y, z]
+        # 24 corner-pairs 
+        for i in range(3):
+            # but only consider each edge once (12 unique edges)
+            if corner[i] == 1:
+                continue
+            # we are looking for the intersection of the line defined by
+            # the two constant values with the plane
+            if coefs[i] == 0.0:
+                continue
+            isect = (b - np.sum([coefs[k] * bounds[k][corner[k]]
+                                     for k in range(3) if k != i]))/float(coefs[i])
+            if ((isect >= bounds[i][0]) & (isect <= bounds[i][1])):
+                pt = [bounds[k][corner[k]] for k in range(3)]
+                pt[i] = isect
+                points.append(tuple(pt))
     return set(points)
 
 def plotIntersection3d(ax, eq1, eq2, type='-',color='Blue'):
