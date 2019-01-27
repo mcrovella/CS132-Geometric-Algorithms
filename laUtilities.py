@@ -89,6 +89,7 @@ class three_d_figure:
     
     def __init__ (self,
                       fig_name,
+                      fig_desc = 'CS132 Figure',
                       xmin = -3.0,
                       xmax = 3.0,
                       ymin = -3.0,
@@ -105,8 +106,9 @@ class three_d_figure:
         self.ax.axes.set_ylabel('$x_2$',size=15)
         self.ax.axes.set_zlabel('$x_3$',size=15)
         self.desc = {}
-        self.desc['fig_name'] = fig_name
-        self.desc['type'] = 'three_d_with_axes'
+        self.desc['FigureName'] = fig_name
+        self.desc['FigureType'] = 'three_d_with_axes'
+        self.desc['FigureDescription'] = fig_desc
         self.desc['xmin'] = xmin
         self.desc['xmax'] = xmax
         self.desc['ymin'] = ymin
@@ -123,7 +125,11 @@ class three_d_figure:
         self.ax.plot([x1], [x2], '{}o'.format(color), zs=[x3])
         # save the graphics element
         hex_color = colors.to_hex(color)
-        self.desc['objects'].append(['point', x1, x2, x3, hex_color, alpha])
+        self.desc['objects'].append(
+            {'type': 'point',
+             'transparency': alpha,
+             'color': hex_color,
+             'points': [{'x': x1, 'y': x2, 'z': x3}]})
 
     def plotLinEqn(self, l1, color='Green', alpha=0.3):
         """
@@ -152,12 +158,13 @@ class three_d_figure:
                     triang.x = x
             # save the graphics element
             hex_color = colors.to_hex(color)
-            self.desc['objects'].append(['polygon_surface',
-                                        hex_color,
-                                        alpha,
-                                        list(pts),
-                                        [[int(y) for y in x]
-                                             for x in triang.triangles]])
+            self.desc['objects'].append(
+                {'type': 'polygonsurface',
+                 'color': hex_color,
+                 'transparency': alpha,
+                 'points': [{'x': p[0], 'y': p[1], 'z': p[2]} for p in pts],
+                 'triangleIndices': [int(y) for x in triang.triangles
+                                         for y in x]})
             # do the plotting
             self.ax.plot_trisurf(triang,
                                      z,
@@ -198,25 +205,33 @@ class three_d_figure:
         return set(points)
 
     def text(self, x, y, z, mpl_label, json_label, size):
-        self.desc['objects'].append(['text', x, y, z, json_label, size])
+        self.desc['objects'].append({
+            'type': 'text', 
+            'label': json_label,
+            'size': size,
+            'points': [{'x': x, 'y': y, 'z': z}]})
         self.ax.text(x, y, z, mpl_label, size=size)
 
     def set_title(self, mpl_title, json_title, size):
         self.ax.set_title(mpl_title, size=size)
-        self.desc['title'] = [json_title, size]
+        self.desc['objects'].append({'type': 'title', 'label': json_title})
 
-    def plotLine(self, in_ptlist, color, type='-', alpha=1.0):
+    def plotLine(self, in_ptlist, color, line_type='-', alpha=1.0):
         ptlist = [[float(i) for i in j] for j in in_ptlist]
         hex_color = colors.to_hex(color)
-        self.desc['objects'].append(['line', hex_color, alpha, type, ptlist])
+        self.desc['objects'].append({'type': 'line',
+                                     'color': hex_color,
+                                     'transparency': alpha,
+                                     'linetype': line_type,
+             'points': [{'x': p[0], 'y': p[1], 'z': p[2]} for p in ptlist]})
         ptlist = np.array(ptlist).T
         self.ax.plot(ptlist[0,:],
                          ptlist[1,:],
-                         type,
+                         line_type,
                          zs = ptlist[2,:],
                          color=color)
         
-    def plotIntersection(self, eq1, eq2, type='-',color='Blue'):
+    def plotIntersection(self, eq1, eq2, line_type='-',color='Blue'):
         """
         plot the intersection of two linear equations in 3d
         """
@@ -246,7 +261,7 @@ class three_d_figure:
                     point[vars[1]] = pt[1]
                     point[i] = bounds[i,j]
                     ptlist.append(point)
-        self.plotLine(ptlist, color, type)
+        self.plotLine(ptlist, color, line_type)
 
     def plotCube(self, pt, color='Blue'):
         """
