@@ -313,6 +313,9 @@ class three_d_figure:
         with open(fname, 'w') as fp:
             json.dump(self.desc, fp, indent=2)
 
+    def json(self):
+        return(json.dumps(self.desc))
+
 def plotSetup(xmin = -6.0, xmax = 6.0, ymin = -2.0, ymax = 4.0, size=(6,4)):
     """
     basics of 2D plot setup
