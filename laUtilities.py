@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import itertools
 import json
-#
+
 class two_d_figure:
 
     def __init__(self,
