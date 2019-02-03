@@ -5,6 +5,10 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import itertools
 import json
+import qrcode
+import hashlib
+
+url_base = 'https://www.cs.bu.edu/faculty/crovella/cs132-figures'
 
 class two_d_figure:
 
@@ -96,9 +100,20 @@ class three_d_figure:
                       ymax = 3.0,
                       zmin = -3.0,
                       zmax = 3.0,
-                      figsize=(6,4)):
+                      figsize=(6,4),
+                      qr = None):
+        # possible values: None (no QR code displayed),
+        # url (url based QR code displayed), direct
+        valid_qr = [None, 'url', 'direct']
+        self.qr = qr  
+        if self.qr not in valid_qr:
+            raise ValueError('Invalid qr argument')
         fig = plt.figure(figsize=figsize)
-        self.ax = fig.add_subplot(111, projection='3d')
+        if self.qr == None:
+            self.ax = fig.add_subplot(111, projection='3d')
+        else:
+            self.ax = fig.add_subplot(121, projection='3d', position=[0,0,1,1])
+            self.ax2 = fig.add_subplot(122,position=[1.2, 0.125, 0.75, 0.75])
         self.ax.axes.set_xlim([xmin, xmax])
         self.ax.axes.set_ylim([ymin, ymax])
         self.ax.axes.set_zlim([zmin, zmax])
@@ -207,7 +222,7 @@ class three_d_figure:
     def text(self, x, y, z, mpl_label, json_label, size):
         self.desc['objects'].append({
             'type': 'text', 
-            'label': json_label,
+            'content': json_label,
             'size': size,
             'points': [{'x': x, 'y': y, 'z': z}]})
         self.ax.text(x, y, z, mpl_label, size=size)
@@ -312,6 +327,29 @@ class three_d_figure:
         fname = 'json/{}.json'.format(file_name)
         with open(fname, 'w') as fp:
             json.dump(self.desc, fp, indent=2)
+        if self.qr != None:
+            qr_code = qrcode.QRCode(
+                version=1,
+                error_correction=qrcode.constants.ERROR_CORRECT_L,
+                box_size=3,
+                border=4,
+                )
+            m = hashlib.sha256()
+            if self.qr == 'direct':
+                m.update(self.json().encode('utf-8'))
+                d = m.digest().hex()
+                qr_code.add_data("b"+self.json()+d)
+            elif self.qr == 'url':
+                url_string = url_base + '/' + file_name + '.json'
+                m.update(url_string.encode('utf-8'))
+                d = m.digest().hex()
+                qr_code.add_data("b"+url_string+d)
+            qr_code.make(fit=True)
+            img = qr_code.make_image(fill_color="black", back_color="white")
+            self.ax2.imshow(img)
+            self.ax2.set_axis_off()
+            # plt.subplots_adjust(wspace=1.)
+            # plt.tight_layout()
 
     def json(self):
         return(json.dumps(self.desc))
