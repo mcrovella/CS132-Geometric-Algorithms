@@ -343,7 +343,7 @@ class three_d_figure:
                 url_string = url_base + '/' + file_name + '.json'
                 m.update(url_string.encode('utf-8'))
                 d = m.digest().hex()
-                qr_code.add_data("b"+url_string+d)
+                qr_code.add_data("a"+url_string+d)
             qr_code.make(fit=True)
             img = qr_code.make_image(fill_color="black", back_color="white")
             self.ax2.imshow(img)
