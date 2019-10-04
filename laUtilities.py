@@ -110,8 +110,10 @@ class three_d_figure:
             raise ValueError('Invalid qr argument')
         fig = plt.figure(figsize=figsize)
         if self.qr == None:
+            # only plot the figure, no QR code
             self.ax = fig.add_subplot(111, projection='3d')
         else:
+            # plot the figure and the QR code next to it
             self.ax = fig.add_subplot(121, projection='3d', position=[0,0,1,1])
             self.ax2 = fig.add_subplot(122,position=[1.2, 0.125, 0.75, 0.75])
         self.ax.axes.set_xlim([xmin, xmax])
