@@ -454,7 +454,7 @@ def plotLinEqn3d(ax, l1, color='Green'):
     """
     plot the plane corresponding to the linear equation
     a1 x + a2 y + a3 z = b
-    where l1 = [a1, a3, a3, b]
+    where l1 = [a1, a2, a3, b]
     """
     pts = intersectionPlaneCube(ax, l1)
     ptlist = np.array([np.array(i) for i in pts])
