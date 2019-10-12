@@ -19,6 +19,10 @@
     \renewcommand{\thesection}{\hspace*{-0.5em}}
     \renewcommand{\thesubsection}{\hspace*{-0.5em}}
 
+    % MEC addition from printviewlatex.tplx piggybacking on the "load
+    % latex macros" option in nbextensions
+    \input{latexdefs}
+
 ((* endblock definitions *))
 
 % No title
@@ -37,6 +41,6 @@
 ((* block docclass *))
 % !TeX spellcheck = de_DE
 % !TeX encoding = UTF-8
-\documentclass{scrreprt}
-\usepackage{ngerman}
+\documentclass{report}
+% \usepackage{ngerman}
 ((* endblock docclass *))

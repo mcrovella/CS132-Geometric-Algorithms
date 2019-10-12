@@ -11,8 +11,6 @@ L3VectorEquations.ipynb
 
 TGTS=$(SRCS:.ipynb=.pdf)
 
-PUBLISHDIR = /cs-pub/www-dir/faculty/crovella/restricted/pebook
-
 ############################## shouldn't need to change below this line
 
 LATEX  = pdflatex
@@ -25,13 +23,14 @@ LATEX  = pdflatex
 %.pdf: %.tex
 	$(LATEX) $<
 	rm $*.out $*.log $*.aux
+	/bin/rm -rf $*_files
 
 topleveltarget: $(TGTS)
 
 figures:
 	jupyter nbconvert --to notebook --inplace --execute *.ipynb
 	cp json/* ~/www/cs132-figures
-	chmod a+r ~/www/cs132-figures/*jp
+	chmod a+r ~/www/cs132-figures/*
 
 
 
