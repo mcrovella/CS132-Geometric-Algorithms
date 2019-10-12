@@ -93,7 +93,7 @@ class three_d_figure:
     
     def __init__ (self,
                       fig_name,
-                      fig_desc = 'CS132 Figure',
+                      fig_desc = '',
                       xmin = -3.0,
                       xmax = 3.0,
                       ymin = -3.0,
@@ -116,6 +116,7 @@ class three_d_figure:
             # plot the figure and the QR code next to it
             self.ax = fig.add_subplot(121, projection='3d', position=[0,0,1,1])
             self.ax2 = fig.add_subplot(122,position=[1.2, 0.125, 0.75, 0.75])
+        # self.ax.axes.set_title(fig_desc)
         self.ax.axes.set_xlim([xmin, xmax])
         self.ax.axes.set_ylim([ymin, ymax])
         self.ax.axes.set_zlim([zmin, zmax])
