@@ -335,7 +335,7 @@ class three_d_figure:
                 version=1,
                 error_correction=qrcode.constants.ERROR_CORRECT_L,
                 box_size=3,
-                border=4,
+                border=1
                 )
             m = hashlib.sha256()
             if self.qr == 'direct':
@@ -349,7 +349,7 @@ class three_d_figure:
                 qr_code.add_data("a"+url_string+d)
             qr_code.make(fit=True)
             img = qr_code.make_image(fill_color="black", back_color="white")
-            self.ax2.imshow(img)
+            self.ax2.imshow(img, cmap="Greys")
             self.ax2.set_axis_off()
             # plt.subplots_adjust(wspace=1.)
             # plt.tight_layout()
