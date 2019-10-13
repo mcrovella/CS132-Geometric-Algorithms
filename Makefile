@@ -29,8 +29,8 @@ topleveltarget: $(TGTS)
 
 figures:
 	jupyter nbconvert --to notebook --inplace --execute *.ipynb
-	cp json/* ~/www/cs132-figures
-	chmod a+r ~/www/cs132-figures/*
+	scp json/* crovella@csa2.bu.edu:www/cs132-figures
+	ssh crovella@csa2.bu.edu 'chmod a+r ~/www/cs132-figures/*'
 
 
 
