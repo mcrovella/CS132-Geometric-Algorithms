@@ -101,7 +101,8 @@ class three_d_figure:
                       zmin = -3.0,
                       zmax = 3.0,
                       figsize=(6,4),
-                      qr = None):
+                      qr = None,
+                      displayAxes = True):
         # possible values: None (no QR code displayed),
         # url (url based QR code displayed), direct
         valid_qr = [None, 'url', 'direct']
@@ -137,7 +138,16 @@ class three_d_figure:
         self.desc['ylabel'] = 'x_2'
         self.desc['zlabel'] = 'x_3'
         self.desc['objects'] = []
+        self.desc['displayAxes'] = displayAxes
 
+    # at present, this only hides axes in the json (app)
+    # axes are draw in matplotlib in all cases
+    def hideAxes():
+        self.desc['displayAxes'] = false
+
+    def showAxes():
+        self.desc['displayAxes'] = true
+        
     def plotPoint (self, x1, x2, x3, color='r', alpha=1.0):
         # do the plotting
         self.ax.plot([x1], [x2], '{}o'.format(color), zs=[x3])
