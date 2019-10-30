@@ -11,8 +11,6 @@ L3VectorEquations.ipynb
 
 TGTS=$(SRCS:.ipynb=.pdf)
 
-PUBLISHDIR = /cs-pub/www-dir/faculty/crovella/restricted/pebook
-
 ############################## shouldn't need to change below this line
 
 LATEX  = pdflatex
@@ -20,19 +18,21 @@ LATEX  = pdflatex
 .SUFFIXES: .ipynb .tex .pdf
 
 %.tex: %.ipynb
-	/bin/rm -rf tmpFile
-	ipython nbconvert $< --to latex
-	# this is fixing a bug in ipython nbconvert 3.0 - misnames graphics files
-	# sed 's/.jpe}/.jpeg}/g' < $@ > tmpFile
-	mv $@ tmpFile
-	python stripHiddenCode.py < tmpFile > $@
-	rm tmpFile
+	jupyter nbconvert --to=latex --template=printviewlatex.tplx $<
 
 %.pdf: %.tex
 	$(LATEX) $<
 	rm $*.out $*.log $*.aux
+	/bin/rm -rf $*_files
 
 topleveltarget: $(TGTS)
+
+figures:
+	jupyter nbconvert --to notebook --inplace --execute *.ipynb
+
+movefigures:
+	scp json/* crovella@csa2.bu.edu:www/cs132-figures
+	ssh crovella@csa2.bu.edu 'chmod a+r ~/www/cs132-figures/*'
 
 
 
