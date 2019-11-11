@@ -24,7 +24,7 @@ class two_d_figure:
         defaults: xmin = -6.0, xmax = 6.0, ymin = -2.0, ymax = 4.0, size=(6,4)
         size is by default 6 inches by 4 inches
         """
-        fig = plt.figure(figsize=size)
+        self.fig = plt.figure(figsize=size)
         self.ax = fig.add_subplot(1, 1, 1)
         plt.xlim([xmin, xmax])
         plt.ylim([ymin, ymax])
@@ -109,14 +109,14 @@ class three_d_figure:
         self.qr = qr  
         if self.qr not in valid_qr:
             raise ValueError('Invalid qr argument')
-        fig = plt.figure(figsize=figsize)
+        self.fig = plt.figure(figsize=figsize)
         if self.qr == None:
             # only plot the figure, no QR code
-            self.ax = fig.add_subplot(111, projection='3d')
+            self.ax = self.fig.add_subplot(111, projection='3d')
         else:
             # plot the figure and the QR code next to it
-            self.ax = fig.add_subplot(121, projection='3d', position=[0,0,1,1])
-            self.ax2 = fig.add_subplot(122,position=[1.2, 0.125, 0.75, 0.75])
+            self.ax = self.fig.add_subplot(121, projection='3d', position=[0,0,1,1])
+            self.ax2 = self.fig.add_subplot(122,position=[1.2, 0.125, 0.75, 0.75])
         # self.ax.axes.set_title(fig_desc)
         self.ax.axes.set_xlim([xmin, xmax])
         self.ax.axes.set_ylim([ymin, ymax])
@@ -349,10 +349,27 @@ class three_d_figure:
 
         # find the portion that is contained within two ranges r1 and r2
         def range_intersect(r1, r2):
-            return [np.nanmax([r1[0], r2[0]]), np.nanmin([r1[1], r2[1]])]
+            if np.all(np.isnan([r1[0], r2[0]])):
+                lo = np.nan
+            else:
+                lo = np.nanmax([r1[0], r2[0]])
+            if np.all(np.isnan([r1[1], r2[1]])):
+                hi = np.nan
+            else:
+                hi = np.nanmin([r1[1], r2[1]])
+            return [lo, hi]
+
         # find the union of two ranges r1 and r2
         def range_union(r1, r2):
-            return [np.nanmin([r1[0], r2[0]]), np.nanmax([r1[1], r2[1]])]
+            if np.all(np.isnan([r1[0], r2[0]])):
+                lo = np.nan
+            else:
+                lo = np.nanmin([r1[0], r2[0]])
+            if np.all(np.isnan([r1[1], r2[1]])):
+                hi = np.nan
+            else:
+                hi = np.nanmax([r1[1], r2[1]])
+            return [lo, hi]
 
         xmin, xmax = self.ax.axes.get_xlim()
         ymin, ymax = self.ax.axes.get_ylim()
@@ -387,18 +404,24 @@ class three_d_figure:
                 # so alpha = y/x = evec[1]/evec[0]
                 alf = evec[1]/evec[0]
                 # substituting y = alf x into the quadratric form yields
-                x = np.sqrt(z / (qf[0, 0]
-                                     + alf * (qf[0, 1] + qf[1, 0])
-                                     + alf**2 * qf[1, 1]))
-                return [[-x, -alf*x], [x, alf*x]]
+                denom = (qf[0, 0] + alf * (qf[0, 1] + qf[1, 0])
+                             + alf**2 * qf[1, 1])
+                if (denom == 0) or ((z / denom) < 0):
+                    return [[np.nan, np.nan],[np.nan, np.nan]]
+                else:
+                    x = np.sqrt(z / denom)
+                    return [[-x, -alf*x], [x, alf*x]]
             else:
                 # if evec[0] = 0, the evec is parallel to the y axis, so
                 # switch places of x and y since y can't be given in terms of x
                 alf = evec[0]/evec[1]
-                y = np.sqrt(z / (qf[1, 1]
-                                     + alf * (qf[0, 1] + qf[1, 0])
-                                     + alf**2 * qf[0, 0]))
-                return [[-alf*y, -y], [alf*y, y]]
+                denom = (qf[1, 1] + alf * (qf[0, 1] + qf[1, 0])
+                            + alf**2 * qf[0, 0])
+                if (denom == 0) or ((z / denom) < 0) :
+                    return [[np.nan, np.nan],[np.nan, np.nan]]
+                else:
+                    y = np.sqrt(z / denom)
+                    return [[-alf*y, -y], [alf*y, y]]
 
         # considering both eigenvectors, find the range of x for y = zmax
         r1 = axes_limit(qf_mat, zmax, v[:,0])
@@ -428,6 +451,8 @@ class three_d_figure:
         def quad_zeros(a, b, c):
             disc = b**2 - 4*a*c
             if disc < 0:
+                return [np.nan, np.nan]
+            elif a == 0:
                 return [np.nan, np.nan]
             else:
                 return sorted([(-b - np.sqrt(disc))/(2*a),
@@ -550,6 +575,24 @@ class three_d_figure:
                 })
 
 
+    def rotate(self, start=0, end=360, increment=5):
+        from matplotlib import animation
+        # return an animation that rotates the figure using
+        # this nifty js viewer
+        mp.rcParams['animation.html'] = 'jshtml'
+
+        # putting plt.show() works for %matplotlib notebook
+        def display(angle, *fargs):
+            fargs[0].view_init(azim=angle)
+            # plt.show()
+
+        return mp.animation.FuncAnimation(self.fig, 
+                                    display, 
+                                    frames=np.arange(start, end, increment), 
+                                    fargs=[self.ax],
+                                    interval=100, 
+                                    repeat=False)
+        
     def save(self, file_name):
         fname = 'json/{}.json'.format(file_name)
         with open(fname, 'w') as fp:
