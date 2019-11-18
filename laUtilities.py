@@ -25,7 +25,7 @@ class two_d_figure:
         size is by default 6 inches by 4 inches
         """
         self.fig = plt.figure(figsize=size)
-        self.ax = fig.add_subplot(1, 1, 1)
+        self.ax = self.fig.add_subplot(1, 1, 1)
         plt.xlim([xmin, xmax])
         plt.ylim([ymin, ymax])
         self.ax.axes.set_xlim([xmin, xmax])
@@ -59,21 +59,38 @@ class two_d_figure:
         except IndexError:
             pass
 
-    def plotLinEqn (self, a1, a2, b, format='-', color='r'):
+    def plotLinEqn (self, a1, a2, b, format='-', color='r', alpha=1.0):
         """
         plot line line corresponding to the linear equation
         a1 x + a2 y = b
         """
-        [xmin, xmax] = plt.xlim()
-        x1 = xmin
-        y1 = (b - (x1 * a1))/float(a2)
-        x2 = xmax
-        y2 = (b - (x2 * a1))/float(a2)
-        plt.plot([x1, x2],
+        if (a2 != 0):
+            # line is not parallel to y axis
+            [xmin, xmax] = plt.xlim()
+            x1 = xmin
+            y1 = (b - (x1 * a1))/float(a2)
+            x2 = xmax
+            y2 = (b - (x2 * a1))/float(a2)
+            plt.plot([x1, x2],
                      [y1, y2],
                      format,
                      label='${}$'.format(formatEqn([a1, a2],b)),
-                     color=color)
+                     color=color,
+                     alpha=alpha)
+        else:
+            # line is parallel to y axis
+            [ymin, ymax] = plt.ylim()
+            y1 = ymin
+            x1 = b / float(a1)
+            y2 = ymax
+            x2 = b /float(a1)
+            plt.plot([x1, x2],
+                     [y1, y2],
+                     format,
+                     label='${}$'.format(formatEqn([a1, a2],b)),
+                     color=color,
+                     alpha=alpha)
+            
 
     def centerAxes (self):
         self.ax.spines['left'].set_position('zero')
