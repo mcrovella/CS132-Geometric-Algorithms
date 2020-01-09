@@ -35,6 +35,12 @@ Each workbook can be presented as a slideshow in Jupyter notebook using the
 code during the lecture to illustrate points or explore ideas that come
 up.
 
+I use some
+[notebook extensions](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/)
+to neaten and simplify the notebooks.  For the best presentation
+experience, enable the "RISE," "Hide input," "Load TeX macros," and
+"split cells" extensions. 
+
 Most 3D diagrams in the notes can be viewed in augmented reality via the
 iPhone app
 [DiagramAR](https://apps.apple.com/us/app/diagramar/id1484987191).   The
