@@ -1,0 +1,83 @@
+\documentclass{article}
+
+\usepackage{url}
+\usepackage{algorithm}
+\usepackage{psfrag}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{}
+
+\usepackage{mathptmx}
+\usepackage[scaled=.90]{helvet}
+\usepackage{courier}
+
+\usepackage{hwk}
+
+\begin{document}
+\solutiontrue
+
+\title{CS 132 -- Geometric Algorithms\\[0.25\baselineskip]Notes on Linear Algebra in Python}
+\author{Mark Crovella}
+\date{~}
+\maketitle
+
+\paragraph{Floating Point.}  This is just a reminder, that, as already discussed, real numbers are approximated in the computer using ``floating point'' format, which is in general a number that is close but not necessarily exactly equal to the real number of interest.   So, for example, it is not always true that \texttt{a - (b * (a/b))))} will be equal to zero when computed in Python.    
+
+\paragraph{Linear Algebra in Python.} The linear algebra package we will use is \texttt{numpy.}  Always import it as
+\begin{verbatim}
+import numpy as np
+\end{verbatim}
+Matrices will always be represented as \emph{numpy} arrays.   Some important functions:
+\begin{verbatim}
+np.array
+np.shape
+np.readtxt
+np.savetxt
+\end{verbatim}
+Read the documentation on these before starting.  Later there will be more functions from numpy that we will use.  Get used to consulting the documentation!
+
+A vector in \texttt{python} is a 1-D \texttt{numpy} array.
+For example, here the vector \texttt{x} has been constructed from a list of floats:
+\begin{verbatim}
+x = np.array([1.0, 2.0, 3.0])
+\end{verbatim}
+
+A matrix in \texttt{python} is a 2-D \texttt{numpy} array.  It behaves like a list of lists
+that correspond to rows.    So you can construct a matrix like this:
+\begin{verbatim}
+A = np.array([[1.0, 2.0],[3.0, 4.0]])
+\end{verbatim}
+
+Thus \texttt{A[0][0]} (or \texttt{A[0,0]}) is
+a single element of the array \texttt{A} (the element in the upper left
+corner), while \texttt{A[0]} is the first row of \texttt{A}.  You can
+also use a colon (\texttt{:}) to mean ``all indices.''  So another way
+to get the first row of \texttt{A} is \texttt{A[0,:]}, and to get the
+first column of \texttt{A}, you would use \texttt{A[:,0]}.
+
+\paragraph{Numpy array types.} Numpy assigns a type to each matrix --
+for example, \texttt{float} or \texttt{int}.  If you enter a matrix by hand into the
+python interpreter, and all of the entries are integers, then numpy will
+auto-detect this as an integer matrix.  When you assign values to an
+integer matrix they will be rounded to the nearest integer.  This is \textbf{not}
+what you want.  So you do \textbf{not} want to work with integer matrices in
+general.  
+
+So it is a good idea to make sure that the inputs your your functions are floating point matrices.
+To convert an integer matrix to a floating point matrix you can simply
+use:
+\begin{verbatim}
+A = A.astype(float)
+\end{verbatim}
+
+\paragraph{Parameter Passing.}  Remember that parameter passing in \texttt{python} is by reference.   Thus if you pass an array into a subroutine, and modify the array in the subroutine, the modifications will still be in effect after the subroutine exits (i.e., modifying an array creates side-effects).
+
+For similar reasons, if \texttt{A} is an array, the code \texttt{B = A} does not create a new array \texttt{B}, but rather results in both \texttt{A} and \texttt{B} pointing to the same array.   If you want to make an actual copy of an array or any object, use its \texttt{.copy()} method; i.e., write \texttt{B = A.copy()}. 
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+

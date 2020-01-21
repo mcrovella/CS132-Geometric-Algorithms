@@ -1,0 +1,87 @@
+\documentclass{article}
+
+\usepackage{url}
+\usepackage{algorithm}
+\usepackage{psfrag}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{subfigure}
+\usepackage{}
+
+\usepackage{mathptmx}
+\usepackage[scaled=.90]{helvet}
+\usepackage{courier}
+
+\setlength{\textheight}{9.5in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\textwidth}{6.5in}
+\pagestyle{empty}
+\begin{document}
+
+\title{CS 132 -- Geometric Algorithms\\[0.25\baselineskip]Getting
+  Started with Python}
+\author{Mark Crovella}
+\date{~}
+\maketitle
+\thispagestyle{empty}
+
+\vspace{-0.5in}
+
+In this course you will use \texttt{python} to complete assignments that require coding.   \texttt{Python} is an exceptionally versatile language and it is a natural one for discussion of algorithms related to linear algebra.
+
+This document contains notes that relate to the use of \texttt{python} in this course.   You should read it and understand it fully before starting the homework that requires \texttt{python} coding.
+
+\paragraph{Learning Python.}   If you have used \texttt{python} before, you can skip this section.   You will need to know the basics of \texttt{python} to complete the homeworks in this course.   Luckily, it does not take very long to master the basics.   There are many ways to get up to speed, but some that I recommend are:
+\begin{itemize}
+\item Run through the first part of the Python tutorial at \texttt{codecademy.com.}   This is at \url{https://www.codecademy.com/learn/learn-python-3}.   You only need to complete up to and including the ``loops'' lesson.   This should only take a few hours.
+\item Run through the first part of the Python tutorial at \url{http://www.learnpython.org/}.   You only need to complete up to the ``Functions'' lesson.
+\item Check Youtube if that's what works best for you.  There are lots of tutorials there too.
+\end{itemize}
+
+\paragraph{Installing Python.}  We will use python version 3.  This is
+the same version used in CS 111.  Python is available on all the lab
+machines.  If you want to install it on your own machine, you need to
+make sure to install the \texttt{numpy} and \texttt{matplotlib} packages
+(these are very standard.)  A good system available for performing the
+install, and managing the packages, is Anaconda:
+\url{https://anaconda.com}.   Be sure to install
+the Python 3 version. 
+
+\paragraph{Using Python.}  Rather than interacting with the
+\texttt{python} interpreter directly, I recommend that you use
+\emph{ipython,} which is a greatly enhanced interpreter that makes
+development very easy.  \texttt{Ipython} is installed by Anaconda and is
+available on all the lab machines.  To get started, run \texttt{ipython}
+and then type a question mark at the prompt for an introduction.
+
+For example, once you start ipython you can use the
+\%run command to execute a file, and then you can look at the output and
+related variables afterwards in the interpreter, which can help for
+debugging.  You can execute code snippets in the interpreter to see if
+they are doing the right thing.  This is \emph{much} easier than using
+python in batch mode, e.g., ``python myprogram.py''.
+
+Another option is ``Jupyter notebook'' which is becoming the standard
+for laboratory (reproducible) research work in python.
+
+There is also an IDE called ``Spyder''
+that is installed by Anaconda.  You may find this the most convenient
+programming environment, although my personal preference is for a text
+editor + ipython.
+
+\paragraph{Floating Point.}  Python has both integer and floating point types.  In python 3, dividing two integers will yield a floating point value (which is what we will always want).
+
+You will need to understand that floating-point calculations are not exact, because real numbers are not stored exactly when converted to floating-point representation.   It's not a bad idea to read \url{http://en.wikipedia.org/wiki/IEEE_floating_point} if you haven't had CS210 yet.   
+
+To give an illustration of how this can affect your computations, consider this example.   For two floating point numbers \texttt{a} and \texttt{b}, performing the computation \texttt{a/b} may not yield exactly the true value, but rather a value that is only \emph{very close} to the true value.    So, mathematically we would expect that \texttt{b * (a/b)} should yield exactly \texttt{a}, but computationally, \texttt{a/b} is not stored exactly, so this may not happen.   So in particular, \texttt{a - (b * (a/b))))} may not be exactly zero (though it will be a very small number).   This will be covered in lecture; you will need to keep this in mind throughout the course.
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
+
