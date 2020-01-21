@@ -11,17 +11,47 @@
 \usepackage[scaled=.90]{helvet}
 \usepackage{courier}
 
-\usepackage{hwk}
+\setlength{\textheight}{9in}
+\setlength{\topmargin}{0in}
+\setlength{\headheight}{0in}
+\setlength{\headsep}{0in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\textwidth}{6.5in}
+\pagestyle{empty}
 
 \begin{document}
-\solutiontrue
+\thispagestyle{empty}
 
 \title{CS 132 -- Geometric Algorithms\\[0.25\baselineskip]Notes on Linear Algebra in Python}
 \author{Mark Crovella}
 \date{~}
 \maketitle
 
-\paragraph{Floating Point.}  This is just a reminder, that, as already discussed, real numbers are approximated in the computer using ``floating point'' format, which is in general a number that is close but not necessarily exactly equal to the real number of interest.   So, for example, it is not always true that \texttt{a - (b * (a/b))))} will be equal to zero when computed in Python.    
+\paragraph{Floating Point.}  Python has both integer and floating point types.  In python 3, dividing two integers will yield a floating point value (which is what we will always want).
+
+You will need to understand that floating-point calculations are not
+exact, because real numbers are not stored exactly when converted to
+floating-point representation.   It's not a bad idea to read
+\url{http://en.wikipedia.org/wiki/IEEE_floating_point} if you haven't
+had CS210 yet.    
+
+To give an illustration of how this can affect your computations,
+consider this example.   For two floating point numbers \texttt{a} and
+\texttt{b}, performing the computation \texttt{a/b} may not yield
+exactly the true value, but rather a value that is only \emph{very
+  close} to the true value.    So, mathematically we would expect that
+\texttt{b * (a/b)} should yield exactly \texttt{a}, but computationally,
+\texttt{a/b} is not stored exactly, so this may not happen.   So in
+particular, \texttt{a - (b * (a/b))))} may not be exactly zero (though
+it will be a very small number).   This will be discussed in more detail in lecture; you
+will need to keep this in mind throughout the course. 
+
+In general, you will often want to \textbf{treat very small numbers, eg
+  $10^{-8}$ or smaller, as being like zero.}   You will need to think about whether
+your calculation can create such small numbers in situations where zero
+is expected.   You will need to test for and correct those situations in
+your code.   Read the documentation for \texttt{numpy.isclose()} for
+ideas on how to do that.
 
 \paragraph{Linear Algebra in Python.} The linear algebra package we will use is \texttt{numpy.}  Always import it as
 \begin{verbatim}

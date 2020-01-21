@@ -12,8 +12,8 @@
 \usepackage[scaled=.90]{helvet}
 \usepackage{courier}
 
-\setlength{\textheight}{9.5in}
-\setlength{\topmargin}{-0.5in}
+\setlength{\textheight}{9in}
+\setlength{\topmargin}{0in}
 \setlength{\headheight}{0in}
 \setlength{\headsep}{0in}
 \setlength{\oddsidemargin}{0in}
@@ -27,8 +27,6 @@
 \date{~}
 \maketitle
 \thispagestyle{empty}
-
-\vspace{-0.5in}
 
 In this course you will use \texttt{python} to complete assignments that require coding.   \texttt{Python} is an exceptionally versatile language and it is a natural one for discussion of algorithms related to linear algebra.
 
@@ -71,12 +69,6 @@ There is also an IDE called ``Spyder''
 that is installed by Anaconda.  You may find this the most convenient
 programming environment, although my personal preference is for a text
 editor + ipython.
-
-\paragraph{Floating Point.}  Python has both integer and floating point types.  In python 3, dividing two integers will yield a floating point value (which is what we will always want).
-
-You will need to understand that floating-point calculations are not exact, because real numbers are not stored exactly when converted to floating-point representation.   It's not a bad idea to read \url{http://en.wikipedia.org/wiki/IEEE_floating_point} if you haven't had CS210 yet.   
-
-To give an illustration of how this can affect your computations, consider this example.   For two floating point numbers \texttt{a} and \texttt{b}, performing the computation \texttt{a/b} may not yield exactly the true value, but rather a value that is only \emph{very close} to the true value.    So, mathematically we would expect that \texttt{b * (a/b)} should yield exactly \texttt{a}, but computationally, \texttt{a/b} is not stored exactly, so this may not happen.   So in particular, \texttt{a - (b * (a/b))))} may not be exactly zero (though it will be a very small number).   This will be covered in lecture; you will need to keep this in mind throughout the course.
 
 \end{document}
 
