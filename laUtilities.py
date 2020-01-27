@@ -610,7 +610,7 @@ class three_d_figure:
                                     interval=100, 
                                     repeat=False)
         
-    def save(self, file_name):
+    def save(self, file_name, qrviz = None):
         fname = 'json/{}.json'.format(file_name)
         with open(fname, 'w') as fp:
             json.dump(self.desc, fp, indent=2)
@@ -633,9 +633,13 @@ class three_d_figure:
                 qr_code.add_data("a"+url_string+d)
             qr_code.make(fit=True)
             img = qr_code.make_image()
-            self.ax2.imshow(img, cmap="gray")
-            # self.ax2.imshow(img)
-            self.ax2.set_axis_off()
+            if qrviz == 'show':
+                self.ax2.imshow(img, cmap="gray")
+                # self.ax2.imshow(img)
+                self.ax2.set_axis_off()
+                return None
+            elif qrviz == 'save':
+                return img
             # plt.subplots_adjust(wspace=1.)
             # plt.tight_layout()
 
