@@ -192,11 +192,11 @@ class three_d_figure:
 
     # at present, this only hides axes in the json (app)
     # axes are draw in matplotlib in all cases
-    def hideAxes():
-        self.desc['displayAxes'] = false
+    def hideAxes(self):
+        self.desc['displayAxes'] = False
 
-    def showAxes():
-        self.desc['displayAxes'] = true
+    def showAxes(self):
+        self.desc['displayAxes'] = True
         
     def plotPoint (self, x1, x2, x3, color='r', alpha=1.0):
         # do the plotting
