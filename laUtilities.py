@@ -194,6 +194,7 @@ class three_d_figure:
     # axes are draw in matplotlib in all cases
     def hideAxes(self):
         self.desc['displayAxes'] = False
+        # can we use plt.axes('off') here? 
 
     def showAxes(self):
         self.desc['displayAxes'] = True
