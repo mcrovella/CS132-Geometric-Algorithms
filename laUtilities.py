@@ -283,11 +283,13 @@ class three_d_figure:
                     points.append(tuple(pt))
         return set(points)
 
-    def text(self, x, y, z, mpl_label, json_label, size):
+    def text(self, x, y, z, mpl_label, json_label, size, color='k'):
+        hex_color = colors.to_hex(color)
         self.desc['objects'].append({
             'type': 'text', 
             'content': json_label,
             'size': size,
+            'color': hex_color,
             'points': [{'x': x, 'y': y, 'z': z}]})
         self.ax.text(x, y, z, mpl_label, size=size)
 
