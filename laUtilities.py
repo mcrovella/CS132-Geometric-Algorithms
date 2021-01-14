@@ -138,7 +138,7 @@ def set_axes_equal(ax):
 class three_d_figure:
     
     def __init__ (self,
-                      fig_name,
+                      fig_num,
                       fig_desc = '',
                       xmin = -3.0,
                       xmax = 3.0,
@@ -149,6 +149,13 @@ class three_d_figure:
                       figsize=(6,4),
                       qr = None,
                       displayAxes = True):
+
+        if len(fig_num) != 2:
+            raise ValueError('fig_num should be (lec, fig)')
+
+        fig_name = f'Figure {fig_num[0]}.{fig_num[1]}'
+        self.fig_num = fig_num
+        
         # possible values: None (no QR code displayed),
         # url (url based QR code displayed), direct
         valid_qr = [None, 'url', 'direct']
@@ -293,8 +300,11 @@ class three_d_figure:
             'points': [{'x': x, 'y': y, 'z': z}]})
         self.ax.text(x, y, z, mpl_label, size=size)
 
-    def set_title(self, mpl_title, json_title, size):
+    def set_title(self, mpl_title, json_title = None, size = 12):
+        self.fig.suptitle(f'Figure {self.fig_num[0]:d}.{self.fig_num[1]:d}')
         self.ax.set_title(mpl_title, size=size)
+        if json_title == None:
+            json_title = mpl_title
         self.desc['objects'].append({'type': 'title', 'label': json_title})
 
     def plotLine(self, in_ptlist, color, line_type='-', alpha=1.0):
@@ -646,7 +656,9 @@ class three_d_figure:
                                     interval=100, 
                                     repeat=False)
         
-    def save(self, file_name, qrviz = None):
+    def save(self, qrviz = None):
+        file_name = f'Fig{self.fig_num[0]:02d}.{self.fig_num[1]:d}'
+        
         set_axes_equal(self.ax)
         fname = 'json/{}.json'.format(file_name)
         with open(fname, 'w') as fp:

@@ -4,7 +4,7 @@ import re
 
 # configuration
 course = 'cs132'
-session = 's20'
+session = 's21'
 
 # config file location
 config_file_location = 'https://www.cs.bu.edu/faculty/crovella/diagramar'
