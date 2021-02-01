@@ -37,8 +37,10 @@ movefigures:
 	scp json/config*.json crovella@csa2.bu.edu:www/diagramar
 	ssh crovella@csa2.bu.edu 'chmod a+r ~/www/diagramar/*'
 
-
-
+movebook:
+	jupyter-book build book
+	scp -r book/_build/html crovella@csa2.bu.edu:www/cs132-book
+	ssh crovella@csa2.bu.edu 'chmod -R a+r ~/www/cs132-book'
 
 
 
