@@ -8,7 +8,8 @@ C. Lay, Addison-Wesley (Pearson).
 
 The notes are in the form of Jupyter notebooks.   Demos and most figures
 are included as executable Python code. Lecture notes are also available
-in pdf, as converted using nbconvert. 
+in pdf, as converted using nbconvert (note - transition to jupyter
+book in progress.)
 
 The rationale for the teaching approach used in this course is [here.](https://github.com/mcrovella/CS132-Geometric-Algorithms/blob/master/CS132-Teaching-Philosophy.pdf)
 
@@ -18,7 +19,11 @@ available on request.
 
 __Course Versions__
 
-* Spring 2020 - current version.  Updated to support diagram
+* Spring 2021 - current version.  All figures can now be visualized in
+   augmented reality via DiagramAR, available for iOS and Android.  App
+   now loads from menus rather than primarily from QR codes.
+   In progress of converting to jupyter book for asynchronous use.
+* Spring 2020 - Updated to support diagram
   presentation via DiagramAR
   (https://apps.apple.com/us/app/diagramar/id1484987191). 
 * Fall 2015 - This semester the materials were
@@ -42,11 +47,10 @@ experience, enable the "RISE," "Hide input," "Load TeX macros," and
 "split cells" extensions. 
 
 Most 3D diagrams in the notes can be viewed in augmented reality via the
-iPhone app
-[DiagramAR](https://apps.apple.com/us/app/diagramar/id1484987191).   The
-app loads 
-figures using the QR codes in the notes.   The DiagramAR
-team includes Dennis Henneman (principal developer), Xiqiao Chen (designer), and
+iPhone/Android app
+[iOS](https://apps.apple.com/us/app/diagramar/id1484987191), [Android](https://play.google.com/store/apps/details?id=com.crovella.diagramar).    The DiagramAR
+team includes Dennis Henneman (principal developer), Xiqiao Chen
+(designer), Dayong Wu (developer) and
 Mark Crovella (project lead).
 
 
