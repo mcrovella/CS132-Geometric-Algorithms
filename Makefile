@@ -41,7 +41,7 @@ movebook:
 	jupyter-book build book
 	ssh crovella@csa2.bu.edu '/bin/rm -rf ~/www/cs132-book'
 	scp -r book/_build/html crovella@csa2.bu.edu:www/cs132-book
-	ssh crovella@csa2.bu.edu 'chmod -R a+r ~/www/cs132-book'
+	ssh crovella@csa2.bu.edu 'chmod -R a+rx ~/www/cs132-book'
 
 
 
