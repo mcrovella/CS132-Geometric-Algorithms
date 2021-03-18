@@ -629,7 +629,7 @@ class three_d_figure:
         hex_color = colors.to_hex(color)
         self.desc['objects'].append(
                 {'type': 'quadraticform',
-                 'color': hex_color,
+                     'color': hex_color,
                  'transparency': alpha,
                  'a11': qf_mat[0][0],
                  'a12': qf_mat[0][1],
@@ -691,6 +691,9 @@ class three_d_figure:
                 return img
             # plt.subplots_adjust(wspace=1.)
             # plt.tight_layout()
+
+    def dont_save(self):
+        return
 
     def json(self):
         return(json.dumps(self.desc))
