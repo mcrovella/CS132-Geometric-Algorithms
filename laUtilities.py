@@ -134,6 +134,22 @@ def set_axes_equal(ax):
     ax.set_xlim3d([x_middle - plot_radius, x_middle + plot_radius])
     ax.set_ylim3d([y_middle - plot_radius, y_middle + plot_radius])
     ax.set_zlim3d([z_middle - plot_radius, z_middle + plot_radius])
+
+def perp_sym(vertex, pt1, pt2, size):
+    ''' Construct the two lines needed to create a purpendicular-symbol
+    at vertex vertex and heading toward points pt1 and pt2, given size
+    Usage: 
+    perpline1, perpline2 = perp_sym(...)
+    plt.plot(perpline1[0], perpline1[1], 'k', lw = 1)
+    plt.plot(perpline2[0], perpline2[1], 'k', lw = 1)
+    '''
+    arm1 = pt1 - vertex
+    arm2 = pt2 - vertex
+    arm1unit = arm1 / np.linalg.norm(arm1)
+    arm2unit = arm2 / np.linalg.norm(arm2)
+    leg1 = np.array([vertex, vertex + (size * arm1unit)]) + (size * arm2unit)
+    leg2 = np.array([vertex, vertex + (size * arm2unit)]) + (size * arm1unit)
+    return((leg1.T, leg2.T))
     
 class three_d_figure:
     
@@ -215,7 +231,7 @@ class three_d_figure:
             {'type': 'point',
              'transparency': alpha,
              'color': hex_color,
-             'points': [{'x': x1, 'y': x2, 'z': x3}]})
+             'points': [{'x': float(x1), 'y': float(x2), 'z': float(x3)}]})
 
     def plotLinEqn(self, l1, color='Green', alpha=0.3):
         """
@@ -297,7 +313,7 @@ class three_d_figure:
             'content': json_label,
             'size': size,
             'color': hex_color,
-            'points': [{'x': x, 'y': y, 'z': z}]})
+            'points': [{'x': float(x), 'y': float(y), 'z': float(z)}]})
         self.ax.text(x, y, z, mpl_label, size=size)
 
     def set_title(self, mpl_title, json_title = None, size = 12):
@@ -321,6 +337,14 @@ class three_d_figure:
                          line_type,
                          zs = ptlist[2,:],
                          color=color)
+
+    def plotPerpSym(self, vertex, pt1, pt2, size):
+        ''' Plot in 3D the two lines needed to create a purpendicular-symbol
+        at vertex vertex and heading toward points pt1 and pt2, given size
+        '''
+        perpline1, perpline2 = perp_sym(vertex, pt1, pt2, size)
+        self.plotLine([perpline1[:,0], perpline1[:,1]], 'k', '-')
+        self.plotLine([perpline2[:,0], perpline2[:,1]], 'k', '-')
         
     def plotIntersection(self, eq1, eq2, line_type='-',color='Blue'):
         """
@@ -779,6 +803,11 @@ def centerAxes (ax):
     bounds = np.array([ax.axes.get_xlim(), ax.axes.get_ylim()])
     ax.plot(bounds[0][0],bounds[1][0],'')
     ax.plot(bounds[0][1],bounds[1][1],'')
+
+def noAxes(ax):
+    ax.axes.get_yaxis().set_visible(False)
+    ax.axes.get_xaxis().set_visible(False)
+    ax.set_frame_on(False)
         
 def plotSetup3d(xmin = -3.0, xmax = 3.0, ymin = -3.0, ymax = 3.0, zmin = -3.0, zmax = 3.0, figsize=(6,4)):
     fig = plt.figure(figsize=figsize)
