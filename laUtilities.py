@@ -136,7 +136,7 @@ def set_axes_equal(ax):
     ax.set_zlim3d([z_middle - plot_radius, z_middle + plot_radius])
 
 def perp_sym(vertex, pt1, pt2, size):
-    ''' Construct the two lines needed to create a purpendicular-symbol
+    ''' Construct the two lines needed to create a perpendicular-symbol
     at vertex vertex and heading toward points pt1 and pt2, given size
     Usage: 
     perpline1, perpline2 = perp_sym(...)
@@ -164,7 +164,8 @@ class three_d_figure:
                       zmax = 3.0,
                       figsize=(6,4),
                       qr = None,
-                      displayAxes = True):
+                      displayAxes = True,
+                      equalAxes = True):
 
         if len(fig_num) != 2:
             raise ValueError('fig_num should be (lec, fig)')
@@ -185,12 +186,14 @@ class three_d_figure:
                                                #, proj_type='ortho')
             # this is not implemented in mp3d as of Apr 2020
             # self.ax.set_aspect('equal')
-            set_axes_equal(self.ax)
+            if equalAxes:
+                set_axes_equal(self.ax)
         else:
             # plot the figure and the QR code next to it
             self.ax = self.fig.add_subplot(121, projection='3d', position=[0,0,1,1])
             self.ax2 = self.fig.add_subplot(122,position=[1.2, 0.125, 0.75, 0.75])
         # self.ax.axes.set_title(fig_desc)
+        self.equalAxes = equalAxes
         self.ax.axes.set_xlim([xmin, xmax])
         self.ax.axes.set_ylim([ymin, ymax])
         self.ax.axes.set_zlim([zmin, zmax])
@@ -339,7 +342,7 @@ class three_d_figure:
                          color=color)
 
     def plotPerpSym(self, vertex, pt1, pt2, size):
-        ''' Plot in 3D the two lines needed to create a purpendicular-symbol
+        ''' Plot in 3D the two lines needed to create a perpendicular-symbol
         at vertex vertex and heading toward points pt1 and pt2, given size
         '''
         perpline1, perpline2 = perp_sym(vertex, pt1, pt2, size)
@@ -683,7 +686,8 @@ class three_d_figure:
     def save(self, qrviz = None):
         file_name = f'Fig{self.fig_num[0]:02d}.{self.fig_num[1]:d}'
         
-        set_axes_equal(self.ax)
+        if self.equalAxes:
+            set_axes_equal(self.ax)
         fname = 'json/{}.json'.format(file_name)
         with open(fname, 'w') as fp:
             json.dump(self.desc, fp, indent=2)
