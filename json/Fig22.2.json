@@ -1,7 +1,7 @@
 {
   "FigureName": "Figure 22.2",
   "FigureType": "three_d_with_axes",
-  "FigureDescription": "Comparison of v to the projection of y",
+  "FigureDescription": "b should be close to Ax",
   "xmin": -15,
   "xmax": 15,
   "ymin": -15,
@@ -23,11 +23,6 @@
           "z": -15.0
         },
         {
-          "x": 7.0,
-          "y": -15.0,
-          "z": 15.0
-        },
-        {
           "x": 5.0,
           "y": -15.0,
           "z": -15.0
@@ -36,15 +31,20 @@
           "x": -5.0,
           "y": 15.0,
           "z": 15.0
+        },
+        {
+          "x": 7.0,
+          "y": -15.0,
+          "z": 15.0
         }
       ],
       "triangleIndices": [
         0,
+        1,
         2,
-        3,
-        3,
         2,
-        1
+        1,
+        3
       ]
     },
     {
@@ -61,7 +61,7 @@
     },
     {
       "type": "text",
-      "content": "y-hat",
+      "content": "Ax",
       "size": 18,
       "color": "#000000",
       "points": [
@@ -86,7 +86,7 @@
     },
     {
       "type": "text",
-      "content": "y",
+      "content": "b",
       "size": 18,
       "color": "#000000",
       "points": [
@@ -98,72 +98,8 @@
       ]
     },
     {
-      "type": "point",
-      "transparency": 1.0,
-      "color": "#0000ff",
-      "points": [
-        {
-          "x": 2.0,
-          "y": -7.0,
-          "z": -12.0
-        }
-      ]
-    },
-    {
       "type": "text",
-      "content": "v",
-      "size": 18,
-      "color": "#000000",
-      "points": [
-        {
-          "x": 0.5,
-          "y": -8.5,
-          "z": -13.5
-        }
-      ]
-    },
-    {
-      "type": "text",
-      "content": "||y - v||",
-      "size": 18,
-      "color": "#000000",
-      "points": [
-        {
-          "x": 9.0,
-          "y": -5.5,
-          "z": -8.5
-        }
-      ]
-    },
-    {
-      "type": "text",
-      "content": "||y - y-hat||",
-      "size": 18,
-      "color": "#000000",
-      "points": [
-        {
-          "x": 5.330152671755725,
-          "y": 6.33206106870229,
-          "z": -4.555343511450381
-        }
-      ]
-    },
-    {
-      "type": "text",
-      "content": "||y - v||",
-      "size": 18,
-      "color": "#000000",
-      "points": [
-        {
-          "x": -0.6698473282442748,
-          "y": -2.16793893129771,
-          "z": -12.055343511450381
-        }
-      ]
-    },
-    {
-      "type": "text",
-      "content": "W",
+      "content": "Col A",
       "size": 22,
       "color": "#000000",
       "points": [
@@ -175,58 +111,8 @@
       ]
     },
     {
-      "type": "line",
-      "color": "#0000ff",
-      "transparency": 1.0,
-      "linetype": "-",
-      "points": [
-        {
-          "x": 12.0,
-          "y": 8.0,
-          "z": -5.0
-        },
-        {
-          "x": -1.3396946564885497,
-          "y": 2.66412213740458,
-          "z": -4.110687022900763
-        }
-      ]
-    },
-    {
-      "type": "line",
-      "color": "#0000ff",
-      "transparency": 1.0,
-      "linetype": "-",
-      "points": [
-        {
-          "x": 2.0,
-          "y": -7.0,
-          "z": -12.0
-        },
-        {
-          "x": -1.3396946564885497,
-          "y": 2.66412213740458,
-          "z": -4.110687022900763
-        }
-      ]
-    },
-    {
-      "type": "line",
-      "color": "#0000ff",
-      "transparency": 1.0,
-      "linetype": "-",
-      "points": [
-        {
-          "x": 12.0,
-          "y": 8.0,
-          "z": -5.0
-        },
-        {
-          "x": 2.0,
-          "y": -7.0,
-          "z": -12.0
-        }
-      ]
+      "type": "title",
+      "label": "We should be happy with an $\\mathbf{x} such that AX is close to b"
     }
   ],
   "displayAxes": false
