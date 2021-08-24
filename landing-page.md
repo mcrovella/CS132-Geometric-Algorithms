@@ -1,3 +1,5 @@
+"Algebra is but written geometry,"  Sophie Germain
+
 # Preface
 
 Welcome to this book!
