@@ -1,0 +1,803 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>\(A{\bf x} = {\bf b}\) &#8212; Linear Algebra, Geometry, and Computation</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Linear Independence" href="L06LinearIndependence.html" />
+    <link rel="prev" title="Vector Equations" href="L04VectorEquations.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      <img src="_static/DiagramAR-icon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Linear Algebra, Geometry, and Computation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="landing-page.html">
+   Preface
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="L01LinearEquations.html">
+   Linear Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L02Numerics.html">
+   Numbers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L03RowReductions.html">
+   Gaussian Elimination
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L04VectorEquations.html">
+   Vector Equations
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   <span class="math notranslate nohighlight">
+    \(A{\bf x} = {\bf b}\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L06LinearIndependence.html">
+   Linear Independence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L07LinearTransformations.html">
+   Linear Transformations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L08MatrixofLinearTranformation.html">
+   The Matrix of a Linear Transformation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L09MatrixOperations.html">
+   Matrix Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L10MatrixInverse.html">
+   The Inverse of a Matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L11MarkovChains.html">
+   Markov Chains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L12MatrixFactorizations.html">
+   Matrix Factorizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L13ComputerGraphics-Spring2021.html">
+   Computer Graphics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L14Subspaces.html">
+   Subspaces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L15DimensionRank.html">
+   Dimension and Rank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L16Eigenvectors.html">
+   Eigenvectors and Eigenvalues
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L17CharacteristicEqn.html">
+   The Characteristic Equation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L18Diagonalization.html">
+   Diagonalization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L19PageRank.html">
+   PageRank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L20Orthogonality.html">
+   Analytic Geometry in
+   <span class="math notranslate nohighlight">
+    \(\mathbb{R}^n\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L21OrthogonalSets.html">
+   Orthogonal Sets and Projection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L22LeastSquares.html">
+   Least Squares
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L23LinearModels.html">
+   Linear Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L24SymmetricMatrices.html">
+   Symmetric Matrices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L25SVD.html">
+   The Singular Value Decomposition
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/L05Axb.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/mcrovella/CS132-Geometric-Algorithms"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L05Axb.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multiplying-a-matrix-by-a-vector">
+   Multiplying a Matrix by a Vector
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#matrix-vector-multiplication-example">
+     Matrix-Vector Multiplication Example
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#relationship-to-span">
+     Relationship to Span
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-matrix-equation">
+   The Matrix Equation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#existence-of-solutions">
+   Existence of Solutions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#inner-product">
+   Inner Product
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-matrix-vector-multiplication-using-inner-products">
+     Example: Matrix-vector multiplication using Inner Products
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#an-i-nteresting-matrix">
+   An (I)nteresting matrix
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#algebraic-properties-of-the-matrix-vector-product">
+   Algebraic Properties of the Matrix-Vector Product
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="a-bf-x-bf-b">
+<h1><span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span><a class="headerlink" href="#a-bf-x-bf-b" title="Permalink to this headline">¶</a></h1>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for QR codes use inline</span>
+<span class="c1"># %matplotlib inline</span>
+<span class="c1"># qr_setting = &#39;url&#39;</span>
+<span class="c1"># qrviz_setting = &#39;show&#39;</span>
+<span class="c1">#</span>
+<span class="c1"># for lecture use notebook</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">qr_setting</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="c1">#</span>
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format=&#39;retina&#39;
+<span class="c1"># import libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">laUtilities</span> <span class="k">as</span> <span class="nn">ut</span>
+<span class="kn">import</span> <span class="nn">slideUtilities</span> <span class="k">as</span> <span class="nn">sl</span>
+<span class="kn">import</span> <span class="nn">demoUtilities</span> <span class="k">as</span> <span class="nn">dm</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display_html</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Math</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Latex</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/James_Joseph_Sylvester.jpg&quot;</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">400</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L05Axb_2_0.jpg" src="_images/L05Axb_2_0.jpg" />
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/Arthur_Cayley.jpg&quot;</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">250</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L05Axb_3_0.jpg" src="_images/L05Axb_3_0.jpg" />
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HTML</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;Hamilton photo from:&lt;a href=&quot;https://en.wikipedia.org/wiki/en:Image:Untitled04.jpg&quot; class=&quot;extiw&quot; title=&quot;w:en:Image:Untitled04.jpg&quot;&gt;http://en.wikipedia.org/wiki/Image:Untitled04.jpg&lt;/a&gt;, Public Domain, &lt;a href=&quot;https://commons.wikimedia.org/w/index.php?curid=268041&quot;&gt;Link&lt;/a&gt;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">Hamilton photo from:<a href="https://en.wikipedia.org/wiki/en:Image:Untitled04.jpg" class="extiw" title="w:en:Image:Untitled04.jpg">http://en.wikipedia.org/wiki/Image:Untitled04.jpg</a>, Public Domain, <a href="https://commons.wikimedia.org/w/index.php?curid=268041">Link</a></div></div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HTML</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;Cayley photo by &lt;a href=&quot;https://en.wikipedia.org/wiki/Herbert_Rose_Barraud&quot; class=&quot;extiw&quot; title=&quot;en:Herbert Rose Barraud&quot;&gt;Herbert Beraud&lt;/a&gt; (1845–1896) - &lt;a rel=&quot;nofollow&quot; class=&quot;external free&quot; href=&quot;http://www-groups.dcs.st-and.ac.uk/~history/PictDisplay/Cayley.html&quot;&gt;http://www-groups.dcs.st-and.ac.uk/~history/PictDisplay/Cayley.html&lt;/a&gt;, Public Domain, &lt;a href=&quot;https://commons.wikimedia.org/w/index.php?curid=904674&quot;&gt;Link&lt;/a&gt;.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">Cayley photo by <a href="https://en.wikipedia.org/wiki/Herbert_Rose_Barraud" class="extiw" title="en:Herbert Rose Barraud">Herbert Beraud</a> (1845–1896) - <a rel="nofollow" class="external free" href="http://www-groups.dcs.st-and.ac.uk/~history/PictDisplay/Cayley.html">http://www-groups.dcs.st-and.ac.uk/~history/PictDisplay/Cayley.html</a>, Public Domain, <a href="https://commons.wikimedia.org/w/index.php?curid=904674">Link</a>.</div></div>
+</div>
+<p>Although ways of solving linear systems were known to the ancient Chinese, the 8th century Arabs, and were used to great effect by Gauss in the 1790s, the idea that the information content of a linear system should be captured in a matrix was not developed until J.J. Hamilton in 1850.  He gave it the term <em>matrix</em> because he saw it as a sort of “womb” out of which many mathematical objects could be delivered.</p>
+<p>Even then, it took a long time for the concept to emerge that one might want to <strong>multiply</strong> using matrices – that a matrix was an algebraic object.  It was not until 1855 that Arthur Cayley came up with the “right” definition of how to multiply using matrices – the one that we use today.</p>
+<p>Sources: <a class="reference external" href="https://archive.siam.org/meetings/la09/talks/higham.pdf">here</a>, <a class="reference external" href="http://www.kevinhouston.net/blog/2017/10/why-is-it-called-a-matrix/">here</a> and <a class="reference external" href="https://it-it.facebook.com/notes/thai-operations-research-network/a-brief-history-of-linear-algebra-and-matrix-theory/229822897082629">here</a>.</p>
+<div class="section" id="multiplying-a-matrix-by-a-vector">
+<h2>Multiplying a Matrix by a Vector<a class="headerlink" href="#multiplying-a-matrix-by-a-vector" title="Permalink to this headline">¶</a></h2>
+<p>Last lecture we studied the vector equation:</p>
+<div class="math notranslate nohighlight">
+\[ x_1{\bf a_1} + x_2{\bf a_2} + ... + x_n{\bf a_n} = {\bf b}.\]</div>
+<p>We also talked about how one can form a matrix from a set of vectors:</p>
+<div class="math notranslate nohighlight">
+\[ A = [{\bf a_1} \; {\bf a_2} \; ... \;{\bf a_n}].\]</div>
+<p>In particular, if we have <span class="math notranslate nohighlight">\(n\)</span> vectors <span class="math notranslate nohighlight">\({\bf a_1},{\bf a_2}, ..., {\bf a_n} \in \mathbb{R}^m,\)</span> then <span class="math notranslate nohighlight">\(A\)</span> will be an <span class="math notranslate nohighlight">\(m \times n\)</span> matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} m\left\{\begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\right.\;\;
+\overbrace{\left[\begin{array}{cccc}\begin{array}{c}\vdots\\\vdots\\{\bf a_1}\\\vdots\\\vdots\end{array}&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_2}\\\vdots\\\vdots\end{array}&amp;\dots&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_n}\\\vdots\\\vdots\end{array}\\\end{array}\right]}^{\large n} \end{split}\]</div>
+<p>We’re going to express a vector equation in a new way.  We are going to say that</p>
+<div class="math notranslate nohighlight">
+\[x_1{\bf a_1} + x_2{\bf a_2} + ... + x_n{\bf a_n}\]</div>
+<p>is the same as:</p>
+<div class="math notranslate nohighlight">
+\[A{\bf x}\]</div>
+<p>where <span class="math notranslate nohighlight">\(A = \left[\begin{array}{cccc}\begin{array}{c}\vdots\\\vdots\\{\bf a_1}\\\vdots\\\vdots\end{array}&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_2}\\\vdots\\\vdots\end{array}&amp;\dots&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_n}\\\vdots\\\vdots\end{array}\\\end{array}\right]\)</span> and <span class="math notranslate nohighlight">\({\bf x} = \left[\begin{array}{c}x_1\\x_2\\\vdots\\x_n\end{array}\right].\)</span></p>
+<p>What we have done is to define <strong>Matrix-vector multiplication</strong>.</p>
+<p>That is, <span class="math notranslate nohighlight">\(A{\bf x}\)</span> denotes multiplying a matrix and a vector, and we define it to be the same as a linear combination of the <span class="math notranslate nohighlight">\(\{\bf a_1, a_2, \dots, a_n\}\)</span> with weights <span class="math notranslate nohighlight">\(x_1, x_2, \dots, x_n.\)</span></p>
+<p>Here is the definition:</p>
+<p>If <span class="math notranslate nohighlight">\(A\)</span> is an <span class="math notranslate nohighlight">\(m\times n\)</span> matrix, with columns <span class="math notranslate nohighlight">\(\bf a_1, a_2, \dots, a_n,\)</span> and if <span class="math notranslate nohighlight">\({\bf x} \in \mathbb{R}^n,\)</span> then the <strong>product of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(\bf x\)</span>,</strong> denoted <span class="math notranslate nohighlight">\(A{\bf x}\)</span>, is <strong>the linear combination of the columns of <span class="math notranslate nohighlight">\(A\)</span> using the corresponding entries in <span class="math notranslate nohighlight">\(x\)</span> as weights;</strong> that is,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} A{\bf x} = [{\bf a_1} \; {\bf a_2} \; ... \;{\bf a_n}]\;\left[\begin{array}{c}x_1\\x_2\\\vdots\\x_n\end{array}\right] = x_1{\bf a_1} + x_2{\bf a_2} + ... + x_n{\bf a_n}.\end{split}\]</div>
+<p>Notice that if <span class="math notranslate nohighlight">\(A\)</span> is an <span class="math notranslate nohighlight">\(m\times n\)</span> matrix, then <span class="math notranslate nohighlight">\({\bf x}\)</span> must be in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> in order for this operation to be defined.  That is, the number of <strong>columns</strong> of <span class="math notranslate nohighlight">\(A\)</span> must match the number of <strong>rows</strong> of <span class="math notranslate nohighlight">\({\bf x}.\)</span></p>
+<p>If the number of columns of <span class="math notranslate nohighlight">\(A\)</span> does not match the number of rows of <span class="math notranslate nohighlight">\({\bf x}\)</span>, then <span class="math notranslate nohighlight">\(A{\bf x}\)</span> has no meaning.</p>
+<div class="section" id="matrix-vector-multiplication-example">
+<h3>Matrix-Vector Multiplication Example<a class="headerlink" href="#matrix-vector-multiplication-example" title="Permalink to this headline">¶</a></h3>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrr}1&amp;2&amp;-1\\0&amp;-5&amp;3\end{array}\right]\;\left[\begin{array}{r}4\\3\\7\end{array}\right] =\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} 4\left[\begin{array}{r}1\\0\end{array}\right] + 3\left[\begin{array}{r}2\\-5\end{array}\right] + 7\left[\begin{array}{r}-1\\3\end{array}\right] 
+= \end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{r}4\\0\end{array}\right] + \left[\begin{array}{r}6\\-15\end{array}\right]+ \left[\begin{array}{r}-7\\21\end{array}\right] = \end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{r}3\\6\end{array}\right] \end{split}\]</div>
+</div>
+<div class="section" id="relationship-to-span">
+<h3>Relationship to Span<a class="headerlink" href="#relationship-to-span" title="Permalink to this headline">¶</a></h3>
+<p>For <span class="math notranslate nohighlight">\({\bf v_1}, {\bf v_2}, {\bf v_3} \in \mathbb{R}^m,\)</span> write the linear combination <span class="math notranslate nohighlight">\(3{\bf v_1} + 5{\bf v_2} + 7{\bf v_3}\)</span> as a matrix times a vector.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}3{\bf v_1} + 5{\bf v_2} + 7{\bf v_3} = [{\bf v_1} \; {\bf v_2} \; {\bf v_3}]\;\left[\begin{array}{c}3\\5\\7\end{array}\right] = A{\bf x}.\end{split}\]</div>
+<p>Notice that if <span class="math notranslate nohighlight">\(A = [{\bf a_1} \; {\bf a_2} \; ... \;{\bf a_n}]\)</span> then <span class="math notranslate nohighlight">\(A{\bf x}\)</span> is some point that lies in Span<span class="math notranslate nohighlight">\(\{{\bf a_1},{\bf a_2}, \dots ,{\bf a_n}\}\)</span>.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;Ax where A = [a1 a2]&#39;</span><span class="p">,</span> 
+                        <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="n">qr</span><span class="o">=</span><span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span>  <span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]</span>
+<span class="n">u</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.75</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">Ax</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">x</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf a_1$&#39;</span><span class="p">,</span> <span class="s1">&#39;a_1&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf a_2$&#39;</span><span class="p">,</span> <span class="s1">&#39;a_2&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">Ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Ax</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Ax</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$A\bf x$&#39;</span><span class="p">,</span> <span class="s1">&#39;Ax&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;Span{$\bf a_1,a_2$}&#39;</span><span class="p">,</span> <span class="s1">&#39;Span{a_1, a_2}&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="c1"># fig.text(0.2, 0.2, -4, r&#39;$\bf 0$&#39;, &#39;0&#39;, size=20)</span>
+<span class="c1"># plotting the span of v</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotSpan</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">Ax</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Ax</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Ax</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="c1"># plotting the axes</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$A{\bf x}$ where $A = \left[\bf a_1\;a_2\right]$&#39;</span><span class="p">,</span> 
+              <span class="s1">&#39;Ax where A = [a_1 a_2]&#39;</span><span class="p">,</span>
+              <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=</span><span class="mi">290</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L05Axb_26_0.png" src="_images/L05Axb_26_0.png" />
+</div>
+</div>
+<div class="toggle docutils container">
+<p>Question Time! Q5.1</p>
+</div>
+</div>
+</div>
+<div class="section" id="the-matrix-equation">
+<h2>The Matrix Equation<a class="headerlink" href="#the-matrix-equation" title="Permalink to this headline">¶</a></h2>
+<p>Now let’s write an equation.   Let’s start with a linear system:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rcl}x_1+2x_2-x_3&amp;=&amp;4\\-5x_2+3x_3&amp;=&amp;1\end{array}\end{split}\]</div>
+<p>We saw last lecture that this linear system is equivalent to a vector equation, namely</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}x_1\left[\begin{array}{r}1\\0\end{array}\right] + x_2\left[\begin{array}{r}2\\-5\end{array}\right] + x_3\left[\begin{array}{r}-1\\3\end{array}\right] = \left[\begin{array}{r}4\\1\end{array}\right]\end{split}\]</div>
+<p>Now, today we have learned that this vector equation is also equivalent to this <strong>matrix equation</strong>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrr}1&amp;2&amp;-1\\0&amp;-5&amp;3\end{array}\right]\;\left[\begin{array}{r}x_1\\x_2\\x_3\end{array}\right] = \left[\begin{array}{r}4\\1\end{array}\right].\end{split}\]</div>
+<p>which has the form <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span>.</p>
+<p>Notice how simple it is to go from the linear system to the matrix equation: we put the coefficients of the linear system into <span class="math notranslate nohighlight">\(A\)</span>, and the right hand side values into <span class="math notranslate nohighlight">\({\bf b},\)</span> and we can then write the matrix equation <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> immediately.</p>
+<p>OK, let’s write this out formally.</p>
+<p><strong>Theorem.</strong>  If <span class="math notranslate nohighlight">\(A\)</span> is an <span class="math notranslate nohighlight">\(m\times n\)</span> matrix, with columns <span class="math notranslate nohighlight">\(\bf a_1, a_2, \dots, a_n,\)</span> and if <span class="math notranslate nohighlight">\(\bf b\)</span> is in <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span>, the matrix equation</p>
+<div class="math notranslate nohighlight">
+\[ A{\bf x} = {\bf b}\]</div>
+<p>has the same solution set as the vector equation</p>
+<div class="math notranslate nohighlight">
+\[ x_1{\bf a_1} + x_2{\bf a_2} + ... + x_n{\bf a_n} = {\bf b}\]</div>
+<p>which, in turn, has the same solution set as the system of linear equations whose augmented matrix is</p>
+<div class="math notranslate nohighlight">
+\[[{\bf a_1} \; {\bf a_2} \; ... \;{\bf a_n}\;{\bf b}].\]</div>
+<p>This is an absolutely key result, because it gives us power to solve problems from three different viewpoints.  If we are looking for a solution set <span class="math notranslate nohighlight">\(x_1, x_2, \dots, x_n,\)</span> there are three different questions we can ask:</p>
+<ol class="simple">
+<li><p>What is the solution set of the linear system <span class="math notranslate nohighlight">\([{\bf a_1} \; {\bf a_2} \; ... \;{\bf a_n}\;{\bf b}]\)</span>?</p></li>
+<li><p>What is the solution set of the vector equation <span class="math notranslate nohighlight">\(x_1{\bf a_1} + x_2{\bf a_2} + ... + x_n{\bf a_n} = {\bf b}?\)</span></p></li>
+<li><p>What is the solution set of the matrix equation <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}?\)</span></p></li>
+</ol>
+<p>We now know that all these questions have the same answer.  And all of them can be solved by row reducing the augmented matrix <span class="math notranslate nohighlight">\([{\bf a_1} \; {\bf a_2} \; ... \;{\bf a_n}\;{\bf b}].\)</span></p>
+<p>In particular, one of the most common questions you will encounter is, given a matrix <span class="math notranslate nohighlight">\(A\)</span> and a vector <span class="math notranslate nohighlight">\({\bf b}\)</span>, is there an <span class="math notranslate nohighlight">\({\bf x}\)</span> that makes <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> true?</p>
+<p>You will encounter this form of question quite often in fields like computer graphics, data mining, algorithms, or quantum computing.</p>
+<div class="toggle docutils container">
+<p>Question Time! Q5.2</p>
+</div>
+</div>
+<div class="section" id="existence-of-solutions">
+<h2>Existence of Solutions<a class="headerlink" href="#existence-of-solutions" title="Permalink to this headline">¶</a></h2>
+<p>We can see that <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> has a solution if and only if <span class="math notranslate nohighlight">\(\bf b\)</span> is a linear combination of the columns of <span class="math notranslate nohighlight">\(A\)</span> – that is, if <span class="math notranslate nohighlight">\(\bf b\)</span> lies in Span<span class="math notranslate nohighlight">\(\{{\bf a_1},{\bf a_2}, \dots ,{\bf a_n}\}.\)</span>   We can adopt the term “consistent” here too – i.e., is <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> consistent?</p>
+<p>Now we will ask a more general question, which is specifically about the matrix <span class="math notranslate nohighlight">\(A\)</span>.  That is:</p>
+<p>Does <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> have a solution for <em>any</em> <span class="math notranslate nohighlight">\({\bf b}\)</span>?</p>
+<p><strong>Example.</strong></p>
+<p>Let <span class="math notranslate nohighlight">\(A = \left[\begin{array}{rrr}1&amp;3&amp;4\\-4&amp;2&amp;-6\\-3&amp;-2&amp;-7\end{array}\right]\)</span> and <span class="math notranslate nohighlight">\({\bf b} = \left[\begin{array}{r}b_1\\b_2\\b_3\end{array}\right].\)</span>  Is the equation <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> consistent for all possible <span class="math notranslate nohighlight">\(b_1, b_2, b_3?\)</span></p>
+<p>We know how to test for consistency: form the augmented matrix and row reduce it.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrrc}1&amp;3&amp;4&amp;b_1\\-4&amp;2&amp;-6&amp;b_2\\-3&amp;-2&amp;-7&amp;b_3\end{array}\right] \sim \left[\begin{array}{rrrc}1&amp;3&amp;4&amp;b_1\\0&amp;14&amp;10&amp;b_2+4b_1\\0&amp;7&amp;5&amp;b_3+3b_1\end{array}\right] \sim \left[\begin{array}{rrrc}1&amp;3&amp;4&amp;b_1\\0&amp;14&amp;10&amp;b_2+4b_1\\0&amp;0&amp;0&amp;b_3+3b_1-\frac{1}{2}(b_2 + 4b_1)\end{array}\right].\end{split}\]</div>
+<p>The third entry in the column 4, simplified, is <span class="math notranslate nohighlight">\(b_1 -\frac{1}{2}b_2+ b_3.\)</span> This expression can be nonzero.</p>
+<p>For example, take <span class="math notranslate nohighlight">\(b_1 = 1, b_2 = 1, b_3 = 1;\)</span> then the lower right entry is 1.5.  This gives a row of the form <span class="math notranslate nohighlight">\(0 = k\)</span> which indicates an inconsistent system.</p>
+<p>So the answer is “no, <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> is <strong>not</strong> consistent for all possible <span class="math notranslate nohighlight">\(b_1, b_2, b_3.\)</span>”</p>
+<p>Here is the echelon form of <span class="math notranslate nohighlight">\(A\)</span> (note we are talking only about <span class="math notranslate nohighlight">\(A\)</span> here, not the augmented matrix):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrr}1&amp;3&amp;4\\0&amp;14&amp;10\\0&amp;0&amp;0\end{array}\right].\end{split}\]</div>
+<p>The equation <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> fails to be consistent for all <span class="math notranslate nohighlight">\(\bf b\)</span> because the echelon form of <span class="math notranslate nohighlight">\(A\)</span> has a row of zeros.</p>
+<p>If <span class="math notranslate nohighlight">\(A\)</span> had a pivot in all three rows, we would not care about the calculations in the augmented column because no matter what is in the augmented column, an echelon form of the augmented matrix could not have a row indicating <span class="math notranslate nohighlight">\(0 = k\)</span>.</p>
+<p><em>Question:</em> OK, so <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> is not always consistent.  When <strong>is</strong> <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> consistent?</p>
+<p><em>Answer:</em> When <span class="math notranslate nohighlight">\(b_1 -\frac{1}{2}b_2+ b_3 = 0.\)</span>  This makes the last row of the augmented matrix all zeros.</p>
+<p>This is a single equation in three unknowns, so it defines a plane through the origin in <span class="math notranslate nohighlight">\(\mathbb{R}^3.\)</span></p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;Ax where A = [a1 a2]&#39;</span><span class="p">,</span> 
+                        <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="n">qr</span><span class="o">=</span><span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">]</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span>  <span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">]</span>
+<span class="n">a3</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.0</span><span class="p">]</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf a_1$&#39;</span><span class="p">,</span> <span class="s1">&#39;a_1&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf a_2$&#39;</span><span class="p">,</span> <span class="s1">&#39;a_2&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a3</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a3</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf a_3$&#39;</span><span class="p">,</span> <span class="s1">&#39;a_3&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf 0$&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotSpan</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">a3</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a3</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$b_1 - \frac</span><span class="si">{1}{2}</span><span class="s1">b_2 + b_3 = 0$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L05Axb_47_0.png" src="_images/L05Axb_47_0.png" />
+</div>
+</div>
+<p>The set of points that makes <span class="math notranslate nohighlight">\(b_1 - \frac{1}{2}b_2 + b_3 = 0\)</span> is the set of <span class="math notranslate nohighlight">\(\bf b\)</span> values that makes <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> consistent.  But if <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> then <span class="math notranslate nohighlight">\({\bf b}\)</span> lies within Span<span class="math notranslate nohighlight">\(\{\bf a_1, a_2, a_3\}\)</span>.</p>
+<p>So we have determined that Span<span class="math notranslate nohighlight">\(\{\bf a_1, a_2, a_3\}\)</span> is the same point set as <span class="math notranslate nohighlight">\(b_1 - \frac{1}{2}b_2 + b_3 = 0\)</span>.</p>
+<p>That means that Span<span class="math notranslate nohighlight">\(\{\bf a_1, a_2, a_3\}\)</span> is a <em>plane</em> in this case.  In the figure we have plotted <span class="math notranslate nohighlight">\(\bf a_1, a_2,\)</span> and <span class="math notranslate nohighlight">\(\bf a_3\)</span> and you can see that all three points, as well as the origin, lie in the same plane.</p>
+<p>Now, in the most general case, four points will <em>not</em> line in a plane.  In other words, the span of three vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> can be the whole space <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>.</p>
+<div class="toggle docutils container">
+<p>Question Time! Q5.3</p>
+</div>
+<p>Now we will tie together all three views of our question.</p>
+<p><strong>Theorem:</strong> Let <span class="math notranslate nohighlight">\(A\)</span> be an <span class="math notranslate nohighlight">\(m \times n\)</span> matrix.  Then the following statements are logically equivalent.  That is, for a particular <span class="math notranslate nohighlight">\(A,\)</span> either they are all true or they are all false.</p>
+<ol class="simple">
+<li><p>For each <span class="math notranslate nohighlight">\(\bf b\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^m,\)</span> the equation <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> has a solution.</p></li>
+<li><p>Each <span class="math notranslate nohighlight">\(\bf b\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span> is a linear combination of the columns of <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p>The columns of <span class="math notranslate nohighlight">\(A\)</span> span <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(A\)</span> has a pivot position in every row.</p></li>
+</ol>
+<p>This theorem is very powerful and general.</p>
+<p>Notice that we started by thinking about a matrix equation, but we ended by making statements about <span class="math notranslate nohighlight">\(A\)</span> alone.</p>
+<p>This is the first time we are studying the property of a matrix itself; we will study many properties of matrices on their own as we progress.</p>
+</div>
+<div class="section" id="inner-product">
+<h2>Inner Product<a class="headerlink" href="#inner-product" title="Permalink to this headline">¶</a></h2>
+<p>There is a simpler way to compute the matrix-vector product.  It uses a concept called the <strong>inner product</strong> or <strong>dot product.</strong></p>
+<p>The inner product is defined for two sequences of numbers, and returns a single number.   For example, the expression</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}[3\;5\;1] \left[\begin{array}{c}2\\-1\\4\end{array}\right]\end{split}\]</div>
+<p>is the same as</p>
+<div class="math notranslate nohighlight">
+\[(3\cdot 2) + (5\cdot -1) + (1 \cdot 4)\]</div>
+<p>which is the sum of the products of the corresponding entries, and yields the scalar value 5.  This is the inner product of the two sequences.</p>
+<p>The general definition of the inner product is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}[x_1\;x_2\;\dots\;x_n] \left[\begin{array}{c}y_1\\y_2\\\vdots\\y_n\end{array}\right] = \sum_{i=1}^n x_i y_i\end{split}\]</div>
+<p>Let’s see how this can be used to think about matrix-vector multiplication.</p>
+<p>Consider the matrix-vector multiplication</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrr}2&amp;3&amp;4\\-1&amp;5&amp;-3\\6&amp;-2&amp;8\end{array}\right]\;\left[\begin{array}{r}x_1\\x_2\\x_3\end{array}\right]\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}= x_1\left[\begin{array}{r}2\\-1\\6\end{array}\right] + x_2\left[\begin{array}{r}3\\5\\-2\end{array}\right] + x_3\left[\begin{array}{r}4\\-3\\8\end{array}\right]\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}= \left[\begin{array}{r}2x_1\\-1x_1\\6x_1\end{array}\right] + \left[\begin{array}{r}3x_2\\5x_2\\-2x_2\end{array}\right] + \left[\begin{array}{r}4x_3\\-3x_3\\8x_3\end{array}\right]\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}= \left[\begin{array}{r}2x_1+3x_2+4x_3\\-1x_1+5x_2-3x_3\\6x_1-2x_2+8x_3\end{array}\right] \end{split}\]</div>
+<p>Now, what is the first entry in the result?  It is the <em>inner product</em> of the first row of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(\bf x\)</span>.  That is,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}[2\;3\;4] \left[\begin{array}{c}x_1\\x_2\\x_3\end{array}\right] = [2x_1+3x_2+4x_3]\end{split}\]</div>
+<p>This is a fast and simple way to compute the result of a matrix-vector product.  Each element of the result is the <em>inner product</em> of the corresponding row of <span class="math notranslate nohighlight">\(A\)</span> and the vector <span class="math notranslate nohighlight">\(\bf x\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \left[\begin{array}{ccc}2&amp;3&amp;4\\&amp;&amp;\\&amp;&amp;\end{array}\right]\left[\begin{array}{c}x_1\\x_2\\x_3\end{array}\right] = \left[\begin{array}{ccc}2x_1&amp;+3x_2&amp;+4x_3\\&amp;&amp;\\&amp;&amp;\end{array}\right]\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} \left[\begin{array}{ccc}&amp;&amp;\\-1&amp;5&amp;-3\\&amp;&amp;\end{array}\right]\left[\begin{array}{c}x_1\\x_2\\x_3\end{array}\right] = \left[\begin{array}{ccc}&amp;&amp;\\-x_1&amp;+5x_2&amp;-3x_3\\&amp;&amp;\end{array}\right]\end{split}\]</div>
+<div class="section" id="example-matrix-vector-multiplication-using-inner-products">
+<h3>Example: Matrix-vector multiplication using Inner Products<a class="headerlink" href="#example-matrix-vector-multiplication-using-inner-products" title="Permalink to this headline">¶</a></h3>
+<p>Here we compute the same result as before, but now using inner products:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrr}1&amp;2&amp;-1\\0&amp;-5&amp;3\end{array}\right]\left[\begin{array}{r}4\\3\\7\end{array}\right] = \left[\begin{array}{rrr}1\cdot 4&amp;+2\cdot 3&amp;-1\cdot 7\\0\cdot 4&amp;-5\cdot 3&amp;+3\cdot 7\end{array}\right] = \left[\begin{array}{r}3\\6\end{array}\right].\end{split}\]</div>
+</div>
+</div>
+<div class="section" id="an-i-nteresting-matrix">
+<h2>An (I)nteresting matrix<a class="headerlink" href="#an-i-nteresting-matrix" title="Permalink to this headline">¶</a></h2>
+<p>Consider this matrix equation:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrr}1&amp;0&amp;0\\0&amp;1&amp;0\\0&amp;0&amp;1\end{array}\right]\;\left[\begin{array}{r}r\\s\\t\end{array}\right] = \left[\begin{array}{rrr}1\cdot r&amp;+0\cdot s&amp;+0\cdot t\\0\cdot r&amp;+1\cdot s&amp;+0\cdot t\\0\cdot r&amp;+0\cdot s&amp;+1\cdot t\end{array}\right] = \left[\begin{array}{r}r\\s\\t\end{array}\right].\end{split}\]</div>
+<p>This sort of matrix – with 1s on the diagonal and 0s everywhere else – is called an <strong>identity matrix</strong> and is denoted by <span class="math notranslate nohighlight">\(I\)</span>.</p>
+<p>You can see that for any <span class="math notranslate nohighlight">\(\bf x\)</span>, <span class="math notranslate nohighlight">\(I\bf x = x.\)</span></p>
+</div>
+<div class="section" id="algebraic-properties-of-the-matrix-vector-product">
+<h2>Algebraic Properties of the Matrix-Vector Product<a class="headerlink" href="#algebraic-properties-of-the-matrix-vector-product" title="Permalink to this headline">¶</a></h2>
+<p>We can now begin to lay out the <em>algebra</em> of matrices.</p>
+<p>That is, we can define rules for valid symbolic manipulation of matrices.</p>
+<p><strong>Theorem.</strong> If <span class="math notranslate nohighlight">\(A\)</span> is an <span class="math notranslate nohighlight">\(m \times n\)</span> matrix, <span class="math notranslate nohighlight">\(\bf u\)</span> and <span class="math notranslate nohighlight">\(\bf v\)</span> are vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, and <span class="math notranslate nohighlight">\(c\)</span> is a scalar, then:</p>
+<ol class="simple">
+<li><p><span class="math notranslate nohighlight">\(A({\bf u} + {\bf v}) = A{\bf u} + A{\bf v};\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(A(c{\bf u}) = c(A{\bf u}).\)</span></p></li>
+</ol>
+<p><strong>Proof:</strong> Let us take <span class="math notranslate nohighlight">\(n=3\)</span>, <span class="math notranslate nohighlight">\(A = [\bf a_1\;a_2\;a_3],\)</span> and <span class="math notranslate nohighlight">\(\bf u,v \in \mathbb{R}^3.\)</span></p>
+<p>Then to prove (1.):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A({\bf u} + {\bf v}) = [{\bf a_1\;a_2\;a_3}]\left[\begin{array}{r}u_1+v_1\\u_2+v_2\\u_3+v_3\end{array}\right]\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[=(u_1+v_1){\bf a_1} + (u_2+v_2){\bf a_2} + (u_3+v_3){\bf a_3}\]</div>
+<div class="math notranslate nohighlight">
+\[=(u_1{\bf a_1} + u_2{\bf a_2} + u_3{\bf a_3}) + (v_1{\bf a_1} + v_2{\bf a_2} + v_3{\bf a_3})\]</div>
+<div class="math notranslate nohighlight">
+\[=A{\bf u} + A{\bf v}.\]</div>
+<p>And to prove (2.):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A(c{\bf u}) = [{\bf a_1\;a_2\;a_3}]\left[\begin{array}{r}c u_1\\c u_2\\c u_3\end{array}\right]\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[ = (c u_1){\bf a_1} + (c u_2){\bf a_2} + (c u_3){\bf a_3}\]</div>
+<div class="math notranslate nohighlight">
+\[= c (u_1{\bf a_1}) + c (u_2{\bf a_2}) + c (u_3{\bf a_3})\]</div>
+<div class="math notranslate nohighlight">
+\[= c (u_1{\bf a_1} + u_2{\bf a_2} + u_3{\bf a_3})\]</div>
+<div class="math notranslate nohighlight">
+\[= c (A{\bf u}).\]</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="L04VectorEquations.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Vector Equations</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="L06LinearIndependence.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Linear Independence</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Mark Crovella<br/>
+        
+            &copy; Copyright 2020-2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

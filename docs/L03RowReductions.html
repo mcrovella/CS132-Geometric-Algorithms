@@ -1,0 +1,888 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gaussian Elimination &#8212; Linear Algebra, Geometry, and Computation</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Vector Equations" href="L04VectorEquations.html" />
+    <link rel="prev" title="Numbers" href="L02Numerics.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      <img src="_static/DiagramAR-icon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Linear Algebra, Geometry, and Computation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="landing-page.html">
+   Preface
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="L01LinearEquations.html">
+   Linear Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L02Numerics.html">
+   Numbers
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Gaussian Elimination
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L04VectorEquations.html">
+   Vector Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L05Axb.html">
+   <span class="math notranslate nohighlight">
+    \(A{\bf x} = {\bf b}\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L06LinearIndependence.html">
+   Linear Independence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L07LinearTransformations.html">
+   Linear Transformations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L08MatrixofLinearTranformation.html">
+   The Matrix of a Linear Transformation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L09MatrixOperations.html">
+   Matrix Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L10MatrixInverse.html">
+   The Inverse of a Matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L11MarkovChains.html">
+   Markov Chains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L12MatrixFactorizations.html">
+   Matrix Factorizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L13ComputerGraphics-Spring2021.html">
+   Computer Graphics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L14Subspaces.html">
+   Subspaces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L15DimensionRank.html">
+   Dimension and Rank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L16Eigenvectors.html">
+   Eigenvectors and Eigenvalues
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L17CharacteristicEqn.html">
+   The Characteristic Equation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L18Diagonalization.html">
+   Diagonalization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L19PageRank.html">
+   PageRank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L20Orthogonality.html">
+   Analytic Geometry in
+   <span class="math notranslate nohighlight">
+    \(\mathbb{R}^n\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L21OrthogonalSets.html">
+   Orthogonal Sets and Projection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L22LeastSquares.html">
+   Least Squares
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L23LinearModels.html">
+   Linear Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L24SymmetricMatrices.html">
+   Symmetric Matrices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L25SVD.html">
+   The Singular Value Decomposition
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/L03RowReductions.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/mcrovella/CS132-Geometric-Algorithms"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L03RowReductions.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#echelon-forms">
+   Echelon Forms
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#properties-of-echelon-forms">
+   Properties of Echelon Forms
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gaussian-elimination-the-algorithm">
+   Gaussian Elimination: The Algorithm
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#example">
+   Example
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#how-many-operations-does-gaussian-elimination-require">
+   How Many Operations does Gaussian Elimination Require?
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-cost-of-a-numerical-computation">
+     The Cost of a Numerical Computation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-cost-of-gaussian-elimination">
+     The Cost of Gaussian Elimination
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-the-echelon-form">
+   Using the Echelon Form
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#geometric-interpretation">
+   Geometric Interpretation
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="gaussian-elimination">
+<h1>Gaussian Elimination<a class="headerlink" href="#gaussian-elimination" title="Permalink to this headline">¶</a></h1>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for conversion to PDF use these settings</span>
+<span class="c1"># %matplotlib inline</span>
+<span class="c1"># qr_setting = &#39;url&#39;</span>
+<span class="c1"># qrviz_setting = &#39;show&#39;</span>
+<span class="c1">#</span>
+<span class="c1"># for lecture use notebook</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">qr_setting</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="c1">#</span>
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format=&#39;retina&#39;
+<span class="c1"># import libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">laUtilities</span> <span class="k">as</span> <span class="nn">ut</span>
+<span class="kn">import</span> <span class="nn">slideUtilities</span> <span class="k">as</span> <span class="nn">sl</span>
+<span class="kn">import</span> <span class="nn">demoUtilities</span> <span class="k">as</span> <span class="nn">dm</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">qrcode</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display_html</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Math</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Latex</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit: http://en.wikipedia.org/wiki/Carl_Friedrich_Gauss#mediaviewer/File:Carl_Friedrich_Gauss.jpg</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/Carl_Friedrich_Gauss.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">450</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L03RowReductions_2_0.jpg" src="_images/L03RowReductions_2_0.jpg" />
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HTML</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;&lt;a href=&quot;http://commons.wikimedia.org/wiki/File:Carl_Friedrich_Gauss.jpg#/media/File:Carl_Friedrich_Gauss.jpg&quot;&gt;&quot;Carl Friedrich Gauss&lt;/a&gt;&quot; by Gottlieb BiermannA. Wittmann (photo) - Gauß-Gesellschaft Göttingen e.V. (Foto: A. Wittmann).. Licensed under Public Domain via &lt;a href=&quot;//commons.wikimedia.org/wiki/&quot;&gt;Wikimedia Commons&lt;/a&gt;.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><a href="http://commons.wikimedia.org/wiki/File:Carl_Friedrich_Gauss.jpg#/media/File:Carl_Friedrich_Gauss.jpg">"Carl Friedrich Gauss</a>" by Gottlieb BiermannA. Wittmann (photo) - Gauß-Gesellschaft Göttingen e.V. (Foto: A. Wittmann).. Licensed under Public Domain via <a href="//commons.wikimedia.org/wiki/">Wikimedia Commons</a>.</div></div>
+</div>
+<p>In the last lecture we described a method for solving linear systems, but our description was somewhat informal.  Today we’ll formally define <em>Gaussian Elimination</em> , sometimes called <em>Gauss-Jordan Elimination</em>.</p>
+<p>Carl Gauss lived from 1777 to 1855, in Germany.  He is often called “the greatest mathematician since antiquity.”</p>
+<p>When Gauss was around 17 years old, he developed a method for working with inconsistent linear systems, called the method of <em>least squares</em>.  A few years later (at the advanced age of 24) he turned his attention to a particular problem in astronomy.  In 1801 the Sicilian astronomer Piazzi discovered a (dwarf) planet, which he named Ceres, in honor of the patron goddess of Sicily.  Piazzi took measurements of Ceres’ position for 40 nights, but then lost track of it when it passed behind the sun.  Piazzi had only tracked Ceres through about 3 degrees of sky.  Gauss however then succeeded in calculating the orbit of Ceres, even though the task seemed hopeless on the basis of so few observations.  His computations were so accurate that the astronomer Olbers located Ceres again later the same year.</p>
+<p>In the course of his computations Gauss had to solve systems of 17 linear equations.   Since Gauss at first refused to reveal the methods that led to this amazing accomplishment, some even accused him of sorcery.  Eight years later, in 1809, Gauss revealed his methods of orbit computation in his book <em>Theoria Motus Corporum Coelestium</em>.</p>
+<p>Although Gauss invented this method (which Jordan then popularized), it was a reinvention.   As we mentioned in the previous lecture, linear systems were being solved by a similar method in China 2,000 years earlier.</p>
+<p>Based on Bretscher, <em>Linear Algebra</em> , pp 17-18, and the Wikipedia article on Gauss.</p>
+<div class="toggle docutils container">
+<p>Question Time!  Q3.1</p>
+</div>
+<div class="section" id="echelon-forms">
+<h2>Echelon Forms<a class="headerlink" href="#echelon-forms" title="Permalink to this headline">¶</a></h2>
+<p>An <em>echelon</em> is a term used in the military to decribe an arrangement of rows (of troops, or ships, etc) in which each successive row extends further than the row in front of it.</p>
+<p>At the end of the last lecture, we had constructed this matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left[\begin{array}{rrrr}
+2&amp;-3&amp;2&amp;1\\
+0&amp;1&amp;-4&amp;8\\
+0&amp;0&amp;0&amp;-37/2
+\end{array}\right]
+\end{split}\]</div>
+<p>A “leading entry” is the first nonzero element in a row.</p>
+<p><strong>Definition:</strong> A matrix is in <strong>echelon form</strong> (or row echelon form) if it has the following three properties:</p>
+<ol class="simple">
+<li><p>All nonzero rows are above any rows of all zeros.</p></li>
+<li><p>Each leading entry of a row is in a column to the right of the leading entry of the row above it.</p></li>
+<li><p>All entries in a column below a leading entry are zeros.</p></li>
+</ol>
+<p>For example:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left[\begin{array}{cccccccccc}
+0&amp;\blacksquare&amp;*&amp;*&amp;*&amp;*&amp;*&amp;*&amp;*&amp;*\\
+0&amp;0&amp;0&amp;\blacksquare&amp;*&amp;*&amp;*&amp;*&amp;*&amp;*\\
+0&amp;0&amp;0&amp;0&amp;\blacksquare&amp;*&amp;*&amp;*&amp;*&amp;*\\
+0&amp;0&amp;0&amp;0&amp;0&amp;\blacksquare&amp;*&amp;*&amp;*&amp;*\\
+0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;\blacksquare&amp;*\\
+0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0\\
+\end{array}\right]
+\end{split}\]</div>
+<p>In this diagram, the <span class="math notranslate nohighlight">\(\blacksquare\)</span>s are nonzero, and the <span class="math notranslate nohighlight">\(*\)</span>s can be any value.</p>
+<p>This definition is a refinement of the notion of a <em>triangular</em> matrix (or system) that was introduced in the previous lecture.</p>
+<p>The goal of the <strong>first</strong> step of Gaussian elimination is to convert the augmented matrix into echelon form.</p>
+<p><strong>Definition:</strong> A matrix is in <strong>reduced echelon form</strong> (or reduced row echelon form) if it is in echelon form, and furthermore:</p>
+<ol class="simple">
+<li><p>The leading entry in each nonzero row is 1.</p></li>
+<li><p>Each leading 1 is the only nonzero entry in its column.</p></li>
+</ol>
+<p>For example:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left[\begin{array}{cccccccccc}
+0&amp;\fbox{1}&amp;*&amp;0&amp;0&amp;0&amp;*&amp;*&amp;0&amp;*\\
+0&amp;0&amp;0&amp;\fbox{1}&amp;0&amp;0&amp;*&amp;*&amp;0&amp;*\\
+0&amp;0&amp;0&amp;0&amp;\fbox{1}&amp;0&amp;*&amp;*&amp;0&amp;*\\
+0&amp;0&amp;0&amp;0&amp;0&amp;\fbox{1}&amp;*&amp;*&amp;0&amp;*\\
+0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;\fbox{1}&amp;*\\
+0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0&amp;0\\
+\end{array}
+\right]
+\end{split}\]</div>
+<p>The goal of the <strong>second</strong> step of Gaussian elimination is to convert the matrix into reduced echelon form.</p>
+</div>
+<div class="section" id="properties-of-echelon-forms">
+<h2>Properties of Echelon Forms<a class="headerlink" href="#properties-of-echelon-forms" title="Permalink to this headline">¶</a></h2>
+<p>Any matrix may be row reduced to an echelon form.  Echelon forms are <em>not</em> unique; depending on the sequence of row operations, different echelon forms may be produced from a given matrix.</p>
+<p>However, the reduced echelon form of a matrix <em>is</em> unique.</p>
+<p><strong>Theorem:</strong> <font color=maroon>Each matrix is equivalent to one and only one reduced echelon matrix.</font></p>
+<p>The positions of the leading entries of an echelon matrix and its reduced form are the same.  So, by the Theorem, the leading entries of <em>any</em> echelon form of a given matrix are in the same positions.</p>
+<p><strong>Definition:</strong> A pivot position in a matrix <span class="math notranslate nohighlight">\(A\)</span> is the position of a leading 1 in the reduced echelon form of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+</div>
+<div class="section" id="gaussian-elimination-the-algorithm">
+<h2>Gaussian Elimination: The Algorithm<a class="headerlink" href="#gaussian-elimination-the-algorithm" title="Permalink to this headline">¶</a></h2>
+<p>As suggested by the last lecture, Gaussian Elimination has two stages.  Given an augmented matrix <span class="math notranslate nohighlight">\(A\)</span> representing a linear system:</p>
+<ol class="simple">
+<li><p>Convert <span class="math notranslate nohighlight">\(A\)</span> to one of its echelon forms, say <span class="math notranslate nohighlight">\(U\)</span>.</p></li>
+<li><p>Convert <span class="math notranslate nohighlight">\(U\)</span> to <span class="math notranslate nohighlight">\(A\)</span>’s reduced row echelon form.</p></li>
+</ol>
+<p>Each stage iterates over the rows of <span class="math notranslate nohighlight">\(A\)</span>, starting with the first row.</p>
+<p><strong>Row Reduction Operations</strong></p>
+<p>Before stating the algorithm, let’s recall the set of operations that we can perform on rows without changing the solution set:</p>
+<ol class="simple">
+<li><p>Multiply a row by a nonzero value.</p></li>
+<li><p>Add a multiple of a row to another row.</p></li>
+<li><p>Swap two rows.</p></li>
+</ol>
+<p><strong>Gaussian Elimination, Stage 1</strong> (Elimination):</p>
+<p>Input: matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>We will use <span class="math notranslate nohighlight">\(i\)</span> to denote the index of the current row.  To start, let <span class="math notranslate nohighlight">\(i = 1\)</span>.
+Repeat the following steps:</p>
+<ol class="simple">
+<li><p>Let <span class="math notranslate nohighlight">\(j\)</span> be the position of the <strong>leftmost nonzero value</strong> in row <span class="math notranslate nohighlight">\(i\)</span> or any row below it.  If there is no such position, stop.</p></li>
+<li><p>If the <span class="math notranslate nohighlight">\(j\)</span>th position in row <span class="math notranslate nohighlight">\(i\)</span> is zero, swap this row with a row below it to make the <span class="math notranslate nohighlight">\(j\)</span>th position nonzero.  This creates a <strong>pivot</strong> in position <span class="math notranslate nohighlight">\(i,j\)</span>.</p></li>
+<li><p>Use row reduction operations to create zeros in all posititions below the pivot.  If any operation creates a row that is all zeros <em>except the last element,</em> the system is inconsistent; stop.</p></li>
+<li><p>Let <span class="math notranslate nohighlight">\(i = i + 1.\)</span> If <span class="math notranslate nohighlight">\(i\)</span> equals the number of rows in <span class="math notranslate nohighlight">\(A\)</span>, stop.</p></li>
+</ol>
+<p>The output of this stage is an echelon form of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<div class="toggle docutils container">
+<p>Question Time! Q3.2</p>
+</div>
+<p><strong>Gaussian Elimination, Stage 2</strong> (Backsubstitution):</p>
+<p>Input: an echelon form of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>We start at the top again, so let <span class="math notranslate nohighlight">\(i = 1\)</span>.  Repeat the following steps:</p>
+<ol class="simple">
+<li><p>If row <span class="math notranslate nohighlight">\(i\)</span> is all zeros, or if <span class="math notranslate nohighlight">\(i\)</span> exceeds the number of rows in <span class="math notranslate nohighlight">\(A\)</span>, stop.</p></li>
+<li><p>If row <span class="math notranslate nohighlight">\(i\)</span> has a nonzero pivot value, divide row <span class="math notranslate nohighlight">\(i\)</span> by its pivot value.  This creates a 1 in the pivot position.</p></li>
+<li><p>Use row reduction operations to create zeros in all positions above the pivot.</p></li>
+<li><p>Let <span class="math notranslate nohighlight">\(i = i+1\)</span>.</p></li>
+</ol>
+<p>The output of this stage is the reduced echelon form of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>The Gaussian Elimination process we’ve described is essentially equivalent to the process described in the last lecture, so we won’t do a lengthy example.  Let the input matrix <span class="math notranslate nohighlight">\(A\)</span> be</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrrrrr}
+0 &amp; 3 &amp; -6 &amp; 6 &amp; 4 &amp; -5\\
+3 &amp; -7 &amp; 8 &amp; -5 &amp; 8 &amp; 9\\
+3 &amp; -9 &amp; 12 &amp; -9 &amp; 6 &amp; 15
+\end{array}\right]\end{split}\]</div>
+<p><strong>Stage 1</strong></p>
+<p>Start with the first row (<span class="math notranslate nohighlight">\(i = 1\)</span>).  The leftmost nonzero in row 1 and below is in position 1.  But since it’s not in row 1, we need to swap.  We’ll swap rows 1 and 3 (we could have swapped 1 and 2).</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrrrrr}
+3 &amp; -9 &amp; 12 &amp; -9 &amp; 6 &amp; 15\\
+3 &amp; -7 &amp; 8 &amp; -5 &amp; 8 &amp; 9\\
+0 &amp; 3 &amp; -6 &amp; 6 &amp; 4 &amp; -5
+\end{array}\right]\end{split}\]</div>
+<p>The pivot is shown in a box. Use row reduction operations to create zeros below the pivot.  In this case, that means subtracting row 1 from row 2.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrrrrr}
+\fbox{3} &amp; -9 &amp; 12 &amp; -9 &amp; 6 &amp; 15\\
+0 &amp; 2 &amp; -4 &amp; 4 &amp; 2 &amp; -6\\
+0 &amp; 3 &amp; -6 &amp; 6 &amp; 4 &amp; -5
+\end{array}\right]\end{split}\]</div>
+<p>Now <span class="math notranslate nohighlight">\(i = 2\)</span>.  The pivot is boxed (no need to do any swaps).  Use row reduction to create zeros below the pivot.  To do so we subtract <span class="math notranslate nohighlight">\(3/2\)</span> times row 2 from row 3.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrrrrr}
+3 &amp; -9 &amp; 12 &amp; -9 &amp; 6 &amp; 15\\
+0 &amp; \fbox{2} &amp; -4 &amp; 4 &amp; 2 &amp; -6\\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 4
+\end{array}\right]\end{split}\]</div>
+<p>Now <span class="math notranslate nohighlight">\(i = 3\)</span>.  Since it is the last row, we are done with Stage 1.  The pivots are marked:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrrrrr}
+\fbox{3} &amp; -9 &amp; 12 &amp; -9 &amp; 6 &amp; 15\\
+0 &amp; \fbox{2} &amp; -4 &amp; 4 &amp; 2 &amp; -6\\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; \fbox{1} &amp; 4
+\end{array}\right]\end{split}\]</div>
+<p><strong>Stage 2</strong></p>
+<p>Starting again with the first row (<span class="math notranslate nohighlight">\(i = 1\)</span>).  Divide row 1 by its pivot.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrrrrr}
+\fbox{1} &amp; -3 &amp; 4 &amp; -3 &amp; 2 &amp; 5\\
+0 &amp; 2 &amp; -4 &amp; 4 &amp; 2 &amp; -6\\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 4
+\end{array}\right]\end{split}\]</div>
+<p>Moving to the next row (<span class="math notranslate nohighlight">\(i = 2\)</span>).  Divide row 2 by its pivot.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrrrrr}
+1 &amp; -3 &amp; 4 &amp; -3 &amp; 2 &amp; 5\\
+0 &amp; \fbox{1} &amp; -2 &amp; 2 &amp; 1 &amp; -3\\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 4
+\end{array}\right]\end{split}\]</div>
+<p>And use row reduction operations to create zeros in all elements above the pivot.  In this case, that means adding 3 times row 2 to row 1.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrrrrr}
+1 &amp; 0 &amp; -2 &amp; 3 &amp; 5 &amp; -4\\
+0 &amp; \fbox{1} &amp; -2 &amp; 2 &amp; 1 &amp; -3\\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; 1 &amp; 4
+\end{array}\right]\end{split}\]</div>
+<p>Moving to the next row (<span class="math notranslate nohighlight">\(i = 3\)</span>).  The pivot is already 1.  So we subtract row 3 from row 2, and subtract 5 times row 3 from row 1.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrrrrr}
+1 &amp; 0 &amp; -2 &amp; 3 &amp; 0 &amp; -24\\
+0 &amp; 1 &amp; -2 &amp; 2 &amp; 0 &amp; -7\\
+0 &amp; 0 &amp; 0 &amp; 0 &amp; \fbox{1} &amp; 4
+\end{array}\right]\end{split}\]</div>
+<p>And we are done.</p>
+</div>
+<div class="section" id="how-many-operations-does-gaussian-elimination-require">
+<h2>How Many Operations does Gaussian Elimination Require?<a class="headerlink" href="#how-many-operations-does-gaussian-elimination-require" title="Permalink to this headline">¶</a></h2>
+<p>Gaussian Elimination is the first algorithm we have discussed in the course, and as with any algorithm, it is important to assess its cost.</p>
+<p>First, however we need to talk about how to assess cost when we are talking about numerical computations.</p>
+<div class="section" id="the-cost-of-a-numerical-computation">
+<h3>The Cost of a Numerical Computation<a class="headerlink" href="#the-cost-of-a-numerical-computation" title="Permalink to this headline">¶</a></h3>
+<p>If you have studied algorithms before, you will have learned about “big-O” notation.</p>
+<p>We will <strong>NOT</strong> use big-O notation in this course!</p>
+<p>The reason is that big-O notation does not pay attention to constants.</p>
+<p>However, when studying numerical algorithms, constants matter!</p>
+<p>It <strong>will</strong> matter to us whether an algorithm takes <span class="math notranslate nohighlight">\(n\)</span> versus <span class="math notranslate nohighlight">\(2n\)</span> time!</p>
+<p>Here is how to assess the cost of a numerical algorithm:</p>
+<p>First, we need to define our units:</p>
+<ul class="simple">
+<li><p>We will count the number of <strong>additions, multiplications, divisions, subtractions, or square roots.</strong></p></li>
+</ul>
+<p>(These five operations are required to be implemented by IEEE-754 and so more-or-less have unit cost.)</p>
+<p>These are performed on floating point numbers, so they are called <em>flops</em> (floating point operations).</p>
+<p>Next, we define how we count operations:</p>
+<ul class="simple">
+<li><p>We will be concerned with the highest-powered term in the expression that counts operations.</p></li>
+</ul>
+<p>This tells us how the operation count scales for <strong>very large</strong> inputs.</p>
+<p>For example, let’s say an expression has flop count <span class="math notranslate nohighlight">\(12n^2 + 3n + 2\)</span>, for a problem with input size <span class="math notranslate nohighlight">\(n\)</span>.</p>
+<p>Then the cost of the expression is <span class="math notranslate nohighlight">\(12n^2\)</span>.</p>
+<p>In other words:</p>
+<div class="math notranslate nohighlight">
+\[ \lim_{n\rightarrow\infty} \frac{12n^2 + 3n + 2}{12n^2} = 1. \]</div>
+<p>We will use the symbol <span class="math notranslate nohighlight">\(\sim\)</span> to denote this relationship.</p>
+<p>So we would say that this expression has flop count <span class="math notranslate nohighlight">\(\sim 12n^2\)</span>.</p>
+</div>
+<div class="section" id="the-cost-of-gaussian-elimination">
+<h3>The Cost of Gaussian Elimination<a class="headerlink" href="#the-cost-of-gaussian-elimination" title="Permalink to this headline">¶</a></h3>
+<p>Now, let’s assess the computational cost required to solve a system of <span class="math notranslate nohighlight">\(n\)</span> equations in <span class="math notranslate nohighlight">\(n\)</span> unknowns using Gaussian Elimination.</p>
+<p>For <span class="math notranslate nohighlight">\(n\)</span> equations in <span class="math notranslate nohighlight">\(n\)</span> unknowns, <span class="math notranslate nohighlight">\(A\)</span> is an <span class="math notranslate nohighlight">\(n \times (n+1)\)</span> matrix.</p>
+<p>We can summarize stage 1 of Gaussian Elimination as, in the worst case:</p>
+<ul class="simple">
+<li><p>For each row <span class="math notranslate nohighlight">\(i\)</span> of <span class="math notranslate nohighlight">\(A\)</span>:</p>
+<ul>
+<li><p>add a multiple of row <span class="math notranslate nohighlight">\(i\)</span> to all rows below it</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/L03-GE-1.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">350</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L03RowReductions_44_0.jpg" src="_images/L03RowReductions_44_0.jpg" />
+</div>
+</div>
+<p>For row 1, this becomes <span class="math notranslate nohighlight">\((n-1) \cdot 2(n+1)\)</span> flops.</p>
+<p>That is, there are <span class="math notranslate nohighlight">\(n-1\)</span> rows below row 1, each of those has <span class="math notranslate nohighlight">\(n+1\)</span> elements, and each element requires one multiplication and one addition.  This is <span class="math notranslate nohighlight">\(2n^2-2\)</span> flops for row 1.</p>
+<p>When operating on row <span class="math notranslate nohighlight">\(i\)</span>, there are <span class="math notranslate nohighlight">\(k = n - i + 1\)</span> unknowns and so there are <span class="math notranslate nohighlight">\(2k^2 - 2\)</span> flops required to process the rows below row <span class="math notranslate nohighlight">\(i\)</span>.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/L03-GE-2.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">350</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L03RowReductions_47_0.jpg" src="_images/L03RowReductions_47_0.jpg" />
+</div>
+</div>
+<p>So we can see that <span class="math notranslate nohighlight">\(k\)</span> ranges from <span class="math notranslate nohighlight">\(n\)</span> down to <span class="math notranslate nohighlight">\(1\)</span>.</p>
+<p>So, the number of operations required for the Elimination stage is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{rcl} \sum_{k=1}^n (2k^2 - 2) &amp;=&amp; \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\\
+\end{array}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{rcl}
+\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;&amp;&amp; 2 \left(\sum_{k=1}^n k^2 - \sum_{k=1}^n 1\right)\\
+&amp;=&amp; 2 \left(\frac{n(n+1)(2n+1)}{6} - n\right)\\
+&amp;=&amp; \frac{2}{3} n^3 + n^2 - \frac{5}{3} n
+\end{array}
+\end{split}\]</div>
+<p>The second step above is based on known formulas.</p>
+<p>When <span class="math notranslate nohighlight">\(n\)</span> is large, this expression is dominated by <span class="math notranslate nohighlight">\(\frac{2}{3} n^3\)</span>.</p>
+<p>That is,</p>
+<div class="math notranslate nohighlight">
+\[ \lim_{n\rightarrow\infty} \frac{\frac{2}{3} n^3 + n^2 - \frac{5}{3} n}{\frac{2}{3} n^3} = 1 \]</div>
+<p>The second stage of GE only requires on the order of <span class="math notranslate nohighlight">\(n^2\)</span> flops, so the whole algorithm is dominated by the <span class="math notranslate nohighlight">\(\frac{2}{3} n^3\)</span> flops in the first stage.</p>
+<p>So, we find that:</p>
+<ul class="simple">
+<li><p>The Elimination stage is <span class="math notranslate nohighlight">\(\sim \frac{2}{3} n^3\)</span>.</p></li>
+<li><p>The Backsubstitution stage is <span class="math notranslate nohighlight">\(\sim n^2\)</span>.</p></li>
+</ul>
+<p>Thus we say that the flop count of <strong>Gaussian Elimination is <span class="math notranslate nohighlight">\(\sim \frac{2}{3} n^3\)</span>.</strong></p>
+<div class="toggle docutils container">
+<p>Question Time! Q3.3</p>
+</div>
+</div>
+</div>
+<div class="section" id="using-the-echelon-form">
+<h2>Using the Echelon Form<a class="headerlink" href="#using-the-echelon-form" title="Permalink to this headline">¶</a></h2>
+<p>Returning to the fundamental questions about a linear system:</p>
+<ul class="simple">
+<li><p><font color = maroon>consistency</font> and</p></li>
+<li><p><font color = maroon>uniqueness,</font></p></li>
+</ul>
+<p>we’ve discussed how the echelon form exposes consistency (by creating an equation <span class="math notranslate nohighlight">\(0 = k\)</span> for some nonzero <span class="math notranslate nohighlight">\(k\)</span>).</p>
+<p>Now we can also discuss uniqueness.</p>
+<p>Let’s assume that the augmented matrix of a system has been transformed into the equivalent reduced echelon form:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left[\begin{array}{rrrr}
+1&amp;0&amp;-5&amp;1\\
+0&amp;1&amp;1&amp;4\\
+0&amp;0&amp;0&amp;0
+\end{array}\right]
+\end{split}\]</div>
+<p>This system is consistent.  Is the solution unique?</p>
+<p>The associated system of equations is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{rrrrr}
+x_1 &amp; &amp; -5x_3 &amp;=&amp; 1\\
+&amp;x_2 &amp; +x_3 &amp;=&amp; 4\\
+&amp;&amp;0&amp;=&amp;0\\
+\end{array}
+\end{split}\]</div>
+<p>Variables <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> correspond to pivot columns.   They are called <strong>basic</strong> variables.   The other variable <span class="math notranslate nohighlight">\(x_3\)</span> is a <strong>free</strong> variable.</p>
+<p>Whenever a system is consistent, the solution set can be described explicitly by solving the reduced system of equations for the basic variables <font color = maroon>in terms of the free variables.</font></p>
+<p>This operation is possible because the reduced echelon form places each basic variable in one and only one equation.</p>
+<p>In the example, solve the first and second equations for <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span>. Ignore the third equation; it offers no restriction on the variables.</p>
+<p>So the solution set is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rl}
+x_1 &amp;= 1 + 5x_3\\
+x_2 &amp;= 4 - x_3\\
+x_3 &amp;\mbox{is free}
+\end{array}
+\end{split}\]</div>
+<p>“<span class="math notranslate nohighlight">\(x_3\)</span> is free” means you can choose any value for <span class="math notranslate nohighlight">\(x_3\)</span>.</p>
+<p>In other words, there are an inifinite set of solutions to this linear system. Each solution corresponds to one particular value of <span class="math notranslate nohighlight">\(x_3\)</span>.</p>
+<p>For instance,</p>
+<ul class="simple">
+<li><p>when <span class="math notranslate nohighlight">\(x_3 = 0\)</span>, the solution is <span class="math notranslate nohighlight">\((1,4,0)\)</span>;</p></li>
+<li><p>when <span class="math notranslate nohighlight">\(x_3 = 1,\)</span> the solution is <span class="math notranslate nohighlight">\((6,3,1)\)</span>.</p></li>
+</ul>
+<p>These are <em>parametric</em> descriptions of solutions sets.  The free variables act as parameters.</p>
+<p>So: solving a system amounts to either:</p>
+<ul class="simple">
+<li><p>finding a parametric description of the solution set, or</p></li>
+<li><p>determining that the solution set is empty.</p></li>
+</ul>
+</div>
+<div class="section" id="geometric-interpretation">
+<h2>Geometric Interpretation<a class="headerlink" href="#geometric-interpretation" title="Permalink to this headline">¶</a></h2>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left[\begin{array}{rrrr}
+1&amp;0&amp;-5&amp;1\\
+0&amp;1&amp;1&amp;4\\
+0&amp;0&amp;0&amp;0
+\end{array}\right]
+\end{split}\]</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="s1">&#39;Solution set when one variable is free.&#39;</span><span class="p">,</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> 
+                        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">eq1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">eq2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="s1">&#39;Brown&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq2</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="n">eq2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Blue&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Solution set when one variable is free.&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L03RowReductions_63_0.png" src="_images/L03RowReductions_63_0.png" />
+</div>
+</div>
+<p>Since there is a row of zeros in the reduced echelon form matrix, there are only two equations (rather than three) that determine the solution set.   The equations</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rl}
+x_1 &amp;= 1 + 5x_3\\
+x_2 &amp;= 4 - x_3\\
+x_3 &amp;\mbox{is free}
+\end{array}
+\end{split}\]</div>
+<p>therefore describe a <strong>line</strong> in 3-space.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="L02Numerics.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Numbers</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="L04VectorEquations.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Vector Equations</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Mark Crovella<br/>
+        
+            &copy; Copyright 2020-2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

@@ -1,0 +1,917 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Singular Value Decomposition &#8212; Linear Algebra, Geometry, and Computation</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Symmetric Matrices" href="L24SymmetricMatrices.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      <img src="_static/DiagramAR-icon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Linear Algebra, Geometry, and Computation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="landing-page.html">
+   Preface
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="L01LinearEquations.html">
+   Linear Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L02Numerics.html">
+   Numbers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L03RowReductions.html">
+   Gaussian Elimination
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L04VectorEquations.html">
+   Vector Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L05Axb.html">
+   <span class="math notranslate nohighlight">
+    \(A{\bf x} = {\bf b}\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L06LinearIndependence.html">
+   Linear Independence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L07LinearTransformations.html">
+   Linear Transformations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L08MatrixofLinearTranformation.html">
+   The Matrix of a Linear Transformation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L09MatrixOperations.html">
+   Matrix Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L10MatrixInverse.html">
+   The Inverse of a Matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L11MarkovChains.html">
+   Markov Chains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L12MatrixFactorizations.html">
+   Matrix Factorizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L13ComputerGraphics-Spring2021.html">
+   Computer Graphics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L14Subspaces.html">
+   Subspaces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L15DimensionRank.html">
+   Dimension and Rank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L16Eigenvectors.html">
+   Eigenvectors and Eigenvalues
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L17CharacteristicEqn.html">
+   The Characteristic Equation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L18Diagonalization.html">
+   Diagonalization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L19PageRank.html">
+   PageRank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L20Orthogonality.html">
+   Analytic Geometry in
+   <span class="math notranslate nohighlight">
+    \(\mathbb{R}^n\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L21OrthogonalSets.html">
+   Orthogonal Sets and Projection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L22LeastSquares.html">
+   Least Squares
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L23LinearModels.html">
+   Linear Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L24SymmetricMatrices.html">
+   Symmetric Matrices
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   The Singular Value Decomposition
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/L25SVD.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/mcrovella/CS132-Geometric-Algorithms"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L25SVD.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#maximizing-vert-a-mathbf-x-vert">
+   Maximizing
+   <span class="math notranslate nohighlight">
+    \(\Vert A\mathbf{x}\Vert\)
+   </span>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#vert-a-mathbf-x-vert-2-is-a-quadratic-form">
+     <span class="math notranslate nohighlight">
+      \(\Vert A\mathbf{x}\Vert^2\)
+     </span>
+     is a Quadratic Form
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-singular-values-of-a-matrix">
+   The Singular Values of a Matrix
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-eigenvectors-of-a-ta-lead-to-an-orthogonal-basis-for-operatorname-col-a">
+     The Eigenvectors of
+     <span class="math notranslate nohighlight">
+      \(A^TA\)
+     </span>
+     Lead To an Orthogonal Basis for
+     <span class="math notranslate nohighlight">
+      \(\operatorname{Col} A\)
+     </span>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   The Singular Value Decomposition
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-swiss-army-knife">
+   The Swiss Army Knife
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#wrapup">
+     Wrapup
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for QR codes use inline</span>
+<span class="c1"># %matplotlib inline</span>
+<span class="c1"># qr_setting = &#39;url&#39;</span>
+<span class="c1"># qrviz_setting = &#39;show&#39;</span>
+<span class="c1">#</span>
+<span class="c1"># for lecture use notebook</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">qr_setting</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="c1">#</span>
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format=&#39;retina&#39;
+<span class="c1"># import libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">laUtilities</span> <span class="k">as</span> <span class="nn">ut</span>
+<span class="kn">import</span> <span class="nn">slideUtilities</span> <span class="k">as</span> <span class="nn">sl</span>
+<span class="kn">import</span> <span class="nn">demoUtilities</span> <span class="k">as</span> <span class="nn">dm</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display_html</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Math</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Latex</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="the-singular-value-decomposition">
+<h1>The Singular Value Decomposition<a class="headerlink" href="#the-singular-value-decomposition" title="Permalink to this headline">¶</a></h1>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/440px-Wenger_EvoGrip_S17.JPG&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">350</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L25SVD_2_0.jpg" src="_images/L25SVD_2_0.jpg" />
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image source https://bringatrailer.com/listing/1964-rolls-royce-james-young-phanton-v-limosine/</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/rolls-royce.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">350</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L25SVD_3_0.jpg" src="_images/L25SVD_3_0.jpg" />
+</div>
+</div>
+<p>Today we will study the most useful decomposition in applied Linear Algebra.</p>
+<p>Pretty exciting, eh?</p>
+<blockquote>
+<div><p>The Singular Value Decomposition is the <strong>“Swiss Army Knife”</strong> and the <strong>“Rolls Royce”</strong> of matrix decompositions.</p>
+</div></blockquote>
+<p>– Diane O’Leary</p>
+<p>The singular value decomposition is a matrix factorization.</p>
+<p>Now, the first thing to know is that <strong>EVERY</strong> matrix has a singular value decomposition.</p>
+<div class="section" id="maximizing-vert-a-mathbf-x-vert">
+<h2>Maximizing <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert\)</span><a class="headerlink" href="#maximizing-vert-a-mathbf-x-vert" title="Permalink to this headline">¶</a></h2>
+<p>The singular value decomposition (let’s just call it SVD) is based on a very simple question:</p>
+<p>Let’s say you are given an arbitrary matrix <span class="math notranslate nohighlight">\(A\)</span>, which does not need to be square.</p>
+<p>Here is the question:</p>
+<p>Among all unit vectors, what is the vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> that maximizes <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert\)</span>?</p>
+<p>In other words, in which direction does <span class="math notranslate nohighlight">\(A\)</span> create the largest output vector from a unit input?</p>
+<p>To set the stage to answer this question, let’s review a few facts.</p>
+<p>You recall that the eigenvalues of a <strong>square</strong> matrix <span class="math notranslate nohighlight">\(A\)</span> measure the amount that <span class="math notranslate nohighlight">\(A\)</span> “stretches or shrinks” certain special vectors (the eigenvectors).</p>
+<p>For example, for a square <span class="math notranslate nohighlight">\(A\)</span>, if <span class="math notranslate nohighlight">\(A\mathbf{x} = \lambda\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\Vert \mathbf{x}\Vert = 1,\)</span> then</p>
+<div class="math notranslate nohighlight">
+\[\Vert A\mathbf{x}\Vert = \Vert\lambda\mathbf{x}\Vert = |\lambda|\,\Vert\mathbf{x}\Vert = |\lambda|.\]</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mf">.1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.2</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.7</span><span class="p">]])</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">V</span> <span class="o">@</span> <span class="n">L</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">V</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">360</span><span class="p">))</span><span class="o">/</span><span class="mf">360.0</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">)])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">theta</span><span class="p">]</span>
+<span class="n">Ax</span> <span class="o">=</span> <span class="p">[</span><span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">xv</span><span class="p">)</span> <span class="k">for</span> <span class="n">xv</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">xv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">xv</span> <span class="ow">in</span> <span class="n">x</span><span class="p">],[</span><span class="n">xv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">xv</span> <span class="ow">in</span> <span class="n">x</span><span class="p">],</span><span class="s1">&#39;-b&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">Axv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">Axv</span> <span class="ow">in</span> <span class="n">Ax</span><span class="p">],[</span><span class="n">Axv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">Axv</span> <span class="ow">in</span> <span class="n">Ax</span><span class="p">],</span><span class="s1">&#39;--r&#39;</span><span class="p">)</span>
+<span class="n">theta_step</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">th</span> <span class="ow">in</span> <span class="n">theta_step</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">th</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">th</span><span class="p">)])</span>
+    <span class="n">ut</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">A</span> <span class="o">@</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">length_includes_head</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+<span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.3</span><span class="o">*</span> <span class="n">V</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="mf">0.3</span><span class="o">*</span><span class="n">V</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">length_includes_head</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Black&#39;</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.3</span><span class="o">*</span> <span class="n">V</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="mf">0.3</span><span class="o">*</span><span class="n">V</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]],</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">length_includes_head</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Black&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Eigenvectors of $A$ and the image of the unit circle under $A$&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L25SVD_14_0.png" src="_images/L25SVD_14_0.png" />
+</div>
+</div>
+<p>The <strong>largest</strong> value of <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert\)</span> is the long axis of the ellipse.  Clearly there is some <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> that is mapped to that point by <span class="math notranslate nohighlight">\(A\)</span>.   That <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is what we want to find.</p>
+<p>And let’s make clear that we can apply this idea to <strong>arbitrary</strong> (non-square) matrices.</p>
+<p>Here is an example that shows that we can still ask the question of what unit <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> maximizes <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert\)</span> even when <span class="math notranslate nohighlight">\(A\)</span> is not square.</p>
+<p>For example:</p>
+<p>If <span class="math notranslate nohighlight">\(A = \begin{bmatrix}4&amp;11&amp;14\\8&amp;7&amp;-2\end{bmatrix},\)</span></p>
+<p>then the linear transformation <span class="math notranslate nohighlight">\(\mathbf{x} \mapsto A\mathbf{x}\)</span> maps the unit sphere <span class="math notranslate nohighlight">\(\{\mathbf{x} : \Vert \mathbf{x} \Vert = 1\}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> onto an ellipse in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>, as shown here:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/Lay-fig-7-4-1.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">650</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L25SVD_18_0.jpg" src="_images/L25SVD_18_0.jpg" />
+</div>
+</div>
+<div class="section" id="vert-a-mathbf-x-vert-2-is-a-quadratic-form">
+<h3><span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert^2\)</span> is a Quadratic Form<a class="headerlink" href="#vert-a-mathbf-x-vert-2-is-a-quadratic-form" title="Permalink to this headline">¶</a></h3>
+<p>Now, here is a way to answer our question:</p>
+<p><strong>Problem.</strong> Find the unit vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> at which the length <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert\)</span> is maximized, and compute this maximum length.</p>
+<p><strong>Solution.</strong></p>
+<p>The quantity <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert^2\)</span> is maximized at the same <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> that maximizes <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert\)</span>, and <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert^2\)</span> is easier to study.</p>
+<p>So let’s ask to find the unit vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> at which <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert^2\)</span> is maximized.</p>
+<p>Observe that</p>
+<div class="math notranslate nohighlight">
+\[ \Vert A\mathbf{x}\Vert^2 = (A\mathbf{x})^T(A\mathbf{x}) \]</div>
+<div class="math notranslate nohighlight">
+\[ = \mathbf{x}^TA^TA\mathbf{x} \]</div>
+<div class="math notranslate nohighlight">
+\[ = \mathbf{x}^T(A^TA)\mathbf{x} \]</div>
+<p>Now, <span class="math notranslate nohighlight">\(A^TA\)</span> is a symmetric matrix.</p>
+<p>So we see that <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert^2 = \mathbf{x}^TA^TA\mathbf{x}\)</span> is a quadratic form!</p>
+<p>… and we are seeking to maximize it subject to the constraint <span class="math notranslate nohighlight">\(\Vert \mathbf{x}\Vert = 1\)</span>.</p>
+<p>As we learned in the last lecture, the maximum value of a quadratic form, subject to the constraint that <span class="math notranslate nohighlight">\(\Vert\mathbf{x}\Vert = 1\)</span>, is the largest eigenvalue of the symmetric matrix.</p>
+<p>So the maximum value of <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert^2\)</span> subject to <span class="math notranslate nohighlight">\(\Vert\mathbf{x}\Vert = 1\)</span> is <span class="math notranslate nohighlight">\(\lambda_1\)</span>, the largest eigenvalue of <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
+<p>Also, the maximum is attained at a unit eigenvector of <span class="math notranslate nohighlight">\(A^TA\)</span> corresponding to <span class="math notranslate nohighlight">\(\lambda_1\)</span>.</p>
+<p>For the matrix <span class="math notranslate nohighlight">\(A\)</span> in the 2 <span class="math notranslate nohighlight">\(\times\)</span> 3 example,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A^TA = \begin{bmatrix}4&amp;8\\11&amp;7\\14&amp;-2\end{bmatrix} \,\begin{bmatrix}4&amp;11&amp;14\\8&amp;7&amp;-2\end{bmatrix} = \begin{bmatrix}80&amp;100&amp;40\\100&amp;170&amp;140\\40&amp;140&amp;200\end{bmatrix}.\end{split}\]</div>
+<p>The eigenvalues of <span class="math notranslate nohighlight">\(A^TA\)</span> are <span class="math notranslate nohighlight">\(\lambda_1 = 360, \lambda_2 = 90,\)</span> and <span class="math notranslate nohighlight">\(\lambda_3 = 0.\)</span></p>
+<p>The corresponding unit eigenvectors are, respectively,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{v}_1 = \begin{bmatrix}1/3\\2/3\\2/3\end{bmatrix}, \mathbf{v}_2 = \begin{bmatrix}-2/3\\-1/3\\2/3\end{bmatrix}, \mathbf{v}_3 = \begin{bmatrix}2/3\\-2/3\\1/3\end{bmatrix}.  \end{split}\]</div>
+<p>For <span class="math notranslate nohighlight">\(\Vert\mathbf{x}\Vert = 1\)</span>, the maximum value of <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert\)</span> is <span class="math notranslate nohighlight">\(\Vert A\mathbf{v}_1\Vert = \sqrt{360}.\)</span></p>
+<p>This example shows that the key to understanding the effect of <span class="math notranslate nohighlight">\(A\)</span> on the unit sphere in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> is to examime the quadratic form <span class="math notranslate nohighlight">\(\mathbf{x}^T(A^TA)\mathbf{x}.\)</span></p>
+<p>We can also go back to our 2 <span class="math notranslate nohighlight">\(\times\)</span> 2 example.</p>
+<p>Let’s plot the eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">360</span><span class="p">))</span><span class="o">/</span><span class="mf">360.0</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">)])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">theta</span><span class="p">]</span>
+<span class="n">Ax</span> <span class="o">=</span> <span class="p">[</span><span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">xv</span><span class="p">)</span> <span class="k">for</span> <span class="n">xv</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">xv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">xv</span> <span class="ow">in</span> <span class="n">x</span><span class="p">],[</span><span class="n">xv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">xv</span> <span class="ow">in</span> <span class="n">x</span><span class="p">],</span><span class="s1">&#39;-b&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">Axv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">Axv</span> <span class="ow">in</span> <span class="n">Ax</span><span class="p">],[</span><span class="n">Axv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">Axv</span> <span class="ow">in</span> <span class="n">Ax</span><span class="p">],</span><span class="s1">&#39;--r&#39;</span><span class="p">)</span>
+<span class="n">theta_step</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
+<span class="c1">#for th in theta_step:</span>
+<span class="c1">#    x = np.array([np.sin(th), np.cos(th)])</span>
+<span class="c1">#    ut.plotArrowVec(ax, A @ x, x, head_width=.04, head_length=.04, length_includes_head = True, color=&#39;g&#39;)</span>
+<span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">length_includes_head</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Black&#39;</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]],</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">length_includes_head</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Black&#39;</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">length_includes_head</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]],</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">length_includes_head</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Eigenvectors of $A^TA$ and their images under $A$&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L25SVD_32_0.png" src="_images/L25SVD_32_0.png" />
+</div>
+</div>
+<p>We see that the eigenvector corresponding to the largest eigenvalue of <span class="math notranslate nohighlight">\(A^TA\)</span> indeed shows us where <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert\)</span> is maximized – where the ellipse is longest.</p>
+<p>Also, the other eigenvector of <span class="math notranslate nohighlight">\(A^TA\)</span> shows us where the ellipse is narrowest.</p>
+<p>In fact, the entire geometric behavior of the transformation <span class="math notranslate nohighlight">\(\mathbf{x}\mapsto A\mathbf{x}\)</span> is captured by the quadratic form <span class="math notranslate nohighlight">\(\mathbf{x}^TA^TA\mathbf{x}\)</span>.</p>
+</div>
+</div>
+<div class="section" id="the-singular-values-of-a-matrix">
+<h2>The Singular Values of a Matrix<a class="headerlink" href="#the-singular-values-of-a-matrix" title="Permalink to this headline">¶</a></h2>
+<p>Let’s continue to consider <span class="math notranslate nohighlight">\(A\)</span> to be an arbitrary <span class="math notranslate nohighlight">\(m\times n\)</span> matrix.</p>
+<p>Notice that even though <span class="math notranslate nohighlight">\(A\)</span> is not square in general, <span class="math notranslate nohighlight">\(A^TA\)</span> is square and <strong>symmetric.</strong></p>
+<p>So, there is a lot we can say about <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
+<p>In particular, since <span class="math notranslate nohighlight">\(A^TA\)</span> is symmetric, it can be <strong>orthogonally diagonalized</strong> (as we saw in the last lecture).</p>
+<p>So let <span class="math notranslate nohighlight">\(\{\mathbf{v}_1, \dots, \mathbf{v}_n\}\)</span> be an orthonormal basis for <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> consisting of eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span>, and let <span class="math notranslate nohighlight">\(\lambda_1, \dots, \lambda_n\)</span> be the corresponding eigenvalues of <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
+<p>Then, for any eigenvector <span class="math notranslate nohighlight">\(\mathbf{v}_i\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[ \Vert A\mathbf{v}_i\Vert^2 = (A\mathbf{v}_i)^T A\mathbf{v}_i = \mathbf{v}_i^T A^TA\mathbf{v}_i \]</div>
+<div class="math notranslate nohighlight">
+\[ = \mathbf{v}_i^T(\lambda_i)\mathbf{v}_i \]</div>
+<p>(since <span class="math notranslate nohighlight">\(\mathbf{v}_i\)</span> is an eigenvector of <span class="math notranslate nohighlight">\(A^TA\)</span>)</p>
+<div class="math notranslate nohighlight">
+\[ = \lambda_i\]</div>
+<p>(since <span class="math notranslate nohighlight">\(\mathbf{v}_i\)</span> is a unit vector.)</p>
+<p>Now any expression <span class="math notranslate nohighlight">\(\Vert\cdot\Vert^2\)</span> is nonnegative.</p>
+<p>So the eigenvalues of <span class="math notranslate nohighlight">\(A^TA\)</span> are all nonnegative.</p>
+<p>That is: <span class="math notranslate nohighlight">\(A^TA\)</span> is <strong>positive semidefinite.</strong></p>
+<p>We can therefore renumber the eigenvalues so that</p>
+<div class="math notranslate nohighlight">
+\[\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n \geq 0.\]</div>
+<p><strong>Definition.</strong> The <strong>singular values</strong> of <span class="math notranslate nohighlight">\(A\)</span> are the square roots of the eigenvalues of <span class="math notranslate nohighlight">\(A^TA\)</span>.  They are denoted by <span class="math notranslate nohighlight">\(\sigma_1,\dots,\sigma_n,\)</span> and they are arranged in decreasing order.</p>
+<p>That is, <span class="math notranslate nohighlight">\(\sigma_i = \sqrt{\lambda_i}\)</span> for <span class="math notranslate nohighlight">\(i = 1,\dots,n.\)</span></p>
+<p>By the above argument, <strong>the singular values of <span class="math notranslate nohighlight">\(A\)</span> are the lengths of the vectors <span class="math notranslate nohighlight">\(A\mathbf{v}_1, \dots, A\mathbf{v}_n.\)</span></strong></p>
+<p>Where <span class="math notranslate nohighlight">\(\mathbf{v}_1, \dots, \mathbf{v}_n.\)</span> are the eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span>, normalized to unit length.</p>
+<div class="section" id="the-eigenvectors-of-a-ta-lead-to-an-orthogonal-basis-for-operatorname-col-a">
+<h3>The Eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span> Lead To an Orthogonal Basis for <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span><a class="headerlink" href="#the-eigenvectors-of-a-ta-lead-to-an-orthogonal-basis-for-operatorname-col-a" title="Permalink to this headline">¶</a></h3>
+<p>Now: we know that vectors <span class="math notranslate nohighlight">\(\mathbf{v}_1, \dots, \mathbf{v}_n\)</span> are an orthogonal set because they are eigenvectors of the symmetric matrix <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
+<p>However, it’s <strong>also</strong> the case that <span class="math notranslate nohighlight">\(A\mathbf{v}_1, \dots, A\mathbf{v}_n\)</span> are an orthogonal set.</p>
+<p>This fact is key to the SVD.</p>
+<p>This fact is not obvious at first!</p>
+<p>But it is true – let’s prove it (and a bit more).</p>
+<p><strong>Theorem.</strong> Suppose <span class="math notranslate nohighlight">\(\{\mathbf{v}_1, \dots, \mathbf{v}_n\}\)</span> is an orthonormal basis of <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> consisting of eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span>, arranged so that the corresponding eigenvalues of <span class="math notranslate nohighlight">\(A^TA\)</span> satisfy <span class="math notranslate nohighlight">\(\lambda_1 \geq \cdots \geq \lambda_n,\)</span> and suppose <span class="math notranslate nohighlight">\(A\)</span> has <span class="math notranslate nohighlight">\(r\)</span> nonzero singular values.</p>
+<p>Then <span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span> is an orthogonal basis for <span class="math notranslate nohighlight">\(\operatorname{Col} A,\)</span> and rank <span class="math notranslate nohighlight">\(A = r\)</span>.</p>
+<p>Note how surprising this is: while <span class="math notranslate nohighlight">\(\{\mathbf{v}_1, \dots, \mathbf{v}_n\}\)</span> are a basis for <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span> is a subspace of <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span>.</p>
+<p>Nonetheless,</p>
+<ul class="simple">
+<li><p>two eigenvectors <span class="math notranslate nohighlight">\(\mathbf{v}_i\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}_j \in \mathbb{R}^n\)</span> are orthogonal, and</p></li>
+<li><p><strong>their images</strong> <span class="math notranslate nohighlight">\(A\mathbf{v}_i\)</span> and <span class="math notranslate nohighlight">\(A\mathbf{v}_j \in \mathbb{R}^m\)</span> are also orthogonal.</p></li>
+</ul>
+<p><strong>Proof.</strong>   What we need to do is establish that <span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span> is an orthogonal linearly independent set whose span is <span class="math notranslate nohighlight">\(\operatorname{Col}\ A\)</span>.</p>
+<p>Because <span class="math notranslate nohighlight">\(\mathbf{v}_i\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}_j\)</span> are orthogonal for <span class="math notranslate nohighlight">\(i\neq j\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[ (A\mathbf{v}_i)^T(A\mathbf{v}_j) = \mathbf{v}_i^TA^TA\mathbf{v}_j = \mathbf{v}_i^T(\lambda_j \mathbf{v}_j) = 0.\]</div>
+<p>So <span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_n\}\)</span> is an <strong>orthogonal</strong> set.</p>
+<p>Furthermore, since the lengths of the vectors <span class="math notranslate nohighlight">\(A\mathbf{v}_1, \dots, A\mathbf{v}_n\)</span> are the singular values of <span class="math notranslate nohighlight">\(A\)</span>, and since there are <span class="math notranslate nohighlight">\(r\)</span> nonzero singular values, <span class="math notranslate nohighlight">\(A\mathbf{v}_i \neq {\mathbf 0}\)</span> if and only if <span class="math notranslate nohighlight">\(1 \leq i \leq r.\)</span></p>
+<p>So <span class="math notranslate nohighlight">\(A\mathbf{v}_1, \dots, A\mathbf{v}_r\)</span> are a <strong>linearly independent</strong> set (because they are orthogonal and all nonzero), and clearly they are each in <span class="math notranslate nohighlight">\(\operatorname{Col}\ A\)</span>.</p>
+<p>Finally, we just need to show that <span class="math notranslate nohighlight">\(\operatorname{Span}\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\} = \operatorname{Col} A\)</span>.</p>
+<p>To do this we’ll show that for any <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> in <span class="math notranslate nohighlight">\(\operatorname{Col}\ A\)</span>, we can write <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> in terms of <span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span>:</p>
+<p>Say <span class="math notranslate nohighlight">\(\mathbf{y} = A\mathbf{x}.\)</span></p>
+<p>Because <span class="math notranslate nohighlight">\(\{\mathbf{v}_1, \dots, \mathbf{v}_n\}\)</span> is a basis for <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, we can write <span class="math notranslate nohighlight">\(\mathbf{x} = c_1\mathbf{v}_1 + \dots + c_n\mathbf{v}_n,\)</span> so</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{y} = A\mathbf{x} = c_1A\mathbf{v}_1 + \dots + c_rA\mathbf{v}_r + \dots + c_nA\mathbf{v}_n.\]</div>
+<div class="math notranslate nohighlight">
+\[ = c_1A\mathbf{v}_1 + \dots + c_rA\mathbf{v}_r. \]</div>
+<p>(because <span class="math notranslate nohighlight">\(A\mathbf{v}_i = {\mathbf 0}\)</span> for <span class="math notranslate nohighlight">\(i &gt; r\)</span>).</p>
+<p>In summary: <span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_n\}\)</span> is an (orthogonal) linearly independent set whose span is <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span>, so it is an (orthogonal) basis for <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>.</p>
+<p>Notice that we have also proved that rank <span class="math notranslate nohighlight">\(A = \dim\operatorname{Col}A = r.\)</span></p>
+<p>In other words, if <span class="math notranslate nohighlight">\(A\)</span> has <span class="math notranslate nohighlight">\(r\)</span> nonzero singular values, <span class="math notranslate nohighlight">\(A\)</span> has rank <span class="math notranslate nohighlight">\(r\)</span>.</p>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>The Singular Value Decomposition<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>What we have just proved is that the eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span> are rather special.</p>
+<p>Note that, thinking of <span class="math notranslate nohighlight">\(A\)</span> as a linear operator:</p>
+<ul class="simple">
+<li><p>its domain is <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, and</p></li>
+<li><p>its range is <span class="math notranslate nohighlight">\(\operatorname{Col}A.\)</span></p></li>
+</ul>
+<p>So we have just proved that</p>
+<ul class="simple">
+<li><p>the set <span class="math notranslate nohighlight">\(\{\mathbf{v}_i\}\)</span> is an orthogonal basis for the domain of <span class="math notranslate nohighlight">\(A\)</span>, and</p></li>
+<li><p>the set <span class="math notranslate nohighlight">\(\{A\mathbf{v}_i\}\)</span> is an orthogonal basis for the range of <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+</ul>
+<p>Now we can define the SVD.</p>
+<p><strong>Theorem.</strong> Let <span class="math notranslate nohighlight">\(A\)</span> be an <span class="math notranslate nohighlight">\(m\times n\)</span> matrix with rank <span class="math notranslate nohighlight">\(r\)</span>.  Then there exists an <span class="math notranslate nohighlight">\(m\times n\)</span> matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> whose diagonal entries are the first <span class="math notranslate nohighlight">\(r\)</span> singular values of <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(\sigma_1 \geq \sigma_2 \geq \dots \geq \sigma_r &gt; 0,\)</span> and there exists an <span class="math notranslate nohighlight">\(m\times m\)</span> orthogonal matrix <span class="math notranslate nohighlight">\(U\)</span> and an <span class="math notranslate nohighlight">\(n\times n\)</span> orthogonal matrix <span class="math notranslate nohighlight">\(V\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[ A = U\Sigma V^T \]</div>
+<p>Any factorization <span class="math notranslate nohighlight">\(A = U\Sigma V^T,\)</span> with <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span> orthogonal and <span class="math notranslate nohighlight">\(\Sigma\)</span> a diagonal matrix is called a <strong>singular value decomposition (SVD)</strong> of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>The columns of <span class="math notranslate nohighlight">\(U\)</span> are called the <strong>left singular vectors</strong> and the columns of <span class="math notranslate nohighlight">\(V\)</span> are called the <strong>right singular vectors</strong> of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p><strong>Aside</strong>: regarding the “Rolls Royce” property, consider how elegant this structure is.</p>
+<p>In particular:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(A\)</span> is an arbitrary matrix</p></li>
+<li><p><span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span> are both <strong>orthogonal</strong> matrices</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Sigma\)</span> is a <strong>diagonal</strong> matrix</p></li>
+<li><p>all singular values are <strong>positive or zero</strong></p></li>
+<li><p>there are as many <strong>positive</strong> singular values as the rank of <span class="math notranslate nohighlight">\(A\)</span></p>
+<ul>
+<li><p>(not part of the theorem but we’ll see it is true)</p></li>
+</ul>
+</li>
+</ul>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image source https://bringatrailer.com/listing/1964-rolls-royce-james-young-phanton-v-limosine/</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/rolls-royce.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">350</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L25SVD_64_0.jpg" src="_images/L25SVD_64_0.jpg" />
+</div>
+</div>
+<p>We have built up enough tools now that the proof is quite straightforward.</p>
+<p><strong>Proof.</strong>  Let <span class="math notranslate nohighlight">\(\{\lambda_i\}\)</span> and <span class="math notranslate nohighlight">\(\{\mathbf{v}_i\}\)</span> be the eigenvalues and eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span>, and <span class="math notranslate nohighlight">\(\sigma_i = \sqrt{\lambda_i}\)</span>.</p>
+<p>The starting point is to use the fact that we just proved:</p>
+<p><span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span> is an orthogonal basis for <span class="math notranslate nohighlight">\(\operatorname{Col}\ A.\)</span></p>
+<p>Next, let us normalize each <span class="math notranslate nohighlight">\(A\mathbf{v}_i\)</span> to obtain an orthonormal basis <span class="math notranslate nohighlight">\(\{\mathbf{u}_1,\dots,\mathbf{u}_r\}\)</span>, where</p>
+<div class="math notranslate nohighlight">
+\[ \mathbf{u}_i = \frac{1}{\Vert A\mathbf{v}_i\Vert}A\mathbf{v}_i = \frac{1}{\sigma_i}A\mathbf{v}_i \]</div>
+<p>Then</p>
+<div class="math notranslate nohighlight">
+\[ A\mathbf{v}_i = \sigma_i\mathbf{u}_i\;\;\;\;(1 \leq i \leq r)\]</div>
+<p>Now the rank of <span class="math notranslate nohighlight">\(A\)</span> (which is <span class="math notranslate nohighlight">\(r\)</span>) may be less than <span class="math notranslate nohighlight">\(m\)</span>.</p>
+<p>In that case, add additional orthonormal vectors <span class="math notranslate nohighlight">\(\{\mathbf{u}_{r+1} \dots \mathbf{u}_m\}\)</span> to the set so that they span <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span>.</p>
+<p>Now collect the vectors into matrices.</p>
+<div class="math notranslate nohighlight">
+\[ U = \begin{bmatrix}\mathbf{u}_1&amp;\cdots&amp;\mathbf{u}_m\end{bmatrix}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[ V = \begin{bmatrix}\mathbf{v}_1&amp;\cdots&amp;\mathbf{v}_n\end{bmatrix}\]</div>
+<p>Recall that these matrices are orthogonal because the <span class="math notranslate nohighlight">\(\{\mathbf{v_i}\}\)</span> are orthonormal and the <span class="math notranslate nohighlight">\(\{A\mathbf{v_i}\}\)</span>  are orthonormal, as we previously proved.</p>
+<p>So</p>
+<div class="math notranslate nohighlight">
+\[ AV = [A\mathbf{v}_1\;\cdots\;A\mathbf{v}_r\;\;\overbrace{\mathbf{0}\cdots\mathbf{0}}^{n-r}]\]</div>
+<div class="math notranslate nohighlight">
+\[ = [\sigma_1\mathbf{u}_1\;\cdots\;\sigma_r\mathbf{u}_r\;\mathbf{0}\;\cdots\;\mathbf{0}] = U\Sigma. \]</div>
+<p>So</p>
+<div class="math notranslate nohighlight">
+\[ AV = U\Sigma\]</div>
+<p>Now, <span class="math notranslate nohighlight">\(V\)</span> is an orthogonal matrix, so multiplying both sides on the right by <span class="math notranslate nohighlight">\(V^T\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ U\Sigma V^T = AVV^T = A. \]</div>
+</div>
+<div class="section" id="the-swiss-army-knife">
+<h2>The Swiss Army Knife<a class="headerlink" href="#the-swiss-army-knife" title="Permalink to this headline">¶</a></h2>
+<p>We don’t have enough time to describe the many applications of the SVD.</p>
+<p>One of its uses is in data mining, where the matrices being analyzed are typically data matrices.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/440px-Wenger_EvoGrip_S17.JPG&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">350</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L25SVD_77_0.jpg" src="_images/L25SVD_77_0.jpg" />
+</div>
+</div>
+<p>The approximations we’ll discuss are <strong>low-rank</strong> approximations.</p>
+<p>Recall that the rank of a matrix <span class="math notranslate nohighlight">\(A\)</span> is the largest number of linearly independent columns of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>Or, equivalently, the dimension of <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span>.</p>
+<p>Let’s define the <strong>rank-<span class="math notranslate nohighlight">\(k\)</span> approximation</strong> to <span class="math notranslate nohighlight">\(A\)</span>:</p>
+<p>When <span class="math notranslate nohighlight">\(k &lt; \operatorname{Rank}A\)</span>, the rank-<span class="math notranslate nohighlight">\(k\)</span> approximation to <span class="math notranslate nohighlight">\(A\)</span> is the closest rank-<span class="math notranslate nohighlight">\(k\)</span> matrix to <span class="math notranslate nohighlight">\(A\)</span>, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[A^{(k)} =\arg \min_{\operatorname{Rank}B = k} \Vert A-B\Vert_F.\]</div>
+<p>Why is a rank-<span class="math notranslate nohighlight">\(k\)</span> approximation valuable?</p>
+<p>The reason is that a rank-<span class="math notranslate nohighlight">\(k\)</span> matrix may take up <strong>much</strong> less space than the original <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(m\left\{\begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\right.\;\;\overbrace{\left[\begin{array}{cccc}\begin{array}{c}\vdots\\\vdots\\{\bf a_1}\\\vdots\\\vdots\end{array}&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_2}\\\vdots\\\vdots\end{array}&amp;\dots&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_n}\\\vdots\\\vdots\end{array}\\\end{array}\right]}^{\large n} =
+\overbrace{\left[\begin{array}{cc}\vdots&amp;\vdots\\\vdots&amp;\vdots\\\sigma_1\mathbf{u}_1&amp;\sigma_k\mathbf{u}_k\\\vdots&amp;\vdots\\\vdots&amp;\vdots\end{array}\right]}^{\large k}
+\times
+\left[\begin{array}{ccccc}\dots&amp;\dots&amp;\mathbf{v}_1&amp;\dots&amp;\dots\\\dots&amp;\dots&amp;\mathbf{v}_k&amp;\dots&amp;\dots\end{array}\right]\)</span></p>
+<p>The rank-<span class="math notranslate nohighlight">\(k\)</span> approximation takes up space <span class="math notranslate nohighlight">\((m+n)k\)</span> while <span class="math notranslate nohighlight">\(A\)</span> itself takes space <span class="math notranslate nohighlight">\(mn\)</span>.</p>
+<p>For example, if <span class="math notranslate nohighlight">\(k=10\)</span> and <span class="math notranslate nohighlight">\(m = n = 1000\)</span>, then the rank-<span class="math notranslate nohighlight">\(k\)</span> approximation takes space <span class="math notranslate nohighlight">\(20000/1000000 = 2\%\)</span> of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>The key to using the SVD for matrix approximation is as follows:</p>
+<p><strong>The best rank-<span class="math notranslate nohighlight">\(k\)</span> approximation to any matrix can be found via the SVD.</strong></p>
+<p>How do we use SVD to find the best rank-<span class="math notranslate nohighlight">\(k\)</span> approximation to <span class="math notranslate nohighlight">\(A\)</span>?</p>
+<p>In terms of the singular value decomposition,</p>
+<p>the best rank-<span class="math notranslate nohighlight">\(k\)</span> approximation to <span class="math notranslate nohighlight">\(A\)</span> is formed by taking</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(U' =\)</span> the <span class="math notranslate nohighlight">\(k\)</span> leftmost columns of <span class="math notranslate nohighlight">\(U\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Sigma ' =\)</span> the <span class="math notranslate nohighlight">\(k\times k\)</span> upper left submatrix of <span class="math notranslate nohighlight">\(\Sigma\)</span>, and</p></li>
+<li><p><span class="math notranslate nohighlight">\((V')^T=\)</span> the <span class="math notranslate nohighlight">\(k\)</span> upper rows of <span class="math notranslate nohighlight">\(V^T\)</span>,</p></li>
+</ul>
+<p>and constructing</p>
+<div class="math notranslate nohighlight">
+\[A^{(k)} = U'\Sigma'(V')^T.\]</div>
+<p>For example, here is a photo.</p>
+<p>We can think of this as a <span class="math notranslate nohighlight">\(512\times 512\)</span> matrix <span class="math notranslate nohighlight">\(A\)</span> whose entries are grayscale values (numbers between 0 and 1).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">boat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;data/boat.dat&#39;</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="k">as</span> <span class="nn">cm</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">boat</span><span class="p">,</span><span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L25SVD_87_0.png" src="_images/L25SVD_87_0.png" />
+</div>
+</div>
+<p>This matrix <span class="math notranslate nohighlight">\(A\)</span> has rank of 512.</p>
+<p>But the error when we approximate <span class="math notranslate nohighlight">\(A\)</span> by a rank 40 matrix is only around 10%.</p>
+<p>We say that the <strong>effective</strong> rank of <span class="math notranslate nohighlight">\(A\)</span> is low (perhaps 40).</p>
+<p>Let’s find the closest rank-40 matrix to <span class="math notranslate nohighlight">\(A\)</span> and view it.</p>
+<p>We can do this quite easily using the SVD.</p>
+<p>We simply construct our approximation of <span class="math notranslate nohighlight">\(A\)</span> using only the first 40 columns of <span class="math notranslate nohighlight">\(U\)</span> and top 40 rows of <span class="math notranslate nohighlight">\(V^T\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># construct a rank-n version of the boat</span>
+<span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">vt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">boat</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">scopy</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">rank</span> <span class="o">=</span> <span class="mi">40</span>
+<span class="n">scopy</span><span class="p">[</span><span class="n">rank</span><span class="p">:]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">boatApprox</span> <span class="o">=</span> <span class="n">u</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">scopy</span><span class="p">)</span> <span class="o">@</span> <span class="n">vt</span>
+<span class="c1">#</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">boatApprox</span><span class="p">,</span><span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Rank </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rank</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">boat</span><span class="p">,</span><span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Rank 512&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span>
+<span class="c1"># plt.subplots_adjust(wspace=0.5);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L25SVD_90_0.png" src="_images/L25SVD_90_0.png" />
+</div>
+</div>
+<p>Note that the rank-40 boat takes up only 40/512 = <strong>8% of the space of the original image!</strong></p>
+<p>This general principle is what makes image, video, and sound compression effective.</p>
+<p>When you</p>
+<ul class="simple">
+<li><p>watch HDTV, or</p></li>
+<li><p>listen to an MP3, or</p></li>
+<li><p>look at a JPEG image,</p></li>
+</ul>
+<p>these signals have been compressed using the fact that they are <strong>effectively low-rank</strong> matrices.</p>
+<div class="section" id="wrapup">
+<h3>Wrapup<a class="headerlink" href="#wrapup" title="Permalink to this headline">¶</a></h3>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/in-conclusion.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">550</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L25SVD_94_0.jpg" src="_images/L25SVD_94_0.jpg" />
+</div>
+</div>
+<p>We have reached the end!</p>
+<p>Of course, this is not really the end … more like the beginning.</p>
+<p>If we had more time, we’d talk about how linear algebra informs the study of graphs, the methods of machine learning, data mining, and many more topics.</p>
+<p>So this is just where we have to stop.</p>
+<p>We have looked at the richness of linear algebra from many angles.</p>
+<p>We have seen that the simple linear system <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> leads to a whole collection of interesting questions, questions that have unfolded step by step over the course of the semester.</p>
+<p>But we have also seen that we can extract the idea of matrix out of a linear system, and consider it as an object in its own right.</p>
+<p>Considered on their own, matrices can be seen as linear operators, giving us tools for computer graphics and the solution of dynamical systems and linear equations.</p>
+<p>We have also seen that matrices can be seen as data objects, whose linear algebraic properties expose useful facts about the data.</p>
+<p>There are many courses you can go on to from here, which will rely on your understanding of linear algebra:</p>
+<ul class="simple">
+<li><p>CS 391 Fundamentals of Data Science</p></li>
+<li><p>CS 440 Artificial Intelligence</p></li>
+<li><p>CS 470 Computer Systems Performance Analysis</p></li>
+<li><p>CS 480 Computer Graphics</p></li>
+<li><p>CS 505 Intro to Natural Language Processing</p></li>
+<li><p>CS 506 Tools for Data Science</p></li>
+<li><p>CS 530 Advanced Algorithms</p></li>
+<li><p>CS 531 Advanced Optimization Algorithms</p></li>
+<li><p>CS 533 Spectral Methods</p></li>
+<li><p>CS 558 Machine Learning</p></li>
+<li><p>CS 565 Data Mining</p></li>
+<li><p>CS 581 Computational Fabrication</p></li>
+<li><p>CS 591 Deep Learning</p></li>
+<li><p>CS 591 Compressive Sensing</p></li>
+<li><p>CS 591 Natural Language Understanding</p></li>
+</ul>
+<p>In each of these you will use and build on your knowledge of linear algebra.</p>
+<p>Enjoy!</p>
+<p>Don’t forget to submit a course evaluation!</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="L24SymmetricMatrices.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Symmetric Matrices</p>
+            </div>
+        </a>
+    </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Mark Crovella<br/>
+        
+            &copy; Copyright 2020-2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

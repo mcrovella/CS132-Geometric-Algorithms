@@ -1,0 +1,1001 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linear Independence &#8212; Linear Algebra, Geometry, and Computation</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Linear Transformations" href="L07LinearTransformations.html" />
+    <link rel="prev" title="\(A{\bf x} = {\bf b}\)" href="L05Axb.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      <img src="_static/DiagramAR-icon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Linear Algebra, Geometry, and Computation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="landing-page.html">
+   Preface
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="L01LinearEquations.html">
+   Linear Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L02Numerics.html">
+   Numbers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L03RowReductions.html">
+   Gaussian Elimination
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L04VectorEquations.html">
+   Vector Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L05Axb.html">
+   <span class="math notranslate nohighlight">
+    \(A{\bf x} = {\bf b}\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Linear Independence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L07LinearTransformations.html">
+   Linear Transformations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L08MatrixofLinearTranformation.html">
+   The Matrix of a Linear Transformation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L09MatrixOperations.html">
+   Matrix Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L10MatrixInverse.html">
+   The Inverse of a Matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L11MarkovChains.html">
+   Markov Chains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L12MatrixFactorizations.html">
+   Matrix Factorizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L13ComputerGraphics-Spring2021.html">
+   Computer Graphics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L14Subspaces.html">
+   Subspaces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L15DimensionRank.html">
+   Dimension and Rank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L16Eigenvectors.html">
+   Eigenvectors and Eigenvalues
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L17CharacteristicEqn.html">
+   The Characteristic Equation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L18Diagonalization.html">
+   Diagonalization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L19PageRank.html">
+   PageRank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L20Orthogonality.html">
+   Analytic Geometry in
+   <span class="math notranslate nohighlight">
+    \(\mathbb{R}^n\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L21OrthogonalSets.html">
+   Orthogonal Sets and Projection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L22LeastSquares.html">
+   Least Squares
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L23LinearModels.html">
+   Linear Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L24SymmetricMatrices.html">
+   Symmetric Matrices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L25SVD.html">
+   The Singular Value Decomposition
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/L06LinearIndependence.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/mcrovella/CS132-Geometric-Algorithms"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L06LinearIndependence.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#linear-dependence">
+   Linear Dependence
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#testing-if-a-set-of-vectors-is-linearly-in-dependent">
+   Testing if a Set of Vectors is Linearly (In)dependent
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#linear-independence-of-matrix-columns">
+   Linear Independence of Matrix Columns
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#another-interpretation-of-linear-dependence">
+   Another Interpretation of Linear Dependence
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spanning-sets-and-linear-dependence">
+   Spanning Sets and Linear Dependence
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#linear-dependence-geometrically-mathbb-r-2">
+   Linear Dependence Geometrically:
+   <span class="math notranslate nohighlight">
+    \(\mathbb{R}^2\)
+   </span>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#application-example-network-flow">
+   Application Example: Network Flow
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for QR codes use inline</span>
+<span class="c1"># %matplotlib inline</span>
+<span class="c1"># qr_setting = &#39;url&#39;</span>
+<span class="c1"># qrviz_setting = &#39;show&#39;</span>
+<span class="c1">#</span>
+<span class="c1"># for lecture use notebook</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">qr_setting</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="c1">#</span>
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format=&#39;retina&#39;
+<span class="c1"># import libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">laUtilities</span> <span class="k">as</span> <span class="nn">ut</span>
+<span class="kn">import</span> <span class="nn">slideUtilities</span> <span class="k">as</span> <span class="nn">sl</span>
+<span class="kn">import</span> <span class="nn">demoUtilities</span> <span class="k">as</span> <span class="nn">dm</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display_html</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Math</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Latex</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="linear-independence">
+<h1>Linear Independence<a class="headerlink" href="#linear-independence" title="Permalink to this headline">¶</a></h1>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">two_d_figure</span><span class="p">(</span><span class="s1">&#39;Figure 6.7&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">()</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">])</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.625</span><span class="o">*</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.625</span><span class="o">*</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.3</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$c_2\bf v$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="mf">0.625</span><span class="o">*</span><span class="n">v</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$c_1\bf u$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="o">-</span><span class="mf">0.875</span><span class="o">*</span><span class="n">u</span><span class="o">+</span><span class="mf">0.625</span><span class="o">*</span><span class="n">v</span><span class="p">,</span> <span class="mf">0.625</span><span class="o">*</span><span class="n">v</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$c_3\bf w$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="mf">0.75</span><span class="o">*</span><span class="n">w</span><span class="p">,</span>  <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;cyan&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf u$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.35</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.25</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf v$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.35</span><span class="p">,</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.25</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf w$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L06LinearIndependence_2_0.png" src="_images/L06LinearIndependence_2_0.png" />
+</div>
+</div>
+<p>In the last lecture, we learned that <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> is consistent if and only if <span class="math notranslate nohighlight">\(\bf b\)</span> lies in the span of the columns of <span class="math notranslate nohighlight">\(A.\)</span></p>
+<p>As an example, we saw for the following matrix <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> is not consistent for all <span class="math notranslate nohighlight">\({\bf b}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A = \left[\begin{array}{rrr}1&amp;3&amp;4\\-4&amp;2&amp;-6\\-3&amp;-2&amp;-7\end{array}\right]\end{split}\]</div>
+<p>We realized that was because the span of <span class="math notranslate nohighlight">\(A\)</span>’s columns is not all of <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>, but rather only a part of <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> – namely, a plane lying within <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>.</p>
+<p>So, when <span class="math notranslate nohighlight">\(\bf b\)</span> does not lie in that plane, then <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> is not consistent and has no solution.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="s1">&#39;Span of the columns of A&#39;</span><span class="p">,</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">]</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span>  <span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">]</span>
+<span class="n">a3</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.0</span><span class="p">]</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf a_1$&#39;</span><span class="p">,</span> <span class="s1">&#39;a_1&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf a_2$&#39;</span><span class="p">,</span> <span class="s1">&#39;a_2&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a3</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a3</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf a_3$&#39;</span><span class="p">,</span> <span class="s1">&#39;a_3&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf 0$&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotSpan</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span><span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">a3</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a3</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Span of the columns of A&#39;</span><span class="p">)</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L06LinearIndependence_5_0.png" src="_images/L06LinearIndependence_5_0.png" />
+</div>
+</div>
+<p>As a reminder, here is the picture of the span of the columns of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>Clearly, <span class="math notranslate nohighlight">\(\bf 0, a_1, a_2,\)</span> and <span class="math notranslate nohighlight">\(\bf a_3\)</span> have a particular relationship, namely, they all lie <font color=blue>within the same plane</font> – even though <font color=blue>the vectors are in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>.</font></p>
+<p>This is a special relationship.  It only happens under certain circumstances.</p>
+<p>That is, it is not the case in general that <font color=blue>four points</font> in  <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> would lie in the same plane!</p>
+<p>Today we will talk about how to define this relationship precisely for vectors of arbitrary dimension, that is, vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
+<div class="section" id="linear-dependence">
+<h2>Linear Dependence<a class="headerlink" href="#linear-dependence" title="Permalink to this headline">¶</a></h2>
+<p>The relationship between these vectors will be called <em>linear dependence.</em></p>
+<p>Before stating the definition, let’s get a sense intuitively of what we want to capture.</p>
+<p>We make this observation:</p>
+<ul class="simple">
+<li><p><font color=blue>the plane defined by <span class="math notranslate nohighlight">\(\mathbf{a_1}, \mathbf{a_2}, \mathbf{a_3}\)</span> happens to include the origin.</font></p></li>
+</ul>
+<p>That’s one way of capturing the special relationship among <span class="math notranslate nohighlight">\({\bf a_1, a_2,}\)</span> and <span class="math notranslate nohighlight">\({\bf a_3}.\)</span></p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="s1">&#39;Span of the columns of A&#39;</span><span class="p">,</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">3.0</span><span class="p">]</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span>  <span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">]</span>
+<span class="n">a3</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">7.0</span><span class="p">]</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf a_1$&#39;</span><span class="p">,</span> <span class="s1">&#39;a_1&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf a_2$&#39;</span><span class="p">,</span> <span class="s1">&#39;a_2&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a3</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a3</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf a_3$&#39;</span><span class="p">,</span> <span class="s1">&#39;a_3&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf 0$&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotSpan</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span><span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">a3</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a3</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Span of the columns of A&#39;</span><span class="p">)</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L06LinearIndependence_12_0.png" src="_images/L06LinearIndependence_12_0.png" />
+</div>
+</div>
+<p>Here is the formal definition:</p>
+<p>A set of vectors <span class="math notranslate nohighlight">\(\{{\bf v_1, ..., v_p}\}\)</span> all of which are in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> is said to be <font color=blue> <em>linearly dependent</em> </font> if there exist weights <span class="math notranslate nohighlight">\(\{c_1, ..., c_p\},\)</span> <strong>not all zero,</strong> such that</p>
+<div class="math notranslate nohighlight">
+\[c_1{\bf v_1} + ... + c_p{\bf v_p} = {\bf 0}.\]</div>
+<p>Can you see how this definition captures our intuition about the special relationship of the vectors in Figure 6.1?</p>
+<p>Conversely, the set <span class="math notranslate nohighlight">\(\{{\bf v_1, ..., v_p}\}\)</span> is said is said to be <font color=blue> <em>linearly independent</em> </font> if the vector equation</p>
+<div class="math notranslate nohighlight">
+\[c_1{\bf v_1} + ... + c_p{\bf v_p} = {\bf 0}.\]</div>
+<p>has only the trivial solution <span class="math notranslate nohighlight">\(c_1 = 0, ..., c_p = 0\)</span>.</p>
+<p>A set of nonzero weights that yield zero is called a <em>linear dependence relation</em> among <span class="math notranslate nohighlight">\(\{{\bf v_1, ..., v_p}\}\)</span>.</p>
+<p>A set of vectors is linearly dependent if and only if it is not linearly independent.</p>
+</div>
+<div class="section" id="testing-if-a-set-of-vectors-is-linearly-in-dependent">
+<h2>Testing if a Set of Vectors is Linearly (In)dependent<a class="headerlink" href="#testing-if-a-set-of-vectors-is-linearly-in-dependent" title="Permalink to this headline">¶</a></h2>
+<p>Let’s work out how we would test, algebraically, whether a set of vectors is linearly dependent.</p>
+<p>We’ll use a specific example.</p>
+<p>Let <span class="math notranslate nohighlight">\({\bf v_1} = \left[\begin{array}{r}1\\2\\3\end{array}\right], {\bf v_2} = \left[\begin{array}{r}4\\5\\6\end{array}\right],\)</span> and <span class="math notranslate nohighlight">\({\bf v_3} = \left[\begin{array}{r}2\\1\\0\end{array}\right].\)</span></p>
+<p>Let’s determine (a) if the set <span class="math notranslate nohighlight">\(\{{\bf v_1, v_2, v_3}\}\)</span> is linearly independent, and (b) if not, a linear dependence relation among them.</p>
+<p>(a). Are <span class="math notranslate nohighlight">\(\{{\bf v_1, v_2, v_3}\}\)</span> linearly independent?</p>
+<p>We must determine if there is a nontrivial solution of the vector equation:</p>
+<div class="math notranslate nohighlight">
+\[x_1{\bf v_1} + x_2{\bf v_2} + x_3{\bf v_3} = {\bf 0}.\]</div>
+<p>Let’s row reduce the augmented matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrrc}1&amp;4&amp;2&amp;0\\2&amp;5&amp;1&amp;0\\3&amp;6&amp;0&amp;0\end{array}\right] \sim 
+\left[\begin{array}{rrrc}1&amp;4&amp;2&amp;0\\0&amp;-3&amp;-3&amp;0\\0&amp;0&amp;0&amp;0\end{array}\right].\end{split}\]</div>
+<p>We can see that <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> are basic variables, and <span class="math notranslate nohighlight">\(x_3\)</span> is free.</p>
+<p>Each nonzero value of <span class="math notranslate nohighlight">\(x_3\)</span> determines a nontrivial solution of the vector equation.</p>
+<p>So <span class="math notranslate nohighlight">\(\{{\bf v_1, v_2, v_3}\}\)</span> are linearly dependent.</p>
+<p>(b). To find the linear dependence relation among <span class="math notranslate nohighlight">\({\bf v_1, v_2,}\)</span> and <span class="math notranslate nohighlight">\({\bf v_3},\)</span> we continue the row reduction to obtain the reduced echelon form:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrrc}1&amp;4&amp;2&amp;0\\2&amp;5&amp;1&amp;0\\3&amp;6&amp;0&amp;0\end{array}\right] \sim 
+\left[\begin{array}{rrrc}1&amp;4&amp;2&amp;0\\0&amp;-3&amp;-3&amp;0\\0&amp;0&amp;0&amp;0\end{array}\right] \sim
+\left[\begin{array}{rrrc}1&amp;0&amp;-2&amp;0\\0&amp;1&amp;1&amp;0\\0&amp;0&amp;0&amp;0\end{array}\right]\end{split}\]</div>
+<p>Which denotes the system of equations:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rrrcl}x_1&amp;&amp;-2x_3&amp;=&amp;0\\&amp;x_2&amp;+x_3&amp;=&amp;0\\&amp;&amp;0&amp;=&amp;0\end{array}\end{split}\]</div>
+<p>So <span class="math notranslate nohighlight">\(x_1 = 2x_3, x_2 = -x_3,\)</span> and <span class="math notranslate nohighlight">\(x_3\)</span> is free.</p>
+<p>We can choose any nonzero value for <span class="math notranslate nohighlight">\(x_3\)</span> – say, <span class="math notranslate nohighlight">\(x_3 = 5\)</span>.  Then <span class="math notranslate nohighlight">\(x_1 = 10\)</span> and <span class="math notranslate nohighlight">\(x_2 = -5\)</span>.  This gives us the solution:</p>
+<div class="math notranslate nohighlight">
+\[ 10{\bf v_1} - 5{\bf v_2} + 5{\bf v_3} = {\bf 0}.\]</div>
+<p>This is one (out of infinitely many) linear dependence relations among <span class="math notranslate nohighlight">\({\bf v_1, v_2,}\)</span> and <span class="math notranslate nohighlight">\({\bf v_3}.\)</span></p>
+</div>
+<div class="section" id="linear-independence-of-matrix-columns">
+<h2>Linear Independence of Matrix Columns<a class="headerlink" href="#linear-independence-of-matrix-columns" title="Permalink to this headline">¶</a></h2>
+<p>The columns of a matrix are a set of vectors, so our definition of linear dependence extends naturally to them.</p>
+<p>In particular if <span class="math notranslate nohighlight">\(A = [{\bf a_1}\;\dots\;{\bf a_n}]\)</span> then</p>
+<div class="math notranslate nohighlight">
+\[x_1{\bf a_1} + ... + x_n{\bf a_n} = 0\]</div>
+<p>can be written as</p>
+<div class="math notranslate nohighlight">
+\[A{\bf x} = {\bf 0}.\]</div>
+<p>So each linear dependence relation among the columns of <span class="math notranslate nohighlight">\(A\)</span> corresponds to a nontrivial solution of <span class="math notranslate nohighlight">\(A{\bf x} = {\bf 0}.\)</span></p>
+<p>In other words, the columns of the matrix <span class="math notranslate nohighlight">\(A\)</span> are linearly independent if and only if the equation <span class="math notranslate nohighlight">\(A{\bf x} = {\bf 0}\)</span> has <strong>only</strong> the trivial solution.</p>
+</div>
+<div class="section" id="another-interpretation-of-linear-dependence">
+<h2>Another Interpretation of Linear Dependence<a class="headerlink" href="#another-interpretation-of-linear-dependence" title="Permalink to this headline">¶</a></h2>
+<p>Here is another way of thinking about linear dependence.</p>
+<p><strong>Theorem.</strong>  A set <span class="math notranslate nohighlight">\(S = \{{\bf v_1, ..., v_p}\}\)</span> of two or more vectors is linearly dependent if and only if at least one of the vectors in <span class="math notranslate nohighlight">\(S\)</span> is a linear combination of the others.</p>
+<p><strong>Proof.</strong></p>
+<p>First, let’s consider the “if” part:</p>
+<p>Assume <span class="math notranslate nohighlight">\({\bf v_p} = c_1{\bf v_1} + \dots + c_{p-1} {\bf v_{p-1}}.\)</span></p>
+<p>Then clearly</p>
+<div class="math notranslate nohighlight">
+\[c_1{\bf v_1} + \dots + c_{p-1} {\bf v_{p-1}} - {\bf v_p} = 0,\]</div>
+<p>and not all the coefficients are zero (the coefficient of <span class="math notranslate nohighlight">\({\bf v_p}\)</span> is <span class="math notranslate nohighlight">\(-1\)</span>).  Thus, the vectors are linearly dependent.</p>
+<p>Now, we consider the “only if” part:</p>
+<p>Assume <span class="math notranslate nohighlight">\(S\)</span> is linearly dependent.  Then <span class="math notranslate nohighlight">\(c_1{\bf v_1} + \dots + c_p{\bf v_p} = 0\)</span> and at least one of the <span class="math notranslate nohighlight">\(c_i\)</span> is nonzero.</p>
+<p>Pick one of the nonzero <span class="math notranslate nohighlight">\(c_i,\)</span> and rearranging, we get:</p>
+<div class="math notranslate nohighlight">
+\[{\bf v_i} = -(c_1/c_i){\bf v_1} + \dots + -(c_p/c_i){\bf v_p}\]</div>
+<p>Thus, there is at least one vector that is a linear combination of the others.</p>
+<div class="toggle docutils container">
+<p>Question Time! Q6.1</p>
+</div>
+</div>
+<div class="section" id="spanning-sets-and-linear-dependence">
+<h2>Spanning Sets and Linear Dependence<a class="headerlink" href="#spanning-sets-and-linear-dependence" title="Permalink to this headline">¶</a></h2>
+<p>Let’s return to the motivation at the start of the lecture, and formalize the connection between spanning sets and linear dependence.</p>
+<p>We’ll start with two <strong>linearly independent</strong> vectors <span class="math notranslate nohighlight">\({\bf u} = \left[\begin{array}{r}3\\1\\0\end{array}\right]\)</span> and <span class="math notranslate nohighlight">\({\bf v} = \left[\begin{array}{r}1\\6\\0\end{array}\right].\)</span></p>
+<p>Let’s</p>
+<ul class="simple">
+<li><p>describe the set spanned by <span class="math notranslate nohighlight">\({\bf u}\)</span> and <span class="math notranslate nohighlight">\({\bf v}\)</span> and</p></li>
+<li><p>explain why a vector <span class="math notranslate nohighlight">\({\bf w}\)</span> is in Span<span class="math notranslate nohighlight">\(\{\bf u, v\}\)</span> if and only if <span class="math notranslate nohighlight">\(\{\bf u, v, w\}\)</span> is linearly dependent.</p></li>
+</ul>
+<p><strong>Solution.</strong></p>
+<p>The vectors <span class="math notranslate nohighlight">\({\bf u}\)</span> and <span class="math notranslate nohighlight">\({\bf v}\)</span> are linearly independent so they span a plane in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>.</p>
+<p>In fact, since <span class="math notranslate nohighlight">\(x_3 = 0\)</span> in both vectors, they span the <span class="math notranslate nohighlight">\(x_1x_2\)</span> plane.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="s1">&#39;Span of {u, v}&#39;</span><span class="p">,</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">u</span> <span class="o">=</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf u$&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf v$&#39;</span><span class="p">,</span> <span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf 0$&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotSpan</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span><span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Span of $\{{\bf u, v}\}$&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L06LinearIndependence_42_0.png" src="_images/L06LinearIndependence_42_0.png" />
+</div>
+</div>
+<p>Now, if <span class="math notranslate nohighlight">\({\bf w}\)</span> is in Span<span class="math notranslate nohighlight">\(\{\bf u, v\}\)</span>, then <span class="math notranslate nohighlight">\({\bf w}\)</span> is a linear combination of <span class="math notranslate nohighlight">\({\bf u}\)</span> and <span class="math notranslate nohighlight">\({\bf v}\)</span>.</p>
+<p>So then <span class="math notranslate nohighlight">\(\{\bf u, v, w\}\)</span> is linearly dependent (by the Theorem we just proved).</p>
+<p>And conversely, if <span class="math notranslate nohighlight">\(\{\bf u, v, w\}\)</span> is linearly dependent, then there exist <span class="math notranslate nohighlight">\(c_1, c_2,\)</span> and <span class="math notranslate nohighlight">\(c_3,\)</span> not all zero, such that</p>
+<div class="math notranslate nohighlight">
+\[ c_1 {\bf u} + c_2 {\bf v} + c_3 {\bf w} = {\bf 0}.\]</div>
+<p>We know that <span class="math notranslate nohighlight">\({\bf u}\)</span> and <span class="math notranslate nohighlight">\({\bf v}\)</span> are linearly independent, so the only way for <span class="math notranslate nohighlight">\(c_1 {\bf u} + c_2{\bf v}\)</span> to be zero is if <span class="math notranslate nohighlight">\(c_1 = c_2 = 0\)</span>.</p>
+<p>So <span class="math notranslate nohighlight">\(c_1 {\bf u} + c_2{\bf v}\)</span> must be nonzero, and that means <span class="math notranslate nohighlight">\(c_3\)</span> must be different from zero.</p>
+<p>So we can write:</p>
+<div class="math notranslate nohighlight">
+\[ {\bf w} = -(c_1/c_3) {\bf u} - (c_2/c_3) {\bf v},\]</div>
+<p>that is, <span class="math notranslate nohighlight">\({\bf w}\)</span> is a linear combination of <span class="math notranslate nohighlight">\({\bf u}\)</span> and <span class="math notranslate nohighlight">\({\bf v}\)</span>, and therefore lies in Span<span class="math notranslate nohighlight">\(\{\bf u, v\}\)</span>.</p>
+<p>So we conclude:</p>
+<ul class="simple">
+<li><p>If a set of vectors <span class="math notranslate nohighlight">\(\{\bf v_1, v_2, \dots, v_p\}\)</span> is linearly dependent, then at least one of them lies within the span of the others, and</p></li>
+<li><p>If one vector in the set <span class="math notranslate nohighlight">\(\{\bf v_1, v_2, \dots, v_p\}\)</span> lies within the span of the others, then the set is linearly dependent.</p></li>
+</ul>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="s1">&#39;Linearly Dependent {u, v, w}&#39;</span><span class="p">,</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">w</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span><span class="o">*</span><span class="n">u</span> <span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">v</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf u$&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf v$&#39;</span><span class="p">,</span> <span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf w$&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf 0$&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotSpan</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Linearly Dependent $\{{\bf u, v, w}\}$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L06LinearIndependence_48_0.png" src="_images/L06LinearIndependence_48_0.png" />
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="s1">&#39;Linearly Independent {u, v, w}&#39;</span><span class="p">,</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">w</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.0</span><span class="o">*</span><span class="n">u</span> <span class="o">-</span><span class="mf">0.5</span><span class="o">*</span><span class="n">v</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.7</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">12.0</span><span class="p">])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf u$&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf v$&#39;</span><span class="p">,</span> <span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf w$&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf 0$&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotSpan</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Linearly Independent $\{{\bf u, v, w}\}$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L06LinearIndependence_49_0.png" src="_images/L06LinearIndependence_49_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="linear-dependence-geometrically-mathbb-r-2">
+<h2>Linear Dependence Geometrically: <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span><a class="headerlink" href="#linear-dependence-geometrically-mathbb-r-2" title="Permalink to this headline">¶</a></h2>
+<p>Now let’s try to get a geometric sense of linear dependence.</p>
+<p>We’ll use <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> for visualization.</p>
+<p>Let’s try to interpret linear dependence directly in terms of the definition, which involves vector sums.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">two_d_figure</span><span class="p">(</span><span class="s1">&#39;Figure 6.2d.1&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">()</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">])</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf u$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.25</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf v$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L06LinearIndependence_52_0.png" src="_images/L06LinearIndependence_52_0.png" />
+</div>
+</div>
+<p>The vectors <span class="math notranslate nohighlight">\(\{{\bf u},{\bf v}\}\)</span> are independent because there is no nozero combination of them that yields the origin.</p>
+<p>A nonzero combination of <span class="math notranslate nohighlight">\({\bf u}\)</span> and <span class="math notranslate nohighlight">\({\bf v}\)</span> geometrically means moving in the direction of <span class="math notranslate nohighlight">\({\bf u}\)</span> or <span class="math notranslate nohighlight">\({\bf v}\)</span> or both.  There is no way to move in the direction of <span class="math notranslate nohighlight">\({\bf u}\)</span> and then in the direction of <span class="math notranslate nohighlight">\({\bf v}\)</span> and arrive back at the origin.</p>
+<p>Now let’s add another vector <span class="math notranslate nohighlight">\({\bf w}\)</span>:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">two_d_figure</span><span class="p">(</span><span class="s1">&#39;Figure 6.2d.2&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">()</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">])</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf u$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.25</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf v$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.25</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf w$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L06LinearIndependence_55_0.png" src="_images/L06LinearIndependence_55_0.png" />
+</div>
+</div>
+<p>Now the situation is different.  The set <span class="math notranslate nohighlight">\({\bf u, v, w}\)</span> is linearly dependent.</p>
+<p>There are nonzero moves along the three directions that can bring you back to the origin:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">two_d_figure</span><span class="p">(</span><span class="s1">&#39;Figure 6.7&#39;</span><span class="p">,</span> <span class="o">-</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">()</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">])</span>
+<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.625</span><span class="o">*</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">0.625</span><span class="o">*</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.3</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$c_2\bf v$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="mf">0.625</span><span class="o">*</span><span class="n">v</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$c_1\bf u$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="o">-</span><span class="mf">0.875</span><span class="o">*</span><span class="n">u</span><span class="o">+</span><span class="mf">0.625</span><span class="o">*</span><span class="n">v</span><span class="p">,</span> <span class="mf">0.625</span><span class="o">*</span><span class="n">v</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mf">0.5</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$c_3\bf w$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="mf">0.75</span><span class="o">*</span><span class="n">w</span><span class="p">,</span>  <span class="n">head_width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;cyan&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf u$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.35</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.25</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf v$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.35</span><span class="p">,</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.25</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf w$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L06LinearIndependence_57_0.png" src="_images/L06LinearIndependence_57_0.png" />
+</div>
+</div>
+<p>This is a geometric interpretation of the equation</p>
+<div class="math notranslate nohighlight">
+\[ c_1{\bf u} + c_2{\bf v} + c_3{\bf w} = 0.\]</div>
+<div class="toggle docutils container">
+<p>Question Time! Q6.2</p>
+</div>
+<p>The last example suggested that <em>any</em> three vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> are linearly dependent.  This is true, and furthermore, we can generalize to <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
+<p><strong>Theorem.</strong>  If a set contains more vectors than there are entries in each vector, then the set is linearly dependent.</p>
+<p>That is, any set <span class="math notranslate nohighlight">\(\{{\bf v_1}, \dots, {\bf v_p}\}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> is linearly dependent if <span class="math notranslate nohighlight">\(p&gt;n.\)</span></p>
+<p><strong>Proof.</strong>  Let <span class="math notranslate nohighlight">\(A = [{\bf v_1} \; \dots \; {\bf v_p}].\)</span>  Then <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(n \times p\)</span>, and the equation <span class="math notranslate nohighlight">\(A{\bf x} = {\bf 0}\)</span> corresponds to a system of <span class="math notranslate nohighlight">\(n\)</span> equations in <span class="math notranslate nohighlight">\(p\)</span> unknowns.</p>
+<p>If <span class="math notranslate nohighlight">\(p&gt;n,\)</span> there are more variables than equations, so there must be a free variable.</p>
+<p>Hence <span class="math notranslate nohighlight">\(A{\bf x} = {\bf 0}\)</span> has a nontrivial solution, and the columns of <span class="math notranslate nohighlight">\(A\)</span> are linearly dependent.</p>
+<p><strong>Example.</strong></p>
+<p>The vectors <span class="math notranslate nohighlight">\(\left[\begin{array}{r}2\\1\end{array}\right], 
+\left[\begin{array}{r}4\\-1\end{array}\right],\)</span> and
+<span class="math notranslate nohighlight">\(\left[\begin{array}{r}-2\\2\end{array}\right]\)</span> are linearly dependent because these vectors live in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> and there are 3 of them.</p>
+<p><strong>Theorem.</strong>  If a set <span class="math notranslate nohighlight">\(S = \{{\bf v_1, ..., v_p}\}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> contains the zero vector, then the set is linearly dependent.</p>
+<p><strong>Proof.</strong> Let’s say <span class="math notranslate nohighlight">\({\bf v_1} = {\bf 0}\)</span>.  Then <span class="math notranslate nohighlight">\(1{\bf v_1} + 0{\bf v_2}+ \dots + 0{\bf v_p} = {\bf 0}.\)</span>  The coefficients are not all zero, so the set is linearly dependent.</p>
+<div class="toggle docutils container">
+<p>Question Time Q6.3</p>
+</div>
+</div>
+<div class="section" id="application-example-network-flow">
+<h2>Application Example: Network Flow<a class="headerlink" href="#application-example-network-flow" title="Permalink to this headline">¶</a></h2>
+<p>Systems of linear equations arise when considering flow through a network.</p>
+<p>A <em>network</em> is a set of <em>nodes</em> and <em>links</em>.   Links connect nodes.</p>
+<p><strong>Be aware</strong> that there is another set of terminology that is used more often in theoretical computer science and mathematics: A <em>graph</em> , which consists of <em>vertices</em> and <em>edges</em>.  A network and a graph are exactly the same thing.</p>
+<p>Here are some examples of networks:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit: https://almende.github.io/chap-links-library/network.html</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/network.png&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">250</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L06LinearIndependence_71_0.png" src="_images/L06LinearIndependence_71_0.png" />
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit: http://www.d.umn.edu/~gshute/ds/flows/network-flows.xhtml</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/flow-network.png&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">250</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L06LinearIndependence_72_0.png" src="_images/L06LinearIndependence_72_0.png" />
+</div>
+</div>
+<p>Many times we are interested in <em>flow</em> through a network.      Flows can represent movement from place to place.   For example, consider this map of the MBTA:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit: http://www.mbta.com/uploadedimages/Schedules_and_Maps/System_Map/Survey%20Map%204%20lg.jpg</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/mbta-map.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">250</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L06LinearIndependence_74_0.jpg" src="_images/L06LinearIndependence_74_0.jpg" />
+</div>
+</div>
+<p>We can think of T stops as nodes and rail connections as links.  Flow corresponds to the movement of subway cars from station to station.</p>
+<p>Here is another example: this is a representation of the <em>Abilene</em> data network, which is used by universities to exchange data traffic (packets) within the US:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit: http://c-bgp.sourceforge.net/images/abilene-map.gif</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/abilene-map.png&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">350</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L06LinearIndependence_77_0.png" src="_images/L06LinearIndependence_77_0.png" />
+</div>
+</div>
+<p>Networks usually obey the rule of “flow balance” or “conservation of flow.”</p>
+<p>This simply means that the amount of flow going into a node equals the amount coming out.</p>
+<p>For example, the number of packets that enter any node of the Abilene network equals the number that leave that node.  This reflects the fact that packets are not created or destroyed <em>within the network.</em></p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit: Lay, 4th edition</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/Lay-Road-Network.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">350</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L06LinearIndependence_79_0.jpg" src="_images/L06LinearIndependence_79_0.jpg" />
+</div>
+</div>
+<p>Here is an example.  The flows are vehicles per hour in downtown Baltimore during rush hour.</p>
+<p>Note that some of the traffic flows are measured, and some are not.  The unmeasured flows are marked with symbols <span class="math notranslate nohighlight">\(x_1, x_2,\)</span> etc.</p>
+<p>We’d like to understand the traffic pattern in the city, despite the presence of unmeasured flows.  We can do that by using the principle of flow balance.</p>
+<p>The key idea is: flow balance dictates that <em>every node determines a linear equation.</em>  The equation is of the form:</p>
+<div class="math notranslate nohighlight">
+\[ \mbox{Flow in} = \mbox{Flow out}.\]</div>
+<table class="colwidths-auto table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Intersection</p></th>
+<th class="head"><p>Flow in</p></th>
+<th class="head"><p>Flow out</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>300 + 500</p></td>
+<td><p><span class="math notranslate nohighlight">\(x_1 + x_2\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>B</p></td>
+<td><p><span class="math notranslate nohighlight">\(x_2 + x_4\)</span></p></td>
+<td><p>300 + <span class="math notranslate nohighlight">\(x_3\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p>C</p></td>
+<td><p>100 + 400</p></td>
+<td><p><span class="math notranslate nohighlight">\(x_4 + x_5\)</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>D</p></td>
+<td><p><span class="math notranslate nohighlight">\(x_1 + x_5\)</span></p></td>
+<td><p>600</p></td>
+</tr>
+<tr class="row-even"><td><p>network</p></td>
+<td><p>1300</p></td>
+<td><p>900 + <span class="math notranslate nohighlight">\(x_3\)</span></p></td>
+</tr>
+</tbody>
+</table>
+<p>The last line indicates that the total flow into the network equals the total flow out of the network, which means that <span class="math notranslate nohighlight">\(x_3 = 400.\)</span></p>
+<p>This yields the following system of equations:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rrrrrcl}
+x_1 &amp; + x_2 &amp; &amp; &amp; &amp; = &amp; 800\\
+&amp; x_2 &amp; -x_3 &amp; + x_4 &amp; &amp; = &amp;300\\
+&amp;&amp;&amp;x_4 &amp; +x_5 &amp;=&amp; 500\\
+x_1 &amp;&amp;&amp;&amp; + x_5 &amp;=&amp; 600\\
+&amp;&amp;x_3&amp;&amp;&amp;=&amp;400\\
+\end{array}\end{split}\]</div>
+<p>When we row reduce the associated augmented matrix, the reduced echelon form yields these equations:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rrrrrcl}
+x_1 &amp; &amp; &amp; &amp; +x_5 &amp; = &amp; 600\\
+&amp; x_2 &amp; &amp; &amp; -x_5 &amp; = &amp;200\\
+&amp;&amp; x_3 &amp; &amp; &amp;=&amp; 400\\
+&amp;&amp;&amp; x_4 &amp; + x_5 &amp;=&amp; 500\\
+\end{array}\end{split}\]</div>
+<p>Thus the general flow pattern for the network is described by</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left\{\begin{array}{l}
+x_1 = 600 - x_5\\
+x_2 = 200 + x_5\\
+x_3 = 400\\
+x_4 = 500 - x_5\\
+x_5 \mbox{ is free}\\
+\end{array}\right.\end{split}\]</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit: Scan from Lay, 4th edition</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/Lay-Road-Network.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">350</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L06LinearIndependence_89_0.jpg" src="_images/L06LinearIndependence_89_0.jpg" />
+</div>
+</div>
+<p>How can we interpret this result?</p>
+<p>A negative flow corresponds to a flow in the opposite direction assumed in the diagram.  Since these streets are one-way, none of the variables here can be negative.  So, for example, <span class="math notranslate nohighlight">\(x_5 \leq 500\)</span> because <span class="math notranslate nohighlight">\(x_4\)</span> cannot be negative.</p>
+<p>What else can we infer?</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="L05Axb.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title"><span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span></p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="L07LinearTransformations.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Linear Transformations</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Mark Crovella<br/>
+        
+            &copy; Copyright 2020-2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

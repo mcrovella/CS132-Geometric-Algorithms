@@ -1,0 +1,1007 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Markov Chains &#8212; Linear Algebra, Geometry, and Computation</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Matrix Factorizations" href="L12MatrixFactorizations.html" />
+    <link rel="prev" title="The Inverse of a Matrix" href="L10MatrixInverse.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      <img src="_static/DiagramAR-icon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Linear Algebra, Geometry, and Computation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="landing-page.html">
+   Preface
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="L01LinearEquations.html">
+   Linear Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L02Numerics.html">
+   Numbers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L03RowReductions.html">
+   Gaussian Elimination
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L04VectorEquations.html">
+   Vector Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L05Axb.html">
+   <span class="math notranslate nohighlight">
+    \(A{\bf x} = {\bf b}\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L06LinearIndependence.html">
+   Linear Independence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L07LinearTransformations.html">
+   Linear Transformations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L08MatrixofLinearTranformation.html">
+   The Matrix of a Linear Transformation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L09MatrixOperations.html">
+   Matrix Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L10MatrixInverse.html">
+   The Inverse of a Matrix
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Markov Chains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L12MatrixFactorizations.html">
+   Matrix Factorizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L13ComputerGraphics-Spring2021.html">
+   Computer Graphics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L14Subspaces.html">
+   Subspaces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L15DimensionRank.html">
+   Dimension and Rank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L16Eigenvectors.html">
+   Eigenvectors and Eigenvalues
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L17CharacteristicEqn.html">
+   The Characteristic Equation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L18Diagonalization.html">
+   Diagonalization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L19PageRank.html">
+   PageRank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L20Orthogonality.html">
+   Analytic Geometry in
+   <span class="math notranslate nohighlight">
+    \(\mathbb{R}^n\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L21OrthogonalSets.html">
+   Orthogonal Sets and Projection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L22LeastSquares.html">
+   Least Squares
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L23LinearModels.html">
+   Linear Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L24SymmetricMatrices.html">
+   Symmetric Matrices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L25SVD.html">
+   The Singular Value Decomposition
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/L11MarkovChains.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/mcrovella/CS132-Geometric-Algorithms"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L11MarkovChains.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Markov Chains
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#predicting-the-distant-future">
+   Predicting the Distant Future
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#steady-state-vectors">
+   Steady-State Vectors
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#finding-the-steady-state">
+   Finding the Steady State
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#existence-of-and-convergence-to-steady-state">
+   Existence of, and Convergence to, Steady State
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#summary">
+     Summary
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for QR codes use inline</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">qr_setting</span> <span class="o">=</span> <span class="s1">&#39;url&#39;</span>
+<span class="c1">#</span>
+<span class="c1"># for lecture use notebook</span>
+<span class="c1"># %matplotlib notebook</span>
+<span class="c1"># qr_setting = None</span>
+<span class="c1">#</span>
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format=&#39;retina&#39;
+<span class="c1"># import libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">laUtilities</span> <span class="k">as</span> <span class="nn">ut</span>
+<span class="kn">import</span> <span class="nn">slideUtilities</span> <span class="k">as</span> <span class="nn">sl</span>
+<span class="kn">import</span> <span class="nn">demoUtilities</span> <span class="k">as</span> <span class="nn">dm</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display_html</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Math</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Latex</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="markov-chains">
+<h1>Markov Chains<a class="headerlink" href="#markov-chains" title="Permalink to this headline">¶</a></h1>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Image credit: http://en.wikipedia.org/wiki/Andrey_Markov#mediaviewer/File:AAMarkov.jpg</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/AAMarkov.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">250</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;&lt;b&gt;Andrei Markov, 1856 - 1922, St Petersburg.&lt;/b&gt;&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L11MarkovChains_2_0.jpg" src="_images/L11MarkovChains_2_0.jpg" />
+<div class="output text_html"><b>Andrei Markov, 1856 - 1922, St Petersburg.</b></div></div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Image credit: http://en.wikipedia.org/wiki/Andrey_Markov#mediaviewer/File:AAMarkov.jpg</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/AAMarkov.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">250</span><span class="p">))</span>
+<span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="s2">&quot;&lt;b&gt;Andrei Markov, 1856 - 1922, St Petersburg.&lt;/b&gt;&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L11MarkovChains_3_0.jpg" src="_images/L11MarkovChains_3_0.jpg" />
+<div class="output text_html"><b>Andrei Markov, 1856 - 1922, St Petersburg.</b></div></div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;&lt;a href=&quot;http://commons.wikimedia.org/wiki/File:AAMarkov.jpg#/media/File:AAMarkov.jpg&quot;&gt;AAMarkov&lt;/a&gt; by unknown; originally uploaded to en-wikipedia by &lt;a href=&quot;//en.wikipedia.org/wiki/User:Mhym&quot; class=&quot;extiw&quot; title=&quot;en:User:Mhym&quot;&gt;en:User:Mhym&lt;/a&gt; - From the official web site of the &lt;a href=&quot;//en.wikipedia.org/wiki/Russian_Academy_of_Sciences&quot; class=&quot;extiw&quot; title=&quot;en:Russian Academy of Sciences&quot;&gt;Russian Academy of Sciences&lt;/a&gt;: &lt;a rel=&quot;nofollow&quot; class=&quot;external free&quot; href=&quot;http://www.ras.ru/win/db/show_per.asp?P=.id-53175.ln-en.dl-.pr-inf.uk-0&quot;&gt;http://www.ras.ru/win/db/show_per.asp?P=.id-53175.ln-en.dl-.pr-inf.uk-0&lt;/a&gt;. Licensed under Public Domain via &lt;a href=&quot;//commons.wikimedia.org/wiki/&quot;&gt;Wikimedia Commons&lt;/a&gt;.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><a href="http://commons.wikimedia.org/wiki/File:AAMarkov.jpg#/media/File:AAMarkov.jpg">AAMarkov</a> by unknown; originally uploaded to en-wikipedia by <a href="//en.wikipedia.org/wiki/User:Mhym" class="extiw" title="en:User:Mhym">en:User:Mhym</a> - From the official web site of the <a href="//en.wikipedia.org/wiki/Russian_Academy_of_Sciences" class="extiw" title="en:Russian Academy of Sciences">Russian Academy of Sciences</a>: <a rel="nofollow" class="external free" href="http://www.ras.ru/win/db/show_per.asp?P=.id-53175.ln-en.dl-.pr-inf.uk-0">http://www.ras.ru/win/db/show_per.asp?P=.id-53175.ln-en.dl-.pr-inf.uk-0</a>. Licensed under Public Domain via <a href="//commons.wikimedia.org/wiki/">Wikimedia Commons</a>.</div></div>
+</div>
+<p>Markov was part of the great tradition of mathematics in Russia.</p>
+<p>Markov started out working in number theory but then got interested in probability.  He enjoyed poetry and the great Russian poet Pushkin.   Markov studied the sequence of letters found in the text of <em>Eugene Onegin,</em> in particular the sequence of consonants and vowels.</p>
+<p>He sought a way to describe the patterns in the text.  This eventually led to the idea of a system in which one transitions between states, and the probability of going to another state depends only on the current state.</p>
+<p>Hence, Markov pioneered the study of systems in which the future state of the system depends only on the present state in a random fashion.  Classic examples in modern life include the movement of stock prices and the dynamics of animal populations.</p>
+<p>These have since been termed “Markov Chains.”</p>
+<p>Markov chains are essential tools in understanding, explaining, and predicting phenomena in computer science, physics, biology, economics, and finance.</p>
+<p>Today we will study an application of linear algebra.  You will see how the concepts we use, such as vectors and matrices, get applied to a particular problem.</p>
+<p>Many applications in computing are concerned with how a system behaves over time.</p>
+<p>Think of a Web server that is processing requests for Web pages, or network that is moving packets from place to place.</p>
+<p>We would like to describe how systems like these operate, and analyze them to understand their performance limits.</p>
+<p>The way we model this is:</p>
+<ul class="simple">
+<li><p>we define some vector that describes the state of the system, and</p></li>
+<li><p>we formulate a rule that tells us how to compute the next state of the system based on the current state of the system.</p></li>
+</ul>
+<p>So we would say that the state of the system at time <span class="math notranslate nohighlight">\(k\)</span> is a vector <span class="math notranslate nohighlight">\({\bf x_k} \in \mathbb{R}^n,\)</span> and</p>
+<div class="math notranslate nohighlight">
+\[{\bf x_{k+1}} = T({\bf x_k}),\;\;\;\mbox{for time}\;k=0,1,2...\]</div>
+<p>where <span class="math notranslate nohighlight">\(T: \mathbb{R}^n \rightarrow \mathbb{R}^n.\)</span></p>
+<p>This situation is so common that it goes by many names:</p>
+<ul class="simple">
+<li><p>In physics, this is called a <strong>dynamical system</strong>.</p>
+<ul>
+<li><p>Here, <span class="math notranslate nohighlight">\({\bf x_k}\)</span> might represent the position and velocity of a particle.</p></li>
+</ul>
+</li>
+<li><p>When studying algorithms, this is called a <strong>recurrence relation.</strong></p>
+<ul>
+<li><p>Here, <span class="math notranslate nohighlight">\({\bf x_k}\)</span> might represent the number of steps needed to solve a problem of size <span class="math notranslate nohighlight">\(k\)</span>.</p></li>
+</ul>
+</li>
+<li><p>Most commonly, this is called a <strong>difference equation.</strong></p>
+<ul>
+<li><p>The reason for this terminology is that it is a discrete analog of a differential equation in <span class="math notranslate nohighlight">\(k\)</span>.</p></li>
+</ul>
+</li>
+</ul>
+<p>The vector <span class="math notranslate nohighlight">\({\bf x_k}\)</span> is called the <em>state vector.</em></p>
+<p>Of course, we are going to be particularly interested in the case where <span class="math notranslate nohighlight">\(T\)</span> is a linear transformation.</p>
+<p>Then we know that we can write the difference equation as:</p>
+<div class="math notranslate nohighlight">
+\[ {\bf x_{k+1}} = A{\bf x_k},\]</div>
+<p>where <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n\times n}.\)</span></p>
+<p>This is a <em>linear difference equation.</em></p>
+<p><strong>Example.</strong></p>
+<p>Here is our warm-up problem.</p>
+<p>We are interested in the population of two regions, say the city and the suburbs.</p>
+<p>Fix an initial year (say 2000) and let</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} {\bf x_0} = \left[\begin{array}{cc}\mbox{population of the city in 2000}\\\mbox{population of the suburbs in 2000}\end{array}\right].\end{split}\]</div>
+<p>Then</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} {\bf x_1} = \left[\begin{array}{cc}\mbox{population of the city in 2001}\\\mbox{population of the suburbs in 2001}\end{array}\right],\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}{\bf x_2} = \left[\begin{array}{cc}\mbox{population of the city in 2002}\\\mbox{population of the suburbs in 2002}\end{array}\right],\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\dots \mbox{etc.}\]</div>
+<p>We only concern ourselves with movements of people between the two regions.</p>
+<ul class="simple">
+<li><p>no immigration, emigration, birth, death, etc.</p></li>
+</ul>
+<p>We assume that measurements have shown the following pattern:</p>
+<p>in any given year,</p>
+<ul class="simple">
+<li><p>5% of the people in the city move to the suburbs, and</p></li>
+<li><p>3% of the people in the suburbs move to the city.</p></li>
+</ul>
+<p>You can think of this as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rcc}&amp;\mbox{From City}&amp;\mbox{From Suburbs}\\\mbox{To City}&amp; .95&amp;.03\\\mbox{To Suburbs}&amp;.05&amp;.97\end{array}\end{split}\]</div>
+<p>Then we can capture this update rule as a matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A = \left[\begin{array}{rr}.95&amp;.03\\.05&amp;.97\end{array}\right].\end{split}\]</div>
+<p>We can see that this is correct by verifying that:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{cc}\mbox{city pop. in 2001}\\\mbox{suburb pop. in 2001}\end{array}\right] =\left[\begin{array}{rr}.95&amp;.03\\.05&amp;.97\end{array}\right] \left[\begin{array}{cc}\mbox{city pop. in 2000}\\\mbox{suburb pop. in 2000}\end{array}\right].\end{split}\]</div>
+<div class="section" id="id1">
+<h2>Markov Chains<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Let’s look at <span class="math notranslate nohighlight">\(A\)</span> again:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A = \left[\begin{array}{rr}.95&amp;.03\\.05&amp;.97\end{array}\right].\end{split}\]</div>
+<p>We note that <span class="math notranslate nohighlight">\(A\)</span> has a special property: each of its columns adds up to 1.</p>
+<p>Also, it would not make sense to have negative entries in <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>The reason that columns sum to 1 is that the total number of people in the system is not changing over time.</p>
+<p>This leads to three definitions:</p>
+<p><strong>Definition.</strong> A <em>probability vector</em> is a vector of nonnegative entries that sums to 1.</p>
+<p><strong>Definition.</strong> A <em>stochastic</em> matrix is a square matrix of nonnegative values whose columns each sum to 1.</p>
+<p><strong>Definition.</strong> A <em>Markov chain</em> is a dynamical system whose state is a probability vector and which evolves according to a stochastic matrix.</p>
+<p>That is, it is a probability vector <span class="math notranslate nohighlight">\({\bf x_0}\)</span> and a stochastic matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n\times n}\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[{\bf x_{k+1}} = A{\bf x_k}\;\;\;\mbox{for}\;k = 0,1,2,...\]</div>
+<p>So we think of a probability vector <span class="math notranslate nohighlight">\({\bf x_0}\)</span> as describing how things are “distributed” across various categories – the fraction of items that are in each category.</p>
+<p>And we think of the stochastic matrix <span class="math notranslate nohighlight">\(A\)</span> as describing how things “redistribute” themselves at each time step.</p>
+<div class="toggle docutils container">
+<p>Question Time! Q11.1</p>
+</div>
+<p><strong>Example.</strong> Suppose that in 2000 the population of the city is 600,000 and the population of the suburbs is 400,000.  What is the distribution of the population in 2001?  In 2002?  In 2020?</p>
+<p><strong>Solution.</strong> First, we convert the population distribution to a probability vector.  This is done by simply normalizing by the sum of the vector elements.</p>
+<div class="math notranslate nohighlight">
+\[600,000 + 400,000 = 1,000,000.\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\frac{1}{1,000,000}\left[\begin{array}{rr}600,000\\400,000\end{array}\right] = \left[\begin{array}{rr}0.60\\0.40\end{array}\right].\end{split}\]</div>
+<p>Then the distribution of population in 2001 is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} {\bf x_{1}} = A{\bf x_0} = \left[\begin{array}{rr}.95&amp;.03\\.05&amp;.97\end{array}\right]\left[\begin{array}{rr}0.60\\0.40\end{array}\right] = \left[\begin{array}{rr}0.582\\0.418\end{array}\right].\end{split}\]</div>
+<p>And the distribution of the population in 2002 is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} {\bf x_{2}} = A{\bf x_1} = \left[\begin{array}{rr}.95&amp;.03\\.05&amp;.97\end{array}\right]\left[\begin{array}{rr}0.582\\0.418\end{array}\right] = \left[\begin{array}{rr}0.565\\0.435\end{array}\right].\end{split}\]</div>
+<p>Note that another way we could have written this is:</p>
+<div class="math notranslate nohighlight">
+\[ {\bf x_{2}} = A{\bf x_1} = A(A{\bf x_0}) = A^2 {\bf x_0}.\]</div>
+<p>To answer the question for 2020, i.e., <span class="math notranslate nohighlight">\(k=20,\)</span> we note that</p>
+<div class="math notranslate nohighlight">
+\[{\bf x_{20}} = \overbrace{A\cdots A}^{20} {\bf x_0} = A^{20}{\bf x_0}.\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># stochastic matrix A</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[[</span><span class="mf">0.95</span><span class="p">,</span><span class="mf">0.03</span><span class="p">],</span>
+     <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.97</span><span class="p">]])</span>
+<span class="c1">#</span>
+<span class="c1"># initial state vector x_0</span>
+<span class="n">x_0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.60</span><span class="p">,</span><span class="mf">0.40</span><span class="p">])</span>
+<span class="c1">#</span>
+<span class="c1"># compute A^20</span>
+<span class="n">A_20</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">matrix_power</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="c1"># compute x_20</span>
+<span class="n">x_20</span> <span class="o">=</span> <span class="n">A_20</span> <span class="o">@</span> <span class="n">x_0</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x_20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.417456 0.582544]
+</pre></div>
+</div>
+</div>
+</div>
+<p>So we find that after 20 years, only 42% of the population will remain in the city.</p>
+<div class="toggle docutils container">
+<p>Question Time! Q11.2</p>
+</div>
+</div>
+<div class="section" id="predicting-the-distant-future">
+<h2>Predicting the Distant Future<a class="headerlink" href="#predicting-the-distant-future" title="Permalink to this headline">¶</a></h2>
+<p>We noticed that the population of the city is going down.  Will everyone eventually live in the suburbs?</p>
+<p>A important question about a Markov Chain is: what will happen in the distant future?</p>
+<p>For example, what happens to the population distribution in our example “in the long run?”</p>
+<p>Rather than answering that question right now, we’ll take a more interesting example.</p>
+<p>Suppose we have a system whose state transition is described by the stochastic matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}P = \left[\begin{array}{rrr}.5&amp;.2&amp;.3\\.3&amp;.8&amp;.3\\.2&amp;0&amp;.4\end{array}\right]\end{split}\]</div>
+<p>and which starts int the state</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}{\bf x_0} = \left[\begin{array}{r}1\\0\\0\end{array}\right].\end{split}\]</div>
+<p>Consider the Markov Chain defined by <span class="math notranslate nohighlight">\(P\)</span> and <span class="math notranslate nohighlight">\({\bf x_0}\)</span>, that is the chain defined as</p>
+<div class="math notranslate nohighlight">
+\[{\bf x_{k+1}} = P{\bf x_k}\;\;\;\mbox{for}\;k=0,1,2...\]</div>
+<p>What happens to the system as time passes?</p>
+<p>Let’s compute the state vectors <span class="math notranslate nohighlight">\({\bf x_1},\dots,{\bf x_{15}}\)</span> to find out.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># stochastic matrix A</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[[</span><span class="mf">.5</span><span class="p">,</span><span class="mf">.2</span><span class="p">,</span><span class="mf">.3</span><span class="p">],</span>
+     <span class="p">[</span><span class="mf">.3</span><span class="p">,</span><span class="mf">.8</span><span class="p">,</span><span class="mf">.3</span><span class="p">],</span>
+     <span class="p">[</span><span class="mf">.2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span><span class="mf">.4</span><span class="p">]])</span>
+<span class="c1">#</span>
+<span class="c1"># initial state vector</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="c1">#</span>
+<span class="c1"># array to hold each future state vector</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="c1"># </span>
+<span class="c1"># compute future state vectors</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">):</span>
+    <span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;x(</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s1">) = </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">x</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x(0) = [1 0 0]
+x(1) = [0.5 0.3 0.2]
+x(2) = [0.37 0.45 0.18]
+x(3) = [0.329 0.525 0.146]
+x(4) = [0.3133 0.5625 0.1242]
+x(5) = [0.30641 0.58125 0.11234]
+x(6) = [0.303157 0.590625 0.106218]
+x(7) = [0.3015689 0.5953125 0.1031186]
+x(8) = [0.30078253 0.59765625 0.10156122]
+x(9) = [0.30039088 0.59882813 0.10078099]
+x(10) = [0.30019536 0.59941406 0.10039057]
+x(11) = [0.30009767 0.59970703 0.1001953 ]
+x(12) = [0.30004883 0.59985352 0.10009765]
+x(13) = [0.30002441 0.59992676 0.10004883]
+x(14) = [0.30001221 0.59996338 0.10002441]
+</pre></div>
+</div>
+</div>
+</div>
+<p>What is going on here?  Let’s look at these values graphically.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">131</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">),</span><span class="n">xs</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;o-&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">132</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">),</span><span class="n">xs</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;o-&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">133</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">),</span><span class="n">xs</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;o-&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_3$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L11MarkovChains_49_0.png" src="_images/L11MarkovChains_49_0.png" />
+</div>
+</div>
+<p>Based on visual inspection, these vectors seem to be approaching</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}{\bf q} = \left[\begin{array}{r}.3\\.6\\.1\end{array}\right].\end{split}\]</div>
+<p>The components of <span class="math notranslate nohighlight">\({\bf x_k}\)</span> don’t seem to be changing much past about <span class="math notranslate nohighlight">\(k = 10.\)</span></p>
+<p>In fact, we can confirm that the this system would be stable at <span class="math notranslate nohighlight">\(\left[\begin{array}{r}.3\\.6\\.1\end{array}\right]\)</span> by noting that:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrr}.5&amp;.2&amp;.3\\.3&amp;.8&amp;.3\\.2&amp;0&amp;.4\end{array}\right]\left[\begin{array}{r}.3\\.6\\.1\end{array}\right] = \left[\begin{array}{r}.15+.12+.03\\.09+.48+.03\\.06+0+.04\end{array}\right] = \left[\begin{array}{r}.3\\.6\\.1\end{array}\right].\end{split}\]</div>
+<p>This calculation is exact.  So it seems that:</p>
+<ul class="simple">
+<li><p>the sequence of vectors is approaching <span class="math notranslate nohighlight">\(\left[\begin{array}{r}.3\\.6\\.1\end{array}\right]\)</span> as a limit, and</p></li>
+<li><p>when and if they get to that point, they will stabilize there.</p></li>
+</ul>
+</div>
+<div class="section" id="steady-state-vectors">
+<h2>Steady-State Vectors<a class="headerlink" href="#steady-state-vectors" title="Permalink to this headline">¶</a></h2>
+<p>This convergence to a “steady state” is quite remarkable.  Is this a general phenomenon?</p>
+<p><strong>Definition.</strong> If <span class="math notranslate nohighlight">\(P\)</span> is a stochastic matrix, then a <strong>steady-state vector</strong> (or <strong>equilibrium vector</strong>) for <span class="math notranslate nohighlight">\(P\)</span> is a probability vector <span class="math notranslate nohighlight">\(\bf q\)</span>  such that:</p>
+<div class="math notranslate nohighlight">
+\[P{\bf q} = {\bf q}.\]</div>
+<p>It can be shown that <strong>every stochastic matrix has at least one steady-state vector.</strong></p>
+<p>(We’ll study this more closely in a later lecture.)</p>
+<p><strong>Example.</strong></p>
+<p><span class="math notranslate nohighlight">\(\left[\begin{array}{r}.3\\.6\\.1\end{array}\right]\)</span> is the steady-state vector for <span class="math notranslate nohighlight">\(\left[\begin{array}{rrr}.5&amp;.2&amp;.3\\.3&amp;.8&amp;.3\\.2&amp;0&amp;.4\end{array}\right].\)</span></p>
+<p><strong>Example.</strong></p>
+<p>Recalling the population-movement example above.</p>
+<p>The probability vector <span class="math notranslate nohighlight">\({\bf q} = \left[\begin{array}{r}.375\\.625\end{array}\right]\)</span> is a steady-state vector for the population migration matrix <span class="math notranslate nohighlight">\(A\)</span>, because</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A{\bf q} = \left[\begin{array}{rr}.95&amp;.03\\.05&amp;.97\end{array}\right]\left[\begin{array}{r}.375\\.625\end{array}\right] = \left[\begin{array}{r}.35625+.01875\\.01875+.60625\end{array}\right] = \left[\begin{array}{r}.375\\.625\end{array}\right] = {\bf q}.\end{split}\]</div>
+<p>To interpret this:</p>
+<ul class="simple">
+<li><p>if the total population of the region is 1 million,</p></li>
+<li><p>then if there are 375,000 persons in the city and 625,000 persons in the suburbs,</p></li>
+<li><p>the populations of both the city and the suburbs would stabilize – they would <strong>stay the same in all future years.</strong></p></li>
+</ul>
+</div>
+<div class="section" id="finding-the-steady-state">
+<h2>Finding the Steady State<a class="headerlink" href="#finding-the-steady-state" title="Permalink to this headline">¶</a></h2>
+<p>OK, so it seems that the two Markov Chains we have studied so far each have a steady state.   This leads to two questions:</p>
+<ul class="simple">
+<li><p>Can we compute the steady state?</p>
+<ul>
+<li><p>So far we have guessed what the steady state is, and then checked.  Can we compute the steady state directly?</p></li>
+</ul>
+</li>
+</ul>
+<ul class="simple">
+<li><p>How do we know if:</p>
+<ul>
+<li><p>a Markov Chain has a unique steady state, and</p></li>
+<li><p>whether it will always converge to that steady state?</p></li>
+</ul>
+</li>
+</ul>
+<p>Let’s start by thinking about how to compute the steady-state directly.</p>
+<p><strong>Example.</strong>  Let <span class="math notranslate nohighlight">\(P = \left[\begin{array}{rr}.6&amp;.3\\.4&amp;.7\end{array}\right].\)</span>  Find a steady-state vector for <span class="math notranslate nohighlight">\(P\)</span>.</p>
+<p><strong>Solution.</strong> Let’s simply solve the equation <span class="math notranslate nohighlight">\(P{\bf x} = {\bf x}.\)</span></p>
+<div class="math notranslate nohighlight">
+\[P{\bf x} = {\bf x}\]</div>
+<div class="math notranslate nohighlight">
+\[P{\bf x} -{\bf x} = {\bf 0}\]</div>
+<div class="math notranslate nohighlight">
+\[P{\bf x} -I{\bf x} = {\bf 0}\]</div>
+<div class="math notranslate nohighlight">
+\[(P-I){\bf x} = {\bf 0}\]</div>
+<p>Now, <span class="math notranslate nohighlight">\(P-I\)</span> is a matrix, so this is a linear system that we can solve.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}P-I = \left[\begin{array}{rr}.6&amp;.3\\.4&amp;.7\end{array}\right] - \left[\begin{array}{rr}1&amp;0\\0&amp;1\end{array}\right] = \left[\begin{array}{rr}-.4&amp;.3\\.4&amp;-.3\end{array}\right].\end{split}\]</div>
+<p>To find all solutions of <span class="math notranslate nohighlight">\((P-I){\bf x} = {\bf 0},\)</span> we row reduce the augmented matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrr}-.4&amp;.3&amp;0\\.4&amp;-.3&amp;0\end{array}\right] \sim \left[\begin{array}{rrr}-.4&amp;.3&amp;0\\0&amp;0&amp;0\end{array}\right] \sim \left[\begin{array}{rrr}1&amp;-3/4&amp;0\\0&amp;0&amp;0\end{array}\right].\end{split}\]</div>
+<p>So <span class="math notranslate nohighlight">\(x_1 = \frac{3}{4}x_2\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> is free.  The general solution is <span class="math notranslate nohighlight">\(\left[\begin{array}{c}\frac{3}{4}x_2\\x_2\end{array}\right].\)</span></p>
+<p>This means that there are an infinite set of solutions.  Which one are we interested in?</p>
+<p>Remember that our vectors <span class="math notranslate nohighlight">\({\bf x}\)</span> are <em>probability vectors.</em>   So we are interested in the solution in which the vector elements are nonnegative and sum to 1.</p>
+<p>The simple way to find this is to take any solution, and divide it by the sum of the entries (so that the sum then adds to 1.)</p>
+<p>Let’s choose <span class="math notranslate nohighlight">\(x_2 = 1\)</span>, so the specific solution is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{r}\frac{3}{4}\\1\end{array}\right].\end{split}\]</div>
+<p>Normalizing this by the sum of the entries (<span class="math notranslate nohighlight">\(\frac{7}{4}\)</span>) we get:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}{\bf q} = \left[\begin{array}{r}\frac{3}{7}\\\frac{4}{7}\end{array}\right].\end{split}\]</div>
+<p>So, we have found how to solve a Markov Chain for its steady state:</p>
+<ul class="simple">
+<li><p>Solve the linear system <span class="math notranslate nohighlight">\((P-I){\bf x} = {\bf 0}.\)</span></p></li>
+<li><p>The system will have an infinite number of solutions, with one free variable.  Obtain a general solution.</p></li>
+<li><p>Pick any specific solution (choose any value for the free variable), and normalize it so the entries add up to 1.</p></li>
+</ul>
+</div>
+<div class="section" id="existence-of-and-convergence-to-steady-state">
+<h2>Existence of, and Convergence to, Steady State<a class="headerlink" href="#existence-of-and-convergence-to-steady-state" title="Permalink to this headline">¶</a></h2>
+<p>Finally: when does a system have a <strong>unique</strong> solution that is a probability vector, and how do we know it will converge to that vector?</p>
+<p>Of course, a linear system in general might have no solutions, or it might have a unique solution that is not a probability vector.</p>
+<p>So what we are asking is, when does a system defined by a Markov Chain have an infinite set of solutions, so that we can find one of them that is a probability vector?</p>
+<p><strong>Definition.</strong>  We say that a stochastic matrix <span class="math notranslate nohighlight">\(P\)</span> is <em>regular</em> if some matrix power <span class="math notranslate nohighlight">\(P^k\)</span> contains only strictly positive entries.</p>
+<p>For</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}P =\left[\begin{array}{rrr}.5&amp;.2&amp;.3\\.3&amp;.8&amp;.3\\.2&amp;0&amp;.4\end{array}\right],\end{split}\]</div>
+<p>We note that <span class="math notranslate nohighlight">\(P\)</span> does not have every entry strictly positive.</p>
+<p>However:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}P^2 = \left[\begin{array}{rrr}.37&amp;.26&amp;.33\\.45&amp;.70&amp;.45\\.18&amp;.04&amp;.22\end{array}\right].\end{split}\]</div>
+<p>Since every entry in <span class="math notranslate nohighlight">\(P^2\)</span> is positive, <span class="math notranslate nohighlight">\(P\)</span> is a regular stochastic matrix.</p>
+<p><strong>Theorem.</strong> If <span class="math notranslate nohighlight">\(P\)</span> is an <span class="math notranslate nohighlight">\(n\times n\)</span> regular stochastic matrix, then <span class="math notranslate nohighlight">\(P\)</span> has a unique steady-state vector <span class="math notranslate nohighlight">\({\bf q}.\)</span>  Further, if <span class="math notranslate nohighlight">\({\bf x_0}\)</span> is any initial state and <span class="math notranslate nohighlight">\({\bf x_{k+1}} = P{\bf x_k}\)</span> for <span class="math notranslate nohighlight">\(k = 0, 1, 2,\dots,\)</span> then the Markov Chain <span class="math notranslate nohighlight">\(\{{\bf x_k}\}\)</span> converges to <span class="math notranslate nohighlight">\({\bf q}\)</span> as <span class="math notranslate nohighlight">\(k \rightarrow \infty.\)</span></p>
+<p>Note the phrase “any initial state.”</p>
+<p>This is a remarkable property of a Markov Chain: it converges to its steady-state vector <strong>no matter what state the chain starts in.</strong></p>
+<p>We say that the long-term behavior of the chain has “no memory of the starting state.”</p>
+<div class="toggle docutils container">
+<p>Question Time! Q11.3</p>
+</div>
+<p><strong>Example.</strong>  Consider a computer system that consists of a disk, a CPU, and a network interface.</p>
+<p>A set of jobs are loaded into the system.   Each job makes requests for service from each of the components of the system.</p>
+<p>After receiving service, the job then next requests service from the same or a different component, and so on.</p>
+<p>Jobs move between system components according to the following diagram.</p>
+<p>For example, after receiving service from the Disk, 70% of jobs return to the disk for another unit of service;  20% request service from the network interface;  and 10% request service from the CPU.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Image credit: my own drawing</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/disk-cpu-net.png&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L11MarkovChains_91_0.png" src="_images/L11MarkovChains_91_0.png" />
+</div>
+</div>
+<p>Assume the system runs for a long time.  Determine whether the system will stabilize, and if so, find the fraction of jobs that are using each device once stabilized.   Which device is busiest?  Least busy?</p>
+<p><strong>Solution.</strong>  From the diagram, the movement of jobs among components is given by:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \begin{array}{rccc}&amp;\mbox{From Disk}&amp;\mbox{From Net}&amp;\mbox{From CPU}\\\mbox{To Disk}&amp;0.70&amp;0.10&amp;0.30\\\mbox{To Net}&amp;0.20&amp;0.80&amp;0.30\\\mbox{To CPU}&amp;0.10&amp;0.10&amp;0.40\end{array}\end{split}\]</div>
+<p>This corresponds to the stochastic matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}P = \left[\begin{array}{rrr}0.70&amp;0.10&amp;0.30\\0.20&amp;0.80&amp;0.30\\0.10&amp;0.10&amp;0.40\end{array}\right].\end{split}\]</div>
+<p>First of all, this is a regular matrix because <span class="math notranslate nohighlight">\(P\)</span> has all strictly positive entries.  So it has a steady-state vector.</p>
+<p>Next, we find the steady state of the system by solving <span class="math notranslate nohighlight">\((P-I){\bf x} = {\bf 0}:\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}[P-I\; {\bf 0}] = \left[\begin{array}{rrrr}-0.30&amp;0.10&amp;0.30&amp;0\\0.20&amp;-0.20&amp;0.30&amp;0\\0.10&amp;0.10&amp;-0.60&amp;0\end{array}\right] \sim \left[\begin{array}{rrrr}1&amp;0&amp;-9/4&amp;0\\0&amp;1&amp;-15/4&amp;0\\0&amp;0&amp;0&amp;0\end{array}\right].\end{split}\]</div>
+<p>Thus the general solution of <span class="math notranslate nohighlight">\((P-I){\bf x} = {\bf 0}\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[x_1 = \frac{9}{4} x_3, \;\;\; x_2 = \frac{15}{4} x_3,\;\;\; x_3\;\mbox{free.}\]</div>
+<p>Since <span class="math notranslate nohighlight">\(x_3\)</span> is free (there are infinitely many solutions) we can find a solution whose entries sum to 1.   This is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}{\bf q} \approx \left[\begin{array}{r}.32\\.54\\.14\end{array}\right].\end{split}\]</div>
+<p>So we see that in the long run,</p>
+<ul class="simple">
+<li><p>about 32% of the jobs will be using the disk,</p></li>
+<li><p>about 54% will be using the network interface, and</p></li>
+<li><p>about 14% will be using the CPU.</p></li>
+</ul>
+<p>Again, the important fact here is that we did not have to concern ourselves with the state in which that the system started.</p>
+<p>The influence of the starting state is eventually lost!</p>
+<p>Let’s demonstrate that computationally.   Let’s say that at the start, all the jobs happened to be using the CPU.  Then:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}{\bf x}_0 = \left[\begin{array}{r}0\\0\\1\end{array}\right].\end{split}\]</div>
+<p>Then let’s look at how the three elements of the <span class="math notranslate nohighlight">\({\bf x}\)</span> vector evolve with time, by computing <span class="math notranslate nohighlight">\(P{\bf x}_0\)</span>, <span class="math notranslate nohighlight">\(P^2{\bf x}_0\)</span>, <span class="math notranslate nohighlight">\(P^3{\bf x}_0\)</span>, etc.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+<span class="c1"># system definition</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[[</span><span class="mf">.7</span><span class="p">,</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.3</span><span class="p">],</span>
+     <span class="p">[</span><span class="mf">.2</span><span class="p">,</span><span class="mf">.8</span><span class="p">,</span><span class="mf">.3</span><span class="p">],</span>
+     <span class="p">[</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.4</span><span class="p">]])</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">xs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="c1">#</span>
+<span class="c1"># compute 15 steps in the evolution of the system stae</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">):</span>
+    <span class="n">xs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">x</span>
+<span class="c1">#</span>
+<span class="c1"># plot the results</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">131</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">),</span><span class="n">xs</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;o-&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">132</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">),</span><span class="n">xs</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;o-&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">133</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">),</span><span class="n">xs</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;o-&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_3$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L11MarkovChains_102_0.png" src="_images/L11MarkovChains_102_0.png" />
+</div>
+</div>
+<p>Notice how the system starts in the state <span class="math notranslate nohighlight">\(\left[\begin{array}{r}0\\0\\1\end{array}\right]\)</span>,</p>
+<p>but quickly (within about 10 steps) reaches the equilibrium state that we predicted: <span class="math notranslate nohighlight">\(\left[\begin{array}{r}.32\\.54\\.14\end{array}\right].\)</span></p>
+<p>Now let’s compare what happens if the system starts in a different state, say <span class="math notranslate nohighlight">\(\left[\begin{array}{r}1\\0\\0\end{array}\right]\)</span>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">.7</span><span class="p">,</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.3</span><span class="p">],[</span><span class="mf">.2</span><span class="p">,</span><span class="mf">.8</span><span class="p">,</span><span class="mf">.3</span><span class="p">],[</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.4</span><span class="p">]])</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ys</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">15</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">):</span>
+    <span class="n">ys</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">x</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">131</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">),</span><span class="n">xs</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;o-&#39;</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">),</span><span class="n">ys</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;o-r&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_1$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">132</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">),</span><span class="n">xs</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;o-&#39;</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">),</span><span class="n">ys</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;o-r&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_2$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">133</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">),</span><span class="n">xs</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;o-&#39;</span><span class="p">,</span><span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">),</span><span class="n">ys</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;o-r&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$x_3$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L11MarkovChains_105_0.png" src="_images/L11MarkovChains_105_0.png" />
+</div>
+</div>
+<p>This shows graphically that even though the system started in a very different state, it quickly converges to the steady state regardless of the starting state.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">.7</span><span class="p">,</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.3</span><span class="p">],[</span><span class="mf">.2</span><span class="p">,</span><span class="mf">.8</span><span class="p">,</span><span class="mf">.3</span><span class="p">],[</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.1</span><span class="p">,</span><span class="mf">.4</span><span class="p">]])</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">]</span>
+<span class="n">npts</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">11</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="s1">&#39;Convergence to Steady State&#39;</span><span class="p">,</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">qr</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">npts</span><span class="p">):</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">pt</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">pt</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">pt</span><span class="p">],</span> <span class="n">colors</span><span class="p">[</span><span class="n">pt</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="n">xnext</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">x</span>
+    <span class="k">for</span> <span class="n">pt</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">npts</span><span class="p">):</span>
+        <span class="c1"># fig.plotPoint(xnext[0][pt], xnext[1][pt], xnext[2][pt], colors[pt])</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">pt</span><span class="p">],</span> <span class="n">xnext</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">pt</span><span class="p">]],</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">pt</span><span class="p">],</span> <span class="n">xnext</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="n">pt</span><span class="p">]],</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">pt</span><span class="p">],</span> <span class="n">xnext</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="n">pt</span><span class="p">]]])</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> 
+                     <span class="n">colors</span><span class="p">[</span><span class="n">pt</span><span class="p">])</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">xnext</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.05</span><span class="p">,</span> <span class="s1">&#39;Steady State&#39;</span><span class="p">,</span> <span class="s1">&#39;Steady State&#39;</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=</span><span class="mf">40.0</span><span class="p">,</span><span class="n">elev</span><span class="o">=</span><span class="mf">45.0</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L11MarkovChains_107_0.png" src="_images/L11MarkovChains_107_0.png" />
+</div>
+</div>
+<p>Although we have been showing each component converging separately, in fact the entire state vector of the system can be thought of as evolving in space.</p>
+<p>This figure shows the movement of the state vector starting from six different initial conditions, and shows how regardless of the starting state, the eventual state is the same.</p>
+<div class="section" id="summary">
+<h3>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>Many phenomena can be describe using Markov’s idea:</p>
+<ul>
+<li><p>There are “states”, and</p></li>
+<li><p>Transition between states only depends on the current state.</p></li>
+</ul>
+</li>
+<li><p>Examples: population movement, jobs in a computer, consonants/vowels in a text…</p></li>
+<li><p>Such a system can be expressed in terms of a stochastic matrix and a probability vector.</p></li>
+<li><p>Evolution of the system in time is described by matrix multiplication.</p></li>
+<li><p>Using linear algebraic tools we can predict the steady state of such a system!</p></li>
+</ul>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="L10MatrixInverse.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">The Inverse of a Matrix</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="L12MatrixFactorizations.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Matrix Factorizations</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Mark Crovella<br/>
+        
+            &copy; Copyright 2020-2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

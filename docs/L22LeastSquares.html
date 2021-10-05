@@ -1,0 +1,1183 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Least Squares &#8212; Linear Algebra, Geometry, and Computation</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Linear Models" href="L23LinearModels.html" />
+    <link rel="prev" title="Orthogonal Sets and Projection" href="L21OrthogonalSets.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      <img src="_static/DiagramAR-icon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Linear Algebra, Geometry, and Computation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="landing-page.html">
+   Preface
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="L01LinearEquations.html">
+   Linear Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L02Numerics.html">
+   Numbers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L03RowReductions.html">
+   Gaussian Elimination
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L04VectorEquations.html">
+   Vector Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L05Axb.html">
+   <span class="math notranslate nohighlight">
+    \(A{\bf x} = {\bf b}\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L06LinearIndependence.html">
+   Linear Independence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L07LinearTransformations.html">
+   Linear Transformations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L08MatrixofLinearTranformation.html">
+   The Matrix of a Linear Transformation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L09MatrixOperations.html">
+   Matrix Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L10MatrixInverse.html">
+   The Inverse of a Matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L11MarkovChains.html">
+   Markov Chains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L12MatrixFactorizations.html">
+   Matrix Factorizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L13ComputerGraphics-Spring2021.html">
+   Computer Graphics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L14Subspaces.html">
+   Subspaces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L15DimensionRank.html">
+   Dimension and Rank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L16Eigenvectors.html">
+   Eigenvectors and Eigenvalues
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L17CharacteristicEqn.html">
+   The Characteristic Equation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L18Diagonalization.html">
+   Diagonalization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L19PageRank.html">
+   PageRank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L20Orthogonality.html">
+   Analytic Geometry in
+   <span class="math notranslate nohighlight">
+    \(\mathbb{R}^n\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L21OrthogonalSets.html">
+   Orthogonal Sets and Projection
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Least Squares
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L23LinearModels.html">
+   Linear Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L24SymmetricMatrices.html">
+   Symmetric Matrices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L25SVD.html">
+   The Singular Value Decomposition
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/L22LeastSquares.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/mcrovella/CS132-Geometric-Algorithms"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L22LeastSquares.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#when-an-inconsistent-system-is-better-than-a-consistent-system">
+   When an Inconsistent System is Better than a Consistent System
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#finding-a-good-approximate-solution">
+     Finding a Good
+     <em>
+      Approximate
+     </em>
+     Solution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-general-least-squares-problem">
+     The General Least-Squares Problem
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#interpretation-of-the-least-squares-problem">
+     Interpretation of the Least Squares Problem
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#solving-the-general-least-squares-problem">
+   Solving the General Least Squares Problem
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-orthogonal-decomposition-theorem">
+     The Orthogonal Decomposition Theorem
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-best-approximation-theorem">
+     The Best Approximation Theorem
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#projection-solves-least-squares">
+   Projection Solves Least Squares
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-normal-equations">
+     The Normal Equations
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#when-the-normal-equations-have-multiple-solutions">
+     When the Normal Equations have Multiple Solutions
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for QR codes use inline</span>
+<span class="c1"># %matplotlib inline</span>
+<span class="c1"># qr_setting = &#39;url&#39;</span>
+<span class="c1"># qrviz_setting = &#39;show&#39;</span>
+<span class="c1">#</span>
+<span class="c1"># for lecture use notebook</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">qr_setting</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="c1">#</span>
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format=&#39;retina&#39;
+<span class="c1"># import libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">laUtilities</span> <span class="k">as</span> <span class="nn">ut</span>
+<span class="kn">import</span> <span class="nn">slideUtilities</span> <span class="k">as</span> <span class="nn">sl</span>
+<span class="kn">import</span> <span class="nn">demoUtilities</span> <span class="k">as</span> <span class="nn">dm</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display_html</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Math</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Latex</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="least-squares">
+<h1>Least Squares<a class="headerlink" href="#least-squares" title="Permalink to this headline">¶</a></h1>
+<p><a title="Justin Cowart / CC BY (https://creativecommons.org/licenses/by/2.0)" href="https://commons.wikimedia.org/wiki/File:Ceres_-_RC3_-_Haulani_Crater_(22381131691)_(cropped).jpg"><img width="512" alt="Ceres - RC3 - Haulani Crater (22381131691) (cropped)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg/512px-Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg"></a></p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit: http://en.wikipedia.org/wiki/Carl_Friedrich_Gauss#mediaviewer/File:Carl_Friedrich_Gauss.jpg</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/Carl_Friedrich_Gauss.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">450</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L22LeastSquares_3_0.jpg" src="_images/L22LeastSquares_3_0.jpg" />
+</div>
+</div>
+<p><a title="Justin Cowart / CC BY (https://creativecommons.org/licenses/by/2.0)" href="https://commons.wikimedia.org/wiki/File:Ceres_-_RC3_-_Haulani_Crater_(22381131691)_(cropped).jpg"><img width="512" alt="Ceres - RC3 - Haulani Crater (22381131691) (cropped)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg/512px-Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg"></a></p>
+<p>Let’s go back to week 1.  A long time ago!</p>
+<p>Recall Gauss’s remarkable accomplishment in his early 20s.  He took the set of measurements made by Piazzi of the dwarf planet Ceres and predicted where Ceres subsequently would appear in the sky (after it was lost behind the sun).  This told Olbers exactly where to look, and lo and behold …</p>
+<p>We can understand now a little better what Gauss had to do.</p>
+<p>Kepler had discovered, and Newton had explained, that each planet orbits the sun following the path of an ellipse.</p>
+<p>To describe the orbit of Ceres, Gauss had to construct the equation for its ellipse:</p>
+<div class="math notranslate nohighlight">
+\[a_1 x_1^2 + a_2 x_2^2 + a_3 x_1x_2 + a_4 x_1 + a_5 x_2 + a_6 = 0.\]</div>
+<p>He had many measurements of <span class="math notranslate nohighlight">\((x_1, x_2)\)</span> pairs and had to find the <span class="math notranslate nohighlight">\(a_1, \dots, a_6.\)</span></p>
+<p>This is actually a linear system:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{bmatrix}x_{11}^2 &amp;x_{21}^2&amp;x_{11}x_{21}&amp;x_{11}&amp;x_{21}&amp;1\\x_{12}^2 &amp;x_{22}^2&amp;x_{12}x_{22}&amp;x_{12}&amp;x_{22}&amp;1\\
+\vdots&amp;\vdots&amp;\vdots&amp;\vdots&amp;\vdots&amp;\vdots\\x_{1n}^2 &amp;x_{2n}^2&amp;x_{1n}x_{2n}&amp;x_{1n}&amp;x_{2n}&amp;1\end{bmatrix} \begin{bmatrix}a_1\\a_2\\a_3\\a_4\\a_5\\a_6\end{bmatrix} = \mathbf{0}\end{split}\]</div>
+<p>Now, according to Newton, this is a consistent linear system.</p>
+<p>The equation for the ellipse is exactly correct and all we need is six <span class="math notranslate nohighlight">\((x_1, x_2)\)</span> sets of measurements to know the orbit of Ceres exactly.</p>
+<p>What could go wrong? :)</p>
+<p>Obviously, there are going to be measurement errors in Piazzi’s observations.</p>
+<p>If we just solve the system using six measurements, we will probably get incorrect values for the coefficients <span class="math notranslate nohighlight">\(a_1, \dots, a_6.\)</span></p>
+<div class="section" id="when-an-inconsistent-system-is-better-than-a-consistent-system">
+<h2>When an Inconsistent System is Better than a Consistent System<a class="headerlink" href="#when-an-inconsistent-system-is-better-than-a-consistent-system" title="Permalink to this headline">¶</a></h2>
+<p>Notice that each time Piazzi takes a measurement of the position of Ceres, we add an additional equation to our linear system.</p>
+<p>Just using six measurements will certainly result in incorrect coefficients due to measurement error.</p>
+<p>A better idea is to use all of the <span class="math notranslate nohighlight">\(n\)</span> measurement data available, and try to find a way to cancel out errors.</p>
+<p>So, using all the <span class="math notranslate nohighlight">\(n\)</span> data measurements available, we construct a linear system:</p>
+<div class="math notranslate nohighlight">
+\[ X\mathbf{a} = \mathbf{b}\]</div>
+<p>where <span class="math notranslate nohighlight">\(X\)</span> is <span class="math notranslate nohighlight">\(n\times 6\)</span> and <span class="math notranslate nohighlight">\(\mathbf{b} \in \mathbb{R}^n\)</span>.</p>
+<p>But now, due to measurement errors, we can’t expect <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> will lie in the column space of <span class="math notranslate nohighlight">\(X\)</span>.  We have an inconsistent system.</p>
+<p>This system has <strong>no solutions!</strong></p>
+<p>What can we do if <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> has <strong>no solutions?</strong></p>
+<p>Here is the key idea: the fact that our measurements include errors does not make them worthless!</p>
+<p>We simply need a principled approach to doing the best job we can given the errors in our measurements.</p>
+<p>Let’s see how we can do that.</p>
+<p>We now understand if <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(m\times n\)</span> and <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> has no solutions, that is because</p>
+<ul class="simple">
+<li><p>the columns of <span class="math notranslate nohighlight">\(A\)</span> do not span <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span>, and</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is not in the column space of <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+</ul>
+<p>Here is an example we can visualize, in which <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(3 \times 2\)</span>:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;b is not in Col A&#39;</span><span class="p">,</span>
+                        <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">5.0</span><span class="p">,</span><span class="o">-</span><span class="mf">13.0</span><span class="p">,</span><span class="o">-</span><span class="mf">3.0</span><span class="p">])</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">v</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">a1</span> <span class="o">+</span> <span class="n">a2</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">])</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="c1">#</span>
+<span class="c1"># plotting the span of v</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotSpan</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf b$&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="c1"># origin seems unhelpful</span>
+<span class="c1">#fig.plotPoint(0, 0, 0, &#39;b&#39;)</span>
+<span class="c1">#fig.text(0-1.5, 0-1.5, 0-1.5, r&#39;$\bf 0$&#39;, &#39;0&#39;, size=18)</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="n">wpos</span> <span class="o">=</span> <span class="o">-</span><span class="mf">4.5</span><span class="o">*</span><span class="n">a1</span> 
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">wpos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">wpos</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">wpos</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;Col $A$&#39;</span><span class="p">,</span> <span class="s1">&#39;Col A&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+
+<span class="c1">#ut.plotPoint3d(ax,0,0,0,&#39;b&#39;)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=</span><span class="mi">85</span><span class="p">,</span><span class="n">elev</span><span class="o">=-</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">hideAxes</span><span class="p">()</span> 
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\mathbf</span><span class="si">{b}</span><span class="s1">$ is not in Col $A$ ($A$ is $3 \times 2$)&#39;</span><span class="p">,</span> <span class="s1">&#39;b is not in Col A&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L22LeastSquares_21_0.png" src="_images/L22LeastSquares_21_0.png" />
+</div>
+</div>
+<p>Now our assumption is that the reason that <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> does not lie in <span class="math notranslate nohighlight">\(\operatorname{Col}\,A\)</span> is due to measurement error.</p>
+<div class="section" id="finding-a-good-approximate-solution">
+<h3>Finding a Good <em>Approximate</em> Solution<a class="headerlink" href="#finding-a-good-approximate-solution" title="Permalink to this headline">¶</a></h3>
+<p>If we make the assumption that measurement errors are small, then we should be quite satisfied to find an <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> that makes <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> as close as possible to <span class="math notranslate nohighlight">\(\mathbf{b}.\)</span></p>
+<p>In other words, we are looking for an <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> such that <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> makes a good <strong>approximation</strong> to <span class="math notranslate nohighlight">\(\mathbf{b}.\)</span></p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;b should be close to Ax&#39;</span><span class="p">,</span>
+                        <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">5.0</span><span class="p">,</span><span class="o">-</span><span class="mf">13.0</span><span class="p">,</span><span class="o">-</span><span class="mf">3.0</span><span class="p">])</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">v</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">a1</span> <span class="o">+</span> <span class="n">a2</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">])</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="c1">#</span>
+<span class="c1"># plotting the span of v</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotSpan</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">yhat</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">A</span><span class="p">)</span> <span class="o">@</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">yhat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">yhat</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">yhat</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">yhat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">yhat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">yhat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$A\mathbf</span><span class="si">{x}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="s1">&#39;Ax&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf b$&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="c1"># origin seems unhelpful</span>
+<span class="c1">#fig.plotPoint(0, 0, 0, &#39;b&#39;)</span>
+<span class="c1">#fig.text(0-1.5, 0-1.5, 0-1.5, r&#39;$\bf 0$&#39;, &#39;0&#39;, size=18)</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="n">wpos</span> <span class="o">=</span> <span class="o">-</span><span class="mf">4.5</span><span class="o">*</span><span class="n">a1</span> 
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">wpos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">wpos</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">wpos</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;Col $A$&#39;</span><span class="p">,</span> <span class="s1">&#39;Col A&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+
+<span class="c1">#ut.plotPoint3d(ax,0,0,0,&#39;b&#39;)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=</span><span class="mi">85</span><span class="p">,</span><span class="n">elev</span><span class="o">=-</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">hideAxes</span><span class="p">()</span> 
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;We should be happy with a $\mathbf</span><span class="si">{x}</span><span class="s1">$ such that $A\mathbf</span><span class="si">{x}</span><span class="s1">$ is close to $\mathbf</span><span class="si">{b}</span><span class="s1">$&#39;</span><span class="p">,</span> 
+              <span class="s1">&#39;We should be happy with an $\mathbf</span><span class="si">{x}</span><span class="s1"> such that AX is close to b&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L22LeastSquares_26_0.png" src="_images/L22LeastSquares_26_0.png" />
+</div>
+</div>
+<p>We can think of the quality of the approximation of <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> as the distance from <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b},\)</span> which is</p>
+<div class="math notranslate nohighlight">
+\[\Vert A\mathbf{x} - \mathbf{b}\Vert.\]</div>
+</div>
+<div class="section" id="the-general-least-squares-problem">
+<h3>The General Least-Squares Problem<a class="headerlink" href="#the-general-least-squares-problem" title="Permalink to this headline">¶</a></h3>
+<p>We can now formally express what we are looking for when we seek a “good” solution to an inconsistent system:</p>
+<p>The <strong>general least-squares problem</strong> is to find an <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> that makes <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}-\mathbf{b}\Vert\)</span> as small as possible.</p>
+<p>This is called “least squares” because it is equivalent to minimizing <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}-\mathbf{b}\Vert^2,\)</span> which is the sum of squared differences.</p>
+<p>Just to make this explicit: say that we denote <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> by <span class="math notranslate nohighlight">\(\mathbf{y}\)</span>.    Then</p>
+<div class="math notranslate nohighlight">
+\[\Vert A\mathbf{x}-\mathbf{b}\Vert^2 = \sum_i (y_i-b_i)^2\]</div>
+<p>Where we interpret <span class="math notranslate nohighlight">\(y_i\)</span> as the <em>estimated value</em> and <span class="math notranslate nohighlight">\(b_i\)</span> as the <em>measured value.</em></p>
+<p>So this expression is the <strong>sum of squared error.</strong></p>
+<p>This is the most common measure of error used in statistics.</p>
+<p>This is a key principle!</p>
+<center><font color = "blue">Minimizing the length of $A\mathbf{x} - \mathbf{b}$ is the same as minimizing the sum of squared error.</font></center><p><strong>Definition.</strong> If A is <span class="math notranslate nohighlight">\(m\times n\)</span> and <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is in <span class="math notranslate nohighlight">\(\mathbb{R}^m,\)</span> a <strong>least squares solution</strong> of <span class="math notranslate nohighlight">\(A\mathbf{x} =\mathbf{b}\)</span> is an <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[\Vert A\mathbf{\hat{x}} - \mathbf{b}\Vert \leq \Vert A\mathbf{x} - \mathbf{b}\Vert\]</div>
+<p>for all <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
+<p>An equivalent (and more common) way to express this is:</p>
+<div class="math notranslate nohighlight">
+\[\hat{\mathbf{x}} = \arg\min_\mathbf{x} \Vert A\mathbf{x} - \mathbf{b}\Vert.\]</div>
+<p>which emphasizes that this is a minimization problem, also called an <em>optimization</em> problem.</p>
+</div>
+<div class="section" id="interpretation-of-the-least-squares-problem">
+<h3>Interpretation of the Least Squares Problem<a class="headerlink" href="#interpretation-of-the-least-squares-problem" title="Permalink to this headline">¶</a></h3>
+<p>The point here is that no matter what <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is, <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> will be in the column space of <span class="math notranslate nohighlight">\(A\)</span> — that is, <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>.</p>
+<p>So <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is outside <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>, and we are looking for <span class="math notranslate nohighlight">\(\hat{\mathbf{x}}\)</span>, which specifies the closest point in <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="s1">&#39;Least Squares looks for the Closest Point in Col A&#39;</span><span class="p">,</span>
+                        <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">5.0</span><span class="p">,</span><span class="o">-</span><span class="mf">13.0</span><span class="p">,</span><span class="o">-</span><span class="mf">3.0</span><span class="p">])</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">v</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">a1</span> <span class="o">+</span> <span class="n">a2</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">])</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="c1">#</span>
+<span class="c1"># plotting the span of v</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotSpan</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">yhat</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">A</span><span class="p">)</span> <span class="o">@</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">yhat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">yhat</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">yhat</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">yhat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">yhat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">yhat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\mathbf{A\hat</span><span class="si">{x}</span><span class="s1">}$&#39;</span><span class="p">,</span> <span class="s1">&#39;Ax-hat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf b$&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="c1"># origin seems unhelpful</span>
+<span class="c1">#fig.plotPoint(0, 0, 0, &#39;b&#39;)</span>
+<span class="c1">#fig.text(0-1.5, 0-1.5, 0-1.5, r&#39;$\bf 0$&#39;, &#39;0&#39;, size=18)</span>
+<span class="c1">#</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+<span class="n">x1hat</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">A</span><span class="p">)</span> <span class="o">@</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">x1</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">x1hat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x1hat</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x1hat</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">x2</span> <span class="o">=</span> <span class="n">y</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="n">x2hat</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">A</span><span class="p">)</span> <span class="o">@</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">x2</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">x2hat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x2hat</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x2hat</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">wpos</span> <span class="o">=</span> <span class="o">-</span><span class="mf">4.5</span><span class="o">*</span><span class="n">a1</span> 
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">wpos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">wpos</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">wpos</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;Col $A$&#39;</span><span class="p">,</span> <span class="s1">&#39;Col A&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="c1"># lines</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="n">y</span><span class="p">,</span> <span class="n">yhat</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="n">y</span><span class="p">,</span> <span class="n">x1hat</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="n">y</span><span class="p">,</span> <span class="n">x2hat</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">)</span>
+
+<span class="c1">#ut.plotPoint3d(ax,0,0,0,&#39;b&#39;)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">elev</span><span class="o">=-</span><span class="mf">20.0</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">hideAxes</span><span class="p">()</span> 
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Least Squares looks for the Closest Point in Col $A$&#39;</span><span class="p">,</span> <span class="s1">&#39;Least Squares looks for the Closest Point in Col A&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L22LeastSquares_35_0.png" src="_images/L22LeastSquares_35_0.png" />
+</div>
+</div>
+<p>The vector <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is closer to <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}}\)</span> than it is to <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> for any other <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>.</p>
+<p>For example, the red points in the figure are both further from  <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> than is <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}}\)</span>.</p>
+</div>
+</div>
+<div class="section" id="solving-the-general-least-squares-problem">
+<h2>Solving the General Least Squares Problem<a class="headerlink" href="#solving-the-general-least-squares-problem" title="Permalink to this headline">¶</a></h2>
+<p>In order to solve the Least Squares problem, we need to bring in a bit more theory.</p>
+<p>All we need to do is to extend some of the ideas we developed in the last lecture.</p>
+<p>The last lecture developed methods for finding the point in a 1D subspace that is closest to a given point.</p>
+<p>We need to generalize the idea of “closest point” to the case of an <strong>arbitrary</strong> subspace.</p>
+<p>This leads to two theorems: the <strong>Orthogonal Decomposition Theorem</strong> and the <strong>Best Approximation Theorem.</strong></p>
+<div class="section" id="the-orthogonal-decomposition-theorem">
+<h3>The Orthogonal Decomposition Theorem<a class="headerlink" href="#the-orthogonal-decomposition-theorem" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(W\)</span> be a subspace of <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.  Then each <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> can be written uniquely in the form</p>
+<div class="math notranslate nohighlight">
+\[ \mathbf{y} = \hat{\mathbf{y}} + \mathbf{z}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span> is in <span class="math notranslate nohighlight">\(W\)</span> and <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> is orthogonal to every vector in <span class="math notranslate nohighlight">\(W\)</span>.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">4.</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+<span class="n">yhat</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="o">/</span><span class="n">u</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">u</span><span class="p">))</span><span class="o">*</span><span class="n">u</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">y</span><span class="o">-</span><span class="n">yhat</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span><span class="o">-</span><span class="mf">2.</span><span class="p">,</span><span class="mf">0.</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">yhat</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">yhat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.3</span><span class="p">,</span><span class="n">yhat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$\mathbf{\hat</span><span class="si">{y}</span><span class="s1">}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.8</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$\mathbf</span><span class="si">{y}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">mm</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">yhat</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">mm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span><span class="n">mm</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="sa">r</span><span class="s1">&#39;$\mathbf{y - \hat</span><span class="si">{y}</span><span class="s1">}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mf">4.5</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$L$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">perpline1</span><span class="p">,</span> <span class="n">perpline2</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">perp_sym</span><span class="p">(</span><span class="n">yhat</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span> <span class="mf">0.75</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">perpline1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">perpline1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">perpline2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">perpline2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">yhat</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">yhat</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;b--&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L22LeastSquares_40_0.png" src="_images/L22LeastSquares_40_0.png" />
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="s1">&#39;Projection of y onto Subspace W&#39;</span><span class="p">,</span>
+                        <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">5.0</span><span class="p">,</span><span class="o">-</span><span class="mf">13.0</span><span class="p">,</span><span class="o">-</span><span class="mf">3.0</span><span class="p">])</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">v</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">a1</span> <span class="o">+</span> <span class="n">a2</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">])</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="c1">#</span>
+<span class="c1"># plotting the span of v</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotSpan</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">yhat</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">)))</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">yhat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">yhat</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">yhat</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">yhat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">yhat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">yhat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\mathbf{\hat</span><span class="si">{y}</span><span class="s1">}$&#39;</span><span class="p">,</span> <span class="s1">&#39;y-hat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf y$&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="n">m2</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">yhat</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">m2</span> <span class="o">=</span> <span class="n">m2</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">m2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">m2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">m2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf y - \hat{\bf y}$&#39;</span><span class="p">,</span> <span class="s1">&#39;||y - y-hat||&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+
+<span class="c1">#</span>
+<span class="n">wpos</span> <span class="o">=</span> <span class="o">-</span><span class="mf">4.5</span><span class="o">*</span><span class="n">a1</span> 
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">wpos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">wpos</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">wpos</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$W$&#39;</span><span class="p">,</span> <span class="s1">&#39;W&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="c1"># lines</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="n">y</span><span class="p">,</span> <span class="n">yhat</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="c1">#ut.plotPoint3d(ax,0,0,0,&#39;b&#39;)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=</span><span class="mf">57.0</span><span class="p">,</span><span class="n">elev</span><span class="o">=-</span><span class="mf">75.0</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">hideAxes</span><span class="p">()</span> 
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPerpSym</span><span class="p">(</span><span class="n">yhat</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">a2</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">a1</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Projection of $\mathbf</span><span class="si">{y}</span><span class="s1">$ onto Subspace $W$&#39;</span><span class="p">,</span> 
+              <span class="s1">&#39;Projection of y onto Subspace W&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">qrcode</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L22LeastSquares_41_0.png" src="_images/L22LeastSquares_41_0.png" />
+</div>
+</div>
+<p><strong>Proof.</strong> (straightforward extension of the 1D case from last lecture.)</p>
+<p>Just as in the case of a 1D subspace (in the last lecture), we say that <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span> is the <strong>orthogonal projection of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> onto <span class="math notranslate nohighlight">\(W\)</span></strong> and write <span class="math notranslate nohighlight">\(\hat{\mathbf{y}} = \mbox{proj}_W \mathbf{y}.\)</span></p>
+</div>
+<div class="section" id="the-best-approximation-theorem">
+<h3>The Best Approximation Theorem<a class="headerlink" href="#the-best-approximation-theorem" title="Permalink to this headline">¶</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(W\)</span> be a subspace of <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, let <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> be any vector in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, and let <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span> be the orthogonal projection of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> onto <span class="math notranslate nohighlight">\(W\)</span>.  Then <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span> is the closest point in <span class="math notranslate nohighlight">\(W\)</span> to <span class="math notranslate nohighlight">\(\mathbf{y}\)</span>, in the sense that</p>
+<div class="math notranslate nohighlight">
+\[\Vert \mathbf{y}-\hat{\mathbf{y}} \Vert &lt; \Vert \mathbf{y} - \mathbf{v} \Vert\]</div>
+<p>for all <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> in <span class="math notranslate nohighlight">\(W\)</span> distinct from <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span>.</p>
+<p><strong>Proof.</strong></p>
+<p>Take <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> in <span class="math notranslate nohighlight">\(W\)</span> distinct from <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span>.   Here is what the setup looks like:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="s1">&#39;Comparison of v to the projection of y&#39;</span><span class="p">,</span>
+                        <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">),</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">5.0</span><span class="p">,</span><span class="o">-</span><span class="mf">13.0</span><span class="p">,</span><span class="o">-</span><span class="mf">3.0</span><span class="p">])</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">v</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">a1</span> <span class="o">+</span> <span class="n">a2</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">])</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="c1">#</span>
+<span class="c1"># plotting the span of v</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotSpan</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">yhat</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">)))</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">yhat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">yhat</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">yhat</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">yhat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">yhat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">yhat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\mathbf{\hat</span><span class="si">{y}</span><span class="s1">}$&#39;</span><span class="p">,</span> <span class="s1">&#39;y-hat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf y$&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf v$&#39;</span><span class="p">,</span> <span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">m1</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">v</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">m1</span> <span class="o">=</span> <span class="n">m1</span> <span class="o">+</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">m1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">m1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">m1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\Vert \bf y - \bf v\Vert$&#39;</span><span class="p">,</span> <span class="s1">&#39;||y - v||&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">m2</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">yhat</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">m2</span> <span class="o">=</span> <span class="n">m2</span> <span class="o">+</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">m2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">m2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">m2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\Vert \bf y - \hat{\bf y}\Vert$&#39;</span><span class="p">,</span> <span class="s1">&#39;||y - y-hat||&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">m3</span> <span class="o">=</span> <span class="p">(</span><span class="n">yhat</span> <span class="o">+</span> <span class="n">v</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="n">m3</span> <span class="o">=</span> <span class="n">m3</span> <span class="o">+</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">m3</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">m3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">m3</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\Vert \hat{\bf y} - \bf v\Vert$&#39;</span><span class="p">,</span> <span class="s1">&#39;||y - v||&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">wpos</span> <span class="o">=</span> <span class="o">-</span><span class="mf">4.5</span><span class="o">*</span><span class="n">a1</span> 
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">wpos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">wpos</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">wpos</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$W$&#39;</span><span class="p">,</span> <span class="s1">&#39;W&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="c1"># lines</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="n">y</span><span class="p">,</span> <span class="n">yhat</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="n">v</span><span class="p">,</span> <span class="n">yhat</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="n">y</span><span class="p">,</span> <span class="n">v</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="c1">#ut.plotPoint3d(ax,0,0,0,&#39;b&#39;)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=</span><span class="mf">57.0</span><span class="p">,</span><span class="n">elev</span><span class="o">=-</span><span class="mf">69.0</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">hideAxes</span><span class="p">()</span> 
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Relationship of $\mathbf</span><span class="si">{y}</span><span class="s1">$ to $\hat{\mathbf</span><span class="si">{y}</span><span class="s1">} = \operatorname</span><span class="si">{Proj}</span><span class="s1">_W \mathbf</span><span class="si">{y}</span><span class="s1">$&#39;</span><span class="p">,</span> 
+              <span class="s1">&#39;Relationship of y Proj_W y&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">qrcode</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L22LeastSquares_45_0.png" src="_images/L22LeastSquares_45_0.png" />
+</div>
+</div>
+<p>Both <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> are in <span class="math notranslate nohighlight">\(W\)</span>, so <span class="math notranslate nohighlight">\(\hat{\mathbf{y}} - \mathbf{v}\)</span> is in <span class="math notranslate nohighlight">\(W\)</span>.</p>
+<p>By the orthogonal decomposition theorem, <span class="math notranslate nohighlight">\(\mathbf{y} - \hat{\mathbf{y}}\)</span> is orthogonal to every vector in <span class="math notranslate nohighlight">\(W\)</span>, so it is orthogonal to <span class="math notranslate nohighlight">\(\hat{\mathbf{y}} - \mathbf{v}.\)</span></p>
+<p>Now, these three points form a right triangle because</p>
+<div class="math notranslate nohighlight">
+\[ \mathbf{y} - \mathbf{v} = (\mathbf{y} - \hat{\mathbf{y}}) + (\hat{\mathbf{y}} - \mathbf{v}). \]</div>
+<p>So the Pythagorean Theorem tells us that</p>
+<div class="math notranslate nohighlight">
+\[ \Vert\mathbf{y} - \mathbf{v}\Vert^2 = \Vert\mathbf{y} - \hat{\mathbf{y}}\Vert^2 + \Vert\hat{\mathbf{y}} - \mathbf{v}\Vert^2. \]</div>
+<p>Now <span class="math notranslate nohighlight">\(\hat{\mathbf{y}} - \mathbf{v} \neq {\bf 0}\)</span> because <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> is distinct from <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>.</p>
+<p>So</p>
+<div class="math notranslate nohighlight">
+\[\Vert \hat{\mathbf{y}} - \mathbf{v} \Vert &gt; 0.\]</div>
+<p>So</p>
+<div class="math notranslate nohighlight">
+\[ \Vert\mathbf{y} - \mathbf{v}\Vert^2 &gt; \Vert\mathbf{y} - \hat{\mathbf{y}}\Vert^2. \]</div>
+<p>So we have shown a key fact:</p>
+<div class="math notranslate nohighlight">
+\[ \operatorname{Proj}_W \mathbf{y} \mbox{ is the closest point in } W \mbox{ to } \mathbf{y}.\]</div>
+</div>
+</div>
+<div class="section" id="projection-solves-least-squares">
+<h2>Projection Solves Least Squares<a class="headerlink" href="#projection-solves-least-squares" title="Permalink to this headline">¶</a></h2>
+<p>Let’s apply these ideas to solving the least squares problem.</p>
+<p>Here is what we want to achieve:</p>
+<div class="math notranslate nohighlight">
+\[\hat{\mathbf{x}} = \arg\min_\mathbf{x} \Vert A\mathbf{x} - \mathbf{b}\Vert.\]</div>
+<p>That is, we want <span class="math notranslate nohighlight">\(A\hat{\mathbf{x}}\)</span> to be the closest point in <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.</p>
+<p>… and we now know that the closest point to <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> in a subspace <span class="math notranslate nohighlight">\(W\)</span> is the <strong>projection</strong> of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> onto <span class="math notranslate nohighlight">\(W.\)</span></p>
+<p>So the point we are looking for, which we’ll call <span class="math notranslate nohighlight">\(\hat{\mathbf{b}},\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[\hat{\mathbf{b}} = \mbox{proj}_{\operatorname{Col}A} \mathbf{b}\]</div>
+<p>The key is that <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> <strong>is</strong> in the column space of <span class="math notranslate nohighlight">\(A\)</span>.   So this equation is consistent, and we can solve it:</p>
+<div class="math notranslate nohighlight">
+\[A\mathbf{\hat{x}} = \hat{\mathbf{b}}.\]</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="s1">&#39;Least Squares looks for the Closest Point in Col A&#39;</span><span class="p">,</span>
+                        <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">5.0</span><span class="p">,</span><span class="o">-</span><span class="mf">13.0</span><span class="p">,</span><span class="o">-</span><span class="mf">3.0</span><span class="p">])</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">v</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">a1</span> <span class="o">+</span> <span class="n">a2</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">12.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">])</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="c1">#</span>
+<span class="c1"># plotting the span of v</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotSpan</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">yhat</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">A</span><span class="p">)</span> <span class="o">@</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">y</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">yhat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">yhat</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">yhat</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">yhat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">yhat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">yhat</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\mathbf{A\hat</span><span class="si">{x}</span><span class="s1">} = \hat{\mathbf</span><span class="si">{b}</span><span class="s1">}$&#39;</span><span class="p">,</span> <span class="s1">&#39;Ax-hat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mf">0.5</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf b$&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="n">wpos</span> <span class="o">=</span> <span class="o">-</span><span class="mf">4.5</span><span class="o">*</span><span class="n">a1</span> 
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">wpos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">wpos</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">wpos</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;Col $A$&#39;</span><span class="p">,</span> <span class="s1">&#39;Col A&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="c1"># lines</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="n">y</span><span class="p">,</span> <span class="n">yhat</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPerpSym</span><span class="p">(</span><span class="n">yhat</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">a2</span><span class="o">-</span><span class="mi">5</span><span class="o">*</span><span class="n">a1</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">)</span>
+<span class="c1">#</span>
+
+<span class="c1">#ut.plotPoint3d(ax,0,0,0,&#39;b&#39;)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span><span class="n">elev</span><span class="o">=-</span><span class="mf">20.0</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">hideAxes</span><span class="p">()</span> 
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Least Squares looks for the Closest Point in Col $A$&#39;</span><span class="p">,</span> <span class="s1">&#39;Least Squares looks for the Closest Point in Col A&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L22LeastSquares_60_0.png" src="_images/L22LeastSquares_60_0.png" />
+</div>
+</div>
+<p>Since <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> is the closest point in <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b},\)</span> a vector <span class="math notranslate nohighlight">\(\hat{\mathbf{x}}\)</span> is a least-squares solution of <span class="math notranslate nohighlight">\(A\mathbf{x}=\mathbf{b}\)</span> if and only if <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> satisfies <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}} = \hat{\mathbf{b}}.\)</span></p>
+<p>(Note: we know that <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}} =\hat{\mathbf{b}}\)</span> is consistent (by definition), so there exists at least one solution.</p>
+<p>However note that if <span class="math notranslate nohighlight">\(A\)</span> has free variables – the columns of <span class="math notranslate nohighlight">\(A\)</span> are not independent – then there would be many solutions of <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}} =\hat{\mathbf{b}}\)</span>.)</p>
+<p>Let’s go back to the case that we can visualize.</p>
+<p><span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(3 \times 2.\)</span></p>
+<p>We have only two columns <span class="math notranslate nohighlight">\(\mathbf{a}_1\)</span> and <span class="math notranslate nohighlight">\(\mathbf{a}_2\)</span> so they can not span <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>.</p>
+<p>So <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> may not lie in <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>, and in our example it does not:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="s1">&#39;b is not in Col A&#39;</span><span class="p">,</span> 
+                        <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">),</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">5.0</span><span class="p">,</span><span class="o">-</span><span class="mf">13.0</span><span class="p">,</span><span class="o">-</span><span class="mf">3.0</span><span class="p">])</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">])</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">bhat</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">A</span><span class="p">)</span> <span class="o">@</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">b</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf a_1$&#39;</span><span class="p">,</span> <span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf a_2$&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf b$&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="c1">#ax.text(1,-4,-10,r&#39;Span{$\bf a,b$}&#39;,size=16)</span>
+<span class="c1">#ax.text(0.2,0.2,-4,r&#39;$\bf 0$&#39;,size=20)</span>
+<span class="c1"># plotting the span of v</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotSpan</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="c1">#ut.plotPoint3d(ax,0,0,0,&#39;b&#39;)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">elev</span><span class="o">=-</span><span class="mf">80.0</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\mathbf</span><span class="si">{b}</span><span class="s1">$ is not in Col $A$&#39;</span><span class="p">,</span> <span class="s1">&#39;b is not in Col A&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L22LeastSquares_64_0.png" src="_images/L22LeastSquares_64_0.png" />
+</div>
+</div>
+<p>And what we want to find is the projection of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> onto the column space of <span class="math notranslate nohighlight">\(A\)</span>:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="s1">&#39;b-hat is closest to b&#39;</span><span class="p">,</span> 
+                        <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">5.0</span><span class="p">,</span><span class="o">-</span><span class="mf">13.0</span><span class="p">,</span><span class="o">-</span><span class="mf">3.0</span><span class="p">])</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">])</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">bhat</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">A</span><span class="p">)</span> <span class="o">@</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">b</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">.5</span><span class="p">,</span> <span class="n">a1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf a_1$&#39;</span><span class="p">,</span> <span class="s1">&#39;a1&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">.5</span><span class="p">,</span> <span class="n">a2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf a_2$&#39;</span><span class="p">,</span> <span class="s1">&#39;a2&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf b$&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">bhat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bhat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">bhat</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$A\mathbf{\hat</span><span class="si">{x}</span><span class="s1">} = \mathbf{\hat</span><span class="si">{b}</span><span class="s1">}$&#39;</span><span class="p">,</span> <span class="s1">&#39;Ax-hat = b-hat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="c1">#ax.text(1,-4,-10,r&#39;Span{$\bf a,b$}&#39;,size=16)</span>
+<span class="c1">#ax.text(0.2,0.2,-4,r&#39;$\bf 0$&#39;,size=20)</span>
+<span class="c1"># plotting the span of v</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotSpan</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">bhat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bhat</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">bhat</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="n">b</span><span class="p">,</span> <span class="n">bhat</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="c1">#ut.plotPoint3d(ax,0,0,0,&#39;b&#39;)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">elev</span><span class="o">=-</span><span class="mf">80.0</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\hat\mathbf</span><span class="si">{b}</span><span class="s1">$ is closest point in Col $A$ to $\mathbf</span><span class="si">{b}</span><span class="s1">$&#39;</span><span class="p">,</span> <span class="s1">&#39;b-hat is closest to b&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPerpSym</span><span class="p">(</span><span class="n">bhat</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">a2</span><span class="o">-</span><span class="mi">3</span><span class="o">*</span><span class="n">a1</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L22LeastSquares_66_0.png" src="_images/L22LeastSquares_66_0.png" />
+</div>
+</div>
+<div class="section" id="the-normal-equations">
+<h3>The Normal Equations<a class="headerlink" href="#the-normal-equations" title="Permalink to this headline">¶</a></h3>
+<p>So: how are we going to find this projection <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span>?</p>
+<p>Here is the key idea:</p>
+<p>We know that the projection <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> has the property that <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}-\mathbf{b}\)</span> is orthogonal to <span class="math notranslate nohighlight">\(\operatorname{Col}A.\)</span></p>
+<p>Suppose <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> is <span class="math notranslate nohighlight">\(\mbox{proj}_{\operatorname{Col}A}\mathbf{b},\)</span> and that <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> satisfies <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}} = \hat{\mathbf{b}}\)</span>.</p>
+<p>So <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}} - \mathbf{b}\)</span> is orthogonal to each column of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>If <span class="math notranslate nohighlight">\(\mathbf{a}_j\)</span> is any column of <span class="math notranslate nohighlight">\(A\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{a}_j^T(A\mathbf{\hat{x}} - \mathbf{b}) = 0.\]</div>
+<p>Now, each <span class="math notranslate nohighlight">\(\mathbf{a}_j^T\)</span> is a row of <span class="math notranslate nohighlight">\(A^T\)</span>.</p>
+<p>We can collect all of the equations for all the <span class="math notranslate nohighlight">\(\mathbf{a}_j\)</span> as:</p>
+<div class="math notranslate nohighlight">
+\[A^T(A\mathbf{\hat{x}} - \mathbf{b}) = {\bf 0}.\]</div>
+<p>So</p>
+<div class="math notranslate nohighlight">
+\[A^TA\mathbf{\hat{x}} - A^T\mathbf{b} = {\bf 0}\]</div>
+<p>So</p>
+<div class="math notranslate nohighlight">
+\[A^TA\mathbf{\hat{x}} = A^T\mathbf{b}\]</div>
+<p>Looking at this, we see that <span class="math notranslate nohighlight">\(A^T\mathbf{b}\)</span> is a vector, and <span class="math notranslate nohighlight">\(A^TA\)</span> is a matrix, so this is a standard linear system.</p>
+<p>This linear system is called the <strong>normal equations</strong> for <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}.\)</span></p>
+<p>It’s solution is usually denoted <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span>.</p>
+<p><strong>Theorem.</strong>  The set of least-squares solutions of <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> is equal to the (nonempty) set of solutions of the normal equations <span class="math notranslate nohighlight">\(A^TA\mathbf{x} = A^T\mathbf{b}.\)</span></p>
+<p><strong>Proof.</strong></p>
+<p>(1) The set of solutions is nonempty.  The matrix on the left has the same column space as <span class="math notranslate nohighlight">\(A^T\)</span> and the vector on the right is a vector in the column  space of <span class="math notranslate nohighlight">\(A^T.\)</span></p>
+<p>And, by the arguments above, any least-squares solution of <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> must satisfy the normal equations <span class="math notranslate nohighlight">\(A^TA\mathbf{x} = A^T\mathbf{b}.\)</span></p>
+<p>(2) Now let’s show that any solution of <span class="math notranslate nohighlight">\(A^TA\mathbf{x} = A^T\mathbf{b}\)</span> is a least squares solution of <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span>.</p>
+<p>If <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> satisfies <span class="math notranslate nohighlight">\(A^TA\mathbf{x} = A^T\mathbf{b},\)</span> then <span class="math notranslate nohighlight">\(A^T(A\mathbf{\hat{x}} -\mathbf{b}) = {\bf 0},\)</span></p>
+<p>which shows that <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}} - \mathbf{b}\)</span> is orthogonal to the rows of <span class="math notranslate nohighlight">\(A^T,\)</span> and so is orthogonal to the columns of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>So the vector <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}} - \mathbf{b}\)</span> is orthogonal to <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>.</p>
+<p>So the equation</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{b} = A\mathbf{\hat{x}} - (\mathbf{b} - A\mathbf{\hat{x}})\]</div>
+<p>is a decomposition of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> into the sum of a vector in <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span> and a vector orthogonal to <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>.</p>
+<p>Since the orthogonal decomposition is unique, <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}}\)</span> must be the orthogonal projection of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> onto the column space of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>So <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}} = \hat{\mathbf{b}}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> is a least-squares solution.</p>
+<p><strong>Example.</strong>  Find the least squares solution of the inconsistent system <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> for</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}4&amp;0\\0&amp;2\\1&amp;1\end{bmatrix}, \;\;\; \mathbf{b} = \begin{bmatrix}2\\0\\11\end{bmatrix}.\end{split}\]</div>
+<p><strong>Solution.</strong></p>
+<p>We will use the normal equations <span class="math notranslate nohighlight">\(A^TA\hat{\mathbf{x}} = A^T\mathbf{b}.\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A^TA = \begin{bmatrix}4&amp;0&amp;1\\0&amp;2&amp;1\end{bmatrix} \begin{bmatrix}4&amp;0\\0&amp;2\\1&amp;1\end{bmatrix} = \begin{bmatrix}17&amp;1\\1&amp;5\end{bmatrix}\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}A^T\mathbf{b} =  \begin{bmatrix}4&amp;0&amp;1\\0&amp;2&amp;1\end{bmatrix} \begin{bmatrix}2\\0\\11\end{bmatrix} = \begin{bmatrix}19\\11\end{bmatrix}\end{split}\]</div>
+<p>So the normal equations are:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \begin{bmatrix}17&amp;1\\1&amp;5\end{bmatrix}\begin{bmatrix}\hat{x}_1\\\hat{x}_2\end{bmatrix} = \begin{bmatrix}19\\11\end{bmatrix}\end{split}\]</div>
+<p>We can solve this using row operations, or by inverting <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}(A^TA)^{-1} = \frac{1}{84}\begin{bmatrix}5&amp;-1\\-1&amp;17\end{bmatrix}\end{split}\]</div>
+<p>And we can then solve <span class="math notranslate nohighlight">\(A^TA\hat{\mathbf{x}} = A^T\mathbf{b}\)</span> as</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{\hat{x}} = (A^TA)^{-1}A^T\mathbf{b}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} = \frac{1}{84}\begin{bmatrix}5&amp;-1\\-1&amp;17\end{bmatrix}\begin{bmatrix}19\\11\end{bmatrix} = \frac{1}{84}\begin{bmatrix}84\\168\end{bmatrix} = \begin{bmatrix}1\\2\end{bmatrix}.\end{split}\]</div>
+<p>So we conclude that <span class="math notranslate nohighlight">\(\mathbf{\hat{x}} = \begin{bmatrix}1\\2\end{bmatrix}\)</span> is the vector that minimizes <span class="math notranslate nohighlight">\(\Vert A\mathbf{x} -\mathbf{b}\Vert.\)</span></p>
+<p>More formally,</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{\hat{x}} = \arg\min_{\mathbf{x}} \Vert A\mathbf{x} - \mathbf{b}\Vert.\]</div>
+<p>That is, <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> is the least-squares solution of <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span>.</p>
+</div>
+<div class="section" id="when-the-normal-equations-have-multiple-solutions">
+<h3>When the Normal Equations have Multiple Solutions<a class="headerlink" href="#when-the-normal-equations-have-multiple-solutions" title="Permalink to this headline">¶</a></h3>
+<p>We have seen that the normal equations <strong>always</strong> have a solution.</p>
+<p>Is there always a <strong>unique</strong> solution?</p>
+<p>No, there can be multiple solutions that <strong>all</strong> minimize <span class="math notranslate nohighlight">\(\Vert A\mathbf{x} - \mathbf{b}\Vert.\)</span></p>
+<p>Let’s remind ourselves of what is going on when a linear system has multiple solutions.</p>
+<p>We know that a linear system has multiple solutions when there are columns that are not pivot columns.</p>
+<p>Equivalently, when <span class="math notranslate nohighlight">\(A\hat{\mathbf{x}} = \hat{\mathbf{b}}\)</span> has multiple solutions, the columns of <span class="math notranslate nohighlight">\(A\)</span> are linearly dependent.</p>
+<p>Here is a picture of what is going on.  In this case, <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(3 \times 3\)</span>.</p>
+<p>But note, that <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span> is only two-dimensional because the three columns are linearly dependent.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">22</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="s1">&#39;Multiple Solutions to the Normal Equations&#39;</span><span class="p">,</span> 
+                        <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">),</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">5.0</span><span class="p">,</span><span class="o">-</span><span class="mf">13.0</span><span class="p">,</span><span class="o">-</span><span class="mf">3.0</span><span class="p">])</span>
+<span class="n">a1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">a3</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">a1</span> <span class="o">+</span> <span class="n">a2</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">])</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">bhat</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">)))</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">)</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf a_1$&#39;</span><span class="p">,</span> <span class="s1">&#39;a_1&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf a_2$&#39;</span><span class="p">,</span> <span class="s1">&#39;a_2&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">a3</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a3</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf a_3$&#39;</span><span class="p">,</span><span class="s1">&#39;a_3&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf b$&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">bhat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bhat</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">bhat</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$A\mathbf{\hat</span><span class="si">{x}</span><span class="s1">} = \mathbf{\hat</span><span class="si">{b}</span><span class="s1">}$&#39;</span><span class="p">,</span> <span class="s1">&#39;b-hat&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="c1">#ax.text(1,-4,-10,r&#39;Span{$\bf a,b$}&#39;,size=16)</span>
+<span class="c1">#ax.text(0.2,0.2,-4,r&#39;$\bf 0$&#39;,size=20)</span>
+<span class="c1"># plotting the span of v</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotSpan</span><span class="p">(</span><span class="n">a1</span><span class="p">,</span> <span class="n">a2</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">a1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">a2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">a3</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">a3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">a3</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">bhat</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bhat</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">bhat</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="n">b</span><span class="p">,</span> <span class="n">bhat</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="c1">#ut.plotPoint3d(ax,0,0,0,&#39;b&#39;)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;When there are Multiple Solutions to the Normal Equations&#39;</span><span class="p">,</span> 
+              <span class="s1">&#39;When there are Multiple Solutions to the Normal Equations&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=</span><span class="mf">26.0</span><span class="p">,</span><span class="n">elev</span><span class="o">=-</span><span class="mf">77.0</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L22LeastSquares_94_0.png" src="_images/L22LeastSquares_94_0.png" />
+</div>
+</div>
+<p><strong>Example.</strong></p>
+<p>Find a least-squares solution for <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> for</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}1&amp;1&amp;0&amp;0\\1&amp;1&amp;0&amp;0\\1&amp;0&amp;1&amp;0\\1&amp;0&amp;1&amp;0\\1&amp;0&amp;0&amp;1\\1&amp;0&amp;0&amp;1\end{bmatrix},\;\;\; \mathbf{b} = \begin{bmatrix}-3\\-1\\0\\2\\5\\1\end{bmatrix}.\end{split}\]</div>
+<p><strong>Solution.</strong> Compute</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A^TA = \begin{bmatrix}1&amp;1&amp;1&amp;1&amp;1&amp;1\\1&amp;1&amp;0&amp;0&amp;0&amp;0\\0&amp;0&amp;1&amp;1&amp;0&amp;0\\0&amp;0&amp;0&amp;0&amp;1&amp;1\end{bmatrix}\begin{bmatrix}1&amp;1&amp;0&amp;0\\1&amp;1&amp;0&amp;0\\1&amp;0&amp;1&amp;0\\1&amp;0&amp;1&amp;0\\1&amp;0&amp;0&amp;1\\1&amp;0&amp;0&amp;1\end{bmatrix} = \begin{bmatrix}6&amp;2&amp;2&amp;2\\2&amp;2&amp;0&amp;0\\2&amp;0&amp;2&amp;0\\2&amp;0&amp;0&amp;2\end{bmatrix}\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}A^T\mathbf{b} = \begin{bmatrix}1&amp;1&amp;1&amp;1&amp;1&amp;1\\1&amp;1&amp;0&amp;0&amp;0&amp;0\\0&amp;0&amp;1&amp;1&amp;0&amp;0\\0&amp;0&amp;0&amp;0&amp;1&amp;1\end{bmatrix}\begin{bmatrix}-3\\-1\\0\\2\\5\\1\end{bmatrix} = \begin{bmatrix}4\\-4\\2\\6\end{bmatrix}\end{split}\]</div>
+<p>To solve <span class="math notranslate nohighlight">\(A^TA\hat{\mathbf{x}} = A^T\mathbf{b},\)</span> we’ll use row reduction.  The augmented matrix <span class="math notranslate nohighlight">\([A^TA\; A^T\mathbf{b}]\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{bmatrix}6&amp;2&amp;2&amp;2&amp;4\\2&amp;2&amp;0&amp;0&amp;-4\\2&amp;0&amp;2&amp;0&amp;2\\2&amp;0&amp;0&amp;2&amp;6\end{bmatrix} \sim \begin{bmatrix}1&amp;0&amp;0&amp;1&amp;3\\0&amp;1&amp;0&amp;-1&amp;-5\\0&amp;0&amp;1&amp;-1&amp;-2\\0&amp;0&amp;0&amp;0&amp;0\end{bmatrix}\end{split}\]</div>
+<p>Since there is a row of zeros, we know the columns of <span class="math notranslate nohighlight">\(A^TA\)</span> are linearly dependent.</p>
+<p>This happens because the columns of <span class="math notranslate nohighlight">\(A\)</span> are linearly dependent.</p>
+<p>You can see this as follows:  if <span class="math notranslate nohighlight">\(A\)</span> has a non-trivial null space, then <span class="math notranslate nohighlight">\(A^TA\)</span> also has a nontrival null space.</p>
+<p>So there is a free variable.</p>
+<p>The general solution is then <span class="math notranslate nohighlight">\(x_1 = 3-x_4\)</span>, <span class="math notranslate nohighlight">\(x_2 = -5+x_4\)</span>, <span class="math notranslate nohighlight">\(x_3 = -2 + x_4\)</span>, and <span class="math notranslate nohighlight">\(x_4\)</span> is free.</p>
+<p>So the general least-squares solution of <span class="math notranslate nohighlight">\(A\hat{\mathbf{x}} = \mathbf{b}\)</span> has the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{\hat{x}} = \begin{bmatrix}3\\-5\\-2\\0\end{bmatrix} + x_4\begin{bmatrix}-1\\1\\1\\1\end{bmatrix}\end{split}\]</div>
+<p>Keep in mind that the orthogonal projection <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> is always unique.</p>
+<p>The reason that there are multiple solutions to this least squares problem is that there are <strong>multiple ways</strong> to construct <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span>.</p>
+<p>The reason that there are multiple ways to construct <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> is that the columns of <span class="math notranslate nohighlight">\(A\)</span> are linearly dependent, so <strong>any</strong> vector in the column space of <span class="math notranslate nohighlight">\(A\)</span> can be constructed in multiple ways.</p>
+<p>Here is a theorem that allows use to identify when there are multiple least-squares solutions.</p>
+<p><strong>Theorem.</strong>  Let <span class="math notranslate nohighlight">\(A\)</span> be an <span class="math notranslate nohighlight">\(m\times n\)</span> matrix.  The following statements are equivalent:</p>
+<ol class="simple">
+<li><p>The equation <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> has a unique least-squares solution for each <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^m.\)</span></p></li>
+<li><p>The columns of <span class="math notranslate nohighlight">\(A\)</span> are linearly independent.</p></li>
+<li><p>The matrix <span class="math notranslate nohighlight">\(A^TA\)</span> is invertible.</p></li>
+</ol>
+<p>When these statements are true, the least-squares solution <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{\hat{x}} = (A^TA)^{-1}A^T\mathbf{b}\]</div>
+<p><strong>Finding <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> directly.</strong></p>
+<p>When <span class="math notranslate nohighlight">\(A^TA\)</span> is invertible, and <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> is unique, we can put together the two equations</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{\hat{x}} = (A^TA)^{-1}A^T\mathbf{b}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[A\mathbf{\hat{x}} = \hat{\mathbf{b}}\]</div>
+<p>to get:</p>
+<div class="math notranslate nohighlight">
+\[\hat{\mathbf{b}} = A(A^TA)^{-1}A^T\mathbf{b}\]</div>
+<p>Let’s stop and look at this another way.  Up until now we have seen how to project a point onto a line, or on to a subspace with an orthogonal basis.</p>
+<p>Now here is a formula for projection onto a subspace given an <strong>arbitrary</strong> basis.  This is a general formula that can be very useful.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="L21OrthogonalSets.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Orthogonal Sets and Projection</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="L23LinearModels.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Linear Models</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Mark Crovella<br/>
+        
+            &copy; Copyright 2020-2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

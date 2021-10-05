@@ -1,0 +1,1229 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orthogonal Sets and Projection &#8212; Linear Algebra, Geometry, and Computation</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Least Squares" href="L22LeastSquares.html" />
+    <link rel="prev" title="Analytic Geometry in \(\mathbb{R}^n\)" href="L20Orthogonality.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      <img src="_static/DiagramAR-icon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Linear Algebra, Geometry, and Computation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="landing-page.html">
+   Preface
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="L01LinearEquations.html">
+   Linear Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L02Numerics.html">
+   Numbers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L03RowReductions.html">
+   Gaussian Elimination
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L04VectorEquations.html">
+   Vector Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L05Axb.html">
+   <span class="math notranslate nohighlight">
+    \(A{\bf x} = {\bf b}\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L06LinearIndependence.html">
+   Linear Independence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L07LinearTransformations.html">
+   Linear Transformations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L08MatrixofLinearTranformation.html">
+   The Matrix of a Linear Transformation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L09MatrixOperations.html">
+   Matrix Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L10MatrixInverse.html">
+   The Inverse of a Matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L11MarkovChains.html">
+   Markov Chains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L12MatrixFactorizations.html">
+   Matrix Factorizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L13ComputerGraphics-Spring2021.html">
+   Computer Graphics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L14Subspaces.html">
+   Subspaces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L15DimensionRank.html">
+   Dimension and Rank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L16Eigenvectors.html">
+   Eigenvectors and Eigenvalues
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L17CharacteristicEqn.html">
+   The Characteristic Equation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L18Diagonalization.html">
+   Diagonalization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L19PageRank.html">
+   PageRank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L20Orthogonality.html">
+   Analytic Geometry in
+   <span class="math notranslate nohighlight">
+    \(\mathbb{R}^n\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Orthogonal Sets and Projection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L22LeastSquares.html">
+   Least Squares
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L23LinearModels.html">
+   Linear Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L24SymmetricMatrices.html">
+   Symmetric Matrices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L25SVD.html">
+   The Singular Value Decomposition
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/L21OrthogonalSets.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/mcrovella/CS132-Geometric-Algorithms"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L21OrthogonalSets.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#orthogonal-sets">
+   Orthogonal Sets
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#orthogonal-sets-must-be-independent">
+     Orthogonal Sets Must be Independent
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#orthogonal-basis">
+     Orthogonal Basis
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#orthogonal-projection">
+   Orthogonal Projection
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#projections-are-onto-subspaces">
+     Projections are onto Subspaces
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#important-properties-of-hat-mathbf-y">
+     Important Properties of
+     <span class="math notranslate nohighlight">
+      \(\hat{\mathbf{y}}\)
+     </span>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#projections-find-coordinates-in-an-orthogonal-basis">
+   Projections find Coordinates in an Orthogonal Basis
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#orthonormal-sets">
+   Orthonormal Sets
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#orthogonal-mappings">
+     Orthogonal Mappings
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#orthonormal-matrices-preserve-length-and-orthogonality">
+     Orthonormal Matrices Preserve Length and Orthogonality
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#when-orthonormal-matrices-are-square">
+     When Orthonormal Matrices are Square
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for QR codes use inline</span>
+<span class="c1"># %matplotlib inline</span>
+<span class="c1"># qr_setting = &#39;url&#39;</span>
+<span class="c1"># qrviz_setting = &#39;show&#39;</span>
+<span class="c1">#</span>
+<span class="c1"># for lecture use notebook</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">qr_setting</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="c1">#</span>
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format=&#39;retina&#39;
+<span class="c1"># import libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">laUtilities</span> <span class="k">as</span> <span class="nn">ut</span>
+<span class="kn">import</span> <span class="nn">slideUtilities</span> <span class="k">as</span> <span class="nn">sl</span>
+<span class="kn">import</span> <span class="nn">demoUtilities</span> <span class="k">as</span> <span class="nn">dm</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display_html</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Math</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Latex</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="orthogonal-sets-and-projection">
+<h1>Orthogonal Sets and Projection<a class="headerlink" href="#orthogonal-sets-and-projection" title="Permalink to this headline">¶</a></h1>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image from NYT - https://www.nytimes.com/store/me-38-my-human-2004-nsap364p.html</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/skaters.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">350</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L21OrthogonalSets_2_0.jpg" src="_images/L21OrthogonalSets_2_0.jpg" />
+</div>
+</div>
+<p>Today we deepen our study of geometry.</p>
+<p>In the last lecture we focused on points, lines, and angles.</p>
+<p>Today we take on more challenging geometric notions that bring in <strong>sets of vectors</strong> and <strong>subspaces</strong>.</p>
+<p>Within this realm, we will focus on <strong>orthogonality</strong> and a new notion called <strong>projection.</strong></p>
+<p>First of all, today we’ll study the properties of <strong>sets</strong> of orthogonal vectors.</p>
+<p>These can be very useful.</p>
+<div class="section" id="orthogonal-sets">
+<h2>Orthogonal Sets<a class="headerlink" href="#orthogonal-sets" title="Permalink to this headline">¶</a></h2>
+<p>A set of vectors <span class="math notranslate nohighlight">\(\{\mathbf{u}_1,\dots,\mathbf{u}_p\}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> is said to be an <strong>orthogonal set</strong> if each pair of distinct vectors from the set is orthogonal, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{u}_i^T\mathbf{u}_j = 0\;\;\mbox{whenever}\;i\neq j.\]</div>
+<p><strong>Example.</strong>  Show that <span class="math notranslate nohighlight">\(\{\mathbf{u}_1,\mathbf{u}_2,\mathbf{u}_3\}\)</span> is an orthogonal set, where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \mathbf{u}_1 = \begin{bmatrix}3\\1\\1\end{bmatrix},\;\;\mathbf{u}_2=\begin{bmatrix}-1\\2\\1\end{bmatrix},\;\;\mathbf{u}_3=\begin{bmatrix}-1/2\\-2\\7/2\end{bmatrix}.\end{split}\]</div>
+<p><strong>Solution.</strong> Consider the three possible pairs of distinct vectors, namely, <span class="math notranslate nohighlight">\(\{\mathbf{u}_1,\mathbf{u}_2\}, \{\mathbf{u}_1,\mathbf{u}_3\},\)</span> and <span class="math notranslate nohighlight">\(\{\mathbf{u}_2,\mathbf{u}_3\}.\)</span></p>
+<div class="math notranslate nohighlight">
+\[ \mathbf{u}_1^T\mathbf{u}_2 = 3(-1) + 1(2) + 1(1) = 0\]</div>
+<div class="math notranslate nohighlight">
+\[ \mathbf{u}_1^T\mathbf{u}_3 = 3(-1/2) + 1(-2) + 1(7/2) = 0\]</div>
+<div class="math notranslate nohighlight">
+\[ \mathbf{u}_2^T\mathbf{u}_3 = -1(-1/2) + 2(-2) + 1(7/2) = 0\]</div>
+<p>Each pair of distinct vectors is orthogonal, and so <span class="math notranslate nohighlight">\(\{\mathbf{u}_1,\mathbf{u}_2, \mathbf{u}_3\}\)</span> is an orthogonal set.</p>
+<p>In three-space they describe three lines that we say are <strong>mutually perpendicular.</strong></p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="s1">&#39;An orthogonal set of vectors&#39;</span><span class="p">,</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> 
+                        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">u1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">u2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">u3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="o">/</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">origin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="n">origin</span><span class="p">,</span> <span class="n">u1</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">u1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">u1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">u1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">u1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf u_1$&#39;</span><span class="p">,</span> <span class="s1">&#39;u1&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="n">origin</span><span class="p">,</span> <span class="n">u2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">u2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">u2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">u2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">u2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf u_2$&#39;</span><span class="p">,</span> <span class="s1">&#39;u2&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="n">origin</span><span class="p">,</span> <span class="n">u3</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">u3</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u3</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">u3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">u3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">u3</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf u_3$&#39;</span><span class="p">,</span> <span class="s1">&#39;u3&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">origin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mf">.45</span><span class="p">,</span> <span class="n">origin</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">.45</span><span class="p">,</span> <span class="n">origin</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="mf">.45</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf 0$&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPerpSym</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">u1</span><span class="p">,</span> <span class="n">u2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPerpSym</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">u3</span><span class="p">,</span> <span class="n">u2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPerpSym</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">u3</span><span class="p">,</span> <span class="n">u1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;An orthogonal set of vectors in $\mathbb</span><span class="si">{R}</span><span class="s1">^3$&#39;</span><span class="p">,</span> <span class="s1">&#39;An orthogonal set of vectors in R3&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L21OrthogonalSets_11_0.png" src="_images/L21OrthogonalSets_11_0.png" />
+</div>
+</div>
+<div class="toggle docutils container">
+<p>Question Time! Q21.1</p>
+</div>
+<div class="section" id="orthogonal-sets-must-be-independent">
+<h3>Orthogonal Sets Must be Independent<a class="headerlink" href="#orthogonal-sets-must-be-independent" title="Permalink to this headline">¶</a></h3>
+<p>Orthogonal sets are very nice to work with.   First of all, we will show that any orthogonal set must be linearly independent.</p>
+<p><strong>Theorem.</strong>  If <span class="math notranslate nohighlight">\(S = \{\mathbf{u}_1,\dots,\mathbf{u}_p\}\)</span> is an orthogonal set of nonzero vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^n,\)</span> then <span class="math notranslate nohighlight">\(S\)</span> is linearly independent.</p>
+<p><strong>Proof.</strong>  We will prove that there is no linear combination of the vectors in <span class="math notranslate nohighlight">\(S\)</span> with nonzero coefficients that yields the zero vector.</p>
+<p>Our proof strategy will be:</p>
+<p>we will show that for any linear combination of the vectors in <span class="math notranslate nohighlight">\(S\)</span>:</p>
+<ul class="simple">
+<li><p>if the combination is the zero vector,</p></li>
+<li><p>then all coefficients of the combination must be zero.</p></li>
+</ul>
+<p>Specifically:</p>
+<p>Assume <span class="math notranslate nohighlight">\({\bf 0} = c_1\mathbf{u}_1 + \dots + c_p\mathbf{u}_p\)</span> for some scalars <span class="math notranslate nohighlight">\(c_1,\dots,c_p\)</span>.  Then:</p>
+<div class="math notranslate nohighlight">
+\[{\bf 0} = c_1\mathbf{u}_1 + c_2\mathbf{u}_2 + \dots + c_p\mathbf{u}_p\]</div>
+<div class="math notranslate nohighlight">
+\[{\bf 0}^T\mathbf{u}_1 = (c_1\mathbf{u}_1 + c_2\mathbf{u}_2 + \dots + c_p\mathbf{u}_p)^T\mathbf{u}_1\]</div>
+<div class="math notranslate nohighlight">
+\[0 = (c_1\mathbf{u}_1 + c_2\mathbf{u}_2 + \dots + c_p\mathbf{u}_p)^T\mathbf{u}_1\]</div>
+<div class="math notranslate nohighlight">
+\[ 0 = (c_1\mathbf{u}_1)^T\mathbf{u}_1 + (c_2\mathbf{u}_2)^T\mathbf{u}_1 \dots + (c_p\mathbf{u}_p)^T\mathbf{u}_1\]</div>
+<div class="math notranslate nohighlight">
+\[ 0 = c_1(\mathbf{u}_1^T\mathbf{u}_1) + c_2(\mathbf{u}_2^T\mathbf{u}_1) + \dots + c_p(\mathbf{u}_p^T\mathbf{u}_1)\]</div>
+<p>Because <span class="math notranslate nohighlight">\(\mathbf{u}_1\)</span> is orthogonal to <span class="math notranslate nohighlight">\(\mathbf{u}_2,\dots,\mathbf{u}_p\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ 0 = c_1(\mathbf{u}_1^T\mathbf{u}_1) \]</div>
+<p>Since <span class="math notranslate nohighlight">\(\mathbf{u}_1\)</span> is nonzero, <span class="math notranslate nohighlight">\(\mathbf{u}_1^T\mathbf{u}_1\)</span> is not zero and so <span class="math notranslate nohighlight">\(c_1 = 0\)</span>.</p>
+<p>We can use the same kind of reasoning to show that, <span class="math notranslate nohighlight">\(c_2,\dots,c_p\)</span> must be zero.</p>
+<p>In other words, there is no nonzero combination of <span class="math notranslate nohighlight">\(\mathbf{u}_i\)</span>’s that yields the zero vector …</p>
+<p>… so <span class="math notranslate nohighlight">\(S\)</span> is <strong>linearly independent.</strong></p>
+<p>Notice that since <span class="math notranslate nohighlight">\(S\)</span> is a linearly independent set, it is a basis for the subspace spanned by <span class="math notranslate nohighlight">\(S\)</span>.</p>
+<p>This leads us to a new kind of basis.</p>
+</div>
+<div class="section" id="orthogonal-basis">
+<h3>Orthogonal Basis<a class="headerlink" href="#orthogonal-basis" title="Permalink to this headline">¶</a></h3>
+<p><strong>Definition.</strong> An <strong>orthogonal basis</strong> for a subspace <span class="math notranslate nohighlight">\(W\)</span> of <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> is a basis for <span class="math notranslate nohighlight">\(W\)</span> that is also an orthogonal set.</p>
+<p>For example, consider</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{u} = \begin{bmatrix} -1/2\\ 2\\ 1 \end{bmatrix}, 
+\mathbf{v} = \begin{bmatrix} 8/3\\ 1/3\\ 2/3 \end{bmatrix}.\end{split}\]</div>
+<p>Note that <span class="math notranslate nohighlight">\(\mathbf{u}^T\mathbf{v} = 0.\)</span>   Hence they form an orthogonal basis for their span.</p>
+<p>Here is the subspace <span class="math notranslate nohighlight">\(W = \mbox{Span}\{\mathbf{u},\mathbf{v}\}\)</span>:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="s1">&#39;Orthogonal Basis on the subspace W&#39;</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+
+<span class="n">v</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">u</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="n">vpos</span> <span class="o">=</span> <span class="n">v</span> <span class="o">+</span> <span class="mf">0.4</span> <span class="o">*</span> <span class="n">v</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">u</span>
+<span class="n">upos</span> <span class="o">=</span> <span class="n">u</span> <span class="o">-</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">v</span> <span class="o">+</span> <span class="mf">0.15</span> <span class="o">*</span> <span class="n">u</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">vpos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vpos</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">vpos</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf v$&#39;</span><span class="p">,</span> <span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">upos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">upos</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">upos</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="sa">r</span><span class="s1">&#39;$\bf u$&#39;</span><span class="p">,</span> <span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="c1"># fig.text(3*u[0]+2*v[0], 3*u[1]+2*v[1], 3*u[2]+2*v[2]+1, r&#39;$\bf 2v_1+3v_2$&#39;, &#39;2 v1 + 3 v2&#39;, size=16)</span>
+<span class="c1"># plotting the span of v</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotSpan</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="c1"># blue grid lines</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">3</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="mi">4</span><span class="o">*</span><span class="n">u</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="n">v</span><span class="p">,</span> <span class="n">v</span><span class="o">+</span><span class="mi">4</span><span class="o">*</span><span class="n">u</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="mi">2</span><span class="o">*</span><span class="n">v</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">v</span><span class="o">+</span><span class="mi">3</span><span class="o">*</span><span class="n">u</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="mi">3</span><span class="o">*</span><span class="n">v</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">v</span><span class="o">+</span><span class="mf">2.5</span><span class="o">*</span><span class="n">u</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="c1"># red grid lines</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">2</span><span class="o">*</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">2</span><span class="o">*</span><span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="mi">3</span><span class="o">*</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">3</span><span class="o">*</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">3</span><span class="o">*</span><span class="n">v</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="mf">3.5</span><span class="o">*</span><span class="n">v</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="n">u</span><span class="p">,</span> <span class="n">u</span><span class="o">+</span><span class="mf">3.5</span><span class="o">*</span><span class="n">v</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="mi">2</span><span class="o">*</span><span class="n">u</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">u</span><span class="o">+</span><span class="mf">3.5</span><span class="o">*</span><span class="n">v</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="mi">3</span><span class="o">*</span><span class="n">u</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">u</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">v</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="c1"># fig.plotPoint(3*u[0]+2*v[0], 3*u[1]+2*v[1], 3*u[2]+2*v[2], color=&#39;m&#39;)</span>
+<span class="c1"># plotting the axes</span>
+<span class="c1">#fig.plotIntersection([0,0,1,0], [0,1,0,0], color=&#39;Black&#39;)</span>
+<span class="c1">#fig.plotIntersection([0,0,1,0], [1,0,0,0], color=&#39;Black&#39;)</span>
+<span class="c1">#fig.plotIntersection([0,1,0,0], [1,0,0,0], color=&#39;Black&#39;)</span>
+<span class="c1">#</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPerpSym</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">v</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPerpSym</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="o">+</span><span class="n">u</span><span class="p">,</span> <span class="n">u</span><span class="o">+</span><span class="n">u</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPerpSym</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">u</span><span class="p">,</span> <span class="mi">3</span><span class="o">*</span><span class="n">u</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPerpSym</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="n">v</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">v</span><span class="p">,</span> <span class="n">v</span><span class="o">+</span><span class="n">u</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPerpSym</span><span class="p">(</span><span class="n">u</span><span class="o">+</span><span class="n">v</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">v</span><span class="o">+</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="o">+</span><span class="mi">2</span><span class="o">*</span><span class="n">u</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Orthogonal Basis on the subspace $W$&#39;</span><span class="p">,</span> <span class="s1">&#39;Orthogonal Basis on the subspace W&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L21OrthogonalSets_30_0.png" src="_images/L21OrthogonalSets_30_0.png" />
+</div>
+</div>
+<p>We have seen that for any subspace, there may be many different sets of vectors that can serve as a basis for <span class="math notranslate nohighlight">\(W\)</span>.</p>
+<p>For example, let’s say we have a basis <span class="math notranslate nohighlight">\(\mathcal{B} = \{\mathbf{u}_1, \mathbf{u}_2, \mathbf{u}_3\}.\)</span></p>
+<p>We know that to compute the coordinates of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> in this basis, we need to solve the linear system:</p>
+<div class="math notranslate nohighlight">
+\[c_1 \mathbf{u}_1 + c_2\mathbf{u}_2 + c_3\mathbf{u}_3 = \mathbf{y}\]</div>
+<p>or</p>
+<div class="math notranslate nohighlight">
+\[U\mathbf{c} = \mathbf{y}.\]</div>
+<p>In general, we’d need to perform Gaussian Elimination, or matrix inversion, or some other complex method to do this.</p>
+<p>However an orthogonal basis is a particularly nice basis, because the weights (coordinates) of any point can be computed easily and simply.</p>
+<p>Let’s see how:</p>
+<p><strong>Theorem.</strong> Let <span class="math notranslate nohighlight">\(\{\mathbf{u}_1,\dots,\mathbf{u}_p\}\)</span> be an orthogonal basis for a subspace <span class="math notranslate nohighlight">\(W\)</span> of <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.  For each <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> in <span class="math notranslate nohighlight">\(W,\)</span> the weights of the linear combination</p>
+<div class="math notranslate nohighlight">
+\[c_1\mathbf{u}_1 + \dots + c_p\mathbf{u}_p = \mathbf{y}\]</div>
+<p>are given by</p>
+<div class="math notranslate nohighlight">
+\[c_j = \frac{\mathbf{y}^T\mathbf{u}_j}{\mathbf{u}_j^T\mathbf{u}_j}\;\;\;j = 1,\dots,p\]</div>
+<p><strong>Proof.</strong></p>
+<p>Let’s consider the inner product of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> and one of the <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> vectors — say, <span class="math notranslate nohighlight">\(\mathbf{u}_1\)</span>.</p>
+<p>As we saw in the last proof, the orthogonality of <span class="math notranslate nohighlight">\(\{\mathbf{u}_1,\dots,\mathbf{u}_p\}\)</span> means that</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{y}^T\mathbf{u}_1 = (c_1\mathbf{u}_1 + c_1\mathbf{u}_2 + \dots + c_p\mathbf{u}_p)^T\mathbf{u}_1\]</div>
+<div class="math notranslate nohighlight">
+\[=c_1(\mathbf{u}_1^T\mathbf{u}_1)\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\mathbf{u}_1^T\mathbf{u}_1\)</span> is not zero (why?), the equation above can be solved for <span class="math notranslate nohighlight">\(c_1.\)</span></p>
+<p>Thus:</p>
+<div class="math notranslate nohighlight">
+\[c_1 = \frac{\mathbf{y}^T\mathbf{u}_1}{\mathbf{u}_1^T\mathbf{u}_1}\]</div>
+<p>To find any other <span class="math notranslate nohighlight">\(c_j,\)</span> compute <span class="math notranslate nohighlight">\(\mathbf{y}^T\mathbf{u}_j\)</span> and solve for <span class="math notranslate nohighlight">\(c_j\)</span>.</p>
+<p><strong>Example.</strong>  The set <span class="math notranslate nohighlight">\(S\)</span> which we saw earlier, ie,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \mathbf{u}_1 = \begin{bmatrix}3\\1\\1\end{bmatrix},\;\;\mathbf{u}_2=\begin{bmatrix}-1\\2\\1\end{bmatrix},\;\;\mathbf{u}_3=\begin{bmatrix}-1/2\\-2\\7/2\end{bmatrix},\end{split}\]</div>
+<p>is an orthogonal basis for <span class="math notranslate nohighlight">\(\mathbb{R}^3.\)</span></p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">importlib</span>
+<span class="n">importlib</span><span class="o">.</span><span class="n">reload</span><span class="p">(</span><span class="n">ut</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="s1">&#39;An orthogonal set of vectors&#39;</span><span class="p">,</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">7</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> 
+                        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">,</span> <span class="n">equalAxes</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">u1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">u2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">u3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="o">/</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">origin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="n">origin</span><span class="p">,</span> <span class="n">u1</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">u1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">u1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">u1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">u1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf u_1$&#39;</span><span class="p">,</span> <span class="s1">&#39;u1&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="n">origin</span><span class="p">,</span> <span class="n">u2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">u2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">u2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">u2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">u2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf u_2$&#39;</span><span class="p">,</span> <span class="s1">&#39;u2&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="n">origin</span><span class="p">,</span> <span class="n">u3</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">u3</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u3</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">u3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">u3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">u3</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf u_3$&#39;</span><span class="p">,</span> <span class="s1">&#39;u3&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">origin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mf">.45</span><span class="p">,</span> <span class="n">origin</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">.45</span><span class="p">,</span> <span class="n">origin</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="mf">.45</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf 0$&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPerpSym</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">u1</span><span class="p">,</span> <span class="n">u2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPerpSym</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">u3</span><span class="p">,</span> <span class="n">u2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPerpSym</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">u3</span><span class="p">,</span> <span class="n">u1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;An orthogonal set of vectors in $\mathbb</span><span class="si">{R}</span><span class="s1">^3$&#39;</span><span class="p">,</span> <span class="s1">&#39;An orthogonal set of vectors in R3&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L21OrthogonalSets_37_0.png" src="_images/L21OrthogonalSets_37_0.png" />
+</div>
+</div>
+<p>Then, express the vector <span class="math notranslate nohighlight">\(\mathbf{y} = \begin{bmatrix}6\\1\\-8\end{bmatrix}\)</span> as a linear combination of the vectors in <span class="math notranslate nohighlight">\(S\)</span>.</p>
+<p>That is, find <span class="math notranslate nohighlight">\(\mathbf{y}\)</span>’s coordinates in the basis <span class="math notranslate nohighlight">\(S\)</span> — i.e., in the coordinate system <span class="math notranslate nohighlight">\(S\)</span>.</p>
+<p><strong>Solution.</strong>  Compute</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{y}^T\mathbf{u}_1 = 11,\;\;\;\mathbf{y}^T\mathbf{u}_2 = -12,\;\;\;\mathbf{y}^T\mathbf{u}_3 = -33,\]</div>
+<div class="math notranslate nohighlight">
+\[\mathbf{u}_1^T\mathbf{u}_1 = 11,\;\;\;\mathbf{u}_2^T\mathbf{u}_2 = 6,\;\;\;\mathbf{u}_3^T\mathbf{u}_3 = 33/2\]</div>
+<p>So</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{y} = \frac{\mathbf{y}^T\mathbf{u}_1}{\mathbf{u}_1^T\mathbf{u}_1}\mathbf{u}_1 + \frac{\mathbf{y}^T\mathbf{u}_2}{\mathbf{u}_2^T\mathbf{u}_2}\mathbf{u}_2 + \frac{\mathbf{y}^T\mathbf{u}_3}{\mathbf{u}_3^T\mathbf{u}_3}\mathbf{u}_3\]</div>
+<div class="math notranslate nohighlight">
+\[ = \frac{11}{11}\mathbf{u}_1 + \frac{-12}{6}\mathbf{u}_2 + \frac{-33}{33/2}\mathbf{u}_3\]</div>
+<div class="math notranslate nohighlight">
+\[ = \mathbf{u}_1 - 2\mathbf{u}_2 - 2 \mathbf{u}_3.\]</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">21</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="s1">&#39;y in an orthogonal basis&#39;</span><span class="p">,</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">7</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> 
+                        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">,</span> <span class="n">equalAxes</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">u1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">u2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">u3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="o">/</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">origin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="c1">#</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="n">origin</span><span class="p">,</span> <span class="n">u1</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">u1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u1</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">u1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">u1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">u1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf u_1$&#39;</span><span class="p">,</span> <span class="s1">&#39;u1&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="n">origin</span><span class="p">,</span> <span class="n">u2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">u2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u2</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">u2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">u2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">u2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf u_2$&#39;</span><span class="p">,</span> <span class="s1">&#39;u2&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLine</span><span class="p">([</span><span class="n">origin</span><span class="p">,</span> <span class="n">u3</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">u3</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">u3</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">u3</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">u3</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">u3</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">u3</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf u_3$&#39;</span><span class="p">,</span> <span class="s1">&#39;u3&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">origin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mf">.45</span><span class="p">,</span> <span class="n">origin</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">.45</span><span class="p">,</span> <span class="n">origin</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="mf">.45</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf 0$&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">16</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPerpSym</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">u1</span><span class="p">,</span> <span class="n">u2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPerpSym</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">u3</span><span class="p">,</span> <span class="n">u2</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPerpSym</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">u3</span><span class="p">,</span> <span class="n">u1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">u1</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">u2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">u3</span>
+<span class="c1"># print(y)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\bf y$ = (6, 1, -8)&#39;</span><span class="p">,</span> <span class="s1">&#39;y = (6, 1, -8)&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">-</span><span class="mf">2.5</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;${\bf y} = 1{\bf u}_1 -2 {\bf u}_2 -2 {\bf u}_3$&#39;</span><span class="p">,</span> <span class="s1">&#39;y = (6, 1, -8)&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;${\bf y}$ in an Orthogonal Basis&#39;</span><span class="p">,</span> <span class="s1">&#39;y in an Orthogonal Basis&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L21OrthogonalSets_43_0.png" src="_images/L21OrthogonalSets_43_0.png" />
+</div>
+</div>
+<p>Note how much simpler it is finding the coordinates of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> in the orthogonal basis,</p>
+<p>because each coefficient <span class="math notranslate nohighlight">\(c_1\)</span> can be found separately without matrix operations.</p>
+</div>
+</div>
+<div class="section" id="orthogonal-projection">
+<h2>Orthogonal Projection<a class="headerlink" href="#orthogonal-projection" title="Permalink to this headline">¶</a></h2>
+<p>Now let’s turn to the notion of <strong>projection</strong>.</p>
+<p>In general, a projection happens when we decompose a vector into the sum of other vectors.</p>
+<p>Here is the central idea.  We will use this a lot over the next couple lectures.</p>
+<p>Given a nonzero vector <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n,\)</span> consider the problem of decomposing a vector <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> into the sum of two vectors:</p>
+<ul class="simple">
+<li><p>one that is a multiple of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span>, and</p></li>
+<li><p>one that is orthogonal to <span class="math notranslate nohighlight">\(\mathbf{u}.\)</span></p></li>
+</ul>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">pt</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;b-&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;r-&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;g-&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">pt</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">u</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">u</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+<span class="n">perpline1</span><span class="p">,</span> <span class="n">perpline2</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">perp_sym</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">perpline1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">perpline1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">perpline2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">perpline2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="o">-</span><span class="mf">0.75</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$\mathbf</span><span class="si">{u}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.1</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.2</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$\mathbf</span><span class="si">{y}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L21OrthogonalSets_48_0.png" src="_images/L21OrthogonalSets_48_0.png" />
+</div>
+</div>
+<p>In other words, we wish to write:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{y} = \hat{\mathbf{y}} + \mathbf{z}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\hat{\mathbf{y}} = \alpha\mathbf{u}\)</span> for some scalar <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> is some vector orthogonal to <span class="math notranslate nohighlight">\(\mathbf{u}.\)</span></p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">pt</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;b-&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;b--&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;r-&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;g-&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">pt</span><span class="p">,</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">u</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">u</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="o">-</span><span class="mf">0.75</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;${\bf \hat</span><span class="si">{y}</span><span class="s1">}=\alpha{\bf u}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="o">-</span><span class="mf">0.75</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$\mathbf</span><span class="si">{u}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.1</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.2</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$\mathbf</span><span class="si">{y}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">perpline1</span><span class="p">,</span> <span class="n">perpline2</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">perp_sym</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">perpline1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">perpline1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">perpline2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">perpline2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">1</span><span class="p">);</span>
+<span class="c1"># ax.text(0+0.1,pt[1]+0.2,r&#39;$\mathbf{z = y -\hat{y}}$&#39;,size=20);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L21OrthogonalSets_50_0.png" src="_images/L21OrthogonalSets_50_0.png" />
+</div>
+</div>
+<p>That is, we are given <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{u}\)</span>, and asked to compute <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> and <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}.\)</span></p>
+<p>To solve this, assume that we have some <span class="math notranslate nohighlight">\(\alpha\)</span>, and with it we compute <span class="math notranslate nohighlight">\(\mathbf{y} - \alpha\mathbf{u} = \mathbf{y}-\hat{\mathbf{y}} = \mathbf{z}.\)</span></p>
+<p>We want <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> to be orthogonal to <span class="math notranslate nohighlight">\(\mathbf{u}.\)</span></p>
+<p>Now <span class="math notranslate nohighlight">\(\mathbf{z} = \mathbf{y} - \alpha{\mathbf{u}}\)</span> is orthogonal to <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> if and only if</p>
+<div class="math notranslate nohighlight">
+\[0 = (\mathbf{y} - \alpha\mathbf{u})^T\mathbf{u}\]</div>
+<div class="math notranslate nohighlight">
+\[ = \mathbf{y}^T\mathbf{u} - (\alpha\mathbf{u})^T\mathbf{u}\]</div>
+<div class="math notranslate nohighlight">
+\[ = \mathbf{y}^T\mathbf{u} - \alpha(\mathbf{u}^T\mathbf{u})\]</div>
+<p>That is, the solution in which <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> is orthogonal to <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> happens if and only if</p>
+<div class="math notranslate nohighlight">
+\[\alpha = \frac{\mathbf{y}^T\mathbf{u}}{\mathbf{u}^T\mathbf{u}}\]</div>
+<p>and since <span class="math notranslate nohighlight">\(\hat{\mathbf{y}} = \alpha\mathbf{u}\)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\hat{\mathbf{y}} = \frac{\mathbf{y}^T\mathbf{u}}{\mathbf{u}^T\mathbf{u}}\mathbf{u}.\]</div>
+<p>The vector <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span> is called the <strong>orthogonal projection of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> onto <span class="math notranslate nohighlight">\(\mathbf{u}\)</span>,</strong> and the vector <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> is called the <strong>component of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> orthogonal to <span class="math notranslate nohighlight">\(\mathbf{u}.\)</span></strong></p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sl</span><span class="o">.</span><span class="n">hide_code_in_slideshow</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">pt</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;b-&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;b--&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;r-&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;r-&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">pt</span><span class="p">)</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">u</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">u</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
+<span class="n">perpline1</span><span class="p">,</span> <span class="n">perpline2</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">perp_sym</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span> <span class="n">pt</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">perpline1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">perpline1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">perpline2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">perpline2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="o">-</span><span class="mf">0.75</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;${\bf \hat</span><span class="si">{y}</span><span class="s1">}=\alpha{\bf u}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="o">-</span><span class="mf">0.75</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$\mathbf</span><span class="si">{u}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.1</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.2</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$\mathbf</span><span class="si">{y}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="o">+</span><span class="mf">0.1</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.2</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$\mathbf{z = y -\hat</span><span class="si">{y}</span><span class="s1">}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="o">+</span><span class="mf">0.1</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.8</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;Component of $\mathbf</span><span class="si">{y}</span><span class="s1">$ orthogonal to $\mathbf</span><span class="si">{u}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="o">-</span><span class="mf">1.25</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;Orthogonal projection of $\mathbf</span><span class="si">{y}</span><span class="s1">$ onto to $\mathbf</span><span class="si">{u}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div id="d6c8e400541ad431"></div>
+    <script type="text/javascript">
+        $(function(){
+            var p = $("#d6c8e400541ad431");
+            if (p.length==0) return;
+
+            while (!p.hasClass("cell")) {
+                p=p.parent();
+
+                if (p.prop("tagName") =="body") return;
+            }
+            var cell = p;
+            cell.find(".input").addClass("hide-in-slideshow")
+        });
+    </script></div><img alt="_images/L21OrthogonalSets_59_1.png" src="_images/L21OrthogonalSets_59_1.png" />
+</div>
+</div>
+<div class="section" id="projections-are-onto-subspaces">
+<h3>Projections are onto Subspaces<a class="headerlink" href="#projections-are-onto-subspaces" title="Permalink to this headline">¶</a></h3>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sl</span><span class="o">.</span><span class="n">hide_code_in_slideshow</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">pt</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;b-&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;b--&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="s1">&#39;r-&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;r-&#39;</span><span class="p">,</span><span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">pt</span><span class="p">)</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">u</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="mi">2</span><span class="o">*</span><span class="n">u</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
+<span class="n">perpline1</span><span class="p">,</span> <span class="n">perpline2</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">perp_sym</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span> <span class="n">pt</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">perpline1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">perpline1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">perpline2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">perpline2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="o">-</span><span class="mf">0.75</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;${\bf \hat</span><span class="si">{y}</span><span class="s1">}=\alpha{\bf u}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="o">-</span><span class="mf">0.75</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$\mathbf</span><span class="si">{u}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.1</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.2</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$\mathbf</span><span class="si">{y}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="o">+</span><span class="mf">0.1</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.2</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$\mathbf{z = y -\hat</span><span class="si">{y}</span><span class="s1">}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">0</span><span class="o">+</span><span class="mf">0.1</span><span class="p">,</span><span class="n">pt</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.8</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;Component of $\mathbf</span><span class="si">{y}</span><span class="s1">$ orthogonal to $\mathbf</span><span class="si">{u}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">pt</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="o">-</span><span class="mf">1.25</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;Orthogonal projection of $\mathbf</span><span class="si">{y}</span><span class="s1">$ onto to $\mathbf</span><span class="si">{u}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div id="440e71e66aee287d"></div>
+    <script type="text/javascript">
+        $(function(){
+            var p = $("#440e71e66aee287d");
+            if (p.length==0) return;
+
+            while (!p.hasClass("cell")) {
+                p=p.parent();
+
+                if (p.prop("tagName") =="body") return;
+            }
+            var cell = p;
+            cell.find(".input").addClass("hide-in-slideshow")
+        });
+    </script></div><img alt="_images/L21OrthogonalSets_61_1.png" src="_images/L21OrthogonalSets_61_1.png" />
+</div>
+</div>
+<p>Now, note that if we had scaled <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> by any amount (ie, moved it to the right or the left), we would not have changed the location of <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}.\)</span></p>
+<p>This can be seen as well by replacing <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> with <span class="math notranslate nohighlight">\(c\mathbf{u}\)</span> and recomputing <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\hat{\mathbf{y}} = \frac{\mathbf{y}^Tc\mathbf{u}}{c\mathbf{u}^Tc\mathbf{u}}c\mathbf{u} = \frac{\mathbf{y}^T\mathbf{u}}{\mathbf{u}^T\mathbf{u}}\mathbf{u}.\]</div>
+<p>Thus, the projection of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> is determined by the <strong>subspace</strong> <span class="math notranslate nohighlight">\(L\)</span> that is spanned by <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> – in other words, the line through <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and the origin.</p>
+<p>Hence sometimes <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span> is denoted by <span class="math notranslate nohighlight">\(\mbox{proj}_L \mathbf{y}\)</span> and is called the <strong>orthogonal projection of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> onto <span class="math notranslate nohighlight">\(L\)</span>.</strong></p>
+<p>Specifically:</p>
+<div class="math notranslate nohighlight">
+\[\hat{\mathbf{y}} = \mbox{proj}_L \mathbf{y} = \frac{\mathbf{y}^T\mathbf{u}}{\mathbf{u}^T\mathbf{u}}\mathbf{u}\]</div>
+<p><strong>Example.</strong>  Let <span class="math notranslate nohighlight">\(\mathbf{y} = \begin{bmatrix}7\\6\end{bmatrix}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{u} = \begin{bmatrix}4\\2\end{bmatrix}.\)</span></p>
+<p>Find the orthogonal projection of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> onto <span class="math notranslate nohighlight">\(\mathbf{u}.\)</span>  Then write <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> as the sum of two orthogonal vectors, one in Span<span class="math notranslate nohighlight">\(\{\mathbf{u}\}\)</span>, and one orthogonal to <span class="math notranslate nohighlight">\(\mathbf{u}.\)</span></p>
+<p><strong>Solution.</strong>  Compute</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{y}^T\mathbf{u} = \begin{bmatrix}7&amp;6\end{bmatrix}\begin{bmatrix}4\\2\end{bmatrix} = 40\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{u}^T\mathbf{u} = \begin{bmatrix}4&amp;2\end{bmatrix}\begin{bmatrix}4\\2\end{bmatrix} = 20\end{split}\]</div>
+<p>The orthogonal projection of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> onto <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\hat{\mathbf{y}} = \frac{\mathbf{y}^T\mathbf{u}}{\mathbf{u}^T\mathbf{u}} \mathbf{u}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}=\frac{40}{20}\mathbf{u} = 2\begin{bmatrix}4\\2\end{bmatrix} = \begin{bmatrix}8\\4\end{bmatrix}\end{split}\]</div>
+<p>And the component of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> orthogonal to <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{y}-\hat{\mathbf{y}} = \begin{bmatrix}7\\6\end{bmatrix} - \begin{bmatrix}8\\4\end{bmatrix} = \begin{bmatrix}-1\\2\end{bmatrix}.\end{split}\]</div>
+<p>So</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{y} = \hat{\mathbf{y}} + \mathbf{z}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{bmatrix}7\\6\end{bmatrix} = \begin{bmatrix}8\\4\end{bmatrix} + \begin{bmatrix}-1\\2\end{bmatrix}.\end{split}\]</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">4.</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">7.</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+<span class="n">yhat</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="o">/</span><span class="n">u</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">u</span><span class="p">))</span><span class="o">*</span><span class="n">u</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">y</span><span class="o">-</span><span class="n">yhat</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span><span class="o">-</span><span class="mf">2.</span><span class="p">,</span><span class="mf">0.</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">u</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">yhat</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.3</span><span class="p">,</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$\mathbf</span><span class="si">{u}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">yhat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.3</span><span class="p">,</span><span class="n">yhat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$\mathbf{\hat</span><span class="si">{y}</span><span class="s1">}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.8</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$\mathbf</span><span class="si">{y}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="sa">r</span><span class="s1">&#39;$\mathbf{y - \hat</span><span class="si">{y}</span><span class="s1">}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mf">4.5</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$L = $Span$\{\mathbf</span><span class="si">{u}</span><span class="s1">\}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">perpline1</span><span class="p">,</span> <span class="n">perpline2</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">perp_sym</span><span class="p">(</span><span class="n">yhat</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span> <span class="mf">0.75</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">perpline1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">perpline1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">perpline2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">perpline2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">yhat</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">yhat</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;b--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;b-&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;b-&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L21OrthogonalSets_71_0.png" src="_images/L21OrthogonalSets_71_0.png" />
+</div>
+</div>
+<div class="toggle docutils container">
+<p>Question Time! Q21.2</p>
+</div>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">7</span><span class="p">,(</span><span class="mi">8</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">4.</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">7.</span><span class="p">,</span><span class="mi">6</span><span class="p">])</span>
+<span class="n">yhat</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="o">/</span><span class="n">u</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">u</span><span class="p">))</span><span class="o">*</span><span class="n">u</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">y</span><span class="o">-</span><span class="n">yhat</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span><span class="o">-</span><span class="mf">2.</span><span class="p">,</span><span class="mf">0.</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">u</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">z</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">yhat</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.3</span><span class="p">,</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$\mathbf</span><span class="si">{u}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">yhat</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.3</span><span class="p">,</span><span class="n">yhat</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$\mathbf{\hat</span><span class="si">{y}</span><span class="s1">}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.8</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$\mathbf</span><span class="si">{y}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="sa">r</span><span class="s1">&#39;$\mathbf{y - \hat</span><span class="si">{y}</span><span class="s1">}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mf">4.5</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$L = $Span$\{\mathbf</span><span class="si">{u}</span><span class="s1">\}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">perpline1</span><span class="p">,</span> <span class="n">perpline2</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">perp_sym</span><span class="p">(</span><span class="n">yhat</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span> <span class="mf">0.75</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">perpline1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">perpline1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">perpline2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">perpline2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">yhat</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">yhat</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;b--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;b-&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="mi">0</span><span class="p">,</span><span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;b-&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L21OrthogonalSets_73_0.png" src="_images/L21OrthogonalSets_73_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="important-properties-of-hat-mathbf-y">
+<h3>Important Properties of <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span><a class="headerlink" href="#important-properties-of-hat-mathbf-y" title="Permalink to this headline">¶</a></h3>
+<p><strong>The closest point.</strong></p>
+<p>Recall from geometry that given a line and a point <span class="math notranslate nohighlight">\(P\)</span>, the closest point on the line to <span class="math notranslate nohighlight">\(P\)</span> is given by the perpendicular from <span class="math notranslate nohighlight">\(P\)</span> to the line.</p>
+<p>So this gives an important interpretation of <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span>: it is <strong>the closest point to <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> in the subspace <span class="math notranslate nohighlight">\(L\)</span>.</strong></p>
+<p><strong>The distance from <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> to <span class="math notranslate nohighlight">\(L\)</span></strong></p>
+<p>The distance from <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> to <span class="math notranslate nohighlight">\(L\)</span> is the length of the perpendicular from <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> to its orthogonal projection on <span class="math notranslate nohighlight">\(L\)</span>, namely <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span>.</p>
+<p>This distance equals the length of <span class="math notranslate nohighlight">\(\mathbf{y} - \hat{\mathbf{y}}\)</span>.</p>
+<p>In this example, the distance is</p>
+<div class="math notranslate nohighlight">
+\[\Vert\mathbf{y}-\hat{\mathbf{y}}\Vert = \sqrt{(-1)^2 + 2^2} = \sqrt{5}.\]</div>
+</div>
+</div>
+<div class="section" id="projections-find-coordinates-in-an-orthogonal-basis">
+<h2>Projections find Coordinates in an Orthogonal Basis<a class="headerlink" href="#projections-find-coordinates-in-an-orthogonal-basis" title="Permalink to this headline">¶</a></h2>
+<p>Earlier today, we saw that when we decompose a vector <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> into a linear combination of vectors <span class="math notranslate nohighlight">\(\{\mathbf{u}_1,\dots,\mathbf{u}_p\}\)</span> in a orthogonal basis, we have</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{y} = c_1\mathbf{u}_1 + \dots + c_p\mathbf{u}_p\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[c_j = \frac{\mathbf{y}^T\mathbf{u}_j}{\mathbf{u}_j^T\mathbf{u}_j}\]</div>
+<p>And just now we have seen that the projection of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> onto the subspace spanned by any <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\mbox{proj}_L \mathbf{y} = \frac{\mathbf{y}^T\mathbf{u}}{\mathbf{u}^T\mathbf{u}}\mathbf{u}.\]</div>
+<p>So a decomposition like <span class="math notranslate nohighlight">\(\mathbf{y} = c_1\mathbf{u}_1 + \dots + c_p\mathbf{u}_p\)</span> is really decomposing <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> into <strong>a sum of orthogonal projections onto one-dimensional subspaces.</strong></p>
+<p>For example, let’s take the case where <span class="math notranslate nohighlight">\(\mathbf{y} \in \mathbb{R}^2.\)</span></p>
+<p>Let’s say we are given <span class="math notranslate nohighlight">\(\mathbf{u}_1, \mathbf{u}_2\)</span> such that <span class="math notranslate nohighlight">\(\mathbf{u}_1\)</span> is orthogonal to <span class="math notranslate nohighlight">\(\mathbf{u}_2\)</span>, and so together they span <span class="math notranslate nohighlight">\(\mathbb{R}^2.\)</span></p>
+<p>Then <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> can be written in the form</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{y} = \frac{\mathbf{y}^T\mathbf{u}_1}{\mathbf{u}_1^T\mathbf{u}_1}\mathbf{u}_1 +  \frac{\mathbf{y}^T\mathbf{u}_2}{\mathbf{u}_2^T\mathbf{u}_2}\mathbf{u}_2.\]</div>
+<p>The first term is the projection of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> onto the subspace spanned by <span class="math notranslate nohighlight">\(\mathbf{u}_1\)</span> and the second term is the projection of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> onto the subspace spanned by <span class="math notranslate nohighlight">\(\mathbf{u}_2.\)</span></p>
+<p>So this equation expresses <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> as the sum of its projections onto the (orthogonal) axes determined by <span class="math notranslate nohighlight">\(\mathbf{u}_1\)</span> and <span class="math notranslate nohighlight">\(\mathbf{u}_2\)</span>.</p>
+<p>This is an useful way of thinking about coordinates in an orthogonal basis:  coordinates are projections onto the axes!</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit: Lay 4th edition figure 4 in Ch 6.2</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/Lay-fig-6-2-4.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">600</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L21OrthogonalSets_84_0.jpg" src="_images/L21OrthogonalSets_84_0.jpg" />
+</div>
+</div>
+<div class="toggle docutils container">
+<p>Question Time! Q21.3</p>
+</div>
+</div>
+<div class="section" id="orthonormal-sets">
+<h2>Orthonormal Sets<a class="headerlink" href="#orthonormal-sets" title="Permalink to this headline">¶</a></h2>
+<p>Orthogonal sets are therefore very useful.   However, they become even more useful if we <strong>normalize</strong> the vectors in the set.</p>
+<p>A set <span class="math notranslate nohighlight">\(\{\mathbf{u}_1,\dots,\mathbf{u}_p\}\)</span> is an <strong>orthonormal set</strong> if it is an orthogonal set of <strong>unit</strong> vectors.</p>
+<p>If <span class="math notranslate nohighlight">\(W\)</span> is the subspace spanned by such as a set, then  <span class="math notranslate nohighlight">\(\{\mathbf{u}_1,\dots,\mathbf{u}_p\}\)</span> is an <strong>orthonormal basis</strong> for <span class="math notranslate nohighlight">\(W\)</span> since the set is automatically linearly independent.</p>
+<p>The simplest example of an orthonormal set is the standard basis <span class="math notranslate nohighlight">\(\{\mathbf{e}_1, \dots,\mathbf{e}_n\}\)</span> for <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
+<p>Pro tip: keep the terms clear in your head:</p>
+<ul class="simple">
+<li><p><strong>orthogonal</strong> is (just) perpendicular, while</p></li>
+<li><p><strong>orthonormal</strong> is perpendicular <em>and</em> unit length.</p></li>
+</ul>
+<p>(You can see the word “normalized” inside “orthonormal”).</p>
+<div class="section" id="orthogonal-mappings">
+<h3>Orthogonal Mappings<a class="headerlink" href="#orthogonal-mappings" title="Permalink to this headline">¶</a></h3>
+<p>Matrices with orthonormal columns are particularly important.</p>
+<p><strong>Theorem.</strong> A <span class="math notranslate nohighlight">\(m\times n\)</span> matrix <span class="math notranslate nohighlight">\(U\)</span> has orthonormal columns if and only if <span class="math notranslate nohighlight">\(U^TU = I\)</span>.</p>
+<p><strong>Proof.</strong>  Let us suppose that <span class="math notranslate nohighlight">\(U\)</span> has only three columns which are each vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span> (but the proof will generalize to <span class="math notranslate nohighlight">\(n\)</span> columns).</p>
+<p>Let <span class="math notranslate nohighlight">\(U = [\mathbf{u}_1\;\mathbf{u}_2\;\mathbf{u}_3].\)</span>   Then:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}U^TU = \begin{bmatrix}\mathbf{u}_1^T\\\mathbf{u}_2^T\\\mathbf{u}_3^T\end{bmatrix}\begin{bmatrix}\mathbf{u}_1&amp;\mathbf{u}_2&amp;\mathbf{u}_3\end{bmatrix}\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} = \begin{bmatrix}
+\mathbf{u}_1^T\mathbf{u}_1&amp;\mathbf{u}_1^T\mathbf{u}_2&amp;\mathbf{u}_1^T\mathbf{u}_3\\
+\mathbf{u}_2^T\mathbf{u}_1&amp;\mathbf{u}_2^T\mathbf{u}_2&amp;\mathbf{u}_2^T\mathbf{u}_3\\
+\mathbf{u}_3^T\mathbf{u}_1&amp;\mathbf{u}_3^T\mathbf{u}_2&amp;\mathbf{u}_3^T\mathbf{u}_3
+\end{bmatrix}\end{split}\]</div>
+<p>The columns of <span class="math notranslate nohighlight">\(U\)</span> are orthogonal if and only if</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{u}_1^T\mathbf{u}_2 = \mathbf{u}_2^T\mathbf{u}_1 = 0,\;\; \mathbf{u}_1^T\mathbf{u}_3 = \mathbf{u}_3^T\mathbf{u}_1 = 0,\;\; \mathbf{u}_2^T\mathbf{u}_3 = \mathbf{u}_3^T\mathbf{u}_2 = 0\]</div>
+<p>The columns of <span class="math notranslate nohighlight">\(U\)</span> all have unit length if and only if</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{u}_1^T\mathbf{u}_1 = 1,\;\;\mathbf{u}_2^T\mathbf{u}_2 = 1,\;\;\mathbf{u}_3^T\mathbf{u}_3 = 1.\]</div>
+<p>So <span class="math notranslate nohighlight">\(U^TU = I.\)</span></p>
+</div>
+<div class="section" id="orthonormal-matrices-preserve-length-and-orthogonality">
+<h3>Orthonormal Matrices Preserve Length and Orthogonality<a class="headerlink" href="#orthonormal-matrices-preserve-length-and-orthogonality" title="Permalink to this headline">¶</a></h3>
+<p><strong>Theorem.</strong>  Let <span class="math notranslate nohighlight">\(U\)</span> by an <span class="math notranslate nohighlight">\(m\times n\)</span> matrix with orthonormal columns, and let <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> be in <span class="math notranslate nohighlight">\(\mathbb{R}^n.\)</span>  Then:</p>
+<ol class="simple">
+<li><p><span class="math notranslate nohighlight">\(\Vert U\mathbf{x}\Vert = \Vert\mathbf{x}\Vert.\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\((U\mathbf{x})^T(U\mathbf{y}) = \mathbf{x}^T\mathbf{y}.\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\((U\mathbf{x})^T(U\mathbf{y}) = 0\;\mbox{if and only if}\; \mathbf{x}^T\mathbf{y} = 0.\)</span></p></li>
+</ol>
+<p>Properties 1. and 3. make an important statement.</p>
+<center><font color="blue">For orthonormal $U$, the mapping $\mathbf{x}\mapsto U\mathbf{x}$ preserves lengths and orthogonality.</font></center><p>So, viewed as a linear operator, an orthonormal matrix is very special: the lengths of vectors, and therefore the <strong>distances between points</strong> is not changed by the action of <span class="math notranslate nohighlight">\(U\)</span>.</p>
+<p>Notice as well that <span class="math notranslate nohighlight">\(U\)</span> is <span class="math notranslate nohighlight">\(m \times n\)</span> – it may not be square.</p>
+<p>So it may map vectors from one vector space to an entirely different vector space – <strong>but</strong> the distances between points will not be changed!</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image source: Figure Components.ipynb + Lecture 21 Figures.pptx</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/L21 F1.png&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">800</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L21OrthogonalSets_104_0.png" src="_images/L21OrthogonalSets_104_0.png" />
+</div>
+</div>
+<p>… and the orthogonality of vectors will not be changed!</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image source: Figure Components.ipynb + Lecture 21 Figures.pptx</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/L21 F2.png&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">700</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L21OrthogonalSets_106_0.png" src="_images/L21OrthogonalSets_106_0.png" />
+</div>
+</div>
+<p>Note however that we cannot in general construct an orthonormal map from a higher dimension to a lower one.</p>
+<p>For example, three orthogonal vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> cannot be mapped to three orthogonal vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>.   Can you see why this is impossible?  What is it about the definition of an orthonormal set that prevents this?</p>
+<p><strong>Example.</strong>  Let <span class="math notranslate nohighlight">\(U = \begin{bmatrix}1/\sqrt{2}&amp;2/3\\1/\sqrt{2}&amp;-2/3\\0&amp;1/3\end{bmatrix}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x} = \begin{bmatrix}\sqrt{2}\\3\end{bmatrix}.\)</span>  Notice that <span class="math notranslate nohighlight">\(U\)</span> has orthonormal columns, and</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}U^TU = \begin{bmatrix}1/\sqrt{2}&amp;1/\sqrt{2}&amp;0\\2/3&amp;-2/3&amp;1/3\end{bmatrix}\begin{bmatrix}1/\sqrt{2}&amp;2/3\\1/\sqrt{2}&amp;-2/3\\0&amp;1/3\end{bmatrix} = \begin{bmatrix}1&amp;0\\0&amp;1\end{bmatrix}.\end{split}\]</div>
+<p>Let’s verify that <span class="math notranslate nohighlight">\(\Vert Ux\Vert = \Vert x\Vert.\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}U\mathbf{x} = \begin{bmatrix}1/\sqrt{2}&amp;2/3\\1/\sqrt{2}&amp;-2/3\\0&amp;1/3\end{bmatrix}\begin{bmatrix}\sqrt{2}\\3\end{bmatrix} = \begin{bmatrix}3\\-1\\1\end{bmatrix}\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\Vert U\mathbf{x}\Vert = \sqrt{9 + 1 + 1} = \sqrt{11}.\]</div>
+<div class="math notranslate nohighlight">
+\[\Vert\mathbf{x}\Vert = \sqrt{2+9}= \sqrt{11}.\]</div>
+</div>
+<div class="section" id="when-orthonormal-matrices-are-square">
+<h3>When Orthonormal Matrices are Square<a class="headerlink" href="#when-orthonormal-matrices-are-square" title="Permalink to this headline">¶</a></h3>
+<p>Finally, one of the most useful transformation matrices is obtained when the columns of the matrix are orthonormal…</p>
+<p>… <strong>and</strong> the matrix is <strong>square</strong>.</p>
+<p>These matrices map vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> to new locations in the same space, ie, <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
+<p>… in a way that preserves lengths, distances and orthogonality.</p>
+<p>Now, consider the case when <span class="math notranslate nohighlight">\(U\)</span> is square, and has orthonormal columns.</p>
+<p>Then the fact that <span class="math notranslate nohighlight">\(U^TU = I\)</span> implies that <span class="math notranslate nohighlight">\(U^{-1} = U^T.\)</span></p>
+<p>Then <span class="math notranslate nohighlight">\(U\)</span> is called an <strong>orthogonal</strong> matrix.</p>
+<p>A good example of an orthogonal matrix is a <strong>rotation</strong> matrix:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}{\displaystyle R ={\begin{bmatrix}\cos \theta &amp;-\sin \theta \\\sin \theta &amp;\cos \theta \\\end{bmatrix}}.}\end{split}\]</div>
+<p>Using trigonometric identities, you should be able to convince yourself that</p>
+<div class="math notranslate nohighlight">
+\[R^TR =  I\]</div>
+<p>and hopefully you can visualize how <span class="math notranslate nohighlight">\(R\)</span> preserves lengths and orthogonality.</p>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="L20Orthogonality.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span></p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="L22LeastSquares.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Least Squares</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Mark Crovella<br/>
+        
+            &copy; Copyright 2020-2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

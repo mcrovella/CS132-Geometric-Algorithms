@@ -1,0 +1,832 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Characteristic Equation &#8212; Linear Algebra, Geometry, and Computation</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Diagonalization" href="L18Diagonalization.html" />
+    <link rel="prev" title="Eigenvectors and Eigenvalues" href="L16Eigenvectors.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      <img src="_static/DiagramAR-icon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Linear Algebra, Geometry, and Computation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="landing-page.html">
+   Preface
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="L01LinearEquations.html">
+   Linear Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L02Numerics.html">
+   Numbers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L03RowReductions.html">
+   Gaussian Elimination
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L04VectorEquations.html">
+   Vector Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L05Axb.html">
+   <span class="math notranslate nohighlight">
+    \(A{\bf x} = {\bf b}\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L06LinearIndependence.html">
+   Linear Independence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L07LinearTransformations.html">
+   Linear Transformations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L08MatrixofLinearTranformation.html">
+   The Matrix of a Linear Transformation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L09MatrixOperations.html">
+   Matrix Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L10MatrixInverse.html">
+   The Inverse of a Matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L11MarkovChains.html">
+   Markov Chains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L12MatrixFactorizations.html">
+   Matrix Factorizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L13ComputerGraphics-Spring2021.html">
+   Computer Graphics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L14Subspaces.html">
+   Subspaces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L15DimensionRank.html">
+   Dimension and Rank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L16Eigenvectors.html">
+   Eigenvectors and Eigenvalues
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   The Characteristic Equation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L18Diagonalization.html">
+   Diagonalization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L19PageRank.html">
+   PageRank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L20Orthogonality.html">
+   Analytic Geometry in
+   <span class="math notranslate nohighlight">
+    \(\mathbb{R}^n\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L21OrthogonalSets.html">
+   Orthogonal Sets and Projection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L22LeastSquares.html">
+   Least Squares
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L23LinearModels.html">
+   Linear Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L24SymmetricMatrices.html">
+   Symmetric Matrices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L25SVD.html">
+   The Singular Value Decomposition
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/L17CharacteristicEqn.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/mcrovella/CS132-Geometric-Algorithms"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L17CharacteristicEqn.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#finding-lambda">
+   Finding
+   <span class="math notranslate nohighlight">
+    \(\lambda\)
+   </span>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   The Characteristic Equation
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#similarity">
+   Similarity
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#markov-chains">
+   Markov Chains
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for lecture use notebook</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">qr_setting</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">qrviz_setting</span> <span class="o">=</span> <span class="s1">&#39;save&#39;</span>
+<span class="c1">#</span>
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format=&#39;retina&#39;
+<span class="c1"># import libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpf</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">laUtilities</span> <span class="k">as</span> <span class="nn">ut</span>
+<span class="kn">import</span> <span class="nn">slideUtilities</span> <span class="k">as</span> <span class="nn">sl</span>
+<span class="kn">import</span> <span class="nn">demoUtilities</span> <span class="k">as</span> <span class="nn">dm</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display_html</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Math</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Latex</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="the-characteristic-equation">
+<h1>The Characteristic Equation<a class="headerlink" href="#the-characteristic-equation" title="Permalink to this headline">¶</a></h1>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],[</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]])</span>
+
+<span class="n">x</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mf">500.</span><span class="p">])</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">500</span><span class="p">,</span><span class="mi">500</span><span class="p">),</span><span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">500</span><span class="p">,</span><span class="mi">500</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">-</span><span class="mi">500</span><span class="p">,</span> <span class="o">-</span><span class="mi">500</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">),</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">75</span><span class="p">):</span>
+    <span class="n">newx</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">x</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">newx</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">newx</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;r-&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">newx</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">newx</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;ro&#39;</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">newx</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L17CharacteristicEqn_2_0.png" src="_images/L17CharacteristicEqn_2_0.png" />
+</div>
+</div>
+<p>Today we deepen our study of <em>linear dynamical systems,</em></p>
+<p>systems that evolve according to the equation:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{x}_{k+1} = A\mathbf{x}_k.\]</div>
+<p>Let’s look at some examples of how such dynamical systems can evolve in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>.</p>
+<p>First we’ll look at the system corresponding to:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} A = \begin{bmatrix}\cos 0.1&amp;-\sin 0.1\\\sin 0.1&amp;\cos 1.0\end{bmatrix} \end{split}\]</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sl</span><span class="o">.</span><span class="n">display_saved_anim</span><span class="p">(</span><span class="s1">&#39;images/L17-ex1.mp4&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><video controls>
+ <source src="data:video/x-m4v;base64,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" type="video/mp4">
+ Your browser does not support the video tag.
+</video></div></div>
+</div>
+<p>Next let’s look at the system corresponding to:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} A = \begin{bmatrix}1.1&amp;0\\0&amp;0.9\end{bmatrix} \end{split}\]</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sl</span><span class="o">.</span><span class="n">display_saved_anim</span><span class="p">(</span><span class="s1">&#39;images/L17-ex2.mp4&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><video controls>
+ <source src="data:video/x-m4v;base64,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" type="video/mp4">
+ Your browser does not support the video tag.
+</video></div></div>
+</div>
+<p>Next let’s look at the system corresponding to:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} A = \begin{bmatrix}0.8&amp;0.5\\-0.1&amp;1.0\end{bmatrix} \end{split}\]</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sl</span><span class="o">.</span><span class="n">display_saved_anim</span><span class="p">(</span><span class="s1">&#39;images/L17-ex3.mp4&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><video controls>
+ <source src="data:video/x-m4v;base64,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" type="video/mp4">
+ Your browser does not support the video tag.
+</video></div></div>
+</div>
+<p>There are very different things happening in these three cases!</p>
+<p>Can we find a general method for understanding what is going on in each case?</p>
+<p>The study of eigenvalues and eigenvectors is the key to acquiring that understanding.</p>
+<p>We will see that to understand each case, we need to learn how to <strong>extract the eigenvalues and eigenvectors of <span class="math notranslate nohighlight">\(A\)</span>.</strong></p>
+<div class="section" id="finding-lambda">
+<h2>Finding <span class="math notranslate nohighlight">\(\lambda\)</span><a class="headerlink" href="#finding-lambda" title="Permalink to this headline">¶</a></h2>
+<p>In the last lecture we saw that, if we know an eigenvalue <span class="math notranslate nohighlight">\(\lambda\)</span> of a matrix <span class="math notranslate nohighlight">\(A,\)</span> then computing the corresponding eigenspace can be done by constructing a basis for <span class="math notranslate nohighlight">\(\operatorname{Nul}\, (A-\lambda I).\)</span></p>
+<p>Today we’ll discuss how to determine the eigenvalues of a matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>The theory will make use of the <strong>determinant</strong> of a matrix.</p>
+<p>Let’s recall that the determinant of a <span class="math notranslate nohighlight">\(2\times 2\)</span> matrix <span class="math notranslate nohighlight">\(A = \begin{bmatrix}a&amp;b\\c&amp;d\end{bmatrix}\)</span> is <span class="math notranslate nohighlight">\(ad-bc.\)</span></p>
+<p>We also have learned that <span class="math notranslate nohighlight">\(A\)</span> is invertible if and only if its determinant is not zero.</p>
+<p>(Recall that the inverse of of <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(\frac{1}{ad-bc}\begin{bmatrix}d&amp;-b\\-c&amp;a\end{bmatrix}).\)</span></p>
+<p>Let’s use these facts to help us find the eigenvalues of a <span class="math notranslate nohighlight">\(2\times 2\)</span> matrix.</p>
+<p><strong>Example.</strong>  Find the eigenvalues of <span class="math notranslate nohighlight">\(A = \begin{bmatrix}2&amp;3\\3&amp;-6\end{bmatrix}.\)</span></p>
+<p><strong>Solution.</strong>  We must find all scalars <span class="math notranslate nohighlight">\(\lambda\)</span> such that the matrix equation</p>
+<div class="math notranslate nohighlight">
+\[(A-\lambda I)\mathbf{x} = {\bf 0}\]</div>
+<p>has a nontrivial solution.</p>
+<p>By the Invertible Matrix Theorem, this problem is equivalent to finding all <span class="math notranslate nohighlight">\(\lambda\)</span> such that the matrix <span class="math notranslate nohighlight">\(A-\lambda I\)</span> is <em>not</em> invertible.</p>
+<p>Now,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} A - \lambda I = \begin{bmatrix}2&amp;3\\3&amp;-6\end{bmatrix} - \begin{bmatrix}\lambda&amp;0\\0&amp;\lambda\end{bmatrix} = \begin{bmatrix}2-\lambda&amp;3\\3&amp;-6-\lambda\end{bmatrix}.\end{split}\]</div>
+<p>We know that <span class="math notranslate nohighlight">\(A\)</span> is not invertible exactly when its determinant is zero.</p>
+<p>So the eigenvalues of <span class="math notranslate nohighlight">\(A\)</span> are the solutions of the equation</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\det(A-\lambda I) = \det\begin{bmatrix}2-\lambda&amp;3\\3&amp;-6-\lambda\end{bmatrix} = 0.\end{split}\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\det\begin{bmatrix}a&amp;b\\c&amp;d\end{bmatrix} = ad-bc,\)</span> then</p>
+<div class="math notranslate nohighlight">
+\[\det(A-\lambda I) = (2-\lambda)(-6-\lambda)-(3)(3)\]</div>
+<div class="math notranslate nohighlight">
+\[ = -12 + 6\lambda -2\lambda + \lambda^2 - 9\]</div>
+<div class="math notranslate nohighlight">
+\[= \lambda^2+4\lambda-21\]</div>
+<div class="math notranslate nohighlight">
+\[=(\lambda-3)(\lambda + 7)\]</div>
+<p>If <span class="math notranslate nohighlight">\(\det(A-\lambda I) = 0,\)</span> then <span class="math notranslate nohighlight">\(\lambda = 3\)</span> or <span class="math notranslate nohighlight">\(\lambda = -7.\)</span>  So the eigenvalues of <span class="math notranslate nohighlight">\(A\)</span> are <span class="math notranslate nohighlight">\(3\)</span> and <span class="math notranslate nohighlight">\(-7\)</span>.</p>
+<div class="toggle docutils container">
+<p>Question Time! Q17.1</p>
+</div>
+<p>The same idea works for <span class="math notranslate nohighlight">\(n\times n\)</span> matrices – but, for that, we need to define a <em>determinant</em> for larger matrices.</p>
+<p><strong>Determinants.</strong></p>
+<p>Previously, we’ve defined a determinant for a <span class="math notranslate nohighlight">\(2\times 2\)</span> matrix.</p>
+<p>To find eigenvalues for larger matrices, we need to define the determinant for any sized (ie, <span class="math notranslate nohighlight">\(n\times n\)</span>) matrix.</p>
+<p><strong>Definition.</strong>   Let <span class="math notranslate nohighlight">\(A\)</span> be an <span class="math notranslate nohighlight">\(n\times n\)</span> matrix, and let <span class="math notranslate nohighlight">\(U\)</span> be any echelon form obtained from <span class="math notranslate nohighlight">\(A\)</span> by row replacements and row interchanges (no row scalings), and let <span class="math notranslate nohighlight">\(r\)</span> be the number of such row interchanges.</p>
+<p>Then the <strong>determinant</strong> of <span class="math notranslate nohighlight">\(A\)</span>, written as <span class="math notranslate nohighlight">\(\det A\)</span>, is <span class="math notranslate nohighlight">\((-1)^r\)</span> times the product of the diagonal entries <span class="math notranslate nohighlight">\(u_{11},\dots,u_{nn}\)</span> in <span class="math notranslate nohighlight">\(U\)</span>.</p>
+<p>If <span class="math notranslate nohighlight">\(A\)</span> is invertible, then <span class="math notranslate nohighlight">\(u_{11},\dots,u_{nn}\)</span> are all <em>pivots</em>.</p>
+<p>If <span class="math notranslate nohighlight">\(A\)</span> is not invertible, then at least one diagonal entry is zero, and so the product <span class="math notranslate nohighlight">\(u_{11} \dots u_{nn}\)</span> is zero.</p>
+<p>In other words:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\det\ A = \left\{\begin{array}{ll}(-1)^r\cdot\left(\mbox{product of pivots in $U$}\right),&amp;\mbox{when $A$ is invertible}\\
+0,&amp;\mbox{when $A$ is not invertible}\end{array}\right.\end{split}\]</div>
+<p><strong>Example.</strong>  Compute <span class="math notranslate nohighlight">\(\det A\)</span> for <span class="math notranslate nohighlight">\(A = \begin{bmatrix}1&amp;5&amp;0\\2&amp;4&amp;-1\\0&amp;-2&amp;0\end{bmatrix}.\)</span></p>
+<p><strong>Solution.</strong>  The following row reduction uses <strong>one</strong> row interchange:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A \sim \begin{bmatrix}1&amp;5&amp;0\\0&amp;-6&amp;-1\\0&amp;-2&amp;0\end{bmatrix} \sim \begin{bmatrix}1&amp;5&amp;0\\0&amp;-2&amp;0\\0&amp;-6&amp;-1\end{bmatrix} \sim \begin{bmatrix}1&amp;5&amp;0\\0&amp;-2&amp;0\\0&amp;0&amp;-1\end{bmatrix}.\end{split}\]</div>
+<p>So <span class="math notranslate nohighlight">\(\det A\)</span> equals <span class="math notranslate nohighlight">\((-1)^1(1)(-2)(-1) = (-2).\)</span></p>
+<p>The remarkable thing is that <strong>any other</strong> way of computing the echelon form gives the same determinant.  For example,  this row reduction does not use a row interchange:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A \sim \begin{bmatrix}1&amp;5&amp;0\\0&amp;-6&amp;-1\\0&amp;-2&amp;0\end{bmatrix} \sim \begin{bmatrix}1&amp;5&amp;0\\0&amp;-6&amp;-1\\0&amp;0&amp;1/3\end{bmatrix}.\end{split}\]</div>
+<p>Using this echelon form to compute the determinant yields <span class="math notranslate nohighlight">\((-1)^0(1)(-6)(1/3) = -2,\)</span> the same as before.</p>
+<div class="toggle docutils container">
+<p>Question Time! Q17.2</p>
+</div>
+<p><strong>Invertibility.</strong></p>
+<p>The formula for the determinant shows that <span class="math notranslate nohighlight">\(A\)</span> is invertible if and only if <span class="math notranslate nohighlight">\(\det A\)</span> is nonzero.</p>
+<p>We have <strong>yet another</strong> part to add to the Invertible Matrix Theorem:</p>
+<p>Let <span class="math notranslate nohighlight">\(A\)</span> be an <span class="math notranslate nohighlight">\(n\times n\)</span> matrix.   Then <span class="math notranslate nohighlight">\(A\)</span> is invertible if and only if:</p>
+<ol class="simple">
+<li><p>The number 0 is <em>not</em> an eigenvalue of <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p>The determinant of <span class="math notranslate nohighlight">\(A\)</span> is <em>not</em> zero.</p></li>
+</ol>
+<p>Some facts about determinants (proved in the book):</p>
+<ol class="simple">
+<li><p><span class="math notranslate nohighlight">\(\det AB = (\det A) (\det B).\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\det A^T = \det A.\)</span></p></li>
+<li><p>If <span class="math notranslate nohighlight">\(A\)</span> is triangular, then <span class="math notranslate nohighlight">\(\det A\)</span> is the product of the entries on the main diagonal of <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+</ol>
+</div>
+<div class="section" id="id1">
+<h2>The Characteristic Equation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>So, <span class="math notranslate nohighlight">\(A\)</span> is invertible if and only if <span class="math notranslate nohighlight">\(\det A\)</span> is not zero.</p>
+<p>To return to the question of how to compute eigenvalues of <span class="math notranslate nohighlight">\(A,\)</span> recall that <span class="math notranslate nohighlight">\(\lambda\)</span> is an eigenvalue if and only if <span class="math notranslate nohighlight">\((A-\lambda I)\)</span> is <em>not</em> invertible.</p>
+<p>We capture this fact using the <strong>characteristic equation:</strong></p>
+<div class="math notranslate nohighlight">
+\[\det(A-\lambda I) = 0.\]</div>
+<p>We can conclude that <span class="math notranslate nohighlight">\(\lambda\)</span> is an eigenvalue of an <span class="math notranslate nohighlight">\(n\times n\)</span> matrix <span class="math notranslate nohighlight">\(A\)</span> if and only if <span class="math notranslate nohighlight">\(\lambda\)</span> satisfies the characteristic equation <span class="math notranslate nohighlight">\(\det(A-\lambda I) = 0.\)</span></p>
+<p><strong>Example.</strong>  Find the characteristic equation of</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}5&amp;-2&amp;6&amp;-1\\0&amp;3&amp;-8&amp;0\\0&amp;0&amp;5&amp;4\\0&amp;0&amp;0&amp;1\end{bmatrix}\end{split}\]</div>
+<p><strong>Solution.</strong>  Form <span class="math notranslate nohighlight">\(A - \lambda I,\)</span> and note that <span class="math notranslate nohighlight">\(\det A\)</span> is the product of the entries on the diagonal of <span class="math notranslate nohighlight">\(A,\)</span> if <span class="math notranslate nohighlight">\(A\)</span> is triangular.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\det(A-\lambda I) = \det\begin{bmatrix}5-\lambda&amp;-2&amp;6&amp;-1\\0&amp;3-\lambda&amp;-8&amp;0\\0&amp;0&amp;5-\lambda&amp;4\\0&amp;0&amp;0&amp;1-\lambda\end{bmatrix}\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[=(5-\lambda)(3-\lambda)(5-\lambda)(1-\lambda).\]</div>
+<p>So the characteristic equation is:</p>
+<div class="math notranslate nohighlight">
+\[(\lambda-5)^2(\lambda-3)(\lambda-1) = 0.\]</div>
+<p>Expanding this out we get:</p>
+<div class="math notranslate nohighlight">
+\[\lambda^4 - 14\lambda^3 + 68 \lambda^2 - 130\lambda + 75 = 0.\]</div>
+<p>Notice that, once again, <span class="math notranslate nohighlight">\(\det(A-\lambda I)\)</span> is a polynomial in <span class="math notranslate nohighlight">\(\lambda\)</span>.</p>
+<p>In fact, for any <span class="math notranslate nohighlight">\(n\times n\)</span> matrix, <span class="math notranslate nohighlight">\(\det(A-\lambda I)\)</span> is a polynomial of degree <span class="math notranslate nohighlight">\(n\)</span>, called the <strong>characteristic polynomial</strong> of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>We say that the eigenvalue 5 in this example has <strong>multiplicity</strong> 2, because <span class="math notranslate nohighlight">\((\lambda -5)\)</span> occures two times as a factor of the characteristic polynomial.   In general, the mutiplicity of an eigenvalue <span class="math notranslate nohighlight">\(\lambda\)</span> is its multiplicity as a root of the characteristic equation.</p>
+<p><strong>Example.</strong>  The characteristic polynomial of a <span class="math notranslate nohighlight">\(6\times 6\)</span> matrix is <span class="math notranslate nohighlight">\(\lambda^6 - 4\lambda^5 - 12\lambda^4.\)</span>  Find the eigenvalues and their multiplicity.</p>
+<p><strong>Solution</strong>  Factor the polynomial</p>
+<div class="math notranslate nohighlight">
+\[\lambda^6 - 4\lambda^5 - 12\lambda^4 = \lambda^4(\lambda^2-4\lambda-12) = \lambda^4(\lambda-6)(\lambda+2)\]</div>
+<p>So the eigenvalues are 0 (with multiplicity 4), 6, and -2.</p>
+<p>Since the characteristic polynomial for an <span class="math notranslate nohighlight">\(n\times n\)</span> matrix has degree <span class="math notranslate nohighlight">\(n,\)</span> the equation has <span class="math notranslate nohighlight">\(n\)</span> roots, counting multiplicities – provided complex numbers are allowed.</p>
+<p>Note that even for a real matrix, eigenvalues may sometimes be complex.</p>
+<p><strong>Practical Issues.</strong></p>
+<p>These facts show that there is, in principle, a way to find eigenvalues of any matrix.   However, you need not compute eigenvalues for matrices larger than <span class="math notranslate nohighlight">\(2\times 2\)</span> by hand.   For any matrix <span class="math notranslate nohighlight">\(3\times 3\)</span> or larger, you should use a computer.</p>
+</div>
+<div class="section" id="similarity">
+<h2>Similarity<a class="headerlink" href="#similarity" title="Permalink to this headline">¶</a></h2>
+<p>An important concept for things that come later is the notion of <strong>similar</strong> matrices.</p>
+<p><strong>Definition.</strong> If <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are <span class="math notranslate nohighlight">\(n\times n\)</span> matrices, then <span class="math notranslate nohighlight">\(A\)</span> <strong>is similar to</strong> <span class="math notranslate nohighlight">\(B\)</span> if there is an invertible matrix <span class="math notranslate nohighlight">\(P\)</span> such that <span class="math notranslate nohighlight">\(P^{-1}AP = B,\)</span> or, equivalently, <span class="math notranslate nohighlight">\(A = PBP^{-1}.\)</span></p>
+<p>Similarity is symmetric, so if <span class="math notranslate nohighlight">\(A\)</span> is similar to <span class="math notranslate nohighlight">\(B\)</span>, then <span class="math notranslate nohighlight">\(B\)</span> is similar to <span class="math notranslate nohighlight">\(A\)</span>.  Hence we just say that <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> <strong>are similar.</strong></p>
+<p>Changing <span class="math notranslate nohighlight">\(A\)</span> into <span class="math notranslate nohighlight">\(B\)</span> is called a <strong>similarity transformation.</strong></p>
+<p>An important way to think of similarity between <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> is that they <strong>have the same eigenvalues.</strong></p>
+<p><strong>Theorem.</strong>  If <span class="math notranslate nohighlight">\(n\times n\)</span> matrices <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are similar, then they have the same characteristic polynomial, and hence the same eigenvalues (with the same multiplicities.)</p>
+<p><strong>Proof.</strong>  If <span class="math notranslate nohighlight">\(B = P^{-1}AP,\)</span> then</p>
+<div class="math notranslate nohighlight">
+\[B - \lambda I = P^{-1}AP - \lambda P^{-1}P\]</div>
+<div class="math notranslate nohighlight">
+\[ = P^{-1}(AP-\lambda P)\]</div>
+<div class="math notranslate nohighlight">
+\[ = P^{-1}(A-\lambda I)P\]</div>
+<p>Now let’s construct the characteristic polynomial by taking the determinant:</p>
+<div class="math notranslate nohighlight">
+\[\det(B-\lambda I) = \det[P^{-1}(A-\lambda I)P]\]</div>
+<p>Using the properties of determinants we discussed earlier, we compute:</p>
+<div class="math notranslate nohighlight">
+\[ = \det(P^{-1})\cdot\det(A-\lambda I)\cdot\det(P).\]</div>
+<p>Since <span class="math notranslate nohighlight">\(\det(P^{-1})\cdot\det(P) = \det(P^{-1}P) = \det I = 1,\)</span> we can see that</p>
+<div class="math notranslate nohighlight">
+\[\det(B-\lambda I) = \det(A - \lambda I).\]</div>
+</div>
+<div class="section" id="markov-chains">
+<h2>Markov Chains<a class="headerlink" href="#markov-chains" title="Permalink to this headline">¶</a></h2>
+<p>Let’s return to the problem of solving a Markov Chain.</p>
+<p>At this point, we can place the theory of Markov Chains into the broader context of eigenvalues and eigenvectors.</p>
+<p><strong>Theorem.</strong> The largest eigenvalue of a Markov Chain is 1.</p>
+<p><strong>Proof.</strong> First of all, it is obvious that 1 is <strong>an</strong> eigenvalue of a Markov chain since we know that every Markov Chain <span class="math notranslate nohighlight">\(A\)</span> has a steady-state vector <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> such that <span class="math notranslate nohighlight">\(A\mathbf{v} = \mathbf{v}.\)</span></p>
+<p>To prove that 1 is the <strong>largest</strong> eigenvalue, recall that each column of a Markov Chain sums to 1.</p>
+<p>Then, consider the sum of the values in the vector <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A\mathbf{x} = \begin{bmatrix}a_{11}&amp;\dots &amp;a_{1n}\\\vdots&amp;\ddots&amp;\vdots\\a_{n1}&amp;\dots&amp;a_{nn}\end{bmatrix}\begin{bmatrix}x_1\\\vdots\\x_n\end{bmatrix} = \begin{bmatrix}a_{11}x_1 + \dots + a_{1n}x_n\\\vdots\\ a_{n1}x_1 + \dots + a_{nn}x_n\end{bmatrix}.\end{split}\]</div>
+<p>Let’s just sum the first terms in each component of <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[ a_{11}x_1 + a_{21}x_1 + \dots + a_{n1}x_1 = x_1 \sum_i a_{i1} = x_1. \]</div>
+<p>So we can see that the sum of all terms in <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> is equal to <span class="math notranslate nohighlight">\(x_1 + x_2 + \dots + x_n\)</span> – i.e., the sum of all terms in <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>.</p>
+<p>So there can be no <span class="math notranslate nohighlight">\(\lambda &gt; 1\)</span> such that <span class="math notranslate nohighlight">\(A\mathbf{x} = \lambda \mathbf{x}.\)</span></p>
+<p><strong>A complete solution for the evolution of a Markov Chain.</strong></p>
+<p>Previously, we were only able to ask about the “eventual” steady state of a Markov Chain.</p>
+<p>But a crucial question is: <strong>how long does it take</strong> for a particular Markov Chain to reach steady state from some initial starting condition?</p>
+<p>Let’s use an example: we previously studied the Markov Chain defined by <span class="math notranslate nohighlight">\(A = \begin{bmatrix}0.95&amp;0.03\\0.05&amp;0.97\end{bmatrix}.\)</span></p>
+<p>Let’s ask how long until it reaches steady state, from the starting point defined as <span class="math notranslate nohighlight">\(\mathbf{x}_0 = \begin{bmatrix}0.6\\0.4\end{bmatrix}.\)</span></p>
+<p>Remember that <span class="math notranslate nohighlight">\(x_0\)</span> is probability vector – its entries are nonnegative and sum to 1.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">1.2</span><span class="p">,</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.95</span><span class="p">,</span><span class="mf">0.03</span><span class="p">],[</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.97</span><span class="p">]])</span>
+<span class="n">v1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.375</span><span class="p">,</span><span class="mf">0.625</span><span class="p">])</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.225</span><span class="p">,</span><span class="o">-</span><span class="mf">0.225</span><span class="p">])</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="n">v2</span>
+<span class="c1">#</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;b--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">x0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;bo&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.02</span><span class="p">,</span><span class="n">x0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.02</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;${\bf x_0}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="c1">#ax.text(A.dot(x0)[0]+0.2,A.dot(x0)[1]+0.2,r&#39;$A{\bf x_0}$&#39;,size=16)</span>
+<span class="c1"># ax.plot([-10,10],[5*10/6.0,-5*10/6.0],&#39;b-&#39;)</span>
+<span class="c1">#</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;Initial State&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x0</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
+                <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
+                <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                <span class="c1">#bbox=dict(boxstyle=&quot;round&quot;, fc=&quot;0.8&quot;),</span>
+                <span class="n">arrowprops</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;arrowstyle&#39;</span><span class="p">:</span> <span class="s1">&#39;simple&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;fc&#39;</span><span class="p">:</span> <span class="s1">&#39;0.5&#39;</span><span class="p">,</span> 
+                                <span class="s1">&#39;ec&#39;</span><span class="p">:</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;connectionstyle&#39;</span> <span class="p">:</span> <span class="s1">&#39;arc3,rad=-0.3&#39;</span><span class="p">},</span>
+                <span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L17CharacteristicEqn_93_0.png" src="_images/L17CharacteristicEqn_93_0.png" />
+</div>
+</div>
+<p>Using the methods we studied today, we can find the characteristic equation:</p>
+<div class="math notranslate nohighlight">
+\[\lambda^2 -1.92\lambda +0.92 \]</div>
+<p>Using the quadratic formula, we find the roots of this equation to be 1 and 0.92.  (Note that, as expected, 1 is the largest eigenvalue.)</p>
+<p>Next, using the methods in the previous lecture, we find a basis for each eigenspace of <span class="math notranslate nohighlight">\(A\)</span> (each nullspace of <span class="math notranslate nohighlight">\(A-\lambda I\)</span>).</p>
+<p>For <span class="math notranslate nohighlight">\(\lambda = 1\)</span>, a corresponding eigenvector is <span class="math notranslate nohighlight">\(\mathbf{v}_1 = \begin{bmatrix}3\\5\end{bmatrix}.\)</span></p>
+<p>For <span class="math notranslate nohighlight">\(\lambda = 0.92\)</span>, a corresponding eigenvector is <span class="math notranslate nohighlight">\(\mathbf{v}_2 = \begin{bmatrix}1\\-1\end{bmatrix}.\)</span></p>
+<p>Next, we write <span class="math notranslate nohighlight">\(\mathbf{x}_0\)</span> as a linear combination of <span class="math notranslate nohighlight">\(\mathbf{v}_1\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}_2.\)</span>  This can be done because <span class="math notranslate nohighlight">\(\{\mathbf{v}_1,\mathbf{v}_2\}\)</span> is obviously a basis for <span class="math notranslate nohighlight">\(\mathbb{R}^2.\)</span></p>
+<p>To write <span class="math notranslate nohighlight">\(\mathbf{x}_0\)</span> this way, we want to solve the vector equation</p>
+<div class="math notranslate nohighlight">
+\[c_1\mathbf{v}_1 + c_2\mathbf{v}_2 = \mathbf{x}_0\]</div>
+<p>In other words:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}[\mathbf{v}_1\;\mathbf{v}_2]\begin{bmatrix}c_1\\c_2\end{bmatrix} = \mathbf{x}_0.\end{split}\]</div>
+<p>The matrix <span class="math notranslate nohighlight">\([\mathbf{v}_1\;\mathbf{v}_2]\)</span> is invertible, so,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{bmatrix}c_1\\c_2\end{bmatrix} = [\mathbf{v}_1\;\mathbf{v}_2]^{-1} \mathbf{x}_0 = \begin{bmatrix}3&amp;1\\5&amp;-1\end{bmatrix}^{-1}\begin{bmatrix}0.6\\0.4\end{bmatrix}.\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} = \frac{1}{-8}\begin{bmatrix}-1&amp;-1\\-5&amp;3\end{bmatrix}\begin{bmatrix}0.6\\0.4\end{bmatrix} = \begin{bmatrix}0.125\\0.225\end{bmatrix}.\end{split}\]</div>
+<p>So, now we can put it all together.</p>
+<p>We know that</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{x}_0 = c_1\mathbf{v}_1 + c_2\mathbf{v}_2\]</div>
+<p>and we know the values of <span class="math notranslate nohighlight">\(c_1, c_2\)</span> that make this true.</p>
+<p>So let’s compute each <span class="math notranslate nohighlight">\(\mathbf{x}_k\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{x}_1 = A\mathbf{x}_0 = c_1A\mathbf{v}_1 + c_2A\mathbf{v}_2\]</div>
+<div class="math notranslate nohighlight">
+\[ = c_1\mathbf{v}_1 + c_2(0.92)\mathbf{v}_2.\]</div>
+<p>Now note the power of the eigenvalue approach:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{x}_2 = A\mathbf{x}_1 = c_1A\mathbf{v}_1 + c_2(0.92)A\mathbf{v}_2\]</div>
+<div class="math notranslate nohighlight">
+\[=c_1\mathbf{v}_2 + c_2(0.92)^2\mathbf{v}_2.\]</div>
+<p>And so in general:
+$<span class="math notranslate nohighlight">\(\mathbf{x}_k = c_1\mathbf{v}_1 + c_2(0.92)^k\mathbf{v}_2\;\;\;(k = 0, 1, 2, \dots)\)</span>$</p>
+<p>And using the <span class="math notranslate nohighlight">\(c_1\)</span> and <span class="math notranslate nohighlight">\(c_2\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}_1,\)</span> <span class="math notranslate nohighlight">\(\mathbf{v}_2\)</span> we computed above:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{x}_k = 0.125\begin{bmatrix}3\\5\end{bmatrix} + 0.225(0.92)^k\begin{bmatrix}1\\-1\end{bmatrix}\;\;\;(k = 0, 1, 2, \dots)\end{split}\]</div>
+<p>This explicit formula for <span class="math notranslate nohighlight">\(\mathbf{x}_k\)</span> gives the solution of the Markov Chain <span class="math notranslate nohighlight">\(\mathbf{x}_{k+1} = A\mathbf{x}_k\)</span> starting from the initial state <span class="math notranslate nohighlight">\(\mathbf{x}_0\)</span>.</p>
+<p>In other words:
+$<span class="math notranslate nohighlight">\(\mathbf{x}_0 = 0.125\begin{bmatrix}3\\5\end{bmatrix} + 0.225\begin{bmatrix}1\\-1\end{bmatrix}\)</span><span class="math notranslate nohighlight">\(     
+    \)</span><span class="math notranslate nohighlight">\(\mathbf{x}_1 = 0.125\begin{bmatrix}3\\5\end{bmatrix} + 0.207\begin{bmatrix}1\\-1\end{bmatrix}\)</span><span class="math notranslate nohighlight">\(  
+    \)</span><span class="math notranslate nohighlight">\(\mathbf{x}_2 = 0.125\begin{bmatrix}3\\5\end{bmatrix} + 0.190\begin{bmatrix}1\\-1\end{bmatrix}\)</span><span class="math notranslate nohighlight">\(  
+    \)</span><span class="math notranslate nohighlight">\(\mathbf{x}_3 = 0.125\begin{bmatrix}3\\5\end{bmatrix} + 0.175\begin{bmatrix}1\\-1\end{bmatrix}\)</span><span class="math notranslate nohighlight">\(    
+    \)</span><span class="math notranslate nohighlight">\( ... \)</span><span class="math notranslate nohighlight">\(  
+    \)</span><span class="math notranslate nohighlight">\(\mathbf{x}_\infty = 0.125\begin{bmatrix}3\\5\end{bmatrix}\)</span>$</p>
+<p>As <span class="math notranslate nohighlight">\(k\rightarrow\infty\)</span>, <span class="math notranslate nohighlight">\((0.92)^k\rightarrow0\)</span>.</p>
+<p>Thus <span class="math notranslate nohighlight">\(\mathbf{x}_k \rightarrow 0.125\mathbf{v}_1 = \begin{bmatrix}0.375\\0.625\end{bmatrix}.\)</span></p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">1.2</span><span class="p">,</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.95</span><span class="p">,</span><span class="mf">0.03</span><span class="p">],[</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.97</span><span class="p">]])</span>
+<span class="n">v1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.375</span><span class="p">,</span><span class="mf">0.625</span><span class="p">])</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.225</span><span class="p">,</span><span class="o">-</span><span class="mf">0.225</span><span class="p">])</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="n">v2</span>
+<span class="c1">#</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;b--&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.02</span><span class="p">,</span><span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.02</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;${\bf v_1}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">x0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;bo&#39;</span><span class="p">)</span>
+<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">):</span>
+    <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v1</span><span class="o">+</span><span class="p">(</span><span class="mf">0.92</span><span class="o">**</span><span class="n">i</span><span class="p">)</span><span class="o">*</span><span class="n">v2</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.02</span><span class="p">,</span><span class="n">v</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.02</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;${\bf x_4}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">10</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.02</span><span class="p">,</span><span class="n">v</span><span class="p">[</span><span class="mi">10</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.02</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;${\bf x_</span><span class="si">{10}</span><span class="s1">}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.02</span><span class="p">,</span><span class="n">x0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.02</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;${\bf x_0}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;ro&#39;</span><span class="p">)</span>
+<span class="c1">#ax.text(A.dot(x0)[0]+0.2,A.dot(x0)[1]+0.2,r&#39;$A{\bf x_0}$&#39;,size=16)</span>
+<span class="c1"># ax.plot([-10,10],[5*10/6.0,-5*10/6.0],&#39;b-&#39;)</span>
+<span class="c1">#</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;Steady State&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
+                <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
+                <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                <span class="c1">#bbox=dict(boxstyle=&quot;round&quot;, fc=&quot;0.8&quot;),</span>
+                <span class="n">arrowprops</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;arrowstyle&#39;</span><span class="p">:</span> <span class="s1">&#39;simple&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;fc&#39;</span><span class="p">:</span> <span class="s1">&#39;0.5&#39;</span><span class="p">,</span> 
+                                <span class="s1">&#39;ec&#39;</span><span class="p">:</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;connectionstyle&#39;</span> <span class="p">:</span> <span class="s1">&#39;arc3,rad=-0.3&#39;</span><span class="p">},</span>
+                <span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;Initial State&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
+                <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
+                <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+                <span class="c1">#bbox=dict(boxstyle=&quot;round&quot;, fc=&quot;0.8&quot;),</span>
+                <span class="n">arrowprops</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;arrowstyle&#39;</span><span class="p">:</span> <span class="s1">&#39;simple&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;fc&#39;</span><span class="p">:</span> <span class="s1">&#39;0.5&#39;</span><span class="p">,</span> 
+                                <span class="s1">&#39;ec&#39;</span><span class="p">:</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span>
+                                <span class="s1">&#39;connectionstyle&#39;</span> <span class="p">:</span> <span class="s1">&#39;arc3,rad=-0.3&#39;</span><span class="p">},</span>
+                <span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<img alt="_images/L17CharacteristicEqn_113_1.png" src="_images/L17CharacteristicEqn_113_1.png" />
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="L16Eigenvectors.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Eigenvectors and Eigenvalues</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="L18Diagonalization.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Diagonalization</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Mark Crovella<br/>
+        
+            &copy; Copyright 2020-2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>

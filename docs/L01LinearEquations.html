@@ -1,0 +1,1300 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Linear Equations &#8212; Linear Algebra, Geometry, and Computation</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Numbers" href="L02Numerics.html" />
+    <link rel="prev" title="Preface" href="landing-page.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+      <img src="_static/DiagramAR-icon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Linear Algebra, Geometry, and Computation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="landing-page.html">
+   Preface
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Linear Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L02Numerics.html">
+   Numbers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L03RowReductions.html">
+   Gaussian Elimination
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L04VectorEquations.html">
+   Vector Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L05Axb.html">
+   <span class="math notranslate nohighlight">
+    \(A{\bf x} = {\bf b}\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L06LinearIndependence.html">
+   Linear Independence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L07LinearTransformations.html">
+   Linear Transformations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L08MatrixofLinearTranformation.html">
+   The Matrix of a Linear Transformation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L09MatrixOperations.html">
+   Matrix Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L10MatrixInverse.html">
+   The Inverse of a Matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L11MarkovChains.html">
+   Markov Chains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L12MatrixFactorizations.html">
+   Matrix Factorizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L13ComputerGraphics-Spring2021.html">
+   Computer Graphics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L14Subspaces.html">
+   Subspaces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L15DimensionRank.html">
+   Dimension and Rank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L16Eigenvectors.html">
+   Eigenvectors and Eigenvalues
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L17CharacteristicEqn.html">
+   The Characteristic Equation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L18Diagonalization.html">
+   Diagonalization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L19PageRank.html">
+   PageRank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L20Orthogonality.html">
+   Analytic Geometry in
+   <span class="math notranslate nohighlight">
+    \(\mathbb{R}^n\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L21OrthogonalSets.html">
+   Orthogonal Sets and Projection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L22LeastSquares.html">
+   Least Squares
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L23LinearModels.html">
+   Linear Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L24SymmetricMatrices.html">
+   Symmetric Matrices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L25SVD.html">
+   The Singular Value Decomposition
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/L01LinearEquations.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/mcrovella/CS132-Geometric-Algorithms"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L01LinearEquations.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basic-definitions">
+   Basic Definitions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-geometry-of-linear-equations">
+   The Geometry of Linear Equations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#some-examples-in-mathbb-r-2">
+   Some Examples in
+   <span class="math notranslate nohighlight">
+    \(\mathbb{R}^2\)
+   </span>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#some-examples-in-mathbb-r-3">
+   Some Examples in
+   <span class="math notranslate nohighlight">
+    \(\mathbb{R}^3\)
+   </span>
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-matrices-of-a-system">
+   The Matrices of a System
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#solving-linear-systems">
+   Solving Linear Systems
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#step-1-elimination">
+     Step 1: Elimination
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#step-2-backsubstitution">
+     Step 2: Backsubstitution
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#verifying-the-solution">
+   Verifying the Solution
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#row-equivalence">
+   Row Equivalence
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fundamental-questions">
+   Fundamental Questions
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#recognizing-an-inconsistent-system">
+   Recognizing an Inconsistent System
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#geometric-interpretation-of-inconsistency">
+   Geometric Interpretation of Inconsistency
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="linear-equations">
+<h1>Linear Equations<a class="headerlink" href="#linear-equations" title="Permalink to this headline">¶</a></h1>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for QR codes use inline</span>
+<span class="c1"># %matplotlib inline</span>
+<span class="c1"># qr_setting = &#39;url&#39;</span>
+<span class="c1">#</span>
+<span class="c1"># for lecture use notebook to manipulate figures</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">qr_setting</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="c1">#</span>
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format=&#39;retina&#39;
+<span class="c1"># import libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">laUtilities</span> <span class="k">as</span> <span class="nn">ut</span>
+<span class="kn">import</span> <span class="nn">slideUtilities</span> <span class="k">as</span> <span class="nn">sl</span>
+<span class="kn">import</span> <span class="nn">demoUtilities</span> <span class="k">as</span> <span class="nn">dm</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">animation</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display_html</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Math</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Latex</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>Traditionally, algebra was the art of solving equations and systems of equations.  The word <em>algebra</em> comes form the Arabic <em>al-jabr</em> which means <em>restoration</em> (of broken parts).   The term was first used in a mathematical sense by Mohammed al-Khowarizmi (c. 780-850) who worked at the House of Wisdom, an academy established by Caliph al Ma’mum in Baghdad.   Linear algebra, then, is the art of solving systems of linear equations.</p>
+</div></blockquote>
+<p><em>Linear Algebra with Applications</em> , Bretscher</p>
+<p>Al-Khowarizmi gave his name to the <em>algorithm</em>.  He wrote a book called “ilm al-jabr wa’l-muqābala’ which means “The science of restoring what is missing and equating like with like.”</p>
+<p>The central problem of linear algebra is the solution of linear equations.</p>
+<blockquote>
+<div><p>The yield of one bundle of inferior rice, two bundles of medium grade rice, and three bundles of superior rice is 39 <em>dou</em> of grain.  The yield of one bundle of inferior rice, three bundles of medium grade rice, and two bundles of superior rice is 34 <em>dou</em>.  The yield of three bundles of inferior rice, two bundles of medium grain rice, and one bundle of superior rice is 26 <em>dou</em>.  What is the yield of one bundle of each grade of rice?</p>
+</div></blockquote>
+<p><em>Nine Chapters on the Mathematical Art</em> , c 200 BCE, China</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit: http://en.wikipedia.org/wiki/The_Nine_Chapters_on_the_Mathematical_Art</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/nine-chapters-mathematical-art.jpg&quot;</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L01LinearEquations_4_0.jpg" src="_images/L01LinearEquations_4_0.jpg" />
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HTML</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;&lt;a href=&quot;http://commons.wikimedia.org/wiki/File:</span><span class="si">%E</span><span class="s1">4%B9%9D</span><span class="si">%E</span><span class="s1">7%AB%A0</span><span class="si">%E</span><span class="s1">7%AE</span><span class="si">%97%</span><span class="s1">E8%A1</span><span class="si">%93%</span><span class="s1">E7%B4%B0</span><span class="si">%E</span><span class="s1">8%8D</span><span class="si">%89%</span><span class="s1">E5%9C</span><span class="si">%96%</span><span class="s1">E8%AA%AA.jpg#/media/File:</span><span class="si">%E</span><span class="s1">4%B9%9D</span><span class="si">%E</span><span class="s1">7%AB%A0</span><span class="si">%E</span><span class="s1">7%AE</span><span class="si">%97%</span><span class="s1">E8%A1</span><span class="si">%93%</span><span class="s1">E7%B4%B0</span><span class="si">%E</span><span class="s1">8%8D</span><span class="si">%89%</span><span class="s1">E5%9C</span><span class="si">%96%</span><span class="s1">E8%AA%AA.jpg&quot;&gt;九章算術細草圖說&lt;/a&gt; by 中國書店海王邨公司 - &lt;a rel=&quot;nofollow&quot; class=&quot;external free&quot; href=&quot;http://pmgs.kongfz.com/detail/1_158470/&quot;&gt;http://pmgs.kongfz.com/detail/1_158470/&lt;/a&gt;. Licensed under Public Domain via &lt;a href=&quot;//commons.wikimedia.org/wiki/&quot;&gt;Wikimedia Commons&lt;/a&gt;.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><a href="http://commons.wikimedia.org/wiki/File:%E4%B9%9D%E7%AB%A0%E7%AE%97%E8%A1%93%E7%B4%B0%E8%8D%89%E5%9C%96%E8%AA%AA.jpg#/media/File:%E4%B9%9D%E7%AB%A0%E7%AE%97%E8%A1%93%E7%B4%B0%E8%8D%89%E5%9C%96%E8%AA%AA.jpg">九章算術細草圖說</a> by 中國書店海王邨公司 - <a rel="nofollow" class="external free" href="http://pmgs.kongfz.com/detail/1_158470/">http://pmgs.kongfz.com/detail/1_158470/</a>. Licensed under Public Domain via <a href="//commons.wikimedia.org/wiki/">Wikimedia Commons</a>.</div></div>
+</div>
+<p>Let’s denote the unknown quantities as <span class="math notranslate nohighlight">\(x_1\)</span>, <span class="math notranslate nohighlight">\(x_2\)</span>, and <span class="math notranslate nohighlight">\(x_3\)</span>.  These are the yields of one bundle of inferior, medium grade, and superior rice, respectively.  We can then write the problem as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{eqnarray}
+x_1 + 2 x_2 + 3 x_3 &amp;=&amp; 39\\
+x_1 + 3 x_2 + 2 x_3 &amp;=&amp; 34\\
+3 x_1 + 2 x_2 + x_3 &amp;=&amp; 26
+\end{eqnarray}
+\end{split}\]</div>
+<p>The problem then is to determine the values of <span class="math notranslate nohighlight">\(x_1, x_2,\)</span> and <span class="math notranslate nohighlight">\(x_3\)</span>.</p>
+<p>These are <em>linear</em> equations.  No term has power other than 1.</p>
+<p>For example, there are no terms involving <span class="math notranslate nohighlight">\(x_1^2\)</span>, or <span class="math notranslate nohighlight">\(x_1x_2\)</span>, or <span class="math notranslate nohighlight">\(\sqrt{x_3}\)</span>.</p>
+<div class="section" id="basic-definitions">
+<h2>Basic Definitions<a class="headerlink" href="#basic-definitions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>A <em>linear equation</em> in the variables <span class="math notranslate nohighlight">\(x_1, \dots, x_n\)</span> is an equation that can be written in the form</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[a_1 x_1 + a_2 x_2 + \dots + a_n x_n = b\]</div>
+<p>where <span class="math notranslate nohighlight">\(b\)</span> and the coefficients <span class="math notranslate nohighlight">\(a_1, \dots, a_n\)</span> are real or complex numbers that are usually known in advance.</p>
+<ul class="simple">
+<li><p>A <em>system of linear equations</em> (or <em>linear system</em> ) is a collection of one or more linear equations involving the same variables - say <span class="math notranslate nohighlight">\(x_1, \dots, x_n\)</span>.</p></li>
+</ul>
+<ul class="simple">
+<li><p>A <em>solution</em> of the system is a list of numbers <span class="math notranslate nohighlight">\((s_1, s_2, \dots, s_n)\)</span> that makes each equation a true statement when the values <span class="math notranslate nohighlight">\(s_1, s_2, \dots, s_n\)</span> are substituted for <span class="math notranslate nohighlight">\(x_1, x_2, \dots, x_n,\)</span> respectively.</p></li>
+<li><p>The set of all possible solutions is called the <em>solution set</em> of the linear system.</p></li>
+<li><p>Two linear systems are called <em>equivalent</em> if they have the same solution set.</p></li>
+</ul>
+<ul class="simple">
+<li><p>A system of linear equations has</p>
+<ol class="simple">
+<li><p>no solution, or</p></li>
+<li><p>exactly one solution, or</p></li>
+<li><p>infinitely many solutions.</p></li>
+</ol>
+</li>
+</ul>
+<ul class="simple">
+<li><p>A system of linear equations is said to be <em>consistent</em> if it has either one solution or infinitely many solutions.</p></li>
+<li><p>A system of linear equations is said to be <em>inconsistent</em> if it has no solution.</p></li>
+</ul>
+</div>
+<div class="section" id="the-geometry-of-linear-equations">
+<h2>The Geometry of Linear Equations<a class="headerlink" href="#the-geometry-of-linear-equations" title="Permalink to this headline">¶</a></h2>
+<p>Any list of numbers <span class="math notranslate nohighlight">\((s_1, s_2, \dots, s_n)\)</span> can be thought of as a point in <span class="math notranslate nohighlight">\(n\)</span>-dimensional space, called a <em>vector space</em>.</p>
+<p>We call that vector space <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
+<p>So if we are considering linear equations with <span class="math notranslate nohighlight">\(n\)</span> unknowns, the solutions are points in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
+<p>Now, any linear equation defines a point set with dimension one less than the space.  For example:</p>
+<ul class="simple">
+<li><p>if we are in 2-space (2 unknowns), a linear equation defines a line.</p></li>
+<li><p>if we are in 3-space (3 unknowns), a linear equation defines a plane.</p></li>
+<li><p>in higher dimensions, we refer to all such sets as <em>hyperplanes.</em></p></li>
+</ul>
+<p>Question: why does a linear equation define a point-set of dimension one less than the space?</p>
+</div>
+<div class="section" id="some-examples-in-mathbb-r-2">
+<h2>Some Examples in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span><a class="headerlink" href="#some-examples-in-mathbb-r-2" title="Permalink to this headline">¶</a></h2>
+<p>How many solutions does the linear system have in each case?</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">two_d_figure</span><span class="p">(</span><span class="s1">&#39;Figure 1.2d.1&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">14</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L01LinearEquations_18_0.png" src="_images/L01LinearEquations_18_0.png" />
+</div>
+</div>
+<p>This system of two equations has <strong>exactly one</strong> solution.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">two_d_figure</span><span class="p">(</span><span class="s1">&#39;Figure 1.2d.2&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">3</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">14</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L01LinearEquations_20_0.png" src="_images/L01LinearEquations_20_0.png" />
+</div>
+</div>
+<p>This system of two equations has <strong>no</strong> solutions.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">two_d_figure</span><span class="p">(</span><span class="s1">&#39;Figure 1.2d.3&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span> <span class="nb">format</span> <span class="o">=</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">,</span> <span class="n">fontsize</span> <span class="o">=</span> <span class="mi">14</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L01LinearEquations_22_0.png" src="_images/L01LinearEquations_22_0.png" />
+</div>
+</div>
+<p>This system of equations has <strong>infinitely many</strong> solutions.</p>
+</div>
+<div class="section" id="some-examples-in-mathbb-r-3">
+<h2>Some Examples in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span><a class="headerlink" href="#some-examples-in-mathbb-r-3" title="Permalink to this headline">¶</a></h2>
+<p>How many solutions are there in each of these cases?</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="s1">&#39;Example 1: One Solution&#39;</span><span class="p">,</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> 
+                        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">,</span> <span class="n">displayAxes</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">eq1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">]</span>
+<span class="n">eq2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">eq3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">]</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="s1">&#39;Brown&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq2</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq3</span><span class="p">,</span> <span class="s1">&#39;Blue&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="n">eq2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Blue&#39;</span><span class="p">,</span> <span class="n">line_type</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">(</span><span class="n">eq2</span><span class="p">,</span> <span class="n">eq3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Blue&#39;</span><span class="p">,</span> <span class="n">line_type</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="n">eq3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Blue&#39;</span><span class="p">,</span> <span class="n">line_type</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Example 1&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L01LinearEquations_26_0.png" src="_images/L01LinearEquations_26_0.png" />
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="s1">&#39;Example 2: No Solutions&#39;</span><span class="p">,</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> 
+                        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">,</span> <span class="n">displayAxes</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="c1"># equation of a line from its normal a is a&#39;x = a&#39;a</span>
+<span class="c1"># three normals 120 degrees spread around the y axis</span>
+<span class="n">eq1</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>  <span class="mi">1</span><span class="p">]</span>
+<span class="n">eq2</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>  <span class="mi">1</span><span class="p">]</span>
+<span class="n">eq3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span>                 <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>       <span class="mi">2</span><span class="p">]</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="s1">&#39;Brown&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq2</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq3</span><span class="p">,</span> <span class="s1">&#39;Blue&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="n">eq2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Blue&#39;</span><span class="p">,</span> <span class="n">line_type</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">(</span><span class="n">eq2</span><span class="p">,</span> <span class="n">eq3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Blue&#39;</span><span class="p">,</span> <span class="n">line_type</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="n">eq3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Blue&#39;</span><span class="p">,</span> <span class="n">line_type</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Example 2&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L01LinearEquations_27_0.png" src="_images/L01LinearEquations_27_0.png" />
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="s1">&#39;Example 3: Infinite Number of Solutions&#39;</span><span class="p">,</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> 
+                        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">,</span> <span class="n">displayAxes</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="c1"># equation of a line from its normal a is a&#39;x = a&#39;a</span>
+<span class="c1"># three normals 120 degrees spread around the y axis</span>
+<span class="n">eq1</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>  <span class="mi">0</span><span class="p">]</span>
+<span class="n">eq2</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>  <span class="mi">0</span><span class="p">]</span>
+<span class="n">eq3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span>             <span class="mi">0</span><span class="p">,</span>  <span class="o">-</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">]</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="s1">&#39;Brown&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq2</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq3</span><span class="p">,</span> <span class="s1">&#39;Blue&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="n">eq2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Blue&#39;</span><span class="p">,</span> <span class="n">line_type</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">(</span><span class="n">eq2</span><span class="p">,</span> <span class="n">eq3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Blue&#39;</span><span class="p">,</span> <span class="n">line_type</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="n">eq3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Blue&#39;</span><span class="p">,</span> <span class="n">line_type</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Example 3&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L01LinearEquations_28_0.png" src="_images/L01LinearEquations_28_0.png" />
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="s1">&#39;Example 4: No Solutions&#39;</span><span class="p">,</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> 
+                        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">,</span> <span class="n">displayAxes</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="c1"># equation of a line from its normal a is a&#39;x = a&#39;a</span>
+<span class="c1"># three normals 120 degrees spread around the y axis</span>
+<span class="n">eq1</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>  <span class="mi">0</span><span class="p">]</span>
+<span class="n">eq2</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>  <span class="mi">2</span><span class="p">]</span>
+<span class="n">eq3</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>  <span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="s1">&#39;Brown&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq2</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq3</span><span class="p">,</span> <span class="s1">&#39;Blue&#39;</span><span class="p">)</span>
+<span class="c1"># fig.plotIntersection(eq1, eq2, color=&#39;Blue&#39;, line_type=&#39;--&#39;)</span>
+<span class="c1"># fig.plotIntersection(eq2, eq3, color=&#39;Blue&#39;, line_type=&#39;--&#39;)</span>
+<span class="c1"># fig.plotIntersection(eq1, eq3, color=&#39;Blue&#39;, line_type=&#39;--&#39;)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Example 4&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L01LinearEquations_29_0.png" src="_images/L01LinearEquations_29_0.png" />
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="s1">&#39;Example 5: No Solutions&#39;</span><span class="p">,</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> 
+                        <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">,</span> <span class="n">displayAxes</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<span class="c1"># equation of a line from its normal a is a&#39;x = a&#39;a</span>
+<span class="c1"># three normals 120 degrees spread around the y axis</span>
+<span class="n">eq1</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">4</span><span class="o">/</span><span class="mi">3</span><span class="p">),</span>  <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>  <span class="mi">0</span><span class="p">]</span>
+<span class="n">eq2</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>  <span class="mi">2</span><span class="p">]</span>
+<span class="n">eq3</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">4</span><span class="p">),</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span>  <span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="s1">&#39;Brown&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq2</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq3</span><span class="p">,</span> <span class="s1">&#39;Blue&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="n">eq2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Blue&#39;</span><span class="p">,</span> <span class="n">line_type</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="c1"># fig.plotIntersection(eq2, eq3, color=&#39;Blue&#39;, line_type=&#39;--&#39;)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="n">eq3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Blue&#39;</span><span class="p">,</span> <span class="n">line_type</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Example 5&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L01LinearEquations_30_0.png" src="_images/L01LinearEquations_30_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="the-matrices-of-a-system">
+<h2>The Matrices of a System<a class="headerlink" href="#the-matrices-of-a-system" title="Permalink to this headline">¶</a></h2>
+<p>The essential information of a linear system can be recorded compactly in a rectangular array called a <strong>matrix.</strong>
+For the following system of equations,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{rcr}
+    x_1 - 2x_2 +x_3 &amp;=&amp; 5\\
+    2x_2 - 8x_3 &amp;=&amp; -4\\
+    6x_1 +5x_2 +9x_3 &amp;=&amp; -4
+\end{array}\end{split}\]</div>
+<p>the matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrr}
+    1  &amp; -2  &amp; 1 \\
+    0 &amp; 2 &amp;  - 8 \\
+    6 &amp; 5 &amp;9 
+\end{array}\right]\end{split}\]</div>
+<p>is called the <em>coefficient matrix</em> of the system.</p>
+<p>An <strong>augmented matrix</strong> of a system consists of the coefficient matrix with an added column containing the constants from the right sides of the equations.</p>
+<p>For the same system of equations,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{rcr}
+    x_1 - 2x_2 +x_3 &amp;=&amp; 5\\
+    2x_2 - 8x_3 &amp;=&amp; -4\\
+    6x_1 +5x_2 +9x_3 &amp;=&amp; -4
+\end{array}
+\end{split}\]</div>
+<p>the matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\left[\begin{array}{rrrr}
+    1  &amp; -2  &amp; 1 &amp; 5\\
+    0 &amp; 2 &amp;  - 8 &amp; -4\\
+    6 &amp; 5 &amp;9 &amp; -4
+\end{array}\right]\end{split}\]</div>
+<p>is called the <em>augmented matrix</em> of the system.</p>
+<p>A matrix with <span class="math notranslate nohighlight">\(m\)</span> rows and <span class="math notranslate nohighlight">\(n\)</span> columns is referred to as ‘’an <span class="math notranslate nohighlight">\(m \times n\)</span> matrix’’ and is an element of the set <span class="math notranslate nohighlight">\(\mathbb{R}^{m\times n}.\)</span></p>
+<p>(Note that we always list the number of rows first, then the number of columns.)</p>
+<div class="toggle docutils container">
+<p>Question Time!  Q1.1</p>
+</div>
+</div>
+<div class="section" id="solving-linear-systems">
+<h2>Solving Linear Systems<a class="headerlink" href="#solving-linear-systems" title="Permalink to this headline">¶</a></h2>
+<p>To solve a linear system, we transform it into a <em>new</em> system which is equivalent to the old system, meaning it has the same solution set.</p>
+<p>However, in the new system the solution is explicit.</p>
+<p>We can make these transformations because of three facts.</p>
+<p><strong>Fact Number 1:</strong> Given a set of linear equations, we can <strong>add one equation to another</strong> without changing the solution set.</p>
+<p>By definition, any solution of the old system makes each old equation true;  therefore any solution of the old system makes each new equation true.</p>
+<p>Example:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{array}{rcr}
+3x_1 + 2x_2 &amp;=&amp; -3\\
+-x_1 + 4x_2 &amp;=&amp; 2\\
+\end{array}
+\end{split}\]</div>
+<p>This has the same solution set as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} 
+\begin{array}{rcr}
+3x_1 + 2x_2 &amp;=&amp; -3\\
+2x_1 + 6x_2 &amp;=&amp; -1\\
+\end{array}
+\end{split}\]</div>
+<p><strong>Fact Number 2:</strong> Another, more obvious fact is that we can <strong>multiply any equation by a constant</strong> without changing its meaning (and therefore the solution set).</p>
+<p>Example:</p>
+<div class="math notranslate nohighlight">
+\[ 
+3x = 2
+\]</div>
+<p>has the same solution set as:</p>
+<div class="math notranslate nohighlight">
+\[
+9x = 6
+\]</div>
+<p><strong>Fact Number 3:</strong> And an even more obvious fact is that we can <strong>change the order</strong> of the equations without changing anything.</p>
+<p>Together, these three rules form a set of tools we can use to solve linear systems.   Here is an example.</p>
+<div class="section" id="step-1-elimination">
+<h3>Step 1: Elimination<a class="headerlink" href="#step-1-elimination" title="Permalink to this headline">¶</a></h3>
+<p>The process we’ll describe consists of two steps: <em>Elimination</em> and <em>Backsubstitution.</em></p>
+<p>The goal of elimination is to eliminate terms to create a <em>triangular</em> matrix (or system).  The basic operation we will repeatedly apply is to <strong>add a multiple of one equation (row) to another.</strong>  We’ll do this with the equations and the matrix side-by-side.</p>
+<p>Here is the original system:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{cc}
+\begin{array}{rcr}
+    x_1 - 2x_2 +x_3 &amp;=&amp; 5\\
+    2x_2 - 8x_3 &amp;=&amp; -4\\
+    6x_1 +5x_2 +9x_3 &amp;=&amp; -4
+\end{array}
+&amp; 
+\;\;\;\;\;\;\left[\begin{array}{rrrr}
+    1  &amp; -2  &amp; 1 &amp; 5\\
+    0 &amp; 2 &amp;  - 8 &amp; -4\\
+    6 &amp; 5 &amp;9 &amp; -4
+\end{array}\right]\\
+\end{array}\end{split}\]</div>
+<p>The first stage of the process is called <em>elimination</em>.  To begin: we add -6 times the first equation to the third equation:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{rrrrrr}
+    &amp;6x_1&amp; +5x_2&amp; +9x_3&amp; =&amp; -4\\
+ +  &amp;-6x_1&amp; +12x_2&amp; -6x_3&amp; =&amp; -30\\
+ \hline
+   &amp; &amp;      17x_2&amp; +3x_3 &amp;=&amp; -34\\
+\end{array}
+\end{split}\]</div>
+<p>This gives us a new system.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{cr}
+\begin{array}{rcr}
+    x_1 - 2x_2 +x_3 &amp;=&amp; 5\\
+    2x_2 - 8x_3 &amp;=&amp; -4\\
+     17x_2 +3x_3 &amp;=&amp; -34
+\end{array}
+&amp;
+\;\;\;\;\;\;\left[\begin{array}{rrrr}
+    1  &amp; -2  &amp; 1 &amp; 5\\
+    0 &amp; 2 &amp;  - 8 &amp; -4\\
+    0 &amp; 17 &amp; 3 &amp; -34
+\end{array}\right]\\
+\end{array}
+\end{split}\]</div>
+<p>Note that this is not the <em>same</em> system of equations, but it is <em>equivalent</em> – it has the same solution set.</p>
+<p>Next, we multiply the second equation by <span class="math notranslate nohighlight">\(1/2\)</span> to get its leading coefficient to be 1:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{cr}
+\begin{array}{rcr}
+    x_1 - 2x_2 +x_3 &amp;=&amp; 5\\
+    x_2 - 4x_3 &amp;=&amp; -2\\
+     17x_2 +3x_3 &amp;=&amp; -34
+\end{array}
+&amp;
+\;\;\;\;\;\;\left[\begin{array}{rrrr}
+    1  &amp; -2  &amp; 1 &amp; 5\\
+    0 &amp; 1 &amp;  - 4 &amp; -2\\
+    0 &amp; 17 &amp; 3 &amp; -34
+\end{array}\right]\\
+\end{array}
+\end{split}\]</div>
+<p>Next, we multiply the second equation by <span class="math notranslate nohighlight">\(-17\)</span> and add it to the third equation:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{cr}
+\begin{array}{rcr}
+    x_1 - 2x_2 +x_3 &amp;=&amp; 5\\
+    x_2 - 4x_3 &amp;=&amp; -2\\
+         71x_3 &amp;=&amp; 0
+\end{array}
+&amp;
+\;\;\;\;\;\;\left[\begin{array}{rrrr}
+    1  &amp; -2  &amp; 1 &amp; 5\\
+    0 &amp; 1 &amp;  - 4 &amp; -2\\
+    0 &amp; 0 &amp; 71 &amp; 0
+\end{array}
+\right]\\
+\end{array}
+\end{split}\]</div>
+<p>And next we can divide the third equation by <span class="math notranslate nohighlight">\(71\)</span> to get its leading coefficient equal to 1:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{cr}
+\begin{array}{rcr}
+    x_1 - 2x_2 +x_3 &amp;=&amp; 5\\
+    x_2 - 4x_3 &amp;=&amp; -2\\
+           x_3 &amp;=&amp; 0
+\end{array}
+&amp;
+\;\;\;\;\;\;\left[\begin{array}{rrrr}
+    1  &amp; -2  &amp; 1 &amp; 5\\
+    0 &amp; 1 &amp;  - 4 &amp; -2\\
+    0 &amp; 0 &amp;  1 &amp; 0\\
+\end{array}\right]\\
+\end{array}
+\end{split}\]</div>
+<p>We have now put the system and matrix into <em>triangular</em> form.  In a triangular matrix, all values below the diagonal are zero.</p>
+</div>
+<div class="section" id="step-2-backsubstitution">
+<h3>Step 2: Backsubstitution<a class="headerlink" href="#step-2-backsubstitution" title="Permalink to this headline">¶</a></h3>
+<p>At this point, the process shifts to <em>backsubstitution</em>.  We now have the value for one variable, and we will substitute it into other equations to simplify them and get values for the other variables.</p>
+<p>Although we think of its as a somewhat different stage, in reality it still comes down to applying the three rules.</p>
+<p>First, we substitute the value of <span class="math notranslate nohighlight">\(x_3\)</span> into the equations above it.  This is actually multiplying equation 3 by the proper value and adding it to equations above it.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{cr}
+\begin{array}{rcr}
+    x_1 - 2x_2 &amp;=&amp; 5\\
+    x_2  &amp;=&amp; -2\\
+           x_3 &amp;=&amp; 0
+\end{array}
+&amp;
+\;\;\;\;\;\;\left[\begin{array}{rrrr}
+    1  &amp; -2  &amp; 0 &amp; 5\\
+    0 &amp; 1 &amp;  0 &amp; -2\\
+    0 &amp; 0 &amp;  1 &amp; 0
+\end{array}\right]\\
+\end{array}
+\end{split}\]</div>
+<p>Next, we do the same thing with equation 2, substituting it into equation 1 above it:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{cr}
+\begin{array}{rcr}
+    x_1  &amp;=&amp; 1\\
+    x_2  &amp;=&amp; -2\\
+           x_3 &amp;=&amp; 0
+\end{array}
+&amp;
+\;\;\;\;\;\;\left[\begin{array}{rrrr}
+    1  &amp; 0  &amp; 0 &amp; 1\\
+    0 &amp; 1 &amp;  0 &amp; -2\\
+    0 &amp; 0 &amp;  1 &amp; 0
+\end{array}\right]\\
+\end{array}
+\end{split}\]</div>
+<p>Now we can <strong>read off the solution:</strong> it is <span class="math notranslate nohighlight">\(x_1 = 1\)</span>, <span class="math notranslate nohighlight">\(x_2 = -2\)</span>, <span class="math notranslate nohighlight">\(x_3 = 0\)</span>.   Notice the particular form of the resulting matrix: ones on the diagonal, zeros above and below each 1.</p>
+<p>Let’s get a sense of this process geometrically.</p>
+<p>Here are the three starting equations:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eq1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">5</span><span class="p">]</span>
+<span class="n">eq2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">eq3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span>  <span class="mi">5</span><span class="p">,</span>  <span class="mi">9</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">ut</span><span class="o">.</span><span class="n">formatEqn</span><span class="p">(</span><span class="n">eq1</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">eq1</span><span class="p">[</span><span class="mi">3</span><span class="p">])),</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="s1">&#39;Brown&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;$</span><span class="si">{}</span><span class="s1">$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ut</span><span class="o">.</span><span class="n">formatEqn</span><span class="p">(</span><span class="n">eq1</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">eq1</span><span class="p">[</span><span class="mi">3</span><span class="p">])))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="nb">format</span><span class="p">(</span><span class="n">ut</span><span class="o">.</span><span class="n">formatEqn</span><span class="p">(</span><span class="n">eq2</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">eq2</span><span class="p">[</span><span class="mi">3</span><span class="p">])),</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq2</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;$</span><span class="si">{}</span><span class="s1">$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ut</span><span class="o">.</span><span class="n">formatEqn</span><span class="p">(</span><span class="n">eq2</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">eq2</span><span class="p">[</span><span class="mi">3</span><span class="p">])))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">ut</span><span class="o">.</span><span class="n">formatEqn</span><span class="p">(</span><span class="n">eq3</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">eq3</span><span class="p">[</span><span class="mi">3</span><span class="p">])),</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq3</span><span class="p">,</span> <span class="s1">&#39;Blue&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;$</span><span class="si">{}</span><span class="s1">$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ut</span><span class="o">.</span><span class="n">formatEqn</span><span class="p">(</span><span class="n">eq3</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">eq3</span><span class="p">[</span><span class="mi">3</span><span class="p">])))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L01LinearEquations_65_0.png" src="_images/L01LinearEquations_65_0.png" />
+<img alt="_images/L01LinearEquations_65_1.png" src="_images/L01LinearEquations_65_1.png" />
+<img alt="_images/L01LinearEquations_65_2.png" src="_images/L01LinearEquations_65_2.png" />
+</div>
+</div>
+<p>Now let’s compare the starting point and the finishing point:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{rcr}
+    x_1 - 2x_2 +x_3 &amp;=&amp; 5\\
+    2x_2 - 8x_3 &amp;=&amp; -4\\
+    6x_1 +5x_2 +9x_3 &amp;=&amp; -4
+\end{array}
+\hspace{0.5in}
+{\LARGE\rightarrow}
+\hspace{0.5in}
+\begin{array}{rcr}
+    x_1  &amp;=&amp; 1\\
+    x_2  &amp;=&amp; -2\\
+           x_3 &amp;=&amp; 0
+\end{array}
+\end{split}\]</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="s1">&#39;All Three Equations&#39;</span><span class="p">,</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">eq1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span>  <span class="mi">5</span><span class="p">]</span>
+<span class="n">eq2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">eq3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span>  <span class="mi">5</span><span class="p">,</span>  <span class="mi">9</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="s1">&#39;Brown&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq2</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq3</span><span class="p">,</span> <span class="s1">&#39;Blue&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="n">eq2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Blue&#39;</span><span class="p">,</span> <span class="n">line_type</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">(</span><span class="n">eq2</span><span class="p">,</span> <span class="n">eq3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Blue&#39;</span><span class="p">,</span> <span class="n">line_type</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="n">eq3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Blue&#39;</span><span class="p">,</span> <span class="n">line_type</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;All Three Equations&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="s1">&#39;The Equivalent System&#39;</span><span class="p">,</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">eq1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">]</span>
+<span class="n">eq2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">eq3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">]</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="s1">&#39;Brown&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq2</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq3</span><span class="p">,</span> <span class="s1">&#39;Blue&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="n">eq2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Blue&#39;</span><span class="p">,</span> <span class="n">line_type</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">(</span><span class="n">eq2</span><span class="p">,</span> <span class="n">eq3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Blue&#39;</span><span class="p">,</span> <span class="n">line_type</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="n">eq3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Blue&#39;</span><span class="p">,</span> <span class="n">line_type</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;The Equivalent System&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L01LinearEquations_67_0.png" src="_images/L01LinearEquations_67_0.png" />
+<img alt="_images/L01LinearEquations_67_1.png" src="_images/L01LinearEquations_67_1.png" />
+</div>
+</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left[\begin{array}{rrrr}
+    1  &amp; -2  &amp; 1 &amp; 5\\
+    0 &amp; 2 &amp;  - 8 &amp; -4\\
+    6 &amp; 5 &amp;9 &amp; -4
+\end{array}
+\right]
+\hspace{0.5in}
+{\LARGE\rightarrow}
+\hspace{0.5in}
+\left[\begin{array}{rrrr}
+    1  &amp; 0  &amp; 0 &amp; 1\\
+    0 &amp; 1 &amp;  0 &amp; -2\\
+    0 &amp; 0 &amp;  1 &amp; 0
+\end{array}
+\right]
+\end{split}\]</div>
+<p>Notice how all the planes have shifted, but <strong>they still intersect in the same point.</strong>   This is the <em>geometric</em> interpretation of <strong>equivalent</strong> systems.</p>
+</div>
+</div>
+<div class="section" id="verifying-the-solution">
+<h2>Verifying the Solution<a class="headerlink" href="#verifying-the-solution" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>It’s important that, once you have solved a system, you <em>verify</em> the solution</p></li>
+<li><p>i.e., go back and confirm that what you have computed, in fact meets the original requirements.</p></li>
+</ul>
+<p>So, in our case here is the original system and its solution:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{rcr}
+    x_1 - 2x_2 +x_3 &amp;=&amp; 5\\
+    2x_2 - 8x_3 &amp;=&amp; -4\\
+    6x_1 +5x_2 +9x_3 &amp;=&amp; -4
+\end{array}
+\hspace{0.5in}
+{\LARGE\rightarrow}
+\hspace{0.5in}
+\begin{array}{rcr}
+    x_1  &amp;=&amp; 1\\
+    x_2  &amp;=&amp; -2\\
+           x_3 &amp;=&amp; 0
+\end{array}
+\end{split}\]</div>
+<p>We can verify by substitution:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{rcr}
+    1 - 2(-2) + 0 &amp;=&amp; 5\\
+    2(-2) - 8(0) &amp;=&amp; -4\\
+    6(1) +5(-2) +9(0) &amp;=&amp; -4
+\end{array}
+\end{split}\]</div>
+<p>The solution <span class="math notranslate nohighlight">\((1, -2, 0)\)</span> makes each equation true.  <strong>Confirmed!</strong></p>
+</div>
+<div class="section" id="row-equivalence">
+<h2>Row Equivalence<a class="headerlink" href="#row-equivalence" title="Permalink to this headline">¶</a></h2>
+<p>OK, let’s step back and formalize what we have done.</p>
+<p><strong>Elementary Row Operations</strong> are the following:</p>
+<ol class="simple">
+<li><p>(Replacement) Replace one row by the sum of itself and a multiple of another row.</p></li>
+<li><p>(Interchange) Interchange two rows.</p></li>
+<li><p>(Scaling) Multiply all entries in a row by a nonzero constant.</p></li>
+</ol>
+<p>Two matrices are called <strong>row equivalent</strong> if there is a sequence of elementary row operations that transforms one matrix into the other.</p>
+<p>If the augmented matrices of two linear systems are row equivalent, then the two systems <strong>have the same solution set.</strong></p>
+</div>
+<div class="section" id="fundamental-questions">
+<h2>Fundamental Questions<a class="headerlink" href="#fundamental-questions" title="Permalink to this headline">¶</a></h2>
+<p>When presented with a linear system, we always need to ask two fundamental questions:</p>
+<ol class="simple">
+<li><p>Is the system <em>consistent;</em> that is, does at least one solution exist?</p></li>
+<li><p>If a solution exists, is there only one; that is, is the solution <em>unique?</em></p></li>
+</ol>
+<p>These really are fundamental; we will see that the answers to these questions have far-reaching implications.</p>
+</div>
+<div class="section" id="recognizing-an-inconsistent-system">
+<h2>Recognizing an Inconsistent System<a class="headerlink" href="#recognizing-an-inconsistent-system" title="Permalink to this headline">¶</a></h2>
+<p>Consider the following system:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{array}{rcr}
+x_2 - 4x_3 &amp;=&amp; 8\\
+2x_1 - 3x_2 + 2x_3 &amp;=&amp; 1\\
+4x_1 - 8x_2 + 12x_3 &amp;=&amp; 1
+\end{array}
+\end{split}\]</div>
+<p>whose augmented matrix is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left[\begin{array}{rrrr}
+0&amp;1&amp;-4&amp;8\\
+2&amp;-3&amp;2&amp;1\\
+4&amp;-8&amp;12&amp;1
+\end{array}\right]
+\end{split}\]</div>
+<p>Let’s apply our row reduction procedure to this matrix.</p>
+<p>First, we’ll interchange rows 1 and 2:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left[\begin{array}{rrrr}
+2&amp;-3&amp;2&amp;1\\
+0&amp;1&amp;-4&amp;8\\
+4&amp;-8&amp;12&amp;1
+\end{array}\right]
+\end{split}\]</div>
+<p>Next, we’ll eliminate the <span class="math notranslate nohighlight">\(4x_1\)</span> term in the third equation by adding <span class="math notranslate nohighlight">\(-2\)</span> times row 1 to row 3:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left[\begin{array}{rrrr}
+2&amp;-3&amp;2&amp;1\\
+0&amp;1&amp;-4&amp;8\\
+0&amp;-2&amp;8&amp;-1
+\end{array}\right]
+\end{split}\]</div>
+<p>Next, we use the <span class="math notranslate nohighlight">\(x_2\)</span> term in the second equation to eliminate the <span class="math notranslate nohighlight">\(-2x_2\)</span> term from the third equation (that is, add 2 times row 2 to row 3).</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\left[\begin{array}{rrrr}
+2&amp;-3&amp;2&amp;1\\
+0&amp;1&amp;-4&amp;8\\
+0&amp;0&amp;0&amp;15
+\end{array}\right]
+\end{split}\]</div>
+<p>This matrix is now in triangular form.</p>
+<p>What does it mean?  In particular, what does the last row say?</p>
+<p>The last row stands for the equation:</p>
+<div class="math notranslate nohighlight">
+\[ 0x_1 + 0x_2 + 0x_3 = 15.\]</div>
+<p>Clearly, this equation has <em>no</em> solution.  Now, we know that row reductions never change the solution set of a system.  So, the original set of equations also has <em>no</em> solution.   It is <strong>inconsistent.</strong></p>
+<p>We can conclude that an inconsistent system will lead, by row reductions, to a system containing the equation <span class="math notranslate nohighlight">\(0 = k\)</span> for some nonzero <span class="math notranslate nohighlight">\(k\)</span>.</p>
+</div>
+<div class="section" id="geometric-interpretation-of-inconsistency">
+<h2>Geometric Interpretation of Inconsistency<a class="headerlink" href="#geometric-interpretation-of-inconsistency" title="Permalink to this headline">¶</a></h2>
+<p>Here are our original equations, as hyperplanes:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">eq1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span>   <span class="mi">8</span><span class="p">]</span>
+<span class="n">eq2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">,</span>  <span class="mi">2</span><span class="p">,</span>   <span class="mi">1</span><span class="p">]</span>
+<span class="n">eq3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="o">-</span><span class="mi">8</span><span class="p">,</span>  <span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">20</span><span class="p">]</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">ut</span><span class="o">.</span><span class="n">formatEqn</span><span class="p">(</span><span class="n">eq1</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">eq1</span><span class="p">[</span><span class="mi">3</span><span class="p">])),</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="s1">&#39;Brown&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;$</span><span class="si">{}</span><span class="s1">$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ut</span><span class="o">.</span><span class="n">formatEqn</span><span class="p">(</span><span class="n">eq1</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">eq1</span><span class="p">[</span><span class="mi">3</span><span class="p">])))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">ut</span><span class="o">.</span><span class="n">formatEqn</span><span class="p">(</span><span class="n">eq2</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">eq2</span><span class="p">[</span><span class="mi">3</span><span class="p">])),</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq2</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;$</span><span class="si">{}</span><span class="s1">$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ut</span><span class="o">.</span><span class="n">formatEqn</span><span class="p">(</span><span class="n">eq2</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">eq2</span><span class="p">[</span><span class="mi">3</span><span class="p">])))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="nb">format</span><span class="p">(</span><span class="n">ut</span><span class="o">.</span><span class="n">formatEqn</span><span class="p">(</span><span class="n">eq3</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">eq3</span><span class="p">[</span><span class="mi">3</span><span class="p">])),</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq3</span><span class="p">,</span> <span class="s1">&#39;Blue&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;$</span><span class="si">{}</span><span class="s1">$&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ut</span><span class="o">.</span><span class="n">formatEqn</span><span class="p">(</span><span class="n">eq3</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">eq3</span><span class="p">[</span><span class="mi">3</span><span class="p">])))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L01LinearEquations_90_0.png" src="_images/L01LinearEquations_90_0.png" />
+<img alt="_images/L01LinearEquations_90_1.png" src="_images/L01LinearEquations_90_1.png" />
+<img alt="_images/L01LinearEquations_90_2.png" src="_images/L01LinearEquations_90_2.png" />
+</div>
+</div>
+<p>Here is a view of all three hyperplanes.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">14</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="s1">&#39;All Three Equations&#39;</span><span class="p">,</span>
+                        <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="s1">&#39;Brown&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq2</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="n">eq3</span><span class="p">,</span> <span class="s1">&#39;Blue&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="n">eq2</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Blue&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotIntersection</span><span class="p">(</span><span class="n">eq1</span><span class="p">,</span> <span class="n">eq3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Blue&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;All Three Equations&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L01LinearEquations_92_0.png" src="_images/L01LinearEquations_92_0.png" />
+</div>
+</div>
+<p>The figure illustrates that the two intersection lines are parallel.  So there is <em>no point that lies in all the hyperplanes</em>.  That is the geometric interpretation of inconsistency.</p>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>Our entry into linear algebra has been through the solution of systems of linear equations.</p>
+<ul class="simple">
+<li><p>We used a tabular representation called a matrix to represent the linear system</p></li>
+<li><p>The solution method uses matrix row reductions: exchanging rows, scaling rows, or adding rows.</p></li>
+<li><p>The solution method has two stages: elimination and backsubstitution.</p></li>
+</ul>
+<p>We observed some basic properties of linear systems:</p>
+<ul class="simple">
+<li><p>They can be consistent or inconsistent.</p></li>
+<li><p>If consistent, they can have a single solution or an infinite number of solutions.</p></li>
+</ul>
+<p>We thought geometrically about linear systems and their solutions:</p>
+<ul class="simple">
+<li><p>A linear equation defines a hyperplane</p></li>
+<li><p>In a consistent system, all hyperplanes intersect in one or more points</p></li>
+<li><p>In an inconsistent system, all hyperplanes do not intersect in any single point</p></li>
+<li><p>The solution method we used creates hyperplanes that intersect in the same point set as the original hyperplanes</p></li>
+</ul>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="landing-page.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Preface</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="L02Numerics.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Numbers</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By Mark Crovella<br/>
+        
+            &copy; Copyright 2020-2021.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
+  </body>
+</html>
