@@ -2,7 +2,7 @@ title: "Linear Algebra, Geometry, and Computation"
 author: "Mark Crovella"
 logo: images/DiagramAR-icon.png
 only_build_toc_files: true
-copyright: '2020-2021'
+copyright: '2020-2022'
 repository:
         url: https://github.com/mcrovella/CS132-Geometric-Algorithms
 html:
@@ -10,3 +10,18 @@ html:
         use_repository_button: true
 execute:
   execute_notebooks: "cache"
+  # I occasionally have cells that demonstrate python errors -- keep going!
+  allow_errors: true
+parse:
+  # see https://jupyterbook.org/customize/config.html
+  # first one is the only one I added to the set of defaults
+  myst_enable_extensions:
+    - html_image
+    - amsmath
+    - colon_fence
+    - dollarmath
+    - linkify
+    - substitution
+sphinx:
+  config:
+    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
