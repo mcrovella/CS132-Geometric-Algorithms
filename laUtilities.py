@@ -319,8 +319,10 @@ class three_d_figure:
             'points': [{'x': float(x), 'y': float(y), 'z': float(z)}]})
         self.ax.text(x, y, z, mpl_label, size=size)
 
-    def set_title(self, mpl_title, json_title = None, size = 12):
-        self.fig.suptitle(f'Figure {self.fig_num[0]:d}.{self.fig_num[1]:d}')
+    def set_title(self, mpl_title, json_title = None,
+                      number_fig = True, size = 12):
+        if number_fig:
+            self.fig.suptitle(f'Figure {self.fig_num[0]:d}.{self.fig_num[1]:d}')
         self.ax.set_title(mpl_title, size=size)
         if json_title == None:
             json_title = mpl_title
