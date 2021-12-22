@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/sphinx-book-theme.e8f53015daec13862f6db5e763c41738.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -42,17 +42,18 @@
     <script src="_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -85,7 +86,7 @@
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
     <div class="bd-toc-item active">
         <ul class="nav bd-sidenav">
  <li class="toctree-l1">
@@ -324,7 +325,7 @@
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
+            <nav id="bd-toc-nav">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#basic-definitions">
@@ -450,7 +451,98 @@
 </div>
 </div>
 </div>
-<blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;&lt;script type=&quot;text/x-thebe-config&quot;&gt;</span>
+<span class="s1">{</span>
+<span class="s1">    requestKernel: true,</span>
+<span class="s1">    binderOptions: {</span>
+<span class="s1">        repo: &quot;binder-examples/requirements&quot;,</span>
+<span class="s1">    },</span>
+<span class="s1">    codeMirrorConfig: {</span>
+<span class="s1">        theme: &quot;abcdef&quot;</span>
+<span class="s1">    },</span>
+<span class="s1">    mountActivateWidget: true,</span>
+<span class="s1">    mountStatusWidget: true</span>
+<span class="s1">}</span>
+<span class="s1">&lt;/script&gt;</span>
+<span class="s1">&lt;div class=&quot;thebe-activate&quot; /&gt;</span>
+<span class="s1">&lt;div class=&quot;thebe-status&quot; /&gt;</span>
+<span class="s1">&lt;script src=&quot;https://unpkg.com/thebe@latest/lib/index.js&quot;&gt;&lt;/script&gt;&#39;&#39;&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><script type="text/x-thebe-config">
+{
+    requestKernel: true,
+    binderOptions: {
+        repo: "binder-examples/requirements",
+    },
+    codeMirrorConfig: {
+        theme: "abcdef"
+    },
+    mountActivateWidget: true,
+    mountStatusWidget: true
+}
+</script>
+<div class="thebe-activate" />
+<div class="thebe-status" />
+<script src="https://unpkg.com/thebe@latest/lib/index.js"></script></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;&lt;button id=&quot;activateButton&quot; style=&quot;width: 120px; height: 40px; font-size: 1.5em;&quot;&gt;Activate&lt;/button&gt;</span>
+<span class="s1">&lt;script&gt;</span>
+<span class="s1">var bootstrapThebe = function() {</span>
+<span class="s1">    thebelab.bootstrap();</span>
+<span class="s1">}</span>
+
+<span class="s1">document.querySelector(&quot;#activateButton&quot;).addEventListener(&#39;click&#39;, bootstrapThebe)</span>
+<span class="s1">&lt;/script&gt;&#39;&#39;&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><button id="activateButton" style="width: 120px; height: 40px; font-size: 1.5em;">Activate</button>
+<script>
+var bootstrapThebe = function() {
+    thebelab.bootstrap();
+}
+
+document.querySelector("#activateButton").addEventListener('click', bootstrapThebe)
+</script></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;&lt;pre data-executable=&quot;true&quot; data-language=&quot;python&quot;&gt;</span>
+<span class="s1">%matplotlib inline</span>
+<span class="s1">import numpy as np</span>
+<span class="s1">import matplotlib.pyplot as plt</span>
+<span class="s1">plt.ion()</span>
+<span class="s1">fig, ax = plt.subplots()</span>
+<span class="s1">ax.scatter(*np.random.randn(2, 100), c=np.random.randn(100))</span>
+<span class="s1">ax.set(title=&quot;Wow, an interactive plot!&quot;)</span>
+<span class="s1">&lt;/pre&gt;&#39;&#39;&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><pre data-executable="true" data-language="python">
+%matplotlib inline
+import numpy as np
+import matplotlib.pyplot as plt
+plt.ion()
+fig, ax = plt.subplots()
+ax.scatter(*np.random.randn(2, 100), c=np.random.randn(100))
+ax.set(title="Wow, an interactive plot!")
+</pre></div></div>
+</div>
+<script>
+thebelab.on("status", function (evt, data) {
+    console.log("Status changed:", data.status, data.message);
+});
+</script><blockquote>
 <div><p>Traditionally, algebra was the art of solving equations and systems of equations.  The word <em>algebra</em> comes form the Arabic <em>al-jabr</em> which means <em>restoration</em> (of broken parts).   The term was first used in a mathematical sense by Mohammed al-Khowarizmi (c. 780-850) who worked at the House of Wisdom, an academy established by Caliph al Ma’mum in Baghdad.   Linear algebra, then, is the art of solving systems of linear equations.</p>
 </div></blockquote>
 <p><em>Linear Algebra with Applications</em> , Bretscher</p>
@@ -468,7 +560,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_4_0.jpg" src="_images/L01LinearEquations_4_0.jpg" />
+<img alt="_images/L01LinearEquations_8_0.jpg" src="_images/L01LinearEquations_8_0.jpg" />
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -549,7 +641,7 @@ x_1 + 3 x_2 + 2 x_3 &amp;=&amp; 34\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_18_0.png" src="_images/L01LinearEquations_18_0.png" />
+<img alt="_images/L01LinearEquations_22_0.png" src="_images/L01LinearEquations_22_0.png" />
 </div>
 </div>
 <p>This system of two equations has <strong>exactly one</strong> solution.</p>
@@ -564,7 +656,7 @@ x_1 + 3 x_2 + 2 x_3 &amp;=&amp; 34\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_20_0.png" src="_images/L01LinearEquations_20_0.png" />
+<img alt="_images/L01LinearEquations_24_0.png" src="_images/L01LinearEquations_24_0.png" />
 </div>
 </div>
 <p>This system of two equations has <strong>no</strong> solutions.</p>
@@ -579,7 +671,7 @@ x_1 + 3 x_2 + 2 x_3 &amp;=&amp; 34\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_22_0.png" src="_images/L01LinearEquations_22_0.png" />
+<img alt="_images/L01LinearEquations_26_0.png" src="_images/L01LinearEquations_26_0.png" />
 </div>
 </div>
 <p>This system of equations has <strong>infinitely many</strong> solutions.</p>
@@ -607,7 +699,7 @@ x_1 + 3 x_2 + 2 x_3 &amp;=&amp; 34\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_26_0.png" src="_images/L01LinearEquations_26_0.png" />
+<img alt="_images/L01LinearEquations_30_0.png" src="_images/L01LinearEquations_30_0.png" />
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -632,7 +724,7 @@ x_1 + 3 x_2 + 2 x_3 &amp;=&amp; 34\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_27_0.png" src="_images/L01LinearEquations_27_0.png" />
+<img alt="_images/L01LinearEquations_31_0.png" src="_images/L01LinearEquations_31_0.png" />
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -657,7 +749,7 @@ x_1 + 3 x_2 + 2 x_3 &amp;=&amp; 34\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_28_0.png" src="_images/L01LinearEquations_28_0.png" />
+<img alt="_images/L01LinearEquations_32_0.png" src="_images/L01LinearEquations_32_0.png" />
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -682,7 +774,7 @@ x_1 + 3 x_2 + 2 x_3 &amp;=&amp; 34\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_29_0.png" src="_images/L01LinearEquations_29_0.png" />
+<img alt="_images/L01LinearEquations_33_0.png" src="_images/L01LinearEquations_33_0.png" />
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -707,7 +799,7 @@ x_1 + 3 x_2 + 2 x_3 &amp;=&amp; 34\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_30_0.png" src="_images/L01LinearEquations_30_0.png" />
+<img alt="_images/L01LinearEquations_34_0.png" src="_images/L01LinearEquations_34_0.png" />
 </div>
 </div>
 </div>
@@ -952,9 +1044,9 @@ For the following system of equations,</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_65_0.png" src="_images/L01LinearEquations_65_0.png" />
-<img alt="_images/L01LinearEquations_65_1.png" src="_images/L01LinearEquations_65_1.png" />
-<img alt="_images/L01LinearEquations_65_2.png" src="_images/L01LinearEquations_65_2.png" />
+<img alt="_images/L01LinearEquations_69_0.png" src="_images/L01LinearEquations_69_0.png" />
+<img alt="_images/L01LinearEquations_69_1.png" src="_images/L01LinearEquations_69_1.png" />
+<img alt="_images/L01LinearEquations_69_2.png" src="_images/L01LinearEquations_69_2.png" />
 </div>
 </div>
 <p>Now let’s compare the starting point and the finishing point:</p>
@@ -1009,8 +1101,8 @@ For the following system of equations,</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_67_0.png" src="_images/L01LinearEquations_67_0.png" />
-<img alt="_images/L01LinearEquations_67_1.png" src="_images/L01LinearEquations_67_1.png" />
+<img alt="_images/L01LinearEquations_71_0.png" src="_images/L01LinearEquations_71_0.png" />
+<img alt="_images/L01LinearEquations_71_1.png" src="_images/L01LinearEquations_71_1.png" />
 </div>
 </div>
 <div class="math notranslate nohighlight">
@@ -1175,9 +1267,9 @@ x_2 - 4x_3 &amp;=&amp; 8\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_90_0.png" src="_images/L01LinearEquations_90_0.png" />
-<img alt="_images/L01LinearEquations_90_1.png" src="_images/L01LinearEquations_90_1.png" />
-<img alt="_images/L01LinearEquations_90_2.png" src="_images/L01LinearEquations_90_2.png" />
+<img alt="_images/L01LinearEquations_94_0.png" src="_images/L01LinearEquations_94_0.png" />
+<img alt="_images/L01LinearEquations_94_1.png" src="_images/L01LinearEquations_94_1.png" />
+<img alt="_images/L01LinearEquations_94_2.png" src="_images/L01LinearEquations_94_2.png" />
 </div>
 </div>
 <p>Here is a view of all three hyperplanes.</p>
@@ -1197,7 +1289,7 @@ x_2 - 4x_3 &amp;=&amp; 8\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_92_0.png" src="_images/L01LinearEquations_92_0.png" />
+<img alt="_images/L01LinearEquations_96_0.png" src="_images/L01LinearEquations_96_0.png" />
 </div>
 </div>
 <p>The figure illustrates that the two intersection lines are parallel.  So there is <em>no point that lies in all the hyperplanes</em>.  That is the geometric interpretation of inconsistency.</p>
@@ -1248,32 +1340,12 @@ x_2 - 4x_3 &amp;=&amp; 8\\
               </div>
               
         
+        <div class='prev-next-bottom'>
             
+    <a class='left-prev' id="prev-link" href="landing-page.html" title="previous page">Preface</a>
+    <a class='right-next' id="next-link" href="L02Numerics.html" title="next page">Numbers</a>
 
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="landing-page.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Preface</p>
-            </div>
-        </a>
-    </div>
-     <div id="next">
-        <a class="right-next" href="L02Numerics.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Numbers</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
-</div>
+        </div>
         
         </div>
     </div>
