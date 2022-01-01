@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.e8e5499552300ddf5d7adccae7cc3b70.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -42,16 +42,17 @@
     <script src="_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -414,9 +415,7 @@
         
               <div>
                 
-  <div class="section" id="linear-equations">
-<h1>Linear Equations<a class="headerlink" href="#linear-equations" title="Permalink to this headline">¶</a></h1>
-<div class="cell tag_hide-input docutils container">
+  <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for QR codes use inline</span>
 <span class="c1"># %matplotlib inline</span>
@@ -449,12 +448,27 @@
 </div>
 </div>
 </div>
+<div class="section" id="linear-equations">
+<h1>Linear Equations<a class="headerlink" href="#linear-equations" title="Permalink to this headline">¶</a></h1>
+<div class="cell tag_hide-cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit: http://en.wikipedia.org/wiki/The_Nine_Chapters_on_the_Mathematical_Art</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/nine-chapters-mathematical-art.jpg&quot;</span><span class="p">,</span><span class="n">width</span><span class="o">=</span><span class="mi">300</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L01LinearEquations_2_0.jpg" src="_images/L01LinearEquations_2_0.jpg" />
+</div>
+</div>
 <blockquote>
-<div><p>Traditionally, algebra was the art of solving equations and systems of equations.  The word <em>algebra</em> comes form the Arabic <em>al-jabr</em> which means <em>restoration</em> (of broken parts).   The term was first used in a mathematical sense by Mohammed al-Khowarizmi (c. 780-850) who worked at the House of Wisdom, an academy established by Caliph al Ma’mum in Baghdad.   Linear algebra, then, is the art of solving systems of linear equations.</p>
+<div><p>Traditionally, algebra was the art of solving equations and systems of equations.  The word <em>algebra</em> comes form the Arabic <em>al-jabr</em> which means <em>restoration</em> (of broken parts).</p>
+<p>The term was first used in a mathematical sense by Mohammed al-Khowarizmi (c. 780-850) who worked at the House of Wisdom, an academy established by Caliph al Ma’mum in Baghdad.</p>
+<p>Linear algebra, then, is the art of solving systems of linear equations.</p>
 </div></blockquote>
 <p><em>Linear Algebra with Applications</em> , Bretscher</p>
 <p>Al-Khowarizmi gave his name to the <em>algorithm</em>.  He wrote a book called “ilm al-jabr wa’l-muqābala’ which means “The science of restoring what is missing and equating like with like.”</p>
-<p>The central problem of linear algebra is the solution of linear equations.</p>
+<p>Our entry point into linear algebra will be <strong>solving systems of linear equations.</strong></p>
 <blockquote>
 <div><p>The yield of one bundle of inferior rice, two bundles of medium grade rice, and three bundles of superior rice is 39 <em>dou</em> of grain.  The yield of one bundle of inferior rice, three bundles of medium grade rice, and two bundles of superior rice is 34 <em>dou</em>.  The yield of three bundles of inferior rice, two bundles of medium grain rice, and one bundle of superior rice is 26 <em>dou</em>.  What is the yield of one bundle of each grade of rice?</p>
 </div></blockquote>
@@ -467,7 +481,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_4_0.jpg" src="_images/L01LinearEquations_4_0.jpg" />
+<img alt="_images/L01LinearEquations_5_0.jpg" src="_images/L01LinearEquations_5_0.jpg" />
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -548,7 +562,7 @@ x_1 + 3 x_2 + 2 x_3 &amp;=&amp; 34\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_18_0.png" src="_images/L01LinearEquations_18_0.png" />
+<img alt="_images/L01LinearEquations_19_0.png" src="_images/L01LinearEquations_19_0.png" />
 </div>
 </div>
 <p>This system of two equations has <strong>exactly one</strong> solution.</p>
@@ -563,7 +577,7 @@ x_1 + 3 x_2 + 2 x_3 &amp;=&amp; 34\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_20_0.png" src="_images/L01LinearEquations_20_0.png" />
+<img alt="_images/L01LinearEquations_21_0.png" src="_images/L01LinearEquations_21_0.png" />
 </div>
 </div>
 <p>This system of two equations has <strong>no</strong> solutions.</p>
@@ -578,7 +592,7 @@ x_1 + 3 x_2 + 2 x_3 &amp;=&amp; 34\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_22_0.png" src="_images/L01LinearEquations_22_0.png" />
+<img alt="_images/L01LinearEquations_23_0.png" src="_images/L01LinearEquations_23_0.png" />
 </div>
 </div>
 <p>This system of equations has <strong>infinitely many</strong> solutions.</p>
@@ -606,7 +620,7 @@ x_1 + 3 x_2 + 2 x_3 &amp;=&amp; 34\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_26_0.png" src="_images/L01LinearEquations_26_0.png" />
+<img alt="_images/L01LinearEquations_27_0.png" src="_images/L01LinearEquations_27_0.png" />
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -631,7 +645,7 @@ x_1 + 3 x_2 + 2 x_3 &amp;=&amp; 34\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_27_0.png" src="_images/L01LinearEquations_27_0.png" />
+<img alt="_images/L01LinearEquations_28_0.png" src="_images/L01LinearEquations_28_0.png" />
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -656,7 +670,7 @@ x_1 + 3 x_2 + 2 x_3 &amp;=&amp; 34\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_28_0.png" src="_images/L01LinearEquations_28_0.png" />
+<img alt="_images/L01LinearEquations_29_0.png" src="_images/L01LinearEquations_29_0.png" />
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -681,7 +695,7 @@ x_1 + 3 x_2 + 2 x_3 &amp;=&amp; 34\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_29_0.png" src="_images/L01LinearEquations_29_0.png" />
+<img alt="_images/L01LinearEquations_30_0.png" src="_images/L01LinearEquations_30_0.png" />
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
@@ -706,7 +720,7 @@ x_1 + 3 x_2 + 2 x_3 &amp;=&amp; 34\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_30_0.png" src="_images/L01LinearEquations_30_0.png" />
+<img alt="_images/L01LinearEquations_31_0.png" src="_images/L01LinearEquations_31_0.png" />
 </div>
 </div>
 </div>
@@ -791,7 +805,8 @@ For the following system of equations,</p>
 <div class="section" id="step-1-elimination">
 <h3>Step 1: Elimination<a class="headerlink" href="#step-1-elimination" title="Permalink to this headline">¶</a></h3>
 <p>The process we’ll describe consists of two steps: <em>Elimination</em> and <em>Backsubstitution.</em></p>
-<p>The goal of elimination is to eliminate terms to create a <em>triangular</em> matrix (or system).  The basic operation we will repeatedly apply is to <strong>add a multiple of one equation (row) to another.</strong>  We’ll do this with the equations and the matrix side-by-side.</p>
+<p>The goal of <em>elimination</em> is to create a <em>triangular</em> matrix (or system).</p>
+<p>The basic operation we will repeatedly apply is to <strong>add a multiple of one equation (row) to another.</strong>  We’ll do this with the equations and the matrix side-by-side.</p>
 <p>Here is the original system:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{cc}
@@ -951,9 +966,9 @@ For the following system of equations,</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_65_0.png" src="_images/L01LinearEquations_65_0.png" />
-<img alt="_images/L01LinearEquations_65_1.png" src="_images/L01LinearEquations_65_1.png" />
-<img alt="_images/L01LinearEquations_65_2.png" src="_images/L01LinearEquations_65_2.png" />
+<img alt="_images/L01LinearEquations_66_0.png" src="_images/L01LinearEquations_66_0.png" />
+<img alt="_images/L01LinearEquations_66_1.png" src="_images/L01LinearEquations_66_1.png" />
+<img alt="_images/L01LinearEquations_66_2.png" src="_images/L01LinearEquations_66_2.png" />
 </div>
 </div>
 <p>Now let’s compare the starting point and the finishing point:</p>
@@ -1008,8 +1023,8 @@ For the following system of equations,</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_67_0.png" src="_images/L01LinearEquations_67_0.png" />
-<img alt="_images/L01LinearEquations_67_1.png" src="_images/L01LinearEquations_67_1.png" />
+<img alt="_images/L01LinearEquations_68_0.png" src="_images/L01LinearEquations_68_0.png" />
+<img alt="_images/L01LinearEquations_68_1.png" src="_images/L01LinearEquations_68_1.png" />
 </div>
 </div>
 <div class="math notranslate nohighlight">
@@ -1083,8 +1098,8 @@ For the following system of equations,</p>
 <h2>Fundamental Questions<a class="headerlink" href="#fundamental-questions" title="Permalink to this headline">¶</a></h2>
 <p>When presented with a linear system, we always need to ask two fundamental questions:</p>
 <ol class="simple">
-<li><p>Is the system <em>consistent;</em> that is, does at least one solution exist?</p></li>
-<li><p>If a solution exists, is there only one; that is, is the solution <em>unique?</em></p></li>
+<li><p>Is the system <strong>consistent;</strong> that is, does at least one solution exist?</p></li>
+<li><p>If a solution exists, is there only one; that is, is the solution <strong>unique?</strong></p></li>
 </ol>
 <p>These really are fundamental; we will see that the answers to these questions have far-reaching implications.</p>
 </div>
@@ -1141,7 +1156,9 @@ x_2 - 4x_3 &amp;=&amp; 8\\
 <p>The last row stands for the equation:</p>
 <div class="math notranslate nohighlight">
 \[ 0x_1 + 0x_2 + 0x_3 = 15.\]</div>
-<p>Clearly, this equation has <em>no</em> solution.  Now, we know that row reductions never change the solution set of a system.  So, the original set of equations also has <em>no</em> solution.   It is <strong>inconsistent.</strong></p>
+<p>Clearly, this equation has <em>no</em> solution.</p>
+<p>Now, we know that row reductions never change the solution set of a system.  So, the original set of equations also has <em>no</em> solution.</p>
+<p>The system of equations is <strong>inconsistent.</strong></p>
 <p>We can conclude that an inconsistent system will lead, by row reductions, to a system containing the equation <span class="math notranslate nohighlight">\(0 = k\)</span> for some nonzero <span class="math notranslate nohighlight">\(k\)</span>.</p>
 </div>
 <div class="section" id="geometric-interpretation-of-inconsistency">
@@ -1174,9 +1191,9 @@ x_2 - 4x_3 &amp;=&amp; 8\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_90_0.png" src="_images/L01LinearEquations_90_0.png" />
-<img alt="_images/L01LinearEquations_90_1.png" src="_images/L01LinearEquations_90_1.png" />
-<img alt="_images/L01LinearEquations_90_2.png" src="_images/L01LinearEquations_90_2.png" />
+<img alt="_images/L01LinearEquations_91_0.png" src="_images/L01LinearEquations_91_0.png" />
+<img alt="_images/L01LinearEquations_91_1.png" src="_images/L01LinearEquations_91_1.png" />
+<img alt="_images/L01LinearEquations_91_2.png" src="_images/L01LinearEquations_91_2.png" />
 </div>
 </div>
 <p>Here is a view of all three hyperplanes.</p>
@@ -1196,7 +1213,7 @@ x_2 - 4x_3 &amp;=&amp; 8\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L01LinearEquations_92_0.png" src="_images/L01LinearEquations_92_0.png" />
+<img alt="_images/L01LinearEquations_93_0.png" src="_images/L01LinearEquations_93_0.png" />
 </div>
 </div>
 <p>The figure illustrates that the two intersection lines are parallel.  So there is <em>no point that lies in all the hyperplanes</em>.  That is the geometric interpretation of inconsistency.</p>
@@ -1205,7 +1222,7 @@ x_2 - 4x_3 &amp;=&amp; 8\\
 <h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
 <p>Our entry into linear algebra has been through the solution of systems of linear equations.</p>
 <ul class="simple">
-<li><p>We used a tabular representation called a matrix to represent the linear system</p></li>
+<li><p>We used a tabular representation called a matrix to represent the linear system.</p></li>
 <li><p>The solution method uses matrix row reductions: exchanging rows, scaling rows, or adding rows.</p></li>
 <li><p>The solution method has two stages: elimination and backsubstitution.</p></li>
 </ul>
@@ -1216,10 +1233,10 @@ x_2 - 4x_3 &amp;=&amp; 8\\
 </ul>
 <p>We thought geometrically about linear systems and their solutions:</p>
 <ul class="simple">
-<li><p>A linear equation defines a hyperplane</p></li>
-<li><p>In a consistent system, all hyperplanes intersect in one or more points</p></li>
-<li><p>In an inconsistent system, all hyperplanes do not intersect in any single point</p></li>
-<li><p>The solution method we used creates hyperplanes that intersect in the same point set as the original hyperplanes</p></li>
+<li><p>A linear equation defines a hyperplane.</p></li>
+<li><p>In a consistent system, all hyperplanes intersect in one or more points.</p></li>
+<li><p>In an inconsistent system, all hyperplanes do not intersect in any single point.</p></li>
+<li><p>The solution method we used creates hyperplanes that intersect in the same point set as the original hyperplanes.</p></li>
 </ul>
 </div>
 </div>
