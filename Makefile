@@ -20,6 +20,10 @@ pushbook: ## publish the last compiled book
 	git commit -m 'book update'
 	git push
 
+requirements.txt: requirements.in
+requirements.txt: ## compile a full requirements.txt from the base list in requirements.in
+	pip-compile
+
 help:
 # http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 	@grep -E '^[a-zA-Z0-9_%/-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
