@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/sphinx-book-theme.e8e5499552300ddf5d7adccae7cc3b70.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -42,17 +42,18 @@
     <script src="_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -335,6 +336,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#area-is-scaled-by-the-determinant">
+   Area is Scaled by the Determinant
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#existence-and-uniqueness">
    Existence and Uniqueness
   </a>
@@ -369,9 +375,21 @@
 <span class="kn">import</span> <span class="nn">laUtilities</span> <span class="k">as</span> <span class="nn">ut</span>
 <span class="kn">import</span> <span class="nn">slideUtilities</span> <span class="k">as</span> <span class="nn">sl</span>
 <span class="kn">import</span> <span class="nn">demoUtilities</span> <span class="k">as</span> <span class="nn">dm</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="kn">import</span> <span class="nn">array_to_latex</span> <span class="k">as</span> <span class="nn">a2l</span>
+
+<span class="k">def</span> <span class="nf">ltx_array_fmt</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">fmt</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;converts a numpy array to a latex array&#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">a2l</span><span class="o">.</span><span class="n">to_ltx</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">frmt</span> <span class="o">=</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">row</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">print_out</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">int_fmt</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">ltx_array_fmt</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:d}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">float_fmt</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">ltx_array_fmt</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:f}</span><span class="s1">&#39;</span><span class="p">)</span>
+
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display_html</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
@@ -673,7 +691,7 @@ into a matrix.</p>
 <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
     <span class="p">[[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
      <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;A = </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="sa">rf</span><span class="s2">&quot;$A = </span><span class="si">{</span><span class="n">ltx_array_fmt</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:1.1f}</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">))</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">square</span><span class="p">)</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">square</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
@@ -681,11 +699,11 @@ into a matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A = 
- [[2.5 0. ]
- [0.  2.5]]
-</pre></div>
-</div>
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}
+  2.5 &amp;  0.0\\
+  0.0 &amp;  2.5
+\end{bmatrix}\end{split}\]</div>
 <img alt="_images/L08MatrixofLinearTranformation_47_1.png" src="_images/L08MatrixofLinearTranformation_47_1.png" />
 </div>
 </div>
@@ -724,23 +742,21 @@ into a matrix.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
     <span class="p">[[</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">],</span>
      <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;A = </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="sa">rf</span><span class="s2">&quot;$A = </span><span class="si">{</span><span class="n">ltx_array_fmt</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:d}</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">))</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">square</span><span class="p">)</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">square</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<span class="n">Latex</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Reflection through the $x_1$ axis&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Reflection through the $x_1$ axis&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A = 
- [[ 1  0]
- [ 0 -1]]
-</pre></div>
-</div>
 <div class="output text_latex math notranslate nohighlight">
-\[Reflection through the $x_1$ axis\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_52_2.png" src="_images/L08MatrixofLinearTranformation_52_2.png" />
+\[\begin{split}A = \begin{bmatrix}
+  1  &amp;  0 \\
+  0  &amp; -1 
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/L08MatrixofLinearTranformation_52_1.png" src="_images/L08MatrixofLinearTranformation_52_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -761,23 +777,21 @@ into a matrix.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
     <span class="p">[[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
      <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;A = </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="sa">rf</span><span class="s2">&quot;$A = </span><span class="si">{</span><span class="n">ltx_array_fmt</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:2d}</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">))</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">square</span><span class="p">)</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">square</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<span class="n">Latex</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Reflection through the $x_2$ axis&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Reflection through the $x_2$ axis&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A = 
- [[-1  0]
- [ 0  1]]
-</pre></div>
-</div>
 <div class="output text_latex math notranslate nohighlight">
-\[Reflection through the $x_2$ axis\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_55_2.png" src="_images/L08MatrixofLinearTranformation_55_2.png" />
+\[\begin{split}A = \begin{bmatrix}
+ -1  &amp;   0 \\
+   0  &amp;   1 
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/L08MatrixofLinearTranformation_55_1.png" src="_images/L08MatrixofLinearTranformation_55_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -798,24 +812,22 @@ into a matrix.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
     <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span>
      <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;A = </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="sa">rf</span><span class="s2">&quot;$A = </span><span class="si">{</span><span class="n">ltx_array_fmt</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:d}</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">))</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">square</span><span class="p">)</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">square</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;b--&#39;</span><span class="p">)</span>
-<span class="n">Latex</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Reflection through the line $x_1 = x_2$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Reflection through the line $x_1 = x_2$&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A = 
- [[0 1]
- [1 0]]
-</pre></div>
-</div>
 <div class="output text_latex math notranslate nohighlight">
-\[Reflection through the line $x_1 = x_2$\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_58_2.png" src="_images/L08MatrixofLinearTranformation_58_2.png" />
+\[\begin{split}A = \begin{bmatrix}
+  0  &amp;  1 \\
+  1  &amp;  0 
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/L08MatrixofLinearTranformation_58_1.png" src="_images/L08MatrixofLinearTranformation_58_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -836,24 +848,22 @@ into a matrix.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
     <span class="p">[[</span> <span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
      <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;A = </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="sa">rf</span><span class="s2">&quot;$A = </span><span class="si">{</span><span class="n">ltx_array_fmt</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:d}</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">))</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">square</span><span class="p">)</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">square</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span><span class="s1">&#39;b--&#39;</span><span class="p">)</span>
-<span class="n">Latex</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Reflection through the line $x_1 = -x_2$&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Reflection through the line $x_1 = -x_2$&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A = 
- [[ 0 -1]
- [-1  0]]
-</pre></div>
-</div>
 <div class="output text_latex math notranslate nohighlight">
-\[Reflection through the line $x_1 = -x_2$\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_61_2.png" src="_images/L08MatrixofLinearTranformation_61_2.png" />
+\[\begin{split}A = \begin{bmatrix}
+  0  &amp; -1 \\
+ -1  &amp;  0 
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/L08MatrixofLinearTranformation_61_1.png" src="_images/L08MatrixofLinearTranformation_61_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -874,23 +884,21 @@ into a matrix.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
     <span class="p">[[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
      <span class="p">[</span> <span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;A = </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="sa">rf</span><span class="s2">&quot;$A = </span><span class="si">{</span><span class="n">ltx_array_fmt</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:d}</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">square</span><span class="p">)</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">square</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<span class="n">Latex</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Reflection through the origin&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Reflection through the origin&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A = 
- [[-1  0]
- [ 0 -1]]
-</pre></div>
-</div>
 <div class="output text_latex math notranslate nohighlight">
-\[Reflection through the origin\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_64_2.png" src="_images/L08MatrixofLinearTranformation_64_2.png" />
+\[\begin{split}A = \begin{bmatrix}
+ -1  &amp;  0 \\
+  0  &amp; -1 
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/L08MatrixofLinearTranformation_64_1.png" src="_images/L08MatrixofLinearTranformation_64_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -910,24 +918,22 @@ into a matrix.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
     <span class="p">[[</span><span class="mf">0.45</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
      <span class="p">[</span><span class="mi">0</span><span class="p">,</span>    <span class="mi">1</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;A = </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="sa">rf</span><span class="s2">&quot;$A = </span><span class="si">{</span><span class="n">ltx_array_fmt</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:0.2f}</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">square</span><span class="p">)</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">square</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">head_width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">Latex</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Horizontal Contraction&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Horizontal Contraction&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A = 
- [[0.45 0.  ]
- [0.   1.  ]]
-</pre></div>
-</div>
 <div class="output text_latex math notranslate nohighlight">
-\[Horizontal Contraction\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_66_2.png" src="_images/L08MatrixofLinearTranformation_66_2.png" />
+\[\begin{split}A = \begin{bmatrix}
+  0.45 &amp;  0.00\\
+  0.00 &amp;  1.00
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/L08MatrixofLinearTranformation_66_1.png" src="_images/L08MatrixofLinearTranformation_66_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -947,23 +953,21 @@ into a matrix.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
     <span class="p">[[</span><span class="mf">2.5</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
      <span class="p">[</span><span class="mi">0</span><span class="p">,</span>  <span class="mi">1</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;A = </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="sa">rf</span><span class="s2">&quot;$A = </span><span class="si">{</span><span class="n">ltx_array_fmt</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:0.1f}</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">))</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">square</span><span class="p">)</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">square</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<span class="n">Latex</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Horizontal Expansion&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Horizontal Expansion&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A = 
- [[2.5 0. ]
- [0.  1. ]]
-</pre></div>
-</div>
 <div class="output text_latex math notranslate nohighlight">
-\[Horizontal Expansion\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_68_2.png" src="_images/L08MatrixofLinearTranformation_68_2.png" />
+\[\begin{split}A = \begin{bmatrix}
+  2.5 &amp;  0.0\\
+  0.0 &amp;  1.0
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/L08MatrixofLinearTranformation_68_1.png" src="_images/L08MatrixofLinearTranformation_68_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -971,23 +975,21 @@ into a matrix.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
     <span class="p">[[</span>   <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
      <span class="p">[</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;A = </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="sa">rf</span><span class="s2">&quot;$A = </span><span class="si">{</span><span class="n">ltx_array_fmt</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:0.1f}</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">))</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">square</span><span class="p">)</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">square</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<span class="n">Latex</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Vertical Shear&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Vertical Shear&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A = 
- [[ 1.   0. ]
- [-1.5  1. ]]
-</pre></div>
-</div>
 <div class="output text_latex math notranslate nohighlight">
-\[Vertical Shear\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_69_2.png" src="_images/L08MatrixofLinearTranformation_69_2.png" />
+\[\begin{split}A = \begin{bmatrix}
+  1.0 &amp;  0.0\\
+ -1.5 &amp;  1.0
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/L08MatrixofLinearTranformation_69_1.png" src="_images/L08MatrixofLinearTranformation_69_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1012,25 +1014,23 @@ into a matrix.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
     <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
      <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;A = </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="sa">rf</span><span class="s2">&quot;$A = </span><span class="si">{</span><span class="n">ltx_array_fmt</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:d}</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
 <span class="c1"># dm.plotSquare(square)</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">square</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mf">0.9</span><span class="p">,</span><span class="n">head_width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mf">0.9</span><span class="p">,</span><span class="n">head_width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">Latex</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Projection onto the $x_1$ axis&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Projection onto the $x_1$ axis&#39;</span><span class="p">,</span> <span class="n">size</span>  <span class="o">=</span> <span class="mi">20</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A = 
- [[1 0]
- [0 0]]
-</pre></div>
-</div>
 <div class="output text_latex math notranslate nohighlight">
-\[Projection onto the $x_1$ axis\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_73_2.png" src="_images/L08MatrixofLinearTranformation_73_2.png" />
+\[\begin{split}A = \begin{bmatrix}
+  1  &amp;  0 \\
+  0  &amp;  0 
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/L08MatrixofLinearTranformation_73_1.png" src="_images/L08MatrixofLinearTranformation_73_1.png" />
 </div>
 </div>
 <p>What happens to the <strong>shape</strong> of the point set?</p>
@@ -1051,25 +1051,23 @@ into a matrix.</p>
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
     <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
      <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;A = </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="sa">rf</span><span class="s2">&quot;$A = </span><span class="si">{</span><span class="n">ltx_array_fmt</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:d}</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">))</span>
 <span class="n">ax</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
 <span class="c1"># dm.plotSquare(square)</span>
 <span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">square</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="o">-</span><span class="mf">0.9</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">head_width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">,</span><span class="o">-</span><span class="mf">0.9</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">head_width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">Latex</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Projection onto the $x_2$ axis&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Projection onto the $x_2$ axis&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A = 
- [[0 0]
- [0 1]]
-</pre></div>
-</div>
 <div class="output text_latex math notranslate nohighlight">
-\[Projection onto the $x_2$ axis\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_76_2.png" src="_images/L08MatrixofLinearTranformation_76_2.png" />
+\[\begin{split}A = \begin{bmatrix}
+  0  &amp;  0 \\
+  0  &amp;  1 
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/L08MatrixofLinearTranformation_76_1.png" src="_images/L08MatrixofLinearTranformation_76_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1084,6 +1082,173 @@ into a matrix.</p>
 <img alt="_images/L08MatrixofLinearTranformation_77_0.png" src="_images/L08MatrixofLinearTranformation_77_0.png" />
 </div>
 </div>
+</div>
+<div class="section" id="area-is-scaled-by-the-determinant">
+<h2>Area is Scaled by the Determinant<a class="headerlink" href="#area-is-scaled-by-the-determinant" title="Permalink to this headline">¶</a></h2>
+<p>Notice that in some of the transformations above, the “size” of a shape grows or shrinks.</p>
+<p>Let’s look at how area (or volume) of a shape is affected by a linear transformation.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[[</span><span class="mf">0.45</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+     <span class="p">[</span><span class="mi">0</span><span class="p">,</span>    <span class="mi">1</span><span class="p">]])</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="sa">rf</span><span class="s2">&quot;$A = </span><span class="si">{</span><span class="n">ltx_array_fmt</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:0.2f}</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">))</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotShape</span><span class="p">(</span><span class="n">note</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotShape</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">note</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Contraction&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}
+  0.45 &amp;  0.00\\
+  0.00 &amp;  1.00
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/L08MatrixofLinearTranformation_80_1.png" src="_images/L08MatrixofLinearTranformation_80_1.png" />
+</div>
+</div>
+<p>In this transformation, each unit of area in the blue shape is transformed to a smaller region in the red shape.</p>
+<p>So to understand how area changes, it suffices to ask what happens to the unit square (or hypercube):</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],[</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]])</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">square</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L08MatrixofLinearTranformation_82_0.png" src="_images/L08MatrixofLinearTranformation_82_0.png" />
+</div>
+</div>
+<p>Let’s denote the matrix of our linear transformation as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} A = \begin{bmatrix} a &amp; b \\ c &amp; d \end{bmatrix} \end{split}\]</div>
+<p>Then, here is what happens to the unit square:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">v1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">])</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">])</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">square</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;(1, 0)&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">,</span> <span class="s1">&#39;(1, 1)&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="s1">&#39;(0, 1)&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;(a, c)&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="n">v1</span><span class="o">+</span><span class="n">v2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.1</span><span class="p">,</span> <span class="p">(</span><span class="n">v1</span><span class="o">+</span><span class="n">v2</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;(a+b, c+d)&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;(b, d)&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">12</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L08MatrixofLinearTranformation_85_0.png" src="_images/L08MatrixofLinearTranformation_85_0.png" />
+</div>
+</div>
+<p>Now, let’s determine the area of the blue diamond in terms of <span class="math notranslate nohighlight">\(a, b, c\)</span>, and <span class="math notranslate nohighlight">\(d\)</span>.</p>
+<p>To do that, we’ll use this diagram:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mf">0.75</span>
+<span class="n">d</span> <span class="o">=</span> <span class="mf">1.5</span>
+<span class="n">v1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">c</span><span class="p">])</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">b</span><span class="p">,</span> <span class="n">d</span><span class="p">])</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">column_stack</span><span class="p">([</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">])</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="c1"># red triangles</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotShape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">d</span><span class="p">],</span> <span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">d</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\frac</span><span class="si">{1}{2}</span><span class="s1">bd$&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotShape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">a</span><span class="p">,</span> <span class="n">c</span><span class="p">],</span> <span class="p">[</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="o">+</span><span class="n">d</span><span class="p">],</span> <span class="p">[</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\frac</span><span class="si">{1}{2}</span><span class="s1">bd$&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+<span class="c1"># gray triangles</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotShape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">b</span><span class="p">,</span> <span class="n">d</span><span class="p">],</span> <span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="o">+</span><span class="n">d</span><span class="p">],</span> <span class="p">[</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="o">+</span><span class="n">d</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.9</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\frac</span><span class="si">{1}{2}</span><span class="s1">ac$&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotShape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">c</span><span class="p">],</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$\frac</span><span class="si">{1}{2}</span><span class="s1">ac$&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+<span class="c1"># green squares</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotShape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">a</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="n">a</span><span class="p">,</span> <span class="n">c</span><span class="p">],</span> <span class="p">[</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">],</span> <span class="p">[</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">1.9</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$bc$&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotShape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="n">d</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">c</span><span class="o">+</span><span class="n">d</span><span class="p">],</span> <span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="o">+</span><span class="n">d</span><span class="p">],</span> <span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="n">d</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="s1">&#39;g&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">2.5</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$bc$&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+<span class="c1">#</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">square</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.05</span><span class="p">,</span> <span class="s1">&#39;(a, c)&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">((</span><span class="n">v1</span><span class="o">+</span><span class="n">v2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.1</span><span class="p">,</span> <span class="p">(</span><span class="n">v1</span><span class="o">+</span><span class="n">v2</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.1</span><span class="p">,</span> <span class="s1">&#39;(a+b, c+d)&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="s1">&#39;(b, d)&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">12</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L08MatrixofLinearTranformation_88_0.png" src="_images/L08MatrixofLinearTranformation_88_0.png" />
+</div>
+</div>
+<p>Each of the triangles and rectangles has an area we can determine in terms of <span class="math notranslate nohighlight">\(a, b, c\)</span> and <span class="math notranslate nohighlight">\(d\)</span>.</p>
+<p>The large rectangle has sides <span class="math notranslate nohighlight">\((a+b)\)</span> and <span class="math notranslate nohighlight">\((c+d)\)</span>, so its area is:</p>
+<div class="math notranslate nohighlight">
+\[ (a+b)(c+d) = ac + ad + bc + bd. \]</div>
+<p>From this large rectangle we need to subtract:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(bd\)</span> (red triangles),</p></li>
+<li><p><span class="math notranslate nohighlight">\(ac\)</span> (gray triangles), and</p></li>
+<li><p><span class="math notranslate nohighlight">\(2bc\)</span> (green rectangles).</p></li>
+</ul>
+<p>So the area of the blue diamond is:</p>
+<div class="math notranslate nohighlight">
+\[ (ac + ad + bc + bd) - (bd + ac + 2bc) \]</div>
+<div class="math notranslate nohighlight">
+\[ = ad - bc \]</div>
+<p>So we conclude that when we use a linear transformation</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} A = \begin{bmatrix} a &amp; b \\ c &amp; d \end{bmatrix} \end{split}\]</div>
+<p>the area of a unit square (or any shape) is scaled by a factor of <span class="math notranslate nohighlight">\(ad - bc\)</span>.</p>
+<p>This quantity is a fundamental property of the matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>So, we give it a name: it is the <strong>determinant</strong> of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>We denote it as</p>
+<div class="math notranslate nohighlight">
+\[\det(A)\]</div>
+<p>So, for a <span class="math notranslate nohighlight">\(2\times 2\)</span> matrix <span class="math notranslate nohighlight">\( A = \begin{bmatrix} a &amp; b \\ c &amp; d \end{bmatrix} \)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\det(A) = ad-bc.\]</div>
+<p>However, the determinant can be defined for <strong>any</strong> <span class="math notranslate nohighlight">\(n\times n\)</span> (square) matrix.</p>
+<p>For a square matrix <span class="math notranslate nohighlight">\(A\)</span> larger than <span class="math notranslate nohighlight">\(2\times 2\)</span>, the determinant tells us how the <strong>volume</strong> of a unit (hyper)cube is scaled when it is linearly transformed by <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>We will learn how to compute determinants for larger matrices in a later lecture.</p>
+<p>There are important cases in which the determinant of a matrix is <strong>zero.</strong></p>
+<p>When does it happen that <span class="math notranslate nohighlight">\(\det(A) = 0\)</span>?</p>
+<p>Consider when <span class="math notranslate nohighlight">\(A\)</span> is the matrix of a projection:</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+     <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="sa">rf</span><span class="s1">&#39;$A = </span><span class="si">{</span><span class="n">int_fmt</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="si">}</span><span class="s1">$&#39;</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
+<span class="c1"># dm.plotSquare(square)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">square</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mf">0.9</span><span class="p">,</span><span class="n">head_width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mf">0.9</span><span class="p">,</span><span class="n">head_width</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">length_includes_head</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Projection onto the $x_1$ axis&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}
+  1  &amp;  0 \\
+  0  &amp;  0 
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/L08MatrixofLinearTranformation_100_1.png" src="_images/L08MatrixofLinearTranformation_100_1.png" />
+</div>
+</div>
+<p>The unit square has been collapsed onto the <span class="math notranslate nohighlight">\(x\)</span>-axis, resulting in a shape with area of zero.</p>
+<p>This is confirmed by the determinant, which is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \det\left(\begin{bmatrix}1 &amp; 0 \\ 0 &amp; 0\end{bmatrix}\right) = (1 \cdot 0) - (0 \cdot 0) = 0.\end{split}\]</div>
 </div>
 <div class="section" id="existence-and-uniqueness">
 <h2>Existence and Uniqueness<a class="headerlink" href="#existence-and-uniqueness" title="Permalink to this headline">¶</a></h2>
@@ -1104,7 +1269,7 @@ into a matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_82_0.jpg" src="_images/L08MatrixofLinearTranformation_82_0.jpg" />
+<img alt="_images/L08MatrixofLinearTranformation_106_0.jpg" src="_images/L08MatrixofLinearTranformation_106_0.jpg" />
 </div>
 </div>
 <p>Here, we see that <span class="math notranslate nohighlight">\(T\)</span> maps points in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> to a plane lying <strong>within</strong> <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>.</p>
@@ -1117,7 +1282,7 @@ into a matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_84_0.png" src="_images/L08MatrixofLinearTranformation_84_0.png" />
+<img alt="_images/L08MatrixofLinearTranformation_108_0.png" src="_images/L08MatrixofLinearTranformation_108_0.png" />
 </div>
 </div>
 <p>In this case, for every point in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>, there is an <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> that maps to that point.</p>
@@ -1137,7 +1302,7 @@ into a matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_87_0.png" src="_images/L08MatrixofLinearTranformation_87_0.png" />
+<img alt="_images/L08MatrixofLinearTranformation_111_0.png" src="_images/L08MatrixofLinearTranformation_111_0.png" />
 </div>
 </div>
 <p>Here again the red points (which all lie on the <span class="math notranslate nohighlight">\(x\)</span>-axis) are the images of the blue points.</p>
@@ -1154,7 +1319,7 @@ into a matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_89_0.png" src="_images/L08MatrixofLinearTranformation_89_0.png" />
+<img alt="_images/L08MatrixofLinearTranformation_113_0.png" src="_images/L08MatrixofLinearTranformation_113_0.png" />
 </div>
 </div>
 <div class="toggle docutils container">
@@ -1171,7 +1336,7 @@ into a matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_93_0.jpg" src="_images/L08MatrixofLinearTranformation_93_0.jpg" />
+<img alt="_images/L08MatrixofLinearTranformation_117_0.jpg" src="_images/L08MatrixofLinearTranformation_117_0.jpg" />
 </div>
 </div>
 <p>Let’s examine the relationship between these ideas and some previous definitions.</p>

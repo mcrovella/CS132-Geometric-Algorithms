@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/sphinx-book-theme.e8e5499552300ddf5d7adccae7cc3b70.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -42,17 +42,18 @@
     <script src="_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -327,8 +328,8 @@
             <nav id="bd-toc-nav">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-rationale-for-the-lu-factorization">
-   The Rationale for the LU Factorization
+  <a class="reference internal nav-link" href="#a-rationale-for-the-lu-factorization">
+   A Rationale for the LU Factorization
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -380,9 +381,7 @@
         
               <div>
                 
-  <div class="section" id="matrix-factorizations">
-<h1>Matrix Factorizations<a class="headerlink" href="#matrix-factorizations" title="Permalink to this headline">¶</a></h1>
-<div class="cell tag_hide-input docutils container">
+  <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for QR codes use inline</span>
 <span class="o">%</span><span class="k">matplotlib</span> inline
@@ -414,11 +413,14 @@
 </div>
 </div>
 </div>
+<div class="section" id="matrix-factorizations">
+<h1>Matrix Factorizations<a class="headerlink" href="#matrix-factorizations" title="Permalink to this headline">¶</a></h1>
+<p>Just as muiltiplication can be generalized from scalars to matrices, the notion of a factorization can also be generalized from scalars to matrices.</p>
 <p>A <em>factorization</em> of a matrix <span class="math notranslate nohighlight">\(A\)</span> is an equation that expresses <span class="math notranslate nohighlight">\(A\)</span> as a product of two or more matrices.</p>
 <div class="math notranslate nohighlight">
 \[A = BC.\]</div>
 <p>The essential difference with what we have done so far is that we have been given factors (<span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(C\)</span>) and then computed <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<p>Today we will talk about situations where you are given <span class="math notranslate nohighlight">\(A\)</span>, and you want to find <span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(C\)</span> – that meet some conditions.</p>
+<p>In a factorization problem, you are given <span class="math notranslate nohighlight">\(A\)</span>, and you want to find <span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(C\)</span> – that meet some conditions.</p>
 <p>There are a number of reasons one may want to factor a matrix.</p>
 <ul class="simple">
 <li><p>Recasting <span class="math notranslate nohighlight">\(A\)</span> into a form that makes computing with <span class="math notranslate nohighlight">\(A\)</span> faster.</p></li>
@@ -427,9 +429,16 @@
 </ul>
 <p>Today we’ll work with one particular factorization that addesses the first case.   Later one we’ll study factorizations that address the other two cases.</p>
 <p>The factorization we will study is called the <strong>LU Factorization.</strong>  It is worth studying in its own right, and because it introduces the idea of factorizations, which we will study again later on.</p>
-<div class="section" id="the-rationale-for-the-lu-factorization">
-<h2>The Rationale for the LU Factorization<a class="headerlink" href="#the-rationale-for-the-lu-factorization" title="Permalink to this headline">¶</a></h2>
-<p>Let’s say you want to solve a set of linear systems, all with the same coefficient matrix:</p>
+<div class="section" id="a-rationale-for-the-lu-factorization">
+<h2>A Rationale for the LU Factorization<a class="headerlink" href="#a-rationale-for-the-lu-factorization" title="Permalink to this headline">¶</a></h2>
+<p>Consider the following problem.  You are given <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n\times n}\)</span> and <span class="math notranslate nohighlight">\(B \in \mathbb{R}^{n\times p}\)</span>.</p>
+<p>You seek <span class="math notranslate nohighlight">\(X \in \mathbb{R}^{n\times p}\)</span> such that:</p>
+<div class="math notranslate nohighlight">
+\[ AX = B. \]</div>
+<p>In other words, instead of the usual <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span>, now <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are matrices.</p>
+<p>By the rules of matrix multiplication, we can break this problem up.</p>
+<p>Let <span class="math notranslate nohighlight">\(X = [\mathbf{x_1} \mathbf{x_2} \dots \mathbf{x_p}],\)</span> and <span class="math notranslate nohighlight">\(B = [\mathbf{b_1} \mathbf{b_2} \dots \mathbf{b_p}]\)</span>.</p>
+<p>Then:</p>
 <div class="math notranslate nohighlight">
 \[A{\bf x_1} = {\bf b_1}\]</div>
 <div class="math notranslate nohighlight">
@@ -438,7 +447,9 @@
 \[\dots\]</div>
 <div class="math notranslate nohighlight">
 \[A{\bf x_p} = {\bf b_p}\]</div>
-<p>There are <span class="math notranslate nohighlight">\(p\)</span> equations.</p>
+<p>In other words, there are <span class="math notranslate nohighlight">\(p\)</span> linear systems to solve.</p>
+<p>Each linear system is conceptually a separate problem.</p>
+<p>Note however that every linear system has the <strong>same <span class="math notranslate nohighlight">\(A\)</span> matrix.</strong></p>
 <p>Naturally, you could solve these systems by first computing <span class="math notranslate nohighlight">\(A^{-1}\)</span> and then computing:</p>
 <div class="math notranslate nohighlight">
 \[{\bf x_1} = A^{-1}{\bf b_1}\]</div>
@@ -448,15 +459,23 @@
 \[\dots\]</div>
 <div class="math notranslate nohighlight">
 \[{\bf x_p} = A^{-1}{\bf b_p}\]</div>
-<p>What is the computational cost of this?</p>
-<p>Matrix Inversion requires approximately <span class="math notranslate nohighlight">\(2n^3\)</span> flops (about three times as many flops as Gaussian Elimination.)</p>
+<p>Or, more concisely:</p>
+<div class="math notranslate nohighlight">
+\[ X = A^{-1}B \]</div>
+<p>What is the computational cost of using the matrix inverse to solve <span class="math notranslate nohighlight">\(AX = B\)</span>?</p>
+<p>As we have seen, the operation count of Matrix Inversion is  <span class="math notranslate nohighlight">\(\sim 2n^3\)</span> flops (three times as many as Gaussian Elimination.)</p>
 <p>This cost will dominate the process.</p>
-<p>Alternatively, we could perform Gaussian Elimination on each of the systems.</p>
-<p>This is probably worse, because then we have to perform <span class="math notranslate nohighlight">\(p \cdot \frac{2}{3}n^3\)</span> flops.</p>
+<p>Alternatively, we could perform Gaussian Elimination on each of the separate systems.</p>
+<p>This is probably worse, because then we have to perform <span class="math notranslate nohighlight">\(\sim p \cdot \frac{2}{3}n^3\)</span> flops.</p>
 <p>Assuming <span class="math notranslate nohighlight">\(p &gt; 3\)</span>, we are doing more work than if we invert <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>What if we could solve all these systems while performing Gaussian Elimination only <strong>once?</strong></p>
 <p>That would be a win, as it would cut our running time by a factor of 3.</p>
 <p>The LU factorization allows us to do exactly this.</p>
+<p>Today we will explore the LU factorization.   We will see that LU factorization has a close connection to Gaussian Elimination.</p>
+<p>In fact, I hope that when we are done, you will see Gaussian Elimination in a new way, namely:</p>
+<blockquote>
+<div><p><strong>Gaussian Elimination is really a matrix factorization!</strong></p>
+</div></blockquote>
 <p>Before we start to discuss the LU factorization, we need to introduce a powerful tool for performing factorizations, called <em>elementary matrices.</em></p>
 </div>
 <div class="section" id="elementary-matrices">
@@ -505,6 +524,8 @@
 <p>Now, we will introduce the factorization</p>
 <div class="math notranslate nohighlight">
 \[ A = LU.\]</div>
+<p>Note that we don’t need to consider only square matrices <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>LU decomposition (like Gaussian Elimination) works for a matrix <span class="math notranslate nohighlight">\(A\)</span> having any shape.</p>
 <p>An LU factorization of <span class="math notranslate nohighlight">\(A\)</span> constructs two matrices that have this structure:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}A = \begin{array}{cc}
@@ -589,7 +610,7 @@ L&amp;U\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L12MatrixFactorizations_61_0.jpg" src="_images/L12MatrixFactorizations_61_0.jpg" />
+<img alt="_images/L12MatrixFactorizations_64_0.jpg" src="_images/L12MatrixFactorizations_64_0.jpg" />
 </div>
 </div>
 <p>The key observation: <strong>each equation is fast to solve</strong> because <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span> are each triangular.</p>
@@ -609,11 +630,11 @@ L&amp;U\\
 \[\begin{split}[U\;\;{\bf y}] =  \left[\begin{array}{rrrrr}3&amp;-7&amp;-2&amp;2&amp;-9\\0&amp;-2&amp;-1&amp;2&amp;-4\\0&amp;0&amp;-1&amp;1&amp;5\\0&amp;0&amp;0&amp;-1&amp;1\end{array}\right] \sim
 \left[\begin{array}{rrrrr}1&amp;0&amp;0&amp;0&amp;3\\0&amp;1&amp;0&amp;0&amp;4\\0&amp;0&amp;1&amp;0&amp;-6\\0&amp;0&amp;0&amp;1&amp;-1\end{array}\right].\end{split}\]</div>
 <p><strong>Analysis.</strong></p>
-<p>Both the forward and backward phases of solving a system as <span class="math notranslate nohighlight">\(L(U{\bf x}) = {\bf b}\)</span> require approximately <span class="math notranslate nohighlight">\(2n^2\)</span> flops.</p>
-<p>Therefore the time consuming step is actually doing the factorization, which as we’ve seen is essentially Gaussian Elimination, and therefore requires <span class="math notranslate nohighlight">\(\frac{2}{3}n^3\)</span> flops.</p>
-<p>Hence we have found that by using the LU decomposition, one can solve a series of systems all involving the same <span class="math notranslate nohighlight">\(A\)</span> in <span class="math notranslate nohighlight">\(\frac{2}{3}n^3\)</span> flops,</p>
-<p>while doing Gaussian Elimination would require <span class="math notranslate nohighlight">\(\frac{2}{3}n^3\)</span> flops <strong>for each system</strong>,</p>
-<p>and using the matrix inverse would require <span class="math notranslate nohighlight">\(2n^3\)</span> flops to invert the matrix.</p>
+<p>Both the forward and backward phases of solving a system as <span class="math notranslate nohighlight">\(L(U{\bf x}) = {\bf b}\)</span> have flop counts of <span class="math notranslate nohighlight">\(\sim 2n^2\)</span>.</p>
+<p>Therefore the time consuming step is actually doing the factorization, which as we’ve seen is essentially Gaussian Elimination, and therefore requires <span class="math notranslate nohighlight">\(\sim\frac{2}{3}n^3\)</span> flops.</p>
+<p>Hence we have found that by using the LU decomposition, one can solve a series of systems all involving the same <span class="math notranslate nohighlight">\(A\)</span> in <span class="math notranslate nohighlight">\(\sim\frac{2}{3}n^3\)</span> flops,</p>
+<p>while doing Gaussian Elimination would require <span class="math notranslate nohighlight">\(\sim\frac{2}{3}n^3\)</span> flops <strong>for each system</strong>,</p>
+<p>and using the matrix inverse would require <span class="math notranslate nohighlight">\(\sim2n^3\)</span> flops to invert the matrix.</p>
 </div>
 <div class="section" id="pivoting">
 <h2>Pivoting<a class="headerlink" href="#pivoting" title="Permalink to this headline">¶</a></h2>

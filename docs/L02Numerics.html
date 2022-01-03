@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Numbers &#8212; Linear Algebra, Geometry, and Computation</title>
+    <title>(Getting Serious About) Numbers &#8212; Linear Algebra, Geometry, and Computation</title>
     
   <link href="_static/css/theme.css" rel="stylesheet" />
   <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
@@ -23,7 +23,7 @@
 
     
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/sphinx-book-theme.e8e5499552300ddf5d7adccae7cc3b70.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.5f77b4aec8189eecf79907ce328c390d.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -42,17 +42,16 @@
     <script src="_static/copybutton.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -102,7 +101,7 @@
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Numbers
+   (Getting Serious About) Numbers
   </a>
  </li>
  <li class="toctree-l1">
@@ -418,32 +417,45 @@
 </div>
 </div>
 </div>
-<div class="section" id="numbers">
-<h1>Numbers<a class="headerlink" href="#numbers" title="Permalink to this headline">¶</a></h1>
-<blockquote>
+<div class="section" id="getting-serious-about-numbers">
+<h1>(Getting Serious About) Numbers<a class="headerlink" href="#getting-serious-about-numbers" title="Permalink to this headline">¶</a></h1>
+<center>
+<a class="reference internal image-reference" href="_images/William_Kahan_2008_(cropped).jpeg"><img alt="Figure" src="_images/William_Kahan_2008_(cropped).jpeg" style="width: 200px;" /></a>
+<div>
+William Kahan, creator of the IEEE-754 standard.
+<div>
+Turing Award, 1989
+</center><blockquote>
 <div><p>When numbers get serious <br>
 They leave a mark on your door</p>
+<p>Paul Simon</p>
 </div></blockquote>
-<p>– Paul Simon</p>
-<p>One of the themes of this course will be shifting between algebraic and computational views of various concepts.</p>
-<p>Today we need to talk about why the answers we get from computers can be different from the answers we get mathematically – for the same problem!</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Photo Credit:
+<a href="https://commons.wikimedia.org/wiki/File:William_Kahan_2008_(cropped).jpg">George M. Bergman</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, via Wikimedia Commons</p>
+</div>
+<p>One of the themes of this course will be shifting between mathematical and computational views of various concepts.</p>
+<p>Today we need to talk about why the answers we get from computers can be different from the answers we get mathematically</p>
+<p>– for the same problem!</p>
 <p>A number is a mathematical concept – an abstract idea.</p>
 <blockquote>
 <div><p>God made the integers, <br>all else is the work of man.</p>
+<p>Leopold Kronecker (1823 - 1891)</p>
 </div></blockquote>
-<p>– Leopold Kronecker (1823 - 1891)</p>
 <p>In a computer we assign <strong>bit patterns</strong> to correspond to certain numbers.</p>
 <p>We say the bit pattern is the number’s <em>representation.</em></p>
 <p>For example the number ‘3.14’ might have the representation ‘01000000010010001111010111000011’.</p>
 <p>For reasons of efficiency, we use a fixed number of bits for these representations.   In most computers nowadays we use <strong>64 bits</strong> to represent a number.</p>
 <div class="section" id="integers">
 <h2>Integers<a class="headerlink" href="#integers" title="Permalink to this headline">¶</a></h2>
-<p>For the most part, using integers is not complicated.</p>
+<p>Kronecker believed that integers were the only ‘true’ numbers.</p>
+<p>And for the most part, using integers in a computer is not complicated.</p>
 <p>Integer representation is essentially the same as binary numerals.</p>
 <p>For example, in a 64-bit computer, the representation of the concept of ‘seven’ would be ‘0..0111’ (with 61 zeros in the front).</p>
 <p>There is a size limit on the largest value that can be stored as an integer, but it’s so big we don’t need to concern ourselves with it in this course.</p>
 <p>So for our purposes, an integer can be stored exactly.</p>
-<p>In other words, there is an 1-1 correspondence between every representation and the corresponding integer.</p>
+<p>In other words, there is an 1-1 correspondence between every (computational) representation and the corresponding (mathematical) integer.</p>
 <p>So, what happens when we compute with integers?</p>
 <p>For (reasonably sized) integers, computation is <strong>exact</strong> …. as long as it only involves <strong>addition, subtraction, and multiplication.</strong></p>
 <p>In other words, there are no errors introduced when adding, subtracting or multiplying integers.</p>
@@ -470,7 +482,7 @@ They leave a mark on your door</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L02Numerics_19_0.png" src="_images/L02Numerics_19_0.png" />
+<img alt="_images/L02Numerics_21_0.png" src="_images/L02Numerics_21_0.png" />
 </div>
 </div>
 <p><font size='1'> By Codekaizen (Own work) [<a href="http://www.gnu.org/copyleft/fdl.html">GFDL</a> or <a href="http://creativecommons.org/licenses/by-sa/4.0-3.0-2.5-2.0-1.0">CC BY-SA 4.0-3.0-2.5-2.0-1.0</a>], <a href="https://commons.wikimedia.org/wiki/File%3AIEEE_754_Double_Floating_Point_Format.svg">via Wikimedia Commons</a></font></p>
@@ -502,7 +514,8 @@ They leave a mark on your door</p>
 </div>
 <div class="section" id="implications-of-representation-error">
 <h3>Implications of Representation Error<a class="headerlink" href="#implications-of-representation-error" title="Permalink to this headline">¶</a></h3>
-<p>Problems arise when we work with floating point numbers and confuse them with real numbers, thereby forgetting that most of the time we are not storing the real number exactly, but only a floating point number that is close to it.</p>
+<p>Problems arise when we work with floating point numbers and confuse them with real numbers.</p>
+<p>It is important to remember that most of the time we are not storing the real number exactly, but only a floating point number that is close to it.</p>
 <p>Let’s look at some examples.  First:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -524,7 +537,7 @@ They leave a mark on your door</p>
 <p>So, we are</p>
 <ul class="simple">
 <li><p>storing the inputs exactly (1/8, 8 and 1)</p></li>
-<li><p>computing the results exactly (by definition of IEEE-754), yielding <span class="math notranslate nohighlight">\((1/8) * 8 = 1\)</span></p></li>
+<li><p>computing the results exactly (by definition of IEEE-754), yielding <span class="math notranslate nohighlight">\((1/8) \cdot 8 = 1\)</span></p></li>
 <li><p>and representing the result exactly (zero)</p></li>
 </ul>
 <p>OK, here is another example:</p>
@@ -546,7 +559,7 @@ They leave a mark on your door</p>
 </div>
 <p>Here the situation is different.</p>
 <p>1/7 can <strong>not</strong> be stored exactly in IEEE-754 floating point format.</p>
-<p>In binary, 1/7 is <span class="math notranslate nohighlight">\(0.001\overline{001}\)</span>, an infinitely repeating pattern that clearly cannot be represented in a finite sequence of bits.</p>
+<p>In binary, 1/7 is <span class="math notranslate nohighlight">\(0.001\overline{001}\)</span>, an infinitely repeating pattern that obviously cannot be represented as a finite sequence of bits.</p>
 <p>Nonetheless, the computation <span class="math notranslate nohighlight">\((1/7)*7\)</span> still yields exactly 1.0.</p>
 <p>Why? Because the rounding of <span class="math notranslate nohighlight">\(0.001\overline{001}\)</span> to its closest floating point representation, when multiplied by 7, yields a value whose closest floating point representation is 1.0.</p>
 <p>Now, let’s do something that seems very similar:</p>
@@ -575,7 +588,8 @@ They leave a mark on your door</p>
 <p>Compared to 0.1, this is a very small number.  The relative error abs(-0.0000000000000001 / 0.1) is about <span class="math notranslate nohighlight">\(10^{-16}.\)</span></p>
 <p>This suggests that when a floating point calculation is not exact, the error (in a relative sense) is usually very small.</p>
 <p>Notice also that in our example the size of the relative error is about <span class="math notranslate nohighlight">\(10^{-16}\)</span>.</p>
-<p>Recall that the significand in IEEE-754 uses 52 bits and that <span class="math notranslate nohighlight">\(2^{-52} \approx 10^{-16}\)</span>.</p>
+<p>Recall that the significand in IEEE-754 uses 52 bits.</p>
+<p>Now, note that <span class="math notranslate nohighlight">\(2^{-52} \approx 10^{-16}\)</span>.</p>
 <p>There’s our “sixteen digits of accuracy” principle again.</p>
 </div>
 <div class="section" id="special-values">
@@ -594,8 +608,8 @@ They leave a mark on your door</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/d9/_sfhw3kd21dgyrgz6tbt45z80000gn/T/ipykernel_23993/3438155168.py:1: RuntimeWarning: invalid value encountered in sqrt
-  np.sqrt(-1)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/markcrovella/opt/anaconda3/lib/python3.7/site-packages/ipykernel_launcher.py:1: RuntimeWarning: invalid value encountered in sqrt
+  &quot;&quot;&quot;Entry point for launching an IPython kernel.
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>nan
@@ -611,8 +625,8 @@ They leave a mark on your door</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/d9/_sfhw3kd21dgyrgz6tbt45z80000gn/T/ipykernel_23993/329155313.py:1: RuntimeWarning: divide by zero encountered in log
-  var = np.log(0)
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/markcrovella/opt/anaconda3/lib/python3.7/site-packages/ipykernel_launcher.py:1: RuntimeWarning: divide by zero encountered in log
+  &quot;&quot;&quot;Entry point for launching an IPython kernel.
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-inf
@@ -632,7 +646,11 @@ They leave a mark on your door</p>
 </div>
 </div>
 </div>
-<p>As far as we are concerned, there is no difference between positive and negative zero.   You can ignore the minus sign in front of a negative zero.</p>
+<p>As far as we are concerned, there is no difference between positive and negative zero.   You can ignore the minus sign in front of a negative zero.  (If you are curious why there is a negative zero, see the online notes.)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a test.</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
