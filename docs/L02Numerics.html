@@ -43,6 +43,8 @@
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script src="_static/sphinx-book-theme.d31b09fe5c1d09cb49b26a786de4a05d.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -424,10 +426,12 @@
 <div>
 William Kahan, creator of the IEEE-754 standard.
 <div>
-Turing Award, 1989
+Turing Award Winner, 1989
 </center><blockquote>
-<div><p>When numbers get serious <br>
-They leave a mark on your door</p>
+<div><p>I have a number in my head <br>
+Though I don’t know why it’s there<br>
+When numbers get serious<br>
+You see their shape everywhere</p>
 <p>Paul Simon</p>
 </div></blockquote>
 <div class="admonition note">
@@ -648,10 +652,6 @@ They leave a mark on your door</p>
 </div>
 </div>
 <p>As far as we are concerned, there is no difference between positive and negative zero.   You can ignore the minus sign in front of a negative zero.  (If you are curious why there is a negative zero, see the online notes.)</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This is a test.</p>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
@@ -820,6 +820,8 @@ They leave a mark on your door</p>
 </div>
 </div>
 </div>
+<p>So another way to state Rule 1 for our purposes is:</p>
+<p>… <strong>always</strong> use <code class="docutils literal notranslate"><span class="pre">np.isclose()</span></code> to compare floating point numbers for equality!</p>
 <p>Next, we will generalize this idea a bit:</p>
 <p>beyond the fact that numbers that should be equal, may not be in practice,</p>
 <p>we can also observe that it can be hard to be accurate about the <strong>difference</strong> between two numbers that are <strong>nearly</strong> equal.  This leads to the next two principles.</p>

@@ -103,7 +103,7 @@
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="L02Numerics.html">
-   Numbers
+   (Getting Serious About) Numbers
   </a>
  </li>
  <li class="toctree-l1">
@@ -378,13 +378,20 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#ill-conditioned-matrices">
-   Ill-Conditioned Matrices
+  <a class="reference internal nav-link" href="#font-color-blue-further-reading-font">
+   <font color="blue">
+    Further Reading
+   </font>
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#demonstration">
-     Demonstration
+    <a class="reference internal nav-link" href="#ill-conditioned-matrices">
+     Ill-Conditioned Matrices
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#demonstration-of-ill-conditioning">
+     Demonstration of Ill-Conditioning
     </a>
    </li>
   </ul>
@@ -461,6 +468,7 @@
 <p>Clearly, <span class="math notranslate nohighlight">\(C\)</span> must also be square and the same size as <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>The inverse of <span class="math notranslate nohighlight">\(A\)</span> is denoted <span class="math notranslate nohighlight">\(A^{-1}.\)</span></p>
 <p>A matrix that is not invertible is called a <strong>singular</strong> matrix.</p>
+<p>A strange term, but you just have to memorize and get used to it.</p>
 <p><strong>Example.</strong></p>
 <p>If <span class="math notranslate nohighlight">\(A = \left[\begin{array}{rr}2&amp;5\\-3&amp;-7\end{array}\right]\)</span> and <span class="math notranslate nohighlight">\(C = \left[\begin{array}{rr}-7&amp;-5\\3&amp;2\end{array}\right]\)</span>, then:</p>
 <div class="math notranslate nohighlight">
@@ -553,6 +561,21 @@
 <li><p>Solve the linear system <span class="math notranslate nohighlight">\(A{\bf x_n} = {\bf e_n}\)</span> to get the last column of <span class="math notranslate nohighlight">\(A^{-1}.\)</span></p></li>
 </ul>
 <p>If any of the systems are inconsistent or has an infinite solution set, then <span class="math notranslate nohighlight">\(A^{-1}\)</span> does not exist.</p>
+<p>In fact, the above procedure is equivalent to the following:</p>
+<ol class="simple">
+<li><p>Construct the <span class="math notranslate nohighlight">\(n \times 2n\)</span> matrix <span class="math notranslate nohighlight">\(B = [A \;I]\)</span></p></li>
+<li><p>Find the <span class="math notranslate nohighlight">\(C\)</span> = the reduced echelon form of <span class="math notranslate nohighlight">\(B\)</span></p></li>
+<li><p>In the resulting matrix <span class="math notranslate nohighlight">\(C\)</span>:</p>
+<ul class="simple">
+<li><p>if the columns on the left half are <span class="math notranslate nohighlight">\(I\)</span>, then</p>
+<ul>
+<li><p>the columns in the right half of <span class="math notranslate nohighlight">\(C\)</span> will be <span class="math notranslate nohighlight">\(A^{-1}\)</span>.</p></li>
+</ul>
+</li>
+<li><p>Otherwise, <span class="math notranslate nohighlight">\(A\)</span> is not invertible.</p></li>
+</ul>
+</li>
+</ol>
 </div>
 <div class="section" id="the-computational-view">
 <h3>The Computational View<a class="headerlink" href="#the-computational-view" title="Permalink to this headline">¶</a></h3>
@@ -778,7 +801,7 @@ B =
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L10MatrixInverse_86_0.png" src="_images/L10MatrixInverse_86_0.png" />
+<img alt="_images/L10MatrixInverse_87_0.png" src="_images/L10MatrixInverse_87_0.png" />
 </div>
 </div>
 <p>A linear transformation <span class="math notranslate nohighlight">\(T: \mathbb{R}^n \rightarrow \mathbb{R}^n\)</span> is <strong>invertible</strong> if there exists a function <span class="math notranslate nohighlight">\(S: \mathbb{R}^n \rightarrow \mathbb{R}^n\)</span> such that</p>
@@ -813,7 +836,7 @@ B =
 </div>
 <div class="output text_latex math notranslate nohighlight">
 \[Horizontal Contraction\]</div>
-<img alt="_images/L10MatrixInverse_90_2.png" src="_images/L10MatrixInverse_90_2.png" />
+<img alt="_images/L10MatrixInverse_91_2.png" src="_images/L10MatrixInverse_91_2.png" />
 </div>
 </div>
 <p>Here <span class="math notranslate nohighlight">\(A = \left[\begin{array}{rr}0.5&amp;0\\0&amp;1\end{array}\right].\)</span>  Its determinant is <span class="math notranslate nohighlight">\(1(0.5)-0(0) = 0.5,\)</span> so this linear transformation is invertible.</p>
@@ -835,7 +858,7 @@ B =
 <div class="cell_output docutils container">
 <div class="output text_latex math notranslate nohighlight">
 \[Projection onto the $x_2$ axis\]</div>
-<img alt="_images/L10MatrixInverse_93_1.png" src="_images/L10MatrixInverse_93_1.png" />
+<img alt="_images/L10MatrixInverse_94_1.png" src="_images/L10MatrixInverse_94_1.png" />
 </div>
 </div>
 <p>Here <span class="math notranslate nohighlight">\(A = \left[\begin{array}{rr}0&amp;0\\0&amp;1\end{array}\right].\)</span></p>
@@ -865,7 +888,7 @@ B =
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L10MatrixInverse_97_0.png" src="_images/L10MatrixInverse_97_0.png" />
+<img alt="_images/L10MatrixInverse_98_0.png" src="_images/L10MatrixInverse_98_0.png" />
 </div>
 </div>
 <p>In this figure, we are looking at how the red points <span class="math notranslate nohighlight">\((x_1, x_2)\)</span> are mapped to the green points under the transformation</p>
@@ -882,8 +905,11 @@ B =
 <li><p>The invertibility of the transformation?</p></li>
 </ul>
 </div>
+<div class="section" id="font-color-blue-further-reading-font">
+<h2><font color = "blue"> Further Reading </font><a class="headerlink" href="#font-color-blue-further-reading-font" title="Permalink to this headline">¶</a></h2>
+<p>This material is not required, but may interest you.</p>
 <div class="section" id="ill-conditioned-matrices">
-<h2>Ill-Conditioned Matrices<a class="headerlink" href="#ill-conditioned-matrices" title="Permalink to this headline">¶</a></h2>
+<h3>Ill-Conditioned Matrices<a class="headerlink" href="#ill-conditioned-matrices" title="Permalink to this headline">¶</a></h3>
 <p>The notion of a matrix inverse has some complications when used in practice.</p>
 <p>As we’ve noted, numerical computations are not always exact.</p>
 <p>In particular, we often find that <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">-</span> <span class="pre">b(a/b)</span></code> does not evaluate to exactly zero on a computer.</p>
@@ -908,8 +934,9 @@ B =
 <p>We know that if <span class="math notranslate nohighlight">\(A\)</span> is a singular matrix, then <span class="math notranslate nohighlight">\(A{\bf x}={\bf b}\)</span> does not have a unique solution.</p>
 <p>If on the other hand <span class="math notranslate nohighlight">\(A\)</span> is not singular, but is ill-conditioned, then solving <span class="math notranslate nohighlight">\(A{\bf x}={\bf b}\)</span> can be very inaccurate.</p>
 <p>A small change in <span class="math notranslate nohighlight">\({\bf b}\)</span> (such as might be introduced by limited precision in your computer) will result in a huge change to the solution, <span class="math notranslate nohighlight">\({\bf x}\)</span>.</p>
-<div class="section" id="demonstration">
-<h3>Demonstration<a class="headerlink" href="#demonstration" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="demonstration-of-ill-conditioning">
+<h3>Demonstration of Ill-Conditioning<a class="headerlink" href="#demonstration-of-ill-conditioning" title="Permalink to this headline">¶</a></h3>
 <p>Here is a demonstration of why this is a problem.</p>
 <p>Here is a matrix that is singular:</p>
 <div class="math notranslate nohighlight">
