@@ -53,7 +53,7 @@ Each mode provides a
 often students are better at some modes than others.   For example, here
 are three views of matrix-vector multiplication:
 
-![](images/L0-overview-diagram.pdf)
+![](images/L0-overview-diagram.jpg)
 
 Jupyter notebooks (including the use of [RISE](https://rise.readthedocs.io/en/stable/) for presentation, python
 for computation, and
