@@ -610,7 +610,7 @@ You see their shape everywhere</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/d9/_sfhw3kd21dgyrgz6tbt45z80000gn/T/ipykernel_23993/3438155168.py:1: RuntimeWarning: invalid value encountered in sqrt
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/d9/_sfhw3kd21dgyrgz6tbt45z80000gn/T/ipykernel_25247/3438155168.py:1: RuntimeWarning: invalid value encountered in sqrt
   np.sqrt(-1)
 </pre></div>
 </div>
@@ -627,7 +627,7 @@ You see their shape everywhere</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/d9/_sfhw3kd21dgyrgz6tbt45z80000gn/T/ipykernel_23993/329155313.py:1: RuntimeWarning: divide by zero encountered in log
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/d9/_sfhw3kd21dgyrgz6tbt45z80000gn/T/ipykernel_25247/329155313.py:1: RuntimeWarning: divide by zero encountered in log
   var = np.log(0)
 </pre></div>
 </div>
@@ -649,6 +649,14 @@ You see their shape everywhere</p>
 </div>
 </div>
 <p>As far as we are concerned, there is no difference between positive and negative zero.   You can ignore the minus sign in front of a negative zero.  (If you are curious why there is a negative zero, see the online notes.)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The reason for having a negative and positive zero is the following.</p>
+<p>Remember that, due to the limitations of floating point representation, we can only store the <strong>nearest representable</strong> number to the one we’d like to store.</p>
+<p>So, let’s say we try to store a number <span class="math notranslate nohighlight">\(x\)</span> that is very close to zero. To be specific, let <span class="math notranslate nohighlight">\(|x| &lt; 2.2 \times 10^{-308}\)</span>.  Then the closest floating point representation is zero, so that is what is stored.   This is known as “underflow”.</p>
+<p>But … the number <span class="math notranslate nohighlight">\(x\)</span> that we were <em>trying</em> to store could have been positive or negative.   So the standard defines a positive and negative zero. The sign of zero tells us when underflow occurred, “which direction” the underflow came from.</p>
+<p>This can be useful in some numerical algorithms.</p>
+</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
