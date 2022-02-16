@@ -42,8 +42,6 @@
     <script src="_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -661,7 +659,10 @@ A{\bf b_3} = \left[\begin{array}{rr}2&amp;3\\1&amp;-5\end{array}\right]\left[\be
 <p><span class="math notranslate nohighlight">\((AB)_{ij} = \sum_k A_{ik}B_{kj}.\)</span></p>
 <p><strong>Example.</strong> Start with the same matrices as the last example, <span class="math notranslate nohighlight">\(A = \left[\begin{array}{rr}2&amp;3\\1&amp;-5\end{array}\right]\)</span> and <span class="math notranslate nohighlight">\(B = \left[\begin{array}{rrr}4&amp;3&amp;6\\1&amp;-2&amp;3\end{array}\right].\)</span>  Compute the entry in row 1 and column 3 of <span class="math notranslate nohighlight">\(C\)</span>.</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}AB = \left[\begin{array}{rr}\fbox{2} &amp; \fbox{3}\\1&amp;-5\end{array}\right]\left[\begin{array}{rrr}4&amp;3&amp;\fbox{6}\\1&amp;-2&amp;\fbox{3}\end{array}\right] = \left[\begin{array}{rrc}*&amp;*&amp;2(6)+3(3)\\*&amp;*&amp;*\end{array}\right] = \left[\begin{array}{rrr}*&amp;*&amp;21\\*&amp;*&amp;*\end{array}\right].\end{split}\]</div>
+\[\begin{split}AB = \left[\begin{array}{rr}\fbox{2} &amp; \fbox{3}\\1&amp;-5\end{array}\right]
+\left[\begin{array}{rrr}4&amp;3&amp;\fbox{6}\\1&amp;-2&amp;\fbox{3}\end{array}\right] = 
+\left[\begin{array}{rrc}*&amp;*&amp;2(6)+3(3)\\ *&amp;*&amp;*\end{array}\right] = 
+\left[\begin{array}{rrr}*&amp;*&amp;21\\ *&amp;*&amp;*\end{array}\right].\end{split}\]</div>
 <p>This agrees with the result of the last example, and we could reproduce the whole solution by repeating this for each element of the result matrix.</p>
 <div class="toggle docutils container">
 <p>Question Time! Q9.1</p>
