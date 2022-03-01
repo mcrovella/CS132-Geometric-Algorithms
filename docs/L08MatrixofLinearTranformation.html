@@ -22,8 +22,8 @@
       
 
     
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -33,19 +33,19 @@
     
   <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
+    <script>
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
@@ -440,7 +440,7 @@
 </div>
 </div>
 </div>
-<div class="section" id="the-matrix-of-a-linear-transformation">
+<div class="tex2jax_ignore mathjax_ignore section" id="the-matrix-of-a-linear-transformation">
 <h1>The Matrix of a Linear Transformation<a class="headerlink" href="#the-matrix-of-a-linear-transformation" title="Permalink to this headline">¶</a></h1>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -470,7 +470,8 @@
 <p>No.</p>
 <p>In other words, the reverse statement is also true:</p>
 <p><strong>every linear transformation from vectors to vectors is a matrix multiplication.</strong></p>
-<p>We’ll now prove this fact.   We’ll do it <strong>constructively</strong>, meaning we’ll actually show how to find the matrix corresponding to any given linear transformation <span class="math notranslate nohighlight">\(T\)</span>.</p>
+<p>We’ll now prove this fact.</p>
+<p>We’ll do it <strong>constructively</strong>, meaning we’ll actually show how to find the matrix corresponding to any given linear transformation <span class="math notranslate nohighlight">\(T\)</span>.</p>
 <p><strong>Theorem.</strong>  Let <span class="math notranslate nohighlight">\(T: \mathbb{R}^n \rightarrow \mathbb{R}^m\)</span> be a linear transformation.   Then there is (always) a unique matrix <span class="math notranslate nohighlight">\(A\)</span> such that:</p>
 <div class="math notranslate nohighlight">
 \[ T({\bf x}) = A{\bf x} \;\;\; \mbox{for all}\; {\bf x} \in \mathbb{R}^n.\]</div>
@@ -1246,7 +1247,7 @@ into a matrix.</p>
 <p>So we conclude that when we use a linear transformation</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} A = \begin{bmatrix} a &amp; b \\ c &amp; d \end{bmatrix} \end{split}\]</div>
-<p>the area of a unit square (or any shape) is scaled by a factor of <span class="math notranslate nohighlight">\(ad - bc\)</span>.</p>
+<p>the <strong>area of a unit square</strong> (or any shape) <strong>is scaled by a factor of <span class="math notranslate nohighlight">\(ad - bc\)</span>.</strong></p>
 <p>This quantity is a fundamental property of the matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>So, we give it a name: it is the <strong>determinant</strong> of <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>We denote it as</p>
@@ -1367,7 +1368,7 @@ into a matrix.</p>
 </div>
 <p><strong>Definition.</strong>  A mapping <span class="math notranslate nohighlight">\(T: \mathbb{R}^n \rightarrow \mathbb{R}^m\)</span> is said to be <strong>one-to-one</strong> if each <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span> is the image of <em>at most one</em> <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
 <p>If <span class="math notranslate nohighlight">\(T\)</span> is one-to-one, then for each <span class="math notranslate nohighlight">\(\mathbf{b},\)</span> the equation <span class="math notranslate nohighlight">\(T(\mathbf{x}) = \mathbf{b}\)</span> has either a unique solution, or none at all.</p>
-<p>This is asking an <strong>existence</strong> question about a solution of the equation <span class="math notranslate nohighlight">\(T(\mathbf{x}) = \mathbf{b}\)</span> for all <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.</p>
+<p>This is asking a <strong>uniqueness</strong> question about a solution of the equation <span class="math notranslate nohighlight">\(T(\mathbf{x}) = \mathbf{b}\)</span> for all <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit: Lay, 4th edition</span>

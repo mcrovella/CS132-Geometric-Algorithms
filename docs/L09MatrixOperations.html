@@ -22,8 +22,8 @@
       
 
     
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -33,19 +33,19 @@
     
   <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script >
+    <script>
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
@@ -506,7 +506,7 @@
 </div>
 </div>
 </div>
-<div class="section" id="matrix-algebra">
+<div class="tex2jax_ignore mathjax_ignore section" id="matrix-algebra">
 <h1>Matrix Algebra<a class="headerlink" href="#matrix-algebra" title="Permalink to this headline">¶</a></h1>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -659,7 +659,10 @@ A{\bf b_3} = \left[\begin{array}{rr}2&amp;3\\1&amp;-5\end{array}\right]\left[\be
 <p><span class="math notranslate nohighlight">\((AB)_{ij} = \sum_k A_{ik}B_{kj}.\)</span></p>
 <p><strong>Example.</strong> Start with the same matrices as the last example, <span class="math notranslate nohighlight">\(A = \left[\begin{array}{rr}2&amp;3\\1&amp;-5\end{array}\right]\)</span> and <span class="math notranslate nohighlight">\(B = \left[\begin{array}{rrr}4&amp;3&amp;6\\1&amp;-2&amp;3\end{array}\right].\)</span>  Compute the entry in row 1 and column 3 of <span class="math notranslate nohighlight">\(C\)</span>.</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}AB = \left[\begin{array}{rr}\fbox{2} &amp; \fbox{3}\\1&amp;-5\end{array}\right]\left[\begin{array}{rrr}4&amp;3&amp;\fbox{6}\\1&amp;-2&amp;\fbox{3}\end{array}\right] = \left[\begin{array}{rrc}*&amp;*&amp;2(6)+3(3)\\*&amp;*&amp;*\end{array}\right] = \left[\begin{array}{rrr}*&amp;*&amp;21\\*&amp;*&amp;*\end{array}\right].\end{split}\]</div>
+\[\begin{split}AB = \left[\begin{array}{rr}\fbox{2} &amp; \fbox{3}\\1&amp;-5\end{array}\right]
+\left[\begin{array}{rrr}4&amp;3&amp;\fbox{6}\\1&amp;-2&amp;\fbox{3}\end{array}\right] = 
+\left[\begin{array}{rrc}*&amp;*&amp;2(6)+3(3)\\ *&amp;*&amp;*\end{array}\right] = 
+\left[\begin{array}{rrr}*&amp;*&amp;21\\ *&amp;*&amp;*\end{array}\right].\end{split}\]</div>
 <p>This agrees with the result of the last example, and we could reproduce the whole solution by repeating this for each element of the result matrix.</p>
 <div class="toggle docutils container">
 <p>Question Time! Q9.1</p>
