@@ -587,7 +587,8 @@ You see their shape everywhere</p>
 <div class="math notranslate nohighlight">
 \[f = \underbrace{1.010...01}_{53~bits}\times 2^n\]</div>
 <p>Then <span class="math notranslate nohighlight">\(|\epsilon|\)</span> must be smaller than</p>
-<p>$<span class="math notranslate nohighlight">\(|\epsilon| &lt; \underbrace{0.000...01}_{53~bits}\times 2^n\)</span>$.</p>
+<div class="math notranslate nohighlight">
+\[|\epsilon| &lt; \underbrace{0.000...01}_{53~bits}\times 2^n.\]</div>
 <p>So as a <em>relative error</em>,</p>
 <div class="math notranslate nohighlight">
 \[ \mbox{relative error} = \frac{|\epsilon|}{f} &lt; \frac{{0.000...01}\times 2^n}{\underbrace{1.000...00}_{53~bits}\times 2^n} = 2^{-52} \approx 10^{-16}\]</div>
@@ -971,7 +972,7 @@ r3 is 0.1001
 </div>
 </div>
 <p>We know the relative error in the inputs is on the order of <span class="math notranslate nohighlight">\(10^{-16}\)</span>, but the relative error of the output is on the order of <span class="math notranslate nohighlight">\(10^{-9}\)</span> – i.e., a million times larger.</p>
-<p>A good summary that covers additional issues is at <a class="reference external" href="https://docs.python.org/2/tutorial/floatingpoint.html">https://docs.python.org/2/tutorial/floatingpoint.html</a>.</p>
+<p>A good summary that covers additional issues is at <a class="reference external" href="https://docs.python.org/3/tutorial/floatingpoint.html">https://docs.python.org/3/tutorial/floatingpoint.html</a>.</p>
 </div>
 </div>
 </div>

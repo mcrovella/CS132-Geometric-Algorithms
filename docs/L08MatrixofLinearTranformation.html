@@ -470,7 +470,8 @@
 <p>No.</p>
 <p>In other words, the reverse statement is also true:</p>
 <p><strong>every linear transformation from vectors to vectors is a matrix multiplication.</strong></p>
-<p>We’ll now prove this fact.   We’ll do it <strong>constructively</strong>, meaning we’ll actually show how to find the matrix corresponding to any given linear transformation <span class="math notranslate nohighlight">\(T\)</span>.</p>
+<p>We’ll now prove this fact.</p>
+<p>We’ll do it <strong>constructively</strong>, meaning we’ll actually show how to find the matrix corresponding to any given linear transformation <span class="math notranslate nohighlight">\(T\)</span>.</p>
 <p><strong>Theorem.</strong>  Let <span class="math notranslate nohighlight">\(T: \mathbb{R}^n \rightarrow \mathbb{R}^m\)</span> be a linear transformation.   Then there is (always) a unique matrix <span class="math notranslate nohighlight">\(A\)</span> such that:</p>
 <div class="math notranslate nohighlight">
 \[ T({\bf x}) = A{\bf x} \;\;\; \mbox{for all}\; {\bf x} \in \mathbb{R}^n.\]</div>
@@ -683,7 +684,7 @@ into a matrix.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
-<span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+<span class="n">angle</span> <span class="o">=</span> <span class="mi">240</span>
 <span class="n">theta</span> <span class="o">=</span> <span class="p">(</span><span class="n">angle</span><span class="o">/</span><span class="mi">180</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
 <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
     <span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)],</span>
@@ -1246,7 +1247,7 @@ into a matrix.</p>
 <p>So we conclude that when we use a linear transformation</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} A = \begin{bmatrix} a &amp; b \\ c &amp; d \end{bmatrix} \end{split}\]</div>
-<p>the area of a unit square (or any shape) is scaled by a factor of <span class="math notranslate nohighlight">\(ad - bc\)</span>.</p>
+<p>the <strong>area of a unit square</strong> (or any shape) <strong>is scaled by a factor of <span class="math notranslate nohighlight">\(ad - bc\)</span>.</strong></p>
 <p>This quantity is a fundamental property of the matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>So, we give it a name: it is the <strong>determinant</strong> of <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>We denote it as</p>
@@ -1367,7 +1368,7 @@ into a matrix.</p>
 </div>
 <p><strong>Definition.</strong>  A mapping <span class="math notranslate nohighlight">\(T: \mathbb{R}^n \rightarrow \mathbb{R}^m\)</span> is said to be <strong>one-to-one</strong> if each <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span> is the image of <em>at most one</em> <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
 <p>If <span class="math notranslate nohighlight">\(T\)</span> is one-to-one, then for each <span class="math notranslate nohighlight">\(\mathbf{b},\)</span> the equation <span class="math notranslate nohighlight">\(T(\mathbf{x}) = \mathbf{b}\)</span> has either a unique solution, or none at all.</p>
-<p>This is asking an <strong>existence</strong> question about a solution of the equation <span class="math notranslate nohighlight">\(T(\mathbf{x}) = \mathbf{b}\)</span> for all <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.</p>
+<p>This is asking a <strong>uniqueness</strong> question about a solution of the equation <span class="math notranslate nohighlight">\(T(\mathbf{x}) = \mathbf{b}\)</span> for all <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit: Lay, 4th edition</span>
