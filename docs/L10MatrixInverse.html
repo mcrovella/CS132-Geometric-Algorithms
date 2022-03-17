@@ -42,8 +42,6 @@
     <script src="_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -579,6 +577,32 @@
 </ul>
 </li>
 </ol>
+<p><strong>The operation count of Matrix Inversion.</strong></p>
+<p>Thus, when we perform Matrix Inversion on an <span class="math notranslate nohighlight">\(n\times n\)</span> matrix, we are row reducing a <span class="math notranslate nohighlight">\(n\times 2n\)</span> matrix.</p>
+<p>This increased size results in the operation count of matrix inversion being <span class="math notranslate nohighlight">\(\sim 2n^3.\)</span></p>
+<p>(To see a derivation of this, check the lecture notes.)</p>
+<p>This fact will be important!</p>
+<div class="admonition-optional-material admonition">
+<p class="admonition-title">Optional Material</p>
+<p>Here is more detail on the operation count of Matrix Inversion.</p>
+<p>To do Matrix inversion, we perform row reduction on <span class="math notranslate nohighlight">\([A I]\)</span> to obtain <span class="math notranslate nohighlight">\([I A^{-1}]\)</span> as just described.   Since <span class="math notranslate nohighlight">\([A I]\)</span> is <span class="math notranslate nohighlight">\(n\times 2n\)</span>, the forward elimination step is <span class="math notranslate nohighlight">\(\sim\frac{5}{3}n^3\)</span> and the backsubstitution step is <span class="math notranslate nohighlight">\(\sim\frac{1}{3}n^3\)</span>.</p>
+<p>In more detail:</p>
+<p>If you go back to the derivation of the cost of Gaussian Elimination in Lecture 3, you need to extend the diagram.  It is no longer <span class="math notranslate nohighlight">\(n\times(n+1)\)</span> but now is <span class="math notranslate nohighlight">\(n\times 2n\)</span>.  Then for the forward elimination phase of matrix inversion, you get:</p>
+<div class="math notranslate nohighlight">
+\[ 2\sum_{k=1}^n (k-1)(k+n) = 2\sum_{k=1}^n k^2 + (n-1)k - n\]</div>
+<p>flops.</p>
+<p>If you expand this out, and use standard formulas for sums (eg, see <a class="reference external" href="https://brilliant.org/wiki/sum-of-n-n2-or-n3/">https://brilliant.org/wiki/sum-of-n-n2-or-n3/</a>), you will get the high order term of <span class="math notranslate nohighlight">\(\sim\frac{5}{3}n^3.\)</span></p>
+<p>Now, for the back substitution phase, at the start you have a matrix that is <span class="math notranslate nohighlight">\([U L]\)</span> where <span class="math notranslate nohighlight">\(U\)</span> is upper triangular and <span class="math notranslate nohighlight">\(L\)</span> is lower triangular.  To backsubstitute row <span class="math notranslate nohighlight">\(k\)</span> in this matrix, you need</p>
+<div class="math notranslate nohighlight">
+\[2 \sum_{i=1}^{k} i = 2\frac{(k-1)k}{2}\]</div>
+<p>flops.   So the total for back substitution is</p>
+<div class="math notranslate nohighlight">
+\[ \sum_{k=1}^n k^2 - k \]</div>
+<p>whose highest order term is <span class="math notranslate nohighlight">\(\frac{1}{3}n^3\)</span>.</p>
+<p>So the total operation count of Matrix Inversion is</p>
+<div class="math notranslate nohighlight">
+\[\sim \frac{5}{3}n^3 + \frac{1}{3}n^3 =  2n^3\]</div>
+</div>
 </div>
 <div class="section" id="the-computational-view">
 <h3>The Computational View<a class="headerlink" href="#the-computational-view" title="Permalink to this headline">¶</a></h3>
@@ -804,7 +828,7 @@ B =
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L10MatrixInverse_87_0.png" src="_images/L10MatrixInverse_87_0.png" />
+<img alt="_images/L10MatrixInverse_89_0.png" src="_images/L10MatrixInverse_89_0.png" />
 </div>
 </div>
 <p>A linear transformation <span class="math notranslate nohighlight">\(T: \mathbb{R}^n \rightarrow \mathbb{R}^n\)</span> is <strong>invertible</strong> if there exists a function <span class="math notranslate nohighlight">\(S: \mathbb{R}^n \rightarrow \mathbb{R}^n\)</span> such that</p>
@@ -839,7 +863,7 @@ B =
 </div>
 <div class="output text_latex math notranslate nohighlight">
 \[Horizontal Contraction\]</div>
-<img alt="_images/L10MatrixInverse_91_2.png" src="_images/L10MatrixInverse_91_2.png" />
+<img alt="_images/L10MatrixInverse_93_2.png" src="_images/L10MatrixInverse_93_2.png" />
 </div>
 </div>
 <p>Here <span class="math notranslate nohighlight">\(A = \left[\begin{array}{rr}0.5&amp;0\\0&amp;1\end{array}\right].\)</span>  Its determinant is <span class="math notranslate nohighlight">\(1(0.5)-0(0) = 0.5,\)</span> so this linear transformation is invertible.</p>
@@ -861,7 +885,7 @@ B =
 <div class="cell_output docutils container">
 <div class="output text_latex math notranslate nohighlight">
 \[Projection onto the $x_2$ axis\]</div>
-<img alt="_images/L10MatrixInverse_94_1.png" src="_images/L10MatrixInverse_94_1.png" />
+<img alt="_images/L10MatrixInverse_96_1.png" src="_images/L10MatrixInverse_96_1.png" />
 </div>
 </div>
 <p>Here <span class="math notranslate nohighlight">\(A = \left[\begin{array}{rr}0&amp;0\\0&amp;1\end{array}\right].\)</span></p>
@@ -891,7 +915,7 @@ B =
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L10MatrixInverse_98_0.png" src="_images/L10MatrixInverse_98_0.png" />
+<img alt="_images/L10MatrixInverse_100_0.png" src="_images/L10MatrixInverse_100_0.png" />
 </div>
 </div>
 <p>In this figure, we are looking at how the red points <span class="math notranslate nohighlight">\((x_1, x_2)\)</span> are mapped to the green points under the transformation</p>
