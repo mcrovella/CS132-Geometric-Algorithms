@@ -338,6 +338,18 @@
     \(\lambda\)
    </span>
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#determinants-of-larger-matrices">
+     Determinants of Larger Matrices
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#invertibility">
+     Invertibility
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id1">
@@ -353,6 +365,13 @@
   <a class="reference internal nav-link" href="#markov-chains">
    Markov Chains
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-complete-solution-for-a-markov-chain">
+     The Complete Solution for a Markov Chain
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -381,6 +400,18 @@
     \(\lambda\)
    </span>
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#determinants-of-larger-matrices">
+     Determinants of Larger Matrices
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#invertibility">
+     Invertibility
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#id1">
@@ -396,6 +427,13 @@
   <a class="reference internal nav-link" href="#markov-chains">
    Markov Chains
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-complete-solution-for-a-markov-chain">
+     The Complete Solution for a Markov Chain
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -36109,7 +36147,8 @@ EWAAgCgRYACAKBFgAIAo/T8qQjql+i2TJQAAAABJRU5ErkJggg==\
 <p>Question Time! Q17.1</p>
 </div>
 <p>The same idea works for <span class="math notranslate nohighlight">\(n\times n\)</span> matrices – but, for that, we need to define a <em>determinant</em> for larger matrices.</p>
-<p><strong>Determinants.</strong></p>
+<div class="section" id="determinants-of-larger-matrices">
+<h3>Determinants of Larger Matrices<a class="headerlink" href="#determinants-of-larger-matrices" title="Permalink to this headline">¶</a></h3>
 <p>Previously, we’ve defined a determinant for a <span class="math notranslate nohighlight">\(2\times 2\)</span> matrix.</p>
 <p>To find eigenvalues for larger matrices, we need to define the determinant for any sized (ie, <span class="math notranslate nohighlight">\(n\times n\)</span>) matrix.</p>
 <p><strong>Definition.</strong>   Let <span class="math notranslate nohighlight">\(A\)</span> be an <span class="math notranslate nohighlight">\(n\times n\)</span> matrix, and let <span class="math notranslate nohighlight">\(U\)</span> be any echelon form obtained from <span class="math notranslate nohighlight">\(A\)</span> by row replacements and row interchanges (no row scalings), and let <span class="math notranslate nohighlight">\(r\)</span> be the number of such row interchanges.</p>
@@ -36132,7 +36171,9 @@ EWAAgCgRYACAKBFgAIAo/T8qQjql+i2TJQAAAABJRU5ErkJggg==\
 <div class="toggle docutils container">
 <p>Question Time! Q17.2</p>
 </div>
-<p><strong>Invertibility.</strong></p>
+</div>
+<div class="section" id="invertibility">
+<h3>Invertibility<a class="headerlink" href="#invertibility" title="Permalink to this headline">¶</a></h3>
 <p>The formula for the determinant shows that <span class="math notranslate nohighlight">\(A\)</span> is invertible if and only if <span class="math notranslate nohighlight">\(\det A\)</span> is nonzero.</p>
 <p>We have <strong>yet another</strong> part to add to the Invertible Matrix Theorem:</p>
 <p>Let <span class="math notranslate nohighlight">\(A\)</span> be an <span class="math notranslate nohighlight">\(n\times n\)</span> matrix.   Then <span class="math notranslate nohighlight">\(A\)</span> is invertible if and only if:</p>
@@ -36146,6 +36187,7 @@ EWAAgCgRYACAKBFgAIAo/T8qQjql+i2TJQAAAABJRU5ErkJggg==\
 <li><p><span class="math notranslate nohighlight">\(\det A^T = \det A.\)</span></p></li>
 <li><p>If <span class="math notranslate nohighlight">\(A\)</span> is triangular, then <span class="math notranslate nohighlight">\(\det A\)</span> is the product of the entries on the main diagonal of <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
 </ol>
+</div>
 </div>
 <div class="section" id="id1">
 <h2>The Characteristic Equation<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
@@ -36222,7 +36264,8 @@ EWAAgCgRYACAKBFgAIAo/T8qQjql+i2TJQAAAABJRU5ErkJggg==\
 \[ a_{11}x_1 + a_{21}x_1 + \dots + a_{n1}x_1 = x_1 \sum_i a_{i1} = x_1. \]</div>
 <p>So we can see that the sum of all terms in <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> is equal to <span class="math notranslate nohighlight">\(x_1 + x_2 + \dots + x_n\)</span> – i.e., the sum of all terms in <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>.</p>
 <p>So there can be no <span class="math notranslate nohighlight">\(\lambda &gt; 1\)</span> such that <span class="math notranslate nohighlight">\(A\mathbf{x} = \lambda \mathbf{x}.\)</span></p>
-<p><strong>A complete solution for the evolution of a Markov Chain.</strong></p>
+<div class="section" id="the-complete-solution-for-a-markov-chain">
+<h3>The Complete Solution for a Markov Chain<a class="headerlink" href="#the-complete-solution-for-a-markov-chain" title="Permalink to this headline">¶</a></h3>
 <p>Previously, we were only able to ask about the “eventual” steady state of a Markov Chain.</p>
 <p>But another crucial question is: <strong>how quickly</strong> does a particular Markov Chain reach steady state from some initial starting condition?</p>
 <p>By completely solving a Markov Chain, we will determine both its <strong>steady state</strong> <em>and</em> its <strong>rate of convergence</strong>.</p>
@@ -36263,7 +36306,8 @@ EWAAgCgRYACAKBFgAIAo/T8qQjql+i2TJQAAAABJRU5ErkJggg==\
 <p>Using the methods we studied today, we can find the characteristic equation:</p>
 <div class="math notranslate nohighlight">
 \[\lambda^2 -1.92\lambda +0.92 \]</div>
-<p>Using the quadratic formula, we find the roots of this equation to be 1 and 0.92.  (Note that, as expected, 1 is the largest eigenvalue.)</p>
+<p>Using the quadratic formula, we find the roots of this equation to be 1 and 0.92.</p>
+<p>(Note that, as expected, the largest eigenvalue of the chain is 1.)</p>
 <p>Next, using the methods in the previous lecture, we find a basis for each eigenspace of <span class="math notranslate nohighlight">\(A\)</span> (each nullspace of <span class="math notranslate nohighlight">\(A-\lambda I\)</span>).</p>
 <p>For <span class="math notranslate nohighlight">\(\lambda = 1\)</span>, a corresponding eigenvector is <span class="math notranslate nohighlight">\(\mathbf{v}_1 = \begin{bmatrix}3\\5\end{bmatrix}.\)</span></p>
 <p>For <span class="math notranslate nohighlight">\(\lambda = 0.92\)</span>, a corresponding eigenvector is <span class="math notranslate nohighlight">\(\mathbf{v}_2 = \begin{bmatrix}1\\-1\end{bmatrix}.\)</span></p>
@@ -36300,7 +36344,7 @@ EWAAgCgRYACAKBFgAIAo/T8qQjql+i2TJQAAAABJRU5ErkJggg==\
 <p>And using the <span class="math notranslate nohighlight">\(c_1\)</span> and <span class="math notranslate nohighlight">\(c_2\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}_1,\)</span> <span class="math notranslate nohighlight">\(\mathbf{v}_2\)</span> we computed above:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\mathbf{x}_k = 0.125\begin{bmatrix}3\\5\end{bmatrix} + 0.225(0.92)^k\begin{bmatrix}1\\-1\end{bmatrix}\;\;\;(k = 0, 1, 2, \dots)\end{split}\]</div>
-<p>This explicit formula for <span class="math notranslate nohighlight">\(\mathbf{x}_k\)</span> gives the solution of the Markov Chain <span class="math notranslate nohighlight">\(\mathbf{x}_{k+1} = A\mathbf{x}_k\)</span> starting from the initial state <span class="math notranslate nohighlight">\(\mathbf{x}_0.\)</span></p>
+<p>This explicit formula for <span class="math notranslate nohighlight">\(\mathbf{x}_k\)</span> gives the <strong>solution</strong> of the Markov Chain <span class="math notranslate nohighlight">\(\mathbf{x}_{k+1} = A\mathbf{x}_k\)</span> starting from the initial state <span class="math notranslate nohighlight">\(\mathbf{x}_0.\)</span></p>
 <p>In other words:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\mathbf{x}_0 = 0.125\begin{bmatrix}3\\5\end{bmatrix} + 0.225\begin{bmatrix}1\\-1\end{bmatrix}\end{split}\]</div>
@@ -36314,7 +36358,7 @@ EWAAgCgRYACAKBFgAIAo/T8qQjql+i2TJQAAAABJRU5ErkJggg==\
 \[ ... \]</div>
 <div class="math notranslate nohighlight">
 \[\begin{split}\mathbf{x}_\infty = 0.125\begin{bmatrix}3\\5\end{bmatrix}\end{split}\]</div>
-<p>As <span class="math notranslate nohighlight">\(k\rightarrow\infty\)</span>, <span class="math notranslate nohighlight">\((0.92)^k\rightarrow0\)</span>.</p>
+<p>The equation tells us how quickly the chain converges, because as <span class="math notranslate nohighlight">\(k\rightarrow\infty\)</span>, <span class="math notranslate nohighlight">\((0.92)^k\rightarrow0\)</span>.</p>
 <p>Thus <span class="math notranslate nohighlight">\(\mathbf{x}_k \rightarrow 0.125\mathbf{v}_1 = \begin{bmatrix}0.375\\0.625\end{bmatrix}.\)</span></p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -36366,6 +36410,7 @@ EWAAgCgRYACAKBFgAIAo/T8qQjql+i2TJQAAAABJRU5ErkJggg==\
 </pre></div>
 </div>
 <img alt="_images/L17CharacteristicEqn_114_1.png" src="_images/L17CharacteristicEqn_114_1.png" />
+</div>
 </div>
 </div>
 </div>
