@@ -42,8 +42,6 @@
     <script src="_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -56,6 +54,7 @@
     <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Applications of the SVD" href="L26ApplicationsOfSVD.html" />
     <link rel="prev" title="Symmetric Matrices" href="L24SymmetricMatrices.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -231,6 +230,11 @@
    The Singular Value Decomposition
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L26ApplicationsOfSVD.html">
+   Applications of the SVD
+  </a>
+ </li>
 </ul>
 
     </div>
@@ -375,13 +379,13 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-swiss-army-knife">
-   The Swiss Army Knife
+  <a class="reference internal nav-link" href="#the-reduced-svd-and-the-pseudoinverse">
+   The Reduced SVD and the Pseudoinverse
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#wrapup">
-     Wrapup
+    <a class="reference internal nav-link" href="#the-pseudoinverse">
+     The Pseudoinverse
     </a>
    </li>
   </ul>
@@ -449,13 +453,13 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-swiss-army-knife">
-   The Swiss Army Knife
+  <a class="reference internal nav-link" href="#the-reduced-svd-and-the-pseudoinverse">
+   The Reduced SVD and the Pseudoinverse
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#wrapup">
-     Wrapup
+    <a class="reference internal nav-link" href="#the-pseudoinverse">
+     The Pseudoinverse
     </a>
    </li>
   </ul>
@@ -469,16 +473,27 @@
             
               <div>
                 
-  <div class="cell tag_hide-input docutils container">
+  <div class="tex2jax_ignore mathjax_ignore section" id="the-singular-value-decomposition">
+<h1>The Singular Value Decomposition<a class="headerlink" href="#the-singular-value-decomposition" title="Permalink to this headline">¶</a></h1>
+<br>
+<br>
+<center>
+<img src="images/rolls-royce.jpg" width="650">
+<br>
+<div style="visibility: hidden"> 
+Source:
+https://bringatrailer.com/listing/1964-rolls-royce-james-young-phanton-v-limosine/
+</div><div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for QR codes use inline</span>
-<span class="c1"># %matplotlib inline</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for conversion to PDF use these settings</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
 <span class="c1"># qr_setting = &#39;url&#39;</span>
 <span class="c1"># qrviz_setting = &#39;show&#39;</span>
 <span class="c1">#</span>
 <span class="c1"># for lecture use notebook</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="c1">#%matplotlib notebook</span>
 <span class="n">qr_setting</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">qrviz_setting</span> <span class="o">=</span> <span class="s1">&#39;save&#39;</span>
 <span class="c1">#</span>
 <span class="o">%</span><span class="k">config</span> InlineBackend.figure_format=&#39;retina&#39;
 <span class="c1"># import libraries</span>
@@ -497,35 +512,14 @@
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Math</span>
 <span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Latex</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">;</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+<span class="n">reload</span><span class="p">(</span><span class="n">sl</span><span class="p">)</span>
+<span class="n">reload</span><span class="p">(</span><span class="n">ut</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="the-singular-value-decomposition">
-<h1>The Singular Value Decomposition<a class="headerlink" href="#the-singular-value-decomposition" title="Permalink to this headline">¶</a></h1>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/440px-Wenger_EvoGrip_S17.JPG&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">350</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/L25SVD_2_0.jpg" src="_images/L25SVD_2_0.jpg" />
-</div>
-</div>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image source https://bringatrailer.com/listing/1964-rolls-royce-james-young-phanton-v-limosine/</span>
-<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/rolls-royce.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">350</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/L25SVD_3_0.jpg" src="_images/L25SVD_3_0.jpg" />
-</div>
-</div>
-<p>Today we will study the most useful decomposition in applied Linear Algebra.</p>
+<p>Today we’ll begin our study of the most useful decomposition in applied Linear Algebra.</p>
 <p>Pretty exciting, eh?</p>
 <blockquote>
 <div><p>The Singular Value Decomposition is the <strong>“Swiss Army Knife”</strong> and the <strong>“Rolls Royce”</strong> of matrix decompositions.</p>
@@ -545,7 +539,7 @@
 <p>For example, for a square <span class="math notranslate nohighlight">\(A\)</span>, if <span class="math notranslate nohighlight">\(A\mathbf{x} = \lambda\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\Vert \mathbf{x}\Vert = 1,\)</span> then</p>
 <div class="math notranslate nohighlight">
 \[\Vert A\mathbf{x}\Vert = \Vert\lambda\mathbf{x}\Vert = |\lambda|\,\Vert\mathbf{x}\Vert = |\lambda|.\]</div>
-<div class="cell tag_hide-input docutils container">
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mf">.1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
 <span class="n">L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.2</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
@@ -571,7 +565,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L25SVD_14_0.png" src="_images/L25SVD_14_0.png" />
+<img alt="_images/L25SVD_12_0.png" src="_images/L25SVD_12_0.png" />
 </div>
 </div>
 <p>The <strong>largest</strong> value of <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert\)</span> is the long axis of the ellipse.  Clearly there is some <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> that is mapped to that point by <span class="math notranslate nohighlight">\(A\)</span>.   That <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is what we want to find.</p>
@@ -580,14 +574,14 @@
 <p>For example:</p>
 <p>If <span class="math notranslate nohighlight">\(A = \begin{bmatrix}4&amp;11&amp;14\\8&amp;7&amp;-2\end{bmatrix},\)</span></p>
 <p>then the linear transformation <span class="math notranslate nohighlight">\(\mathbf{x} \mapsto A\mathbf{x}\)</span> maps the unit sphere <span class="math notranslate nohighlight">\(\{\mathbf{x} : \Vert \mathbf{x} \Vert = 1\}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> onto an ellipse in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>, as shown here:</p>
-<div class="cell tag_hide-input docutils container">
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/Lay-fig-7-4-1.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">650</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L25SVD_18_0.jpg" src="_images/L25SVD_18_0.jpg" />
+<img alt="_images/L25SVD_16_0.jpg" src="_images/L25SVD_16_0.jpg" />
 </div>
 </div>
 <div class="section" id="vert-a-mathbf-x-vert-2-is-a-quadratic-form">
@@ -621,7 +615,7 @@
 <p>This example shows that the key to understanding the effect of <span class="math notranslate nohighlight">\(A\)</span> on the unit sphere in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> is to examime the quadratic form <span class="math notranslate nohighlight">\(\mathbf{x}^T(A^TA)\mathbf{x}.\)</span></p>
 <p>We can also go back to our 2 <span class="math notranslate nohighlight">\(\times\)</span> 2 example.</p>
 <p>Let’s plot the eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
-<div class="cell tag_hide-input docutils container">
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 <span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
@@ -644,7 +638,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L25SVD_32_0.png" src="_images/L25SVD_32_0.png" />
+<img alt="_images/L25SVD_30_0.png" src="_images/L25SVD_30_0.png" />
 </div>
 </div>
 <p>We see that the eigenvector corresponding to the largest eigenvalue of <span class="math notranslate nohighlight">\(A^TA\)</span> indeed shows us where <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert\)</span> is maximized – where the ellipse is longest.</p>
@@ -677,16 +671,15 @@
 <p><strong>Definition.</strong> The <strong>singular values</strong> of <span class="math notranslate nohighlight">\(A\)</span> are the square roots of the eigenvalues of <span class="math notranslate nohighlight">\(A^TA\)</span>.  They are denoted by <span class="math notranslate nohighlight">\(\sigma_1,\dots,\sigma_n,\)</span> and they are arranged in decreasing order.</p>
 <p>That is, <span class="math notranslate nohighlight">\(\sigma_i = \sqrt{\lambda_i}\)</span> for <span class="math notranslate nohighlight">\(i = 1,\dots,n.\)</span></p>
 <p>By the above argument, <strong>the singular values of <span class="math notranslate nohighlight">\(A\)</span> are the lengths of the vectors <span class="math notranslate nohighlight">\(A\mathbf{v}_1, \dots, A\mathbf{v}_n.\)</span></strong></p>
-<p>Where <span class="math notranslate nohighlight">\(\mathbf{v}_1, \dots, \mathbf{v}_n.\)</span> are the eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span>, normalized to unit length.</p>
 <div class="section" id="the-eigenvectors-of-a-ta-lead-to-an-orthogonal-basis-for-operatorname-col-a">
 <h3>The Eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span> Lead To an Orthogonal Basis for <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span><a class="headerlink" href="#the-eigenvectors-of-a-ta-lead-to-an-orthogonal-basis-for-operatorname-col-a" title="Permalink to this headline">¶</a></h3>
 <p>Now: we know that vectors <span class="math notranslate nohighlight">\(\mathbf{v}_1, \dots, \mathbf{v}_n\)</span> are an orthogonal set because they are eigenvectors of the symmetric matrix <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
 <p>However, it’s <strong>also</strong> the case that <span class="math notranslate nohighlight">\(A\mathbf{v}_1, \dots, A\mathbf{v}_n\)</span> are an orthogonal set.</p>
-<p>This fact is key to the SVD.</p>
-<p>This fact is not obvious at first!</p>
+<p><font color="blue">This fact is key to the SVD.</font></p>
+<p>It is not obvious at first that <span class="math notranslate nohighlight">\(A\mathbf{v}_1, \dots, A\mathbf{v}_n\)</span> are an orthogonal set!</p>
 <p>But it is true – let’s prove it (and a bit more).</p>
 <p><strong>Theorem.</strong> Suppose <span class="math notranslate nohighlight">\(\{\mathbf{v}_1, \dots, \mathbf{v}_n\}\)</span> is an orthonormal basis of <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> consisting of eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span>, arranged so that the corresponding eigenvalues of <span class="math notranslate nohighlight">\(A^TA\)</span> satisfy <span class="math notranslate nohighlight">\(\lambda_1 \geq \cdots \geq \lambda_n,\)</span> and suppose <span class="math notranslate nohighlight">\(A\)</span> has <span class="math notranslate nohighlight">\(r\)</span> nonzero singular values.</p>
-<p>Then <span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span> is an orthogonal basis for <span class="math notranslate nohighlight">\(\operatorname{Col} A,\)</span> and rank <span class="math notranslate nohighlight">\(A = r\)</span>.</p>
+<p>Then <span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span> is an orthogonal basis for <span class="math notranslate nohighlight">\(\operatorname{Col}\ A,\)</span> and rank <span class="math notranslate nohighlight">\(A = r\)</span>.</p>
 <p>Note how surprising this is: while <span class="math notranslate nohighlight">\(\{\mathbf{v}_1, \dots, \mathbf{v}_n\}\)</span> are a basis for <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span> is a subspace of <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span>.</p>
 <p>Nonetheless,</p>
 <ul class="simple">
@@ -697,10 +690,10 @@
 <p>Because <span class="math notranslate nohighlight">\(\mathbf{v}_i\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}_j\)</span> are orthogonal for <span class="math notranslate nohighlight">\(i\neq j\)</span>,</p>
 <div class="math notranslate nohighlight">
 \[ (A\mathbf{v}_i)^T(A\mathbf{v}_j) = \mathbf{v}_i^TA^TA\mathbf{v}_j = \mathbf{v}_i^T(\lambda_j \mathbf{v}_j) = 0.\]</div>
-<p>So <span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_n\}\)</span> is an <strong>orthogonal</strong> set.</p>
+<p>So <span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_n\}\)</span> is an orthogonal set.</p>
 <p>Furthermore, since the lengths of the vectors <span class="math notranslate nohighlight">\(A\mathbf{v}_1, \dots, A\mathbf{v}_n\)</span> are the singular values of <span class="math notranslate nohighlight">\(A\)</span>, and since there are <span class="math notranslate nohighlight">\(r\)</span> nonzero singular values, <span class="math notranslate nohighlight">\(A\mathbf{v}_i \neq {\mathbf 0}\)</span> if and only if <span class="math notranslate nohighlight">\(1 \leq i \leq r.\)</span></p>
 <p>So <span class="math notranslate nohighlight">\(A\mathbf{v}_1, \dots, A\mathbf{v}_r\)</span> are a <strong>linearly independent</strong> set (because they are orthogonal and all nonzero), and clearly they are each in <span class="math notranslate nohighlight">\(\operatorname{Col}\ A\)</span>.</p>
-<p>Finally, we just need to show that <span class="math notranslate nohighlight">\(\operatorname{Span}\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\} = \operatorname{Col} A\)</span>.</p>
+<p>Finally, we just need to show that <span class="math notranslate nohighlight">\(\operatorname{Span}\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span> = <span class="math notranslate nohighlight">\(\operatorname{Col}\ A\)</span>.</p>
 <p>To do this we’ll show that for any <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> in <span class="math notranslate nohighlight">\(\operatorname{Col}\ A\)</span>, we can write <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> in terms of <span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span>:</p>
 <p>Say <span class="math notranslate nohighlight">\(\mathbf{y} = A\mathbf{x}.\)</span></p>
 <p>Because <span class="math notranslate nohighlight">\(\{\mathbf{v}_1, \dots, \mathbf{v}_n\}\)</span> is a basis for <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, we can write <span class="math notranslate nohighlight">\(\mathbf{x} = c_1\mathbf{v}_1 + \dots + c_n\mathbf{v}_n,\)</span> so</p>
@@ -709,8 +702,8 @@
 <div class="math notranslate nohighlight">
 \[ = c_1A\mathbf{v}_1 + \dots + c_rA\mathbf{v}_r. \]</div>
 <p>(because <span class="math notranslate nohighlight">\(A\mathbf{v}_i = {\mathbf 0}\)</span> for <span class="math notranslate nohighlight">\(i &gt; r\)</span>).</p>
-<p>In summary: <span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_n\}\)</span> is an (orthogonal) linearly independent set whose span is <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span>, so it is an (orthogonal) basis for <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>.</p>
-<p>Notice that we have also proved that rank <span class="math notranslate nohighlight">\(A = \dim\operatorname{Col}A = r.\)</span></p>
+<p>In summary: <span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_n\}\)</span> is an (orthogonal) linearly independent set whose span is <span class="math notranslate nohighlight">\(\operatorname{Col}\ A\)</span>, so it is an (orthogonal) basis for <span class="math notranslate nohighlight">\(\operatorname{Col}\ A\)</span>.</p>
+<p>Notice that we have also proved that rank <span class="math notranslate nohighlight">\(A = \dim\operatorname{Col}\ A = r.\)</span></p>
 <p>In other words, if <span class="math notranslate nohighlight">\(A\)</span> has <span class="math notranslate nohighlight">\(r\)</span> nonzero singular values, <span class="math notranslate nohighlight">\(A\)</span> has rank <span class="math notranslate nohighlight">\(r\)</span>.</p>
 </div>
 </div>
@@ -720,7 +713,7 @@
 <p>Note that, thinking of <span class="math notranslate nohighlight">\(A\)</span> as a linear operator:</p>
 <ul class="simple">
 <li><p>its domain is <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, and</p></li>
-<li><p>its range is <span class="math notranslate nohighlight">\(\operatorname{Col}A.\)</span></p></li>
+<li><p>its range is <span class="math notranslate nohighlight">\(\operatorname{Col}\ A.\)</span></p></li>
 </ul>
 <p>So we have just proved that</p>
 <ul class="simple">
@@ -746,19 +739,11 @@
 </ul>
 </li>
 </ul>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image source https://bringatrailer.com/listing/1964-rolls-royce-james-young-phanton-v-limosine/</span>
-<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/rolls-royce.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">350</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/L25SVD_64_0.jpg" src="_images/L25SVD_64_0.jpg" />
-</div>
-</div>
-<p>We have built up enough tools now that the proof is quite straightforward.</p>
-<p><strong>Proof.</strong>  Let <span class="math notranslate nohighlight">\(\{\lambda_i\}\)</span> and <span class="math notranslate nohighlight">\(\{\mathbf{v}_i\}\)</span> be the eigenvalues and eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span>, and <span class="math notranslate nohighlight">\(\sigma_i = \sqrt{\lambda_i}\)</span>.</p>
+<!-- image credit: https://bringatrailer.com/listing/1964-rolls-royce-james-young-phanton-v-limosine/ -->
+<center>
+<a class="reference internal image-reference" href="_images/rolls-royce.jpg"><img alt="Figure" src="_images/rolls-royce.jpg" style="width: 350px;" /></a>
+</center><p>We have built up enough tools now that the proof is quite straightforward.</p>
+<p><strong>Proof.</strong>  Let <span class="math notranslate nohighlight">\(\lambda_i\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}_i\)</span> be the eigenvalues and eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span>, and <span class="math notranslate nohighlight">\(\sigma_i = \sqrt{\lambda_i}\)</span>.</p>
 <p>The starting point is to use the fact that we just proved:</p>
 <p><span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span> is an orthogonal basis for <span class="math notranslate nohighlight">\(\operatorname{Col}\ A.\)</span></p>
 <p>Next, let us normalize each <span class="math notranslate nohighlight">\(A\mathbf{v}_i\)</span> to obtain an orthonormal basis <span class="math notranslate nohighlight">\(\{\mathbf{u}_1,\dots,\mathbf{u}_r\}\)</span>, where</p>
@@ -775,26 +760,36 @@
 <p>and</p>
 <div class="math notranslate nohighlight">
 \[ V = \begin{bmatrix}\mathbf{v}_1&amp;\cdots&amp;\mathbf{v}_n\end{bmatrix}\]</div>
-<p>Recall that these matrices are orthogonal because the <span class="math notranslate nohighlight">\(\{\mathbf{v_i}\}\)</span> are orthonormal and the <span class="math notranslate nohighlight">\(\{A\mathbf{v_i}\}\)</span>  are orthonormal, as we previously proved.</p>
+<p>Recall that these matrices are orthogonal because the <span class="math notranslate nohighlight">\(\{\mathbf{v_i}\}\)</span> are orthogonal and the <span class="math notranslate nohighlight">\(\{A\mathbf{v_i}\}\)</span>  are orthogonal, as we previously proved.</p>
 <p>So</p>
 <div class="math notranslate nohighlight">
-\[ AV = [A\mathbf{v}_1\;\cdots\;A\mathbf{v}_r\;\;\overbrace{\mathbf{0}\cdots\mathbf{0}}^{n-r}]\]</div>
+\[ AV = [A\mathbf{v}_1\;\cdots\;A\mathbf{v}_r\;\overbrace{\mathbf{0}\cdots\mathbf{0}}^{n-r}]\]</div>
 <div class="math notranslate nohighlight">
 \[ = [\sigma_1\mathbf{u}_1\;\cdots\;\sigma_r\mathbf{u}_r\;\mathbf{0}\;\cdots\;\mathbf{0}] = U\Sigma. \]</div>
-<p>So</p>
-<div class="math notranslate nohighlight">
-\[ AV = U\Sigma\]</div>
-<p>Now, <span class="math notranslate nohighlight">\(V\)</span> is an orthogonal matrix, so multiplying both sides on the right by <span class="math notranslate nohighlight">\(V^T\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[ U\Sigma V^T = AVV^T = A. \]</div>
+<p>So
+$<span class="math notranslate nohighlight">\( AV = U\Sigma\)</span>$</p>
 </div>
-<div class="section" id="the-swiss-army-knife">
-<h2>The Swiss Army Knife<a class="headerlink" href="#the-swiss-army-knife" title="Permalink to this headline">¶</a></h2>
-<p>We don’t have enough time to describe the many applications of the SVD.</p>
-<p>One of its uses is in data mining, where the matrices being analyzed are typically data matrices.</p>
-<div class="cell tag_hide-input docutils container">
+<div class="section" id="the-reduced-svd-and-the-pseudoinverse">
+<h2>The Reduced SVD and the Pseudoinverse<a class="headerlink" href="#the-reduced-svd-and-the-pseudoinverse" title="Permalink to this headline">¶</a></h2>
+<p>Let’s step back to get a sense of how the SVD decomposes a matrix.</p>
+<p>Let’s say <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(m\times n\)</span> with <span class="math notranslate nohighlight">\(m&lt;n\)</span>.</p>
+<p>(The situation when <span class="math notranslate nohighlight">\(m&gt;n\)</span> follows similarly).</p>
+<p>The SVD looks like this, with singular values on the diagonal of <span class="math notranslate nohighlight">\(\Sigma\)</span>:</p>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/440px-Wenger_EvoGrip_S17.JPG&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">350</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/IMG_D4D3570826C7-1.jpeg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">650</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L25SVD_75_0.jpg" src="_images/L25SVD_75_0.jpg" />
+</div>
+</div>
+<p>Now, let’s assume that the number of nonzero singular values <span class="math notranslate nohighlight">\(r\)</span> is less than <span class="math notranslate nohighlight">\(m\)</span>.</p>
+<p>Again, other cases would be similar.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/IMG_9002E2E7AD74-1.jpeg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">650</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -802,130 +797,69 @@
 <img alt="_images/L25SVD_77_0.jpg" src="_images/L25SVD_77_0.jpg" />
 </div>
 </div>
-<p>The approximations we’ll discuss are <strong>low-rank</strong> approximations.</p>
-<p>Recall that the rank of a matrix <span class="math notranslate nohighlight">\(A\)</span> is the largest number of linearly independent columns of <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<p>Or, equivalently, the dimension of <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span>.</p>
-<p>Let’s define the <strong>rank-<span class="math notranslate nohighlight">\(k\)</span> approximation</strong> to <span class="math notranslate nohighlight">\(A\)</span>:</p>
-<p>When <span class="math notranslate nohighlight">\(k &lt; \operatorname{Rank}A\)</span>, the rank-<span class="math notranslate nohighlight">\(k\)</span> approximation to <span class="math notranslate nohighlight">\(A\)</span> is the closest rank-<span class="math notranslate nohighlight">\(k\)</span> matrix to <span class="math notranslate nohighlight">\(A\)</span>, i.e.,</p>
-<div class="math notranslate nohighlight">
-\[A^{(k)} =\arg \min_{\operatorname{Rank}B = k} \Vert A-B\Vert_F.\]</div>
-<p>Why is a rank-<span class="math notranslate nohighlight">\(k\)</span> approximation valuable?</p>
-<p>The reason is that a rank-<span class="math notranslate nohighlight">\(k\)</span> matrix may take up <strong>much</strong> less space than the original <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<p><span class="math notranslate nohighlight">\(m\left\{\begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\right.\;\;\overbrace{\left[\begin{array}{cccc}\begin{array}{c}\vdots\\\vdots\\{\bf a_1}\\\vdots\\\vdots\end{array}&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_2}\\\vdots\\\vdots\end{array}&amp;\dots&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_n}\\\vdots\\\vdots\end{array}\\\end{array}\right]}^{\large n} =
-\overbrace{\left[\begin{array}{cc}\vdots&amp;\vdots\\\vdots&amp;\vdots\\\sigma_1\mathbf{u}_1&amp;\sigma_k\mathbf{u}_k\\\vdots&amp;\vdots\\\vdots&amp;\vdots\end{array}\right]}^{\large k}
+<p>In many cases we are only concerned with representing <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>That is, we don’t need <span class="math notranslate nohighlight">\(U\)</span> or <span class="math notranslate nohighlight">\(V\)</span> to be orthogonal (square) matrices.</p>
+<p>Then, to compute <span class="math notranslate nohighlight">\(A\)</span>, we only need the <span class="math notranslate nohighlight">\(r\)</span> leftmost columns of <span class="math notranslate nohighlight">\(U\)</span>, and the <span class="math notranslate nohighlight">\(r\)</span> upper rows of <span class="math notranslate nohighlight">\(V^T\)</span>.</p>
+<p>That’s because all the other values on the diagonal of <span class="math notranslate nohighlight">\(\Sigma\)</span> are zero, so they don’t contribute anything to <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/IMG_3669574F73A7-1.jpeg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">650</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L25SVD_79_0.jpg" src="_images/L25SVD_79_0.jpg" />
+</div>
+</div>
+<p>So we often work with the <strong>reduced SVD</strong> of <span class="math notranslate nohighlight">\(A\)</span>:</p>
+<p><span class="math notranslate nohighlight">\(m\left\{\begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\right.\;\;\overbrace{\left[\begin{array}{cccc}\begin{array}{c}\vdots\\\vdots\\{\bf a_1}\\\vdots\\\vdots\end{array}&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_2}\\\vdots\\\vdots\end{array}&amp;\dots&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_n}\\\vdots\\\vdots\end{array}\\\end{array}\right]}^{\Large n} =
+\overbrace{\left[\begin{array}{ccc}\vdots&amp;&amp;\vdots\\\vdots&amp;&amp;\vdots\\\mathbf{u}_1&amp;\cdots&amp;\mathbf{u}_r\\\vdots&amp;&amp;\vdots\\\vdots&amp;&amp;\vdots\end{array}\right]}^{\large r}
 \times
-\left[\begin{array}{ccccc}\dots&amp;\dots&amp;\mathbf{v}_1&amp;\dots&amp;\dots\\\dots&amp;\dots&amp;\mathbf{v}_k&amp;\dots&amp;\dots\end{array}\right]\)</span></p>
-<p>The rank-<span class="math notranslate nohighlight">\(k\)</span> approximation takes up space <span class="math notranslate nohighlight">\((m+n)k\)</span> while <span class="math notranslate nohighlight">\(A\)</span> itself takes space <span class="math notranslate nohighlight">\(mn\)</span>.</p>
-<p>For example, if <span class="math notranslate nohighlight">\(k=10\)</span> and <span class="math notranslate nohighlight">\(m = n = 1000\)</span>, then the rank-<span class="math notranslate nohighlight">\(k\)</span> approximation takes space <span class="math notranslate nohighlight">\(20000/1000000 = 2\%\)</span> of <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<p>The key to using the SVD for matrix approximation is as follows:</p>
-<p><strong>The best rank-<span class="math notranslate nohighlight">\(k\)</span> approximation to any matrix can be found via the SVD.</strong></p>
-<p>How do we use SVD to find the best rank-<span class="math notranslate nohighlight">\(k\)</span> approximation to <span class="math notranslate nohighlight">\(A\)</span>?</p>
-<p>In terms of the singular value decomposition,</p>
-<p>the best rank-<span class="math notranslate nohighlight">\(k\)</span> approximation to <span class="math notranslate nohighlight">\(A\)</span> is formed by taking</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(U' =\)</span> the <span class="math notranslate nohighlight">\(k\)</span> leftmost columns of <span class="math notranslate nohighlight">\(U\)</span>,</p></li>
-<li><p><span class="math notranslate nohighlight">\(\Sigma ' =\)</span> the <span class="math notranslate nohighlight">\(k\times k\)</span> upper left submatrix of <span class="math notranslate nohighlight">\(\Sigma\)</span>, and</p></li>
-<li><p><span class="math notranslate nohighlight">\((V')^T=\)</span> the <span class="math notranslate nohighlight">\(k\)</span> upper rows of <span class="math notranslate nohighlight">\(V^T\)</span>,</p></li>
-</ul>
-<p>and constructing</p>
+\left[\begin{array}{ccc}\sigma_1&amp; &amp;\\&amp;\ddots&amp;\\&amp;&amp;\sigma_r\end{array}\right]
+\times
+\left[\begin{array}{ccccc}\dots&amp;\dots&amp;\mathbf{v}_1&amp;\dots&amp;\dots\\&amp;&amp;\vdots&amp;&amp;\\\dots&amp;\dots&amp;\mathbf{v}_r&amp;\dots&amp;\dots\end{array}\right]\)</span></p>
 <div class="math notranslate nohighlight">
-\[A^{(k)} = U'\Sigma'(V')^T.\]</div>
-<p>For example, here is a photo.</p>
-<p>We can think of this as a <span class="math notranslate nohighlight">\(512\times 512\)</span> matrix <span class="math notranslate nohighlight">\(A\)</span> whose entries are grayscale values (numbers between 0 and 1).</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">boat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;data/boat.dat&#39;</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="k">as</span> <span class="nn">cm</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">boat</span><span class="p">,</span><span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/L25SVD_87_0.png" src="_images/L25SVD_87_0.png" />
-</div>
-</div>
-<p>This matrix <span class="math notranslate nohighlight">\(A\)</span> has rank of 512.</p>
-<p>But the error when we approximate <span class="math notranslate nohighlight">\(A\)</span> by a rank 40 matrix is only around 10%.</p>
-<p>We say that the <strong>effective</strong> rank of <span class="math notranslate nohighlight">\(A\)</span> is low (perhaps 40).</p>
-<p>Let’s find the closest rank-40 matrix to <span class="math notranslate nohighlight">\(A\)</span> and view it.</p>
-<p>We can do this quite easily using the SVD.</p>
-<p>We simply construct our approximation of <span class="math notranslate nohighlight">\(A\)</span> using only the first 40 columns of <span class="math notranslate nohighlight">\(U\)</span> and top 40 rows of <span class="math notranslate nohighlight">\(V^T\)</span>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># construct a rank-n version of the boat</span>
-<span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">vt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">boat</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">scopy</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">rank</span> <span class="o">=</span> <span class="mi">40</span>
-<span class="n">scopy</span><span class="p">[</span><span class="n">rank</span><span class="p">:]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">boatApprox</span> <span class="o">=</span> <span class="n">u</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">scopy</span><span class="p">)</span> <span class="o">@</span> <span class="n">vt</span>
-<span class="c1">#</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">boatApprox</span><span class="p">,</span><span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Rank </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rank</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">boat</span><span class="p">,</span><span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Rank 512&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span>
-<span class="c1"># plt.subplots_adjust(wspace=0.5);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/L25SVD_90_0.png" src="_images/L25SVD_90_0.png" />
-</div>
-</div>
-<p>Note that the rank-40 boat takes up only 40/512 = <strong>8% of the space of the original image!</strong></p>
-<p>This general principle is what makes image, video, and sound compression effective.</p>
-<p>When you</p>
-<ul class="simple">
-<li><p>watch HDTV, or</p></li>
-<li><p>listen to an MP3, or</p></li>
-<li><p>look at a JPEG image,</p></li>
-</ul>
-<p>these signals have been compressed using the fact that they are <strong>effectively low-rank</strong> matrices.</p>
-<div class="section" id="wrapup">
-<h3>Wrapup<a class="headerlink" href="#wrapup" title="Permalink to this headline">¶</a></h3>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/in-conclusion.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">550</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/L25SVD_94_0.jpg" src="_images/L25SVD_94_0.jpg" />
-</div>
-</div>
-<p>We have reached the end!</p>
-<p>Of course, this is not really the end … more like the beginning.</p>
-<p>If we had more time, we’d talk about how linear algebra informs the study of graphs, the methods of machine learning, data mining, and many more topics.</p>
-<p>So this is just where we have to stop.</p>
-<p>We have looked at the richness of linear algebra from many angles.</p>
-<p>We have seen that the simple linear system <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> leads to a whole collection of interesting questions, questions that have unfolded step by step over the course of the semester.</p>
-<p>But we have also seen that we can extract the idea of matrix out of a linear system, and consider it as an object in its own right.</p>
-<p>Considered on their own, matrices can be seen as linear operators, giving us tools for computer graphics and the solution of dynamical systems and linear equations.</p>
-<p>We have also seen that matrices can be seen as data objects, whose linear algebraic properties expose useful facts about the data.</p>
-<p>There are many courses you can go on to from here, which will rely on your understanding of linear algebra:</p>
-<ul class="simple">
-<li><p>CS 391 Fundamentals of Data Science</p></li>
-<li><p>CS 440 Artificial Intelligence</p></li>
-<li><p>CS 470 Computer Systems Performance Analysis</p></li>
-<li><p>CS 480 Computer Graphics</p></li>
-<li><p>CS 505 Intro to Natural Language Processing</p></li>
-<li><p>CS 506 Tools for Data Science</p></li>
-<li><p>CS 530 Advanced Algorithms</p></li>
-<li><p>CS 531 Advanced Optimization Algorithms</p></li>
-<li><p>CS 533 Spectral Methods</p></li>
-<li><p>CS 558 Machine Learning</p></li>
-<li><p>CS 565 Data Mining</p></li>
-<li><p>CS 581 Computational Fabrication</p></li>
-<li><p>CS 591 Deep Learning</p></li>
-<li><p>CS 591 Compressive Sensing</p></li>
-<li><p>CS 591 Natural Language Understanding</p></li>
-</ul>
-<p>In each of these you will use and build on your knowledge of linear algebra.</p>
-<p>Enjoy!</p>
-<p>Don’t forget to submit a course evaluation!</p>
+\[\Large\overset{m\,\times\, n}{A^{\vphantom{T}}} = \overset{m\,\times\, r}{U^{\vphantom{T}}}\;\;\overset{r\,\times\, r}{\Sigma^{\vphantom{T}}}\;\;\overset{r\,\times\, n}{V^T}\]</div>
+<p>Note that in the reduced SVD, <span class="math notranslate nohighlight">\(\Sigma\)</span> has all nonzero entries on its diagonal, so it can be inverted.</p>
+<p>However, we still have that <span class="math notranslate nohighlight">\(A = U\Sigma V^T\)</span>.</p>
+<div class="section" id="the-pseudoinverse">
+<h3>The Pseudoinverse<a class="headerlink" href="#the-pseudoinverse" title="Permalink to this headline">¶</a></h3>
+<p>Consider the case where we are working with the reduced SVD of <span class="math notranslate nohighlight">\(A\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[A = U\Sigma V^T.\]</div>
+<p>In the reduced SVD, <span class="math notranslate nohighlight">\(\Sigma\)</span> is invertible (it is a diagonal matrix with all positive entries on the diagonal).</p>
+<p>Using this decomposition we can define an important matrix corresponding to <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[A^+ = V \Sigma^{-1} U^T\]</div>
+<p>This matrix <span class="math notranslate nohighlight">\(A^+\)</span> is called the <strong>pseudoinverse</strong> of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>(Sometimes called the Moore-Penrose pseudoinverse).</p>
+<p>Obviously, <span class="math notranslate nohighlight">\(A\)</span> cannot have an inverse, because it is not even square (let alone invertible) in general.</p>
+<p>So why is <span class="math notranslate nohighlight">\(A^+\)</span> called the pseudoinverse?</p>
+<p>Let’s go back to our favorite equation, <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span>, specifically in the case where there are no solutions.</p>
+<p>In that case, we can find least-squares solutions by finding <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> such that <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}}\)</span> is the projection of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> onto <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>.</p>
+<p>And, <strong>if <span class="math notranslate nohighlight">\(A^TA\)</span> is invertible,</strong> that <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> is given by
+$<span class="math notranslate nohighlight">\( \mathbf{\hat{x}} = (A^TA)^{-1}A^T\mathbf{b}\)</span>$</p>
+<p>But, what if <span class="math notranslate nohighlight">\(A^TA\)</span> is not invertible?</p>
+<p>There are still least-square solutions, but now there are an infinite number.</p>
+<p>What if we just want to find <strong>one</strong> of them?</p>
+<p>Let’s use the pseudoinverse:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{\hat{x}} = A^+ \mathbf{b}\]</div>
+<p>Then:
+$<span class="math notranslate nohighlight">\(A\mathbf{\hat{x}} = AA^+ \mathbf{b}\)</span>$</p>
+<div class="math notranslate nohighlight">
+\[ = (U\Sigma V^T)(V\Sigma^{-1}U^T)\mathbf{b}\]</div>
+<div class="math notranslate nohighlight">
+\[ = U\Sigma\Sigma^{-1}U^T\mathbf{b}\]</div>
+<div class="math notranslate nohighlight">
+\[ = UU^T\mathbf{b}\]</div>
+<p>Now, <span class="math notranslate nohighlight">\(U\)</span> is an orthonormal basis for <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>.</p>
+<p>And, <span class="math notranslate nohighlight">\(U^T\mathbf{b}\)</span> are the coefficients of the projection of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> onto each column of <span class="math notranslate nohighlight">\(U\)</span>, since the columns are unit length.</p>
+<p>So, <span class="math notranslate nohighlight">\(UU^T\mathbf{b}\)</span> is the projection of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> onto <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>.</p>
+<p>So, <span class="math notranslate nohighlight">\(\mathbf{\hat{x}} = A^+ \mathbf{b}\)</span> is a least squares solution of <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span>,</p>
+<p><strong>even when <span class="math notranslate nohighlight">\(A^TA\)</span> is not invertible</strong>,</p>
+<p>ie, this formula works for <strong>any</strong> <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>Remember, any <span class="math notranslate nohighlight">\(A\)</span> has an SVD, and so any <span class="math notranslate nohighlight">\(A\)</span> has a pseudoinverse!</p>
 </div>
 </div>
 </div>
@@ -961,6 +895,13 @@
             <p class="prev-next-subtitle">previous</p>
             <p class="prev-next-title">Symmetric Matrices</p>
         </div>
+    </a>
+    <a class='right-next' id="next-link" href="L26ApplicationsOfSVD.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Applications of the SVD</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
     </a>
 </div>
             

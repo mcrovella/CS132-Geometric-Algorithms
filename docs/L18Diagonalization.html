@@ -42,6 +42,8 @@
     <script src="_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -228,6 +230,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="L25SVD.html">
    The Singular Value Decomposition
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L26ApplicationsOfSVD.html">
+   Applications of the SVD
   </a>
  </li>
 </ul>
@@ -601,6 +608,10 @@
 <img alt="_images/L18Diagonalization_2_0.jpg" src="_images/L18Diagonalization_2_0.jpg" />
 <div class="output text_html"><b>"Welcome, Harry, to Diagon Alley"</b></div><div class="output text_html"><b>-- Rubeus Hagrid</b></div></div>
 </div>
+<blockquote>
+<div><p>Anyone who understands algebraic notation, reads at a glance in an equation results reached arithmetically only with great labour and pains.</p>
+<p>— Antoine-Augustin Cournot, 1838</p>
+</div></blockquote>
 <p>Today we consider an important factorization of a square matrix.</p>
 <p>This factorization uses eigenvalues and eigenvectors, and makes many problems substantially easier.</p>
 <p>Furthermore, it gives fundamental insight into the properties of a matrix.</p>
@@ -885,7 +896,7 @@ Omitted, but easy.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L18Diagonalization_84_0.png" src="_images/L18Diagonalization_84_0.png" />
+<img alt="_images/L18Diagonalization_85_0.png" src="_images/L18Diagonalization_85_0.png" />
 </div>
 </div>
 <p>Now, let’s compute <span class="math notranslate nohighlight">\(P^{-1}\mathbf{x}.\)</span></p>
@@ -928,7 +939,7 @@ Omitted, but easy.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L18Diagonalization_86_0.png" src="_images/L18Diagonalization_86_0.png" />
+<img alt="_images/L18Diagonalization_87_0.png" src="_images/L18Diagonalization_87_0.png" />
 </div>
 </div>
 <p>The coordinates of <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> in this basis are (2,1).</p>
@@ -970,7 +981,7 @@ Omitted, but easy.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L18Diagonalization_89_0.png" src="_images/L18Diagonalization_89_0.png" />
+<img alt="_images/L18Diagonalization_90_0.png" src="_images/L18Diagonalization_90_0.png" />
 </div>
 </div>
 <p>So the coordinates of <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> in the basis <span class="math notranslate nohighlight">\(\mathcal{B}\)</span> are</p>
@@ -1018,7 +1029,7 @@ Omitted, but easy.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L18Diagonalization_92_0.png" src="_images/L18Diagonalization_92_0.png" />
+<img alt="_images/L18Diagonalization_93_0.png" src="_images/L18Diagonalization_93_0.png" />
 </div>
 </div>
 <p>We find that <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> = <span class="math notranslate nohighlight">\(PDP^{-1}\mathbf{x} = \begin{bmatrix}5.46\\3.35\end{bmatrix}.\)</span></p>
@@ -7229,7 +7240,7 @@ D =
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L18Diagonalization_106_0.png" src="_images/L18Diagonalization_106_0.png" />
+<img alt="_images/L18Diagonalization_107_0.png" src="_images/L18Diagonalization_107_0.png" />
 </div>
 </div>
 <p>Now, the behavior of this dynamical system becomes much clearer!</p>

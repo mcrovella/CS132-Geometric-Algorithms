@@ -232,6 +232,11 @@
    The Singular Value Decomposition
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L26ApplicationsOfSVD.html">
+   Applications of the SVD
+  </a>
+ </li>
 </ul>
 
     </div>
@@ -391,6 +396,11 @@
      When the Normal Equations have Multiple Solutions
     </a>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#projection-onto-an-abitrary-basis">
+     Projection onto an Abitrary Basis
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -469,6 +479,11 @@
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#when-the-normal-equations-have-multiple-solutions">
      When the Normal Equations have Multiple Solutions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#projection-onto-an-abitrary-basis">
+     Projection onto an Abitrary Basis
     </a>
    </li>
   </ul>
@@ -765,7 +780,7 @@
 <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.8</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$\mathbf</span><span class="si">{y}</span><span class="s1">$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="n">mm</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">yhat</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">mm</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">.1</span><span class="p">,</span><span class="n">mm</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="sa">r</span><span class="s1">&#39;$\mathbf{y - \hat</span><span class="si">{y}</span><span class="s1">}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mf">4.5</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$L$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span><span class="mf">4.5</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$W$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="n">perpline1</span><span class="p">,</span> <span class="n">perpline2</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">perp_sym</span><span class="p">(</span><span class="n">yhat</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span> <span class="mf">0.75</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">perpline1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">perpline1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">perpline2</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">perpline2</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
@@ -1177,7 +1192,9 @@
 <p>When these statements are true, the least-squares solution <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> is given by:</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{\hat{x}} = (A^TA)^{-1}A^T\mathbf{b}\]</div>
-<p><strong>Finding <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> directly.</strong></p>
+</div>
+<div class="section" id="projection-onto-an-abitrary-basis">
+<h3>Projection onto an Abitrary Basis<a class="headerlink" href="#projection-onto-an-abitrary-basis" title="Permalink to this headline">¶</a></h3>
 <p>When <span class="math notranslate nohighlight">\(A^TA\)</span> is invertible, and <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> is unique, we can put together the two equations</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{\hat{x}} = (A^TA)^{-1}A^T\mathbf{b}\]</div>
@@ -1187,8 +1204,14 @@
 <p>to get:</p>
 <div class="math notranslate nohighlight">
 \[\hat{\mathbf{b}} = A(A^TA)^{-1}A^T\mathbf{b}\]</div>
-<p>Let’s stop and look at this another way.  Up until now we have seen how to project a point onto a line, or on to a subspace with an orthogonal basis.</p>
-<p>Now here is a formula for projection onto a subspace given an <strong>arbitrary</strong> basis.  This is a general formula that can be very useful.</p>
+<p>Let’s stop and look at this from a very general standpoint.</p>
+<p>Consider <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> to be an arbitrary point, and <span class="math notranslate nohighlight">\(A\)</span> to be a matrix whose columns are as basis for a subspace (ie, <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span>).</p>
+<p>Then <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> is the projection of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> onto <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span>.</p>
+<p>Up until now we have seen how to project a point onto a line, or on to a subspace with an orthogonal basis.</p>
+<p>But now we see that</p>
+<div class="math notranslate nohighlight">
+\[ \operatorname{proj}_{\operatorname{Col} A} \mathbf{b} = A(A^TA)^{-1}A^T\mathbf{b} \]</div>
+<p>So we now have an expression for projection onto a subspace given an <strong>arbitrary</strong> basis.  This is a general formula that can be very useful!</p>
 </div>
 </div>
 </div>
