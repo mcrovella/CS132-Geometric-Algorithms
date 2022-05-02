@@ -42,8 +42,6 @@
     <script src="_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -836,16 +834,19 @@ $<span class="math notranslate nohighlight">\( AV = U\Sigma\)</span>$</p>
 <p>So why is <span class="math notranslate nohighlight">\(A^+\)</span> called the pseudoinverse?</p>
 <p>Let’s go back to our favorite equation, <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span>, specifically in the case where there are no solutions.</p>
 <p>In that case, we can find least-squares solutions by finding <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> such that <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}}\)</span> is the projection of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> onto <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>.</p>
-<p>And, <strong>if <span class="math notranslate nohighlight">\(A^TA\)</span> is invertible,</strong> that <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> is given by
-$<span class="math notranslate nohighlight">\( \mathbf{\hat{x}} = (A^TA)^{-1}A^T\mathbf{b}\)</span>$</p>
+<p>And, <strong>if <span class="math notranslate nohighlight">\(A^TA\)</span> is invertible,</strong> that <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> is given by</p>
+<div class="math notranslate nohighlight">
+\[ \mathbf{\hat{x}} = (A^TA)^{-1}A^T\mathbf{b}\]</div>
 <p>But, what if <span class="math notranslate nohighlight">\(A^TA\)</span> is not invertible?</p>
 <p>There are still least-square solutions, but now there are an infinite number.</p>
 <p>What if we just want to find <strong>one</strong> of them?</p>
-<p>Let’s use the pseudoinverse:</p>
+<p>We can do that using the pseudoinverse:</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{\hat{x}} = A^+ \mathbf{b}\]</div>
-<p>Then:
-$<span class="math notranslate nohighlight">\(A\mathbf{\hat{x}} = AA^+ \mathbf{b}\)</span>$</p>
+<p>Why does this work?  Let’s see.</p>
+<p>If we define <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> this way, then what is <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}}\)</span>?</p>
+<div class="math notranslate nohighlight">
+\[A\mathbf{\hat{x}} = AA^+ \mathbf{b}\]</div>
 <div class="math notranslate nohighlight">
 \[ = (U\Sigma V^T)(V\Sigma^{-1}U^T)\mathbf{b}\]</div>
 <div class="math notranslate nohighlight">
