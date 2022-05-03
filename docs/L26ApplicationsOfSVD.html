@@ -22,8 +22,8 @@
       
 
     
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
@@ -33,21 +33,19 @@
     
   <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
+    <script >
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
@@ -476,7 +474,7 @@
 </div>
 </div>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="applications-of-the-svd">
+<div class="section" id="applications-of-the-svd">
 <h1>Applications of the SVD<a class="headerlink" href="#applications-of-the-svd" title="Permalink to this headline">¶</a></h1>
 <!-- image credit: https://en.wikipedia.org/wiki/Swiss_Army_knife -->
 <center>
@@ -537,7 +535,7 @@
 <p>To understand the power of SVD for analyzing data, it helps to think of it as a tool for <strong>approximating one matrix by another, simpler, matrix.</strong></p>
 <p>To talk about when one matrix <strong>approximates</strong> another, we need a “length” for matrices.</p>
 <p>We will use the <strong>Frobenius norm</strong>.</p>
-<p>The Frobenious norm is just the usual vector norm, treating the matrix as if it were a vector.</p>
+<p>The Frobenius norm is just the usual vector norm, treating the matrix as if it were a vector.</p>
 <p>In other words, the definition of the Frobenius norm of <span class="math notranslate nohighlight">\(A\)</span>, denoted <span class="math notranslate nohighlight">\(\Vert A\Vert_F\)</span>, is:</p>
 <div class="math notranslate nohighlight">
 \[\Vert A\Vert_F = \sqrt{\sum a_{ij}^2}.\]</div>
@@ -557,8 +555,7 @@
 <p>The rank-<span class="math notranslate nohighlight">\(k\)</span> approximation takes up space <span class="math notranslate nohighlight">\((m+n)k\)</span> while <span class="math notranslate nohighlight">\(A\)</span> itself takes space <span class="math notranslate nohighlight">\(mn\)</span>.</p>
 <p>For example, if <span class="math notranslate nohighlight">\(k=10\)</span> and <span class="math notranslate nohighlight">\(m = n = 1000\)</span>, then the rank-<span class="math notranslate nohighlight">\(k\)</span> approximation takes space <span class="math notranslate nohighlight">\(20000/1000000 = 2\%\)</span> of <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>The key to using the SVD for matrix approximation is as follows:</p>
-<p><strong>The best rank-<span class="math notranslate nohighlight">\(k\)</span> approximation to any matrix can be found via the SVD.</strong></p>
-<p>In fact, for an <span class="math notranslate nohighlight">\(m\times n\)</span> matrix <span class="math notranslate nohighlight">\(A\)</span>, the SVD does two things:</p>
+<center><font color = "blue"><b>The best rank-<em>k</em> approximation to any matrix can be found via the SVD.</b></font></center><p>In fact, for an <span class="math notranslate nohighlight">\(m\times n\)</span> matrix <span class="math notranslate nohighlight">\(A\)</span>, the SVD does two things:</p>
 <ol class="simple">
 <li><p>It gives the best rank-<span class="math notranslate nohighlight">\(k\)</span> approximation to <span class="math notranslate nohighlight">\(A\)</span> for <strong>every</strong> <span class="math notranslate nohighlight">\(k\)</span> up to the rank of <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
 <li><p>It gives the <strong>distance</strong> of the best rank-<span class="math notranslate nohighlight">\(k\)</span> approximation <span class="math notranslate nohighlight">\(A^{(k)}\)</span> from <span class="math notranslate nohighlight">\(A\)</span> for each <span class="math notranslate nohighlight">\(k\)</span>.</p></li>
@@ -567,6 +564,8 @@
 <p>and by distance we mean the same quantity, <span class="math notranslate nohighlight">\(\Vert A-A^{(k)}\Vert_F\)</span>.</p>
 <p>How do we use SVD to find the best rank-<span class="math notranslate nohighlight">\(k\)</span> approximation to <span class="math notranslate nohighlight">\(A\)</span>?</p>
 <p>In terms of the singular value decomposition,</p>
+<div class="math notranslate nohighlight">
+\[ A = U\Sigma V^T, \]</div>
 <p>the best rank-<span class="math notranslate nohighlight">\(k\)</span> approximation to <span class="math notranslate nohighlight">\(A\)</span> is formed by taking</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(U' =\)</span> the <span class="math notranslate nohighlight">\(k\)</span> leftmost columns of <span class="math notranslate nohighlight">\(U\)</span>,</p></li>
@@ -616,6 +615,8 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">vt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">boat</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Magnitude of $\sigma_k$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$k$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">);</span> 
 </pre></div>
@@ -630,7 +631,7 @@
 <p>Only the first few singular values are large – up to, say, <span class="math notranslate nohighlight">\(k\)</span> = 40.</p>
 <p>Remember that the error we get when we use a rank-<span class="math notranslate nohighlight">\(k\)</span> approximation is</p>
 <div class="math notranslate nohighlight">
-\[\sqrt{\sum_{i=k+1}^r\sigma^2_i}.\]</div>
+\[\Vert A-A^{(k)}\Vert_F = \sqrt{\sum_{i=k+1}^r\sigma^2_i}.\]</div>
 <p>So we can use the singular values of <span class="math notranslate nohighlight">\(A\)</span> to compute the relative error over a range of possible approximations <span class="math notranslate nohighlight">\(A^{(k)}\)</span>.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -642,6 +643,8 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">40</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$k$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">18</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">18</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Relative Error of rank-$k$ approximation to $A$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span> 
 </pre></div>
 </div>
@@ -896,6 +899,25 @@
 <img alt="_images/L26ApplicationsOfSVD_87_0.png" src="_images/L26ApplicationsOfSVD_87_0.png" />
 </div>
 </div>
+<p><strong>In summary:</strong></p>
+<ul class="simple">
+<li><p>Data often arrives in high dimension</p>
+<ul>
+<li><p>for example, the documents above are points in <span class="math notranslate nohighlight">\(\mathbb{R}^{9049}\)</span></p></li>
+</ul>
+</li>
+<li><p>However, the <strong>structure</strong> in data can be relatively low-dimensional</p>
+<ul>
+<li><p>in our example, we can see structure in just two dimensions!</p></li>
+</ul>
+</li>
+<li><p>PCA allows us to find the low-dimensional structure in data</p>
+<ul>
+<li><p>in a way that is optimal in some sense</p></li>
+</ul>
+</li>
+</ul>
+<p>For this reason, PCA is a <strong>very</strong> commonly used tool in data analysis.</p>
 <div class="section" id="wrapup">
 <h3>Wrapup<a class="headerlink" href="#wrapup" title="Permalink to this headline">¶</a></h3>
 <center>
