@@ -504,9 +504,6 @@
 <p>To start discussing the set of tools that SVD provides for analyzing data, let’s remind ourselves what the SVD is.</p>
 <div class="section" id="recap-of-svd">
 <h2>Recap of SVD<a class="headerlink" href="#recap-of-svd" title="Permalink to this headline">¶</a></h2>
-<p><strong>Theorem.</strong> Let <span class="math notranslate nohighlight">\(A\)</span> be an <span class="math notranslate nohighlight">\(m\times n\)</span> matrix with rank <span class="math notranslate nohighlight">\(r\)</span>.  Then there exists an <span class="math notranslate nohighlight">\(m\times n\)</span> matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> whose diagonal entries are the first <span class="math notranslate nohighlight">\(r\)</span> singular values of <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(\sigma_1 \geq \sigma_2 \geq \dots \geq \sigma_r &gt; 0,\)</span> and there exist an <span class="math notranslate nohighlight">\(m\times m\)</span> orthogonal matrix <span class="math notranslate nohighlight">\(U\)</span> and an <span class="math notranslate nohighlight">\(n\times n\)</span> orthogonal matrix <span class="math notranslate nohighlight">\(V\)</span> such that</p>
-<div class="math notranslate nohighlight">
-\[ A = U\Sigma V^T \]</div>
 <p>Today we’ll work exclusively with the reduced SVD.</p>
 <p>Here it is again, for the case where <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(m \times n\)</span>, and <span class="math notranslate nohighlight">\(A\)</span> has rank <span class="math notranslate nohighlight">\(r\)</span>.</p>
 <p>In that case, the reduced SVD looks like this, with singular values on the diagonal of <span class="math notranslate nohighlight">\(\Sigma\)</span>:</p>
@@ -563,7 +560,8 @@
 <p>When we say “best”, we mean in terms of Frobenius norm <span class="math notranslate nohighlight">\(\Vert A-A^{(k)}\Vert_F\)</span>,</p>
 <p>and by distance we mean the same quantity, <span class="math notranslate nohighlight">\(\Vert A-A^{(k)}\Vert_F\)</span>.</p>
 <p>How do we use SVD to find the best rank-<span class="math notranslate nohighlight">\(k\)</span> approximation to <span class="math notranslate nohighlight">\(A\)</span>?</p>
-<p>In terms of the singular value decomposition,</p>
+<p>Conceptually, we “throw away” the portions of the SVD having the smallest singular values.</p>
+<p>More specifically: in terms of the singular value decomposition,</p>
 <div class="math notranslate nohighlight">
 \[ A = U\Sigma V^T, \]</div>
 <p>the best rank-<span class="math notranslate nohighlight">\(k\)</span> approximation to <span class="math notranslate nohighlight">\(A\)</span> is formed by taking</p>
@@ -609,7 +607,7 @@
 </div>
 <p>Let’s look at the singular values of this matrix.</p>
 <p>We compute <span class="math notranslate nohighlight">\(A = U\Sigma V^T\)</span> and look at the values on the diagonal of <span class="math notranslate nohighlight">\(\Sigma\)</span>.</p>
-<p>This is often called the matrix’s “spectrum”.</p>
+<p>This is often called the matrix’s “spectrum.”</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">vt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">boat</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
@@ -617,7 +615,7 @@
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Magnitude of $\sigma_k$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\sigma_k$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$k$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">);</span> 
 </pre></div>
 </div>
@@ -661,10 +659,12 @@
 <p>We simply construct our approximation of <span class="math notranslate nohighlight">\(A\)</span> using only the first 40 columns of <span class="math notranslate nohighlight">\(U\)</span> and top 40 rows of <span class="math notranslate nohighlight">\(V^T\)</span>.</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># construct a rank-n version of the boat</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># note: put a slider on this to vary rank</span>
+<span class="c1">#</span>
+<span class="c1"># construct a rank-n version of the boat</span>
 <span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">vt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">boat</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">scopy</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">rank</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">rank</span> <span class="o">=</span> <span class="mi">40</span>
 <span class="n">scopy</span><span class="p">[</span><span class="n">rank</span><span class="p">:]</span><span class="o">=</span><span class="mi">0</span>
 <span class="n">boatApprox</span> <span class="o">=</span> <span class="n">u</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">scopy</span><span class="p">)</span> <span class="o">@</span> <span class="n">vt</span>
 <span class="c1">#</span>
