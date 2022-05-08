@@ -860,6 +860,22 @@ $<span class="math notranslate nohighlight">\( AV = U\Sigma\)</span>$</p>
 <p><strong>even when <span class="math notranslate nohighlight">\(A^TA\)</span> is not invertible</strong>,</p>
 <p>ie, this formula works for <strong>any</strong> <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>Remember, any <span class="math notranslate nohighlight">\(A\)</span> has an SVD, and so any <span class="math notranslate nohighlight">\(A\)</span> has a pseudoinverse!</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To see why this is true, recall that when we project onto an orthogonal basis, the projection is especially easy.</p>
+<p>Let’s say that <span class="math notranslate nohighlight">\(\mathbf{u}_1\)</span> and <span class="math notranslate nohighlight">\(\mathbf{u}_2\)</span> form an orthogonal basis for some subspace.  Then the projection of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> onto that subspace is very simple:</p>
+<div class="math notranslate nohighlight">
+\[ \hat{\mathbf{y}} = \frac{\mathbf{u}_1^T\mathbf{y}}{\mathbf{u}_1^T\mathbf{u}_1}\mathbf{u}_1 + \frac{\mathbf{u}_2^T\mathbf{y}}{\mathbf{u}_2^T\mathbf{u}_2}\mathbf{u}_2. \]</div>
+<p>Now, how does this become <span class="math notranslate nohighlight">\(UU^T\mathbf{y}\)</span>?   Say that  <span class="math notranslate nohighlight">\(\mathbf{u}_1\)</span> and <span class="math notranslate nohighlight">\(\mathbf{u}_2\)</span> are the columns of <span class="math notranslate nohighlight">\(U\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(U\)</span> is an orthonormal matrix, so <span class="math notranslate nohighlight">\(\mathbf{u}_1\)</span> and <span class="math notranslate nohighlight">\(\mathbf{u}_2\)</span> are unit vectors, so <span class="math notranslate nohighlight">\(\mathbf{u}_1^T\mathbf{u}_1 = 1\)</span> and <span class="math notranslate nohighlight">\(\mathbf{u}_2^T\mathbf{u}_2 = 1\)</span>.</p>
+<p>So</p>
+<div class="math notranslate nohighlight">
+\[ \hat{\mathbf{y}} = \mathbf{u}_1^T\mathbf{y}\mathbf{u}_1 + \mathbf{u}_2^T\mathbf{y}\mathbf{u}_2. \]</div>
+<p>Note that <span class="math notranslate nohighlight">\(\mathbf{u}_1^T\mathbf{y}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{u}_2^T\mathbf{y}\)</span> are scalar quantities, which we can collect into a vector, which can be expressed as <span class="math notranslate nohighlight">\(U^T\mathbf{y}\)</span>.</p>
+<p>And multiplying that vector by <span class="math notranslate nohighlight">\(U\)</span> gives us the projection above:</p>
+<div class="math notranslate nohighlight">
+\[ \hat{\mathbf{y}} = \mathbf{u}_1^T\mathbf{y}\mathbf{u}_1 + \mathbf{u}_2^T\mathbf{y}\mathbf{u}_2  = UU^T\mathbf{y}. \]</div>
+</div>
 </div>
 </div>
 </div>
