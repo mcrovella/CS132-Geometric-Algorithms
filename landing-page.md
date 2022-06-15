@@ -36,6 +36,10 @@ is not hard; contact me for details.
 
 ## Teaching Approach
 
+> Five-dimensional shapes are hard to visualize -- but it doesn't mean
+> you can't think about them.   Thinking is really the same as seeing.
+> WIlliam Thurston
+
 The rationale for the teaching approach used in this course is
 [here.](https://github.com/mcrovella/CS132-Geometric-Algorithms/blob/master/Collateral/CS132-Teaching-Philosophy.pdf)
 In brief:
