@@ -42,8 +42,6 @@
     <script src="_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -388,63 +386,8 @@
         
               <div>
                 
-  <div class="cell tag_hide-cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for lecture use notebook</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="n">qr_setting</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="n">qrviz_setting</span> <span class="o">=</span> <span class="s1">&#39;save&#39;</span>
-<span class="c1">#</span>
-<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format=&#39;retina&#39;
-<span class="c1"># import libraries</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">laUtilities</span> <span class="k">as</span> <span class="nn">ut</span>
-<span class="kn">import</span> <span class="nn">slideUtilities</span> <span class="k">as</span> <span class="nn">sl</span>
-<span class="kn">import</span> <span class="nn">demoUtilities</span> <span class="k">as</span> <span class="nn">dm</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-
-<span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="k">as</span> <span class="nn">animation</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mp</span>
-<span class="n">mp</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;animation.html&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;jshtml&#39;</span>
-
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display_html</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Math</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Latex</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">;</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="the-characteristic-equation">
+  <div class="tex2jax_ignore mathjax_ignore section" id="the-characteristic-equation">
 <h1>The Characteristic Equation<a class="headerlink" href="#the-characteristic-equation" title="Permalink to this headline">¶</a></h1>
-<div class="cell tag_hide-cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],[</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]])</span>
-
-<span class="n">x</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mf">500.</span><span class="p">])</span>
-<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">axes</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">500</span><span class="p">,</span><span class="mi">500</span><span class="p">),</span><span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">500</span><span class="p">,</span><span class="mi">500</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="o">-</span><span class="mi">500</span><span class="p">,</span> <span class="o">-</span><span class="mi">500</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">),</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">75</span><span class="p">):</span>
-    <span class="n">newx</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">x</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">newx</span><span class="p">[</span><span class="mi">0</span><span class="p">]],[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">newx</span><span class="p">[</span><span class="mi">1</span><span class="p">]],</span><span class="s1">&#39;r-&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">newx</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">newx</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;ro&#39;</span><span class="p">)</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">newx</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/L17CharacteristicEqn_2_0.png" src="_images/L17CharacteristicEqn_2_0.png" />
-</div>
-</div>
 <p>Today we deepen our study of <em>linear dynamical systems,</em></p>
 <p>systems that evolve according to the equation:</p>
 <div class="math notranslate nohighlight">
@@ -453,56 +396,7 @@
 <p>First we’ll look at the system corresponding to:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} A = \begin{bmatrix}\cos 0.1&amp;-\sin 0.1\\\sin 0.1&amp;\cos 0.1\end{bmatrix} \end{split}\]</div>
-<div class="cell tag_hide-cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># we put x into a list [x] so that it can be read inside the</span>
-<span class="c1"># animate() closure.   Currently can only read env variables in a closure</span>
-
-<span class="c1"># this is the routine that will be called on each timestep</span>
-<span class="c1"># relies on A, [x], xvals, yvals, lines as globals</span>
-<span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
-    <span class="n">newx</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-    <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">newx</span>
-    <span class="n">xvals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">yvals</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span>
-    <span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">xvals</span><span class="p">,</span> <span class="n">yvals</span><span class="p">)</span>
-    
-<span class="k">def</span> <span class="nf">anim_plot</span><span class="p">(</span><span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">500</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">500</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">500</span><span class="p">):</span>
-    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">xmax</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ymin</span><span class="p">,</span> <span class="n">ymax</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xmin</span><span class="p">,</span> <span class="n">ymin</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">),</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xmax</span><span class="p">,</span> <span class="n">ymax</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
-    <span class="c1">#</span>
-    <span class="c1"># close the figure so that it doesn&#39;t separately plot itself</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">0.1</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)],</span> <span class="p">[</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)]])</span>
-<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">500.</span><span class="p">])]</span>
-<span class="n">xvals</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">yvals</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="c1">#</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">anim_plot</span><span class="p">()</span>
-<span class="c1">#</span>
-<span class="n">lines</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="s1">&#39;ro-&#39;</span><span class="p">)</span>
-<span class="c1">#</span>
-<span class="c1"># instantiate the animator.</span>
-<span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> 
-                        <span class="n">animate</span><span class="p">,</span> 
-                        <span class="n">frames</span> <span class="o">=</span> <span class="mi">75</span><span class="p">,</span> 
-                        <span class="n">fargs</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                        <span class="n">interval</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> 
-                        <span class="n">repeat</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output text_html">
 <link rel="stylesheet"
@@ -689,42 +583,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img57c6aa0e423e4f34b0241f034db31217">
+  <img id="_anim_imgf8417391c5e44510985c9823a379da98">
   <div class="anim-controls">
-    <input id="_anim_slider57c6aa0e423e4f34b0241f034db31217" type="range" class="anim-slider"
+    <input id="_anim_sliderf8417391c5e44510985c9823a379da98" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim57c6aa0e423e4f34b0241f034db31217.set_frame(parseInt(this.value));"></input>
+           oninput="animf8417391c5e44510985c9823a379da98.set_frame(parseInt(this.value));"></input>
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim57c6aa0e423e4f34b0241f034db31217.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="animf8417391c5e44510985c9823a379da98.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim57c6aa0e423e4f34b0241f034db31217.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="animf8417391c5e44510985c9823a379da98.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim57c6aa0e423e4f34b0241f034db31217.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="animf8417391c5e44510985c9823a379da98.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim57c6aa0e423e4f34b0241f034db31217.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="animf8417391c5e44510985c9823a379da98.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim57c6aa0e423e4f34b0241f034db31217.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="animf8417391c5e44510985c9823a379da98.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim57c6aa0e423e4f34b0241f034db31217.play_animation()">
+      <button title="Play" aria-label="Play" onclick="animf8417391c5e44510985c9823a379da98.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim57c6aa0e423e4f34b0241f034db31217.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="animf8417391c5e44510985c9823a379da98.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim57c6aa0e423e4f34b0241f034db31217.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="animf8417391c5e44510985c9823a379da98.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim57c6aa0e423e4f34b0241f034db31217.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="animf8417391c5e44510985c9823a379da98.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select57c6aa0e423e4f34b0241f034db31217"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectf8417391c5e44510985c9823a379da98"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_57c6aa0e423e4f34b0241f034db31217"
+      <input type="radio" name="state" value="once" id="_anim_radio1_f8417391c5e44510985c9823a379da98"
              checked>
-      <label for="_anim_radio1_57c6aa0e423e4f34b0241f034db31217">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_57c6aa0e423e4f34b0241f034db31217"
+      <label for="_anim_radio1_f8417391c5e44510985c9823a379da98">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_f8417391c5e44510985c9823a379da98"
              >
-      <label for="_anim_radio2_57c6aa0e423e4f34b0241f034db31217">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_57c6aa0e423e4f34b0241f034db31217"
+      <label for="_anim_radio2_f8417391c5e44510985c9823a379da98">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_f8417391c5e44510985c9823a379da98"
              >
-      <label for="_anim_radio3_57c6aa0e423e4f34b0241f034db31217">Reflect</label>
+      <label for="_anim_radio3_f8417391c5e44510985c9823a379da98">Reflect</label>
     </form>
   </div>
 </div>
@@ -734,9 +628,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img57c6aa0e423e4f34b0241f034db31217";
-    var slider_id = "_anim_slider57c6aa0e423e4f34b0241f034db31217";
-    var loop_select_id = "_anim_loop_select57c6aa0e423e4f34b0241f034db31217";
+    var img_id = "_anim_imgf8417391c5e44510985c9823a379da98";
+    var slider_id = "_anim_sliderf8417391c5e44510985c9823a379da98";
+    var loop_select_id = "_anim_loop_selectf8417391c5e44510985c9823a379da98";
     var frames = new Array(75);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAGwCAYAAADITjAqAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -13878,7 +13772,7 @@ wAAAXiLAAABeIsAAAF4iwAAAXiLAAABeIsAAAF76/4Hwx+E+KUxUAAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim57c6aa0e423e4f34b0241f034db31217 = new Animation(frames, img_id, slider_id, 100.0,
+        animf8417391c5e44510985c9823a379da98 = new Animation(frames, img_id, slider_id, 100.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -13888,27 +13782,7 @@ wAAAXiLAAABeIsAAAF4iwAAAXiLAAABeIsAAAF76/4Hwx+E+KUxUAAAAAElFTkSuQmCC\
 <p>Next let’s look at the system corresponding to:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} A = \begin{bmatrix}1.1&amp;0\\0&amp;0.9\end{bmatrix} \end{split}\]</div>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">]])</span>
-<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">500.</span><span class="p">])]</span>
-<span class="n">xvals</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">yvals</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="c1">#</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">anim_plot</span><span class="p">(</span><span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="mi">1200</span><span class="p">,</span> <span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
-<span class="c1">#</span>
-<span class="n">lines</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="s1">&#39;ro-&#39;</span><span class="p">)</span>
-<span class="c1">#</span>
-<span class="c1"># instantiate the animator.</span>
-<span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> 
-                        <span class="n">animate</span><span class="p">,</span> 
-                        <span class="n">frames</span> <span class="o">=</span> <span class="mi">75</span><span class="p">,</span> 
-                        <span class="n">fargs</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                        <span class="n">interval</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> 
-                        <span class="n">repeat</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output text_html">
 <link rel="stylesheet"
@@ -14095,42 +13969,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img050d147b5b654bf2b3e4acbe29edd1bb">
+  <img id="_anim_imgc935090edbe94722b9bf23ad8ed321c4">
   <div class="anim-controls">
-    <input id="_anim_slider050d147b5b654bf2b3e4acbe29edd1bb" type="range" class="anim-slider"
+    <input id="_anim_sliderc935090edbe94722b9bf23ad8ed321c4" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim050d147b5b654bf2b3e4acbe29edd1bb.set_frame(parseInt(this.value));"></input>
+           oninput="animc935090edbe94722b9bf23ad8ed321c4.set_frame(parseInt(this.value));"></input>
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim050d147b5b654bf2b3e4acbe29edd1bb.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="animc935090edbe94722b9bf23ad8ed321c4.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim050d147b5b654bf2b3e4acbe29edd1bb.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="animc935090edbe94722b9bf23ad8ed321c4.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim050d147b5b654bf2b3e4acbe29edd1bb.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="animc935090edbe94722b9bf23ad8ed321c4.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim050d147b5b654bf2b3e4acbe29edd1bb.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="animc935090edbe94722b9bf23ad8ed321c4.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim050d147b5b654bf2b3e4acbe29edd1bb.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="animc935090edbe94722b9bf23ad8ed321c4.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim050d147b5b654bf2b3e4acbe29edd1bb.play_animation()">
+      <button title="Play" aria-label="Play" onclick="animc935090edbe94722b9bf23ad8ed321c4.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim050d147b5b654bf2b3e4acbe29edd1bb.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="animc935090edbe94722b9bf23ad8ed321c4.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim050d147b5b654bf2b3e4acbe29edd1bb.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="animc935090edbe94722b9bf23ad8ed321c4.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim050d147b5b654bf2b3e4acbe29edd1bb.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="animc935090edbe94722b9bf23ad8ed321c4.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select050d147b5b654bf2b3e4acbe29edd1bb"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectc935090edbe94722b9bf23ad8ed321c4"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_050d147b5b654bf2b3e4acbe29edd1bb"
+      <input type="radio" name="state" value="once" id="_anim_radio1_c935090edbe94722b9bf23ad8ed321c4"
              checked>
-      <label for="_anim_radio1_050d147b5b654bf2b3e4acbe29edd1bb">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_050d147b5b654bf2b3e4acbe29edd1bb"
+      <label for="_anim_radio1_c935090edbe94722b9bf23ad8ed321c4">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_c935090edbe94722b9bf23ad8ed321c4"
              >
-      <label for="_anim_radio2_050d147b5b654bf2b3e4acbe29edd1bb">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_050d147b5b654bf2b3e4acbe29edd1bb"
+      <label for="_anim_radio2_c935090edbe94722b9bf23ad8ed321c4">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_c935090edbe94722b9bf23ad8ed321c4"
              >
-      <label for="_anim_radio3_050d147b5b654bf2b3e4acbe29edd1bb">Reflect</label>
+      <label for="_anim_radio3_c935090edbe94722b9bf23ad8ed321c4">Reflect</label>
     </form>
   </div>
 </div>
@@ -14140,9 +14014,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img050d147b5b654bf2b3e4acbe29edd1bb";
-    var slider_id = "_anim_slider050d147b5b654bf2b3e4acbe29edd1bb";
-    var loop_select_id = "_anim_loop_select050d147b5b654bf2b3e4acbe29edd1bb";
+    var img_id = "_anim_imgc935090edbe94722b9bf23ad8ed321c4";
+    var slider_id = "_anim_sliderc935090edbe94722b9bf23ad8ed321c4";
+    var loop_select_id = "_anim_loop_selectc935090edbe94722b9bf23ad8ed321c4";
     var frames = new Array(75);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAGwCAYAAADITjAqAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -23029,7 +22903,7 @@ YJKkkgwwSVJJBpgkqSQDTJJU0v8HKHlu2tRG4xYAAAAASUVORK5CYII=\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim050d147b5b654bf2b3e4acbe29edd1bb = new Animation(frames, img_id, slider_id, 100.0,
+        animc935090edbe94722b9bf23ad8ed321c4 = new Animation(frames, img_id, slider_id, 100.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -23039,27 +22913,7 @@ YJKkkgwwSVJJBpgkqSQDTJJU0v8HKHlu2tRG4xYAAAAASUVORK5CYII=\
 <p>Next let’s look at the system corresponding to:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} A = \begin{bmatrix}0.8&amp;0.5\\-0.1&amp;1.0\end{bmatrix} \end{split}\]</div>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]])</span>
-<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">500.</span><span class="p">])]</span>
-<span class="n">xvals</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">yvals</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="c1">#</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">anim_plot</span><span class="p">(</span><span class="o">-</span><span class="mi">400</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="o">-</span><span class="mi">300</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
-<span class="c1">#</span>
-<span class="n">lines</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([],</span> <span class="p">[],</span> <span class="s1">&#39;ro-&#39;</span><span class="p">)</span>
-<span class="c1">#</span>
-<span class="c1"># instantiate the animator.</span>
-<span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> 
-                        <span class="n">animate</span><span class="p">,</span> 
-                        <span class="n">frames</span> <span class="o">=</span> <span class="mi">75</span><span class="p">,</span> 
-                        <span class="n">fargs</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                        <span class="n">interval</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> 
-                        <span class="n">repeat</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output text_html">
 <link rel="stylesheet"
@@ -23246,42 +23100,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img1057b7376add4ada80947a8e389d98ff">
+  <img id="_anim_img0916699c02214b418e184d74c7e89824">
   <div class="anim-controls">
-    <input id="_anim_slider1057b7376add4ada80947a8e389d98ff" type="range" class="anim-slider"
+    <input id="_anim_slider0916699c02214b418e184d74c7e89824" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim1057b7376add4ada80947a8e389d98ff.set_frame(parseInt(this.value));"></input>
+           oninput="anim0916699c02214b418e184d74c7e89824.set_frame(parseInt(this.value));"></input>
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim1057b7376add4ada80947a8e389d98ff.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim0916699c02214b418e184d74c7e89824.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim1057b7376add4ada80947a8e389d98ff.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim0916699c02214b418e184d74c7e89824.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim1057b7376add4ada80947a8e389d98ff.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim0916699c02214b418e184d74c7e89824.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim1057b7376add4ada80947a8e389d98ff.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim0916699c02214b418e184d74c7e89824.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim1057b7376add4ada80947a8e389d98ff.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim0916699c02214b418e184d74c7e89824.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim1057b7376add4ada80947a8e389d98ff.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim0916699c02214b418e184d74c7e89824.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim1057b7376add4ada80947a8e389d98ff.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim0916699c02214b418e184d74c7e89824.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim1057b7376add4ada80947a8e389d98ff.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim0916699c02214b418e184d74c7e89824.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim1057b7376add4ada80947a8e389d98ff.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim0916699c02214b418e184d74c7e89824.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select1057b7376add4ada80947a8e389d98ff"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select0916699c02214b418e184d74c7e89824"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_1057b7376add4ada80947a8e389d98ff"
+      <input type="radio" name="state" value="once" id="_anim_radio1_0916699c02214b418e184d74c7e89824"
              checked>
-      <label for="_anim_radio1_1057b7376add4ada80947a8e389d98ff">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_1057b7376add4ada80947a8e389d98ff"
+      <label for="_anim_radio1_0916699c02214b418e184d74c7e89824">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_0916699c02214b418e184d74c7e89824"
              >
-      <label for="_anim_radio2_1057b7376add4ada80947a8e389d98ff">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_1057b7376add4ada80947a8e389d98ff"
+      <label for="_anim_radio2_0916699c02214b418e184d74c7e89824">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_0916699c02214b418e184d74c7e89824"
              >
-      <label for="_anim_radio3_1057b7376add4ada80947a8e389d98ff">Reflect</label>
+      <label for="_anim_radio3_0916699c02214b418e184d74c7e89824">Reflect</label>
     </form>
   </div>
 </div>
@@ -23291,9 +23145,9 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img1057b7376add4ada80947a8e389d98ff";
-    var slider_id = "_anim_slider1057b7376add4ada80947a8e389d98ff";
-    var loop_select_id = "_anim_loop_select1057b7376add4ada80947a8e389d98ff";
+    var img_id = "_anim_img0916699c02214b418e184d74c7e89824";
+    var slider_id = "_anim_slider0916699c02214b418e184d74c7e89824";
+    var loop_select_id = "_anim_loop_select0916699c02214b418e184d74c7e89824";
     var frames = new Array(75);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAGwCAYAAADITjAqAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
@@ -36044,7 +35898,7 @@ EWAAgCgRYACAKBFgAIAo/T8qQjql+i2TJQAAAABJRU5ErkJggg==\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim1057b7376add4ada80947a8e389d98ff = new Animation(frames, img_id, slider_id, 100.0,
+        anim0916699c02214b418e184d74c7e89824 = new Animation(frames, img_id, slider_id, 100.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -36087,9 +35941,6 @@ EWAAgCgRYACAKBFgAIAo/T8qQjql+i2TJQAAAABJRU5ErkJggg==\
 <div class="math notranslate nohighlight">
 \[=(\lambda-3)(\lambda + 7)\]</div>
 <p>If <span class="math notranslate nohighlight">\(\det(A-\lambda I) = 0,\)</span> then <span class="math notranslate nohighlight">\(\lambda = 3\)</span> or <span class="math notranslate nohighlight">\(\lambda = -7.\)</span>  So the eigenvalues of <span class="math notranslate nohighlight">\(A\)</span> are <span class="math notranslate nohighlight">\(3\)</span> and <span class="math notranslate nohighlight">\(-7\)</span>.</p>
-<div class="toggle docutils container">
-<p>Question Time! Q17.1</p>
-</div>
 <p>The same idea works for <span class="math notranslate nohighlight">\(n\times n\)</span> matrices – but, for that, we need to define a <em>determinant</em> for larger matrices.</p>
 <div class="section" id="determinants-of-larger-matrices">
 <h3>Determinants of Larger Matrices<a class="headerlink" href="#determinants-of-larger-matrices" title="Permalink to this headline">¶</a></h3>
@@ -36112,9 +35963,6 @@ EWAAgCgRYACAKBFgAIAo/T8qQjql+i2TJQAAAABJRU5ErkJggg==\
 <div class="math notranslate nohighlight">
 \[\begin{split}A \sim \begin{bmatrix}1&amp;5&amp;0\\0&amp;-6&amp;-1\\0&amp;-2&amp;0\end{bmatrix} \sim \begin{bmatrix}1&amp;5&amp;0\\0&amp;-6&amp;-1\\0&amp;0&amp;1/3\end{bmatrix}.\end{split}\]</div>
 <p>Using this echelon form to compute the determinant yields <span class="math notranslate nohighlight">\((-1)^0(1)(-6)(1/3) = -2,\)</span> the same as before.</p>
-<div class="toggle docutils container">
-<p>Question Time! Q17.2</p>
-</div>
 </div>
 <div class="section" id="invertibility">
 <h3>Invertibility<a class="headerlink" href="#invertibility" title="Permalink to this headline">¶</a></h3>
@@ -36122,10 +35970,18 @@ EWAAgCgRYACAKBFgAIAo/T8qQjql+i2TJQAAAABJRU5ErkJggg==\
 <p>We have <strong>yet another</strong> part to add to the Invertible Matrix Theorem:</p>
 <p>Let <span class="math notranslate nohighlight">\(A\)</span> be an <span class="math notranslate nohighlight">\(n\times n\)</span> matrix.   Then <span class="math notranslate nohighlight">\(A\)</span> is invertible if and only if:</p>
 <ol class="simple">
-<li><p>The number 0 is <em>not</em> an eigenvalue of <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
 <li><p>The determinant of <span class="math notranslate nohighlight">\(A\)</span> is <em>not</em> zero.</p></li>
+<li><p>The number 0 is <em>not</em> an eigenvalue of <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
 </ol>
-<p>Some facts about determinants (proved in the book):</p>
+<p>The second fact is true because if zero is an eigenvalue of <span class="math notranslate nohighlight">\(A\)</span>, then <span class="math notranslate nohighlight">\(\det A = \det(A - \lambda I) = 0. \)</span></p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To see that <span class="math notranslate nohighlight">\(\det AB = (\det A) (\det B),\)</span> think about <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> as linear transformations.   Then <span class="math notranslate nohighlight">\(AB\)</span> is the composition of those transformations.   So the amount that <span class="math notranslate nohighlight">\(AB\)</span> scales the unit hypercube is the product of the scaling performed by <span class="math notranslate nohighlight">\(A\)</span> and the scaling performed by <span class="math notranslate nohighlight">\(B\)</span>.</p>
+</div>
+</div>
+<p>Some facts about determinants:</p>
 <ol class="simple">
 <li><p><span class="math notranslate nohighlight">\(\det AB = (\det A) (\det B).\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\det A^T = \det A.\)</span></p></li>
@@ -36216,35 +36072,9 @@ EWAAgCgRYACAKBFgAIAo/T8qQjql+i2TJQAAAABJRU5ErkJggg==\
 <p>Let’s use an example: we previously studied the Markov Chain defined by <span class="math notranslate nohighlight">\(A = \begin{bmatrix}0.95&amp;0.03\\0.05&amp;0.97\end{bmatrix}.\)</span></p>
 <p>Let’s ask how quickly it reaches steady state, from the starting point defined as <span class="math notranslate nohighlight">\(\mathbf{x}_0 = \begin{bmatrix}0.6\\0.4\end{bmatrix}.\)</span></p>
 <p>Remember that <span class="math notranslate nohighlight">\(x_0\)</span> is probability vector – its entries are nonnegative and sum to 1.</p>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">1.2</span><span class="p">,</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">1.2</span><span class="p">)</span>
-<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.95</span><span class="p">,</span><span class="mf">0.03</span><span class="p">],[</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.97</span><span class="p">]])</span>
-<span class="n">v1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.375</span><span class="p">,</span><span class="mf">0.625</span><span class="p">])</span>
-<span class="n">v2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.225</span><span class="p">,</span><span class="o">-</span><span class="mf">0.225</span><span class="p">])</span>
-<span class="n">x0</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="n">v2</span>
-<span class="c1">#</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;b--&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">x0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;bo&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.02</span><span class="p">,</span><span class="n">x0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.02</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;${\bf x_0}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="c1">#ax.text(A.dot(x0)[0]+0.2,A.dot(x0)[1]+0.2,r&#39;$A{\bf x_0}$&#39;,size=16)</span>
-<span class="c1"># ax.plot([-10,10],[5*10/6.0,-5*10/6.0],&#39;b-&#39;)</span>
-<span class="c1">#</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;Initial State&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">x0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x0</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
-                <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
-                <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
-                <span class="c1">#bbox=dict(boxstyle=&quot;round&quot;, fc=&quot;0.8&quot;),</span>
-                <span class="n">arrowprops</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;arrowstyle&#39;</span><span class="p">:</span> <span class="s1">&#39;simple&#39;</span><span class="p">,</span>
-                                <span class="s1">&#39;fc&#39;</span><span class="p">:</span> <span class="s1">&#39;0.5&#39;</span><span class="p">,</span> 
-                                <span class="s1">&#39;ec&#39;</span><span class="p">:</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span>
-                                <span class="s1">&#39;connectionstyle&#39;</span> <span class="p">:</span> <span class="s1">&#39;arc3,rad=-0.3&#39;</span><span class="p">},</span>
-                <span class="p">);</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L17CharacteristicEqn_94_0.png" src="_images/L17CharacteristicEqn_94_0.png" />
+<img alt="_images/L17CharacteristicEqn_95_0.png" src="_images/L17CharacteristicEqn_95_0.png" />
 </div>
 </div>
 <p>Using the methods we studied today, we can find the characteristic equation:</p>
@@ -36304,56 +36134,12 @@ EWAAgCgRYACAKBFgAIAo/T8qQjql+i2TJQAAAABJRU5ErkJggg==\
 \[\begin{split}\mathbf{x}_\infty = 0.125\begin{bmatrix}3\\5\end{bmatrix}\end{split}\]</div>
 <p>The equation tells us how quickly the chain converges, because as <span class="math notranslate nohighlight">\(k\rightarrow\infty\)</span>, <span class="math notranslate nohighlight">\((0.92)^k\rightarrow0\)</span>.</p>
 <p>Thus <span class="math notranslate nohighlight">\(\mathbf{x}_k \rightarrow 0.125\mathbf{v}_1 = \begin{bmatrix}0.375\\0.625\end{bmatrix}.\)</span></p>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">1.2</span><span class="p">,</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span><span class="mf">1.2</span><span class="p">)</span>
-<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.95</span><span class="p">,</span><span class="mf">0.03</span><span class="p">],[</span><span class="mf">0.05</span><span class="p">,</span><span class="mf">0.97</span><span class="p">]])</span>
-<span class="n">v1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.375</span><span class="p">,</span><span class="mf">0.625</span><span class="p">])</span>
-<span class="n">v2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.225</span><span class="p">,</span><span class="o">-</span><span class="mf">0.225</span><span class="p">])</span>
-<span class="n">x0</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="n">v2</span>
-<span class="c1">#</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;b--&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.02</span><span class="p">,</span><span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.02</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;${\bf v_1}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x0</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">x0</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;bo&#39;</span><span class="p">)</span>
-<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">40</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">):</span>
-    <span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v1</span><span class="o">+</span><span class="p">(</span><span class="mf">0.92</span><span class="o">**</span><span class="n">i</span><span class="p">)</span><span class="o">*</span><span class="n">v2</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span><span class="n">v</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;o&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.02</span><span class="p">,</span><span class="n">v</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.02</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;${\bf x_4}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">10</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.02</span><span class="p">,</span><span class="n">v</span><span class="p">[</span><span class="mi">10</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.02</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;${\bf x_</span><span class="si">{10}</span><span class="s1">}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">x0</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span><span class="mf">0.02</span><span class="p">,</span><span class="n">x0</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="mf">0.02</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;${\bf x_0}$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="s1">&#39;ro&#39;</span><span class="p">)</span>
-<span class="c1">#ax.text(A.dot(x0)[0]+0.2,A.dot(x0)[1]+0.2,r&#39;$A{\bf x_0}$&#39;,size=16)</span>
-<span class="c1"># ax.plot([-10,10],[5*10/6.0,-5*10/6.0],&#39;b-&#39;)</span>
-<span class="c1">#</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;Steady State&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
-                <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
-                <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
-                <span class="c1">#bbox=dict(boxstyle=&quot;round&quot;, fc=&quot;0.8&quot;),</span>
-                <span class="n">arrowprops</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;arrowstyle&#39;</span><span class="p">:</span> <span class="s1">&#39;simple&#39;</span><span class="p">,</span>
-                                <span class="s1">&#39;fc&#39;</span><span class="p">:</span> <span class="s1">&#39;0.5&#39;</span><span class="p">,</span> 
-                                <span class="s1">&#39;ec&#39;</span><span class="p">:</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span>
-                                <span class="s1">&#39;connectionstyle&#39;</span> <span class="p">:</span> <span class="s1">&#39;arc3,rad=-0.3&#39;</span><span class="p">},</span>
-                <span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;Initial State&#39;</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]),</span>  <span class="n">xycoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
-                <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s1">&#39;data&#39;</span><span class="p">,</span>
-                <span class="n">size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
-                <span class="c1">#bbox=dict(boxstyle=&quot;round&quot;, fc=&quot;0.8&quot;),</span>
-                <span class="n">arrowprops</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;arrowstyle&#39;</span><span class="p">:</span> <span class="s1">&#39;simple&#39;</span><span class="p">,</span>
-                                <span class="s1">&#39;fc&#39;</span><span class="p">:</span> <span class="s1">&#39;0.5&#39;</span><span class="p">,</span> 
-                                <span class="s1">&#39;ec&#39;</span><span class="p">:</span> <span class="s1">&#39;none&#39;</span><span class="p">,</span>
-                                <span class="s1">&#39;connectionstyle&#39;</span> <span class="p">:</span> <span class="s1">&#39;arc3,rad=-0.3&#39;</span><span class="p">},</span>
-                <span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
-<img alt="_images/L17CharacteristicEqn_114_1.png" src="_images/L17CharacteristicEqn_114_1.png" />
+<img alt="_images/L17CharacteristicEqn_115_1.png" src="_images/L17CharacteristicEqn_115_1.png" />
 </div>
 </div>
 </div>
