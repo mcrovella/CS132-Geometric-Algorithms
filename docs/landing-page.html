@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Preface &#8212; Linear Algebra, Geometry, and Computation</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet" />
-  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -31,7 +31,7 @@
     <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -41,7 +41,7 @@
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe"
@@ -54,7 +54,10 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Linear Equations" href="L01LinearEquations.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
@@ -275,7 +278,7 @@
                 data-placement="left">.md</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -306,7 +309,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
@@ -314,13 +317,18 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#format">
-   Format
+  <a class="reference internal nav-link" href="#the-story">
+   The Story
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#teaching-approach">
    Teaching Approach
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#format">
+   Format
   </a>
  </li>
 </ul>
@@ -331,7 +339,40 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Preface</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-story">
+   The Story
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#teaching-approach">
+   Teaching Approach
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#format">
+   Format
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <p><img alt="" src="_images/sophie-germain.jpeg" /></p>
@@ -349,21 +390,26 @@ Applications,</em> by David C. Lay, Addison-Wesley (Pearson).   However all
 the content has been significantly revised by me.  The book also
 includes contributions and improvements from Wayne Snyder, as well as
 from students who have taken CS 132 (see the list of contributors <a class="reference external" href="https://github.com/mcrovella/CS132-Geometric-Algorithms/">here</a>).</p>
-<div class="section" id="format">
-<h2>Format<a class="headerlink" href="#format" title="Permalink to this headline">¶</a></h2>
-<p>The notes are in the form of Jupyter notebooks.   Demos and most figures
-are included as executable Python code.   All course materials are in
-the github repository
-<a class="reference external" href="https://github.com/mcrovella/CS132-Geometric-Algorithms">here.</a></p>
-<p>Each of the Chapters is based on a single notebook, and each forms the
-basis for one lecture (more or less).</p>
-<p>Note that all of the 3D figures used in this book can be viewed in
-augmented reality using the app <strong>DiagramAR.</strong>  Using DiagramAR you can look at the
-figures “in space’’ and can move around them to look at them from
-different angles, rotate them, or zoom in/out.  DiagramAR is available
-for <a class="reference external" href="https://apps.apple.com/us/app/diagramar/id1484987191">iOS</a> and  <a class="reference external" href="https://play.google.com/store/apps/details?id=com.crovella.diagramar">Android</a>.
-Adapting DiagramAR for any course that uses python for 3D figure creation
-is not hard; contact me for details.</p>
+<div class="section" id="the-story">
+<h2>The Story<a class="headerlink" href="#the-story" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><p>I have long embraced the belief that every course should be built
+around a story, a quest to answer certain burning questions.</p>
+<p>David Bressoud, <a class="reference external" href="https://www.mathvalues.org/masterblog/launchings201906-z45y4">mathvalues.org</a></p>
+</div></blockquote>
+<!--- Outstanding video on history of related ideas: -->
+<!--https://m.youtube.com/watch?v=5M2RWtD4EzI --->
+<p>What is linear algebra really <em>about</em>?   This is a great question.  My
+attempt at an answer is this:</p>
+<p>Our shared experience of the world is in three dimensions.  In that
+context humans have acquired innate and learned abilities to think about
+shapes and spatial relationships.    Linear algebra asks: how would all
+that change if <strong>the number of dimensions was unspecified?</strong></p>
+<p>In that view, an enormously important contribution comes from an algebra
+in which the dimensionality of objects is unspecified so that concepts
+become generalized.   Another important contribution comes from taking
+familiar three-dimensional notions and asking what we can say about them,
+and how we can reason about them, in arbitrary dimension.</p>
 </div>
 <div class="section" id="teaching-approach">
 <h2>Teaching Approach<a class="headerlink" href="#teaching-approach" title="Permalink to this headline">¶</a></h2>
@@ -385,21 +431,47 @@ rigorous way.    The third is <em>computational</em> thinking: understanding the
 relationship between abstract algebraic machinery and actual
 computations which arrive at the (hopefully) correct answer to a specific problem in
 an efficient way.</p>
-<p>Each mode provides a
-distinct, powerful way of thinking about a problem, and so
+<blockquote>
+<div><p>It’s in words that the magic is — Abracadabra, Open Sesame, and the
+rest — but the magic words in one story aren’t magical in the next.
+The real magic is to understand which words work, and when, and for
+what;  the trick is to learn the trick.</p>
+<p>John Barth, <em>Chimera</em></p>
+</div></blockquote>
+<p>Each mode of thinking provides a
+distinct, powerful way of understanding a problem, and so
 using the full power of linear algebra requires being able to switch between
 these modes with fluidity.
 However, these three modes of thinking are quite different, and
 often students are better at some modes than others.   For example, here
 are three views of matrix-vector multiplication:</p>
 <p><img alt="" src="_images/L0-overview-diagram.jpg" /></p>
-<p>Jupyter notebooks (including the use of <a class="reference external" href="https://rise.readthedocs.io/en/stable/">RISE</a> for presentation, python
+<p><a class="reference external" href="https://jupyter.org">Jupyter notebooks</a> – including the use of <a class="reference external" href="https://rise.readthedocs.io/en/stable/">RISE</a> for presentation, Python
 for computation, and
-<a class="reference external" href="https://jupyterbook.org/intro.html">jupyter books</a> for reference) are an ideal teaching environment to take on
-this challenge.   Hence the goal of these notes is to take advantage of
+<a class="reference external" href="https://jupyterbook.org/intro.html">jupyter books</a> for reference – are
+an ideal
+teaching environment to take on
+this trimodal challenge.
+Hence the goal of these notes is to take advantage of
 the Jupyter toolchain to interweave these
 modes on a fine grain, frequently moving from one mode to the other, to
 constantly reinforce connections between ways of thinking about linear algebra.</p>
+</div>
+<div class="section" id="format">
+<h2>Format<a class="headerlink" href="#format" title="Permalink to this headline">¶</a></h2>
+<p>The notes are in the form of Jupyter notebooks.   Demos and most figures
+are included as executable Python code.   All course materials are in
+the github repository
+<a class="reference external" href="https://github.com/mcrovella/CS132-Geometric-Algorithms">here.</a></p>
+<p>Each of the Chapters is based on a single notebook, and each forms the
+basis for one lecture (more or less).</p>
+<p>Note that all of the 3D figures used in this book can be viewed in
+augmented reality using the app <strong>DiagramAR.</strong>  Using DiagramAR you can look at the
+figures “in space’’ and can move around them to look at them from
+different angles, rotate them, or zoom in/out.  DiagramAR is available
+for <a class="reference external" href="https://apps.apple.com/us/app/diagramar/id1484987191">iOS</a> and  <a class="reference external" href="https://play.google.com/store/apps/details?id=com.crovella.diagramar">Android</a>.
+Adapting DiagramAR for any course that uses python for 3D figure creation
+is not hard; contact me for details.</p>
 <p>I hope you enjoy this book, whose goal is to <strong>prevent</strong> you from falling
 into this trap:</p>
 <blockquote>
@@ -409,10 +481,10 @@ question you like. All you need to do is give me your soul: give up
 geometry and you will have this marvelous machine.</p>
 <p>Sir Michael Atiyah, 2002</p>
 </div></blockquote>
-<p>And to conclude, here is an anonymous review from Fall 2022:</p>
+<p>And to conclude, here is an anonymous course review from Fall 2022:</p>
 <blockquote>
 <div><p>I thought when the Professors were talking about how linear algebra is
-“beautiful”, they were exaggerating, but by the end of the course, I
+“beautiful,” they were exaggerating, but by the end of the course, I
 understood why this is true.</p>
 </div></blockquote>
 </div>
@@ -442,45 +514,35 @@ understood why this is true.</p>
 
               </div>
               
-        
             
-
-
-
-<div class='prev-next-bottom'>
-    
-     <div id="next">
-        <a class="right-next" href="L01LinearEquations.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Linear Equations</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='right-next' id="next-link" href="L01LinearEquations.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Linear Equations</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Mark Crovella<br/>
-        
-            &copy; Copyright 2020-2022.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By Mark Crovella<br/>
+    
+        &copy; Copyright 2020-2022.<br/>
+  </p>
+</footer>
 </main>
 
 
       </div>
     </div>
   
-  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
 
-  
   </body>
 </html>
