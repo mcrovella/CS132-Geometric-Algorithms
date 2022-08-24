@@ -42,8 +42,6 @@
     <script src="_static/copybutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
@@ -339,6 +337,11 @@
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#representations">
+   Representations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#integers">
    Integers
   </a>
@@ -415,6 +418,11 @@
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#representations">
+   Representations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#integers">
    Integers
   </a>
@@ -479,30 +487,7 @@
             
               <div>
                 
-  <div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format=&#39;retina&#39;
-<span class="c1"># import libraries</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mp</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">laUtilities</span> <span class="k">as</span> <span class="nn">ut</span>
-<span class="kn">import</span> <span class="nn">slideUtilities</span> <span class="k">as</span> <span class="nn">sl</span>
-<span class="kn">import</span> <span class="nn">demoUtilities</span> <span class="k">as</span> <span class="nn">dm</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display_html</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Math</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Latex</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
-</pre></div>
-</div>
-</div>
+  <div class="cell tag_remove-input docutils container">
 </div>
 <div class="tex2jax_ignore mathjax_ignore section" id="getting-serious-about-numbers">
 <h1>(Getting Serious About) Numbers<a class="headerlink" href="#getting-serious-about-numbers" title="Permalink to this headline">¶</a></h1>
@@ -512,22 +497,28 @@
 William Kahan, creator of the IEEE-754 standard.
 <div>
 Turing Award Winner, 1989
-</center><blockquote>
+</center><div class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Photo Credit:
+<a href="https://commons.wikimedia.org/wiki/File:William_Kahan_2008_(cropped).jpg">George M. Bergman</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, via Wikimedia Commons</p>
+</div>
+</div>
+<blockquote>
 <div><p>I have a number in my head <br>
 Though I don’t know why it’s there<br>
 When numbers get serious<br>
 You see their shape everywhere</p>
 <p>Paul Simon</p>
 </div></blockquote>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Photo Credit:
-<a href="https://commons.wikimedia.org/wiki/File:William_Kahan_2008_(cropped).jpg">George M. Bergman</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, via Wikimedia Commons</p>
-</div>
 <p>One of the themes of this course will be shifting between mathematical and computational views of various concepts.</p>
 <p>Today we need to talk about why the answers we get from computers can be different from the answers we get mathematically</p>
 <p>– for the same question!</p>
 <p>The root of the problem has to do with how <strong>numbers</strong> are manipulated in a computer.</p>
+<p>In other words, how numbers are <strong>represented.</strong></p>
+<div class="section" id="representations">
+<h2>Representations<a class="headerlink" href="#representations" title="Permalink to this headline">¶</a></h2>
 <p>A number is a mathematical concept – an abstract idea.</p>
 <blockquote>
 <div><p>God made the integers, <br>all else is the work of man.</p>
@@ -537,6 +528,8 @@ You see their shape everywhere</p>
 <p>We say the bit pattern is the number’s <em>representation.</em></p>
 <p>For example the number ‘3.14’ might have the representation ‘01000000010010001111010111000011’.</p>
 <p>For reasons of efficiency, we use a fixed number of bits for these representations.   In most computers nowadays we use <strong>64 bits</strong> to represent a number.</p>
+<p>Let’s look at some number representations and see what they imply about computations.</p>
+</div>
 <div class="section" id="integers">
 <h2>Integers<a class="headerlink" href="#integers" title="Permalink to this headline">¶</a></h2>
 <p>Kronecker believed that integers were the only ‘true’ numbers.</p>
@@ -565,17 +558,18 @@ You see their shape everywhere</p>
 <div class="math notranslate nohighlight">
 \[17 = \underbrace{1.0001}_{significand}\times {\underbrace{2}_{base}}^{\overbrace{4}^{exponent}}\]</div>
 <p>The sign, significand, and exponent are all contained within the 64 bits.</p>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/IEEE_754_Double_Floating_Point_Format.png&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">450</span><span class="p">))</span>
-</pre></div>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By Codekaizen (Own work) [<a href="http://www.gnu.org/copyleft/fdl.html">GFDL</a> or <a href="http://creativecommons.org/licenses/by-sa/4.0-3.0-2.5-2.0-1.0">CC BY-SA 4.0-3.0-2.5-2.0-1.0</a>], <a href="https://commons.wikimedia.org/wiki/File%3AIEEE_754_Double_Floating_Point_Format.svg">via Wikimedia Commons</a></p>
 </div>
 </div>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L02Numerics_22_0.png" src="_images/L02Numerics_22_0.png" />
+<img alt="_images/L02Numerics_25_0.png" src="_images/L02Numerics_25_0.png" />
 </div>
 </div>
-<p><font size='1'> By Codekaizen (Own work) [<a href="http://www.gnu.org/copyleft/fdl.html">GFDL</a> or <a href="http://creativecommons.org/licenses/by-sa/4.0-3.0-2.5-2.0-1.0">CC BY-SA 4.0-3.0-2.5-2.0-1.0</a>], <a href="https://commons.wikimedia.org/wiki/File%3AIEEE_754_Double_Floating_Point_Format.svg">via Wikimedia Commons</a></font></p>
 <p>Because only a fixed number of bits are used, <strong>most real numbers cannot be represented exactly in a computer.</strong></p>
 <p>Another way of saying this is that, usually, a floating point number is an approximation of some particular real number.</p>
 <p>Generally when we try to store a real number in a computer, <strong>what we wind up storing is the closest floating point number that the computer can represent.</strong></p>
@@ -700,7 +694,7 @@ You see their shape everywhere</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/j0/5mrrz4gn0ls56tvw9q3_f8d40000gn/T/ipykernel_46835/3438155168.py:1: RuntimeWarning: invalid value encountered in sqrt
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/j0/5mrrz4gn0ls56tvw9q3_f8d40000gn/T/ipykernel_49457/3438155168.py:1: RuntimeWarning: invalid value encountered in sqrt
   np.sqrt(-1)
 </pre></div>
 </div>
@@ -717,7 +711,7 @@ You see their shape everywhere</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/j0/5mrrz4gn0ls56tvw9q3_f8d40000gn/T/ipykernel_46835/329155313.py:1: RuntimeWarning: divide by zero encountered in log
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/j0/5mrrz4gn0ls56tvw9q3_f8d40000gn/T/ipykernel_49457/329155313.py:1: RuntimeWarning: divide by zero encountered in log
   var = np.log(0)
 </pre></div>
 </div>
@@ -739,6 +733,8 @@ You see their shape everywhere</p>
 </div>
 </div>
 <p>As far as we are concerned, there is no difference between positive and negative zero.   You can ignore the minus sign in front of a negative zero.  (If you are curious why there is a negative zero, see the online notes.)</p>
+<div class="margin sidebar">
+<p class="sidebar-title"></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The reason for having a negative and positive zero is the following.</p>
@@ -746,6 +742,7 @@ You see their shape everywhere</p>
 <p>So, let’s say we try to store a number <span class="math notranslate nohighlight">\(x\)</span> that is very close to zero. To be specific, let <span class="math notranslate nohighlight">\(|x| &lt; 2.2 \times 10^{-308}\)</span>.  Then the closest floating point representation is zero, so that is what is stored.   This is known as “underflow”.</p>
 <p>But … the number <span class="math notranslate nohighlight">\(x\)</span> that we were <em>trying</em> to store could have been positive or negative.   So the standard defines a positive and negative zero. The sign of zero tells us when underflow occurred, “which direction” the underflow came from.</p>
 <p>This can be useful in some numerical algorithms.</p>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
