@@ -5,7 +5,8 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import itertools
 import json
-import qrcode
+# no longer used; there is still some code left to clean up
+# import qrcode
 import hashlib
 
 url_base = 'https://www.cs.bu.edu/faculty/crovella/cs132-figures'
@@ -692,31 +693,36 @@ class three_d_figure:
         with open(fname, 'w') as fp:
             json.dump(self.desc, fp, indent=2)
         if self.qr != None:
-            qr_code = qrcode.QRCode(
-                version=1,
-                error_correction=qrcode.constants.ERROR_CORRECT_L,
-                box_size=3,
-                border=4
-                )
-            m = hashlib.sha256()
-            if self.qr == 'direct':
-                m.update(self.json().encode('utf-8'))
-                d = m.digest().hex()
-                qr_code.add_data("b"+self.json()+d)
-            elif self.qr == 'url':
-                url_string = url_base + '/' + file_name + '.json'
-                m.update(url_string.encode('utf-8'))
-                d = m.digest().hex()
-                qr_code.add_data("a"+url_string+d)
-            qr_code.make(fit=True)
-            img = qr_code.make_image()
+            assert(False)
+            # no longer using this method; removed
+            # to eliminate dependency
+            #qr_code = qrcode.QRCode(
+            #    version=1,
+            #    error_correction=qrcode.constants.ERROR_CORRECT_L,
+            #    box_size=3,
+            #    border=4
+            #    )
+            #m = hashlib.sha256()
+            #if self.qr == 'direct':
+            #    m.update(self.json().encode('utf-8'))
+            #    d = m.digest().hex()
+            #    qr_code.add_data("b"+self.json()+d)
+            #elif self.qr == 'url':
+            #    url_string = url_base + '/' + file_name + '.json'
+            #    m.update(url_string.encode('utf-8'))
+            #    d = m.digest().hex()
+            #    qr_code.add_data("a"+url_string+d)
+            #qr_code.make(fit=True)
+            #img = qr_code.make_image()
             if qrviz == 'show':
-                self.ax2.imshow(img, cmap="gray")
-                # self.ax2.imshow(img)
-                self.ax2.set_axis_off()
-                return None
+                assert(False)
+            #    self.ax2.imshow(img, cmap="gray")
+            #    # self.ax2.imshow(img)
+            #    self.ax2.set_axis_off()
+            #    return None
             elif qrviz == 'save':
-                return img
+                assert(False)
+            #    return img
             # plt.subplots_adjust(wspace=1.)
             # plt.tight_layout()
 
