@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Diagonalization &#8212; Linear Algebra, Geometry, and Computation</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet">
-  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,41 +20,40 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -65,7 +66,21 @@
     <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -74,9 +89,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -94,14 +110,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="landing-page.html">
-   Preface
-  </a>
- </li>
-</ul>
-<ul class="current nav bd-sidenav">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="landing-page.html">
+                    Preface
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="L01LinearEquations.html">
    Linear Equations
@@ -240,104 +257,177 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/L18Diagonalization.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/mcrovella/CS132-Geometric-Algorithms"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L18Diagonalization.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L18Diagonalization.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/L18Diagonalization.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#powers-of-a-diagonal-matrix">
    Powers of a Diagonal Matrix
@@ -437,12 +527,11 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
                 <h1>Diagonalization</h1>
@@ -558,7 +647,8 @@
                     </div>
                 </div>
             </div>
-            
+            <main id="main-content" role="main">
+                
               <div>
                 
   <div class="cell tag_hide-cell docutils container">
@@ -593,8 +683,8 @@
 </div>
 </div>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="diagonalization">
-<h1>Diagonalization<a class="headerlink" href="#diagonalization" title="Permalink to this headline">¶</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="diagonalization">
+<h1>Diagonalization<a class="headerlink" href="#diagonalization" title="Permalink to this headline">#</a></h1>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Source: http://img3.wikia.nocookie.net/__cb20140714004320/harrypotter/images/8/84/PottermoreDiagonAlley1.jpg</span>
@@ -628,8 +718,8 @@
 <li><p>compute <span class="math notranslate nohighlight">\(A^k\)</span> quickly for large values of <span class="math notranslate nohighlight">\(k\)</span>.</p></li>
 </ul>
 <p>Let’s look at an example to show why this factorization is so important.</p>
-<div class="section" id="powers-of-a-diagonal-matrix">
-<h2>Powers of a Diagonal Matrix<a class="headerlink" href="#powers-of-a-diagonal-matrix" title="Permalink to this headline">¶</a></h2>
+<section id="powers-of-a-diagonal-matrix">
+<h2>Powers of a Diagonal Matrix<a class="headerlink" href="#powers-of-a-diagonal-matrix" title="Permalink to this headline">#</a></h2>
 <p>Consider taking the powers of a diagonal matrix.</p>
 <p>For example, <span class="math notranslate nohighlight">\(D = \begin{bmatrix}5&amp;0\\0&amp;3\end{bmatrix}.\)</span></p>
 <p>Then note that <span class="math notranslate nohighlight">\(D^2 = \begin{bmatrix}5&amp;0\\0&amp;3\end{bmatrix}\begin{bmatrix}5&amp;0\\0&amp;3\end{bmatrix} = \begin{bmatrix}5^2&amp;0\\0&amp;3^2\end{bmatrix},\)</span></p>
@@ -637,8 +727,8 @@
 <p>So in general,</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} D^k = \begin{bmatrix}5^k&amp;0\\0&amp;3^k\end{bmatrix} \;\;\;\mbox{for}\;k\geq1.\end{split}\]</div>
-<div class="section" id="extending-to-a-general-matrix-a">
-<h3>Extending to a general matrix <span class="math notranslate nohighlight">\(A\)</span><a class="headerlink" href="#extending-to-a-general-matrix-a" title="Permalink to this headline">¶</a></h3>
+<section id="extending-to-a-general-matrix-a">
+<h3>Extending to a general matrix <span class="math notranslate nohighlight">\(A\)</span><a class="headerlink" href="#extending-to-a-general-matrix-a" title="Permalink to this headline">#</a></h3>
 <p>Now, consider if <span class="math notranslate nohighlight">\(A\)</span> is <strong>similar</strong> to a diagonal matrix.</p>
 <p>For example, let <span class="math notranslate nohighlight">\(A = PDP^{-1}\)</span> for some invertible <span class="math notranslate nohighlight">\(P\)</span> and diagonal <span class="math notranslate nohighlight">\(D\)</span>.</p>
 <p>Then, <span class="math notranslate nohighlight">\(A^k\)</span> is also easy to compute.</p>
@@ -679,10 +769,10 @@
 <div class="toggle docutils container">
 <p>Question Time! Q18.1</p>
 </div>
-</div>
-</div>
-<div class="section" id="diagonalization-requires-eigenvectors-and-eigenvalues">
-<h2>Diagonalization Requires Eigenvectors and Eigenvalues<a class="headerlink" href="#diagonalization-requires-eigenvectors-and-eigenvalues" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="diagonalization-requires-eigenvectors-and-eigenvalues">
+<h2>Diagonalization Requires Eigenvectors and Eigenvalues<a class="headerlink" href="#diagonalization-requires-eigenvectors-and-eigenvalues" title="Permalink to this headline">#</a></h2>
 <p>Next we will show that to diagonalize a matrix, one <strong>must</strong> use the eigenvectors and eigenvalues of <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p><strong>Theorem.</strong> (The Diagonalization Theorem)</p>
 <p>An <span class="math notranslate nohighlight">\(n\times n\)</span> matrix <span class="math notranslate nohighlight">\(A\)</span> is diagonalizable if and only if <span class="math notranslate nohighlight">\(A\)</span> has <span class="math notranslate nohighlight">\(n\)</span> <strong>linearly independent</strong> eigenvectors.</p>
@@ -738,18 +828,18 @@
 <div class="toggle docutils container">
 <p>Question Time! Q18.2</p>
 </div>
-</div>
-<div class="section" id="diagonalizing-a-matrix">
-<h2>Diagonalizing a Matrix<a class="headerlink" href="#diagonalizing-a-matrix" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="diagonalizing-a-matrix">
+<h2>Diagonalizing a Matrix<a class="headerlink" href="#diagonalizing-a-matrix" title="Permalink to this headline">#</a></h2>
 <p>Let’s put this all together and see how to diagonalize a matrix.</p>
-<div class="section" id="four-steps-to-diagonalization">
-<h3>Four Steps to Diagonalization<a class="headerlink" href="#four-steps-to-diagonalization" title="Permalink to this headline">¶</a></h3>
+<section id="four-steps-to-diagonalization">
+<h3>Four Steps to Diagonalization<a class="headerlink" href="#four-steps-to-diagonalization" title="Permalink to this headline">#</a></h3>
 <p><strong>Example.</strong>  Diagonalize the following matrix, if possible.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}A = \begin{bmatrix}1&amp;3&amp;3\\-3&amp;-5&amp;-3\\3&amp;3&amp;1\end{bmatrix}\end{split}\]</div>
 <p>That is, find an invertible matrix <span class="math notranslate nohighlight">\(P\)</span> and a diagonal matrix <span class="math notranslate nohighlight">\(D\)</span> such that <span class="math notranslate nohighlight">\(A = PDP^{-1}.\)</span></p>
-<div class="section" id="step-1-find-the-eigenvalues-of-a">
-<h4>Step 1: Find the eigenvalues of <span class="math notranslate nohighlight">\(A\)</span>.<a class="headerlink" href="#step-1-find-the-eigenvalues-of-a" title="Permalink to this headline">¶</a></h4>
+<section id="step-1-find-the-eigenvalues-of-a">
+<h4>Step 1: Find the eigenvalues of <span class="math notranslate nohighlight">\(A\)</span>.<a class="headerlink" href="#step-1-find-the-eigenvalues-of-a" title="Permalink to this headline">#</a></h4>
 <p>This is routine for us now.  If we are working with <span class="math notranslate nohighlight">\(2\times2\)</span> matrices, we may choose to find the roots of the characteristic polynomial (quadratic).  For anything larger we’d use a computer.</p>
 <p>In this case, the characteristic equation turns out to involve a cubic polynomial that can be factored:</p>
 <div class="math notranslate nohighlight">
@@ -759,9 +849,9 @@
 <div class="math notranslate nohighlight">
 \[ = -(\lambda -1)(\lambda +2)^2\]</div>
 <p>So the eigenvalues are <span class="math notranslate nohighlight">\(\lambda = 1\)</span> and <span class="math notranslate nohighlight">\(\lambda = -2\)</span> (with multiplicity two).</p>
-</div>
-<div class="section" id="step-2-find-three-linearly-independent-eigenvectors-of-a">
-<h4>Step 2: Find three linearly independent eigenvectors of <span class="math notranslate nohighlight">\(A\)</span>.<a class="headerlink" href="#step-2-find-three-linearly-independent-eigenvectors-of-a" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="step-2-find-three-linearly-independent-eigenvectors-of-a">
+<h4>Step 2: Find three linearly independent eigenvectors of <span class="math notranslate nohighlight">\(A\)</span>.<a class="headerlink" href="#step-2-find-three-linearly-independent-eigenvectors-of-a" title="Permalink to this headline">#</a></h4>
 <p>Note that we need <em>three</em> linearly independent vectors because <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(3\times3.\)</span></p>
 <center><font color = "blue">This is the step at which, if $A$ cannot be diagonalized, we find out</font></center>
 <p>… because we cannot form 3 independent eigenvectors.</p>
@@ -770,15 +860,15 @@
 <p>Basis for <span class="math notranslate nohighlight">\(\lambda = -2\)</span>: <span class="math notranslate nohighlight">\(\mathbf{v}_2 = \begin{bmatrix}-1\\1\\0\end{bmatrix}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}_3 = \begin{bmatrix}-1\\0\\1\end{bmatrix}.\)</span></p>
 <p>At this point we must ensure that <span class="math notranslate nohighlight">\(\{\mathbf{v}_1, \mathbf{v}_2, \mathbf{v}_3\}\)</span> forms a linearly independent set.</p>
 <p>(These vectors in fact do.)</p>
-</div>
-<div class="section" id="step-3-construct-p-from-the-vectors-in-step-2">
-<h4>Step 3: Construct <span class="math notranslate nohighlight">\(P\)</span> from the vectors in Step 2.<a class="headerlink" href="#step-3-construct-p-from-the-vectors-in-step-2" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="step-3-construct-p-from-the-vectors-in-step-2">
+<h4>Step 3: Construct <span class="math notranslate nohighlight">\(P\)</span> from the vectors in Step 2.<a class="headerlink" href="#step-3-construct-p-from-the-vectors-in-step-2" title="Permalink to this headline">#</a></h4>
 <p>The order of the vectors is actually not important.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}P = [\mathbf{v}_1\;\mathbf{v}_2\;\mathbf{v}_3] = \begin{bmatrix}1&amp;-1&amp;-1\\-1&amp;1&amp;0\\1&amp;0&amp;1\end{bmatrix}.\end{split}\]</div>
-</div>
-<div class="section" id="step-4-construct-d-from-the-corresponding-eigenvalues">
-<h4>Step 4: Construct <span class="math notranslate nohighlight">\(D\)</span> from the corresponding eigenvalues.<a class="headerlink" href="#step-4-construct-d-from-the-corresponding-eigenvalues" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="step-4-construct-d-from-the-corresponding-eigenvalues">
+<h4>Step 4: Construct <span class="math notranslate nohighlight">\(D\)</span> from the corresponding eigenvalues.<a class="headerlink" href="#step-4-construct-d-from-the-corresponding-eigenvalues" title="Permalink to this headline">#</a></h4>
 <p>The order of eigenvalues must match the order of eigenvectors used in the previous step.</p>
 <p>If an eigenvalue has multiplicity greater than 1, then repeat it the corresponding number of times.</p>
 <div class="math notranslate nohighlight">
@@ -789,10 +879,10 @@
 <p>So, just as a reminder, we can now take powers of <span class="math notranslate nohighlight">\(A\)</span> quite efficiently:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}A^{100} = \begin{bmatrix}1&amp;-1&amp;-1\\-1&amp;1&amp;0\\1&amp;0&amp;1\end{bmatrix}  \begin{bmatrix}1^{100}&amp;0&amp;0\\0&amp;(-2)^{100}&amp;0\\0&amp;0&amp;(-2)^{100}\end{bmatrix}\begin{bmatrix}1&amp;-1&amp;-1\\-1&amp;1&amp;0\\1&amp;0&amp;1\end{bmatrix}^{-1}\end{split}\]</div>
-</div>
-</div>
-<div class="section" id="when-diagonalization-fails">
-<h3>When Diagonalization Fails<a class="headerlink" href="#when-diagonalization-fails" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="when-diagonalization-fails">
+<h3>When Diagonalization Fails<a class="headerlink" href="#when-diagonalization-fails" title="Permalink to this headline">#</a></h3>
 <p><strong>Example.</strong>   Let’s look at an example of how diagonalization can fail.</p>
 <p>Diagonalize the following matrix, if possible.</p>
 <div class="math notranslate nohighlight">
@@ -806,9 +896,9 @@
 <p>There are not other eigenvalues, and every eigenvector of <span class="math notranslate nohighlight">\(A\)</span> is a multiple of either <span class="math notranslate nohighlight">\(\mathbf{v}_1\)</span> or <span class="math notranslate nohighlight">\(\mathbf{v}_2.\)</span></p>
 <p>Hence it is impossible to construct a basis of <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> using eigenvectors of <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>So we conclude that <span class="math notranslate nohighlight">\(A\)</span> is <strong>not</strong> diagonalizable.</p>
-</div>
-<div class="section" id="an-important-case">
-<h3>An Important Case<a class="headerlink" href="#an-important-case" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="an-important-case">
+<h3>An Important Case<a class="headerlink" href="#an-important-case" title="Permalink to this headline">#</a></h3>
 <p>There is an important situation in which we can conclude immediately that <span class="math notranslate nohighlight">\(A\)</span> is diagonalizable, without explicitly constructing and testing the eigenspaces of <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p><strong>Theorem.</strong></p>
 <p>An <span class="math notranslate nohighlight">\(n\times n\)</span> matrix with <span class="math notranslate nohighlight">\(n\)</span> distinct eigenvalues is diagonalizable.</p>
@@ -823,10 +913,10 @@ Omitted, but easy.</p>
 <div class="toggle docutils container">
 <p>Question Time! Q18.3</p>
 </div>
-</div>
-</div>
-<div class="section" id="diagonalization-as-a-change-of-basis">
-<h2>Diagonalization as a Change of Basis<a class="headerlink" href="#diagonalization-as-a-change-of-basis" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="diagonalization-as-a-change-of-basis">
+<h2>Diagonalization as a Change of Basis<a class="headerlink" href="#diagonalization-as-a-change-of-basis" title="Permalink to this headline">#</a></h2>
 <p>We can now turn to an understanding of how diagonalization informs us about the properties of <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>Let’s interpret the diagonalization <span class="math notranslate nohighlight">\(A = PDP^{-1}\)</span> in terms of how <span class="math notranslate nohighlight">\(A\)</span> acts as a linear operator.</p>
 <p>When thinking of <span class="math notranslate nohighlight">\(A\)</span> as a linear operator, diagonalization has a specific interpretation:</p>
@@ -834,8 +924,8 @@ Omitted, but easy.</p>
 <p>That is, multiplying by a diagonal matrix simply <strong>scales</strong> the components of the vector.</p>
 <p>On the other hand, when we multiply by a matrix <span class="math notranslate nohighlight">\(A\)</span> that has off-diagonal entries, the components of <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> affect each other.</p>
 <p>So diagonalizing a matrix allows us to bring intuition to its behavior as as linear operator.</p>
-<div class="section" id="interpreting-diagonalization-geometrically">
-<h3>Interpreting Diagonalization Geometrically<a class="headerlink" href="#interpreting-diagonalization-geometrically" title="Permalink to this headline">¶</a></h3>
+<section id="interpreting-diagonalization-geometrically">
+<h3>Interpreting Diagonalization Geometrically<a class="headerlink" href="#interpreting-diagonalization-geometrically" title="Permalink to this headline">#</a></h3>
 <p>When we compute <span class="math notranslate nohighlight">\(P\mathbf{x},\)</span> we are taking a vector sum of the columns of <span class="math notranslate nohighlight">\(P\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[P\mathbf{x} = \mathbf{p}_1 x_1 + \mathbf{p}_2 x_2 + \dots \mathbf{p}_n x_n.\]</div>
@@ -1036,10 +1126,10 @@ Omitted, but easy.</p>
 <p>In conclusion: notice that the transformation <span class="math notranslate nohighlight">\(\mathbf{x} \mapsto A\mathbf{x}\)</span> may be a complicated one in which each component of <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> affects each component of <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span>.</p>
 <p>However, by changing to the basis defined by the eigenspaces of <span class="math notranslate nohighlight">\(A\)</span>, the action of <span class="math notranslate nohighlight">\(A\)</span> becomes simple to understand.</p>
 <p>Diagonalization of <span class="math notranslate nohighlight">\(A\)</span> <strong>changes to a basis in which the action of <span class="math notranslate nohighlight">\(A\)</span> is particularly easy to understand and compute with.</strong></p>
-</div>
-</div>
-<div class="section" id="exposing-the-behavior-of-a-dynamical-system">
-<h2>Exposing the Behavior of a Dynamical System<a class="headerlink" href="#exposing-the-behavior-of-a-dynamical-system" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="exposing-the-behavior-of-a-dynamical-system">
+<h2>Exposing the Behavior of a Dynamical System<a class="headerlink" href="#exposing-the-behavior-of-a-dynamical-system" title="Permalink to this headline">#</a></h2>
 <p>At the beginning of the last lecture, we looked at a number of examples of ‘trajectories’ – the behavior of a dynamic system.</p>
 <p>Here is a typical example:</p>
 <div class="cell tag_hide-cell docutils container">
@@ -1287,42 +1377,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_img85fc8f9ede604c4db8634f367b671e28">
+  <img id="_anim_imgfc73ed2da7744df49c0285480f53f535">
   <div class="anim-controls">
-    <input id="_anim_slider85fc8f9ede604c4db8634f367b671e28" type="range" class="anim-slider"
+    <input id="_anim_sliderfc73ed2da7744df49c0285480f53f535" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="anim85fc8f9ede604c4db8634f367b671e28.set_frame(parseInt(this.value));"></input>
+           oninput="animfc73ed2da7744df49c0285480f53f535.set_frame(parseInt(this.value));"></input>
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim85fc8f9ede604c4db8634f367b671e28.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="animfc73ed2da7744df49c0285480f53f535.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="anim85fc8f9ede604c4db8634f367b671e28.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="animfc73ed2da7744df49c0285480f53f535.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="anim85fc8f9ede604c4db8634f367b671e28.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="animfc73ed2da7744df49c0285480f53f535.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="anim85fc8f9ede604c4db8634f367b671e28.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="animfc73ed2da7744df49c0285480f53f535.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="anim85fc8f9ede604c4db8634f367b671e28.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="animfc73ed2da7744df49c0285480f53f535.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="anim85fc8f9ede604c4db8634f367b671e28.play_animation()">
+      <button title="Play" aria-label="Play" onclick="animfc73ed2da7744df49c0285480f53f535.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="anim85fc8f9ede604c4db8634f367b671e28.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="animfc73ed2da7744df49c0285480f53f535.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="anim85fc8f9ede604c4db8634f367b671e28.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="animfc73ed2da7744df49c0285480f53f535.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="anim85fc8f9ede604c4db8634f367b671e28.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="animfc73ed2da7744df49c0285480f53f535.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select85fc8f9ede604c4db8634f367b671e28"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectfc73ed2da7744df49c0285480f53f535"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_85fc8f9ede604c4db8634f367b671e28"
+      <input type="radio" name="state" value="once" id="_anim_radio1_fc73ed2da7744df49c0285480f53f535"
              checked>
-      <label for="_anim_radio1_85fc8f9ede604c4db8634f367b671e28">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_85fc8f9ede604c4db8634f367b671e28"
+      <label for="_anim_radio1_fc73ed2da7744df49c0285480f53f535">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_fc73ed2da7744df49c0285480f53f535"
              >
-      <label for="_anim_radio2_85fc8f9ede604c4db8634f367b671e28">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_85fc8f9ede604c4db8634f367b671e28"
+      <label for="_anim_radio2_fc73ed2da7744df49c0285480f53f535">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_fc73ed2da7744df49c0285480f53f535"
              >
-      <label for="_anim_radio3_85fc8f9ede604c4db8634f367b671e28">Reflect</label>
+      <label for="_anim_radio3_fc73ed2da7744df49c0285480f53f535">Reflect</label>
     </form>
   </div>
 </div>
@@ -1332,13 +1422,13 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_img85fc8f9ede604c4db8634f367b671e28";
-    var slider_id = "_anim_slider85fc8f9ede604c4db8634f367b671e28";
-    var loop_select_id = "_anim_loop_select85fc8f9ede604c4db8634f367b671e28";
+    var img_id = "_anim_imgfc73ed2da7744df49c0285480f53f535";
+    var slider_id = "_anim_sliderfc73ed2da7744df49c0285480f53f535";
+    var loop_select_id = "_anim_loop_selectfc73ed2da7744df49c0285480f53f535";
     var frames = new Array(50);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAVf0lEQVR4nO3df+xd9X3f8ecrduKGdggohjj+2rGjue3stEnKrUWUbUoTMtw0\
 xaQqqis2LDWTFUSrVFuV4Vha90OWaCKtWdSQ1Uq7GMWNZTVpbNHSBBhbN4ngfKEBYjsu34QGu/bA\
 1dSFKZUz4L0/7mFczLUx5Pu9536+fj6kq3vO+5xz7/vjC7w453x8b6oKSZJa85q+G5Ak6dUwwCRJ\
@@ -1439,7 +1529,7 @@ pCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQm/T8oDz7ZT34NLwAAAABJ\
 RU5ErkJggg==\
 "
   frames[1] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAWC0lEQVR4nO3df+xd9X3f8ecrduKGdigQDDj+2rGjOelM2pFya5Fmm9KEDDel\
 mExFdZUtqM1qgWiVaqtSjKVlP2SJJtKaRQ1pLdoAihvLbdLg0tAEGF0XieB8SUOITVy+CQ128eBb\
 TV2YUjkB3vvjHsbF3K9jiL/33M/Xz4d0dc95n3PufX/8xX5xzvl8701VIUlSa17WdwOSJL0UBpgk\
@@ -1542,7 +1632,7 @@ SWqSASZJapIBJklqkgEmSWqSASZJapIBJklqkgEmSWqSASZJapIBJklqkgEmSWqSASZJapIBJklq\
 kgEmSWqSASZJatL/A5oZdOVIEYaFAAAAAElFTkSuQmCC\
 "
   frames[2] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAWeklEQVR4nO3dcdBddX3n8ffHBFNpywgSJOZJTJyNdoLtYnnMYNvdsYpLainB\
 nTJNxx3Z2m1GhnZ0djuWkOna3W1mqc5sraO4zdAKjKmZtFqTWqkCa7d1BokPVMCAKY9SSEoWnk6n\
 K46dKPDdP+5huTzcJwbMc8/9PXm/Zu7cc77nnHu/v1zgwznnl3tTVUiS1JoX9d2AJEkvhAEmSWqS\
@@ -1647,7 +1737,7 @@ BpgkqUkGmCSpSQaYJKlJBpgkqUkGmCSpSQaYJKlJBpgkqUkGmCSpSQaYJKlJBpgkqUkGmCSpSQaY\
 JKlJBpgkqUn/DzUVsM4FqbEiAAAAAElFTkSuQmCC\
 "
   frames[3] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAW10lEQVR4nO3dcdBddX3n8ffHRKm0ZQQJEvMkJnajnWC7WB4z2HZ3rOKSWkpw\
 p0zToSNbu83I0Kqzdiwx07W728xSmWnVKm4ztAJjNJNWa1IrVaB2284g8cGKGDAlSiEpWfJ0Ol1x\
 7EQh3/3jHpbLw31iwDz33N+T92vmzj3ne8659/vLBT6cc365N1WFJEmteU7fDUiS9GwYYJKkJhlg\
@@ -1754,7 +1844,7 @@ YJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCb9P0a82S100MqnAAAA\
 AElFTkSuQmCC\
 "
   frames[4] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAXUElEQVR4nO3df/BddX3n8efLRKnUUkGChPwwcYy2wXaxfM1g292xiktqKcFO\
 mcZhx6x2m5GhVWd1LDHTtbtbZqnOtGoVtxlagTGaSasVaqUK1G7rDBK/WBECpgQp5FuykE6nK46d\
 KMl7/7iHcvnmfmPAfO+5n2+ej5k795z3Oed+3598gRfnnE/OTVUhSVJrntV3A5IkPRMGmCSpSQaY\
@@ -1863,7 +1953,7 @@ kwwwSVKTDDBJUpMMMElSkwwwSVKTDDBJUpMMMElSkwwwSVKTDDBJUpMMMElSkwwwSVKT/j/U5wXs\
 NRbs8wAAAABJRU5ErkJggg==\
 "
   frames[5] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAXmElEQVR4nO3df/BddX3n8efLxFKppYIECflh4hhtg+1i+ZrBtru1iktqKeBO\
 mcbBgdVuMzK06qyOJWa6dnebWaozrVrFNqUVqFGGFivUShVYu60zSPxiRQiYEqSQlCz5djpdcXSi\
 JO/94x7K5Zv7jQHzved+vnk+Zs7ccz7nnHvfn1zgxTmfT85NVSFJUmue1XcBkiQ9EwaYJKlJBpgk\
@@ -1973,7 +2063,7 @@ JhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCYZ\
 YJKkJhlgkqQm/X9tbzWiU5gUMAAAAABJRU5ErkJggg==\
 "
   frames[6] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAX3UlEQVR4nO3df/BddX3n8efLBKnUUkGChPwwcYzaYLtYvmaw7W6t4pJaCtgp\
 0zg4sFqbkaFVZ3UsMdO1u1tmqc7UH1XcpliBGmXSYg21UgVqt3UGiV+sCAFTgpSQkoV0Ol1xdKIk\
 7/3jHsrlm/uNAfO9536+eT5mztxzPuece9+ffElenPP5fM9NVSFJUmue0XcBkiQ9HQaYJKlJBpgk\
@@ -2084,7 +2174,7 @@ JKlJBpgkqUkGmCSpSQaYJKlJBpgkqUkGmCSpSQaYJKlJBpgkqUkGmCSpSQaYJKlJBpgkqUkGmCSp\
 SQaYJKlJBpgkqUkGmCSpSQaYJKlJ/x/B7l42yE3QVgAAAABJRU5ErkJggg==\
 "
   frames[7] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAYJklEQVR4nO3df7BdZX3v8ffHBKnUUkGCQH6YOEbaYHuxHDPY9t5axUtqKaBT\
 pnFw4GptRoZWnatjiZlee+8tc6nO1B9VbFOsQI0ytFihVqrAtbd1BokHK/LLlCAQTsmFdJxecXRQ\
 ku/9Yy/K5mSfEOLJXvs5eb9m1uy1nrXW3t8nh+TDWs9z1k5VIUlSa57VdwGSJB0IA0yS1CQDTJLU\
@@ -2197,7 +2287,7 @@ qUkGmCSpSQaYJKlJBpgkqUkGmCSpSQaYJKlJBpgkqUkGmCSpSf8fQ+x5/JqriLIAAAAASUVORK5C\
 YII=\
 "
   frames[8] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAYRUlEQVR4nO3df/BddX3n8efLBKnUUkGCQH6QOEbaYLtYvmaw7W6t4pJaCuiU\
 aRwcWK3NyNCqszqUmOna3S2zVGfqjyq2KVagRhlarFArVWDtts4g8YsVIWBKEEhSspCO0xVHByV5\
 7x/3pFy+ud8QYnLP/XzzfMycued8zjn3vj98hZfnfD733FQVkiS15jl9FyBJ0oEwwCRJTTLAJElN\
@@ -2310,7 +2400,7 @@ JDXJAJMkNckAkyQ1yQCTJDXJAJMkNckAkyQ1yQCTJDXJAJMkNckAkyQ1yQCTJDXJAJMkNckAkyQ1\
 yQCTJDXJAJMkNen/A560mZU8tVpLAAAAAElFTkSuQmCC\
 "
   frames[9] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAYY0lEQVR4nO3df/BddX3n8efLgFRqqSBBQn4QHCNtsF0sXzPYdrdWcUktBXTK\
 NA4OrNZmZGjVWR1KzHTt7pZZqjP1RxXbFCtQowwtVqiVKrB2W2eQ+MWKEDAlCCQpWUjH6YqjEyV5\
 7x/3pFy+ud8QYnLP/XzzfMycued8zjn3vj98hZfnfD733FQVkiS15jl9FyBJ0oEwwCRJTTLAJElN\
@@ -2424,7 +2514,7 @@ JhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCb9f8htsOXUaEifAAAAAElF\
 TkSuQmCC\
 "
   frames[10] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAYj0lEQVR4nO3df7DddX3n8efLBKnUUkGChPwgcYy0YLtYrhltu1ursKSWAjp1\
 GgcHVmszMrTorA4lZrp2d8ss1Zn6o4rbFCtQowwtVqgVFVi7rTNIvFgRAqYE+ZGULKTjdMXRiZK8\
 94/zzXK4OTeEmJzv+dw8HzNnzjmf7/d77vvDFV5+v5/3/Z5UFZIkteY5fRcgSdKBMMAkSU0ywCRJ\
@@ -2538,7 +2628,7 @@ DDBJUpMMMElSkwwwSVKTDDBJUpMMMElSkwwwSVKTDDBJUpMMMElSkwwwSVKTDDBJUpMMMElSkwww\
 SVKTDDBJUpMMMElSkwwwSVKTDDBJUpMMMElSk/4fB/rIINhr5FwAAAAASUVORK5CYII=\
 "
   frames[11] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAYtElEQVR4nO3df/BddX3n8eeLQKnUUkGChPwgcYy0wXaxfM1o291axSW1FNAp\
 0zg4sFqbkaFFZ3UoMdO1u1tmqc7UH1XcpliBGmVosUKtVIG12zqDxC9W5JcpQSCkZCEdpyuODkry\
 3j/uyXL55n5DiPnecz/fPB8zd+45n3PO/b4/+RJeOefzueekqpAkqTWH9V2AJEkHwgCTJDXJAJMk\
@@ -2653,7 +2743,7 @@ DDBJUpMMMElSkwwwSVKTDDBJUpMMMElSkwwwSVKTDDBJUpMMMElSkwwwSVKTDDBJUpMMMElSkwww\
 SVKTDDBJUpP+HzYD2wMfg7leAAAAAElFTkSuQmCC\
 "
   frames[12] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAYxElEQVR4nO3df/BddX3n8eeLQKnUUkGChPwgcYy0YLtYvma07W6t4pJaCuiU\
 aRwcslqbkaFFZ3UoMdO1u1tmqc7UH1XcpliBGmVosUKtVIG12zqDxC9WhIApQX6lZCEdpyuODkry\
 3j/uyXL55n5DiMk99/P9Ph8zd+45n3PO/b4/+RJeOefzueekqpAkqTWH9V2AJEkHwgCTJDXJAJMk\
@@ -2768,7 +2858,7 @@ yQCTJDXJAJMkNckAkyQ1yQCTJDXJAJMkNckAkyQ1yQCTJDXJAJMkNckAkyQ1yQCTJDXJAJMkNckA\
 kyQ1yQCTJDXJAJMkNckAkyQ1yQCTJDXp/wFitOofwS7kBgAAAABJRU5ErkJggg==\
 "
   frames[13] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAY8UlEQVR4nO3df7BdZX3v8feHQKnUUkGCQH4QHCMt2F4sxwy2vbdW8ZJaCuiU\
 aRwccrU2I0OLztWhxEyvvfeWuVRn6o8qtilWQKMMLVaolSpw7W2dQeLBivwyJcivlFxIx+kVRwcl\
 +d4/9krZnOwTQszZaz/nvF8ze/Zaz1prn+fJIXyy1vPda6WqkCSpNQf13QFJkvaHASZJapIBJklq\
@@ -2884,7 +2974,7 @@ SZKaZIBJkppkgEmSmmSASZKaZIBJkppkgEmSmmSASZKaZIBJkppkgEmSmmSASZKaZIBJkppkgEmS\
 mmSASZKaZIBJkpr0/wHAK/WfL0MK6wAAAABJRU5ErkJggg==\
 "
   frames[14] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAY+UlEQVR4nO3df/BddX3n8eeLQKnUUkGChPwgOEZasF0sXzPYdrdWcUktBXTK\
 NA4OWa3NyNCiszqUmOna3S2zVGfqjyq2KVZAowwtVqiVKrB2W2eQ+MWKEDAlyK+ULKTjdMXRQUne\
 +8c9KZdv7jeEmO899/PN8zFz557zOefc7/uTL+GVcz6fe06qCkmSWnNI3wVIkrQ/DDBJUpMMMElS\
@@ -3000,7 +3090,7 @@ pCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQm\
 GWCSpCYZYJKkJhlgkqQmGWCSpCb9fxUc/9FWm1H8AAAAAElFTkSuQmCC\
 "
   frames[15] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZAElEQVR4nO3df/BddX3n8eeLQKnUUkGChPwgcYy0wXaxfM1o291axSW1FNAp\
 0zg4ZLU2I0OLzupQYqZrd7fMUp2pP6rYplgBjTK0WKFWqsDabZ1B4hcr8suUIL9SspCO0xVHByV5\
 7x/3pFy+ud+QhOSe+/nm+Zi5c8/5nHPu9/PJl/DKOZ/3PSdVhSRJrTms7w5IkrQ/DDBJUpMMMElS\
@@ -3116,7 +3206,7 @@ wCRJTTLAJElNMsAkSU0ywCRJTTLAJElNMsAkSU0ywCRJTTLAJElNMsAkSU0ywCRJTTLAJElNMsAk\
 SU0ywCRJTTLAJElNMsAkSU0ywCRJTTLAJElN+v9IXQ2w7OIN+AAAAABJRU5ErkJggg==\
 "
   frames[16] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZH0lEQVR4nO3df/BddX3n8eeLgFRqqSBBID8IjpEWbBfL14y23a1VXFJrAZ06\
 jYNDVmszOrTqrA4lZrp2d8ss1Zn6o4ptilXQKEOrFWqlCqzd1hkkfrEiAqZEEUjJQhynK44OCnnv\
 H+ekXL6535CE5J77+eb5mLlzz/mcc+7388mX8Mo5n/c9J1WFJEmtOWzoDkiStD8MMElSkwwwSVKT\
@@ -3233,7 +3323,7 @@ JKlJBpgkqUkGmCSpSQaYJKlJBpgkqUkGmCSpSQaYJKlJBpgkqUkGmCSpSQaYJKlJBpgkqUkGmCSp\
 Sf8fxjETyI4Ppq8AAAAASUVORK5CYII=\
 "
   frames[17] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZLklEQVR4nO3df/BddX3n8eeLQKnUUgWCQH4QHCMt2K6Wrxlsu1uruKTWCjpl\
 GgeHrNZmdGjRWR1KzHTt7pZZqjP1RxXbFKugUYYWK9RKFVi7rTNo/GJFBEwJIpCShVinK44OCnnv\
 H+ekXL653xBCcs/9fPN8zNy553zOOff7+eRLeOWcz/uek6pCkqTWHDJ0ByRJ2hcGmCSpSQaYJKlJ\
@@ -3350,7 +3440,7 @@ ktQkA0yS1CQDTJLUJANMktQkA0yS1CQDTJLUJANMktQkA0yS1CQDTJLUJANMktQkA0yS1CQDTJLU\
 JANMktQkA0yS1CQDTJLUpP8P5EQZuge78oQAAAAASUVORK5CYII=\
 "
   frames[18] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZM0lEQVR4nO3df9BeZX3n8feHgFRqqfwIAvlBcIy0YLtYHjPadrfWH0tqqaBT\
 p3FwyGptRodWndWhxEzX7m6ZpTpTf1SxTbECGmVotUKtVIG12zqjxAer8suUKAIpWYjjdMXRQSHf\
 /eOcNDdP7ieEkNznvp68XzP33Odc55z7ua48hE/Oub73OakqJElqzWFDd0CSpP1hgEmSmmSASZKa\
@@ -3467,7 +3557,7 @@ SVKTDDBJUpMMMElSkwwwSVKTDDBJUpMMMElSkwwwSVKTDDBJUpMMMElSkwwwSVKTDDBJUpMMMElS\
 kwwwSVKTDDBJUpMMMElSkwwwSVKT/j8f5B2iCs+6EgAAAABJRU5ErkJggg==\
 "
   frames[19] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZN0lEQVR4nO3dfdBedX3n8feHQKnUUnkIAnkgOEZasF0ttxltu1vrw5JaKujU\
 aRwcslqb0aFFZ3UoMdO1u1tmqc7Uhyq2KVahRBlarVArVWDtts4o8caqPJkS5SklC3Gcrjg6KOS7\
 f5yTcnHnukMSkutcvzvv18w11zm/c851/365CZ+c8/te56SqkCSpNYcN3QFJkvaHASZJapIBJklq\
@@ -3584,7 +3674,7 @@ BNzVvx/7ZL+XaXjNCbDmxgA8D5jtfx+fopvmaG4cB/rlnTgkSU2yClGS1CQDTJLUJANMktQkA0yS\
 A0yS1CQDTJLUJANMktQkA0yS1CQDTJLUpP8P9kUlzEcc16gAAAAASUVORK5CYII=\
 "
   frames[20] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZQUlEQVR4nO3df/BddX3n8eeLgFRqqQJBID8IjpEWbFfL14y23a1VXFJrBZ06\
 jYNDVmszMrTqrA4lZrp2d8ss1Zn6o4ptilWoUYYWK9RKFVi7rTNq/GJFfpkSRSAlC7FOVxwdEPLe\
 P85JuXxzvyEJyT33883zMXPnnvM559zv55Mv4ZVzPu97TqoKSZJac9jQHZAkaX8YYJKkJhlgkqQm\
@@ -3701,7 +3791,7 @@ pCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQm\
 GWCSpCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCb9f9ufIRyUA42rAAAAAElFTkSuQmCC\
 "
   frames[21] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZTElEQVR4nO3df/BddX3n8eeLQKnUUvkRBPKD4BhpwXaxfM1o291axSW1VtCp\
 0zg4ZLU2I0OrzupQYqZrd7fMUp2pP6rYpliBGmVotUKtVIG12zqjxi9W5JcpUQRSshDH6Yqjg0Le\
 +8c5aS7f3G8IIbnnfr55Pmbu3Hs/55z7/XzyJbzyOZ/3PSdVhSRJrTls6A5IkrQ/DDBJUpMMMElS\
@@ -3819,7 +3909,7 @@ ZIBJkppkgEmSmmSASZKaZIBJkppkgEmSmmSASZKaZIBJkppkgEmSmmSASZKa9P8Bc/An1P/up0cA\
 AAAASUVORK5CYII=\
 "
   frames[22] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZSElEQVR4nO3df/BddX3n8eeLgFRqqfwIAvlBcIy0wXaxfM1g291axSW1FNAp\
 0zg4ZLU2I0OLzupQYqZrd7fMUp2pP6rYpliBGmVosUKtVIG12zqDxC9WhIApQX6lZCHW6YqjA5K8\
 9497Ui7f3G8IIbnnfr55PmbO3HM/55z7/XzyJbxyzud9z0lVIUlSaw7quwOSJO0NA0yS1CQDTJLU\
@@ -3937,7 +4027,7 @@ apIBJklqkgEmSWqSASZJapIBJklqkgEmSWqSASZJapIBJklqkgEmSWrS/wcG8yEiKXZReQAAAABJ\
 RU5ErkJggg==\
 "
   frames[23] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZSElEQVR4nO3df7BdZX3v8feHgFRqqfwIAvlBcIy0YHuxHDPY9t5axUtqKaBT\
 pnFwyNXajAwtOleHEjO99t5b5lKdqT+q2KZYgRplaLFCrVSBa2/rDBIPVuSXKUF+peRCrNMrjg5I\
 8r1/7JWyOdknhHCy135O3q+ZNXvtZ621z/PkED5Z6/nutVJVSJLUmgP67oAkSXvDAJMkNckAkyQ1\
@@ -4055,7 +4145,7 @@ mmSASZKaZIBJkppkgEmSmmSASZKaZIBJkppkgEmSmmSASZKaZIBJkpr0/wHAECEk6tPKHAAAAABJ\
 RU5ErkJggg==\
 "
   frames[24] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZSElEQVR4nO3df7BdZX3v8feHgFRqqfwIAvlBcIy0YHuxHDPY9t5axUtqKaBT\
 pnFwyNXajAwtOleHEjO99t5b5lKdqT+q2KZYgRplaLFCrVSBa2/rDBIPVuSXKUF+peRCrNMrjg4I\
 +d4/9krZnOwTknCy135O3q+ZNXvtZ621z/PkED5Z6/nutVJVSJLUmgP67oAkSXvDAJMkNckAkyQ1\
@@ -4173,7 +4263,7 @@ NckAkyQ1yQCTJDXJAJMkNckAkyQ1yQCTJDXJAJMkNckAkyQ1yQCTJDXp/wN5RCEmDu8lmAAAAABJ\
 RU5ErkJggg==\
 "
   frames[25] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZSElEQVR4nO3df7BdZX3v8feHgFRqqfwIAvlBcIy0YHuxHDPY9t5axUtqKaBT\
 pnFwyNXajAwtOleHEjO99t5b5lKdqT+q2KZYgRplaLFCrVSBa2/rDBIPVuSXKUF+peRCrNMrjg4I\
 +d4/9krZnOwTknCy135O3q+ZNXvtZ621z/PkED5Z6/nutVJVSJLUmgP67oAkSXvDAJMkNckAkyQ1\
@@ -4291,7 +4381,7 @@ UZLUJANMktQkA0yS1CQDTJLUJANMktQkA0yS1CQDTJLUJANMktQkA0yS1CQDTJLUJANMktQkA0yS\
 RU5ErkJggg==\
 "
   frames[26] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZUUlEQVR4nO3df/BddX3n8eeLQKnUUvkRBPKD4BhpwXa1fM3YH7u1VZfUUqGd\
 Oo0DQ1ZrMzq06mwdSsx07e6WWaozVWzFNsUK1FiG1rZQK7XA2m2dQeIXKyJgShSBlCzEOt3SqQNC\
 3vvHOSmXb+43JCHfe+7nm+dj5s4953POuffz4Su+OOfzvuekqpAkqTVHDN0BSZIOhgEmSWqSASZJ\
@@ -4409,7 +4499,7 @@ SQaYJKlJBpgkqUkGmCSpSQaYJKlJBpgkqUkGmCSpSQaYJKlJBpgkqUkGmCSpSQaYJKlJ/x8vCDGM\
 K7wvkgAAAABJRU5ErkJggg==\
 "
   frames[27] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZbklEQVR4nO3df/BddX3n8eeLgFRqqQJBID8IjpEWbFfL14y23a31x5JaK9Sp\
 0zgwZLVtRoZWna1DiZmu3d0yS3Wm/miLbYpV0ChDayvUShVYu60zavrFqgiYEkUgJQtRp1scHRDy\
 3j/OSXP55n5DEr65536+eT5mztxzP+ecez8fvuKLcz7ve06qCkmSWnPU0B2QJOlQGGCSpCYZYJKk\
@@ -4527,7 +4617,7 @@ MsAkSU0ywCRJTTLAJElNMsAkSU0ywCRJTTLAJElNMsAkSU0ywCRJTTLAJElNMsAkSU0ywCRJTTLA\
 JElNMsAkSU0ywCRJTTLAJElNMsAkSU36/xtwMYYI4dWzAAAAAElFTkSuQmCC\
 "
   frames[28] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZX0lEQVR4nO3df7BfdX3n8eeLQKnUUgWCQH4QHCMt2K6Wa8b+2K2tWFJrBTt1\
 GgeGrNZmpLTW2TqUmOna3S2zVGdqsYrbFKugUYZWW6iVWmDttp1R48VWETAlikBKFmKdbunooJD3\
 /nFO5MvN94Yk3vs938/N8zHzne85n3PO934+uYRXzvm8v+ekqpAkqTVHDd0BSZIOhwEmSWqSASZJ\
@@ -4645,7 +4735,7 @@ A0yS1CQDTJLUJANMktQkA0yS1CQDTJLUJANMktQkA0yS1CQDTJLUJANMktQkA0yS1CQDTJLUJANM\
 ktQkA0yS1KT/Dx4vO7TgZpGsAAAAAElFTkSuQmCC\
 "
   frames[29] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZdElEQVR4nO3df7BfdX3n8eeLQKloqQJBID8IjpEWbFfLNaNtd2urltRaoZ06\
 jYOS1bYZKa06q0OJma7d3TJLdaZW28Y1xSpolKG1LdRKFVi7rTNqvNgqAqZEEUjJQhynK506KOS9\
 f5yT8uXme0MS7/2e7+fm+Zj5zveczznnez+fXMIr53ze33NSVUiS1Jpjhu6AJElHwgCTJDXJAJMk\
@@ -4763,7 +4853,7 @@ JhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCYZ\
 YJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCb9f6XCRvIzq8urAAAAAElFTkSuQmCC\
 "
   frames[30] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZo0lEQVR4nO3df7Bf9V3n8eeLgFhasQVCCflB6JqiUN1WbjP1x661P5ZYa0HH\
 julQybZqBkTbztpB0oxbd1dmsZ2xUpVuI9VCG2XQqmAtVmDrqjNt8VJtKdBIWhqIZCG145ZOO1DI\
 e/84J/Ll5ntDkt77Pd/PzfMx853vOZ9zzve+P7mEV875fL7npKqQJKk1xwxdgCRJR8IAkyQ1yQCT\
@@ -4882,7 +4972,7 @@ ZIBJkppkgEmSmmSASZKaZIBJkppkgEmSmmSASZKaZIBJkppkgEmSmmSASZKaZIBJkppkgEmSmmSA\
 SZKaZIBJkppkgEmSmmSASZKa9P8BNnRinINJRD8AAAAASUVORK5CYII=\
 "
   frames[31] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZcklEQVR4nO3df7Bf9V3n8eeLQLG0YguEAvlB6DRFobqt3GZadddayxJrLejY\
 MQ6VbKtmimjprB0kzbh1d2UW2xkrVek20h/QRhm0KliLFdi66gxtvFRbCjSSlgKRLKR23OLYgULe\
 +8c5Wb7cfG9I0nu/5/u5eT5mvvM953PO+d73J5fwyjmfz/ecVBWSJLXmqKELkCTpcBhgkqQmGWCS\
@@ -5000,7 +5090,7 @@ wCRJTTLAJElNMsAkSU0ywCRJTTLAJElNMsAkSU0ywCRJTTLAJElNMsAkSU0ywCRJTTLAJElNMsAk\
 SU0ywCRJTTLAJElNMsAkSU0ywCRJTTLAJElN+n9ThEZBtGRIfgAAAABJRU5ErkJggg==\
 "
   frames[32] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZdklEQVR4nO3df7AlZX3n8feHgRDREPkxCMwPBisjCZishuuU+bEbEzFMDBG0\
 YmVSUMzqJlMSE7VWizBOZc3uhlqiVTEaxXWCUdBJKBITIUZigDWbpEqdXEwUASeMIjBhFsZY2ZCK\
 hcJ894/uWQ53zh2G8d7T57n3/arqOn2e7j7nebjCx+7ne7pTVUiS1Jqjhu6AJElHwgCTJDXJAJMk\
@@ -5118,7 +5208,7 @@ JDXJAJMkNckAkyQ1yQCTJDXJAJMkNckAkyQ1yQCTJDXJAJMkNckAkyQ1yQCTJDXJAJMkNckAkyQ1\
 yQCTJDXJAJMkNckAkyQ1yQCTJDXJAJMkNckAkyQ16f8BDllNjV/PB1cAAAAASUVORK5CYII=\
 "
   frames[33] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZg0lEQVR4nO3df7BfdX3n8efLQKloqQJBID8ITiMt2K6Wa8b+2K2tuqTWCu3U\
 aRwYslKbkdKqs3UoMdO1u1tmqc7UYltcU2wFTcvQ2hZqpQqs3dYZNV5sFQFTogikZCHW6ZZOHZDk\
 vX+ck+XLzfeGJNz7Pd/PzfMxc+Z7vp9zzvf7+eQSXjnn877npKqQJKk1zxq6A5IkHQkDTJLUJANM\
@@ -5237,7 +5327,7 @@ kyQ1yQCTJDXJAJMkNckAkyQ1yQCTJDXJAJMkNckAkyQ1yQCTJDXJAJMkNen/AU8MR5nJmMM7AAAA\
 AElFTkSuQmCC\
 "
   frames[34] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZh0lEQVR4nO3df7BfdX3n8eeLQKloqQJBID8IjpEWbFfLNaNtd2v9saTWCu3U\
 aRwYsvZHRkqrzupQYqZrd7fMUp2pYi2uKbaCxjK0toVaqQXWbtsZNb1YFQFTogikZCHW6Yqjg0Le\
 +8c5Wb7cfG9Iwr3f8/3cPB8zZ77n+znnfO/nk0t45ZzP+3tOqgpJklpz1NAdkCTpcBhgkqQmGWCS\
@@ -5356,7 +5446,7 @@ SWqSASZJapIBJklqkgEmSWqSASZJapIBJklqkgEmSWqSASZJapIBJklqkgEmSWrS/wOgV0YKighY\
 AAAAAABJRU5ErkJggg==\
 "
   frames[35] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZmElEQVR4nO3df/BddX3n8eeLQKloqQJBID8IjpEWbFfL14y23a31x5JaK7RT\
 p3FgyNofGSmtOqtDiZmu3d0yS3WmirW4ptgKGsvQ2hZqpRZYu21n1PSLVREwJYpAShZina44Oijk\
 vX+ck+Xyzf2GJHy/99zPN8/HzJ177uecc+/7k0t45ZzP556TqkKSpNYcNXQBkiQdDgNMktQkA0yS\
@@ -5475,7 +5565,7 @@ GWCSpCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlg\
 kqQmGWCSpCb9P6QRS06UTLdFAAAAAElFTkSuQmCC\
 "
   frames[36] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZsElEQVR4nO3df7BfdX3n8eeLQKloqQJBID8IjpEWbFfLNWN/7NZWXVJrBTt1\
 GgeGrLbNSGnV2TqUmOna3S2zVGdqsS2uKVZB0zK02kKt1AJrt+2MGi+2ioApUSSkZCHW6ZaODgp5\
 7x/nZPly870hCfd+z/dz83zMnPme7+ec872fTy7Ji3M+7+85qSokSWrNMUN3QJKkI2GASZKaZIBJ\
@@ -5594,7 +5684,7 @@ JklqkgEmSWqSASZJapIBJklqkgEmSWqSASZJapIBJklqkgEmSWqSASZJapIBJklqkgEmSWqSASZJ\
 apIBJklqkgEmSWqSASZJapIBJklqkgEmSWqSASZJatL/A2CpTaDNnOvrAAAAAElFTkSuQmCC\
 "
   frames[37] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZwklEQVR4nO3df7BfdX3n8eeLQKloqQJBID8ITiMt2K6Wa0bb7tb6Y0mtFdqp\
 0zgwZO2PjJRWndWhxEzX7m6ZpTpTxVpcU2wFTcvQ2gq1UgXWbtsZNb1YFQFTokhIyUKs0y2tFoW8\
 949zsny5+d6QwL3f8/3cPB8zZ77n+znnfL+fTy7Ji3M+73tOqgpJklpz1NAdkCTpyTDAJElNMsAk\
@@ -5714,7 +5804,7 @@ GWCSpCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCb9PyyfTkqR\
 oMuZAAAAAElFTkSuQmCC\
 "
   frames[38] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZ4ElEQVR4nO3df7Dd9V3n8eeLgFhasQVCgfwgdExRqG4rt5n6Y9faH0ustaBj\
 x3TCkK0/MkW0dtYOkmbcursyi+2Mlap0G6kW2iiDVgVrsQJbV51pGy/VlgKNpKUJkSykdlzRVlrI\
 e//4frMcbs4NCdx7vudz83zMnDnnfL7f77nvD7fw6vf7ed/vSVUhSVJrjhu6AEmSng4DTJLUJANM\
@@ -5834,7 +5924,7 @@ GWCSpCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlgkqQmGWCSpCYZYJKkJhlg\
 kqQmGWCSpCYZYJKkJhlgkqQmGWCSpCb9P9sxXLDGQHf/AAAAAElFTkSuQmCC\
 "
   frames[39] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZ7ElEQVR4nO3dcbBedX3n8feXBCnRphIIEnITEsdIG2wXyzWDbXdrFZfUUoJO\
 mcYJQ1ZrM1JadFaHEjNdu7tlluJMFathTbES9GomrdakVqrA2m2dQeLFihAw5SImuSVLYp2uWNto\
 ku/+cU42DzfnCUm49znnd/N+zZx5zvM75zz3+8sl+XDO7/ecE5mJJEmlOa3tAiRJOhkGmCSpSAaY\
@@ -5954,7 +6044,7 @@ VCQDTJJUJANMklQkA0ySVCQDTJJUJANMklQkA0ySVCQDTJJUJANMklQkA0ySVCQDTJJUJANMklQk\
 A0ySVCQDTJJUJANMklQkA0ySVCQDTJJUJANMklQkA0ySVKT/B/7KXZqA8FsaAAAAAElFTkSuQmCC\
 "
   frames[40] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAZ/UlEQVR4nO3df7BfdX3n8eebBKnRUkkIEnITEsdIG2wXyzWDbXdrFZfUUoJO\
 mcYJQ1ZrM1JadFaHEjNdu7tlluJMFathTbES9GomLdakVqpA7Q9nkHixIgRMiWKSW7Ik1umK1UaT\
 vPePc7L5cnO+IQn3fs/53Pt8zHzn+/1+zjnf+/nkkrz4nM/7e05kJpIklea0tjsgSdKpMMAkSUUy\
@@ -6075,7 +6165,7 @@ KpIBJkkqkgEmSSqSASZJKpIBJkkqkgEmSSqSASZJKpIBJkkqkgEmSSqSASZJKpIBJkkq0v8D9sRn\
 jGMQ73AAAAAASUVORK5CYII=\
 "
   frames[41] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAaH0lEQVR4nO3df7BfdX3n8eebBKlRU/kRJOQmJI4RG2wXyzWDbXdrFUtqKUGn\
 TOOEIau1GSktOqtDiZmu3d0yS3WmitWwplgJejWTFmtSK1Vg7badQeLFihAwJQhJbsmSWKcLrTaa\
 5L1/nJPmy835hiTc+z3nc+/zMfOd7/f7Oed87+eTS/Licz7v7zmRmUiSVJpT2u6AJEknwwCTJBXJ\
@@ -6196,7 +6286,7 @@ yQCTJBXJAJMkFckAkyQVyQCTJBXJAJMkFckAkyQVyQCTJBXJAJMkFckAkyQVyQCTJBXJAJMkFckA\
 kyQVyQCTJBXJAJMkFckAkyQVyQCTJBXJAJMkFen/Aw6db7JonizbAAAAAElFTkSuQmCC\
 "
   frames[42] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAaSElEQVR4nO3df7BdZX3v8feXBKlRU4EECTkJiWOkDbYXyzGDbe+tVSyppQSd\
 Mo0ThlRrM1JadK4OJWZ67b23zKU6U8VquKZYCXo0kxZrUitV4NofziDxYEUImBLEJKfkklinF6w2\
 muR7/1grzeZk7ZDAOXut55z3a2bPXvtZa+3zPDkkH571fPfakZlIklSaU9rugCRJz4YBJkkqkgEm\
@@ -6318,7 +6408,7 @@ AJMkFckAkyQVyQCTJBXJAJMkFckAkyQVyQCTJBXJAJMkFckAkyQVyQCTJBXJAJMkFckAkyQVyQCT\
 JBXJAJMkFckAkyQV6f8DioZ+anC0RNwAAAAASUVORK5CYII=\
 "
   frames[43] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAadElEQVR4nO3dcbBedX3n8feXBKlRqUCChNyExDHSBtvFcs1g291axZJSBHTK\
 NE4YsrU2I6VVZ+tQYqZrd7fMUpypYjWsKVaCXmVosYZaqAJrt3UGiRcrQsCUICa5JUtimS5YbTTJ\
 d/845zZPbs4TknDvc87v3vdr5pnneX7nnOf+frkkH37n933OicxEkqTSnNB2ByRJOh4GmCSpSAaY\
@@ -6441,7 +6531,7 @@ FckAkyQVyQCTJBXJAJMkFckAkyQVyQCTJBXJAJMkFckAkyQVyQCTJBXJAJMkFckAkyQVyQCTJBXp\
 /wPNn51OEp4WfwAAAABJRU5ErkJggg==\
 "
   frames[44] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAahklEQVR4nO3df7BfdX3n8eebBKlRqUCChPwgcYy0wXaxXDPYdrdWsaQUAZ0y\
 jROGbK3NSGnV2TqUmOna3S2zFGeqWA1ripWgVxlarKEWqsDabZ1B4sWKEDAliEluyZJYpgtWG03y\
 3j/Ouc2Xm/MNCdz7Pefzvc/HzHe+3+/nnPO9n08uyYvP+by/50RmIklSaY5ruwOSJD0fBpgkqUgG\
@@ -6564,7 +6654,7 @@ gEmSimSASZKKZIBJkopkgEmSimSASZKKZIBJkopkgEmSimSASZKKZIBJkopkgEmSimSASZKKZIBJ\
 kopkgEmSimSASZKKZIBJkor0/wHR26+I72TzaAAAAABJRU5ErkJggg==\
 "
   frames[45] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAarElEQVR4nO3df7BdZX3v8feXgGhUKpAgISchcYy0wfZiOWSw7b21iiWlSNAp\
 0zgwpLU2I6VV59ahxEyvvfeWuVRnqlgN1xQrQY9maLEmtVAFrv3hDBIPVoSAKUFMckouxDK9YKXR\
 JN/7x1qn2TlZOyRwzl7rOef9mtmz937WWvs8Tw7hk2c9371WZCaSJJXmuLY7IEnS82GASZKKZIBJ\
@@ -6688,7 +6778,7 @@ RTLAJElFMsAkSUUywCRJRTLAJElFMsAkSUUywCRJRTLAJElFMsAkSUUywCRJRTLAJElFMsAkSUX6\
 /7sByvpx5Vr9AAAAAElFTkSuQmCC\
 "
   frames[46] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAayElEQVR4nO3dcbCddX3n8feXBFHUVCBBQm5C4hhpg+1iuWSw7W6t4pJSJOiU\
 aRwYsrU2I6VVZ+tQYqZrd7eZpTpTxWpYU6wEvZpJizWphSqwdltnkHixIgRMuYhJbsmSWKYLVhtN\
 8t0/nuduTm7OCTfh3vM8v3vfr5kz55zf85xzfr/cJJ/7e37f8zyRmUiSVJpTmu6AJEknwwCTJBXJ\
@@ -6812,7 +6902,7 @@ SZKKZIBJkopkgEmSimSASZKKZIBJkopkgEmSimSASZKKZIBJkopkgEmSimSASZKKZIBJkopkgEmS\
 imSASZKKZIBJkopkgEmSimSASZKKZIBJkor0/wCvNd02a5gJOgAAAABJRU5ErkJggg==\
 "
   frames[47] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAa8UlEQVR4nO3df7DddX3n8eebBFDUVCBBQn47Rtpgu1guGWy7W6u4pBQJOmUa\
 B4Zsrc1IadXZOpSY6drdbWapzlSxGtYUK0GvZtJiTWqhCqzd1hkkXqwIAVOCmOSWLIllumC1wSTv\
 /eP7vZuTm3NCEu493+/n3Odj5sw55/P9nnM+n9wkr/v5ft7n+43MRJKk0pzSdAckSToZBpgkqUgG\
@@ -6937,7 +7027,7 @@ kopkgEmSimSASZKKZIBJkopkgEmSimSASZKKZIBJkopkgEmSimSASZKKZIBJkopkgEmSimSASZKK\
 ZIBJkopkgEmSivT/AFzN9TZGTSpzAAAAAElFTkSuQmCC\
 "
   frames[48] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAbO0lEQVR4nO3df7DddX3n8eebEFDUVCBBQm5+OUbaYLtYLhlsu1urWFKKgE6Z\
 xglDttZmpLTqbB1KzHTt7jazVGeqWA1ripWgVzNpsUItVIG12zqDxIsVIWBKEJPcEkko0wWrDSZ5\
 7x/f792c3JwTErj3fL+fc5+PmTPnnM/3e879fHIJr3y+n/f3+43MRJKk0pzQdAckSXohDDBJUpEM\
@@ -7063,7 +7153,7 @@ BpgkqUgGmCSpSAaYJKlIBpgkqUgGmCSpSAaYJKlIBpgkqUgGmCSpSAaYJKlIBpgkqUgGmCSpSAaY\
 JKlIBpgkqUgGmCSpSAaYJKlIBpgkqUgGmCSpSP8PdgIVm883bocAAAAASUVORK5CYII=\
 "
   frames[49] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAbjklEQVR4nO3df7DddX3n8eebEKKoVCBBQn47Rtpgu1guGWy7W6tYUoqATpnG\
 CUO21maktOpsHUrMdO3uNrMUZ6pYDUuKlaBXmbRYQy1UgbXbOoPEixUhYEoQk9wSSSjTBasNJnnv\
 H9/v3ZzcnBOScO/5fj/nPh8zZ845n+/3nPv55BJe+Xw/7+/3G5mJJEmlOaHpDkiSdDwMMElSkQww\
@@ -7195,7 +7285,7 @@ wCRJRTLAJElFMsAkSUUywCRJRTLAJElFMsAkSUUywCRJRTLAJElFMsAkSUUywCRJRTLAJElF+n/2\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        anim85fc8f9ede604c4db8634f367b671e28 = new Animation(frames, img_id, slider_id, 149.0,
+        animfc73ed2da7744df49c0285480f53f535 = new Animation(frames, img_id, slider_id, 149.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -7468,42 +7558,42 @@ input[type=range].anim-slider {
 </style>
 
 <div class="animation">
-  <img id="_anim_imgab4b5e59cc1b448d9beb58e9056d77ce">
+  <img id="_anim_img0a24685d369f4bc4a94e36940413f0be">
   <div class="anim-controls">
-    <input id="_anim_sliderab4b5e59cc1b448d9beb58e9056d77ce" type="range" class="anim-slider"
+    <input id="_anim_slider0a24685d369f4bc4a94e36940413f0be" type="range" class="anim-slider"
            name="points" min="0" max="1" step="1" value="0"
-           oninput="animab4b5e59cc1b448d9beb58e9056d77ce.set_frame(parseInt(this.value));"></input>
+           oninput="anim0a24685d369f4bc4a94e36940413f0be.set_frame(parseInt(this.value));"></input>
     <div class="anim-buttons">
-      <button title="Decrease speed" aria-label="Decrease speed" onclick="animab4b5e59cc1b448d9beb58e9056d77ce.slower()">
+      <button title="Decrease speed" aria-label="Decrease speed" onclick="anim0a24685d369f4bc4a94e36940413f0be.slower()">
           <i class="fa fa-minus"></i></button>
-      <button title="First frame" aria-label="First frame" onclick="animab4b5e59cc1b448d9beb58e9056d77ce.first_frame()">
+      <button title="First frame" aria-label="First frame" onclick="anim0a24685d369f4bc4a94e36940413f0be.first_frame()">
         <i class="fa fa-fast-backward"></i></button>
-      <button title="Previous frame" aria-label="Previous frame" onclick="animab4b5e59cc1b448d9beb58e9056d77ce.previous_frame()">
+      <button title="Previous frame" aria-label="Previous frame" onclick="anim0a24685d369f4bc4a94e36940413f0be.previous_frame()">
           <i class="fa fa-step-backward"></i></button>
-      <button title="Play backwards" aria-label="Play backwards" onclick="animab4b5e59cc1b448d9beb58e9056d77ce.reverse_animation()">
+      <button title="Play backwards" aria-label="Play backwards" onclick="anim0a24685d369f4bc4a94e36940413f0be.reverse_animation()">
           <i class="fa fa-play fa-flip-horizontal"></i></button>
-      <button title="Pause" aria-label="Pause" onclick="animab4b5e59cc1b448d9beb58e9056d77ce.pause_animation()">
+      <button title="Pause" aria-label="Pause" onclick="anim0a24685d369f4bc4a94e36940413f0be.pause_animation()">
           <i class="fa fa-pause"></i></button>
-      <button title="Play" aria-label="Play" onclick="animab4b5e59cc1b448d9beb58e9056d77ce.play_animation()">
+      <button title="Play" aria-label="Play" onclick="anim0a24685d369f4bc4a94e36940413f0be.play_animation()">
           <i class="fa fa-play"></i></button>
-      <button title="Next frame" aria-label="Next frame" onclick="animab4b5e59cc1b448d9beb58e9056d77ce.next_frame()">
+      <button title="Next frame" aria-label="Next frame" onclick="anim0a24685d369f4bc4a94e36940413f0be.next_frame()">
           <i class="fa fa-step-forward"></i></button>
-      <button title="Last frame" aria-label="Last frame" onclick="animab4b5e59cc1b448d9beb58e9056d77ce.last_frame()">
+      <button title="Last frame" aria-label="Last frame" onclick="anim0a24685d369f4bc4a94e36940413f0be.last_frame()">
           <i class="fa fa-fast-forward"></i></button>
-      <button title="Increase speed" aria-label="Increase speed" onclick="animab4b5e59cc1b448d9beb58e9056d77ce.faster()">
+      <button title="Increase speed" aria-label="Increase speed" onclick="anim0a24685d369f4bc4a94e36940413f0be.faster()">
           <i class="fa fa-plus"></i></button>
     </div>
-    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_selectab4b5e59cc1b448d9beb58e9056d77ce"
+    <form title="Repetition mode" aria-label="Repetition mode" action="#n" name="_anim_loop_select0a24685d369f4bc4a94e36940413f0be"
           class="anim-state">
-      <input type="radio" name="state" value="once" id="_anim_radio1_ab4b5e59cc1b448d9beb58e9056d77ce"
+      <input type="radio" name="state" value="once" id="_anim_radio1_0a24685d369f4bc4a94e36940413f0be"
              checked>
-      <label for="_anim_radio1_ab4b5e59cc1b448d9beb58e9056d77ce">Once</label>
-      <input type="radio" name="state" value="loop" id="_anim_radio2_ab4b5e59cc1b448d9beb58e9056d77ce"
+      <label for="_anim_radio1_0a24685d369f4bc4a94e36940413f0be">Once</label>
+      <input type="radio" name="state" value="loop" id="_anim_radio2_0a24685d369f4bc4a94e36940413f0be"
              >
-      <label for="_anim_radio2_ab4b5e59cc1b448d9beb58e9056d77ce">Loop</label>
-      <input type="radio" name="state" value="reflect" id="_anim_radio3_ab4b5e59cc1b448d9beb58e9056d77ce"
+      <label for="_anim_radio2_0a24685d369f4bc4a94e36940413f0be">Loop</label>
+      <input type="radio" name="state" value="reflect" id="_anim_radio3_0a24685d369f4bc4a94e36940413f0be"
              >
-      <label for="_anim_radio3_ab4b5e59cc1b448d9beb58e9056d77ce">Reflect</label>
+      <label for="_anim_radio3_0a24685d369f4bc4a94e36940413f0be">Reflect</label>
     </form>
   </div>
 </div>
@@ -7513,13 +7603,13 @@ input[type=range].anim-slider {
   /* Instantiate the Animation class. */
   /* The IDs given should match those used in the template above. */
   (function() {
-    var img_id = "_anim_imgab4b5e59cc1b448d9beb58e9056d77ce";
-    var slider_id = "_anim_sliderab4b5e59cc1b448d9beb58e9056d77ce";
-    var loop_select_id = "_anim_loop_selectab4b5e59cc1b448d9beb58e9056d77ce";
+    var img_id = "_anim_img0a24685d369f4bc4a94e36940413f0be";
+    var slider_id = "_anim_slider0a24685d369f4bc4a94e36940413f0be";
+    var loop_select_id = "_anim_loop_select0a24685d369f4bc4a94e36940413f0be";
     var frames = new Array(50);
 
   frames[0] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAoQ0lEQVR4nO3de3RU9b338feXoMjl0WqFCgQCHLkmEoRAaQW0RZEiAiq6cNVK\
 FUQRaz19qIpaz3OqWM/Bxwun1S5WPRpLlVJOUay3A5zjUzhFISAtF6UgiUKhcrEqEIIFvs8fsxMm\
 YYIBMrP3nvm81pqVmd/eM/P9JZKPe39/mW3ujoiISNw0CbsAERGRE6EAExGRWFKAiYhILCnAREQk\
@@ -7704,7 +7794,7 @@ ASYiIrGkABMRkVhSgImISCwpwEREJJYUYCIiEksKMBERiSUFmIiIxJICTEREYkkBJiIisaQAExGR\
 WPr/pgbThRSnswkAAAAASUVORK5CYII=\
 "
   frames[1] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAo50lEQVR4nO3dfXhU9Z338feXIJSHW6sFKhAIsPKYSBACSyugXRQpIqCiF15V\
 aYWiiGvd3lRBrXtvFWsXbx/YVntx6dZYqpRli2J9aIFd78IWhYC0PCgFQxQKyoMVgRAQ+N5/zEmY\
 hAkGyMw5Z/J5XddcmfmdMzPfX0Ly4Zzvb2bM3REREYmbRmEXICIicjoUYCIiEksKMBERiSUFmIiI\
@@ -7892,7 +7982,7 @@ RERiSQEmIiKxpAATEZFYUoCJiEgsKcBERCSWFGAiIhJLCjAREYklBZiIiMSSAkxERGLp/wMW5wZg\
 nA1hxgAAAABJRU5ErkJggg==\
 "
   frames[2] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAApRUlEQVR4nO3de5RU5Znv8e9DI4TL0WiACDQ0MHLtlkZoGBIBzSBIEAEVXbii\
 okIQxDFODlFQ45yJYszg8cIkmsVoYhOiyDBBMV4ScMYTmKDQIAkXJSC0QkC5GJFbg8Bz/qjdTXVT\
 jQ101d67+vdZq1ZXvXtX1fM2ws+9n7d2mbsjIiISN/XCLkBEROR0KMBERCSWFGAiIhJLCjAREYkl\
@@ -8081,7 +8171,7 @@ ASYiIrGkABMRkVhSgImISCwpwEREJJYUYCIiEksKMBERiSUFmIiIxJICTEREYkkBJiIisaQAExGR\
 WFKAiYhILCnAREQklhRgIiISSwowERGJJQWYiIjE0v8HiNpB9Yhh5VEAAAAASUVORK5CYII=\
 "
   frames[3] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAApo0lEQVR4nO3dfXhU9Zn/8fdNEORhtVqgAoEAKygkEoRAaQW0iyBFBFT0wqsq\
 KhRFXOv2RwXUur+tYu3i+sC22iur1ViryLJFsT604K6/whaFgLQ8KAUhCgXlSZGngMD9+2NOwiRM\
 MGBmzjmTz+u65srM95yZuU9C8uGc+zvnmLsjIiISNw3CLkBERORkKMBERCSWFGAiIhJLCjAREYkl\
@@ -8272,7 +8362,7 @@ IiKxpAATEZFYUoCJiEgsKcBERCSWFGAiIhJLCjAREYklBZiIiMSSAkxERGJJASYiIrGkABMRkVhS\
 gImISCwpwEREJJb+P6HbbqpihLuaAAAAAElFTkSuQmCC\
 "
   frames[4] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAp+UlEQVR4nO3dfXhU9Zn/8fdtUORhtVKgAoEAKyAkEoTA0gpoF0WKCKjohVcV\
 VCiKWGu7VECt+9sq1hZ/PrCt+mO1ilpFyhbF+tCCu25hi0JAWh6UghCFgvKkyFNAyP37Y07CJEww\
 YGbOOZPP67rmysz3nJm5v0H4eM79nTPm7oiIiMTNSWEXICIiciIUYCIiEksKMBERiSUFmIiIxJIC\
@@ -8465,7 +8555,7 @@ ExGRWFKAiYhILCnAREQklhRgIiISSwowERGJJQWYiIjEkgJMRERi6f8Dj4STCfgUdSIAAAAASUVO\
 RK5CYII=\
 "
   frames[5] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAqQklEQVR4nO3dfXhU9Zn/8fdNEORhtSJQeQywAkIiQQgsrYB2EaSIgIpeeFVB\
 haKItbZLBdS6v61ibfHnA9uqP1arUatI2aJYH1pw1y1sUQhIy4MiSKJQUJ4UeQpIcv/+mJMwCRMM\
 mJkzZ/J5XddcmfmeMzP3SUg+nHN/5xxzd0RERKKmXtgFiIiInAwFmIiIRJICTEREIkkBJiIikaQA\
@@ -8659,7 +8749,7 @@ IhJJCjAREYkkBZiIiESSAkxERCJJASYiIpGkABMRkUhSgImISCQpwEREJJIUYCIiEkkKMBERiaT/\
 D6AWsEtjiOFiAAAAAElFTkSuQmCC\
 "
   frames[6] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAqjElEQVR4nO3de3xU9Z3/8deHcJHLakWgcg2wAkIiQQgsVUBdBCkioKIPfFRB\
 haKItbZLBdS6v61ibfHnhW3VH6tV0CpStijWSwvuuoUtyk1aLoogRKGg3JR7wCSf3x9zEiZhBgMm\
 c+ZM3s/HYx6Z+Z4zmc83kbw95/OdM+buiIiIRE2tsAsQERE5FQowERGJJAWYiIhEkgJMREQiSQEm\
@@ -8854,7 +8944,7 @@ EkkKMBERiSQFmIiIRJICTEREIkkBJiIikaQAExGRSFKAiYhIJCnAREQkkhRgIiISSQowERGJJAWY\
 iIhEkgJMREQiSQEmIiKR9P8BOBzSYRhJo2gAAAAASUVORK5CYII=\
 "
   frames[7] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAqzUlEQVR4nO3de3xU9Z3/8deHcJHLTysCyjXACgiJBCGwtALqIkgRARV94KMK\
 KhRFrLVdKqDW/W0Va4vrhW3VH6tV0CpStijWSwvuuoUtKhdpuSiCEIWCclPkFjDJ5/fHnIRJMoMB\
 kzlzJu/n4zGPzHzPmZnPSUjenPP5zjnm7oiIiERNnbALEBERORkKMBERiSQFmIiIRJICTEREIkkB\
@@ -9050,7 +9140,7 @@ YCIiEkkKMBERiSQFmIiIRJICTEREIkkBJiIikaQAExGRSFKAiYhIJCnAREQkkhRgIiISSQowERGJ\
 JAWYiIhEkgJMREQiSQEmIiKRpAATEZFI+v8WHuIo1OX+AgAAAABJRU5ErkJggg==\
 "
   frames[8] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAArA0lEQVR4nO3de3hU5bn38e9NOMjh1YoQ5RhgCwiJBCGwqQJqEaSIgIpeeFVB\
 haKItbabCqh1v7uKtcXtgd2qL1uroFWk7KJYDy24t7vQonKQloMiCFEoKCflHDDJ/f4xKyGHGQyY\
 zJo1+X2ua67MPGtN5n4Syc+17mfWmLsjIiISNXXCLkBERORkKMBERCSSFGAiIhJJCjAREYkkBZiI\
@@ -9247,7 +9337,7 @@ SFKAiYhIJCnAREQkkhRgIiISSQowERGJJAWYiIhEkgJMREQiSQEmIiKRpAATEZFIUoCJiEgkKcBE\
 RCSSFGAiIhJJCjAREYkkBZiIiETS/wdltPvPx41tdQAAAABJRU5ErkJggg==\
 "
   frames[9] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAArJUlEQVR4nO3de3hU5bn38e9NOMjh1YqAcgywBYREghDYVAG1CFJEQEUvvKqg\
 QlHEWttNBdS6313F2uL2wG7Vl61V0CpSdlGohxbsdhd2UTlIy0ERhCgUNBwUOQVMcr9/zErIYQYD\
 JrNmTX6f65orM896ZuZ5EpIfa93PrGXujoiISNTUCXsAIiIiJ0MBJiIikaQAExGRSFKAiYhIJCnA\
@@ -9445,7 +9535,7 @@ kUhSgImISCQpwEREJJIUYCIiEkkKMBERiSQFmIiIRJICTEREIkkBJiIikaQAExGRSFKAiYhIJP1/\
 gIAJngUvL4wAAAAASUVORK5CYII=\
 "
   frames[10] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAArWElEQVR4nO3de5QU9Zn/8ffDcJHLTyMCynWAFRBmZBAGliigBkGCCKjowRMV\
 FYIixpgsEVDj/jaKMcH1wibqj9UoahQJGxTjJQGzbnCDykUTLoogjEJAuajIbcCZeX5/dM0wl24c\
 cKarqufzOqfPdH+ruvupGZjPVD3frjJ3R0REJG7qhV2AiIjIsVCAiYhILCnAREQklhRgIiISSwow\
@@ -9644,7 +9734,7 @@ xJICTEREYkkBJiIisaQAExGRWFKAiYhILCnAREQklhRgIiISSwowERGJJQWYiIjE0v8HcX8eHv0o\
 MrQAAAAASUVORK5CYII=\
 "
   frames[11] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAreUlEQVR4nO3de3hU5bn38e9NOMjh1YoQ5RhgCwiJBCFQWgG1CFJEQEUvvKqg\
 QlHEWttNBdS6313F2uL2wG7Vl61V0CpSdlGohxbsdhdaVA7SclAEIQoF5aTIKWCS+/1jVsIkmcGA\
 yaxZye9zXXNl5lnPzDxPAvllrfuZtczdERERiZo6YQ9ARETkZCjAREQkkhRgIiISSQowERGJJAWY\
@@ -9843,7 +9933,7 @@ AkxERCJJASYiIpGkABMRkUhSgImISCQpwEREJJIUYCIiEkkKMBERiSQFmIiIRJICTEREIkkBJiIi\
 kaQAExGRSFKAiYhIJCnAREQkkhRgIiISSf8fr5Eq75wWKDgAAAAASUVORK5CYII=\
 "
   frames[12] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAArlUlEQVR4nO3de3hU5bn38e9NOMjh1YoQ5RhgCwiJBCFQWgG1CFJEQEUvvKqg\
 QlHEWttNBdS6313F2uL2wG7Vl61V0CpSdlGohxbsdhdaVA7SclAEIQoF5aTIKWCS+/1jVsIkmcGA\
 yaxZye9zXevKzLPWzDxPAvllrftZa5m7IyIiEjV1wu6AiIjIyVCAiYhIJCnAREQkkhRgIiISSQow\
@@ -10043,7 +10133,7 @@ KcBERCSSFGAiIhJJCjAREYkkBZiIiESSAkxERCJJASYiIpGkABMRkUhSgImISCQpwEREJJL+P9/J\
 NjdKgLpVAAAAAElFTkSuQmCC\
 "
   frames[13] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAArmklEQVR4nO3de3hV5Zn38e9NOMhhtCJEOQYYASGRIASGVkAtghQRUNELLxVU\
 KIpYa/tSAbXOO1WsLY4HplVfRqugVaRMUaiHFuw4hSkqB2k5KIIQhYJyUuQUMMn9/rFXwk6yNwZM\
 9tor+X2ua13Z+1lr7/08CeSXte5nrWXujoiISNTUCbsDIiIiJ0MBJiIikaQAExGRSFKAiYhIJCnA\
@@ -10243,7 +10333,7 @@ gImISCQpwEREJJIUYCIiEkkKMBERiSQFmIiIRJICTEREIkkBJiIikaQAExGRSFKAiYhIJCnAREQk\
 kv4/XFI81DcEyBsAAAAASUVORK5CYII=\
 "
   frames[14] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAArtUlEQVR4nO3de3hU5bn38e9NOMjh1aoQ5RhgCwiJBCGwqQJqUaSIgIpeeFVF\
 haKItbabCqh1v7uKtcXtgd2qL1uroFWk7KJQDy3Y7S7uonLQloMiCFEoaAAVOQVMcr9/zEqYJDMY\
 MDNrVvL7XNdcmXnWMzPPk0B+Wet+Zi1zd0RERKKmQdgDEBERORYKMBERiSQFmIiIRJICTEREIkkB\
@@ -10443,7 +10533,7 @@ RCSSFGAiIhJJCjAREYkkBZiIiESSAkxERCJJASYiIpGkABMRkUhSgImISCQpwEREJJIUYCIiEkkK\
 MBERiSQFmIiIRJICTEREIkkBJiIikaQAExGRSPr/NCRADDLepxUAAAAASUVORK5CYII=\
 "
   frames[15] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAArzklEQVR4nO3de3hV5Zn38e9NOMjh1aoQ5RhgBIREghAYWgG1CFJEQEUvvKqg\
 QkHEWutQAbXOO1WsLY4HplVfRquoVaRMUayHFuw4xSkqB2k5KIIQhYJyUg6BgEnu94+9EnaSvTFg\
 stdeye9zXevK3s9ae+/nSSC/rHU/ay1zd0RERKKmXtgdEBEROREKMBERiSQFmIiIRJICTEREIkkB\
@@ -10644,7 +10734,7 @@ BZiIiESSAkxERCJJASYiIpGkABMRkUhSgImISCQpwEREJJIUYCIiEkkKMBERiSQFmIiIRNL/B6Gp\
 SH0+ZvYrAAAAAElFTkSuQmCC\
 "
   frames[16] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAr5ElEQVR4nO3de3hU5bn38e9NOMjh1aoQ5RhgCwiJBCGwaQXUokgRARW98KqC\
 CkURa62bCqh1v7uKtcXtgd2qL1urqFWk7KJQDy3Y7S7uonLQloMiCFEoKAcVIRAwyf3+MSthksxg\
 wGTWrMnvc13rysyz1sw8TwL5Za37WWuZuyMiIhI1DcLugIiIyLFQgImISCQpwEREJJIUYCIiEkkK\
@@ -10845,7 +10935,7 @@ ExGRSFKAiYhIJCnAREQkkhRgIiISSQowERGJJAWYiIhEkgJMREQiSQEmIiKRpAATEZFIUoCJiEgk\
 KcBERCSSFGAiIhJJCjAREYmk/w+9Y05izLG/mAAAAABJRU5ErkJggg==\
 "
   frames[17] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAr8UlEQVR4nO3de3hU5bn38e9NOMjh9UAhyjHAFhASCUJgUwXUIkgRAS164VUL\
 VSiKWGvdVECt+91VrC1uD+xWfdm1FWuVUnZRqIcW7HYXd1E5aMtBEYQoFJSDihAImOR+/5iVMElm\
 MEAya9bk97mudWXmWWtmnieB/LLW/ay1zN0RERGJmgZhd0BEROREKMBERCSSFGAiIhJJCjAREYkk\
@@ -11046,7 +11136,7 @@ gImISCQpwEREJJIUYCIiEkkKMBERiSQFmIiIRJICTEREIkkBJiIikaQAExGRSFKAiYhIJCnAREQk\
 khRgIiISSQowERGJJAWYiIhEkgJMREQiSQEmIiKR9P8BZYRSywm1m/wAAAAASUVORK5CYII=\
 "
   frames[18] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAsAElEQVR4nO3de3hV5Zn38e9NOMOrFSHKMcAICIkEITC0AmpRpIiAFr3wqoIK\
 BSnW2g4VUOu8U8Xa4nhgWu3LaBW1SilTFOqhBTtOYYrKQVsOSkGIQkEDqAiBgEnu94+9EnLYGwMk\
 e+218/tc17qy97PW3vt5Esgva93PWsvcHRERkahpEHYHREREToYCTEREIkkBJiIikaQAExGRSFKA\
@@ -11248,7 +11338,7 @@ ExGRSFKAiYhIJCnAREQkkhRgIiISSQowERGJJAWYiIhEkgJMREQiSQEmIiKR9P8BFc5awvci/2YA\
 AAAASUVORK5CYII=\
 "
   frames[19] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAsDElEQVR4nO3de3hU5bn38e9NOMOrlUKUY4AtICQShMCmFVCLIkUEVPTCqwoq\
 FEWstd1UQK373VWsLW4P7Fb7smsr1iql7KJQDy3Y7S7uonLQloNSEKJQ0AAqcgqY5H7/mJUwSWYw\
 xGTWrMnvc13rysyz1sw8TwL5Za37WWuZuyMiIhI1jcLugIiISG0owEREJJIUYCIiEkkKMBERiSQF\
@@ -11450,7 +11540,7 @@ mIiIRJICTEREIkkBJiIikaQAExGRSFKAiYhIJCnAREQkkhRgIiISSQowERGJJAWYiIhEkgJMREQi\
 6f8DD85j4BvXs2gAAAAASUVORK5CYII=\
 "
   frames[20] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAsEElEQVR4nO3de3hU5bn38e9NOMjh1UohyjHAFhASCUJg0wqoRZEiAip64VUL\
 VSiKWGu7qYBa97urWFvcHtit9mVrFWsVKbso1EMLdruLu6gctOWgCEIUChpARU4Bk9zvH7MSJskM\
 JpjMmjX5fa5rXZl51pqZ50kgv6x1P2stc3dERESiplHYHRARETkRCjAREYkkBZiIiESSAkxERCJJ\
@@ -11652,7 +11742,7 @@ REQiSQEmIiKRpAATEZFIUoCJiEgkKcBERCSSFGAiIhJJCjAREYkkBZiIiESSAkxERCJJASYiIpGk\
 ABMRkUj6/w83Y5WQVM2YAAAAAElFTkSuQmCC\
 "
   frames[21] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAsBUlEQVR4nO3de3hU5bn38e9NOMOrFSHKMcAWEBIJQmDTCqhFkSICWvTCqxaq\
 UJBire2mAmrd765ibXF7YLfal61V1Cql7KJQDy3Y7S7sonLQloNSEKJQUA4qcgqY5H7/mJUwSWYw\
 wWTWrMnvc13rysyz1sw8TwL5Za37WWuZuyMiIhI1DcLugIiIyKlQgImISCQpwEREJJIUYCIiEkkK\
@@ -11854,7 +11944,7 @@ IiKRpAATEZFIUoCJiEgkKcBERCSSFGAiIhJJCjAREYkkBZiIiESSAkxERCJJASYiIpH0/wF4V2tF\
 f1V9zwAAAABJRU5ErkJggg==\
 "
   frames[22] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAsD0lEQVR4nO3de3hU5bn38e9NOMjh1YoQ5RhgCwiJBCGwaQXUokgRAS164VUF\
 FYpSrLXdVECt+91VrC1uD+xW+7K1ilqllF0U6qEFu93FXVQO2nJQCkIUChpARU4Bk9zvH7MSJskM\
 JpjMmjX5fa5rXZl51pqZ50kgv6x1P2stc3dERESiplHYHRARETkRCjAREYkkBZiIiESSAkxERCJJ\
@@ -12056,7 +12146,7 @@ kUhSgImISCQpwEREJJIUYCIiEkkKMBERiSQFmIiIRJICTEREIkkBJiIikaQAExGRSFKAiYhIJCnA\
 REQkkv4/BotlR8YJ//cAAAAASUVORK5CYII=\
 "
   frames[23] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAsD0lEQVR4nO3de3hU5bn38e9NOMjh9UAhyjHAFhASCUJg0wqoRZEiAip64VUF\
 FYoi1tpuKqDW/e4q1ha3B3arvuzairWKlF0U6qEFu93FXVQO2nJQBCEKBQ2gIqeASe73j1kJk2QG\
 AiazZk1+n+taV2aetWbmeRLIL2vdz1rL3B0REZGoaRB2B0RERE6EAkxERCJJASYiIpGkABMRkUhS\
@@ -12258,7 +12348,7 @@ JJIUYCIiEkkKMBERiSQFmIiIRJICTEREIkkBJiIikaQAExGRSFKAiYhIJCnAREQkkhRgIiISSQow\
 ERGJpP8PihtlR9zmy2oAAAAASUVORK5CYII=\
 "
   frames[24] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAsEElEQVR4nO3de3hU5bn38e9NOMjh9UAhyjHAFhASCUJg0wqoRZAiAlr0wqsW\
 qlCQYq3tpgJq3e+uYm1xe2C36svWKtYqpeyiUA8t2O0u7KJy0JaDUhCiUNAAKnIKmOR+/5iVMElm\
 MGAya9bk97mudWXmWWtmnieB/LLW/ay1zN0RERGJmgZhd0BERORUKMBERCSSFGAiIhJJCjAREYkk\
@@ -12460,7 +12550,7 @@ RCSSFGAiIhJJCjAREYkkBZiIiESSAkxERCJJASYiIpGkABMRkUhSgImISCQpwEREJJIUYCIiEkkK\
 MBERiaT/Dw26ZUccFZEzAAAAAElFTkSuQmCC\
 "
   frames[25] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAsD0lEQVR4nO3de3hU5bn38e9NOMjh1YoQ5RhgCwiJBCGwaQXUokgRAS164VUF\
 FYpSrLXdVECt+91VrC1uD+xW+7K1ilqllF0U6qEFu93FXVQO2nJQCkIUChpARU4Bk9zvH7MSJskM\
 JpjMmjX5fa5rXZl51pqZ50kgv6x1P2stc3dERESiplHYHRARETkRCjAREYkkBZiIiESSAkxERCJJ\
@@ -12662,7 +12752,7 @@ EkkKMBERiSQFmIiIRJICTEREIkkBJiIikaQAExGRSFKAiYhIJCnAREQkkhRgIiISSQowERGJJAWY\
 iIhE0v8HkUplR/NO8ecAAAAASUVORK5CYII=\
 "
   frames[26] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAsGklEQVR4nO3de3hU5bn38e9NOMjh9YAQ5RhgCwiJBCGwaQXUokgRAS164VUL\
 VShKsdZ2o4BY97urWFvcHtit+rK1ClpFyi4K9dCC3e7CLioHbTkoBSEKBeWgIqeASe73j1kJk2QG\
 AyazZk1+n+taV2aetWbmeRLIL2vdz1rL3B0REZGoqRd2B0RERE6GAkxERCJJASYiIpGkABMRkUhS\
@@ -12864,7 +12954,7 @@ kaQAExGRSFKAiYhIJCnAREQkkhRgIiISSQowERGJJAWYiIhEkgJMREQiSQEmIiKRpAATEZFIUoCJ\
 iEgkKcBERCSSFGAiIhJJ/x9uLG2ZqxMOOQAAAABJRU5ErkJggg==\
 "
   frames[27] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAsOElEQVR4nO3de3hU5bn38e9NOMjh9UAhyjHAFhASCUKgtALaokgRAS164VUL\
 VShKsdZ2o4BY++4q1ha3B3arfdm1FWuVUnZRqIcW7HYXd1E5aMtBKQhRKGgABSEQMMn9/jErYZLM\
 YMBk1qzJ73Nd68rMs9bMPE8C+WWt+1lrmbsjIiISNY3C7oCIiMipUICJiEgkKcBERCSSFGAiIhJJ\
@@ -13067,7 +13157,7 @@ iYhIJCnAREQkkhRgIiISSQowERGJJAWYiIhEkgJMREQiSQEmIiKRpAATEZFI+v/v33LmeI/YmQAA\
 AABJRU5ErkJggg==\
 "
   frames[28] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAsPUlEQVR4nO3de3hU5bn38e9NOMjh9UAhyjHAFhASCUKgtAJqUaSIgBa98KqF\
 KhSlWGu7qYBY++4q1ha3B3arfdm1ilqllF0U6qEFu93FXVQO2nJQCkIUCspBRUgImOR+/5iVMElm\
 MGAya9bk97mudWXmWWtmnieB/LLW/ay1zN0RERGJmkZhd0BERORkKMBERCSSFGAiIhJJCjAREYkk\
@@ -13270,7 +13360,7 @@ IhJJCjAREYkkBZiIiESSAkxERCJJASYiIpGkABMRkUhSgImISCQpwEREJJIUYCIiEkn/H1mVeTxG\
 s0lYAAAAAElFTkSuQmCC\
 "
   frames[29] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAsUklEQVR4nO3de3hV5Zn38e9NOMjh1WohSjgEGAEhkSAEhlZAWxQpIqBFL7xq\
 oQpFKY61HSqg1r6tYm1xPDCt9mVqK9YqZZiiUA8tOOMUZ1A5aMtBKQhRKGgAFSEhYJL7/WOvhJ1k\
 bwiY7LXXzu9zXevK3s9ae+/nSSC/rHU/ay1zd0RERKKmWdgdEBERORUKMBERiSQFmIiIRJICTERE\
@@ -13473,7 +13563,7 @@ pAATEZFIUoCJiEgkKcBERCSSFGAiIhJJCjAREYkkBZiIiESSAkxERCJJASYiIpGkABMRkUhSgImI\
 SCQpwEREJJIUYCIiEkn/H5OzhlnGbilIAAAAAElFTkSuQmCC\
 "
   frames[30] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAsbElEQVR4nO3de3hU1b3/8feXcJHL8VaIEi4BjoCQSBACh1ZAWxQpIqBFH3xq\
 oQpFKdbaHiog1p5WsbZ4vHBa7Y9TW7FWKeUUhXppwdZTPEXloi0XpSBEoUS5KLeEgEm+vz9mJ0yS\
 GQyYzJ6dfF7PM09m1l4zs1YC+WTv75q9zd0RERGJmiZhD0BERORUKMBERCSSFGAiIhJJCjAREYkk\
@@ -13677,7 +13767,7 @@ ExGRSFKAiYhIJCnAREQkkhRgIiISSQowERGJJAWYiIhEkgJMREQi6f8DjsWJUrGnb8UAAAAASUVO\
 RK5CYII=\
 "
   frames[31] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAscUlEQVR4nO3de3hU5bn38e9NOMjh9VSIEg4BtoCQSBACm1ZALYoUEdCiF161\
 UIWiFGttNxUQa99Wsba4PbBb7cuurVirlLKLQj20YLe7uIvKQVsOSkGIQkE5KKdAwCT3+8eshEky\
 gwGTWbMmv891zZWZZz0z8zwJ5Je17mfWMndHREQkahqFPQAREZFToQATEZFIUoCJiEgkKcBERCSS\
@@ -13881,7 +13971,7 @@ iIhEkgJMREQiSQEmIiKRpAATEZFIUoCJiEgkKcBERCSSFGAiIhJJCjAREYmk/w9XtoonKYl3AwAA\
 AABJRU5ErkJggg==\
 "
   frames[32] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAsiElEQVR4nO3de3hU5bn38e9NOMjh9VSIEg4BtoCQSBACpRXQFkWKCGjRC69a\
 UKEoxVrbTQXE2rdVrC1uD+xW+7JrK9YqpeyiUA8t2LqLu6gctOWgCEIUChpAOQUCJrnfP2YlTJIZ\
 CJjMmpX8Ptc1V2ae9czM8ySQX9a6n1nL3B0REZGoaRT2AERERE6FAkxERCJJASYiIpGkABMRkUhS\
@@ -14085,7 +14175,7 @@ EZFIUoCJiEgkKcBERCSSFGAiIhJJCjAREYkkBZiIiESSAkxERCJJASYiIpGkABMRkUhSgImISCQp\
 wEREJJIUYCIiEkn/H/pajM61J4VgAAAAAElFTkSuQmCC\
 "
   frames[33] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAsgklEQVR4nO3de3hU5bn38e9NOMjhFbUQ5RhgCwiJBCGwaQXUokgRAS164VUL\
 VShKsdZ2UwGx9m0Va4vbA7vVvuxaRa1Syi4K9dCC3e7iLioHbTkoBSEKBeWgnAIBk9zvH7MSJskM\
 BkxmzZr8Ptc1V2ae9czM8ySQX9a6n1nL3B0REZGoaRD2AERERE6FAkxERCJJASYiIpGkABMRkUhS\
@@ -14289,7 +14379,7 @@ iEgkKcBERCSSFGAiIhJJCjAREYkkBZiIiESSAkxERCJJASYiIpGkABMRkUhSgImISCQpwEREJJIU\
 YCIiEkn/H1mCgUfiugPnAAAAAElFTkSuQmCC\
 "
   frames[34] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAskUlEQVR4nO3de3xU5b33/c+PcJDD7akQ5RhgCwiJBCGwaQW0RZEiAlr0hU8t\
 qFCU4rbu3lRArH1axdri7YG71T7ctRVrlbLZRaEeWnBv7+LeqAS05aAUhCgUNByUc8Akv+ePWQmT\
 ZCYGTGbNmnzfr9e8MnOta2auK4F8s9bvmrXM3REREYmaJmEPQERE5HQowEREJJIUYCIiEkkKMBER\
@@ -14493,7 +14583,7 @@ kgJMREQiSQEmIiKRpAATEZFIUoCJiEgkKcBERCSSFGAiIhJJCjAREYkkBZiIiESSAkxERCJJASYi\
 IpGkABMRkUhSgImISCQpwEREJJL+fzqbgixyK8CoAAAAAElFTkSuQmCC\
 "
   frames[35] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAsqUlEQVR4nO3de3xU9b3v/9eHcJHL8QpRrgGOgJBIEAKbVkBbFCkioEUf+KiF\
 KhSluK27hwqItb9Wsba4vXBa7eHUVqxVymYXhXppwb09xb1RCWjLRSkIUShouCiXQMAkn98fsxIm\
 yQwGTGbNmryfj8c8MvNd35n5fhPIO2t9vrOWuTsiIiJR0yTsAYiIiJwOBZiIiESSAkxERCJJASYi\
@@ -14698,7 +14788,7 @@ iESSAkxERCJJASYiIpGkABMRkUhSgImISCQpwEREJJIUYCIiEkkKMBERiaT/H2lihM5Lh+jfAAAA\
 AElFTkSuQmCC\
 "
   frames[36] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAst0lEQVR4nO3de3xU9b3v/9eHcJHL9gpRrgGOgJBIEAKbVkBbFCkioEUf+KiF\
 KhSluK27hwqItb9WsbZ4vHBa7eHUVqxVymYXhXppwb09xb1RCWjLRSkIUShouCiXQMAkn98fsxIm\
 yQwGTGbNmryfj8c8MvNda2Y+K4G8s9bnO2uZuyMiIhI1TcIuQERE5HQowEREJJIUYCIiEkkKMBER\
@@ -14903,7 +14993,7 @@ YCIiEkkKMBERiSQFmIiIRJICTEREIkkBJiIikaQAExGRSFKAiYhIJCnAREQkkhRgIiISSQowERGJ\
 pP8fFUSD2oac5aIAAAAASUVORK5CYII=\
 "
   frames[37] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAs3UlEQVR4nO3de3xU9Z3/8deHcJHLT7xAlHAJsAJCIkEILK2AtihSRECLPvBR\
 C1UoSHGt26UCYu2vVawtrhe21f7Y2gq1SilbFOqlBXfd4i4qAW25KAUhCgXlJncCJvn8/piTMElm\
 IGAyZ07yfj4e88jM95yZ+ZwE8s45n++cY+6OiIhI1DQIuwAREZGzoQATEZFIUoCJiEgkKcBERCSS\
@@ -15109,7 +15199,7 @@ IiKRpAATEZFIUoCJiEgkKcBERCSSFGAiIhJJCjAREYkkBZiIiETS/wfngX1RgCLVzwAAAABJRU5E\
 rkJggg==\
 "
   frames[38] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAs+0lEQVR4nO3de3hU9b3v8feXcJHL8QpRwiXAFhASCUJg0wpoiyJFBLTog08t\
 VKEoxW3dPVRArD2tYm1xe2G32sOuVahVymYXhXppwb09xb1RCWjLRSkIUShIuCj3gEm+549ZCZNk\
 BgMks2Yln9fzzJOZ31oz810J5JO1vr9Zy9wdERGRqGkUdgEiIiKnQwEmIiKRpAATEZFIUoCJiEgk\
@@ -15315,7 +15405,7 @@ mIiIRJICTEREIkkBJiIikaQAExGRSFKAiYhIJCnAREQkkhRgIiISSQowERGJJAWYiIhEkgJMREQi\
 SQEmIiKRpAATEZFI+v/XLYa0K9+FAgAAAABJRU5ErkJggg==\
 "
   frames[39] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAtH0lEQVR4nO3de3hV9Z3v8feXcJHLiCJECZcAR0BIJAiBoRXQFkWKCGjRB59a\
 qEJBimOdHiog1p5WsbY4XjitepjaCrVKGaYo1EsLzjjFGVQC2nJRCkIUChouyiUQMMn3/LFXQi57\
 Y4Bkr72Sz+t59pO9f2vtvb8rgXyy1ve31jZ3R0REJGoahV2AiIjImVCAiYhIJCnAREQkkhRgIiIS\
@@ -15522,7 +15612,7 @@ SFKAiYhIJCnAREQkkhRgIiISSQowERGJJAWYiIhEkgJMREQiSQEmIiKRpAATEZFI+v+KKn7aAFDF\
 0AAAAABJRU5ErkJggg==\
 "
   frames[40] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAtL0lEQVR4nO3de3hU9b3v8feXcJHL9laIEi4BjoCQSBACm1ZAWxQpIqBFH3yq\
 UIWiFLd191ABtfa0irXF7YXTag9HW6FWKZtdFOqlBff2FHZRCWjLRSkIUSgoN7kFAib5nj9mJUyS\
 GQyQzJqVfF7PM09mfmvNzHclkE/W+v5mLXN3REREoqZR2AWIiIicDgWYiIhEkgJMREQiSQEmIiKR\
@@ -15729,7 +15819,7 @@ gImISCQpwEREJJIUYCIiEkkKMBERiSQFmIiIRJICTEREIkkBJiIikaQAExGRSFKAiYhIJCnAREQk\
 khRgIiISSf8fY396y8dygTMAAAAASUVORK5CYII=\
 "
   frames[41] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAtUElEQVR4nO3de3RV5Z3/8feXcJHLeIUo4RLgJygkEoTA0ApoiyJFBLTowlWF\
 KhSlONZxqIBa+2sVa4vjhWm1i5+2Qq1ShikK1dqCM05hBpWAtlwUQYhCQcNFEQIBk3x/f5ydcJKc\
 gwGSs89OPq+1zso5z97nnOdJIJ/s5/ucvc3dERERiZomYXdARETkZCjAREQkkhRgIiISSQowERGJ\
@@ -15937,7 +16027,7 @@ wEREJJIUYCIiEkkKMBERiSQFmIiIRJICTEREIkkBJiIikaQAExGRSPr/AhR4qPZ++gsAAAAASUVO\
 RK5CYII=\
 "
   frames[42] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAtUUlEQVR4nO3de3xU9Z3/8deHcJHLegWUcAmwAkIiQQgsrYC2KFJEQIs+8FGF\
 KhSluNbtjwqotb9Wsba4XthW+2O1FWqVUrYo1EsL7rqFXVQC2nJRCkIUChouyiUQMMnn98echEky\
 gwGSOXOS9/PxmEdmvufMzPebQN453893zjF3R0REJGoahd0BERGRU6EAExGRSFKAiYhIJCnAREQk\
@@ -16145,7 +16235,7 @@ KcBERCSSFGAiIhJJCjAREYkkBZiIiESSAkxERCJJASYiIpGkABMRkUj6/6A2e0dgtaFFAAAAAElF\
 TkSuQmCC\
 "
   frames[43] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAtfUlEQVR4nO3de3hU5bn38e9NOMihngoo4RBgCwiJBCGwqQJaUaSIgBZ74VUL\
 VSiKuK27mwqotW+rWFusB3YrvrxaxVqllF0U6qEF93YX90YlIC0HRRCiUECOcg6Y5H7/mJUwSWYw\
 QDJrVvL7XNdcmXnWmpnnSSC/rOd+Zi1zd0RERKKmXtgdEBERORUKMBERiSQFmIiIRJICTEREIkkB\
@@ -16353,7 +16443,7 @@ SCQpwEREJJIUYCIiEkkKMBERiSQFmIiIRJICTEREIkkBJiIikaQAExGRSFKAiYhIJCnAREQkkhRg\
 IiISSQowERGJJAWYiIhEkgJMREQiSQEmIiKR9P8BW8ZyQ0Q/4RAAAAAASUVORK5CYII=\
 "
   frames[44] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAtrklEQVR4nO3de3hU9b3v8feXcId6BZRwCXAEhESCENhUAW0RpIiAFn3wqYUq\
 FKW4rbuHCoi1p61YW9xe2K32cLQVapVSdlGolxbc213cG5WAtFwUQYhCQbnKPWCS7/ljVsIkmcEA\
 yaxZyef1PPNk5rfWzHxXAvlkre9v1jJ3R0REJGrqhV2AiIjImVCAiYhIJCnAREQkkhRgIiISSQow\
@@ -16562,7 +16652,7 @@ FGAiIhJJCjAREYkkBZiIiESSAkxERCJJASYiIpGkABMRkUhSgImISCQpwEREJJIUYCIiEkkKMBER\
 iSQFmIiIRJICTEREIkkBJiIikfT/AVeChIyd5fMXAAAAAElFTkSuQmCC\
 "
   frames[45] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAt5klEQVR4nO3de3xU5b3v8c+PcJFLvQJKuAQ4AkIiQQhsqoC2KFJEQEVf+KqF\
 KhSluK27hwqItaetWFvcXtit9nC0FWuVstmiUC8t2O0u7o1KQFsuiiBEoYDcFLkFTPI7f8xKmCQz\
 GCCZNWvyfb9e88rMs9bMPE8C+WY9v2fWMndHREQkahqE3QEREZGToQATEZFIUoCJiEgkKcBERCSS\
@@ -16772,7 +16862,7 @@ AkxERCJJASYiIpGkABMRkUhSgImISCQpwEREJJIUYCIiEkkKMBERiSQFmIiIRJICTEREIkkBJiIi\
 kaQAExGRSFKAiYhIJCnAREQkkv4/E1qOsVp6wEUAAAAASUVORK5CYII=\
 "
   frames[46] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAt9klEQVR4nO3de3hU5bn38e9NOEM9QpRwCLAFhUSCENhUAW1RpIiAFr3wqpUq\
 FKW4re1LBcTat1WsLdYDu9W+bG3FWqWULQr10ILd7uLeqAS05aAIQhQKGA6KnAImud8/ZiVMkhkM\
 kMyalfw+1zVXZp61ZuZ5Esgvz7qfWcvcHRERkahpFHYHREREToQCTEREIkkBJiIikaQAExGRSFKA\
@@ -16982,7 +17072,7 @@ iIhEkgJMREQiSQEmIiKRpAATEZFIUoCJiEgkKcBERCSSFGAiIhJJCjAREYkkBZiIiESSAkxERCJJ\
 ASYiIpGkABMRkUhSgImISCQpwEREJJIUYCIiEkkKMBERiaT/DxZqkPrfsQ6LAAAAAElFTkSuQmCC\
 "
   frames[47] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAuF0lEQVR4nO3de3xU5b3v8c+PcJFLvQJKuAQ4gkIiQQhsqoC2KFJEQEVf+KqV\
 KohS3NbdQwXE2tMq1ha3F3aLPRxtxVqlbLYo1EsLdLuLe6MSkJaLIghRKCB35BYwye/8MSthksxg\
 gGTWrOT7fr3mlZlnrZl5ngTyzbN+z6xl7o6IiEjU1Au7AyIiIqdCASYiIpGkABMRkUhSgImISCQp\
@@ -17193,7 +17283,7 @@ iIhEkgJMREQiSQEmIiKRpAATEZFIUoCJiEgkKcBERCSSFGAiIhJJCjAREYkkBZiIiESSAkxERCJJ\
 ASYiIpGkABMRkUj6/0uQlqmLiab8AAAAAElFTkSuQmCC\
 "
   frames[48] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAuVUlEQVR4nO3de3xU5b3v8c+PcIcqKqCEO0dQSCQIgU0V0BZFigio6AtftVAF\
 UYrbunuogHg5rWJtcXtht9rD0VasVcpmi0K9tGC3u7g3KgFtuSiCEIUCcr8TMMnv/DErYZLMYIBk\
 1qzk+3695pWZZ62ZeZ4E8s2zfs9aY+6OiIhI1NQJuwMiIiKnQgEmIiKRpAATEZFIUoCJiEgkKcBE\
@@ -17405,7 +17495,7 @@ EYkkBZiIiESSAkxERCJJASYiIpGkABMRkUhSgImISCQpwEREJJIUYCIiEkkKMBERiSQFmIiIRJIC\
 TEREIkkBJiIikaQAExGRSPr/OvWlRH0JaRoAAAAASUVORK5CYII=\
 "
   frames[49] = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAbAAAAEgCAYAAADVKCZpAAAAOXRFWHRTb2Z0d2FyZQBNYXRwbG90\
-bGliIHZlcnNpb24zLjQuMywgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/MnkTPAAAACXBIWXMAAAsT\
+bGliIHZlcnNpb24zLjUuMSwgaHR0cHM6Ly9tYXRwbG90bGliLm9yZy/YYfK9AAAACXBIWXMAAAsT\
 AAALEwEAmpwYAAAujElEQVR4nO3de3xU5b3v8c+PcIcqKqCEO0dQSCQIgU0V0RZFigio6AtftVAF\
 UYrbunuogKg9rWJtcXtht9rD0VasVWSzRaFeWrDbXdwblYC0XBRBiEIBud8JmOR3/piVMElmMEAy\
 a1byfb9e88rMs9bMPE8C+eZZv2etMXdHREQkauqE3QEREZFToQATEZFIUoCJiEgkKcBERCSSFGAi\
@@ -17622,7 +17712,7 @@ IpGkABMRkUhSgImISCT9f/LFso3glsC1AAAAAElFTkSuQmCC\
     /* set a timeout to make sure all the above elements are created before
        the object is initialized. */
     setTimeout(function() {
-        animab4b5e59cc1b448d9beb58e9056d77ce = new Animation(frames, img_id, slider_id, 149.0,
+        anim0a24685d369f4bc4a94e36940413f0be = new Animation(frames, img_id, slider_id, 149.0,
                                  loop_select_id);
     }, 0);
   })()
@@ -17633,8 +17723,8 @@ IpGkABMRkUhSgImISCT9f/LFso3glsC1AAAAAElFTkSuQmCC\
 <p>As the system evolves, the blue component shrinks by a factor of 0.9 on each step,</p>
 <p>and the green component increases by a factor of 1.1 on each step.</p>
 <p>Which allows us to understand very clearly why the dynamical system shows the behavior it does!</p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -17658,9 +17748,11 @@ IpGkABMRkUhSgImISCT9f/LFso3glsC1AAAAAElFTkSuQmCC\
 
               </div>
               
-            
-                <!-- Previous / next buttons -->
-<div class='prev-next-area'> 
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
     <a class='left-prev' id="prev-link" href="L17CharacteristicEqn.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
@@ -17676,24 +17768,28 @@ IpGkABMRkUhSgImISCT9f/LFso3glsC1AAAAAElFTkSuQmCC\
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-            
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-  <p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Mark Crovella<br/>
+  
+      &copy; Copyright 2020-2022.<br/>
+</p>
+        </footer>
+    </div>
     
-      By Mark Crovella<br/>
-    
-        &copy; Copyright 2020-2022.<br/>
-  </p>
-</footer>
-</main>
+</div>
 
 
       </div>
     </div>
   
-  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
 
   </body>
 </html>
