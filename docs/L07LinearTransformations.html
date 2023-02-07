@@ -50,8 +50,6 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
@@ -501,51 +499,8 @@ title="Print to PDF"
                 
               <div>
                 
-  <div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for QR codes use inline</span>
-<span class="c1"># %matplotlib inline</span>
-<span class="c1"># qr_setting = &#39;url&#39;</span>
-<span class="c1"># qrviz_setting = &#39;show&#39;</span>
-<span class="c1">#</span>
-<span class="c1"># for lecture use notebook</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="n">qr_setting</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="c1">#</span>
-<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format=&#39;retina&#39;
-<span class="c1"># import libraries</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mp</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">laUtilities</span> <span class="k">as</span> <span class="nn">ut</span>
-<span class="kn">import</span> <span class="nn">slideUtilities</span> <span class="k">as</span> <span class="nn">sl</span>
-<span class="kn">import</span> <span class="nn">demoUtilities</span> <span class="k">as</span> <span class="nn">dm</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display_html</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Math</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Latex</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">;</span>
-</pre></div>
-</div>
-</div>
-</div>
-<section class="tex2jax_ignore mathjax_ignore" id="linear-transformations">
+  <section class="tex2jax_ignore mathjax_ignore" id="linear-transformations">
 <h1>Linear Transformations<a class="headerlink" href="#linear-transformations" title="Permalink to this headline">#</a></h1>
-<div class="cell tag_hide-cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/L7 F3.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">650</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/L07LinearTransformations_2_0.jpg" src="_images/L07LinearTransformations_2_0.jpg" />
-</div>
-</div>
 <p>So far we’ve been treating the matrix equation</p>
 <div class="math notranslate nohighlight">
 \[ A{\bf x} = {\bf b}\]</div>
@@ -558,12 +513,7 @@ title="Print to PDF"
 <div class="math notranslate nohighlight">
 \[\begin{split} A \left[\begin{array}{r}1\\-4\\-3\end{array}\right] = \left[\begin{array}{r}-5\\2\end{array}\right] \end{split}\]</div>
 <p>In other words, if <span class="math notranslate nohighlight">\({\bf x} = \left[\begin{array}{r}1\\-4\\-3\end{array}\right]\)</span> and <span class="math notranslate nohighlight">\({\bf b} = \left[\begin{array}{r}-5\\2\end{array}\right]\)</span>, then <span class="math notranslate nohighlight">\(A\)</span> <em>transforms</em> <span class="math notranslate nohighlight">\({\bf x}\)</span> into <span class="math notranslate nohighlight">\({\bf b}\)</span>.</p>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/L7 F1.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">650</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/L07LinearTransformations_7_0.jpg" src="_images/L07LinearTransformations_7_0.jpg" />
 </div>
@@ -574,12 +524,7 @@ title="Print to PDF"
 <p>This gives a <strong>new</strong> way of thinking about solving <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span>.</p>
 <p>To solve <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span>, we much “search for” the vector(s) <span class="math notranslate nohighlight">\({\bf x}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> that are transformed into <span class="math notranslate nohighlight">\({\bf b}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> under the “action” of <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>For a different <span class="math notranslate nohighlight">\(A\)</span>, the mapping might be from <span class="math notranslate nohighlight">\(\mathbb{R}^1\)</span> to <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>:</p>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/L7 F2.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">650</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/L07LinearTransformations_12_0.jpg" src="_images/L07LinearTransformations_12_0.jpg" />
 </div>
@@ -589,12 +534,7 @@ title="Print to PDF"
 <p>That is, <span class="math notranslate nohighlight">\(A\)</span> has 3 rows and 1 column.</p>
 <p>In another case, <span class="math notranslate nohighlight">\(A\)</span> could be a square <span class="math notranslate nohighlight">\(2\times 2\)</span> matrix.</p>
 <p>Then, it would map from <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> to <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>:</p>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/L7 F3.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">650</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/L07LinearTransformations_16_0.jpg" src="_images/L07LinearTransformations_16_0.jpg" />
 </div>
@@ -612,13 +552,7 @@ title="Print to PDF"
 <p>indicates that the domain of <span class="math notranslate nohighlight">\(T\)</span> is <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> and the codomain is <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span>.</p>
 <p>For <span class="math notranslate nohighlight">\(\bf x\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n,\)</span> the vector <span class="math notranslate nohighlight">\(T({\bf x})\)</span> is called the <strong>image</strong> of <span class="math notranslate nohighlight">\(\bf x\)</span> (under <span class="math notranslate nohighlight">\(T\)</span>).</p>
 <p>The set of all images <span class="math notranslate nohighlight">\(T({\bf x})\)</span> is called the <strong>range</strong> of <span class="math notranslate nohighlight">\(T\)</span>.</p>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit: Lay, 4th edition</span>
-<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/L7 F4.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">650</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/L07LinearTransformations_22_0.jpg" src="_images/L07LinearTransformations_22_0.jpg" />
 </div>
@@ -630,9 +564,6 @@ title="Print to PDF"
 <li><p>The <strong>codomain</strong> of <span class="math notranslate nohighlight">\(T\)</span> is <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span></p></li>
 <li><p>The <strong>range</strong> of <span class="math notranslate nohighlight">\(T\)</span> is the green plane.</p></li>
 </ul>
-<div class="toggle docutils container">
-<p>Question Time! Q7.1</p>
-</div>
 <p>Let’s do an example.   Let’s say I have these points in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} \left[\begin{array}{r}0\\1\end{array}\right],\left[\begin{array}{r}1\\1\end{array}\right],\left[\begin{array}{r}1\\0\end{array}\right],\left[\begin{array}{r}0\\0\end{array}\right]\end{split}\]</div>
@@ -780,9 +711,6 @@ T(c\mathbf{u} + d\mathbf{v}) = 3(c\mathbf{u} + d\mathbf{v})
 \[T(\mathbf{u}) + T(\mathbf{v}) = (\mathbf{u} + \mathbf{b}) + (\mathbf{v} + \mathbf{b})\]</div>
 <p>If <span class="math notranslate nohighlight">\(\mathbf{b} \neq 0\)</span>, then the above two expressions are not equal.</p>
 <p>So <span class="math notranslate nohighlight">\(T\)</span> is <strong>not</strong> a linear transformation.</p>
-<div class="toggle docutils container">
-<p>Question Time! Q7.2</p>
-</div>
 <section id="a-non-geometric-example-manufacturing">
 <h3>A Non-Geometric Example: Manufacturing<a class="headerlink" href="#a-non-geometric-example-manufacturing" title="Permalink to this headline">#</a></h3>
 <p>A company manufactures two products, B and C.  To do so, it requires materials, labor, and overhead.</p>
