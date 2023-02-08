@@ -4,13 +4,11 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Inverse of a Matrix &#8212; Linear Algebra, Geometry, and Computation</title>
     
-  <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -20,67 +18,49 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
+    
+      
+
+    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Markov Chains" href="L11MarkovChains.html" />
     <link rel="prev" title="Matrix Algebra" href="L09MatrixOperations.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
+    <meta name="docsearch:language" content="en" />
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
-
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
     
     <div class="container-fluid" id="banner"></div>
 
@@ -89,10 +69,9 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -110,15 +89,14 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="landing-page.html">
-                    Preface
-                </a>
-            </li>
-        </ul>
-        <ul class="current nav bd-sidenav">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="landing-page.html">
+   Preface
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="L01LinearEquations.html">
    Linear Equations
@@ -257,388 +235,186 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
             
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/L10MatrixInverse.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/mcrovella/CS132-Geometric-Algorithms"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L10MatrixInverse.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
             </div>
-            
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#computing-the-matrix-inverse">
+   Computing the Matrix Inverse
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-2-times-2-case">
+     The
+     <span class="math notranslate nohighlight">
+      \(2\times 2\)
+     </span>
+     case
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#matrices-larger-than-2-times-2">
+     Matrices larger than
+     <span class="math notranslate nohighlight">
+      \(2 \times 2\)
+     </span>
+     .
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-computational-view">
+     The Computational View
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-the-matrix-inverse-to-solve-a-linear-system">
+   Using the Matrix Inverse to Solve a Linear System
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#algebra-of-matrix-inverses">
+   Algebra of Matrix Inverses
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-invertible-matrix-theorem">
+   The Invertible Matrix Theorem
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#invertible-linear-transformations">
+   Invertible Linear Transformations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#font-color-blue-further-reading-font">
+   <font color="blue">
+    Further Reading
+   </font>
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#ill-conditioned-matrices">
+     Ill-Conditioned Matrices
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#demonstration-of-ill-conditioning">
+     Demonstration of Ill-Conditioning
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
-    <div id="rtd-footer-container"></div>
 </div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
         
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L10MatrixInverse.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
-  
-
-<span class="headerbtn__icon-container">
-  
-    <img src="_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="bottom"
-title="Source repository"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-
-</a>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/L10MatrixInverse.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
-
-    </div>
-</div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#computing-the-matrix-inverse">
-   Computing the Matrix Inverse
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-2-times-2-case">
-     The
-     <span class="math notranslate nohighlight">
-      \(2\times 2\)
-     </span>
-     case
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#matrices-larger-than-2-times-2">
-     Matrices larger than
-     <span class="math notranslate nohighlight">
-      \(2 \times 2\)
-     </span>
-     .
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-computational-view">
-     The Computational View
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-the-matrix-inverse-to-solve-a-linear-system">
-   Using the Matrix Inverse to Solve a Linear System
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#algebra-of-matrix-inverses">
-   Algebra of Matrix Inverses
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-invertible-matrix-theorem">
-   The Invertible Matrix Theorem
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#invertible-linear-transformations">
-   Invertible Linear Transformations
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-further-reading-font">
-   <font color="blue">
-    Further Reading
-   </font>
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#ill-conditioned-matrices">
-     Ill-Conditioned Matrices
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#demonstration-of-ill-conditioning">
-     Demonstration of Ill-Conditioning
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
-</div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>The Inverse of a Matrix</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#computing-the-matrix-inverse">
-   Computing the Matrix Inverse
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-2-times-2-case">
-     The
-     <span class="math notranslate nohighlight">
-      \(2\times 2\)
-     </span>
-     case
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#matrices-larger-than-2-times-2">
-     Matrices larger than
-     <span class="math notranslate nohighlight">
-      \(2 \times 2\)
-     </span>
-     .
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-computational-view">
-     The Computational View
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-the-matrix-inverse-to-solve-a-linear-system">
-   Using the Matrix Inverse to Solve a Linear System
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#algebra-of-matrix-inverses">
-   Algebra of Matrix Inverses
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-invertible-matrix-theorem">
-   The Invertible Matrix Theorem
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#invertible-linear-transformations">
-   Invertible Linear Transformations
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#font-color-blue-further-reading-font">
-   <font color="blue">
-    Further Reading
-   </font>
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#ill-conditioned-matrices">
-     Ill-Conditioned Matrices
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#demonstration-of-ill-conditioning">
-     Demonstration of Ill-Conditioning
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            <main id="main-content" role="main">
-                
               <div>
                 
-  <div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for QR codes use inline</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="n">qr_setting</span> <span class="o">=</span> <span class="s1">&#39;url&#39;</span>
-<span class="c1">#</span>
-<span class="c1"># for lecture use notebook</span>
-<span class="c1"># %matplotlib notebook</span>
-<span class="c1"># qr_setting = None</span>
-<span class="c1">#</span>
-<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format=&#39;retina&#39;
-<span class="c1"># import libraries</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mp</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">laUtilities</span> <span class="k">as</span> <span class="nn">ut</span>
-<span class="kn">import</span> <span class="nn">slideUtilities</span> <span class="k">as</span> <span class="nn">sl</span>
-<span class="kn">import</span> <span class="nn">demoUtilities</span> <span class="k">as</span> <span class="nn">dm</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display_html</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Math</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Latex</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">;</span>
-</pre></div>
-</div>
-</div>
-</div>
-<section class="tex2jax_ignore mathjax_ignore" id="the-inverse-of-a-matrix">
-<h1>The Inverse of a Matrix<a class="headerlink" href="#the-inverse-of-a-matrix" title="Permalink to this headline">#</a></h1>
-<div class="cell tag_hide-cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/L10 F1.png&quot;</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/L10MatrixInverse_2_0.png" src="_images/L10MatrixInverse_2_0.png" />
-</div>
-</div>
+  <div class="tex2jax_ignore mathjax_ignore section" id="the-inverse-of-a-matrix">
+<h1>The Inverse of a Matrix<a class="headerlink" href="#the-inverse-of-a-matrix" title="Permalink to this headline">¶</a></h1>
 <p>Today we investigate the idea of the <font color=blue>”reciprocal”</font> of a matrix.</p>
 <p>For reasons that will become clear, we will think about this way:</p>
 <p>The reciprocal of any nonzero number <span class="math notranslate nohighlight">\(r\)</span> is its multiplicative inverse.</p>
@@ -685,12 +461,12 @@ title="Print to PDF"
 <p>We know that not all linear systems of <span class="math notranslate nohighlight">\(n\)</span> equations in <span class="math notranslate nohighlight">\(n\)</span> variables have a unique solution.</p>
 <p>Such systems may have no solutions (inconsistent) or an infinite number of solutions.</p>
 <p>But this theorem says that <strong>if <span class="math notranslate nohighlight">\(A\)</span> is invertible, then the system has a unique solution.</strong></p>
-<section id="computing-the-matrix-inverse">
-<h2>Computing the Matrix Inverse<a class="headerlink" href="#computing-the-matrix-inverse" title="Permalink to this headline">#</a></h2>
+<div class="section" id="computing-the-matrix-inverse">
+<h2>Computing the Matrix Inverse<a class="headerlink" href="#computing-the-matrix-inverse" title="Permalink to this headline">¶</a></h2>
 <p>Wonderful - so to solve a linear system, we simply need to compute the inverse of <span class="math notranslate nohighlight">\(A\)</span> (if it exists)!</p>
 <p>Well … how do we do that?</p>
-<section id="the-2-times-2-case">
-<h3>The <span class="math notranslate nohighlight">\(2\times 2\)</span> case<a class="headerlink" href="#the-2-times-2-case" title="Permalink to this headline">#</a></h3>
+<div class="section" id="the-2-times-2-case">
+<h3>The <span class="math notranslate nohighlight">\(2\times 2\)</span> case<a class="headerlink" href="#the-2-times-2-case" title="Permalink to this headline">¶</a></h3>
 <p>Before answering this question for arbitrary matices, I will answer it for the special case of <span class="math notranslate nohighlight">\(2 \times 2\)</span> matrices.</p>
 <p><strong>Theorem.</strong>  Let <span class="math notranslate nohighlight">\(A\)</span> = <span class="math notranslate nohighlight">\(\left[\begin{array}{rr}a&amp;b\\c&amp;d\end{array}\right].\)</span></p>
 <p>If <span class="math notranslate nohighlight">\(ad-bc \neq 0\)</span>, then</p>
@@ -713,12 +489,9 @@ title="Print to PDF"
 <span class="math notranslate nohighlight">\(\left[\begin{array}{rr}a&amp;ma\\b&amp;mb\end{array}\right].\)</span></p>
 <p>The determinant of <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(a(mb) - b(ma) = 0.\)</span></p>
 <p>So a <span class="math notranslate nohighlight">\(2\times 2\)</span> matrix with linearly dependent columns is <strong>not invertible.</strong></p>
-<div class="toggle docutils container">
-<p>Question 10.1</p>
 </div>
-</section>
-<section id="matrices-larger-than-2-times-2">
-<h3>Matrices larger than <span class="math notranslate nohighlight">\(2 \times 2\)</span>.<a class="headerlink" href="#matrices-larger-than-2-times-2" title="Permalink to this headline">#</a></h3>
+<div class="section" id="matrices-larger-than-2-times-2">
+<h3>Matrices larger than <span class="math notranslate nohighlight">\(2 \times 2\)</span>.<a class="headerlink" href="#matrices-larger-than-2-times-2" title="Permalink to this headline">¶</a></h3>
 <p>OK, now let’s look at a general method for computing the inverse of <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>Recall our definition of matrix multiplication: <span class="math notranslate nohighlight">\(AB\)</span> is the matrix formed by multiplying <span class="math notranslate nohighlight">\(A\)</span> times each column of <span class="math notranslate nohighlight">\(B\)</span>.</p>
 <div class="math notranslate nohighlight">
@@ -790,9 +563,9 @@ title="Print to PDF"
 <div class="math notranslate nohighlight">
 \[\sim \frac{5}{3}n^3 + \frac{1}{3}n^3 =  2n^3\]</div>
 </div>
-</section>
-<section id="the-computational-view">
-<h3>The Computational View<a class="headerlink" href="#the-computational-view" title="Permalink to this headline">#</a></h3>
+</div>
+<div class="section" id="the-computational-view">
+<h3>The Computational View<a class="headerlink" href="#the-computational-view" title="Permalink to this headline">¶</a></h3>
 <p>This general strategy leads to an algorithm for inverting any matrix.</p>
 <p>However, in this course I will not ask you invert matrices larger than <span class="math notranslate nohighlight">\(2\times 2\)</span> by hand.</p>
 <p>Any time you need to invert a matrix larger than <span class="math notranslate nohighlight">\(2\times 2,\)</span> you may use a calculator or computer.</p>
@@ -846,10 +619,10 @@ B =
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="using-the-matrix-inverse-to-solve-a-linear-system">
-<h2>Using the Matrix Inverse to Solve a Linear System<a class="headerlink" href="#using-the-matrix-inverse-to-solve-a-linear-system" title="Permalink to this headline">#</a></h2>
+</div>
+</div>
+<div class="section" id="using-the-matrix-inverse-to-solve-a-linear-system">
+<h2>Using the Matrix Inverse to Solve a Linear System<a class="headerlink" href="#using-the-matrix-inverse-to-solve-a-linear-system" title="Permalink to this headline">¶</a></h2>
 <p>Solve the system:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{array}{rcl}
@@ -866,9 +639,9 @@ B =
 <p>So the solution is:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} {\bf x} = A^{-1}{\bf b} = \left[\begin{array}{rr}-3&amp;2\\5/2&amp;-3/2\end{array}\right]\left[\begin{array}{r}3\\7\end{array}\right] = \left[\begin{array}{r}5\\-3\end{array}\right].\end{split}\]</div>
-</section>
-<section id="algebra-of-matrix-inverses">
-<h2>Algebra of Matrix Inverses<a class="headerlink" href="#algebra-of-matrix-inverses" title="Permalink to this headline">#</a></h2>
+</div>
+<div class="section" id="algebra-of-matrix-inverses">
+<h2>Algebra of Matrix Inverses<a class="headerlink" href="#algebra-of-matrix-inverses" title="Permalink to this headline">¶</a></h2>
 <p><strong>Theorem.</strong></p>
 <ul class="simple">
 <li><p>If <span class="math notranslate nohighlight">\(A\)</span> is an invertible matrix, then <span class="math notranslate nohighlight">\(A^{-1}\)</span> is invertible, and</p></li>
@@ -896,9 +669,9 @@ B =
 \[=AA^{-1}\]</div>
 <div class="math notranslate nohighlight">
 \[=I.\]</div>
-</section>
-<section id="the-invertible-matrix-theorem">
-<h2>The Invertible Matrix Theorem<a class="headerlink" href="#the-invertible-matrix-theorem" title="Permalink to this headline">#</a></h2>
+</div>
+<div class="section" id="the-invertible-matrix-theorem">
+<h2>The Invertible Matrix Theorem<a class="headerlink" href="#the-invertible-matrix-theorem" title="Permalink to this headline">¶</a></h2>
 <p>Earlier we saw that if a matrix <span class="math notranslate nohighlight">\(A\)</span> is invertible, then <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> has a unique solution for any <span class="math notranslate nohighlight">\({\bf b}\)</span>.</p>
 <p>This suggests a deep connection between the invertibility of <span class="math notranslate nohighlight">\(A\)</span> and the nature of the linear system <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}.\)</span></p>
 <p>In fact, we are now at the point where we can collect together in a fairly complete way much of what we have learned about matrices and linear systems.</p>
@@ -998,22 +771,14 @@ B =
 <p><strong>Solution.</strong></p>
 <p>The determinant of <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\((3 \cdot -14) - (7 \cdot -6) = 0\)</span>.</p>
 <p>So <span class="math notranslate nohighlight">\(A\)</span> is not invertible, so <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> does <strong>not</strong> have a solution for all <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.</p>
-<div class="toggle docutils container">
-<p>Question 10.2</p>
-</div>
 <p><strong>Note.</strong></p>
 <p>Keep in mind: while the IMT is quite powerful, it does not completely settle issues that arise with respect to <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}.\)</span></p>
 <p>This is because <strong>it only applies to square matrices.</strong></p>
 <p>So if <span class="math notranslate nohighlight">\(A\)</span> is nonsquare, then we can’t use the IMT to conclude anything about the existence or nonexistence of solutions to <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}.\)</span></p>
-</section>
-<section id="invertible-linear-transformations">
-<h2>Invertible Linear Transformations<a class="headerlink" href="#invertible-linear-transformations" title="Permalink to this headline">#</a></h2>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/L10 F1.png&quot;</span><span class="p">))</span>
-</pre></div>
 </div>
-</div>
+<div class="section" id="invertible-linear-transformations">
+<h2>Invertible Linear Transformations<a class="headerlink" href="#invertible-linear-transformations" title="Permalink to this headline">¶</a></h2>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/L10MatrixInverse_89_0.png" src="_images/L10MatrixInverse_89_0.png" />
 </div>
@@ -1086,21 +851,7 @@ B =
 <li><p><span class="math notranslate nohighlight">\(A\mathbf{x} = 0\)</span> has a non-trivial solution.</p></li>
 </ul>
 <p>Here is another example:</p>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">subspace</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
-<span class="n">P</span> <span class="o">=</span> <span class="mf">1.3</span> <span class="o">*</span> <span class="p">(</span><span class="n">subspace</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">subspace</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">subspace</span> <span class="o">@</span> <span class="n">subspace</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
-<span class="n">testpoints</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.8</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">2.7</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
-<span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">testpoints</span><span class="p">:</span>
-    <span class="n">p</span> <span class="o">=</span> <span class="n">P</span> <span class="o">@</span> <span class="n">point</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;go&#39;</span><span class="p">,</span> <span class="n">markersize</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">markersize</span> <span class="o">=</span> <span class="mi">7</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">p</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span><span class="n">head_width</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">length_includes_head</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
-<span class="c1">#Latex(r&#39;Projection onto the line [2, 1]&#39;)</span>
-</pre></div>
-</div>
-</div>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/L10MatrixInverse_100_0.png" src="_images/L10MatrixInverse_100_0.png" />
 </div>
@@ -1118,12 +869,12 @@ B =
 <li><p>The determinant of the matrix?</p></li>
 <li><p>The invertibility of the transformation?</p></li>
 </ul>
-</section>
-<section id="font-color-blue-further-reading-font">
-<h2><font color = "blue"> Further Reading </font><a class="headerlink" href="#font-color-blue-further-reading-font" title="Permalink to this headline">#</a></h2>
+</div>
+<div class="section" id="font-color-blue-further-reading-font">
+<h2><font color = "blue"> Further Reading </font><a class="headerlink" href="#font-color-blue-further-reading-font" title="Permalink to this headline">¶</a></h2>
 <p>This material is not required, but may interest you.</p>
-<section id="ill-conditioned-matrices">
-<h3>Ill-Conditioned Matrices<a class="headerlink" href="#ill-conditioned-matrices" title="Permalink to this headline">#</a></h3>
+<div class="section" id="ill-conditioned-matrices">
+<h3>Ill-Conditioned Matrices<a class="headerlink" href="#ill-conditioned-matrices" title="Permalink to this headline">¶</a></h3>
 <p>The notion of a matrix inverse has some complications when used in practice.</p>
 <p>As we’ve noted, numerical computations are not always exact.</p>
 <p>In particular, we often find that <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">-</span> <span class="pre">b(a/b)</span></code> does not evaluate to exactly zero on a computer.</p>
@@ -1148,9 +899,9 @@ B =
 <p>We know that if <span class="math notranslate nohighlight">\(A\)</span> is a singular matrix, then <span class="math notranslate nohighlight">\(A{\bf x}={\bf b}\)</span> does not have a unique solution.</p>
 <p>If on the other hand <span class="math notranslate nohighlight">\(A\)</span> is not singular, but is ill-conditioned, then solving <span class="math notranslate nohighlight">\(A{\bf x}={\bf b}\)</span> can be very inaccurate.</p>
 <p>A small change in <span class="math notranslate nohighlight">\({\bf b}\)</span> (such as might be introduced by limited precision in your computer) will result in a huge change to the solution, <span class="math notranslate nohighlight">\({\bf x}\)</span>.</p>
-</section>
-<section id="demonstration-of-ill-conditioning">
-<h3>Demonstration of Ill-Conditioning<a class="headerlink" href="#demonstration-of-ill-conditioning" title="Permalink to this headline">#</a></h3>
+</div>
+<div class="section" id="demonstration-of-ill-conditioning">
+<h3>Demonstration of Ill-Conditioning<a class="headerlink" href="#demonstration-of-ill-conditioning" title="Permalink to this headline">¶</a></h3>
 <p>Here is a demonstration of why this is a problem.</p>
 <p>Here is a matrix that is singular:</p>
 <div class="math notranslate nohighlight">
@@ -1197,14 +948,14 @@ B =
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>125000681588.48643
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>125000145095.44151
 </pre></div>
 </div>
 </div>
 </div>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {
@@ -1228,48 +979,54 @@ B =
 
               </div>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="L09MatrixOperations.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Matrix Algebra</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="L11MarkovChains.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Markov Chains</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By Mark Crovella<br/>
-  
-      &copy; Copyright 2020-2022.<br/>
-</p>
-        </footer>
-    </div>
+        
+            
+
+
+
+<div class='prev-next-bottom'>
     
+    <div id="prev">
+        <a class="left-prev" href="L09MatrixOperations.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Matrix Algebra</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="L11MarkovChains.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Markov Chains</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
 </div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Mark Crovella<br/>
+        
+            &copy; Copyright 2020-2022.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
 
 
       </div>
     </div>
   
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-
+  
   </body>
 </html>
