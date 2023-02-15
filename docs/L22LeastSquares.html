@@ -4,13 +4,11 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Least Squares &#8212; Linear Algebra, Geometry, and Computation</title>
     
-  <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -20,67 +18,51 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
+    
+      
+
+    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Linear Models" href="L23LinearModels.html" />
     <link rel="prev" title="Orthogonal Sets and Projection" href="L21OrthogonalSets.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
+    <meta name="docsearch:language" content="en" />
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
-
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
     
     <div class="container-fluid" id="banner"></div>
 
@@ -89,10 +71,9 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="container-xl">
       <div class="row">
           
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -110,15 +91,14 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="landing-page.html">
-                    Preface
-                </a>
-            </li>
-        </ul>
-        <ul class="current nav bd-sidenav">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="landing-page.html">
+   Preface
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="L01LinearEquations.html">
    Linear Equations
@@ -257,334 +237,178 @@ const thebe_selector_output = ".output, .cell_output"
 </ul>
 
     </div>
-</nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
             
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/L22LeastSquares.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/mcrovella/CS132-Geometric-Algorithms"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L22LeastSquares.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
             </div>
-            
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#when-an-inconsistent-system-is-better-than-a-consistent-system">
+   When an Inconsistent System is Better than a Consistent System
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#finding-a-good-approximate-solution">
+     Finding a Good
+     <em>
+      Approximate
+     </em>
+     Solution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-general-least-squares-problem">
+     The General Least-Squares Problem
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#interpretation-of-the-least-squares-problem">
+     Interpretation of the Least Squares Problem
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#solving-the-general-least-squares-problem">
+   Solving the General Least Squares Problem
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-orthogonal-decomposition-theorem">
+     The Orthogonal Decomposition Theorem
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-best-approximation-theorem">
+     The Best Approximation Theorem
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#projection-solves-least-squares">
+   Projection Solves Least Squares
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-normal-equations">
+     The Normal Equations
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#when-the-normal-equations-have-multiple-solutions">
+     When the Normal Equations have Multiple Solutions
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#projection-onto-an-abitrary-basis">
+     Projection onto an Abitrary Basis
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
-    <div id="rtd-footer-container"></div>
 </div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
         
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L22LeastSquares.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
-  
-
-<span class="headerbtn__icon-container">
-  
-    <img src="_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="bottom"
-title="Source repository"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-
-</a>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/L22LeastSquares.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
-
-    </div>
-</div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#when-an-inconsistent-system-is-better-than-a-consistent-system">
-   When an Inconsistent System is Better than a Consistent System
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#finding-a-good-approximate-solution">
-     Finding a Good
-     <em>
-      Approximate
-     </em>
-     Solution
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-general-least-squares-problem">
-     The General Least-Squares Problem
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#interpretation-of-the-least-squares-problem">
-     Interpretation of the Least Squares Problem
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#solving-the-general-least-squares-problem">
-   Solving the General Least Squares Problem
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-orthogonal-decomposition-theorem">
-     The Orthogonal Decomposition Theorem
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-best-approximation-theorem">
-     The Best Approximation Theorem
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#projection-solves-least-squares">
-   Projection Solves Least Squares
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-normal-equations">
-     The Normal Equations
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#when-the-normal-equations-have-multiple-solutions">
-     When the Normal Equations have Multiple Solutions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#projection-onto-an-abitrary-basis">
-     Projection onto an Abitrary Basis
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
-</div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Least Squares</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#when-an-inconsistent-system-is-better-than-a-consistent-system">
-   When an Inconsistent System is Better than a Consistent System
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#finding-a-good-approximate-solution">
-     Finding a Good
-     <em>
-      Approximate
-     </em>
-     Solution
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-general-least-squares-problem">
-     The General Least-Squares Problem
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#interpretation-of-the-least-squares-problem">
-     Interpretation of the Least Squares Problem
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#solving-the-general-least-squares-problem">
-   Solving the General Least Squares Problem
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-orthogonal-decomposition-theorem">
-     The Orthogonal Decomposition Theorem
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-best-approximation-theorem">
-     The Best Approximation Theorem
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#projection-solves-least-squares">
-   Projection Solves Least Squares
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-normal-equations">
-     The Normal Equations
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#when-the-normal-equations-have-multiple-solutions">
-     When the Normal Equations have Multiple Solutions
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#projection-onto-an-abitrary-basis">
-     Projection onto an Abitrary Basis
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            <main id="main-content" role="main">
-                
               <div>
                 
   <div class="cell tag_hide-cell docutils container">
@@ -620,8 +444,8 @@ title="Print to PDF"
 </div>
 </div>
 </div>
-<section class="tex2jax_ignore mathjax_ignore" id="least-squares">
-<h1>Least Squares<a class="headerlink" href="#least-squares" title="Permalink to this headline">#</a></h1>
+<div class="tex2jax_ignore mathjax_ignore section" id="least-squares">
+<h1>Least Squares<a class="headerlink" href="#least-squares" title="Permalink to this headline">¶</a></h1>
 <p><a title="Justin Cowart / CC BY (https://creativecommons.org/licenses/by/2.0)" href="https://commons.wikimedia.org/wiki/File:Ceres_-_RC3_-_Haulani_Crater_(22381131691)_(cropped).jpg"><a class="reference internal" href="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg/512px-Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg"><img alt="Ceres - RC3 - Haulani Crater (22381131691) (cropped)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg/512px-Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg" style="width: 512px;" /></a></a></p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -652,8 +476,8 @@ title="Print to PDF"
 <p>What could go wrong? :)</p>
 <p>Obviously, there are going to be measurement errors in Piazzi’s observations.</p>
 <p>If we just solve the system using six measurements, we will probably get incorrect values for the coefficients <span class="math notranslate nohighlight">\(a_1, \dots, a_6.\)</span></p>
-<section id="when-an-inconsistent-system-is-better-than-a-consistent-system">
-<h2>When an Inconsistent System is Better than a Consistent System<a class="headerlink" href="#when-an-inconsistent-system-is-better-than-a-consistent-system" title="Permalink to this headline">#</a></h2>
+<div class="section" id="when-an-inconsistent-system-is-better-than-a-consistent-system">
+<h2>When an Inconsistent System is Better than a Consistent System<a class="headerlink" href="#when-an-inconsistent-system-is-better-than-a-consistent-system" title="Permalink to this headline">¶</a></h2>
 <p>Notice that each time Piazzi takes a measurement of the position of Ceres, we add an additional equation to our linear system.</p>
 <p>Just using six measurements will certainly result in incorrect coefficients due to measurement error.</p>
 <p>A better idea is to use all of the <span class="math notranslate nohighlight">\(n\)</span> measurement data available, and try to find a way to cancel out errors.</p>
@@ -711,8 +535,8 @@ title="Print to PDF"
 </div>
 </div>
 <p>Now our assumption is that the reason that <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> does not lie in <span class="math notranslate nohighlight">\(\operatorname{Col}\,A\)</span> is due to measurement error.</p>
-<section id="finding-a-good-approximate-solution">
-<h3>Finding a Good <em>Approximate</em> Solution<a class="headerlink" href="#finding-a-good-approximate-solution" title="Permalink to this headline">#</a></h3>
+<div class="section" id="finding-a-good-approximate-solution">
+<h3>Finding a Good <em>Approximate</em> Solution<a class="headerlink" href="#finding-a-good-approximate-solution" title="Permalink to this headline">¶</a></h3>
 <p>If we make the assumption that measurement errors are small, then we should be quite satisfied to find an <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> that makes <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> as close as possible to <span class="math notranslate nohighlight">\(\mathbf{b}.\)</span></p>
 <p>In other words, we are looking for an <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> such that <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> makes a good <strong>approximation</strong> to <span class="math notranslate nohighlight">\(\mathbf{b}.\)</span></p>
 <div class="cell tag_hide-input docutils container">
@@ -759,9 +583,9 @@ title="Print to PDF"
 <p>We can think of the quality of the approximation of <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> as the distance from <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b},\)</span> which is</p>
 <div class="math notranslate nohighlight">
 \[\Vert A\mathbf{x} - \mathbf{b}\Vert.\]</div>
-</section>
-<section id="the-general-least-squares-problem">
-<h3>The General Least-Squares Problem<a class="headerlink" href="#the-general-least-squares-problem" title="Permalink to this headline">#</a></h3>
+</div>
+<div class="section" id="the-general-least-squares-problem">
+<h3>The General Least-Squares Problem<a class="headerlink" href="#the-general-least-squares-problem" title="Permalink to this headline">¶</a></h3>
 <p>We can now formally express what we are looking for when we seek a “good” solution to an inconsistent system:</p>
 <p>The <strong>general least-squares problem</strong> is to find an <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> that makes <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}-\mathbf{b}\Vert\)</span> as small as possible.</p>
 <p>This is called “least squares” because it is equivalent to minimizing <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}-\mathbf{b}\Vert^2,\)</span> which is the sum of squared differences.</p>
@@ -780,9 +604,9 @@ title="Print to PDF"
 <div class="math notranslate nohighlight">
 \[\hat{\mathbf{x}} = \arg\min_\mathbf{x} \Vert A\mathbf{x} - \mathbf{b}\Vert.\]</div>
 <p>which emphasizes that this is a minimization problem, also called an <em>optimization</em> problem.</p>
-</section>
-<section id="interpretation-of-the-least-squares-problem">
-<h3>Interpretation of the Least Squares Problem<a class="headerlink" href="#interpretation-of-the-least-squares-problem" title="Permalink to this headline">#</a></h3>
+</div>
+<div class="section" id="interpretation-of-the-least-squares-problem">
+<h3>Interpretation of the Least Squares Problem<a class="headerlink" href="#interpretation-of-the-least-squares-problem" title="Permalink to this headline">¶</a></h3>
 <p>The point here is that no matter what <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is, <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> will be in the column space of <span class="math notranslate nohighlight">\(A\)</span> — that is, <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>.</p>
 <p>So <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is outside <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>, and we are looking for <span class="math notranslate nohighlight">\(\hat{\mathbf{x}}\)</span>, which specifies the closest point in <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.</p>
 <div class="cell tag_hide-input docutils container">
@@ -839,17 +663,17 @@ title="Print to PDF"
 </div>
 <p>The vector <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is closer to <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}}\)</span> than it is to <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> for any other <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>.</p>
 <p>For example, the red points in the figure are both further from  <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> than is <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}}\)</span>.</p>
-</section>
-</section>
-<section id="solving-the-general-least-squares-problem">
-<h2>Solving the General Least Squares Problem<a class="headerlink" href="#solving-the-general-least-squares-problem" title="Permalink to this headline">#</a></h2>
+</div>
+</div>
+<div class="section" id="solving-the-general-least-squares-problem">
+<h2>Solving the General Least Squares Problem<a class="headerlink" href="#solving-the-general-least-squares-problem" title="Permalink to this headline">¶</a></h2>
 <p>In order to solve the Least Squares problem, we need to bring in a bit more theory.</p>
 <p>All we need to do is to extend some of the ideas we developed in the last lecture.</p>
 <p>The last lecture developed methods for finding the point in a 1D subspace that is closest to a given point.</p>
 <p>We need to generalize the idea of “closest point” to the case of an <strong>arbitrary</strong> subspace.</p>
 <p>This leads to two theorems: the <strong>Orthogonal Decomposition Theorem</strong> and the <strong>Best Approximation Theorem.</strong></p>
-<section id="the-orthogonal-decomposition-theorem">
-<h3>The Orthogonal Decomposition Theorem<a class="headerlink" href="#the-orthogonal-decomposition-theorem" title="Permalink to this headline">#</a></h3>
+<div class="section" id="the-orthogonal-decomposition-theorem">
+<h3>The Orthogonal Decomposition Theorem<a class="headerlink" href="#the-orthogonal-decomposition-theorem" title="Permalink to this headline">¶</a></h3>
 <p>Let <span class="math notranslate nohighlight">\(W\)</span> be a subspace of <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.  Then each <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> can be written uniquely in the form</p>
 <div class="math notranslate nohighlight">
 \[ \mathbf{y} = \hat{\mathbf{y}} + \mathbf{z}\]</div>
@@ -929,9 +753,9 @@ title="Print to PDF"
 </div>
 <p><strong>Proof.</strong> (straightforward extension of the 1D case from last lecture.)</p>
 <p>Just as in the case of a 1D subspace (in the last lecture), we say that <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span> is the <strong>orthogonal projection of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> onto <span class="math notranslate nohighlight">\(W\)</span></strong> and write <span class="math notranslate nohighlight">\(\hat{\mathbf{y}} = \mbox{proj}_W \mathbf{y}.\)</span></p>
-</section>
-<section id="the-best-approximation-theorem">
-<h3>The Best Approximation Theorem<a class="headerlink" href="#the-best-approximation-theorem" title="Permalink to this headline">#</a></h3>
+</div>
+<div class="section" id="the-best-approximation-theorem">
+<h3>The Best Approximation Theorem<a class="headerlink" href="#the-best-approximation-theorem" title="Permalink to this headline">¶</a></h3>
 <p>Let <span class="math notranslate nohighlight">\(W\)</span> be a subspace of <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, let <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> be any vector in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, and let <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span> be the orthogonal projection of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> onto <span class="math notranslate nohighlight">\(W\)</span>.  Then <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span> is the closest point in <span class="math notranslate nohighlight">\(W\)</span> to <span class="math notranslate nohighlight">\(\mathbf{y}\)</span>, in the sense that</p>
 <div class="math notranslate nohighlight">
 \[\Vert \mathbf{y}-\hat{\mathbf{y}} \Vert &lt; \Vert \mathbf{y} - \mathbf{v} \Vert\]</div>
@@ -1009,10 +833,10 @@ title="Print to PDF"
 <p>So we have shown a key fact:</p>
 <div class="math notranslate nohighlight">
 \[ \operatorname{Proj}_W \mathbf{y} \mbox{ is the closest point in } W \mbox{ to } \mathbf{y}.\]</div>
-</section>
-</section>
-<section id="projection-solves-least-squares">
-<h2>Projection Solves Least Squares<a class="headerlink" href="#projection-solves-least-squares" title="Permalink to this headline">#</a></h2>
+</div>
+</div>
+<div class="section" id="projection-solves-least-squares">
+<h2>Projection Solves Least Squares<a class="headerlink" href="#projection-solves-least-squares" title="Permalink to this headline">¶</a></h2>
 <p>Let’s apply these ideas to solving the least squares problem.</p>
 <p>Here is what we want to achieve:</p>
 <div class="math notranslate nohighlight">
@@ -1139,8 +963,8 @@ title="Print to PDF"
 <img alt="_images/L22LeastSquares_66_0.png" src="_images/L22LeastSquares_66_0.png" />
 </div>
 </div>
-<section id="the-normal-equations">
-<h3>The Normal Equations<a class="headerlink" href="#the-normal-equations" title="Permalink to this headline">#</a></h3>
+<div class="section" id="the-normal-equations">
+<h3>The Normal Equations<a class="headerlink" href="#the-normal-equations" title="Permalink to this headline">¶</a></h3>
 <p>So: how are we going to find this projection <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span>?</p>
 <p>Here is the key idea:</p>
 <p>We know that the projection <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> has the property that <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}-\mathbf{b}\)</span> is orthogonal to <span class="math notranslate nohighlight">\(\operatorname{Col}A.\)</span></p>
@@ -1201,9 +1025,9 @@ title="Print to PDF"
 <div class="math notranslate nohighlight">
 \[\mathbf{\hat{x}} = \arg\min_{\mathbf{x}} \Vert A\mathbf{x} - \mathbf{b}\Vert.\]</div>
 <p>That is, <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> is the least-squares solution of <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span>.</p>
-</section>
-<section id="when-the-normal-equations-have-multiple-solutions">
-<h3>When the Normal Equations have Multiple Solutions<a class="headerlink" href="#when-the-normal-equations-have-multiple-solutions" title="Permalink to this headline">#</a></h3>
+</div>
+<div class="section" id="when-the-normal-equations-have-multiple-solutions">
+<h3>When the Normal Equations have Multiple Solutions<a class="headerlink" href="#when-the-normal-equations-have-multiple-solutions" title="Permalink to this headline">¶</a></h3>
 <p>We have seen that the normal equations <strong>always</strong> have a solution.</p>
 <p>Is there always a <strong>unique</strong> solution?</p>
 <p>No, there can be multiple solutions that <strong>all</strong> minimize <span class="math notranslate nohighlight">\(\Vert A\mathbf{x} - \mathbf{b}\Vert.\)</span></p>
@@ -1282,9 +1106,9 @@ title="Print to PDF"
 <p>When these statements are true, the least-squares solution <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> is given by:</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{\hat{x}} = (A^TA)^{-1}A^T\mathbf{b}\]</div>
-</section>
-<section id="projection-onto-an-abitrary-basis">
-<h3>Projection onto an Abitrary Basis<a class="headerlink" href="#projection-onto-an-abitrary-basis" title="Permalink to this headline">#</a></h3>
+</div>
+<div class="section" id="projection-onto-an-abitrary-basis">
+<h3>Projection onto an Abitrary Basis<a class="headerlink" href="#projection-onto-an-abitrary-basis" title="Permalink to this headline">¶</a></h3>
 <p>When <span class="math notranslate nohighlight">\(A^TA\)</span> is invertible, and <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> is unique, we can put together the two equations</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{\hat{x}} = (A^TA)^{-1}A^T\mathbf{b}\]</div>
@@ -1302,9 +1126,9 @@ title="Print to PDF"
 <div class="math notranslate nohighlight">
 \[ \operatorname{proj}_{\operatorname{Col} A} \mathbf{b} = A(A^TA)^{-1}A^T\mathbf{b} \]</div>
 <p>So we now have an expression for projection onto a subspace given an <strong>arbitrary</strong> basis.  This is a general formula that can be very useful!</p>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {
@@ -1328,48 +1152,54 @@ title="Print to PDF"
 
               </div>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="L21OrthogonalSets.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Orthogonal Sets and Projection</p>
-        </div>
-    </a>
-    <a class='right-next' id="next-link" href="L23LinearModels.html" title="next page">
-    <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Linear Models</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
-    </a>
-</div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
-  
-    By Mark Crovella<br/>
-  
-      &copy; Copyright 2020-2022.<br/>
-</p>
-        </footer>
-    </div>
+        
+            
+
+
+
+<div class='prev-next-bottom'>
     
+    <div id="prev">
+        <a class="left-prev" href="L21OrthogonalSets.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Orthogonal Sets and Projection</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="L23LinearModels.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Linear Models</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
 </div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Mark Crovella<br/>
+        
+            &copy; Copyright 2020-2022.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
 
 
       </div>
     </div>
   
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-
+  
   </body>
 </html>
