@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>PageRank &#8212; Linear Algebra, Geometry, and Computation</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet" />
-  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,51 +20,67 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Analytic Geometry in \(\mathbb{R}^n\)" href="L20Orthogonality.html" />
     <link rel="prev" title="Diagonalization" href="L18Diagonalization.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -71,9 +89,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -91,14 +110,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="landing-page.html">
-   Preface
-  </a>
- </li>
-</ul>
-<ul class="current nav bd-sidenav">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="landing-page.html">
+                    Preface
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="L01LinearEquations.html">
    Linear Equations
@@ -162,7 +182,7 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="L13ComputerGraphics-Spring2021.html">
+  <a class="reference internal" href="L13ComputerGraphics.html">
    Computer Graphics
   </a>
  </li>
@@ -237,104 +257,177 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/L19PageRank.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/mcrovella/CS132-Geometric-Algorithms"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L19PageRank.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L19PageRank.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/L19PageRank.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#the-history">
    The History
@@ -403,13 +496,97 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>PageRank</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-history">
+   The History
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#random-walks">
+   Random Walks
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#absorbing-boundaries">
+     Absorbing Boundaries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#random-walks-on-undirected-graphs">
+     Random Walks on Undirected Graphs
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#random-walks-on-directed-graphs">
+     Random Walks on Directed Graphs
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   PageRank
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example">
+     Example.
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#step-1">
+       Step 1.
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#step-2">
+       Step 2.
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#step-3">
+       Step 3.
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#step-4">
+       Step 4.
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#computing-pagerank-the-power-method">
+   Computing PageRank: the Power Method
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
               <div>
                 
   <div class="cell tag_hide-cell docutils container">
@@ -441,8 +618,8 @@
 </div>
 </div>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="pagerank">
-<h1>PageRank<a class="headerlink" href="#pagerank" title="Permalink to this headline">¶</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="pagerank">
+<h1>PageRank<a class="headerlink" href="#pagerank" title="Permalink to this headline">#</a></h1>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Source: http://pixshark.com/sergey-brin-and-larry-page.htm</span>
@@ -465,8 +642,8 @@
 <img alt="_images/L19PageRank_3_0.png" src="_images/L19PageRank_3_0.png" />
 </div>
 </div>
-<div class="section" id="the-history">
-<h2>The History<a class="headerlink" href="#the-history" title="Permalink to this headline">¶</a></h2>
+<section id="the-history">
+<h2>The History<a class="headerlink" href="#the-history" title="Permalink to this headline">#</a></h2>
 <p>Today we’ll study an algorithm that is probably important in your life: Google’s PageRank.</p>
 <p>Let’s set the stage.</p>
 <p>The World Wide Web starting becoming widely used in 1994.</p>
@@ -510,9 +687,9 @@ Due to the massive size of the Web, this first step can result in many thousands
 </div>
 </div>
 <p>Today we’ll study this algorithm, see how to implement it, and understand that what it is really about is Markov Chains and eigenvectors.</p>
-</div>
-<div class="section" id="random-walks">
-<h2>Random Walks<a class="headerlink" href="#random-walks" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="random-walks">
+<h2>Random Walks<a class="headerlink" href="#random-walks" title="Permalink to this headline">#</a></h2>
 <p>We start with the notion of a <strong>random walk.</strong></p>
 <p>A random walk is a model of many sorts of processes that occur on graphs.</p>
 <p>Let us fix a graph <span class="math notranslate nohighlight">\(G\)</span>.  A random walk models the movement of an object on this graph.</p>
@@ -553,8 +730,8 @@ Due to the massive size of the Web, this first step can result in many thousands
 <div class="toggle docutils container">
 <p>Question Time! Q 19.1</p>
 </div>
-<div class="section" id="absorbing-boundaries">
-<h3>Absorbing Boundaries<a class="headerlink" href="#absorbing-boundaries" title="Permalink to this headline">¶</a></h3>
+<section id="absorbing-boundaries">
+<h3>Absorbing Boundaries<a class="headerlink" href="#absorbing-boundaries" title="Permalink to this headline">#</a></h3>
 <p><strong>Example.</strong>  A random walk on <span class="math notranslate nohighlight">\(\{0,1,2,3,4\}\)</span> with absorbing boundaries has a transition matrix of</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}P=\begin{bmatrix}1&amp;p&amp;0&amp;0&amp;0\\0&amp;0&amp;p&amp;0&amp;0\\0&amp;1-p&amp;0&amp;p&amp;0\\0&amp;0&amp;1-p&amp;0&amp;0\\0&amp;0&amp;0&amp;1-p&amp;1\end{bmatrix}\end{split}\]</div>
@@ -596,9 +773,9 @@ Due to the massive size of the Web, this first step can result in many thousands
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="random-walks-on-undirected-graphs">
-<h3>Random Walks on Undirected Graphs<a class="headerlink" href="#random-walks-on-undirected-graphs" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="random-walks-on-undirected-graphs">
+<h3>Random Walks on Undirected Graphs<a class="headerlink" href="#random-walks-on-undirected-graphs" title="Permalink to this headline">#</a></h3>
 <p>Now let’s consider a random walk on a more interesting graph:</p>
 <!-- image credit: Lay 5th edition.  Should re-do this using networkx (see 506 notes) -->
 <center>
@@ -633,9 +810,9 @@ Due to the massive size of the Web, this first step can result in many thousands
 <div class="toggle docutils container">
 <p>Question Time!  Q 19.2</p>
 </div>
-</div>
-<div class="section" id="random-walks-on-directed-graphs">
-<h3>Random Walks on Directed Graphs<a class="headerlink" href="#random-walks-on-directed-graphs" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="random-walks-on-directed-graphs">
+<h3>Random Walks on Directed Graphs<a class="headerlink" href="#random-walks-on-directed-graphs" title="Permalink to this headline">#</a></h3>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
@@ -671,10 +848,10 @@ Due to the massive size of the Web, this first step can result in many thousands
 <p>We can conclude that this matrix is <strong>not</strong> regular.   Why?</p>
 <p>One reason we can conclude this is the column of zeros (column 2).</p>
 <p>Any power of <span class="math notranslate nohighlight">\(P\)</span> will preserve this column of zeros.</p>
-</div>
-</div>
-<div class="section" id="id1">
-<h2>PageRank<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="id1">
+<h2>PageRank<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
 <p>There are many ways to use link structure to infer which pages are most important.</p>
 <p>There was a lot of experimentation in the late 1990s with various methods.</p>
 <p>Here are some examples of link structures found in the Web:</p>
@@ -729,8 +906,8 @@ Due to the massive size of the Web, this first step can result in many thousands
 </ol>
 <p>There is a nice visualization <a class="reference external" href="https://twitter.com/i/status/1326404289997103104">here</a>.</p>
 <p>So let’s try to make this work and see what happens.</p>
-<div class="section" id="example">
-<h3>Example.<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<section id="example">
+<h3>Example.<a class="headerlink" href="#example" title="Permalink to this headline">#</a></h3>
 <p>Assume a set of Web pages have been selected based on a text query, eg, pages related to “personal 737 jets.”</p>
 <p>These pages have various links between them, as represented by this graph:</p>
 <!-- image credit: Deeper into PageRank -->
@@ -739,8 +916,8 @@ Due to the massive size of the Web, this first step can result in many thousands
 </center><p>Construct the unique steady-state distribution for a random walk on this graph, if it exists.  That is, construct the PageRank for this set of Web pages.</p>
 <p><strong>Solution.</strong></p>
 <p>The key question we must ask is <strong>whether a unique steady state exists.</strong></p>
-<div class="section" id="step-1">
-<h4>Step 1.<a class="headerlink" href="#step-1" title="Permalink to this headline">¶</a></h4>
+<section id="step-1">
+<h4>Step 1.<a class="headerlink" href="#step-1" title="Permalink to this headline">#</a></h4>
 <p>Assume there are <span class="math notranslate nohighlight">\(n\)</span> pages to be ranked.  Construct an <span class="math notranslate nohighlight">\(n\times n\)</span> transition matrix for the Markov chain.</p>
 <p>Set the Markov chain transitions so that each outgoing link from a node has equal probability of being taken.</p>
 <p>We have already seen the transition matrix for this graph:</p>
@@ -758,9 +935,9 @@ Due to the massive size of the Web, this first step can result in many thousands
 <p>The reason that column 2 of <span class="math notranslate nohighlight">\(P\)</span> is zero is that the Web page corresponding to node 2 has no links embedded in it, so there is nowhere to go from this page.   Of course this will happen a lot in an arbitrary collection of Web pages.</p>
 <p>Note that Page and Brin say that the random surfer will occasionally “start on another random page.”   In other words, it seems reasonable that when reaching a page with no embedded links, the surfer chooses another page at random.</p>
 <p>So this motivates the first adjustment to <span class="math notranslate nohighlight">\(P\)</span>:</p>
-</div>
-<div class="section" id="step-2">
-<h4>Step 2.<a class="headerlink" href="#step-2" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="step-2">
+<h4>Step 2.<a class="headerlink" href="#step-2" title="Permalink to this headline">#</a></h4>
 <p>Form the matrix <span class="math notranslate nohighlight">\(P'\)</span> as follows:  for each column in <span class="math notranslate nohighlight">\(P\)</span> that is entirely zeros, replace it with a column in which each entry is <span class="math notranslate nohighlight">\(1/n\)</span>.</p>
 <p>In our example:</p>
 <div class="math notranslate nohighlight">
@@ -791,9 +968,9 @@ P' = \begin{bmatrix}
 <p>Nonetheless, even after this change, <span class="math notranslate nohighlight">\(P'\)</span> can fail to be regular.</p>
 <p>In other words, for an arbitrary set of web pages, there is no guarantee that their transition matrix will be regular.</p>
 <p>Once again, let’s read the words of Page and Brin closely: the surfer “eventually gets bored and starts on another random page.”</p>
-</div>
-<div class="section" id="step-3">
-<h4>Step 3.<a class="headerlink" href="#step-3" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="step-3">
+<h4>Step 3.<a class="headerlink" href="#step-3" title="Permalink to this headline">#</a></h4>
 <p>In practice this means that there a small probability that the surfer will jump from any page to any other page at random.</p>
 <p>Let’s call this small probability <span class="math notranslate nohighlight">\(\alpha.\)</span></p>
 <p>We can’t just add <span class="math notranslate nohighlight">\(\alpha\)</span> to every entry in <span class="math notranslate nohighlight">\(P'\)</span>, because then the columns of the new matrix would not sum to 1.</p>
@@ -825,9 +1002,9 @@ P' = \begin{bmatrix}
 \end{bmatrix}\end{split}\]</div>
 <p>Obviously, <span class="math notranslate nohighlight">\(P''\)</span> is regular, because all its entries are positive (they are at least <span class="math notranslate nohighlight">\(\alpha/n.\)</span>)</p>
 <p><span class="math notranslate nohighlight">\(P''\)</span> is the Markov Chain that Brin and Page defined, and which is used by PageRank to rank pages in response to a Google search.</p>
-</div>
-<div class="section" id="step-4">
-<h4>Step 4.<a class="headerlink" href="#step-4" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="step-4">
+<h4>Step 4.<a class="headerlink" href="#step-4" title="Permalink to this headline">#</a></h4>
 <p>Compute the steady-state of <span class="math notranslate nohighlight">\(P''\)</span>, and rank pages according to their magnitude in the resulting vector.</p>
 <p>We can do this by solving <span class="math notranslate nohighlight">\(P''\mathbf{x} = \mathbf{x}\)</span>, or we can compute the eigenvectors of <span class="math notranslate nohighlight">\(P''\)</span> and use the eigenvector that corresponds to <span class="math notranslate nohighlight">\(\lambda = 1.\)</span></p>
 <p>For the example <span class="math notranslate nohighlight">\(P''\)</span>, we find that the steady-state vector is:</p>
@@ -852,7 +1029,7 @@ P' = \begin{bmatrix}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 1.          0.61008601 -0.08958752 -0.37049849 -0.45000001 -0.44999999]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 1.          0.61008601 -0.08958752 -0.37049849 -0.45       -0.45      ]
 </pre></div>
 </div>
 </div>
@@ -926,11 +1103,11 @@ importance = [0.37508082 0.28624589 0.20599833 0.05395735 0.04150565 0.03721197]
 <!-- image credit: Deeper into PageRank -->
 <center>
 <a class="reference internal image-reference" href="_images/deeper-pagerank-fig.jpg"><img alt="Figure" src="_images/deeper-pagerank-fig.jpg" style="width: 250px;" /></a>
-</center></div>
-</div>
-</div>
-<div class="section" id="computing-pagerank-the-power-method">
-<h2>Computing PageRank: the Power Method<a class="headerlink" href="#computing-pagerank-the-power-method" title="Permalink to this headline">¶</a></h2>
+</center></section>
+</section>
+</section>
+<section id="computing-pagerank-the-power-method">
+<h2>Computing PageRank: the Power Method<a class="headerlink" href="#computing-pagerank-the-power-method" title="Permalink to this headline">#</a></h2>
 <p>From a mathematical standpoint, we are done!</p>
 <p>However, from a Computer Science standpoint, there are still some issues.</p>
 <p>The most significant issue is simply this: PageRank results must be provided <strong>very quickly.</strong>   Search engines are in competition and speed is a competitive advantage.</p>
@@ -1055,8 +1232,8 @@ importance = [0.37508082 0.28624589 0.20599833 0.05395735 0.04150565 0.03721197]
 \[ d = \sum_{i=1}^n |\mathbf{x}_{k,i}| \]</div>
 <p>If <span class="math notranslate nohighlight">\(s/d\)</span> is small (say, less than 0.001) then we can conclude that <span class="math notranslate nohighlight">\(\mathbf{x}_{k+1}\)</span> is close enough to <span class="math notranslate nohighlight">\(\mathbf{x}_k\)</span> for us to stop iterating.</p>
 <p>So the power method is fast, making it the algorithm of choice for a company like Google.  It is also easy to implement, and easy to parallelize across multiple machines.</p>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1080,54 +1257,48 @@ importance = [0.37508082 0.28624589 0.20599833 0.05395735 0.04150565 0.03721197]
 
               </div>
               
-        
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="L18Diagonalization.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Diagonalization</p>
-            </div>
-        </a>
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="L18Diagonalization.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Diagonalization</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="L20Orthogonality.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span></p>
     </div>
-     <div id="next">
-        <a class="right-next" href="L20Orthogonality.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span></p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
-        
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Mark Crovella<br/>
-        
-            &copy; Copyright 2020-2022.<br/>
-      </p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Mark Crovella<br/>
+  
+      &copy; Copyright 2020-2022.<br/>
+</p>
+        </footer>
     </div>
-  </footer>
-</main>
+    
+</div>
 
 
       </div>
     </div>
   
-  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
-  
+
   </body>
 </html>

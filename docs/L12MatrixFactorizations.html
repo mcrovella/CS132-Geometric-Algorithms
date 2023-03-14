@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Matrix Factorizations &#8212; Linear Algebra, Geometry, and Computation</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet" />
-  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,51 +20,67 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Computer Graphics" href="L13ComputerGraphics-Spring2021.html" />
+    <link rel="next" title="Computer Graphics" href="L13ComputerGraphics.html" />
     <link rel="prev" title="Markov Chains" href="L11MarkovChains.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -71,9 +89,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -91,14 +110,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="landing-page.html">
-   Preface
-  </a>
- </li>
-</ul>
-<ul class="current nav bd-sidenav">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="landing-page.html">
+                    Preface
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="L01LinearEquations.html">
    Linear Equations
@@ -162,7 +182,7 @@
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="L13ComputerGraphics-Spring2021.html">
+  <a class="reference internal" href="L13ComputerGraphics.html">
    Computer Graphics
   </a>
  </li>
@@ -237,104 +257,177 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/L12MatrixFactorizations.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/mcrovella/CS132-Geometric-Algorithms"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L12MatrixFactorizations.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L12MatrixFactorizations.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/L12MatrixFactorizations.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#a-rationale-for-the-lu-factorization">
    A Rationale for the LU Factorization
@@ -363,7 +456,6 @@
      <span class="math notranslate nohighlight">
       \(L\)
      </span>
-     .
     </a>
    </li>
   </ul>
@@ -380,13 +472,73 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Matrix Factorizations</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-rationale-for-the-lu-factorization">
+   A Rationale for the LU Factorization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#elementary-matrices">
+   Elementary Matrices
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#finding-the-elementary-matrix">
+     Finding the Elementary Matrix
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-lu-factorization">
+   The LU Factorization
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#finding-l">
+     Finding
+     <span class="math notranslate nohighlight">
+      \(L\)
+     </span>
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-the-lu-factorization">
+   Using the LU Factorization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#pivoting">
+   Pivoting
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
               <div>
                 
   <div class="cell tag_hide-input docutils container">
@@ -421,8 +573,8 @@
 </div>
 </div>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="matrix-factorizations">
-<h1>Matrix Factorizations<a class="headerlink" href="#matrix-factorizations" title="Permalink to this headline">¶</a></h1>
+<section class="tex2jax_ignore mathjax_ignore" id="matrix-factorizations">
+<h1>Matrix Factorizations<a class="headerlink" href="#matrix-factorizations" title="Permalink to this headline">#</a></h1>
 <p>Just as muiltiplication can be generalized from scalars to matrices, the notion of a factorization can also be generalized from scalars to matrices.</p>
 <p>A <em>factorization</em> of a matrix <span class="math notranslate nohighlight">\(A\)</span> is an equation that expresses <span class="math notranslate nohighlight">\(A\)</span> as a product of two or more matrices.</p>
 <div class="math notranslate nohighlight">
@@ -437,8 +589,8 @@
 </ul>
 <p>Today we’ll work with one particular factorization that addesses the first case.   Later one we’ll study factorizations that address the other two cases.</p>
 <p>The factorization we will study is called the <strong>LU Factorization.</strong>  It is worth studying in its own right, and because it introduces the idea of factorizations, which we will study again later on.</p>
-<div class="section" id="a-rationale-for-the-lu-factorization">
-<h2>A Rationale for the LU Factorization<a class="headerlink" href="#a-rationale-for-the-lu-factorization" title="Permalink to this headline">¶</a></h2>
+<section id="a-rationale-for-the-lu-factorization">
+<h2>A Rationale for the LU Factorization<a class="headerlink" href="#a-rationale-for-the-lu-factorization" title="Permalink to this headline">#</a></h2>
 <p>Consider the following problem.  You are given <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n\times n}\)</span> and <span class="math notranslate nohighlight">\(B \in \mathbb{R}^{n\times p}\)</span>.</p>
 <p>You seek <span class="math notranslate nohighlight">\(X \in \mathbb{R}^{n\times p}\)</span> such that:</p>
 <div class="math notranslate nohighlight">
@@ -471,13 +623,14 @@
 <div class="math notranslate nohighlight">
 \[ X = A^{-1}B \]</div>
 <p>What is the computational cost of using the matrix inverse to solve <span class="math notranslate nohighlight">\(AX = B\)</span>?</p>
-<p>It turns out that the operation count of Matrix Inversion is  <span class="math notranslate nohighlight">\(\sim 2n^3\)</span> flops (three times as many as Gaussian Elimination.)</p>
+<p>As <a class="reference external" href="L10MatrixInverse.html#matrices-larger-than-2-times-2">discussed earlier</a> the operation count of matrix inversion is  <span class="math notranslate nohighlight">\(\sim 2n^3\)</span> flops</p>
+<p>… that is, three times as many as Gaussian Elimination.</p>
 <p>This cost will dominate the process.</p>
 <p>Alternatively, we could perform Gaussian Elimination on each of the separate systems.</p>
-<p>This is probably worse, because then we have to perform <span class="math notranslate nohighlight">\(\sim p \cdot \frac{2}{3}n^3\)</span> flops.</p>
-<p>Assuming <span class="math notranslate nohighlight">\(p &gt; 3\)</span>, we are doing more work than if we invert <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>This is probably worse, because <a class="reference external" href="L03RowReductions.html#the-cost-of-gaussian-elimination">then we have to perform <span class="math notranslate nohighlight">\(\sim p \cdot \frac{2}{3}n^3\)</span> flops.</a></p>
+<p>Assuming <span class="math notranslate nohighlight">\(p &gt; 3\)</span>, using Gaussian Elimination on each system means doing more work than if we invert <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>What if we could solve all these systems while performing Gaussian Elimination only <strong>once?</strong></p>
-<p>That would be a win, as it would cut our running time by a factor of 3.</p>
+<p>That would be a win, as it would cut our running time by a factor of 3 compared to using the matrix inverse.</p>
 <p>The LU factorization allows us to do exactly this.</p>
 <p>Today we will explore the LU factorization.   We will see that LU factorization has a close connection to Gaussian Elimination.</p>
 <p>In fact, I hope that when we are done, you will see Gaussian Elimination in a new way, namely:</p>
@@ -485,9 +638,9 @@
 <div><p><strong>Gaussian Elimination is really a matrix factorization!</strong></p>
 </div></blockquote>
 <p>Before we start to discuss the LU factorization, we need to introduce a powerful tool for performing factorizations, called <em>elementary matrices.</em></p>
-</div>
-<div class="section" id="elementary-matrices">
-<h2>Elementary Matrices<a class="headerlink" href="#elementary-matrices" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="elementary-matrices">
+<h2>Elementary Matrices<a class="headerlink" href="#elementary-matrices" title="Permalink to this headline">#</a></h2>
 <p>Recall from the first and second lectures that the row reduction process consists of repeated applications of elementary row operations:</p>
 <ul class="simple">
 <li><p>Exchange two rows</p></li>
@@ -510,8 +663,8 @@
 <div class="math notranslate nohighlight">
 \[\begin{split} E_3A = \left[\begin{array}{rrr}a&amp;b&amp;c\\d&amp;e&amp;f\\5g&amp;5h&amp;5i\end{array}\right].\end{split}\]</div>
 <p>Clearly, left-multiplication by <span class="math notranslate nohighlight">\(E_1\)</span> will add -4 times row 1 to row 3 (for any matrix <span class="math notranslate nohighlight">\(A\)</span>).</p>
-<div class="section" id="finding-the-elementary-matrix">
-<h3>Finding the Elementary Matrix<a class="headerlink" href="#finding-the-elementary-matrix" title="Permalink to this headline">¶</a></h3>
+<section id="finding-the-elementary-matrix">
+<h3>Finding the Elementary Matrix<a class="headerlink" href="#finding-the-elementary-matrix" title="Permalink to this headline">#</a></h3>
 <p>In fact, you can look at this as follows.</p>
 <p>Assume that some matrix <span class="math notranslate nohighlight">\(E\)</span> exists that implements the operation “add -4 times row 1 to row 3.”</p>
 <p>Now, for any matrix, <span class="math notranslate nohighlight">\(EI = E\)</span> by the definition of <span class="math notranslate nohighlight">\(I\)</span>.</p>
@@ -519,16 +672,20 @@
 <p>“the matrix (<span class="math notranslate nohighlight">\(E\)</span>) that implements the operation ‘add -4 times row 1 to row 3’ is the one you get by performing this operation on <span class="math notranslate nohighlight">\(I\)</span>”</p>
 <p>Thus we have the following:</p>
 <p><strong>Fact.</strong> If an elementary row operation is performed on an <span class="math notranslate nohighlight">\(m\times n\)</span> matrix <span class="math notranslate nohighlight">\(A,\)</span> the resulting matrix can be written as <span class="math notranslate nohighlight">\(EA\)</span>, where the <span class="math notranslate nohighlight">\(m\times m\)</span> matrix <span class="math notranslate nohighlight">\(E\)</span> is created by performing the same row operation on <span class="math notranslate nohighlight">\(I_m\)</span>.</p>
+<p>This is actually a special case of a general rule we already know:</p>
+<blockquote>
+<div><p>to compute the standard matrix of a linear transformation, ask what that transformation does to the identity matrix.</p>
+</div></blockquote>
 <p>One more thing: is an elementary matrix invertible?</p>
 <p>Clearly, <strong>yes:</strong> any row reduction operation can be reversed by another (related) row reduction operation.</p>
-<p>So every row reduction is an invertible linear transformation – so every elementary matrix is invertible.</p>
+<p>So every row reduction is an invertible linear transformation – so <strong>every elementary matrix is invertible.</strong></p>
 <div class="toggle docutils container">
 <p>Question Time! Q12.1</p>
 </div>
-</div>
-</div>
-<div class="section" id="the-lu-factorization">
-<h2>The LU Factorization<a class="headerlink" href="#the-lu-factorization" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="the-lu-factorization">
+<h2>The LU Factorization<a class="headerlink" href="#the-lu-factorization" title="Permalink to this headline">#</a></h2>
 <p>Now, we will introduce the factorization</p>
 <div class="math notranslate nohighlight">
 \[ A = LU.\]</div>
@@ -545,7 +702,7 @@ L&amp;U\\
 <p>Stars (<span class="math notranslate nohighlight">\(*\)</span>) denote arbitrary entries, and blocks (<span class="math notranslate nohighlight">\(\blacksquare\)</span>) denote nonzero entries.</p>
 <p>These two matrices each have a special structure.</p>
 <p>First of all, <span class="math notranslate nohighlight">\(U\)</span> is in row echelon form, and it has the same shape as <span class="math notranslate nohighlight">\(A\)</span>.   This is the “upper” matrix (hence its name <span class="math notranslate nohighlight">\(U\)</span>).</p>
-<p>Second, <span class="math notranslate nohighlight">\(L\)</span> is a lower triangular square matrix, and it has 1s on the diagonal.   This is called a <em>unit</em> lower triangular matrix (hence its name <span class="math notranslate nohighlight">\(L\)</span>).</p>
+<p>Second, <span class="math notranslate nohighlight">\(L\)</span> is a lower triangular square matrix, and it has 1s on the diagonal.   This is called a <strong>unit lower triangular</strong> matrix (hence its name <span class="math notranslate nohighlight">\(L\)</span>).</p>
 <p>The fact that <span class="math notranslate nohighlight">\(U\)</span> is in row echelon form may suggest to you (correctly!) that we could get it from <span class="math notranslate nohighlight">\(A\)</span> by a sequence of row operations.</p>
 <p>For now, let us suppose that the row reductions that convert <span class="math notranslate nohighlight">\(A\)</span> to <span class="math notranslate nohighlight">\(U\)</span> only add a multiple of one row to another row <strong>below</strong> it.</p>
 <p>Now, if you consider an elementary matrix that implements such a row reduction, you will see that it will have 1s on the diagonal, and an additional entry somewhere below the diagonal.</p>
@@ -555,23 +712,33 @@ L&amp;U\\
 <div class="math notranslate nohighlight">
 \[\begin{split} E_1A = \left[\begin{array}{rrr}a&amp;b&amp;c\\d&amp;e&amp;f\\g-4a&amp;h-4b&amp;i-4c\end{array}\right]. \end{split}\]</div>
 <p>In other words, this sort of elementary matrix would actually be a unit lower triangular matrix.</p>
-<p>So if there is a sequence of row operations that convert <span class="math notranslate nohighlight">\(A\)</span> to <span class="math notranslate nohighlight">\(U\)</span>, then there is a set of unit lower triangular elementary matrices <span class="math notranslate nohighlight">\(E_1, \dots, E_p\)</span> such that</p>
+<p>So if there is a sequence of row operations that convert <span class="math notranslate nohighlight">\(A\)</span> to <span class="math notranslate nohighlight">\(U\)</span>, then there is a sequence of unit lower triangular elementary matrices <span class="math notranslate nohighlight">\(E_1, E_2, \dots, E_p\)</span> such that</p>
 <div class="math notranslate nohighlight">
-\[E_p\cdots E_1A = U.\]</div>
+\[E_p\cdots E_2 E_1A = U.\]</div>
+<p>Remember the order that the linear transformations are occurring.  It is the same as:</p>
+<div class="math notranslate nohighlight">
+\[(E_p (\cdots (E_2 (E_1A)))) = U.\]</div>
+<p>But we can also think of this product as:</p>
+<div class="math notranslate nohighlight">
+\[(E_p \cdots E_1) A = U.\]</div>
 <p>Now, we know that all elementary matrices are invertible, and the product of invertible matrices is invertible, so:</p>
 <div class="math notranslate nohighlight">
-\[A = (E_p\cdots E_1)^{-1} U = LU\]</div>
-<p>where</p>
+\[A = (E_p\cdots E_1)^{-1} U.\]</div>
+<p>If we define</p>
 <div class="math notranslate nohighlight">
 \[L = (E_p\cdots E_1)^{-1}\]</div>
+<p>Then</p>
+<div class="math notranslate nohighlight">
+\[ A = LU.\]</div>
 <p>It’s not hard to show that the product of unit lower triangular matrices is unit lower triangular.</p>
 <p>It’s also true that the inverse of a unit lower triangular matrix is unit lower triangular.</p>
 <p>So we can conclude that <span class="math notranslate nohighlight">\(L,\)</span> as constructed from <span class="math notranslate nohighlight">\((E_p\cdots E_1)^{-1}\)</span>, is unit lower triangular.</p>
 <p>Hence, we have defined the  LU decomposition based on Gaussian Elimination.</p>
-<p>We have rewritten Gaussian Elimination as:</p>
+<p>So: we have rewritten the Gaussian Elimination of <span class="math notranslate nohighlight">\(A\)</span> as:</p>
 <div class="math notranslate nohighlight">
-\[U = L^{-1}A\]</div>
-<p>and shown that the <span class="math notranslate nohighlight">\(L\)</span> so defined is unit lower triangular.</p>
+\[U = L^{-1}A.\]</div>
+<p>We’ve shown that <span class="math notranslate nohighlight">\(U\)</span> is in row echelon form, and was obtained from <span class="math notranslate nohighlight">\(A\)</span> by a sequence of elementary row operations.</p>
+<p>And we’ve shown that the <span class="math notranslate nohighlight">\(L\)</span> so defined is unit lower triangular.</p>
 <p>Let’s take stock of what this all means: the LU decomposition is a way of capturing the application of Gaussian Elimination to <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>It incorporates both the process of performing Gaussian Elimination, and the result:</p>
 <p><span class="math notranslate nohighlight">\(L^{-1}\)</span> captures the row reductions that transform <span class="math notranslate nohighlight">\(A\)</span> to row echelon form.</p>
@@ -580,8 +747,8 @@ L&amp;U\\
 <div class="toggle docutils container">
 <p>Question Time! Q12.2</p>
 </div>
-<div class="section" id="finding-l">
-<h3>Finding <span class="math notranslate nohighlight">\(L\)</span>.<a class="headerlink" href="#finding-l" title="Permalink to this headline">¶</a></h3>
+<section id="finding-l">
+<h3>Finding <span class="math notranslate nohighlight">\(L\)</span><a class="headerlink" href="#finding-l" title="Permalink to this headline">#</a></h3>
 <p>Recall that the motivation for developing the LU decomposition is that it is more efficient than matrix inversion.   So we don’t want to have to invert <span class="math notranslate nohighlight">\(L^{-1}\)</span> in the standard way in order to find <span class="math notranslate nohighlight">\(L\)</span>.</p>
 <p>There is an algorithm that does this, and using it one can invert <span class="math notranslate nohighlight">\(L^{-1}\)</span> efficiently.</p>
 <p>The basic idea is that <span class="math notranslate nohighlight">\(L^{-1}\)</span> is a sequence of elementary row operations, and the inverse of <span class="math notranslate nohighlight">\(L^{-1}\)</span> is the matrix <span class="math notranslate nohighlight">\(L\)</span> that gives <span class="math notranslate nohighlight">\(L^{-1}L = I.\)</span></p>
@@ -592,13 +759,14 @@ L&amp;U\\
 <li><p>Place entries in <span class="math notranslate nohighlight">\(L\)</span> such that the <em>same sequence of row operations</em> reduces <span class="math notranslate nohighlight">\(L\)</span> to <span class="math notranslate nohighlight">\(I\)</span>.</p></li>
 </ul>
 <p>Here is the key observation: the step of reducing <span class="math notranslate nohighlight">\(A\)</span> to echelon form is simply Gaussian Elimination.    If the second step can be done efficiently, then the whole LU factorization doesn’t take any longer than Gaussian Elimination itself.</p>
-<p>The fact is that constructing <span class="math notranslate nohighlight">\(L\)</span> <strong>can</strong> be done efficiently by a simple modification of Gaussian Elimination, and so LU decomposition takes time only <span class="math notranslate nohighlight">\(\frac{2}{3}n^3.\)</span></p>
-</div>
-</div>
-<div class="section" id="using-the-lu-factorization">
-<h2>Using the LU Factorization<a class="headerlink" href="#using-the-lu-factorization" title="Permalink to this headline">¶</a></h2>
+<p>The fact is that constructing <span class="math notranslate nohighlight">\(L\)</span> <strong>can</strong> be done efficiently by a simple modification of Gaussian Elimination.</p>
+<p>This leads to the important conclusion: the <strong>operation count of LU decomposition is only <span class="math notranslate nohighlight">\(\sim \frac{2}{3}n^3.\)</span></strong></p>
+</section>
+</section>
+<section id="using-the-lu-factorization">
+<h2>Using the LU Factorization<a class="headerlink" href="#using-the-lu-factorization" title="Permalink to this headline">#</a></h2>
 <p>Let’s return to the motivation for developing the LU factorization.</p>
-<p>We’ve seen that LU decomposition is essentially Gaussian Elimination, and as such, it doesn’t take time much longer than Gaussian Elimination.</p>
+<p>We’ve seen that performing LU decomposition is essentially equivalent to performing Gaussian Elimination, and as such, it doesn’t take time much longer than Gaussian Elimination.</p>
 <p>Now we want to show that, using the LU decomposition, that the system <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> can be solved for any <span class="math notranslate nohighlight">\({\bf b}\)</span> in time that is proportional to <span class="math notranslate nohighlight">\(n^2\)</span>.</p>
 <p>Informally, what we are going to do is to use <span class="math notranslate nohighlight">\(L\)</span> to do a special, very efficient version of the forward step of Gaussian Elimination, and then use <span class="math notranslate nohighlight">\(U\)</span> in the usual way to do backsubstitution.</p>
 <p>We can write these two steps concisely as follows:</p>
@@ -618,10 +786,10 @@ L&amp;U\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L12MatrixFactorizations_64_0.jpg" src="_images/L12MatrixFactorizations_64_0.jpg" />
+<img alt="_images/L12MatrixFactorizations_67_0.jpg" src="_images/L12MatrixFactorizations_67_0.jpg" />
 </div>
 </div>
-<p>The key observation: <strong>each equation is fast to solve</strong> because <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span> are each triangular.</p>
+<p>The key observation: <strong>each equation is fast to solve</strong> because <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span> are each <strong>triangular.</strong></p>
 <p><strong>Example.</strong></p>
 <p>Given the following LU decomposition of <span class="math notranslate nohighlight">\(A\)</span>:</p>
 <div class="math notranslate nohighlight">
@@ -637,15 +805,23 @@ L&amp;U\\
 <div class="math notranslate nohighlight">
 \[\begin{split}[U\;\;{\bf y}] =  \left[\begin{array}{rrrrr}3&amp;-7&amp;-2&amp;2&amp;-9\\0&amp;-2&amp;-1&amp;2&amp;-4\\0&amp;0&amp;-1&amp;1&amp;5\\0&amp;0&amp;0&amp;-1&amp;1\end{array}\right] \sim
 \left[\begin{array}{rrrrr}1&amp;0&amp;0&amp;0&amp;3\\0&amp;1&amp;0&amp;0&amp;4\\0&amp;0&amp;1&amp;0&amp;-6\\0&amp;0&amp;0&amp;1&amp;-1\end{array}\right].\end{split}\]</div>
-<p><strong>Analysis.</strong></p>
+<p><strong>Operation Count Analysis.</strong></p>
 <p>Both the forward and backward phases of solving a system as <span class="math notranslate nohighlight">\(L(U{\bf x}) = {\bf b}\)</span> have flop counts of <span class="math notranslate nohighlight">\(\sim 2n^2\)</span>.</p>
-<p>Therefore the time consuming step is actually doing the factorization, which as we’ve seen is essentially Gaussian Elimination, and therefore requires <span class="math notranslate nohighlight">\(\sim\frac{2}{3}n^3\)</span> flops.</p>
+<p>Therefore to solve <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> using <span class="math notranslate nohighlight">\(LU\mathbf{x} = \mathbf{b}\)</span>, the dominating step is doing the factorization <span class="math notranslate nohighlight">\(A = LU\)</span>.</p>
+<p>We’ve seen that the factorization step is essentially Gaussian Elimination, and therefore requires <span class="math notranslate nohighlight">\(\sim\frac{2}{3}n^3\)</span> flops.</p>
+<p>Now, to return to our original problem.</p>
+<p>To solve $<span class="math notranslate nohighlight">\(AX = B\)</span>$</p>
+<p>where <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(n\times n\)</span>, and both <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(B\)</span> have <span class="math notranslate nohighlight">\(p\)</span> columns,</p>
+<ul class="simple">
+<li><p>By matrix inversion of <span class="math notranslate nohighlight">\(A\)</span> requires <span class="math notranslate nohighlight">\(\sim 2n^3\)</span> flops</p></li>
+<li><p>By LU factorization of <span class="math notranslate nohighlight">\(A\)</span> requires <span class="math notranslate nohighlight">\(\sim \frac{2}{3}n^3 + 2p n^2\)</span> flops</p></li>
+</ul>
 <p>Hence we have found that by using the LU decomposition, one can solve a series of systems all involving the same <span class="math notranslate nohighlight">\(A\)</span> in <span class="math notranslate nohighlight">\(\sim\frac{2}{3}n^3\)</span> flops,</p>
 <p>while doing Gaussian Elimination would require <span class="math notranslate nohighlight">\(\sim\frac{2}{3}n^3\)</span> flops <strong>for each system</strong>,</p>
 <p>and using the matrix inverse would require <span class="math notranslate nohighlight">\(\sim2n^3\)</span> flops to invert the matrix.</p>
-</div>
-<div class="section" id="pivoting">
-<h2>Pivoting<a class="headerlink" href="#pivoting" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="pivoting">
+<h2>Pivoting<a class="headerlink" href="#pivoting" title="Permalink to this headline">#</a></h2>
 <p>Up until now we have assumed that the Gaussian Elimination we used to define <span class="math notranslate nohighlight">\(U\)</span> only involves adding a multiple of a row to a row below it.</p>
 <p>However, in real situations, we sometime need to exchange two rows.</p>
 <p>One reason is, as we know, that if the current row has a zero in the pivot position, we need to exchange it with a row that does not have a zero in the pivot position.</p>
@@ -671,8 +847,8 @@ L&amp;U\\
 <li><p><span class="math notranslate nohighlight">\(A\)</span> is the product of a unit lower triangular matrix <span class="math notranslate nohighlight">\(L\)</span> and an echelon form matrix <span class="math notranslate nohighlight">\(U\)</span>, and the rows of their product have been reordered according to the permulation <span class="math notranslate nohighlight">\(P\)</span>.  This is <span class="math notranslate nohighlight">\(A = P(LU).\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(A\)</span> is the product of a <em>permuted</em> lower triangular matrix <span class="math notranslate nohighlight">\(PL\)</span> and an echelon form matrix <span class="math notranslate nohighlight">\(U\)</span>.  This is <span class="math notranslate nohighlight">\(A = (PL)U.\)</span></p></li>
 </ol>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -696,54 +872,48 @@ L&amp;U\\
 
               </div>
               
-        
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="L11MarkovChains.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Markov Chains</p>
-            </div>
-        </a>
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="L11MarkovChains.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Markov Chains</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="L13ComputerGraphics.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Computer Graphics</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="L13ComputerGraphics-Spring2021.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Computer Graphics</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
-        
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Mark Crovella<br/>
-        
-            &copy; Copyright 2020-2022.<br/>
-      </p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Mark Crovella<br/>
+  
+      &copy; Copyright 2020-2022.<br/>
+</p>
+        </footer>
     </div>
-  </footer>
-</main>
+    
+</div>
 
 
       </div>
     </div>
   
-  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
-  
+
   </body>
 </html>
