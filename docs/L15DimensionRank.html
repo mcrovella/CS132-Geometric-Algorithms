@@ -559,7 +559,15 @@ title="Print to PDF"
 <a class="reference internal image-reference" href="_images/descartes.jpg"><img alt="Figure" src="_images/descartes.jpg" style="width: 350px;" /></a>
 </center><p>Rene Descartes (1596-1650) was a French philosopher, mathematician, and writer.  He is often credited with developing the idea of a coordinate system, although versions of coordinate systems had been seen in Greek mathematics since 300BC.</p>
 <p>As a young man, Descartes had health problems and generally stayed in bed late each day.  The story goes that one day as he lay in bed, he observed a fly on the ceiling of his room.  He thought about how to describe the movement of the fly, and realized that he could completely describe it by measuring its distance from the walls of the room.  This gave birth to the so-called <em>Cartesian coordinate system</em>.</p>
-<p>What is certain is that Descartes championed the idea that geometric problems could be cast into algebraic form and solved in that fashion.  This was an important shift in thinking; the mathematical tradition begun by the Greeks held that geometry, as practiced by Euclid with compass and straightedge, was a more fundamental approach.  For example, the problem of copying a triangle was one that the Greeks had studied and solved using non-numeric methods.  Descartes argued that a triangle could be copied exactly by simply knowing the coordinates of its vertices.</p>
+<p>What is certain is that Descartes championed the idea that geometric problems could be cast into algebraic form and solved in that fashion.</p>
+<p>This was an important shift in thinking; the mathematical tradition begun by the Greeks held that geometry, as practiced by Euclid with <strong>compass and straightedge,</strong> was a more fundamental approach.  For example, the problem of constructing a regular hexagon was one that the Greeks had studied and solved using non-numeric methods.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Image credit: by Aldoaldoz - Own work, CC BY-SA 3.0, <a class="reference external" href="https://commons.wikimedia.org/w/index.php?curid=10023563">https://commons.wikimedia.org/w/index.php?curid=10023563</a></p>
+</aside>
+<center>
+<a class="reference internal image-reference" href="_images/Regular_Hexagon_Inscribed_in_a_Circle_240px.gif"><img alt="Figure" src="_images/Regular_Hexagon_Inscribed_in_a_Circle_240px.gif" style="width: 350px;" /></a>
+</center><p>Descartes would have argued that a hexagon could be constructed exactly by simply computing the coordinates of its vertices.</p>
 <p>The study of curves and shapes in algebraic form laid important groundwork for calculus, and Newton was strongly influenced by Descartes’ ideas.</p>
 <p>Why is a coordinate system so useful?</p>
 <p>The value of a coordinate system is that it gives a <em>unique name</em> to each point in the plane (or in any vector space).</p>
@@ -626,7 +634,7 @@ title="Print to PDF"
 <p>In this example, the basis <span class="math notranslate nohighlight">\(\mathcal{B}\)</span> determines a coordinate system on <span class="math notranslate nohighlight">\(H\)</span>, which can be visualized like this:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L15DimensionRank_31_0.png" src="_images/L15DimensionRank_31_0.png" />
+<img alt="_images/L15DimensionRank_35_0.png" src="_images/L15DimensionRank_35_0.png" />
 </div>
 </div>
 <p><strong>Important:</strong> Don’t be confused by the fact that the “coordinate axes” are not purpendicular.</p>
@@ -637,9 +645,12 @@ title="Print to PDF"
 <section id="isomorphism">
 <h3>Isomorphism.<a class="headerlink" href="#isomorphism" title="Permalink to this headline">#</a></h3>
 <p>Another important idea is that, although points in <span class="math notranslate nohighlight">\(H\)</span> are in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>, they are completely determined by their coordinate vectors, which belong to <span class="math notranslate nohighlight">\(\mathbb{R}^2.\)</span></p>
-<p>The grid in the figure above makes <span class="math notranslate nohighlight">\(H\)</span> “look like” <span class="math notranslate nohighlight">\(\mathbb{R}^2.\)</span></p>
-<p>The correspondence <span class="math notranslate nohighlight">\(\mathbf{x} \mapsto [\mathbf{x}]_\mathcal{B}\)</span> is one-to-one correspondence between <span class="math notranslate nohighlight">\(H\)</span> and <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> that preserves linear combinations.</p>
 <p>In our example, <span class="math notranslate nohighlight">\(\begin{bmatrix}3\\12\\7\end{bmatrix}\mapsto\begin{bmatrix}2\\3\end{bmatrix}\)</span>.</p>
+<p>We can see that the grid in the figure above makes <span class="math notranslate nohighlight">\(H\)</span> “look like” <span class="math notranslate nohighlight">\(\mathbb{R}^2.\)</span></p>
+<p>The correspondence <span class="math notranslate nohighlight">\(\mathbf{x} \mapsto [\mathbf{x}]_\mathcal{B}\)</span> is one-to-one correspondence between <span class="math notranslate nohighlight">\(H\)</span> and <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> that preserves linear combinations.</p>
+<p>In other words, if <span class="math notranslate nohighlight">\(\mathbf{a} = \mathbf{b} + \mathbf{c}\)</span> when <span class="math notranslate nohighlight">\(\mathbf{a}, \mathbf{b}, \mathbf{c} \in H\)</span>,</p>
+<p>then
+<span class="math notranslate nohighlight">\([\mathbf{a}]_\mathcal{B} = [\mathbf{b}]_\mathcal{B} + [\mathbf{c}]_\mathcal{B}\)</span> with <span class="math notranslate nohighlight">\([\mathbf{a}]_\mathcal{B}, [\mathbf{b}]_\mathcal{B}, [\mathbf{c}]_\mathcal{B} \in \mathbb{R}^2\)</span></p>
 <p>When we have a one-to-one correspondence between two subspaces that preserves linear combinations, we call such a correspondence an <em>isomorphism,</em> and we say that <span class="math notranslate nohighlight">\(H\)</span> is <em>isomorphic</em> to <span class="math notranslate nohighlight">\(\mathbb{R}^2.\)</span></p>
 <p>In general, if <span class="math notranslate nohighlight">\(\mathcal{B}\ = \{\mathbf{b}_1,\dots,\mathbf{b}_p\}\)</span> is a basis for <span class="math notranslate nohighlight">\(H\)</span>, then the mapping <span class="math notranslate nohighlight">\(\mathbf{x} \mapsto [\mathbf{x}]_\mathcal{B}\)</span> is a one-to-one correspondence that makes <span class="math notranslate nohighlight">\(H\)</span> look and act the same as <span class="math notranslate nohighlight">\(\mathbb{R}^p.\)</span></p>
 <p>This is <em>even through the vectors in <span class="math notranslate nohighlight">\(H\)</span> themselves may have more than <span class="math notranslate nohighlight">\(p\)</span> entries.</em></p>
@@ -647,6 +658,10 @@ title="Print to PDF"
 </section>
 <section id="the-dimension-of-a-subspace">
 <h2>The Dimension of a Subspace<a class="headerlink" href="#the-dimension-of-a-subspace" title="Permalink to this headline">#</a></h2>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Here is an informal proof:  Since <span class="math notranslate nohighlight">\(H\)</span> has a basis of <span class="math notranslate nohighlight">\(p\)</span> vectors, <span class="math notranslate nohighlight">\(H\)</span> is isomorphic to <span class="math notranslate nohighlight">\(\mathbb{R}^p\)</span>.  Any set consisting of more than <span class="math notranslate nohighlight">\(p\)</span> vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^p\)</span> must be dependent.  Recall that an isomorphism preserves vector relationships (sums, linear combinations, etc).  So by the nature of an isomorphism, we can establish that any set of more than <span class="math notranslate nohighlight">\(p\)</span> vectors in <span class="math notranslate nohighlight">\(H\)</span> must be dependent.  So any basis for <span class="math notranslate nohighlight">\(H\)</span> must have <span class="math notranslate nohighlight">\(p\)</span> vectors.</p>
+</aside>
 <p>It can be shown that if a subspace <span class="math notranslate nohighlight">\(H\)</span> has a basis of <span class="math notranslate nohighlight">\(p\)</span> vectors, then every basis of <span class="math notranslate nohighlight">\(H\)</span> must consist of exactly <span class="math notranslate nohighlight">\(p\)</span> vectors.</p>
 <p>That is, for a given <span class="math notranslate nohighlight">\(H\)</span>, the number <span class="math notranslate nohighlight">\(p\)</span> is a special number.</p>
 <p>Thus we can make this definition:</p>
