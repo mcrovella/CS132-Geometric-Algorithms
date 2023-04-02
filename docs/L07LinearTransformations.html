@@ -1,48 +1,59 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>Linear Transformations &#8212; Linear Algebra, Geometry, and Computation</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -50,66 +61,96 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'L07LinearTransformations';</script>
     <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="The Matrix of a Linear Transformation" href="L08MatrixofLinearTranformation.html" />
     <link rel="prev" title="Linear Independence" href="L06LinearIndependence.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="landing-page.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="_static/DiagramAR-icon.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Linear Algebra, Geometry, and Computation</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="_static/DiagramAR-icon.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/DiagramAR-icon.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -119,390 +160,212 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="L01LinearEquations.html">
-   Linear Equations
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L02Numerics.html">
-   (Getting Serious About) Numbers
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L03RowReductions.html">
-   Gaussian Elimination
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L04VectorEquations.html">
-   Vector Equations
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L05Axb.html">
-   <span class="math notranslate nohighlight">
-    \(A{\bf x} = {\bf b}\)
-   </span>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L06LinearIndependence.html">
-   Linear Independence
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Linear Transformations
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L08MatrixofLinearTranformation.html">
-   The Matrix of a Linear Transformation
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L09MatrixOperations.html">
-   Matrix Algebra
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L10MatrixInverse.html">
-   The Inverse of a Matrix
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L11MarkovChains.html">
-   Markov Chains
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L12MatrixFactorizations.html">
-   Matrix Factorizations
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L13ComputerGraphics.html">
-   Computer Graphics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L14Subspaces.html">
-   Subspaces
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L15DimensionRank.html">
-   Dimension and Rank
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L16Eigenvectors.html">
-   Eigenvectors and Eigenvalues
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L17CharacteristicEqn.html">
-   The Characteristic Equation
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L18Diagonalization.html">
-   Diagonalization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L19PageRank.html">
-   PageRank
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L20Orthogonality.html">
-   Analytic Geometry in
-   <span class="math notranslate nohighlight">
-    \(\mathbb{R}^n\)
-   </span>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L21OrthogonalSets.html">
-   Orthogonal Sets and Projection
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L22LeastSquares.html">
-   Least Squares
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L23LinearModels.html">
-   Linear Models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L24SymmetricMatrices.html">
-   Symmetric Matrices
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L25SVD.html">
-   The Singular Value Decomposition
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L26ApplicationsOfSVD.html">
-   Applications of the SVD
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="L01LinearEquations.html">Linear Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L02Numerics.html">(Getting Serious About) Numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L03RowReductions.html">Gaussian Elimination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L04VectorEquations.html">Vector Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L05Axb.html"><span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="L06LinearIndependence.html">Linear Independence</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Linear Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L08MatrixofLinearTranformation.html">The Matrix of a Linear Transformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L09MatrixOperations.html">Matrix Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L10MatrixInverse.html">The Inverse of a Matrix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L11MarkovChains.html">Markov Chains</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L12MatrixFactorizations.html">Matrix Factorizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L13ComputerGraphics.html">Computer Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L14Subspaces.html">Subspaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L15DimensionRank.html">Dimension and Rank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L16Eigenvectors.html">Eigenvectors and Eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L17CharacteristicEqn.html">The Characteristic Equation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L18Diagonalization.html">Diagonalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L19PageRank.html">PageRank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L20Orthogonality.html">Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="L21OrthogonalSets.html">Orthogonal Sets and Projection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L22LeastSquares.html">Least Squares</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L23LinearModels.html">Linear Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L24SymmetricMatrices.html">Symmetric Matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L25SVD.html">The Singular Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L26ApplicationsOfSVD.html">Applications of the SVD</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L07LinearTransformations.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
-  
-    <img src="_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
+  <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
-</div>
+  
+  <div id="rtd-footer-container"></div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="bottom"
-title="Source repository"
->
-  
-
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
 
 </a>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/L07LinearTransformations.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/L07LinearTransformations.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.ipynb</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file-pdf"></i>
   </span>
-<span class="headerbtn__text-container">.pdf</span>
+<span class="btn__text-container">.pdf</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
   </span>
 
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#transformations">
-   Transformations
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   Linear Transformations
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#properties-of-linear-transformations">
-   Properties of Linear Transformations
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#a-non-geometric-example-manufacturing">
-     A Non-Geometric Example: Manufacturing
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Linear Transformations</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#transformations">
-   Transformations
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   Linear Transformations
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#properties-of-linear-transformations">
-   Properties of Linear Transformations
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#a-non-geometric-example-manufacturing">
-     A Non-Geometric Example: Manufacturing
-    </a>
-   </li>
-  </ul>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Linear Transformations</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformations">Transformations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Linear Transformations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-linear-transformations">Properties of Linear Transformations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-non-geometric-example-manufacturing">A Non-Geometric Example: Manufacturing</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="linear-transformations">
-<h1>Linear Transformations<a class="headerlink" href="#linear-transformations" title="Permalink to this headline">#</a></h1>
+<h1>Linear Transformations<a class="headerlink" href="#linear-transformations" title="Permalink to this heading">#</a></h1>
 <p>So far we’ve been treating the matrix equation</p>
 <div class="math notranslate nohighlight">
 \[ A{\bf x} = {\bf b}\]</div>
@@ -517,7 +380,7 @@ title="Print to PDF"
 <p>In other words, if <span class="math notranslate nohighlight">\({\bf x} = \left[\begin{array}{r}1\\-4\\-3\end{array}\right]\)</span> and <span class="math notranslate nohighlight">\({\bf b} = \left[\begin{array}{r}-5\\2\end{array}\right]\)</span>, then <span class="math notranslate nohighlight">\(A\)</span> <em>transforms</em> <span class="math notranslate nohighlight">\({\bf x}\)</span> into <span class="math notranslate nohighlight">\({\bf b}\)</span>.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L07LinearTransformations_7_0.jpg" src="_images/L07LinearTransformations_7_0.jpg" />
+<img alt="_images/c336897a1dcad813a279fdb1769e97288d9c756e94a2b59b37ca464a624afeeb.jpg" src="_images/c336897a1dcad813a279fdb1769e97288d9c756e94a2b59b37ca464a624afeeb.jpg" />
 </div>
 </div>
 <p>Notice what <span class="math notranslate nohighlight">\(A\)</span> has done: it took a vector in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> and transformed it into a vector in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>.</p>
@@ -528,7 +391,7 @@ title="Print to PDF"
 <p>For a different <span class="math notranslate nohighlight">\(A\)</span>, the mapping might be from <span class="math notranslate nohighlight">\(\mathbb{R}^1\)</span> to <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L07LinearTransformations_12_0.jpg" src="_images/L07LinearTransformations_12_0.jpg" />
+<img alt="_images/5cfef36ce6f07c000b74bbfa1743ed807e7c38b404c1053fe75ac75e9384021c.jpg" src="_images/5cfef36ce6f07c000b74bbfa1743ed807e7c38b404c1053fe75ac75e9384021c.jpg" />
 </div>
 </div>
 <p>What would the shape of <span class="math notranslate nohighlight">\(A\)</span> be in the above case?</p>
@@ -538,13 +401,13 @@ title="Print to PDF"
 <p>Then, it would map from <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> to <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L07LinearTransformations_16_0.jpg" src="_images/L07LinearTransformations_16_0.jpg" />
+<img alt="_images/f974c236358b705c5ec8c0c77ac6559e844b38534fd2781cf8a71e0d999e60c7.jpg" src="_images/f974c236358b705c5ec8c0c77ac6559e844b38534fd2781cf8a71e0d999e60c7.jpg" />
 </div>
 </div>
 <p>We have moved out of the familiar world of functions of one variable:  we are now thinking about <font color = blue>functions that transform a vector into a vector.</font></p>
 <p>Or, put another way, functions that transform multiple variables into multiple variables.</p>
 <section id="transformations">
-<h2>Transformations<a class="headerlink" href="#transformations" title="Permalink to this headline">#</a></h2>
+<h2>Transformations<a class="headerlink" href="#transformations" title="Permalink to this heading">#</a></h2>
 <p>Some terminology:</p>
 <p>A <strong>transformation</strong> (or <strong>function</strong> or <strong>mapping</strong>) <span class="math notranslate nohighlight">\(T\)</span> from <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> to <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span> is a rule that assigns to each vector <span class="math notranslate nohighlight">\({\bf x}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> a vector <span class="math notranslate nohighlight">\(T({\bf x})\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span>.</p>
 <p>The set <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> is called the <strong>domain</strong> of <span class="math notranslate nohighlight">\(T\)</span>, and <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span> is called the <strong>codomain</strong> of <span class="math notranslate nohighlight">\(T\)</span>.</p>
@@ -556,7 +419,7 @@ title="Print to PDF"
 <p>The set of all images <span class="math notranslate nohighlight">\(T({\bf x})\)</span> is called the <strong>range</strong> of <span class="math notranslate nohighlight">\(T\)</span>.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L07LinearTransformations_22_0.jpg" src="_images/L07LinearTransformations_22_0.jpg" />
+<img alt="_images/6cc84d7076ff2ad84485b62de3da2a4016f1743faf03d7219e5a91c109682608.jpg" src="_images/6cc84d7076ff2ad84485b62de3da2a4016f1743faf03d7219e5a91c109682608.jpg" />
 </div>
 </div>
 <p>Here, the green plane is the set of all points that are possible outputs of <span class="math notranslate nohighlight">\(T\)</span> for some input <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>.</p>
@@ -585,7 +448,7 @@ title="Print to PDF"
  [1 1 0 0]]
 </pre></div>
 </div>
-<img alt="_images/L07LinearTransformations_26_1.png" src="_images/L07LinearTransformations_26_1.png" />
+<img alt="_images/7ec3fe1c6e5f466c56bf5fd3b086cfb375ab1220d0271e572388c9cc91e08841.png" src="_images/7ec3fe1c6e5f466c56bf5fd3b086cfb375ab1220d0271e572388c9cc91e08841.png" />
 </div>
 </div>
 <p>Now let’s transform each of these points according to the following rule.   Let</p>
@@ -634,13 +497,13 @@ transformed square =
  [1.  1.  0.  0. ]]
 </pre></div>
 </div>
-<img alt="_images/L07LinearTransformations_29_1.png" src="_images/L07LinearTransformations_29_1.png" />
+<img alt="_images/c3bf4405dd7d0b604296f05938c8002eb51dc47e538b62f5a772427665ec47fa.png" src="_images/c3bf4405dd7d0b604296f05938c8002eb51dc47e538b62f5a772427665ec47fa.png" />
 </div>
 </div>
 <p>This sort of transformation, where points are successively slid sideways, is called a <strong>shear</strong> transformation.</p>
 </section>
 <section id="id1">
-<h2>Linear Transformations<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
+<h2>Linear Transformations<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
 <p>By the properties of matrix-vector multiplication, we know that the transformation <span class="math notranslate nohighlight">\({\bf x} \mapsto A{\bf x}\)</span> has the properties that</p>
 <div class="math notranslate nohighlight">
 \[ A({\bf u} + {\bf v}) = A{\bf u} + A{\bf v} \;\;\;\mbox{and}\;\;\; A(c{\bf u}) = cA{\bf u}\]</div>
@@ -648,7 +511,7 @@ transformed square =
 <p>We are now ready to define one of the most fundamental concepts in the course: the concept of a <em>linear transformation</em>.</p>
 <p>(You are now finding out why the subject is called linear algebra!)</p>
 <p><strong>Definition.</strong>  A transformation <span class="math notranslate nohighlight">\(T\)</span> is <strong>linear</strong> if:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p><span class="math notranslate nohighlight">\(T({\bf u} + {\bf v}) = T({\bf u}) + T({\bf v}) \;\;\;\)</span> for all <span class="math notranslate nohighlight">\(\bf u, v\)</span> in the domain of <span class="math notranslate nohighlight">\(T\)</span>; and</p></li>
 <li><p><span class="math notranslate nohighlight">\(T(c{\bf u}) = cT({\bf u}) \;\;\;\)</span> for all scalars <span class="math notranslate nohighlight">\(c\)</span> and all <span class="math notranslate nohighlight">\(\bf u\)</span> in the domain of <span class="math notranslate nohighlight">\(T\)</span>.</p></li>
 </ol>
@@ -677,10 +540,10 @@ transformed square =
 <p>Is <span class="math notranslate nohighlight">\(T\)</span> a linear transformation?</p>
 </section>
 <section id="properties-of-linear-transformations">
-<h2>Properties of Linear Transformations<a class="headerlink" href="#properties-of-linear-transformations" title="Permalink to this headline">#</a></h2>
+<h2>Properties of Linear Transformations<a class="headerlink" href="#properties-of-linear-transformations" title="Permalink to this heading">#</a></h2>
 <p>A key aspect of a linear transformation is that it <strong>preserves the operations of vector addition and scalar multiplication.</strong></p>
 <p>For example: for vectors <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>, one can either:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Transform them both according to <span class="math notranslate nohighlight">\(T()\)</span>, then add them, or:</p></li>
 <li><p>Add them, and then transform the result according to <span class="math notranslate nohighlight">\(T()\)</span>.</p></li>
 </ol>
@@ -732,7 +595,7 @@ T(c\mathbf{u} + d\mathbf{v}) = 3(c\mathbf{u} + d\mathbf{v})
 <p>If <span class="math notranslate nohighlight">\(\mathbf{b} \neq 0\)</span>, then the above two expressions are not equal.</p>
 <p>So <span class="math notranslate nohighlight">\(T\)</span> is <strong>not</strong> a linear transformation.</p>
 <section id="a-non-geometric-example-manufacturing">
-<h3>A Non-Geometric Example: Manufacturing<a class="headerlink" href="#a-non-geometric-example-manufacturing" title="Permalink to this headline">#</a></h3>
+<h3>A Non-Geometric Example: Manufacturing<a class="headerlink" href="#a-non-geometric-example-manufacturing" title="Permalink to this heading">#</a></h3>
 <p>A company manufactures two products, B and C.  To do so, it requires materials, labor, and overhead.</p>
 <p>For one dollar’s worth of product B, it spends 45 cents on materials, 25 cents on labor, and 15 cents on overhead.</p>
 <p>For one dollar’s worth of product C, it spends 40 cents on materials, 30 cents on labor, and 15 cents on overhead.</p>
@@ -754,7 +617,7 @@ T(c\mathbf{u} + d\mathbf{v}) = 3(c\mathbf{u} + d\mathbf{v})
 \end{split}\]</div>
 <p>The mapping <span class="math notranslate nohighlight">\(T\)</span> transforms a list of production quantities into a list of total costs.</p>
 <p>The linearity of this mapping is reflected in two ways:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>If production is increased by a factor of, say, 4, ie, from <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> to <span class="math notranslate nohighlight">\(4\mathbf{x}\)</span>, then the costs increase by the same factor, from <span class="math notranslate nohighlight">\(T(\mathbf{x})\)</span> to <span class="math notranslate nohighlight">\(4T(\mathbf{x})\)</span>.</p></li>
 <li><p>If <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> are production vectors, then the total cost vector associated with combined production of <span class="math notranslate nohighlight">\(\mathbf{x} + \mathbf{y}\)</span> is precisely the sum of the cost vectors <span class="math notranslate nohighlight">\(T(\mathbf{x})\)</span> and <span class="math notranslate nohighlight">\(T(\mathbf{y})\)</span>.</p></li>
 </ol>
@@ -774,7 +637,7 @@ T(c\mathbf{u} + d\mathbf{v}) = 3(c\mathbf{u} + d\mathbf{v})
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -782,50 +645,104 @@ T(c\mathbf{u} + d\mathbf{v}) = 3(c\mathbf{u} + d\mathbf{v})
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="L06LinearIndependence.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Linear Independence</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="L06LinearIndependence.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Linear Independence</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="L08MatrixofLinearTranformation.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="L08MatrixofLinearTranformation.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">The Matrix of a Linear Transformation</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transformations">Transformations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Linear Transformations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#properties-of-linear-transformations">Properties of Linear Transformations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-non-geometric-example-manufacturing">A Non-Geometric Example: Manufacturing</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
   
-    By Mark Crovella<br/>
-  
-      &copy; Copyright 2020-2022.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
-</div>
+<p class="component-author">
+By Mark Crovella
+</p>
 
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2020-2022.
+      <br/>
+    
+  </p>
 
-      </div>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
