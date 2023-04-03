@@ -4,11 +4,13 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
     <title>Matrix Algebra &#8212; Linear Algebra, Geometry, and Computation</title>
     
-  <link href="_static/css/theme.css" rel="stylesheet" />
-  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
     
   <link rel="stylesheet"
@@ -18,51 +20,67 @@
   <link rel="preload" as="font" type="font/woff2" crossorigin
     href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
     
-  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="The Inverse of a Matrix" href="L10MatrixInverse.html" />
     <link rel="prev" title="The Matrix of a Linear Transformation" href="L08MatrixofLinearTranformation.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
     
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
     
     <div class="container-fluid" id="banner"></div>
 
@@ -71,9 +89,10 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
-    
-        <div class="navbar-brand-box">
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
@@ -91,14 +110,15 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="landing-page.html">
-   Preface
-  </a>
- </li>
-</ul>
-<ul class="current nav bd-sidenav">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="landing-page.html">
+                    Preface
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="L01LinearEquations.html">
    Linear Equations
@@ -237,104 +257,177 @@
 </ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
             
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="_sources/L09MatrixOperations.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
-    </div>
-</div>
-
-            <!-- Source interaction buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
-    <div class="dropdown-buttons sourcebuttons">
-        <a class="repository-button"
-            href="https://github.com/mcrovella/CS132-Geometric-Algorithms"><button type="button" class="btn btn-secondary topbarbtn"
-                data-toggle="tooltip" data-placement="left" title="Source repository"><i
-                    class="fab fa-github"></i>repository</button></a>
-        
-        
-    </div>
-</div>
-
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L09MatrixOperations.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        
-    </div>
-</div>
-
-        </div>
-
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
-            
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L09MatrixOperations.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/L09MatrixOperations.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#composing-linear-transformations">
    Composing Linear Transformations
@@ -394,17 +487,92 @@
  </li>
 </ul>
 
-            </nav>
-        </div>
-    </div>
+    </nav>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Matrix Algebra</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#composing-linear-transformations">
+   Composing Linear Transformations
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#matrix-multiplication">
+   Matrix Multiplication
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-inner-product-view-of-matrix-multiplication">
+   The Inner Product View of Matrix Multiplication
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id1">
+   Matrix Algebra
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#powers-of-a-matrix">
+   Powers of a Matrix
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-transpose-of-a-matrix">
+   The Transpose of a Matrix
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-computational-viewpoint">
+   The Computational Viewpoint
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#complexity">
+     Complexity
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#order-matters">
+     Order matters!
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#parallelization">
+     Parallelization
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-importance-of-libraries">
+     The Importance of Libraries
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
               <div>
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="matrix-algebra">
-<h1>Matrix Algebra<a class="headerlink" href="#matrix-algebra" title="Permalink to this headline">¶</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="matrix-algebra">
+<h1>Matrix Algebra<a class="headerlink" href="#matrix-algebra" title="Permalink to this headline">#</a></h1>
 <p>Today we will talk about multiplying matrices:</p>
 <ul class="simple">
 <li><p>How do you multiply matrices?</p></li>
@@ -415,8 +583,8 @@
 <p><a title="Herbert Beraud (1845–1896) / Public domain" href="https://commons.wikimedia.org/wiki/File:Arthur_Cayley.jpg"><a class="reference internal" href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Arthur_Cayley.jpg/256px-Arthur_Cayley.jpg"><img alt="Arthur Cayley" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Arthur_Cayley.jpg/256px-Arthur_Cayley.jpg" style="width: 256px;" /></a></a></p>
 <p>Early in his life, Arthur Cayley practiced law to support his passion for mathematics. During his time as a practicing lawyer, he published over 200 papers on mathematics. Finally at the age of 42 he got a position at Cambridge University and took a big pay cut so he could become a full-time mathematician. He said he never regretted the choice. Cayley often said, “I love my subject.”</p>
 <p>In 1855-1857 Cayley formed the theory of matrices, and came up with a way to multiply matrices. As we’ll see, it is not the most obvious thing to do, but it was quickly realized that it was the “right” way. Cayley came about this idea by first thinking about linear transformations, and how to compose linear transformations. So that’s where we’ll start.</p>
-<div class="section" id="composing-linear-transformations">
-<h2>Composing Linear Transformations<a class="headerlink" href="#composing-linear-transformations" title="Permalink to this headline">¶</a></h2>
+<section id="composing-linear-transformations">
+<h2>Composing Linear Transformations<a class="headerlink" href="#composing-linear-transformations" title="Permalink to this headline">#</a></h2>
 <p>Let’s start our discussion by recalling the linear transformation we called <strong>reflection through the origin.</strong></p>
 <p>Here is a picture of what this transformation does to a shape:</p>
 <div class="cell tag_remove-input docutils container">
@@ -468,9 +636,9 @@
 <div class="math notranslate nohighlight">
 \[ A(B{\bf x}) = [A{\bf b_1} \; \dots \; A{\bf b_p}] {\bf x}.\]</div>
 <p>So this matrix <font color=blue><span class="math notranslate nohighlight">\([A{\bf b_1} \; \dots \; A{\bf b_p}]\)</span></font> is what we are looking for!</p>
-</div>
-<div class="section" id="matrix-multiplication">
-<h2>Matrix Multiplication<a class="headerlink" href="#matrix-multiplication" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="matrix-multiplication">
+<h2>Matrix Multiplication<a class="headerlink" href="#matrix-multiplication" title="Permalink to this headline">#</a></h2>
 <p><strong>Definition.</strong>  If <span class="math notranslate nohighlight">\(A\)</span> is an <span class="math notranslate nohighlight">\(m \times n\)</span> matrix and <span class="math notranslate nohighlight">\(B\)</span> is <span class="math notranslate nohighlight">\(n \times p\)</span> matrix with columns <span class="math notranslate nohighlight">\({\bf b_1},\dots,{\bf b_p},\)</span> then the product <span class="math notranslate nohighlight">\(AB\)</span> is defined as the <span class="math notranslate nohighlight">\(m \times p\)</span> matrix whose columns are <span class="math notranslate nohighlight">\(A{\bf b_1}, \dots, A{\bf b_p}.\)</span>  That is,</p>
 <div class="math notranslate nohighlight">
 \[ AB = A[{\bf b_1} \; \dots \; {\bf b_p}] = [A{\bf b_1} \; \dots \; A{\bf b_p}]. \]</div>
@@ -513,9 +681,9 @@ A{\bf b_3} = \left[\begin{array}{rr}2&amp;3\\1&amp;-5\end{array}\right]\left[\be
 \[\begin{split}\begin{array}{cccc}A&amp;B&amp;=&amp;AB\\
 3\times \fbox{5}&amp;\fbox{5} \times 2&amp;&amp; 3 \times 2\\
 \end{array}\end{split}\]</div>
-</div>
-<div class="section" id="the-inner-product-view-of-matrix-multiplication">
-<h2>The Inner Product View of Matrix Multiplication<a class="headerlink" href="#the-inner-product-view-of-matrix-multiplication" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="the-inner-product-view-of-matrix-multiplication">
+<h2>The Inner Product View of Matrix Multiplication<a class="headerlink" href="#the-inner-product-view-of-matrix-multiplication" title="Permalink to this headline">#</a></h2>
 <p>Recall that the inner product of two vectors <span class="math notranslate nohighlight">\({\bf u}\)</span> and <span class="math notranslate nohighlight">\({\bf v}\)</span> is <span class="math notranslate nohighlight">\(\sum_k u_k v_k.\)</span></p>
 <p>Also recall that one way to define the matrix vector product is <span class="math notranslate nohighlight">\((A{\bf x})_i =\)</span> inner product of <span class="math notranslate nohighlight">\({\bf x}\)</span> and row <span class="math notranslate nohighlight">\(i\)</span> of <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>This immediately shows another way to think of matrix multiplication:</p>
@@ -528,9 +696,9 @@ A{\bf b_3} = \left[\begin{array}{rr}2&amp;3\\1&amp;-5\end{array}\right]\left[\be
 \left[\begin{array}{rrc}*&amp;*&amp;2(6)+3(3)\\ *&amp;*&amp;*\end{array}\right] = 
 \left[\begin{array}{rrr}*&amp;*&amp;21\\ *&amp;*&amp;*\end{array}\right].\end{split}\]</div>
 <p>This agrees with the result of the last example, and we could reproduce the whole solution by repeating this for each element of the result matrix.</p>
-</div>
-<div class="section" id="id1">
-<h2>Matrix Algebra<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="id1">
+<h2>Matrix Algebra<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
 <p>We’ve defined multiplication of two matrices.   What about addition of two matrices?</p>
 <p>This is straightfoward: if <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are the same shape, we get <span class="math notranslate nohighlight">\(A + B\)</span> by adding the corresponding elements.  (Just like adding vectors.)</p>
 <p>That is,</p>
@@ -607,18 +775,18 @@ A{\bf b_3} = \left[\begin{array}{rr}2&amp;3\\1&amp;-5\end{array}\right]\left[\be
 </li>
 </ul>
 <p><strong>Study and remember these rules.  You will use them!</strong></p>
-</div>
-<div class="section" id="powers-of-a-matrix">
-<h2>Powers of a Matrix<a class="headerlink" href="#powers-of-a-matrix" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="powers-of-a-matrix">
+<h2>Powers of a Matrix<a class="headerlink" href="#powers-of-a-matrix" title="Permalink to this headline">#</a></h2>
 <p>Equipped now with matrix-matrix multiplication, we can define the powers of a matrix in a straightforward way.  For an integer <span class="math notranslate nohighlight">\(k &gt; 0\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[ A^k = \overbrace{A\cdots A}^k.\]</div>
 <p>Obviously, <span class="math notranslate nohighlight">\(A\)</span> must be a square matrix for <span class="math notranslate nohighlight">\(A^k\)</span> to be defined.</p>
 <p>What should <span class="math notranslate nohighlight">\(A^0\)</span> be?</p>
 <p><span class="math notranslate nohighlight">\(A^0{\bf x}\)</span> should be the result of multiplying <span class="math notranslate nohighlight">\({\bf x}\)</span> with <span class="math notranslate nohighlight">\(A\)</span> zero times.   So we define <span class="math notranslate nohighlight">\(A^0 = I\)</span>.</p>
-</div>
-<div class="section" id="the-transpose-of-a-matrix">
-<h2>The Transpose of a Matrix<a class="headerlink" href="#the-transpose-of-a-matrix" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="the-transpose-of-a-matrix">
+<h2>The Transpose of a Matrix<a class="headerlink" href="#the-transpose-of-a-matrix" title="Permalink to this headline">#</a></h2>
 <p>Given an <span class="math notranslate nohighlight">\(m \times n\)</span> matrix <span class="math notranslate nohighlight">\(A,\)</span> the <em>transpose</em> of <span class="math notranslate nohighlight">\(A\)</span> is the matrix we get by interchanging its rows and columns.</p>
 <p>It is denoted <span class="math notranslate nohighlight">\(A^T\)</span>.   Its shape is <span class="math notranslate nohighlight">\(n \times m\)</span>.</p>
 <p>For example, if:</p>
@@ -656,9 +824,9 @@ C^T = \left[\begin{array}{rr}1&amp;-3\\1&amp;5\\1&amp;-2\\1&amp;7\end{array}\rig
 <p><strong>Question:</strong> For two vectors <span class="math notranslate nohighlight">\({\bf x}\)</span> and <span class="math notranslate nohighlight">\({\bf y}\)</span>, what is <span class="math notranslate nohighlight">\({\bf x}^T {\bf y}\)</span>?</p>
 <p><strong>Answer:</strong> By the definition of matrix-vector multiplication,  <span class="math notranslate nohighlight">\({\bf x}^T {\bf y} = \sum_{i=1}^n x_i y_i.\)</span></p>
 <p>That is, <span class="math notranslate nohighlight">\({\bf x}^T {\bf y}\)</span> is the <strong>inner product</strong> of <span class="math notranslate nohighlight">\({\bf x}\)</span> and <span class="math notranslate nohighlight">\({\bf y}\)</span>.  This simple construction is a very useful one to remember.</p>
-</div>
-<div class="section" id="the-computational-viewpoint">
-<h2>The Computational Viewpoint<a class="headerlink" href="#the-computational-viewpoint" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="the-computational-viewpoint">
+<h2>The Computational Viewpoint<a class="headerlink" href="#the-computational-viewpoint" title="Permalink to this headline">#</a></h2>
 <p>You recall in the last lecture I said that in Python/numpy:</p>
 <div class="highlight-none notranslate"><div class="highlight"><pre><span></span>C = A @ B
 </pre></div>
@@ -680,8 +848,8 @@ C^T = \left[\begin{array}{rr}1&amp;-3\\1&amp;5\\1&amp;-2\\1&amp;7\end{array}\rig
 <li><p>Modeling quantum computing</p></li>
 </ul>
 <p>So minimizing the time required to do matrix multiplication is immensely important.</p>
-<div class="section" id="complexity">
-<h3>Complexity<a class="headerlink" href="#complexity" title="Permalink to this headline">¶</a></h3>
+<section id="complexity">
+<h3>Complexity<a class="headerlink" href="#complexity" title="Permalink to this headline">#</a></h3>
 <p>What is the computational complexity of matrix multiplication?</p>
 <p>For two <span class="math notranslate nohighlight">\(n \times n\)</span> matrices, consider the definition that uses inner product:</p>
 <div class="math notranslate nohighlight">
@@ -698,9 +866,9 @@ C^T = \left[\begin{array}{rr}1&amp;-3\\1&amp;5\\1&amp;-2\\1&amp;7\end{array}\rig
 <div class="math notranslate nohighlight">
 \[2n^2\]</div>
 <p>operations.</p>
-</div>
-<div class="section" id="order-matters">
-<h3>Order matters!<a class="headerlink" href="#order-matters" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="order-matters">
+<h3>Order matters!<a class="headerlink" href="#order-matters" title="Permalink to this headline">#</a></h3>
 <p>When you look at a mathematical expression involving matrices, think <strong>carefully</strong> about what it means and how you might efficiently compute it.</p>
 <p><strong>For example:</strong></p>
 <p>What is the most efficient way to compute <span class="math notranslate nohighlight">\(A^2{\bf x}\)</span>?</p>
@@ -753,9 +921,9 @@ C^T = \left[\begin{array}{rr}1&amp;-3\\1&amp;5\\1&amp;-2\\1&amp;7\end{array}\rig
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="parallelization">
-<h3>Parallelization<a class="headerlink" href="#parallelization" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="parallelization">
+<h3>Parallelization<a class="headerlink" href="#parallelization" title="Permalink to this headline">#</a></h3>
 <p>Although matrix multiplication is computationally demanding, it has a wonderful property: it is <em>highly parallel</em>.</p>
 <p>That is, the computation needed for each element does not require computing the other elements.</p>
 <p>(This is not true, for example, for Gaussian elimination; think about the role of a pivot.)</p>
@@ -768,9 +936,9 @@ C^T = \left[\begin{array}{rr}1&amp;-3\\1&amp;5\\1&amp;-2\\1&amp;7\end{array}\rig
 <span class="math notranslate nohighlight">\((AB)_{ij}\)</span> as <span class="math notranslate nohighlight">\(\sum_{k=1}^n A_{ik}B_{kj}\)</span>.</p>
 <p>Then the elapsed time is reduced all the way down to <span class="math notranslate nohighlight">\(2n\)</span>.</p>
 <p>This sort of strategy is used for huge computations like web search and weather modeling.</p>
-</div>
-<div class="section" id="the-importance-of-libraries">
-<h3>The Importance of Libraries<a class="headerlink" href="#the-importance-of-libraries" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="the-importance-of-libraries">
+<h3>The Importance of Libraries<a class="headerlink" href="#the-importance-of-libraries" title="Permalink to this headline">#</a></h3>
 <p>The pervasive use of matrix multiplication in science and engineering means that very efficient and carefully constructed libraries have been developed for it.</p>
 <p>Important issues for high performance include:</p>
 <ul class="simple">
@@ -786,9 +954,9 @@ C^T = \left[\begin{array}{rr}1&amp;-3\\1&amp;5\\1&amp;-2\\1&amp;7\end{array}\rig
 <p>LAPACK has been developed over the past 40 years and is updated frequently to tune it for new computer hardware.</p>
 <p>Python’s “numpy” uses LAPACK under the hood for its matrix computations.</p>
 <p>Hence, even though Python is an interpreted language, for doing intensive matrix computations it is very fast, just as fast as compiled code.</p>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -812,54 +980,48 @@ C^T = \left[\begin{array}{rr}1&amp;-3\\1&amp;5\\1&amp;-2\\1&amp;7\end{array}\rig
 
               </div>
               
-        
-            
-
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="L08MatrixofLinearTranformation.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">The Matrix of a Linear Transformation</p>
-            </div>
-        </a>
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="L08MatrixofLinearTranformation.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">The Matrix of a Linear Transformation</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="L10MatrixInverse.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">The Inverse of a Matrix</p>
     </div>
-     <div id="next">
-        <a class="right-next" href="L10MatrixInverse.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">The Inverse of a Matrix</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
-        
+            </footer>
         </div>
     </div>
-    <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Mark Crovella<br/>
-        
-            &copy; Copyright 2020-2022.<br/>
-      </p>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Mark Crovella<br/>
+  
+      &copy; Copyright 2020-2022.<br/>
+</p>
+        </footer>
     </div>
-  </footer>
-</main>
+    
+</div>
 
 
       </div>
     </div>
   
-  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
-  
+
   </body>
 </html>
