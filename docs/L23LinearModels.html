@@ -1,377 +1,392 @@
 
-
 <!DOCTYPE html>
 
-
-<html lang="en" >
-
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Linear Models &#8212; Linear Algebra, Geometry, and Computation</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
-  </script>
-  
-  <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+    
+  <link href="_static/css/theme.css" rel="stylesheet" />
+  <link href="_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
-  
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
+    
+      
+
+    
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-  
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.1c5a1a01449ed65a7b51.js">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/togglebutton.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'L23LinearModels';</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Symmetric Matrices" href="L24SymmetricMatrices.html" />
     <link rel="prev" title="Least Squares" href="L22LeastSquares.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+    
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
 
-  
-  
-  <a class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
-<form class="bd-search d-flex align-items-center"
-      action="search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
-  
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
-  
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
       
-      <div class="bd-sidebar-primary bd-sidebar">
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
         
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-    
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-  
-
-<a class="navbar-brand logo" href="landing-page.html">
-  
-  
-  
-  
-    
-    
       
-    
-    
-    <img src="_static/DiagramAR-icon.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/DiagramAR-icon.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
-  
-  
-</a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item navbar-nav active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="landing-page.html">
-                    Preface
-                </a>
-            </li>
-        </ul>
-        <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="L01LinearEquations.html">Linear Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L02Numerics.html">(Getting Serious About) Numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L03RowReductions.html">Gaussian Elimination</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L04VectorEquations.html">Vector Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L05Axb.html"><span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span></a></li>
-<li class="toctree-l1"><a class="reference internal" href="L06LinearIndependence.html">Linear Independence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L07LinearTransformations.html">Linear Transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L08MatrixofLinearTranformation.html">The Matrix of a Linear Transformation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L09MatrixOperations.html">Matrix Algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L10MatrixInverse.html">The Inverse of a Matrix</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L11MarkovChains.html">Markov Chains</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L12MatrixFactorizations.html">Matrix Factorizations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L13ComputerGraphics.html">Computer Graphics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L14Subspaces.html">Subspaces</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L15DimensionRank.html">Dimension and Rank</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L16Eigenvectors.html">Eigenvectors and Eigenvalues</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L17CharacteristicEqn.html">The Characteristic Equation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L18Diagonalization.html">Diagonalization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L19PageRank.html">PageRank</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L20Orthogonality.html">Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span></a></li>
-<li class="toctree-l1"><a class="reference internal" href="L21OrthogonalSets.html">Orthogonal Sets and Projection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L22LeastSquares.html">Least Squares</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Linear Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L24SymmetricMatrices.html">Symmetric Matrices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L25SVD.html">The Singular Value Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L26ApplicationsOfSVD.html">Applications of the SVD</a></li>
+      
+      <img src="_static/DiagramAR-icon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Linear Algebra, Geometry, and Computation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="landing-page.html">
+   Preface
+  </a>
+ </li>
+</ul>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="L01LinearEquations.html">
+   Linear Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L02Numerics.html">
+   (Getting Serious About) Numbers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L03RowReductions.html">
+   Gaussian Elimination
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L04VectorEquations.html">
+   Vector Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L05Axb.html">
+   <span class="math notranslate nohighlight">
+    \(A{\bf x} = {\bf b}\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L06LinearIndependence.html">
+   Linear Independence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L07LinearTransformations.html">
+   Linear Transformations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L08MatrixofLinearTranformation.html">
+   The Matrix of a Linear Transformation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L09MatrixOperations.html">
+   Matrix Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L10MatrixInverse.html">
+   The Inverse of a Matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L11MarkovChains.html">
+   Markov Chains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L12MatrixFactorizations.html">
+   Matrix Factorizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L13ComputerGraphics.html">
+   Computer Graphics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L14Subspaces.html">
+   Subspaces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L15DimensionRank.html">
+   Dimension and Rank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L16Eigenvectors.html">
+   Eigenvectors and Eigenvalues
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L17CharacteristicEqn.html">
+   The Characteristic Equation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L18Diagonalization.html">
+   Diagonalization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L19PageRank.html">
+   PageRank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L20Orthogonality.html">
+   Analytic Geometry in
+   <span class="math notranslate nohighlight">
+    \(\mathbb{R}^n\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L21OrthogonalSets.html">
+   Orthogonal Sets and Projection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L22LeastSquares.html">
+   Least Squares
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Linear Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L24SymmetricMatrices.html">
+   Symmetric Matrices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L25SVD.html">
+   The Singular Value Decomposition
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L26ApplicationsOfSVD.html">
+   Applications of the SVD
+  </a>
+ </li>
 </ul>
 
     </div>
-</nav></div>
-    </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-  </div>
-  
-  <div id="rtd-footer-container"></div>
+</nav> <!-- To handle the deprecated key -->
 
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
 
-      </div>
-      
-      <main id="main-content" class="bd-main">
-        
-        
-
-<div class="sbt-scroll-pixel-helper"></div>
-
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <span class="fa-solid fa-bars"></span>
-</label></div>
-      
-    </div>
-  
-  
-    <div class="header-article-items__end">
-      
-        <div class="header-article-item">
-
-<div class="article-header-buttons">
-
-
-<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms" target="_blank"
-   class="btn btn-sm btn-source-repository-button"
-   title="Source repository"
-   data-bs-placement="bottom" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-
-</a>
-
-
-
-
-
-
-<div class="dropdown dropdown-download-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
-    <i class="fas fa-download"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="_sources/L23LinearModels.ipynb" target="_blank"
-   class="btn btn-sm btn-download-source-button dropdown-item"
-   title="Download source file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="btn__text-container">.ipynb</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li>
-<button onclick="window.print()"
-  class="btn btn-sm btn-download-pdf-button dropdown-item"
-  title="Print to PDF"
-  data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="btn__text-container">.pdf</span>
-</button>
-</li>
-      
-  </ul>
 </div>
 
 
+          
 
 
-<button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
-  title="Fullscreen mode"
-  data-bs-placement="bottom" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-
-
-<script>
-document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
-  </button>
-`);
-</script>
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
-</div></div>
-      
-    </div>
-  
-</div>
-</div>
-              
-              
-
-<div id="jb-print-docs-body" class="onlyprint">
-    <h1>Linear Models</h1>
-    <!-- Table of contents -->
-    <div id="print-main-content">
-        <div id="jb-print-toc">
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
             
-            <div>
-                <h2> Contents </h2>
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/L23LinearModels.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Connect with source repository"><i class="fab fa-github"></i></button>
+    <div class="dropdown-buttons sourcebuttons">
+        <a class="repository-button"
+            href="https://github.com/mcrovella/CS132-Geometric-Algorithms"><button type="button" class="btn btn-secondary topbarbtn"
+                data-toggle="tooltip" data-placement="left" title="Source repository"><i
+                    class="fab fa-github"></i>repository</button></a>
+        
+        
+    </div>
+</div>
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L23LinearModels.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
             </div>
-            <nav aria-label="Page">
+            <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-problems">Regression Problems</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-framework-of-linear-models">The Framework of Linear Models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-a-line-to-data">Fitting a Line to Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-least-squares-problem">A Least-Squares Problem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-general-linear-model">The General Linear Model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#least-squares-fitting-of-other-models">Least-Squares Fitting of Other Models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-regression">Multiple Regression</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-regression-in-practice">Multiple Regression in Practice</a></li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#regression-problems">
+   Regression Problems
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-framework-of-linear-models">
+   The Framework of Linear Models
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fitting-a-line-to-data">
+   Fitting a Line to Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-least-squares-problem">
+   A Least-Squares Problem
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-general-linear-model">
+   The General Linear Model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#least-squares-fitting-of-other-models">
+   Least-Squares Fitting of Other Models
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multiple-regression">
+   Multiple Regression
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multiple-regression-in-practice">
+   Multiple Regression in Practice
+  </a>
+ </li>
 </ul>
+
             </nav>
         </div>
     </div>
 </div>
-
-              
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
                 
-<div id="searchbox"></div>
-                <article class="bd-article" role="main">
-                  
   <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for QR codes use inline</span>
 <span class="c1"># %matplotlib inline</span>
@@ -403,90 +418,60 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 </div>
-<section class="tex2jax_ignore mathjax_ignore" id="linear-models">
-<h1>Linear Models<a class="headerlink" href="#linear-models" title="Permalink to this heading">#</a></h1>
+<div class="tex2jax_ignore mathjax_ignore section" id="linear-models">
+<h1>Linear Models<a class="headerlink" href="#linear-models" title="Permalink to this headline">¶</a></h1>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit</span>
 <span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/Sir_Francis_Galton_by_Charles_Wellington_Furse.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">550</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/35e832b06982cf24d5993c3b565832fa38fa9d155ae1b666d1b5dc072c504ebb.jpg" src="_images/35e832b06982cf24d5993c3b565832fa38fa9d155ae1b666d1b5dc072c504ebb.jpg" />
+<img alt="_images/L23LinearModels_2_0.jpg" src="_images/L23LinearModels_2_0.jpg" />
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HTML</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;&lt;a href=&quot;https://commons.wikimedia.org/wiki/File:Sir_Francis_Galton_by_Charles_Wellington_Furse.jpg#/media/File:Sir_Francis_Galton_by_Charles_Wellington_Furse.jpg&quot;&gt;Sir Francis Galton by Charles Wellington Furse&lt;/a&gt; by Charles Wellington Furse (died 1904) - &lt;a href=&quot;//en.wikipedia.org/wiki/National_Portrait_Gallery,_London&quot; class=&quot;extiw&quot; title=&quot;en:National Portrait Gallery, London&quot;&gt;National Portrait Gallery&lt;/a&gt;: &lt;a rel=&quot;nofollow&quot; class=&quot;external text&quot; href=&quot;http://www.npg.org.uk/collections/search/portrait.php?search=ap&amp;amp;npgno=3916&amp;amp;eDate=&amp;amp;lDate=&quot;&gt;NPG 3916&lt;/a&gt;&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
 <div class="output text_html"><a href="https://commons.wikimedia.org/wiki/File:Sir_Francis_Galton_by_Charles_Wellington_Furse.jpg#/media/File:Sir_Francis_Galton_by_Charles_Wellington_Furse.jpg">Sir Francis Galton by Charles Wellington Furse</a> by Charles Wellington Furse (died 1904) - <a href="//en.wikipedia.org/wiki/National_Portrait_Gallery,_London" class="extiw" title="en:National Portrait Gallery, London">National Portrait Gallery</a>: <a rel="nofollow" class="external text" href="http://www.npg.org.uk/collections/search/portrait.php?search=ap&amp;npgno=3916&amp;eDate=&amp;lDate=">NPG 3916</a></div></div>
 </div>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/galton-title.png&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">550</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/0740bae3b41006baf591754cd6efff297efa0e7574bf2e26f4a260dd3ceebf54.png" src="_images/0740bae3b41006baf591754cd6efff297efa0e7574bf2e26f4a260dd3ceebf54.png" />
+<img alt="_images/L23LinearModels_4_0.png" src="_images/L23LinearModels_4_0.png" />
 </div>
 </div>
 <p>In 1886 Francis Galton published his observations about how random factors affect outliers.</p>
 <p>This notion has come to be called “regression to the mean” because unusually large or small phenomena, after the influence of random events, become closer to their mean values (less extreme).</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/galton-regression.png&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">550</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/3720f936d0e42166d3c8611c270a41946dfeea0cba67c15a723296b6c45c16f6.png" src="_images/3720f936d0e42166d3c8611c270a41946dfeea0cba67c15a723296b6c45c16f6.png" />
+<img alt="_images/L23LinearModels_6_0.png" src="_images/L23LinearModels_6_0.png" />
 </div>
 </div>
 <p>One of the most fundamental kinds of machine learning is the construction of a model that can be used to summarize a set of data.</p>
 <p>A model is a concise description of a dataset or a real-world phenomenon.</p>
 <p>For example, an equation can be a model if we use the equation to describe something in the real world.</p>
 <p>The most common form of modeling is <strong>regression</strong>, which means constructing an equation that describes the relationships among variables.</p>
-<section id="regression-problems">
-<h2>Regression Problems<a class="headerlink" href="#regression-problems" title="Permalink to this heading">#</a></h2>
+<div class="section" id="regression-problems">
+<h2>Regression Problems<a class="headerlink" href="#regression-problems" title="Permalink to this headline">¶</a></h2>
 <p>For example, we may look at these points and observe that they approximately lie on a line.</p>
 <p>So we could decide to <strong>model</strong> this data using a line.</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
 <span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
@@ -497,18 +482,12 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/a3d82530633d256803de08d41ecb50103fc6e35c8bdb47e53e3f7ef48b05b4ee.png" src="_images/a3d82530633d256803de08d41ecb50103fc6e35c8bdb47e53e3f7ef48b05b4ee.png" />
+<img alt="_images/L23LinearModels_11_0.png" src="_images/L23LinearModels_11_0.png" />
 </div>
 </div>
 <p>We may look at these points and decide to model them using a quadratic function.</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
 <span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
@@ -519,18 +498,12 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/b18a67983c544034abaad87e20bb4f63400f7fc40ac5b339fa91420bbd6c8480.png" src="_images/b18a67983c544034abaad87e20bb4f63400f7fc40ac5b339fa91420bbd6c8480.png" />
+<img alt="_images/L23LinearModels_13_0.png" src="_images/L23LinearModels_13_0.png" />
 </div>
 </div>
 <p>And we may look at these points and decide to model them using a logarithmic function.</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
 <span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
@@ -541,16 +514,15 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/30a42758947034f6e22897bb0bd30972e113b54f85a52790ec3da589c644bb40.png" src="_images/30a42758947034f6e22897bb0bd30972e113b54f85a52790ec3da589c644bb40.png" />
+<img alt="_images/L23LinearModels_15_0.png" src="_images/L23LinearModels_15_0.png" />
 </div>
 </div>
 <p>Clearly, none of these datasets agrees perfectly with the proposed model.   So the question arises:</p>
 <p>How do we find the <strong>best</strong> linear function (or quadratic function, or logarithmic function) given the data?</p>
-</section>
-<section id="the-framework-of-linear-models">
-<h2>The Framework of Linear Models<a class="headerlink" href="#the-framework-of-linear-models" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="the-framework-of-linear-models">
+<h2>The Framework of Linear Models<a class="headerlink" href="#the-framework-of-linear-models" title="Permalink to this headline">¶</a></h2>
 <p>The regression problem has been studied extensively in the field of statistics and machine learning.</p>
 <p>Certain terminology is used:</p>
 <ul class="simple">
@@ -567,11 +539,6 @@ document.write(`
 <p>The dependent variables are collected into an <strong>observation</strong> vector <span class="math notranslate nohighlight">\(\mathbf{y}.\)</span></p>
 <p>The parameters of the model (for any kind of model) are collected into a <strong>parameter</strong> vector <span class="math notranslate nohighlight">\(\beta.\)</span></p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
 <span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
@@ -584,14 +551,13 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/ff0a333b4515a45ba7eb4a3a5049b2ee8e0836216a27c9dec1e3573a341eafaf.png" src="_images/ff0a333b4515a45ba7eb4a3a5049b2ee8e0836216a27c9dec1e3573a341eafaf.png" />
+<img alt="_images/L23LinearModels_21_0.png" src="_images/L23LinearModels_21_0.png" />
 </div>
 </div>
-</section>
-<section id="fitting-a-line-to-data">
-<h2>Fitting a Line to Data<a class="headerlink" href="#fitting-a-line-to-data" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="fitting-a-line-to-data">
+<h2>Fitting a Line to Data<a class="headerlink" href="#fitting-a-line-to-data" title="Permalink to this headline">¶</a></h2>
 <p>The first kind of model we’ll study is a linear equation:</p>
 <div class="math notranslate nohighlight">
 \[y = \beta_0 + \beta_1 x.\]</div>
@@ -602,20 +568,14 @@ document.write(`
 <p>Let’s develop some terminology for evaluating a model.</p>
 <p>Suppose we have a line <span class="math notranslate nohighlight">\(y = \beta_0 + \beta_1 x\)</span>.   For each data point <span class="math notranslate nohighlight">\((x_j, y_j),\)</span> there is a point <span class="math notranslate nohighlight">\((x_j, \beta_0 + \beta_1 x_j)\)</span> that is the point on the line with the same <span class="math notranslate nohighlight">\(x\)</span>-coordinate.</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit: Lay, LAA, 4th edition</span>
 <span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/Lay-fig-6-6-1.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">550</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/48f6f40940ff62e227b595d38d3e89c5b7770e9d3afe06aabec9e95f2483b09e.jpg" src="_images/48f6f40940ff62e227b595d38d3e89c5b7770e9d3afe06aabec9e95f2483b09e.jpg" />
+<img alt="_images/L23LinearModels_26_0.jpg" src="_images/L23LinearModels_26_0.jpg" />
 </div>
 </div>
 <p>We call <span class="math notranslate nohighlight">\(y_j\)</span> the <strong>observed</strong> value of <span class="math notranslate nohighlight">\(y\)</span></p>
@@ -626,9 +586,9 @@ document.write(`
 <p>(Note that the residuals themselves may be positive or negative – by squaring them, we ensure that our error measures don’t cancel out.)</p>
 <p>The <strong>least-squares line</strong> is the line <span class="math notranslate nohighlight">\(y = \beta_0 + \beta_1x\)</span> that minimizes the sum of squares of the residuals.</p>
 <p>The coefficients <span class="math notranslate nohighlight">\(\beta_0, \beta_1\)</span> of the line are called <strong>regression coefficients.</strong></p>
-</section>
-<section id="a-least-squares-problem">
-<h2>A Least-Squares Problem<a class="headerlink" href="#a-least-squares-problem" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="a-least-squares-problem">
+<h2>A Least-Squares Problem<a class="headerlink" href="#a-least-squares-problem" title="Permalink to this headline">¶</a></h2>
 <p>Let’s imagine for a moment that the data fit a line perfectly.</p>
 <p>Then, if each of the data points happened to fall exactly on the line, the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span> would satisfy the equations</p>
 <div class="math notranslate nohighlight">
@@ -659,11 +619,6 @@ document.write(`
 <p>This is a least-squares problem, <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b},\)</span> with different notation.</p>
 <p><em>Computing the least-squares solution of <span class="math notranslate nohighlight">\(X\mathbf{\beta} = \mathbf{y}\)</span> is equivalent to finding the <span class="math notranslate nohighlight">\(\mathbf{\beta}\)</span> that determines the least-squares line.</em></p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
 <span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
@@ -676,16 +631,15 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/0228c12d8752833d63f0924f0940f28920927474980b07bb1d906cb90358b3a5.png" src="_images/0228c12d8752833d63f0924f0940f28920927474980b07bb1d906cb90358b3a5.png" />
+<img alt="_images/L23LinearModels_39_0.png" src="_images/L23LinearModels_39_0.png" />
 </div>
 </div>
 <div class="toggle docutils container">
 <p>Question Time!  Q23.1</p>
 </div>
 <p><strong>Example 1.</strong>  Find the equation <span class="math notranslate nohighlight">\(y = \beta_0 + \beta_1 x\)</span> of the least-squares line that best fits the data points</p>
-<table class="table">
+<table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>x</p></th>
 <th class="head"><p>y</p></th>
@@ -707,11 +661,6 @@ document.write(`
 </tbody>
 </table>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
 <span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
@@ -722,9 +671,8 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/ea108fd1e8084df8abab5257f9385c83e657150ea39b28d71f36701f785eaf09.png" src="_images/ea108fd1e8084df8abab5257f9385c83e657150ea39b28d71f36701f785eaf09.png" />
+<img alt="_images/L23LinearModels_42_0.png" src="_images/L23LinearModels_42_0.png" />
 </div>
 </div>
 <p><strong>Solution.</strong> Use the <span class="math notranslate nohighlight">\(x\)</span>-coordinates of the data to build the design matrix <span class="math notranslate nohighlight">\(X\)</span>, and the <span class="math notranslate nohighlight">\(y\)</span>-coordinates to build the observation vector <span class="math notranslate nohighlight">\(\mathbf{y}\)</span>:</p>
@@ -753,11 +701,6 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[y = \frac{2}{7} + \frac{5}{14}x.\]</div>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
 <span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
@@ -768,14 +711,13 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/637260fc1709d2cc1758726dabc2ac904975aa229131619a1de68474e2a08a4f.png" src="_images/637260fc1709d2cc1758726dabc2ac904975aa229131619a1de68474e2a08a4f.png" />
+<img alt="_images/L23LinearModels_50_0.png" src="_images/L23LinearModels_50_0.png" />
 </div>
 </div>
-</section>
-<section id="the-general-linear-model">
-<h2>The General Linear Model<a class="headerlink" href="#the-general-linear-model" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="the-general-linear-model">
+<h2>The General Linear Model<a class="headerlink" href="#the-general-linear-model" title="Permalink to this headline">¶</a></h2>
 <p>Another way that the inconsistent linear system is often written is to collect all the residuals into a <strong>residual vector.</strong></p>
 <p>Then an exact equation is</p>
 <div class="math notranslate nohighlight">
@@ -788,9 +730,9 @@ document.write(`
 <p>The least-squares solution <span class="math notranslate nohighlight">\(\hat{\mathbf{\beta}}\)</span> is a solution of the normal equations</p>
 <div class="math notranslate nohighlight">
 \[X^TX\mathbf{\beta} = X^T\mathbf{y}.\]</div>
-</section>
-<section id="least-squares-fitting-of-other-models">
-<h2>Least-Squares Fitting of Other Models<a class="headerlink" href="#least-squares-fitting-of-other-models" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="least-squares-fitting-of-other-models">
+<h2>Least-Squares Fitting of Other Models<a class="headerlink" href="#least-squares-fitting-of-other-models" title="Permalink to this headline">¶</a></h2>
 <p>Most models have parameters, and the object of <strong>model fitting</strong> is to to fix those parameters.   Let’s talk about model parameters.</p>
 <p>In model fitting, the parameters are the unknown.  A central question for us is whether the model is <em>linear</em> in its parameters.</p>
 <p>For example, the model <span class="math notranslate nohighlight">\(y = \beta_0 e^{-\beta_1 x}\)</span> is <strong>not</strong> linear in its parameters.</p>
@@ -822,11 +764,6 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{bmatrix}y_1\\y_2\\\vdots\\y_n\end{bmatrix} = \begin{bmatrix}1&amp;x_1&amp;x_1^2\\1&amp;x_2&amp;x_2^2\\\vdots&amp;\vdots&amp;\vdots\\1&amp;x_n&amp;x_n^2\end{bmatrix} \begin{bmatrix}\beta_0\\\beta_1\\\beta_2\end{bmatrix} + \begin{bmatrix}\epsilon_1\\\epsilon_2\\\vdots\\\epsilon_n\end{bmatrix}\end{split}\]</div>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">xquad</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">m</span><span class="p">),</span> <span class="n">xquad</span><span class="p">,</span><span class="n">xquad</span><span class="o">**</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
@@ -841,17 +778,11 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/9b580f5a0bd02d3701d8254400289fd1e8e3acf69871047f40354942dc4cbda4.png" src="_images/9b580f5a0bd02d3701d8254400289fd1e8e3acf69871047f40354942dc4cbda4.png" />
+<img alt="_images/L23LinearModels_67_0.png" src="_images/L23LinearModels_67_0.png" />
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">xlog</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">m</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">xlog</span><span class="p">)])</span><span class="o">.</span><span class="n">T</span>
@@ -866,17 +797,16 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/8094c06bebdc57cd8f62684e83d73f09f962c00210fd73082793dba23649e9b1.png" src="_images/8094c06bebdc57cd8f62684e83d73f09f962c00210fd73082793dba23649e9b1.png" />
+<img alt="_images/L23LinearModels_68_0.png" src="_images/L23LinearModels_68_0.png" />
 </div>
 </div>
 <div class="toggle docutils container">
 <p>Question Time!  Q23.2</p>
 </div>
-</section>
-<section id="multiple-regression">
-<h2>Multiple Regression<a class="headerlink" href="#multiple-regression" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="multiple-regression">
+<h2>Multiple Regression<a class="headerlink" href="#multiple-regression" title="Permalink to this headline">¶</a></h2>
 <p>Suppose an experiment involves two independent variables – say, <span class="math notranslate nohighlight">\(u\)</span> and <span class="math notranslate nohighlight">\(v\)</span>, – and one dependent variable, <span class="math notranslate nohighlight">\(y\)</span>.</p>
 <p>A linear equation for predicting <span class="math notranslate nohighlight">\(y\)</span> from <span class="math notranslate nohighlight">\(u\)</span> and <span class="math notranslate nohighlight">\(v\)</span> has the form</p>
 <div class="math notranslate nohighlight">
@@ -893,11 +823,6 @@ document.write(`
 <p><strong>Example.</strong>  In geography, local models of terrain are constructed from data <span class="math notranslate nohighlight">\((u_1, v_1, y_1), \dots, (u_n, v_n, y_n)\)</span> where <span class="math notranslate nohighlight">\(u_j, v_j\)</span>, and <span class="math notranslate nohighlight">\(y_j\)</span> are latitude, longitude, and altitude, respectively.</p>
 <p>Let’s take an example.   Here are a set of points in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>:</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">23</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;multivariate regression example&#39;</span><span class="p">,</span> 
                        <span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span>
@@ -928,9 +853,8 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/6f39f302a54cc36747119aa3f4c59d235b96b0fb6df6ff1b2f851d780010f2fb.png" src="_images/6f39f302a54cc36747119aa3f4c59d235b96b0fb6df6ff1b2f851d780010f2fb.png" />
+<img alt="_images/L23LinearModels_77_0.png" src="_images/L23LinearModels_77_0.png" />
 </div>
 </div>
 <p>Let’s describe the linear models that gives a least-squares fit to such data.  The solution is called the least-squares <em>plane.</em></p>
@@ -947,11 +871,6 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[\begin{split}\mathbf{y} = \begin{bmatrix}y_1\\y_1\\\vdots\\y_n\end{bmatrix},\;\;X = \begin{bmatrix}1&amp;u_1&amp;v_1\\1&amp;u_2&amp;v_2\\\vdots&amp;\vdots&amp;\vdots\\1&amp;u_n&amp;v_n\end{bmatrix},\;\;\mathbf{\beta}=\begin{bmatrix}\beta_0\\\beta_1\\\beta_2\end{bmatrix},\;\;\epsilon = \begin{bmatrix}\epsilon_1\\\epsilon_2\\\vdots\\\epsilon_n\end{bmatrix}\end{split}\]</div>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">23</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;multivariate regression example with fitted plane&#39;</span><span class="p">,</span> 
                        <span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span>
@@ -983,18 +902,17 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/91f3d1fd3ae8c3159bb40c0659654ed70ec014dfc53af877c5ee1a7d43664c0b.png" src="_images/91f3d1fd3ae8c3159bb40c0659654ed70ec014dfc53af877c5ee1a7d43664c0b.png" />
+<img alt="_images/L23LinearModels_81_0.png" src="_images/L23LinearModels_81_0.png" />
 </div>
 </div>
 <p>This example shows that the linear model for multiple regression has the same abstract form as the model for the simple regression in the earlier examples.</p>
 <p>We can see that there the general principle is the same across all the different kinds of linear models.</p>
 <p>Once <span class="math notranslate nohighlight">\(X\)</span> is defined properly, the normal equations for <span class="math notranslate nohighlight">\(\mathbf{\beta}\)</span> have the same matrix form, no matter how many variables are involved.</p>
 <p>Thus, for any linear model where <span class="math notranslate nohighlight">\(X^TX\)</span> is invertible, the least squares <span class="math notranslate nohighlight">\(\hat{\mathbf{\beta}}\)</span> is given by <span class="math notranslate nohighlight">\((X^TX)^{-1}X^T\mathbf{y}\)</span>.</p>
-</section>
-<section id="multiple-regression-in-practice">
-<h2>Multiple Regression in Practice<a class="headerlink" href="#multiple-regression-in-practice" title="Permalink to this heading">#</a></h2>
+</div>
+<div class="section" id="multiple-regression-in-practice">
+<h2>Multiple Regression in Practice<a class="headerlink" href="#multiple-regression-in-practice" title="Permalink to this headline">¶</a></h2>
 <p>Let’s see how powerful multiple regression can be on a real-world example.</p>
 <p>A typical application of linear models is predicting house prices.   Linear models have been used for this problem for decades, and when a municipality does a value assessment on your house, they typically use a linear model.</p>
 <p>We can consider various measurable attributes of a house (its “features”) as the independent variables, and the most recent sale price of the house as the dependent variable.</p>
@@ -1198,11 +1116,6 @@ document.write(`
 </div>
 <p>And for each house, we’ll plot its predicted versus actual sale value:</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
@@ -1214,15 +1127,14 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/703b097a38008a8ae89e9bc7e299d698342b1e332636ebe2335e2a2e2b33cda2.png" src="_images/703b097a38008a8ae89e9bc7e299d698342b1e332636ebe2335e2a2e2b33cda2.png" />
+<img alt="_images/L23LinearModels_105_0.png" src="_images/L23LinearModels_105_0.png" />
 </div>
 </div>
 <p>We see that the model does a reasonable job for house values less than about $250,000.</p>
 <p>For a better model, we’d want to consider more features of each house, and perhaps some additional functions such as polynomials as components of our model.</p>
-</section>
-</section>
+</div>
+</div>
 
     <script type="text/x-thebe-config">
     {
@@ -1236,7 +1148,7 @@ document.write(`
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -1244,106 +1156,56 @@ document.write(`
     </script>
     <script>kernelName = 'python3'</script>
 
-                </article>
+              </div>
               
-
-              
-              
-                <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="L22LeastSquares.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Least Squares</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="L24SymmetricMatrices.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Symmetric Matrices</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-problems">Regression Problems</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-framework-of-linear-models">The Framework of Linear Models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-a-line-to-data">Fitting a Line to Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-least-squares-problem">A Least-Squares Problem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-general-linear-model">The General Linear Model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#least-squares-fitting-of-other-models">Least-Squares Fitting of Other Models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-regression">Multiple Regression</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-regression-in-practice">Multiple Regression in Practice</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
-              
-            
-          </div>
-          <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
-<div class="bd-footer-content__inner container">
-  
-  <div class="footer-item">
-    
-<p class="component-author">
-By Mark Crovella
-</p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-  <p class="copyright">
-    
-      © Copyright 2020-2022.
-      <br/>
-    
-  </p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-</div></div>
-          </footer>
         
+            
 
-      </main>
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="L22LeastSquares.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Least Squares</p>
+            </div>
+        </a>
     </div>
-  </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+     <div id="next">
+        <a class="right-next" href="L24SymmetricMatrices.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Symmetric Matrices</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
 
-  <footer class="bd-footer">
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Mark Crovella<br/>
+        
+            &copy; Copyright 2020-2022.<br/>
+      </p>
+    </div>
   </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+
+  
   </body>
 </html>
