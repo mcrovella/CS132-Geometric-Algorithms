@@ -1,59 +1,48 @@
 
-
 <!DOCTYPE html>
 
-
-<html lang="en" >
-
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Analytic Geometry in \(\mathbb{R}^n\) &#8212; Linear Algebra, Geometry, and Computation</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
-  </script>
-  
+    
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
-  
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-  
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -61,96 +50,66 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'L20Orthogonality';</script>
     <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Orthogonal Sets and Projection" href="L21OrthogonalSets.html" />
     <link rel="prev" title="PageRank" href="L19PageRank.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
 
-  
-  
-  <a class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
-<form class="bd-search d-flex align-items-center"
-      action="search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
-  
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
-  
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
       
-      <div class="bd-sidebar-primary bd-sidebar">
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
         
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-    
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-  
-
-<a class="navbar-brand logo" href="landing-page.html">
-  
-  
-  
-  
-    
-    
       
-    
-    
-    <img src="_static/DiagramAR-icon.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/DiagramAR-icon.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
-  
-  
-</a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item navbar-nav active">
+      
+      <img src="_static/DiagramAR-icon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Linear Algebra, Geometry, and Computation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -160,222 +119,433 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="L01LinearEquations.html">Linear Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L02Numerics.html">(Getting Serious About) Numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L03RowReductions.html">Gaussian Elimination</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L04VectorEquations.html">Vector Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L05Axb.html"><span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span></a></li>
-<li class="toctree-l1"><a class="reference internal" href="L06LinearIndependence.html">Linear Independence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L07LinearTransformations.html">Linear Transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L08MatrixofLinearTranformation.html">The Matrix of a Linear Transformation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L09MatrixOperations.html">Matrix Algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L10MatrixInverse.html">The Inverse of a Matrix</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L11MarkovChains.html">Markov Chains</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L12MatrixFactorizations.html">Matrix Factorizations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L13ComputerGraphics.html">Computer Graphics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L14Subspaces.html">Subspaces</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L15DimensionRank.html">Dimension and Rank</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L16Eigenvectors.html">Eigenvectors and Eigenvalues</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L17CharacteristicEqn.html">The Characteristic Equation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L18Diagonalization.html">Diagonalization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L19PageRank.html">PageRank</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span></a></li>
-<li class="toctree-l1"><a class="reference internal" href="L21OrthogonalSets.html">Orthogonal Sets and Projection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L22LeastSquares.html">Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L23LinearModels.html">Linear Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L24SymmetricMatrices.html">Symmetric Matrices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L25SVD.html">The Singular Value Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L26ApplicationsOfSVD.html">Applications of the SVD</a></li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L01LinearEquations.html">
+   Linear Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L02Numerics.html">
+   (Getting Serious About) Numbers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L03RowReductions.html">
+   Gaussian Elimination
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L04VectorEquations.html">
+   Vector Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L05Axb.html">
+   <span class="math notranslate nohighlight">
+    \(A{\bf x} = {\bf b}\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L06LinearIndependence.html">
+   Linear Independence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L07LinearTransformations.html">
+   Linear Transformations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L08MatrixofLinearTranformation.html">
+   The Matrix of a Linear Transformation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L09MatrixOperations.html">
+   Matrix Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L10MatrixInverse.html">
+   The Inverse of a Matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L11MarkovChains.html">
+   Markov Chains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L12MatrixFactorizations.html">
+   Matrix Factorizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L13ComputerGraphics.html">
+   Computer Graphics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L14Subspaces.html">
+   Subspaces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L15DimensionRank.html">
+   Dimension and Rank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L16Eigenvectors.html">
+   Eigenvectors and Eigenvalues
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L17CharacteristicEqn.html">
+   The Characteristic Equation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L18Diagonalization.html">
+   Diagonalization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L19PageRank.html">
+   PageRank
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Analytic Geometry in
+   <span class="math notranslate nohighlight">
+    \(\mathbb{R}^n\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L21OrthogonalSets.html">
+   Orthogonal Sets and Projection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L22LeastSquares.html">
+   Least Squares
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L23LinearModels.html">
+   Linear Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L24SymmetricMatrices.html">
+   Symmetric Matrices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L25SVD.html">
+   The Singular Value Decomposition
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L26ApplicationsOfSVD.html">
+   Applications of the SVD
+  </a>
+ </li>
 </ul>
 
     </div>
 </nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
     </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-  </div>
-  
-  <div id="rtd-footer-container"></div>
+    <div id="rtd-footer-container"></div>
+</div>
 
 
-      </div>
-      
-      <main id="main-content" class="bd-main">
-        
-        
+          
 
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
-
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <span class="fa-solid fa-bars"></span>
-</label></div>
-      
-    </div>
-  
-  
-    <div class="header-article-items__end">
-      
-        <div class="header-article-item">
-
-<div class="article-header-buttons">
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
 
 
-<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms" target="_blank"
-   class="btn btn-sm btn-source-repository-button"
-   title="Source repository"
-   data-bs-placement="bottom" data-bs-toggle="tooltip"
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
 >
   
 
-<span class="btn__icon-container">
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L20Orthogonality.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
   <i class="fab fa-github"></i>
   </span>
 
 </a>
 
-
-
-
-
-
-<div class="dropdown dropdown-download-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
-    <i class="fas fa-download"></i>
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
   </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="_sources/L20Orthogonality.ipynb" target="_blank"
-   class="btn btn-sm btn-download-source-button dropdown-item"
-   title="Download source file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/L20Orthogonality.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
 >
   
 
-<span class="btn__icon-container">
+<span class="headerbtn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.ipynb</span>
+<span class="headerbtn__text-container">.ipynb</span>
 </a>
-</li>
-      
-      
-      
+
+      </li>
       
       <li>
-<button onclick="window.print()"
-  class="btn btn-sm btn-download-pdf-button dropdown-item"
-  title="Print to PDF"
-  data-bs-placement="left" data-bs-toggle="tooltip"
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
 >
   
 
-<span class="btn__icon-container">
+<span class="headerbtn__icon-container">
   <i class="fas fa-file-pdf"></i>
   </span>
-<span class="btn__text-container">.pdf</span>
+<span class="headerbtn__text-container">.pdf</span>
 </button>
-</li>
+
+      </li>
       
-  </ul>
+    </ul>
+  </div>
 </div>
-
-
-
-
-<button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
-  title="Fullscreen mode"
-  data-bs-placement="bottom" data-bs-toggle="tooltip"
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
 >
   
 
-<span class="btn__icon-container">
-  <i class="fas fa-expand"></i>
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
   </span>
 
-</button>
-
-
-<script>
-document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
-  </button>
-`);
-</script>
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
 </label>
-</div></div>
-      
-    </div>
-  
-</div>
-</div>
-              
-              
 
-<div id="jb-print-docs-body" class="onlyprint">
-    <h1>Analytic Geometry in \mathbb{R}^n</h1>
-    <!-- Table of contents -->
-    <div id="print-main-content">
-        <div id="jb-print-toc">
-            
-            <div>
-                <h2> Contents </h2>
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-challenge-extending-intuition-to-high-dimension">
+   The Challenge: Extending Intuition to High Dimension
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#inner-product-review">
+   Inner Product (Review)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#vector-norm">
+   Vector Norm
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#normalization-to-unit-length">
+     Normalization to Unit Length
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#distance">
+   Distance
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#orthogonality">
+   Orthogonality
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-angle-between-two-vectors">
+   The Angle Between Two Vectors
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-application-cosine-similarity">
+     Example Application: Cosine Similarity.
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Analytic Geometry in \mathbb{R}^n</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-challenge-extending-intuition-to-high-dimension">
+   The Challenge: Extending Intuition to High Dimension
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#inner-product-review">
+   Inner Product (Review)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#vector-norm">
+   Vector Norm
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#normalization-to-unit-length">
+     Normalization to Unit Length
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#distance">
+   Distance
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#orthogonality">
+   Orthogonality
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-angle-between-two-vectors">
+   The Angle Between Two Vectors
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#example-application-cosine-similarity">
+     Example Application: Cosine Similarity.
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
             </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-challenge-extending-intuition-to-high-dimension">The Challenge: Extending Intuition to High Dimension</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inner-product-review">Inner Product (Review)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-norm">Vector Norm</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normalization-to-unit-length">Normalization to Unit Length</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distance">Distance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#orthogonality">Orthogonality</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-angle-between-two-vectors">The Angle Between Two Vectors</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-application-cosine-similarity">Example Application: Cosine Similarity.</a></li>
-</ul>
-</li>
-</ul>
-            </nav>
-        </div>
-    </div>
-</div>
-
-              
+            <main id="main-content" role="main">
                 
-<div id="searchbox"></div>
-                <article class="bd-article" role="main">
-                  
+              <div>
+                
   <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for QR codes use inline</span>
 <span class="c1"># %matplotlib inline</span>
@@ -407,50 +577,32 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 </div>
 <section class="tex2jax_ignore mathjax_ignore" id="analytic-geometry-in-mathbb-r-n">
-<h1>Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span><a class="headerlink" href="#analytic-geometry-in-mathbb-r-n" title="Permalink to this heading">#</a></h1>
+<h1>Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span><a class="headerlink" href="#analytic-geometry-in-mathbb-r-n" title="Permalink to this headline">#</a></h1>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit: https://www.supremecourt.gov/about/photos.aspx</span>
 <span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/SC-night.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">350</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/fc15baa03beeb7db8f68c47b5fc0b78dfbbae38a44c64bb23c3b6b03b24b87cb.jpg" src="_images/fc15baa03beeb7db8f68c47b5fc0b78dfbbae38a44c64bb23c3b6b03b24b87cb.jpg" />
+<img alt="_images/L20Orthogonality_2_0.jpg" src="_images/L20Orthogonality_2_0.jpg" />
 </div>
 </div>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit: Google</span>
 <span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/orthogonal-def.png&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">850</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/fd314ec0f0a34ffbe0952eb5544329822857e29f8721c54f0f2cb292610aa56a.png" src="_images/fd314ec0f0a34ffbe0952eb5544329822857e29f8721c54f0f2cb292610aa56a.png" />
+<img alt="_images/L20Orthogonality_3_0.png" src="_images/L20Orthogonality_3_0.png" />
 </div>
 </div>
 <div class="cell tag_hide-cell docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit: https://www.supremecourt.gov/about/photos.aspx</span>
 <span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/SC-night.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">350</span><span class="p">))</span>
@@ -459,9 +611,8 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/fc15baa03beeb7db8f68c47b5fc0b78dfbbae38a44c64bb23c3b6b03b24b87cb.jpg" src="_images/fc15baa03beeb7db8f68c47b5fc0b78dfbbae38a44c64bb23c3b6b03b24b87cb.jpg" />
+<img alt="_images/L20Orthogonality_5_0.jpg" src="_images/L20Orthogonality_5_0.jpg" />
 <div class="output text_html">The Supreme Court of the United States</div></div>
-</details>
 </div>
 <p>Transcript of oral arguments before the US Supreme Court, <em>Briscoe v. Virginia,</em> January 11, 2010:</p>
 <p><em>MR. FRIEDMAN: I think that issue is entirely <strong>orthogonal</strong> to the issue here because the Commonwealth is acknowledging –</em></p>
@@ -477,7 +628,7 @@ document.write(`
 <p><em>JUSTICE KENNEDY: I knew this case presented us a problem.</em></p>
 <p><em>(Laughter.)</em></p>
 <section id="the-challenge-extending-intuition-to-high-dimension">
-<h2>The Challenge: Extending Intuition to High Dimension<a class="headerlink" href="#the-challenge-extending-intuition-to-high-dimension" title="Permalink to this heading">#</a></h2>
+<h2>The Challenge: Extending Intuition to High Dimension<a class="headerlink" href="#the-challenge-extending-intuition-to-high-dimension" title="Permalink to this headline">#</a></h2>
 <p>Our challenge today is to begin to lay down the elements of <strong>analytic geometry</strong>.</p>
 <p>The concepts we deal with today will be familiar to you.</p>
 <p>Our goal is not to introduce new ideas, but to cast old ideas into greater <strong>generality.</strong></p>
@@ -486,11 +637,6 @@ document.write(`
 <p>Let’s start with a simple example in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>.</p>
 <p>How would you determine the angle <span class="math notranslate nohighlight">\(\theta\)</span> below?</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">4.</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
@@ -519,19 +665,13 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/b5787e4af6ad501a7b808c14bca10dac6d03ff515cf8eb91d2434a1a3ca63f89.png" src="_images/b5787e4af6ad501a7b808c14bca10dac6d03ff515cf8eb91d2434a1a3ca63f89.png" />
+<img alt="_images/L20Orthogonality_11_0.png" src="_images/L20Orthogonality_11_0.png" />
 </div>
 </div>
 <p>This is fairly easy.   Probably we’d take out a protractor and use it to measure <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
 <p>OK, let’s go up one dimension, to <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>.</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="s1">&#39;An Angle in R3&#39;</span><span class="p">,</span>
                         <span class="n">xmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> 
@@ -580,9 +720,8 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/ce399d734ae6d76ea38f7f2febd2ff9820f039b20a71ec4a0f7df763404b240d.png" src="_images/ce399d734ae6d76ea38f7f2febd2ff9820f039b20a71ec4a0f7df763404b240d.png" />
+<img alt="_images/L20Orthogonality_14_0.png" src="_images/L20Orthogonality_14_0.png" />
 </div>
 </div>
 <p>This seems a little more challenging, but we could probably do it.</p>
@@ -601,7 +740,7 @@ document.write(`
 <p>So let’s briefly return to and review the <strong>inner product.</strong></p>
 </section>
 <section id="inner-product-review">
-<h2>Inner Product (Review)<a class="headerlink" href="#inner-product-review" title="Permalink to this heading">#</a></h2>
+<h2>Inner Product (Review)<a class="headerlink" href="#inner-product-review" title="Permalink to this headline">#</a></h2>
 <p>Recall that we consider vectors such as <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> to be <span class="math notranslate nohighlight">\(n\times1\)</span> matrices.</p>
 <p>Then <span class="math notranslate nohighlight">\(\mathbf{u}^T\mathbf{v}\)</span> is a scalar, called the <strong>inner product</strong> of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}.\)</span></p>
 <p>You will also see this called the <strong>dot product</strong>.</p>
@@ -613,16 +752,16 @@ document.write(`
 \[\begin{split}\mathbf{u}^T\mathbf{v} = \begin{bmatrix}u_1&amp;u_2&amp;\dots&amp;u_n\end{bmatrix}\begin{bmatrix}v_1\\v_2\\\vdots\\v_n\end{bmatrix} = u_1v_1 + u_2v_2 + \dots + u_nv_n = \sum_{i=1}^n u_iv_i.\end{split}\]</div>
 <p>Let’s remind ourselves of the properties of the inner product:</p>
 <p><strong>Theorem.</strong>  Let <span class="math notranslate nohighlight">\(\mathbf{u}\)</span>,<span class="math notranslate nohighlight">\(\mathbf{v}\)</span>, and <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> be vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, and let <span class="math notranslate nohighlight">\(c\)</span> be a scalar.  Then:</p>
-<ol class="arabic simple">
+<ol class="simple">
 <li><p><span class="math notranslate nohighlight">\(\mathbf{u}^T\mathbf{v} = \mathbf{v}^T\mathbf{u}\)</span></p></li>
 </ol>
 <p>Inner product is symmetric.  Note that these two expressions are the transpose of each other – but of course the transpose of a scalar is itself!</p>
-<ol class="arabic simple" start="2">
+<ol class="simple">
 <li><p><span class="math notranslate nohighlight">\((\mathbf{u}+\mathbf{v})^T\mathbf{w} = \mathbf{u}^T\mathbf{w} + \mathbf{v}^T\mathbf{w}\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\((c\mathbf{u})^T\mathbf{v} = c(\mathbf{u}^T\mathbf{v}) = \mathbf{u}^T(c\mathbf{v})\)</span></p></li>
 </ol>
 <p>Inner product is <strong>linear</strong> in <strong>each term.</strong></p>
-<ol class="arabic simple" start="4">
+<ol class="simple">
 <li><p><span class="math notranslate nohighlight">\(\mathbf{u}^T\mathbf{u} \geq 0,\;\;\;\mbox{and}\;\mathbf{u}^T\mathbf{u} = 0\;\mbox{if and only if}\;\mathbf{u} = 0\)</span></p></li>
 </ol>
 <p>Inner product of a vector with itself is <strong>never negative.</strong></p>
@@ -631,16 +770,11 @@ document.write(`
 <p>Now, given that review, let’s start talking about geometry.</p>
 </section>
 <section id="vector-norm">
-<h2>Vector Norm<a class="headerlink" href="#vector-norm" title="Permalink to this heading">#</a></h2>
+<h2>Vector Norm<a class="headerlink" href="#vector-norm" title="Permalink to this headline">#</a></h2>
 <p>OK, armed with the inner product, let’s get started.</p>
 <p>Our first question will be: How do we measure the <strong>length</strong> of a vector?</p>
 <p>Let’s say we are in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>.  Then the length follows directly from the Pythagorean theorem:</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,(</span><span class="mi">12</span><span class="p">,</span><span class="mi">8</span><span class="p">))</span>
 <span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
@@ -659,19 +793,13 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/b37561ef906743a3f9ff73d3aece54e6ecc8535a83d6d0adb7f5c2e6d6a63400.png" src="_images/b37561ef906743a3f9ff73d3aece54e6ecc8535a83d6d0adb7f5c2e6d6a63400.png" />
+<img alt="_images/L20Orthogonality_33_0.png" src="_images/L20Orthogonality_33_0.png" />
 </div>
 </div>
 <p>What happens when we move to <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>?</p>
 <p>It turns out we need to apply the Pythagorean Theorem an additional time:</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">fig_desc</span> <span class="o">=</span> <span class="s1">&#39;Pythagorean Theorem in R3&#39;</span><span class="p">,</span>
                         <span class="n">xmin</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xmax</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">ymin</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ymax</span> <span class="o">=</span> <span class="mi">7</span><span class="p">,</span> <span class="n">zmin</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">zmax</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span> 
@@ -695,9 +823,8 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/58b102d9a91fbd69e291136f3a462601b3568494c32e7dc044a688de59bbc4ad.png" src="_images/58b102d9a91fbd69e291136f3a462601b3568494c32e7dc044a688de59bbc4ad.png" />
+<img alt="_images/L20Orthogonality_35_0.png" src="_images/L20Orthogonality_35_0.png" />
 </div>
 </div>
 <p>So the length of a vector in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> is</p>
@@ -713,7 +840,7 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[\Vert\mathbf{v}\Vert = \sqrt{\mathbf{v}^T\mathbf{v}} = \sqrt{\sum_{i=1}^n{v_i}^2}.\]</div>
 <section id="normalization-to-unit-length">
-<h3>Normalization to Unit Length<a class="headerlink" href="#normalization-to-unit-length" title="Permalink to this heading">#</a></h3>
+<h3>Normalization to Unit Length<a class="headerlink" href="#normalization-to-unit-length" title="Permalink to this headline">#</a></h3>
 <p>For any scalar <span class="math notranslate nohighlight">\(c\)</span>, the length of <span class="math notranslate nohighlight">\(c\mathbf{v}\)</span> is <span class="math notranslate nohighlight">\(|c|\)</span> times the length of <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>.  That is,</p>
 <div class="math notranslate nohighlight">
 \[\Vert c\mathbf{v}\Vert = \vert c\vert\Vert\mathbf{v}\Vert.\]</div>
@@ -736,15 +863,10 @@ document.write(`
 </section>
 </section>
 <section id="distance">
-<h2>Distance<a class="headerlink" href="#distance" title="Permalink to this heading">#</a></h2>
+<h2>Distance<a class="headerlink" href="#distance" title="Permalink to this headline">#</a></h2>
 <p>It’s very useful to be able to talk about the <strong>distance</strong> between two points (or vectors) in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
 <p>We can start from basics:</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
 
@@ -765,9 +887,8 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/0570670d1c9d0f65f2faccc01fd4142764225580668ddb64474ba59fc389792b.png" src="_images/0570670d1c9d0f65f2faccc01fd4142764225580668ddb64474ba59fc389792b.png" />
+<img alt="_images/L20Orthogonality_52_0.png" src="_images/L20Orthogonality_52_0.png" />
 </div>
 </div>
 <p>On the number line (ie, <span class="math notranslate nohighlight">\(\mathbb{R}^1\)</span>), the distance between two points <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> is <span class="math notranslate nohighlight">\(\vert a-b\vert\)</span>.</p>
@@ -785,11 +906,6 @@ document.write(`
 <p>For example, consider the vectors <span class="math notranslate nohighlight">\(\mathbf{u} = \begin{bmatrix}7\\1\end{bmatrix}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v} = \begin{bmatrix}3\\2\end{bmatrix}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>.</p>
 <p>Then one can see that the distance from <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> to <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> is the same as the length of the vector <span class="math notranslate nohighlight">\(\mathbf{u}-\mathbf{v}\)</span>.</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 <span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
@@ -812,9 +928,8 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/76b2a34042e7af30d9a19e3c5785668fd2ff34eedc4894deb3c09374d91226e0.png" src="_images/76b2a34042e7af30d9a19e3c5785668fd2ff34eedc4894deb3c09374d91226e0.png" />
+<img alt="_images/L20Orthogonality_60_0.png" src="_images/L20Orthogonality_60_0.png" />
 </div>
 </div>
 <p>This shows that the distance between two vectors is the length of their difference.</p>
@@ -823,16 +938,11 @@ document.write(`
 </div>
 </section>
 <section id="orthogonality">
-<h2>Orthogonality<a class="headerlink" href="#orthogonality" title="Permalink to this heading">#</a></h2>
+<h2>Orthogonality<a class="headerlink" href="#orthogonality" title="Permalink to this headline">#</a></h2>
 <p>Now we turn to another familiar notion from 2D geometry, which we’ll generalize to <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>: the notion of being <strong>perpendicular.</strong></p>
 <p>Once again, we seek a way to express perpendicularity of two vectors, regardless of the dimension they live in.</p>
 <p>We will say that two vectors are perpendicular if they form a right angle at the origin.</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
@@ -857,20 +967,14 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/239170b2c5358a0fcd5e6e4fcc4cda0d4c5345c313b153de3e11acaec0f338b1.png" src="_images/239170b2c5358a0fcd5e6e4fcc4cda0d4c5345c313b153de3e11acaec0f338b1.png" />
+<img alt="_images/L20Orthogonality_67_0.png" src="_images/L20Orthogonality_67_0.png" />
 </div>
 </div>
 <p>Draw the line connecting <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>.</p>
 <p>Then <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> are perpendicular if and only if they make a right triangle with the origin.</p>
 <p>So <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> are perpendicular if and only if the Pythagorean Theorem is satisified for this triangle.</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
@@ -892,19 +996,13 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/aeaa3a71f0b9178ddff9f3883b60d4d21b6bfc477775b9e120f926476a076d63.png" src="_images/aeaa3a71f0b9178ddff9f3883b60d4d21b6bfc477775b9e120f926476a076d63.png" />
+<img alt="_images/L20Orthogonality_69_0.png" src="_images/L20Orthogonality_69_0.png" />
 </div>
 </div>
 <p>What is the length of the red side of the triangle?</p>
 <p>According to the definitions we’ve developed today, it is <span class="math notranslate nohighlight">\(\Vert \mathbf{u} - \mathbf{v} \Vert\)</span>.</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,(</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
@@ -928,9 +1026,8 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/e4a1428ffd2521916d4b8d0aad51ea3350306ad5888f69bd754dcb1d8ae9e85d.png" src="_images/e4a1428ffd2521916d4b8d0aad51ea3350306ad5888f69bd754dcb1d8ae9e85d.png" />
+<img alt="_images/L20Orthogonality_71_0.png" src="_images/L20Orthogonality_71_0.png" />
 </div>
 </div>
 <p>So the blue and green lines are perpendicular if and only if:</p>
@@ -969,18 +1066,13 @@ document.write(`
 </div>
 </section>
 <section id="the-angle-between-two-vectors">
-<h2>The Angle Between Two Vectors<a class="headerlink" href="#the-angle-between-two-vectors" title="Permalink to this heading">#</a></h2>
+<h2>The Angle Between Two Vectors<a class="headerlink" href="#the-angle-between-two-vectors" title="Permalink to this headline">#</a></h2>
 <p>There is an important connection between the inner product of two vectors and the <strong>angle</strong> between them.</p>
 <p>This connection is very useful (eg, in thinking about data mining operations).</p>
 <p>We start from the <strong>law of cosines:</strong></p>
 <div class="math notranslate nohighlight">
 \[ c^2 = a^2 + b^2 - 2ab\cos\theta\]</div>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">4.</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
@@ -1008,19 +1100,13 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/6889324959a83869b41b0a51959410c7bd7da2fc110966505ed05eb62656a501.png" src="_images/6889324959a83869b41b0a51959410c7bd7da2fc110966505ed05eb62656a501.png" />
+<img alt="_images/L20Orthogonality_89_0.png" src="_images/L20Orthogonality_89_0.png" />
 </div>
 </div>
 <p>Now let’s interpret this law in terms of vectors <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>.</p>
 <p>Once again, it is the angle that these vectors make at the origin that we are concerned with:</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,(</span><span class="mi">12</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
 <span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
@@ -1052,9 +1138,8 @@ document.write(`
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/90294445999d2116f328399acdc2377c080afb86f5da9894f6f61c06f7f36133.png" src="_images/90294445999d2116f328399acdc2377c080afb86f5da9894f6f61c06f7f36133.png" />
+<img alt="_images/L20Orthogonality_91_0.png" src="_images/L20Orthogonality_91_0.png" />
 </div>
 </div>
 <p>Applying the law of cosines we get:</p>
@@ -1084,11 +1169,6 @@ $<span class="math notranslate nohighlight">\( 2\mathbf{u}^T\mathbf{v} = 2\Vert\
 <p>Note that <span class="math notranslate nohighlight">\(\frac{\mathbf{u}}{\Vert\mathbf{u}\Vert}\)</span> and <span class="math notranslate nohighlight">\(\frac{\mathbf{v}}{\Vert\mathbf{v}\Vert}\)</span> are unit vectors.</p>
 <p>So we have the very simple rule, that for two <strong>unit</strong> vectors, their inner product is the cosine of the angle between them!</p>
 <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="mf">0.95</span><span class="p">))])</span>
 <span class="n">theta</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">/</span><span class="mi">3</span><span class="p">)</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">(</span><span class="mf">0.95</span><span class="p">)</span>
@@ -1115,9 +1195,8 @@ $<span class="math notranslate nohighlight">\( 2\mathbf{u}^T\mathbf{v} = 2\Vert\
 </pre></div>
 </div>
 </div>
-</details>
 <div class="cell_output docutils container">
-<img alt="_images/071e37c580abf4c43108bd3312460243cf3a24bfe2141a98ea10d8e685239dfd.png" src="_images/071e37c580abf4c43108bd3312460243cf3a24bfe2141a98ea10d8e685239dfd.png" />
+<img alt="_images/L20Orthogonality_103_0.png" src="_images/L20Orthogonality_103_0.png" />
 </div>
 </div>
 <p>Here <span class="math notranslate nohighlight">\(\mathbf{u} = \begin{bmatrix}0.95\\0.31\end{bmatrix},\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v} = \begin{bmatrix}0.20\\0.98\end{bmatrix}.\)</span></p>
@@ -1150,7 +1229,7 @@ $<span class="math notranslate nohighlight">\( 2\mathbf{u}^T\mathbf{v} = 2\Vert\
 <div class="math notranslate nohighlight">
 \[= 116\;\mbox{degrees.}\]</div>
 <section id="example-application-cosine-similarity">
-<h3>Example Application: Cosine Similarity.<a class="headerlink" href="#example-application-cosine-similarity" title="Permalink to this heading">#</a></h3>
+<h3>Example Application: Cosine Similarity.<a class="headerlink" href="#example-application-cosine-similarity" title="Permalink to this headline">#</a></h3>
 <p>A typical example where these techniques are valuable arises in data science.</p>
 <p>Let’s say we are given two documents <span class="math notranslate nohighlight">\(d_1\)</span> and <span class="math notranslate nohighlight">\(d_2\)</span>.  Each is a collection of “words.”</p>
 <p>For a goal such as information retrieval, we’d like to know whether the two documents are “similar”.</p>
@@ -1172,11 +1251,6 @@ dog\\ car \\ house \\ \dots \\ door
 <div class="math notranslate nohighlight">
 \[\theta_{1,2} = \cos^{-1}\frac{\mathbf{x_1}^T}{\Vert\mathbf{x_1}\Vert}\frac{\mathbf{x_2}}{\Vert\mathbf{x_2}\Vert}\]</div>
 <div class="cell tag_hide-cell docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
-</summary>
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
 <span class="nb">print</span> <span class="p">(</span><span class="n">u</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">u</span><span class="p">)))</span>
@@ -1195,7 +1269,6 @@ dog\\ car \\ house \\ \dots \\ door
 </pre></div>
 </div>
 </div>
-</details>
 </div>
 </section>
 </section>
@@ -1213,7 +1286,7 @@ dog\\ car \\ house \\ \dots \\ door
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -1221,110 +1294,50 @@ dog\\ car \\ house \\ \dots \\ door
     </script>
     <script>kernelName = 'python3'</script>
 
-                </article>
+              </div>
               
-
-              
-              
-                <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="L19PageRank.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">PageRank</p>
-      </div>
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="L19PageRank.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">PageRank</p>
+        </div>
     </a>
-    <a class="right-next"
-       href="L21OrthogonalSets.html"
-       title="next page">
-      <div class="prev-next-info">
+    <a class='right-next' id="next-link" href="L21OrthogonalSets.html" title="next page">
+    <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Orthogonal Sets and Projection</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
+    </div>
+    <i class="fas fa-angle-right"></i>
     </a>
 </div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-challenge-extending-intuition-to-high-dimension">The Challenge: Extending Intuition to High Dimension</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inner-product-review">Inner Product (Review)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-norm">Vector Norm</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normalization-to-unit-length">Normalization to Unit Length</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distance">Distance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#orthogonality">Orthogonality</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-angle-between-two-vectors">The Angle Between Two Vectors</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-application-cosine-similarity">Example Application: Cosine Similarity.</a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
-
-</div></div>
-              
-            
-          </div>
-          <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
-<div class="bd-footer-content__inner container">
-  
-  <div class="footer-item">
-    
-<p class="component-author">
-By Mark Crovella
-</p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-  <p class="copyright">
-    
-      © Copyright 2020-2022.
-      <br/>
-    
-  </p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-</div></div>
-          </footer>
-        
-
-      </main>
+            </footer>
+        </div>
     </div>
-  </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Mark Crovella<br/>
+  
+      &copy; Copyright 2020-2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
-  <footer class="bd-footer">
-  </footer>
+
   </body>
 </html>
