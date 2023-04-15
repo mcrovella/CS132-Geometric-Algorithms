@@ -1,48 +1,59 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>The Matrix of a Linear Transformation &#8212; Linear Algebra, Geometry, and Computation</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -50,66 +61,96 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
-    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'L08MatrixofLinearTranformation';</script>
     <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Matrix Algebra" href="L09MatrixOperations.html" />
     <link rel="prev" title="Linear Transformations" href="L07LinearTransformations.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
-
-    
-
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="index.html">
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="landing-page.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="_static/DiagramAR-icon.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Linear Algebra, Geometry, and Computation</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="_static/DiagramAR-icon.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/DiagramAR-icon.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -119,386 +160,213 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="L01LinearEquations.html">
-   Linear Equations
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L02Numerics.html">
-   (Getting Serious About) Numbers
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L03RowReductions.html">
-   Gaussian Elimination
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L04VectorEquations.html">
-   Vector Equations
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L05Axb.html">
-   <span class="math notranslate nohighlight">
-    \(A{\bf x} = {\bf b}\)
-   </span>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L06LinearIndependence.html">
-   Linear Independence
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L07LinearTransformations.html">
-   Linear Transformations
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   The Matrix of a Linear Transformation
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L09MatrixOperations.html">
-   Matrix Algebra
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L10MatrixInverse.html">
-   The Inverse of a Matrix
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L11MarkovChains.html">
-   Markov Chains
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L12MatrixFactorizations.html">
-   Matrix Factorizations
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L13ComputerGraphics.html">
-   Computer Graphics
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L14Subspaces.html">
-   Subspaces
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L15DimensionRank.html">
-   Dimension and Rank
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L16Eigenvectors.html">
-   Eigenvectors and Eigenvalues
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L17CharacteristicEqn.html">
-   The Characteristic Equation
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L18Diagonalization.html">
-   Diagonalization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L19PageRank.html">
-   PageRank
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L20Orthogonality.html">
-   Analytic Geometry in
-   <span class="math notranslate nohighlight">
-    \(\mathbb{R}^n\)
-   </span>
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L21OrthogonalSets.html">
-   Orthogonal Sets and Projection
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L22LeastSquares.html">
-   Least Squares
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L23LinearModels.html">
-   Linear Models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L24SymmetricMatrices.html">
-   Symmetric Matrices
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L25SVD.html">
-   The Singular Value Decomposition
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="L26ApplicationsOfSVD.html">
-   Applications of the SVD
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="L01LinearEquations.html">Linear Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L02Numerics.html">(Getting Serious About) Numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L03RowReductions.html">Gaussian Elimination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L04VectorEquations.html">Vector Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L05Axb.html"><span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="L06LinearIndependence.html">Linear Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L07LinearTransformations.html">Linear Transformations</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">The Matrix of a Linear Transformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L09MatrixOperations.html">Matrix Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L10MatrixInverse.html">The Inverse of a Matrix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L11MarkovChains.html">Markov Chains</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L12MatrixFactorizations.html">Matrix Factorizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L13ComputerGraphics.html">Computer Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L14Subspaces.html">Subspaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L15DimensionRank.html">Dimension and Rank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L16Eigenvectors.html">Eigenvectors and Eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L17CharacteristicEqn.html">The Characteristic Equation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L18Diagonalization.html">Diagonalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L19PageRank.html">PageRank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L20Orthogonality.html">Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="L21OrthogonalSets.html">Orthogonal Sets and Projection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L22LeastSquares.html">Least Squares</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L23LinearModels.html">Linear Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L24SymmetricMatrices.html">Symmetric Matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L25SVD.html">The Singular Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L26ApplicationsOfSVD.html">Applications of the SVD</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
-
-
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
-
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L08MatrixofLinearTranformation.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Binder"
->
   
-
-<span class="headerbtn__icon-container">
-  
-    <img src="_static/images/logo_binder.svg">
-  </span>
-<span class="headerbtn__text-container">Binder</span>
-</a>
-
-      </li>
-      
-    </ul>
+  <div class="sidebar-primary-items__end sidebar-primary__section">
   </div>
-</div>
+  
+  <div id="rtd-footer-container"></div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="bottom"
-title="Source repository"
->
-  
-
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fab fa-github"></i>
   </span>
 
 </a>
 
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="_sources/L08MatrixofLinearTranformation.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/L08MatrixofLinearTranformation.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="headerbtn__text-container">.ipynb</span>
+<span class="btn__text-container">.ipynb</span>
 </a>
-
-      </li>
+</li>
+      
+      
+      
       
       <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   <i class="fas fa-file-pdf"></i>
   </span>
-<span class="headerbtn__text-container">.pdf</span>
+<span class="btn__text-container">.pdf</span>
 </button>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
   </span>
 
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#geometric-linear-transformations-of-mathbb-r-2">
-   Geometric Linear Transformations of
-   <span class="math notranslate nohighlight">
-    \(\mathbb{R}^2\)
-   </span>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#area-is-scaled-by-the-determinant">
-   Area is Scaled by the Determinant
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#existence-and-uniqueness">
-   Existence and Uniqueness
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>The Matrix of a Linear Transformation</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#geometric-linear-transformations-of-mathbb-r-2">
-   Geometric Linear Transformations of
-   <span class="math notranslate nohighlight">
-    \(\mathbb{R}^2\)
-   </span>
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#area-is-scaled-by-the-determinant">
-   Area is Scaled by the Determinant
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#existence-and-uniqueness">
-   Existence and Uniqueness
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>The Matrix of a Linear Transformation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-linear-transformations-of-mathbb-r-2">Geometric Linear Transformations of <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#area-is-scaled-by-the-determinant">Area is Scaled by the Determinant</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#existence-and-uniqueness">Existence and Uniqueness</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="the-matrix-of-a-linear-transformation">
-<h1>The Matrix of a Linear Transformation<a class="headerlink" href="#the-matrix-of-a-linear-transformation" title="Permalink to this headline">#</a></h1>
+<h1>The Matrix of a Linear Transformation<a class="headerlink" href="#the-matrix-of-a-linear-transformation" title="Permalink to this heading">#</a></h1>
 <p>In the last lecture we introduced the idea of a <strong>linear transformation</strong>:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_4_0.jpg" src="_images/L08MatrixofLinearTranformation_4_0.jpg" />
+<img alt="_images/6cc84d7076ff2ad84485b62de3da2a4016f1743faf03d7219e5a91c109682608.jpg" src="_images/6cc84d7076ff2ad84485b62de3da2a4016f1743faf03d7219e5a91c109682608.jpg" />
 </div>
 </div>
 <p>We have seen that every matrix multiplication is a linear transformation from vectors to vectors.</p>
@@ -557,7 +425,7 @@ title="Print to PDF"
 <p>So to find the matrix of any given linear transformation of vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>, we only have to know what that transformation does to these two points:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_22_0.png" src="_images/L08MatrixofLinearTranformation_22_0.png" />
+<img alt="_images/415b000fe6fbb923cddb80546ade262bd68ef226d8ce6b45faba775c586940df.png" src="_images/415b000fe6fbb923cddb80546ade262bd68ef226d8ce6b45faba775c586940df.png" />
 </div>
 </div>
 <p>This is a <strong>hugely</strong> powerful tool.</p>
@@ -565,7 +433,7 @@ title="Print to PDF"
 <p>For example, let’s consider rotation about the origin as a kind of transformation.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_25_0.png" src="_images/L08MatrixofLinearTranformation_25_0.png" />
+<img alt="_images/69c93f20b3d30291c4c8d81a328fc4730ae1bfad661597a146b839a49f82cdac.png" src="_images/69c93f20b3d30291c4c8d81a328fc4730ae1bfad661597a146b839a49f82cdac.png" />
 </div>
 </div>
 <p>First things first: Is rotation a <strong>linear</strong> transformation?</p>
@@ -574,7 +442,7 @@ title="Print to PDF"
 <p>This figure shows that “the rotation of <span class="math notranslate nohighlight">\(\mathbf{u+v}\)</span> is the sum of the rotation of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and the rotation of <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>”.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_29_0.png" src="_images/L08MatrixofLinearTranformation_29_0.png" />
+<img alt="_images/b805547a94619ad7a433f19cde99803d8cbd818b122b6bb2c448e1e924db10b0.png" src="_images/b805547a94619ad7a433f19cde99803d8cbd818b122b6bb2c448e1e924db10b0.png" />
 </div>
 </div>
 <p>OK, so rotation is a linear transformation.</p>
@@ -585,7 +453,7 @@ title="Print to PDF"
 <p>Referring to the diagram below, we can see that <span class="math notranslate nohighlight">\(\left[\begin{array}{r}1\\0\end{array}\right]\)</span> rotates into <span class="math notranslate nohighlight">\(\left[\begin{array}{r}\cos\theta\\\sin\theta\end{array}\right],\)</span> and <span class="math notranslate nohighlight">\(\left[\begin{array}{r}0\\1\end{array}\right]\)</span> rotates into <span class="math notranslate nohighlight">\(\left[\begin{array}{r}-\sin\theta\\\cos\theta\end{array}\right].\)</span></p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_34_0.png" src="_images/L08MatrixofLinearTranformation_34_0.png" />
+<img alt="_images/fb32fcf8a56c8a69a355c409e202252a10a8c1feaad9b5d59e9b2413c636df13.png" src="_images/fb32fcf8a56c8a69a355c409e202252a10a8c1feaad9b5d59e9b2413c636df13.png" />
 </div>
 </div>
 <p>So by the Theorem above,</p>
@@ -601,7 +469,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_37_0.png" src="_images/L08MatrixofLinearTranformation_37_0.png" />
+<img alt="_images/d0238752e4c6af98f43a4deebc002ff1b2b4195ed41a29f65da84ba3ca05e98f.png" src="_images/d0238752e4c6af98f43a4deebc002ff1b2b4195ed41a29f65da84ba3ca05e98f.png" />
 </div>
 </div>
 <p>The variable <code class="docutils literal notranslate"><span class="pre">note</span></code> is a array of 26 vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> that define its shape.</p>
@@ -626,11 +494,11 @@ into a matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_40_0.png" src="_images/L08MatrixofLinearTranformation_40_0.png" />
+<img alt="_images/27772f135778be8a788aaff67a6f0c4a4b1c1bd254f02403ac67088b5258ef8c.png" src="_images/27772f135778be8a788aaff67a6f0c4a4b1c1bd254f02403ac67088b5258ef8c.png" />
 </div>
 </div>
 <section id="geometric-linear-transformations-of-mathbb-r-2">
-<h2>Geometric Linear Transformations of <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span><a class="headerlink" href="#geometric-linear-transformations-of-mathbb-r-2" title="Permalink to this headline">#</a></h2>
+<h2>Geometric Linear Transformations of <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span><a class="headerlink" href="#geometric-linear-transformations-of-mathbb-r-2" title="Permalink to this heading">#</a></h2>
 <p>Let’s use our understanding of how to constuct linear transformations to look at some specific linear transformations of <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> to <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>.</p>
 <p>First, let’s recall the linear transformation</p>
 <div class="math notranslate nohighlight">
@@ -640,7 +508,7 @@ into a matrix.</p>
 <p>To construct the matrix <span class="math notranslate nohighlight">\(A\)</span> that implements this transformation, we ask: where do <span class="math notranslate nohighlight">\({\bf e_1}\)</span> and <span class="math notranslate nohighlight">\({\bf e_2}\)</span> go?</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_45_0.png" src="_images/L08MatrixofLinearTranformation_45_0.png" />
+<img alt="_images/415b000fe6fbb923cddb80546ade262bd68ef226d8ce6b45faba775c586940df.png" src="_images/415b000fe6fbb923cddb80546ade262bd68ef226d8ce6b45faba775c586940df.png" />
 </div>
 </div>
 <p>Under the action of <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(\mathbf{e_1}\)</span> goes to <span class="math notranslate nohighlight">\(\left[\begin{array}{c}2.5\\0\end{array}\right]\)</span> and <span class="math notranslate nohighlight">\(\mathbf{e_2}\)</span> goes to <span class="math notranslate nohighlight">\(\left[\begin{array}{c}0\\2.5\end{array}\right]\)</span>.</p>
@@ -667,7 +535,7 @@ into a matrix.</p>
   2.5 &amp;  0.0\\
   0.0 &amp;  2.5
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_49_1.png" src="_images/L08MatrixofLinearTranformation_49_1.png" />
+<img alt="_images/8a0329959400669e6d1dc81da45ed8f9fa0368926b33c478186505552161967b.png" src="_images/8a0329959400669e6d1dc81da45ed8f9fa0368926b33c478186505552161967b.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -679,13 +547,13 @@ into a matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_50_0.png" src="_images/L08MatrixofLinearTranformation_50_0.png" />
+<img alt="_images/30d127870288bc7faf047b1167ffe5f1f27c3752863b59c2c40c97aef46e8d94.png" src="_images/30d127870288bc7faf047b1167ffe5f1f27c3752863b59c2c40c97aef46e8d94.png" />
 </div>
 </div>
 <p>OK, now let’s reflect through the <span class="math notranslate nohighlight">\(x_1\)</span> axis.   Where do <span class="math notranslate nohighlight">\({\bf e_1}\)</span> and <span class="math notranslate nohighlight">\({\bf e_2}\)</span> go?</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_53_0.png" src="_images/L08MatrixofLinearTranformation_53_0.png" />
+<img alt="_images/415b000fe6fbb923cddb80546ade262bd68ef226d8ce6b45faba775c586940df.png" src="_images/415b000fe6fbb923cddb80546ade262bd68ef226d8ce6b45faba775c586940df.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -707,7 +575,7 @@ into a matrix.</p>
   1  &amp;  0 \\
   0  &amp; -1 
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_54_1.png" src="_images/L08MatrixofLinearTranformation_54_1.png" />
+<img alt="_images/27c98e06eecd434b466302144ac3904ab41a01938581a2e63185ee5beedfbdb7.png" src="_images/27c98e06eecd434b466302144ac3904ab41a01938581a2e63185ee5beedfbdb7.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -719,7 +587,7 @@ into a matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_55_0.png" src="_images/L08MatrixofLinearTranformation_55_0.png" />
+<img alt="_images/7510e8c6ef8d765a20346cabf742e714c25886b1de3d020e965dba1f2a302e5f.png" src="_images/7510e8c6ef8d765a20346cabf742e714c25886b1de3d020e965dba1f2a302e5f.png" />
 </div>
 </div>
 <p>What about reflection through the <span class="math notranslate nohighlight">\(x_2\)</span> axis?</p>
@@ -742,7 +610,7 @@ into a matrix.</p>
  -1  &amp;   0 \\
    0  &amp;   1 
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_57_1.png" src="_images/L08MatrixofLinearTranformation_57_1.png" />
+<img alt="_images/6282ce88443682ae003fed0353ea040be6b8949964b08ff05619246e62a915aa.png" src="_images/6282ce88443682ae003fed0353ea040be6b8949964b08ff05619246e62a915aa.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -754,7 +622,7 @@ into a matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_58_0.png" src="_images/L08MatrixofLinearTranformation_58_0.png" />
+<img alt="_images/63b71049161d9b9a66f135e02210b586f6fdf74b3256232fb2d1f0bc58331e72.png" src="_images/63b71049161d9b9a66f135e02210b586f6fdf74b3256232fb2d1f0bc58331e72.png" />
 </div>
 </div>
 <p>What about reflection through the line <span class="math notranslate nohighlight">\(x_1 = x_2\)</span>?</p>
@@ -765,12 +633,12 @@ into a matrix.</p>
   0  &amp;  1 \\
   1  &amp;  0 
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_60_1.png" src="_images/L08MatrixofLinearTranformation_60_1.png" />
+<img alt="_images/a65cceb793ac26ef9dca4c6f666eecde77d271c685618073254db8908b8b6a95.png" src="_images/a65cceb793ac26ef9dca4c6f666eecde77d271c685618073254db8908b8b6a95.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_61_0.png" src="_images/L08MatrixofLinearTranformation_61_0.png" />
+<img alt="_images/a3ec64fb011b1ada128fc8f8e9c8a96496cdc372e417e73000b5a3aa3384ab68.png" src="_images/a3ec64fb011b1ada128fc8f8e9c8a96496cdc372e417e73000b5a3aa3384ab68.png" />
 </div>
 </div>
 <p>What about reflection through the line <span class="math notranslate nohighlight">\(x_1 = -x_2\)</span>?</p>
@@ -781,12 +649,12 @@ into a matrix.</p>
   0  &amp; -1 \\
  -1  &amp;  0 
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_63_1.png" src="_images/L08MatrixofLinearTranformation_63_1.png" />
+<img alt="_images/a548c7bde1b5c8f8431a6bcf9e93c458d01ee8ddc4d1d6a9e48a5af108f539b9.png" src="_images/a548c7bde1b5c8f8431a6bcf9e93c458d01ee8ddc4d1d6a9e48a5af108f539b9.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_64_0.png" src="_images/L08MatrixofLinearTranformation_64_0.png" />
+<img alt="_images/2788b210cf3d4d922eb1550dd55b8f6f7b56055f997aade35372db59a71d9b1d.png" src="_images/2788b210cf3d4d922eb1550dd55b8f6f7b56055f997aade35372db59a71d9b1d.png" />
 </div>
 </div>
 <p>What about reflection through the origin?</p>
@@ -797,12 +665,12 @@ into a matrix.</p>
  -1  &amp;  0 \\
   0  &amp; -1 
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_66_1.png" src="_images/L08MatrixofLinearTranformation_66_1.png" />
+<img alt="_images/b02756de16ed8aead4d95bb270e21e6a72edc6abdf0adad52cb070e0e236d7d6.png" src="_images/b02756de16ed8aead4d95bb270e21e6a72edc6abdf0adad52cb070e0e236d7d6.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_67_0.png" src="_images/L08MatrixofLinearTranformation_67_0.png" />
+<img alt="_images/541df6b0b5748008b0dcec55159cb8cdc73126fe33841811953c0cdca2d532bd.png" src="_images/541df6b0b5748008b0dcec55159cb8cdc73126fe33841811953c0cdca2d532bd.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
@@ -812,12 +680,12 @@ into a matrix.</p>
   0.45 &amp;  0.00\\
   0.00 &amp;  1.00
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_68_1.png" src="_images/L08MatrixofLinearTranformation_68_1.png" />
+<img alt="_images/2c7deb428e10dc8e5e294758f16ae263e99d7a86c1357334c48783a695cf3dfe.png" src="_images/2c7deb428e10dc8e5e294758f16ae263e99d7a86c1357334c48783a695cf3dfe.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_69_0.png" src="_images/L08MatrixofLinearTranformation_69_0.png" />
+<img alt="_images/a887aba358b317dfa07a39b4096a9223c51a61d8d07bfaed8a0d647b823fdfa5.png" src="_images/a887aba358b317dfa07a39b4096a9223c51a61d8d07bfaed8a0d647b823fdfa5.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
@@ -827,7 +695,7 @@ into a matrix.</p>
   2.5 &amp;  0.0\\
   0.0 &amp;  1.0
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_70_1.png" src="_images/L08MatrixofLinearTranformation_70_1.png" />
+<img alt="_images/d0428c4c34f89bd70a5e695ee8e1ff29d30e967677251cc31b7a87984d7d9ca5.png" src="_images/d0428c4c34f89bd70a5e695ee8e1ff29d30e967677251cc31b7a87984d7d9ca5.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
@@ -837,12 +705,12 @@ into a matrix.</p>
   1.0 &amp;  0.0\\
  -1.5 &amp;  1.0
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_71_1.png" src="_images/L08MatrixofLinearTranformation_71_1.png" />
+<img alt="_images/9d40c366af9bc5260e5401a958260a67b5530e4f2c910702d30f4d2f4697f0b6.png" src="_images/9d40c366af9bc5260e5401a958260a67b5530e4f2c910702d30f4d2f4697f0b6.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_72_0.png" src="_images/L08MatrixofLinearTranformation_72_0.png" />
+<img alt="_images/e2dabdb2b66f1bc41ef629ad34cf160332caee82e87105ebf554b0a4ec3f06c0.png" src="_images/e2dabdb2b66f1bc41ef629ad34cf160332caee82e87105ebf554b0a4ec3f06c0.png" />
 </div>
 </div>
 <p>Now let’s look at a particular kind of transformation called a <strong>projection</strong>.</p>
@@ -854,13 +722,13 @@ into a matrix.</p>
   1  &amp;  0 \\
   0  &amp;  0 
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_75_1.png" src="_images/L08MatrixofLinearTranformation_75_1.png" />
+<img alt="_images/a43fd4c454b763618844661f2b4b0d8dc5db603cf02ac1cb6bd13c3a16df2b2c.png" src="_images/a43fd4c454b763618844661f2b4b0d8dc5db603cf02ac1cb6bd13c3a16df2b2c.png" />
 </div>
 </div>
 <p>What happens to the <strong>shape</strong> of the point set?</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_77_0.png" src="_images/L08MatrixofLinearTranformation_77_0.png" />
+<img alt="_images/8c0686afe78becf1290beda319334abd0b6647dbfadf64781ff63917cb57da9c.png" src="_images/8c0686afe78becf1290beda319334abd0b6647dbfadf64781ff63917cb57da9c.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
@@ -870,17 +738,17 @@ into a matrix.</p>
   0  &amp;  0 \\
   0  &amp;  1 
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_78_1.png" src="_images/L08MatrixofLinearTranformation_78_1.png" />
+<img alt="_images/bd0ceec1f24e217c3317a71e3b1a5716b2abac491a0a68d3a6c2d7e6c712eb76.png" src="_images/bd0ceec1f24e217c3317a71e3b1a5716b2abac491a0a68d3a6c2d7e6c712eb76.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_79_0.png" src="_images/L08MatrixofLinearTranformation_79_0.png" />
+<img alt="_images/c61ebefd8203a490178739c15beb2d771484c2c921ccded7307ecd51914f824f.png" src="_images/c61ebefd8203a490178739c15beb2d771484c2c921ccded7307ecd51914f824f.png" />
 </div>
 </div>
 </section>
 <section id="area-is-scaled-by-the-determinant">
-<h2>Area is Scaled by the Determinant<a class="headerlink" href="#area-is-scaled-by-the-determinant" title="Permalink to this headline">#</a></h2>
+<h2>Area is Scaled by the Determinant<a class="headerlink" href="#area-is-scaled-by-the-determinant" title="Permalink to this heading">#</a></h2>
 <p>Notice that in some of the transformations above, the “size” of a shape grows or shrinks.</p>
 <p>Let’s look at how area (or volume) of a shape is affected by a linear transformation.</p>
 <div class="cell tag_remove-input docutils container">
@@ -890,14 +758,14 @@ into a matrix.</p>
   0.45 &amp;  0.00\\
   0.00 &amp;  1.00
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_82_1.png" src="_images/L08MatrixofLinearTranformation_82_1.png" />
+<img alt="_images/88ed8a704243e01cf370364ff151c66ce05509d0f4b5e3f3b1cc9fe37db5be83.png" src="_images/88ed8a704243e01cf370364ff151c66ce05509d0f4b5e3f3b1cc9fe37db5be83.png" />
 </div>
 </div>
 <p>In this transformation, each unit of area in the blue shape is transformed to a smaller region in the red shape.</p>
 <p>So to understand how area changes, it suffices to ask what happens to the unit square (or hypercube):</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_84_0.png" src="_images/L08MatrixofLinearTranformation_84_0.png" />
+<img alt="_images/c08324046f0f748c78961610d20d2ba323aa7d2ed8600d91cf28fdd9c69fe071.png" src="_images/c08324046f0f748c78961610d20d2ba323aa7d2ed8600d91cf28fdd9c69fe071.png" />
 </div>
 </div>
 <p>Let’s denote the matrix of our linear transformation as:</p>
@@ -906,14 +774,14 @@ into a matrix.</p>
 <p>Then, here is what happens to the unit square:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_87_0.png" src="_images/L08MatrixofLinearTranformation_87_0.png" />
+<img alt="_images/558e1a1b28b150e02deb504a892486c9a39d2520e647ff241e3532b03ba79dcc.png" src="_images/558e1a1b28b150e02deb504a892486c9a39d2520e647ff241e3532b03ba79dcc.png" />
 </div>
 </div>
 <p>Now, let’s determine the area of the blue diamond in terms of <span class="math notranslate nohighlight">\(a, b, c\)</span>, and <span class="math notranslate nohighlight">\(d\)</span>.</p>
 <p>To do that, we’ll use this diagram:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_90_0.png" src="_images/L08MatrixofLinearTranformation_90_0.png" />
+<img alt="_images/5995fb2328e182e0cf41e3f1515cda625b03df93b4ce223ecb70828affccc576.png" src="_images/5995fb2328e182e0cf41e3f1515cda625b03df93b4ce223ecb70828affccc576.png" />
 </div>
 </div>
 <p>Each of the triangles and rectangles has an area we can determine in terms of <span class="math notranslate nohighlight">\(a, b, c\)</span> and <span class="math notranslate nohighlight">\(d\)</span>.</p>
@@ -956,7 +824,7 @@ into a matrix.</p>
   1  &amp;  0 \\
   0  &amp;  0 
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/L08MatrixofLinearTranformation_102_1.png" src="_images/L08MatrixofLinearTranformation_102_1.png" />
+<img alt="_images/a43fd4c454b763618844661f2b4b0d8dc5db603cf02ac1cb6bd13c3a16df2b2c.png" src="_images/a43fd4c454b763618844661f2b4b0d8dc5db603cf02ac1cb6bd13c3a16df2b2c.png" />
 </div>
 </div>
 <p>The unit square has been collapsed onto the <span class="math notranslate nohighlight">\(x\)</span>-axis, resulting in a shape with area of zero.</p>
@@ -965,7 +833,7 @@ into a matrix.</p>
 \[\begin{split} \det\left(\begin{bmatrix}1 &amp; 0 \\ 0 &amp; 0\end{bmatrix}\right) = (1 \cdot 0) - (0 \cdot 0) = 0.\end{split}\]</div>
 </section>
 <section id="existence-and-uniqueness">
-<h2>Existence and Uniqueness<a class="headerlink" href="#existence-and-uniqueness" title="Permalink to this headline">#</a></h2>
+<h2>Existence and Uniqueness<a class="headerlink" href="#existence-and-uniqueness" title="Permalink to this heading">#</a></h2>
 <p>Notice that some of these transformations map multiple inputs to the same output, and some are incapable of generating certain outputs.</p>
 <p>For example, the <strong>projections</strong> above can send multiple different points to the same point.</p>
 <p>We need some terminology to understand these properties of linear transformations.</p>
@@ -978,7 +846,7 @@ into a matrix.</p>
 <p>This is asking an <strong>existence</strong> question about a solution of the equation <span class="math notranslate nohighlight">\(T(\mathbf{x}) = \mathbf{b}\)</span> for all <span class="math notranslate nohighlight">\(\mathbf{b}.\)</span></p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_108_0.jpg" src="_images/L08MatrixofLinearTranformation_108_0.jpg" />
+<img alt="_images/6cc84d7076ff2ad84485b62de3da2a4016f1743faf03d7219e5a91c109682608.jpg" src="_images/6cc84d7076ff2ad84485b62de3da2a4016f1743faf03d7219e5a91c109682608.jpg" />
 </div>
 </div>
 <p>Here, we see that <span class="math notranslate nohighlight">\(T\)</span> maps points in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> to a plane lying <strong>within</strong> <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>.</p>
@@ -986,7 +854,7 @@ into a matrix.</p>
 <p>So <span class="math notranslate nohighlight">\(T\)</span> is <strong>not onto</strong> <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_110_0.png" src="_images/L08MatrixofLinearTranformation_110_0.png" />
+<img alt="_images/d9503ef508361d8a203f9d0f5b3cbad26bb9c8ed5c64cabf52a89e9b33b60705.png" src="_images/d9503ef508361d8a203f9d0f5b3cbad26bb9c8ed5c64cabf52a89e9b33b60705.png" />
 </div>
 </div>
 <p>In this case, for every point in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>, there is an <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> that maps to that point.</p>
@@ -996,14 +864,14 @@ into a matrix.</p>
 <p>What about this transformation?   Is it onto <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>?</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_113_0.png" src="_images/L08MatrixofLinearTranformation_113_0.png" />
+<img alt="_images/2788b210cf3d4d922eb1550dd55b8f6f7b56055f997aade35372db59a71d9b1d.png" src="_images/2788b210cf3d4d922eb1550dd55b8f6f7b56055f997aade35372db59a71d9b1d.png" />
 </div>
 </div>
 <p>Here is an example of the projection transformation.  The red points (which all lie on the <span class="math notranslate nohighlight">\(x\)</span>-axis) are the images of the blue points.</p>
 <p>What about this transformation?  Is it onto <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>?</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_115_0.png" src="_images/L08MatrixofLinearTranformation_115_0.png" />
+<img alt="_images/8c0686afe78becf1290beda319334abd0b6647dbfadf64781ff63917cb57da9c.png" src="_images/8c0686afe78becf1290beda319334abd0b6647dbfadf64781ff63917cb57da9c.png" />
 </div>
 </div>
 <p><strong>Definition.</strong>  A mapping <span class="math notranslate nohighlight">\(T: \mathbb{R}^n \rightarrow \mathbb{R}^m\)</span> is said to be <strong>one-to-one</strong> if each <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span> is the image of <em>at most one</em> <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
@@ -1011,7 +879,7 @@ into a matrix.</p>
 <p>This is asking a <strong>uniqueness</strong> question about a solution of the equation <span class="math notranslate nohighlight">\(T(\mathbf{x}) = \mathbf{b}\)</span> for all <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/L08MatrixofLinearTranformation_119_0.jpg" src="_images/L08MatrixofLinearTranformation_119_0.jpg" />
+<img alt="_images/6ed345688ae0abc244e0d2ad69e23fe34311c05d6d3cd56cd8a8d3e5c2e1cbbe.jpg" src="_images/6ed345688ae0abc244e0d2ad69e23fe34311c05d6d3cd56cd8a8d3e5c2e1cbbe.jpg" />
 </div>
 </div>
 <p>Let’s examine the relationship between these ideas and some previous definitions.</p>
@@ -1050,7 +918,7 @@ into a matrix.</p>
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -1058,50 +926,101 @@ into a matrix.</p>
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="L07LinearTransformations.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Linear Transformations</p>
-        </div>
+
+              
+              
+                <footer class="bd-footer-article">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="L07LinearTransformations.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Linear Transformations</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="L09MatrixOperations.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="L09MatrixOperations.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Matrix Algebra</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-linear-transformations-of-mathbb-r-2">Geometric Linear Transformations of <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#area-is-scaled-by-the-determinant">Area is Scaled by the Determinant</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#existence-and-uniqueness">Existence and Uniqueness</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            <div class="bd-footer-content__inner">
+<div class="bd-footer-content__inner container">
   
-    By Mark Crovella<br/>
-  
-      &copy; Copyright 2020-2022.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
-</div>
+<p class="component-author">
+By Mark Crovella
+</p>
 
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2020-2022.
+      <br/>
+    
+  </p>
 
-      </div>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div></div>
+          </footer>
+        
+
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
