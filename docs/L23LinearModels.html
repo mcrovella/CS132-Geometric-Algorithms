@@ -1,59 +1,48 @@
 
-
 <!DOCTYPE html>
 
-
-<html lang="en" >
-
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Linear Models &#8212; Linear Algebra, Geometry, and Computation</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
-  </script>
-  
+    
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
-  
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-  
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -61,96 +50,66 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'L23LinearModels';</script>
     <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Symmetric Matrices" href="L24SymmetricMatrices.html" />
     <link rel="prev" title="Least Squares" href="L22LeastSquares.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
 
-  
-  
-  <a class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
-<form class="bd-search d-flex align-items-center"
-      action="search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
-  
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
-  
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
       
-      <div class="bd-sidebar-primary bd-sidebar">
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
         
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-    
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-  
-
-<a class="navbar-brand logo" href="landing-page.html">
-  
-  
-  
-  
-    
-    
       
-    
-    
-    <img src="_static/DiagramAR-icon.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/DiagramAR-icon.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
-  
-  
-</a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item navbar-nav active">
+      
+      <img src="_static/DiagramAR-icon.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Linear Algebra, Geometry, and Computation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -160,209 +119,425 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="L01LinearEquations.html">Linear Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L02Numerics.html">(Getting Serious About) Numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L03RowReductions.html">Gaussian Elimination</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L04VectorEquations.html">Vector Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L05Axb.html"><span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span></a></li>
-<li class="toctree-l1"><a class="reference internal" href="L06LinearIndependence.html">Linear Independence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L07LinearTransformations.html">Linear Transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L08MatrixofLinearTranformation.html">The Matrix of a Linear Transformation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L09MatrixOperations.html">Matrix Algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L10MatrixInverse.html">The Inverse of a Matrix</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L11MarkovChains.html">Markov Chains</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L12MatrixFactorizations.html">Matrix Factorizations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L13ComputerGraphics.html">Computer Graphics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L14Subspaces.html">Subspaces</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L15DimensionRank.html">Dimension and Rank</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L16Eigenvectors.html">Eigenvectors and Eigenvalues</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L17CharacteristicEqn.html">The Characteristic Equation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L18Diagonalization.html">Diagonalization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L19PageRank.html">PageRank</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L20Orthogonality.html">Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span></a></li>
-<li class="toctree-l1"><a class="reference internal" href="L21OrthogonalSets.html">Orthogonal Sets and Projection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L22LeastSquares.html">Least Squares</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Linear Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L24SymmetricMatrices.html">Symmetric Matrices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L25SVD.html">The Singular Value Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L26ApplicationsOfSVD.html">Applications of the SVD</a></li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L01LinearEquations.html">
+   Linear Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L02Numerics.html">
+   (Getting Serious About) Numbers
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L03RowReductions.html">
+   Gaussian Elimination
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L04VectorEquations.html">
+   Vector Equations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L05Axb.html">
+   <span class="math notranslate nohighlight">
+    \(A{\bf x} = {\bf b}\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L06LinearIndependence.html">
+   Linear Independence
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L07LinearTransformations.html">
+   Linear Transformations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L08MatrixofLinearTranformation.html">
+   The Matrix of a Linear Transformation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L09MatrixOperations.html">
+   Matrix Algebra
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L10MatrixInverse.html">
+   The Inverse of a Matrix
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L11MarkovChains.html">
+   Markov Chains
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L12MatrixFactorizations.html">
+   Matrix Factorizations
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L13ComputerGraphics.html">
+   Computer Graphics
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L14Subspaces.html">
+   Subspaces
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L15DimensionRank.html">
+   Dimension and Rank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L16Eigenvectors.html">
+   Eigenvectors and Eigenvalues
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L17CharacteristicEqn.html">
+   The Characteristic Equation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L18Diagonalization.html">
+   Diagonalization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L19PageRank.html">
+   PageRank
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L20Orthogonality.html">
+   Analytic Geometry in
+   <span class="math notranslate nohighlight">
+    \(\mathbb{R}^n\)
+   </span>
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L21OrthogonalSets.html">
+   Orthogonal Sets and Projection
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L22LeastSquares.html">
+   Least Squares
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Linear Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L24SymmetricMatrices.html">
+   Symmetric Matrices
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L25SVD.html">
+   The Singular Value Decomposition
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="L26ApplicationsOfSVD.html">
+   Applications of the SVD
+  </a>
+ </li>
 </ul>
 
     </div>
 </nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
     </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-  </div>
-  
-  <div id="rtd-footer-container"></div>
+    <div id="rtd-footer-container"></div>
+</div>
 
 
-      </div>
-      
-      <main id="main-content" class="bd-main">
-        
-        
+          
 
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
-
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <span class="fa-solid fa-bars"></span>
-</label></div>
-      
-    </div>
-  
-  
-    <div class="header-article-items__end">
-      
-        <div class="header-article-item">
-
-<div class="article-header-buttons">
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
 
 
-<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms" target="_blank"
-   class="btn btn-sm btn-source-repository-button"
-   title="Source repository"
-   data-bs-placement="bottom" data-bs-toggle="tooltip"
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
 >
   
 
-<span class="btn__icon-container">
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://mybinder.org/v2/gh/mcrovella/CS132-Geometric-Algorithms/master?urlpath=tree/L23LinearModels.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Binder"
+>
+  
+
+<span class="headerbtn__icon-container">
+  
+    <img src="_static/images/logo_binder.svg">
+  </span>
+<span class="headerbtn__text-container">Binder</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="bottom"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
   <i class="fab fa-github"></i>
   </span>
 
 </a>
 
-
-
-
-
-
-<div class="dropdown dropdown-download-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
-    <i class="fas fa-download"></i>
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
   </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="_sources/L23LinearModels.ipynb" target="_blank"
-   class="btn btn-sm btn-download-source-button dropdown-item"
-   title="Download source file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/L23LinearModels.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
 >
   
 
-<span class="btn__icon-container">
+<span class="headerbtn__icon-container">
   <i class="fas fa-file"></i>
   </span>
-<span class="btn__text-container">.ipynb</span>
+<span class="headerbtn__text-container">.ipynb</span>
 </a>
-</li>
-      
-      
-      
+
+      </li>
       
       <li>
-<button onclick="window.print()"
-  class="btn btn-sm btn-download-pdf-button dropdown-item"
-  title="Print to PDF"
-  data-bs-placement="left" data-bs-toggle="tooltip"
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
 >
   
 
-<span class="btn__icon-container">
+<span class="headerbtn__icon-container">
   <i class="fas fa-file-pdf"></i>
   </span>
-<span class="btn__text-container">.pdf</span>
+<span class="headerbtn__text-container">.pdf</span>
 </button>
-</li>
+
+      </li>
       
-  </ul>
+    </ul>
+  </div>
 </div>
-
-
-
-
-<button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
-  title="Fullscreen mode"
-  data-bs-placement="bottom" data-bs-toggle="tooltip"
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
 >
   
 
-<span class="btn__icon-container">
-  <i class="fas fa-expand"></i>
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
   </span>
 
-</button>
-
-
-<script>
-document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
-  </button>
-`);
-</script>
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
 </label>
-</div></div>
-      
-    </div>
-  
-</div>
-</div>
-              
-              
 
-<div id="jb-print-docs-body" class="onlyprint">
-    <h1>Linear Models</h1>
-    <!-- Table of contents -->
-    <div id="print-main-content">
-        <div id="jb-print-toc">
-            
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-problems">Regression Problems</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-framework-of-linear-models">The Framework of Linear Models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-a-line-to-data">Fitting a Line to Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-least-squares-problem">A Least-Squares Problem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-general-linear-model">The General Linear Model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#least-squares-fitting-of-other-models">Least-Squares Fitting of Other Models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-regression">Multiple Regression</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-regression-in-practice">Multiple Regression in Practice</a></li>
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#regression-problems">
+   Regression Problems
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-framework-of-linear-models">
+   The Framework of Linear Models
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fitting-a-line-to-data">
+   Fitting a Line to Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-least-squares-problem">
+   A Least-Squares Problem
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-general-linear-model">
+   The General Linear Model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#least-squares-fitting-of-other-models">
+   Least-Squares Fitting of Other Models
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multiple-regression">
+   Multiple Regression
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multiple-regression-in-practice">
+   Multiple Regression in Practice
+  </a>
+ </li>
 </ul>
-            </nav>
-        </div>
-    </div>
-</div>
 
-              
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Linear Models</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#regression-problems">
+   Regression Problems
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-framework-of-linear-models">
+   The Framework of Linear Models
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#fitting-a-line-to-data">
+   Fitting a Line to Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#a-least-squares-problem">
+   A Least-Squares Problem
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-general-linear-model">
+   The General Linear Model
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#least-squares-fitting-of-other-models">
+   Least-Squares Fitting of Other Models
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multiple-regression">
+   Multiple Regression
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multiple-regression-in-practice">
+   Multiple Regression in Practice
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
                 
+              <div>
+                
+<<<<<<< HEAD
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
@@ -371,24 +546,95 @@ document.write(`
 <section class="tex2jax_ignore mathjax_ignore" id="linear-models">
 <h1>Linear Models<a class="headerlink" href="#linear-models" title="Permalink to this heading">#</a></h1>
 <div class="cell tag_remove-input docutils container">
+=======
+  <div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for QR codes use inline</span>
+<span class="c1"># %matplotlib inline</span>
+<span class="c1"># qr_setting = &#39;url&#39;</span>
+<span class="c1"># qrviz_setting = &#39;show&#39;</span>
+<span class="c1">#</span>
+<span class="c1"># for lecture use notebook</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">qr_setting</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="c1">#</span>
+<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format=&#39;retina&#39;
+<span class="c1"># import libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mp</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">laUtilities</span> <span class="k">as</span> <span class="nn">ut</span>
+<span class="kn">import</span> <span class="nn">slideUtilities</span> <span class="k">as</span> <span class="nn">sl</span>
+<span class="kn">import</span> <span class="nn">demoUtilities</span> <span class="k">as</span> <span class="nn">dm</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display_html</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Math</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Latex</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="linear-models">
+<h1>Linear Models<a class="headerlink" href="#linear-models" title="Permalink to this headline">#</a></h1>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/Sir_Francis_Galton_by_Charles_Wellington_Furse.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">550</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+>>>>>>> 59b2a5108846aaea9c9546f5152e0c1967e13be8
 <div class="cell_output docutils container">
-<img alt="_images/35e832b06982cf24d5993c3b565832fa38fa9d155ae1b666d1b5dc072c504ebb.jpg" src="_images/35e832b06982cf24d5993c3b565832fa38fa9d155ae1b666d1b5dc072c504ebb.jpg" />
+<img alt="_images/L23LinearModels_2_0.jpg" src="_images/L23LinearModels_2_0.jpg" />
 </div>
 </div>
+<<<<<<< HEAD
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <div class="output text_html"><a href="https://commons.wikimedia.org/wiki/File:Sir_Francis_Galton_by_Charles_Wellington_Furse.jpg#/media/File:Sir_Francis_Galton_by_Charles_Wellington_Furse.jpg">Sir Francis Galton by Charles Wellington Furse</a> by Charles Wellington Furse (died 1904) - <a href="//en.wikipedia.org/wiki/National_Portrait_Gallery,_London" class="extiw" title="en:National Portrait Gallery, London">National Portrait Gallery</a>: <a rel="nofollow" class="external text" href="http://www.npg.org.uk/collections/search/portrait.php?search=ap&amp;npgno=3916&amp;eDate=&amp;lDate=">NPG 3916</a></div></div>
 </div>
 <div class="cell tag_remove-input docutils container">
+=======
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">HTML</span><span class="p">(</span><span class="sa">u</span><span class="s1">&#39;&lt;a href=&quot;https://commons.wikimedia.org/wiki/File:Sir_Francis_Galton_by_Charles_Wellington_Furse.jpg#/media/File:Sir_Francis_Galton_by_Charles_Wellington_Furse.jpg&quot;&gt;Sir Francis Galton by Charles Wellington Furse&lt;/a&gt; by Charles Wellington Furse (died 1904) - &lt;a href=&quot;//en.wikipedia.org/wiki/National_Portrait_Gallery,_London&quot; class=&quot;extiw&quot; title=&quot;en:National Portrait Gallery, London&quot;&gt;National Portrait Gallery&lt;/a&gt;: &lt;a rel=&quot;nofollow&quot; class=&quot;external text&quot; href=&quot;http://www.npg.org.uk/collections/search/portrait.php?search=ap&amp;amp;npgno=3916&amp;amp;eDate=&amp;amp;lDate=&quot;&gt;NPG 3916&lt;/a&gt;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 <div class="cell_output docutils container">
-<img alt="_images/0740bae3b41006baf591754cd6efff297efa0e7574bf2e26f4a260dd3ceebf54.png" src="_images/0740bae3b41006baf591754cd6efff297efa0e7574bf2e26f4a260dd3ceebf54.png" />
+<div class="output text_html"><a href="https://commons.wikimedia.org/wiki/File:Sir_Francis_Galton_by_Charles_Wellington_Furse.jpg#/media/File:Sir_Francis_Galton_by_Charles_Wellington_Furse.jpg">Sir Francis Galton by Charles Wellington Furse</a> by Charles Wellington Furse (died 1904) - <a href="//en.wikipedia.org/wiki/National_Portrait_Gallery,_London" class="extiw" title="en:National Portrait Gallery, London">National Portrait Gallery</a>: <a rel="nofollow" class="external text" href="http://www.npg.org.uk/collections/search/portrait.php?search=ap&amp;npgno=3916&amp;eDate=&amp;lDate=">NPG 3916</a></div></div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/galton-title.png&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">550</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+>>>>>>> 59b2a5108846aaea9c9546f5152e0c1967e13be8
+<div class="cell_output docutils container">
+<img alt="_images/L23LinearModels_4_0.png" src="_images/L23LinearModels_4_0.png" />
 </div>
 </div>
 <p>In 1886 Francis Galton published his observations about how random factors affect outliers.</p>
 <p>This notion has come to be called “regression to the mean” because unusually large or small phenomena, after the influence of random events, become closer to their mean values (less extreme).</p>
+<<<<<<< HEAD
 <div class="cell tag_remove-input docutils container">
+=======
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/galton-regression.png&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">550</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+>>>>>>> 59b2a5108846aaea9c9546f5152e0c1967e13be8
 <div class="cell_output docutils container">
-<img alt="_images/3720f936d0e42166d3c8611c270a41946dfeea0cba67c15a723296b6c45c16f6.png" src="_images/3720f936d0e42166d3c8611c270a41946dfeea0cba67c15a723296b6c45c16f6.png" />
+<img alt="_images/L23LinearModels_6_0.png" src="_images/L23LinearModels_6_0.png" />
 </div>
 </div>
 <p>One of the most fundamental kinds of machine learning is the construction of a model that can be used to summarize a set of data.</p>
@@ -396,9 +642,10 @@ document.write(`
 <p>For example, an equation can be a model if we use the equation to describe something in the real world.</p>
 <p>The most common form of modeling is <strong>regression</strong>, which means constructing an equation that describes the relationships among variables.</p>
 <section id="regression-problems">
-<h2>Regression Problems<a class="headerlink" href="#regression-problems" title="Permalink to this heading">#</a></h2>
+<h2>Regression Problems<a class="headerlink" href="#regression-problems" title="Permalink to this headline">#</a></h2>
 <p>For example, we may look at these points and observe that they approximately lie on a line.</p>
 <p>So we could decide to <strong>model</strong> this data using a line.</p>
+<<<<<<< HEAD
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/3cc8f8a5d7ffe1fa34a11d04d75b050fab3447680f7cf2e03cab4c1e86d6c0b1.png" src="_images/3cc8f8a5d7ffe1fa34a11d04d75b050fab3447680f7cf2e03cab4c1e86d6c0b1.png" />
@@ -414,13 +661,60 @@ document.write(`
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/37a8810f2b9b9981ac22706e3860c8c021abbfcf8d16fbe2e2aded3a016684fe.png" src="_images/37a8810f2b9b9981ac22706e3860c8c021abbfcf8d16fbe2e2aded3a016684fe.png" />
+=======
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">line</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="n">xlin</span> <span class="o">=</span> <span class="o">-</span><span class="mf">10.0</span> <span class="o">+</span> <span class="mf">20.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ylin</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">xlin</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xlin</span><span class="p">,</span> <span class="n">ylin</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">6</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L23LinearModels_11_0.png" src="_images/L23LinearModels_11_0.png" />
+</div>
+</div>
+<p>We may look at these points and decide to model them using a quadratic function.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">quad</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="n">xquad</span> <span class="o">=</span> <span class="o">-</span><span class="mf">10.0</span> <span class="o">+</span> <span class="mf">20.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">yquad</span> <span class="o">=</span> <span class="n">quad</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">quad</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">xquad</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">quad</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">xquad</span> <span class="o">*</span> <span class="n">xquad</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xquad</span><span class="p">,</span> <span class="n">yquad</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">6</span><span class="p">);</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L23LinearModels_13_0.png" src="_images/L23LinearModels_13_0.png" />
+</div>
+</div>
+<p>And we may look at these points and decide to model them using a logarithmic function.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="n">xlog</span> <span class="o">=</span> <span class="mf">10.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ylog</span> <span class="o">=</span> <span class="n">log</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">log</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">xlog</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xlog</span><span class="p">,</span> <span class="n">ylog</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">6</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L23LinearModels_15_0.png" src="_images/L23LinearModels_15_0.png" />
+>>>>>>> 59b2a5108846aaea9c9546f5152e0c1967e13be8
 </div>
 </div>
 <p>Clearly, none of these datasets agrees perfectly with the proposed model.   So the question arises:</p>
 <p>How do we find the <strong>best</strong> linear function (or quadratic function, or logarithmic function) given the data?</p>
 </section>
 <section id="the-framework-of-linear-models">
-<h2>The Framework of Linear Models<a class="headerlink" href="#the-framework-of-linear-models" title="Permalink to this heading">#</a></h2>
+<h2>The Framework of Linear Models<a class="headerlink" href="#the-framework-of-linear-models" title="Permalink to this headline">#</a></h2>
 <p>The regression problem has been studied extensively in the field of statistics and machine learning.</p>
 <p>Certain terminology is used:</p>
 <ul class="simple">
@@ -436,14 +730,32 @@ document.write(`
 <p>The independent variables are collected into a matrix <span class="math notranslate nohighlight">\(X,\)</span> which is called the <strong>design matrix.</strong></p>
 <p>The dependent variables are collected into an <strong>observation</strong> vector <span class="math notranslate nohighlight">\(\mathbf{y}.\)</span></p>
 <p>The parameters of the model (for any kind of model) are collected into a <strong>parameter</strong> vector <span class="math notranslate nohighlight">\(\beta.\)</span></p>
+<<<<<<< HEAD
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/0059dfc33176d72a14bfd8bc1a13f77fd7b13b3fb5abb72ab5a189d7f1e297ef.png" src="_images/0059dfc33176d72a14bfd8bc1a13f77fd7b13b3fb5abb72ab5a189d7f1e297ef.png" />
+=======
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">line</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="n">xlin</span> <span class="o">=</span> <span class="o">-</span><span class="mf">10.0</span> <span class="o">+</span> <span class="mf">20.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ylin</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">xlin</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xlin</span><span class="p">,</span> <span class="n">ylin</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">markersize</span> <span class="o">=</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xlin</span><span class="p">,</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span><span class="n">xlin</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$y = \beta_0 + \beta_1x$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L23LinearModels_21_0.png" src="_images/L23LinearModels_21_0.png" />
+>>>>>>> 59b2a5108846aaea9c9546f5152e0c1967e13be8
 </div>
 </div>
 </section>
 <section id="fitting-a-line-to-data">
-<h2>Fitting a Line to Data<a class="headerlink" href="#fitting-a-line-to-data" title="Permalink to this heading">#</a></h2>
+<h2>Fitting a Line to Data<a class="headerlink" href="#fitting-a-line-to-data" title="Permalink to this headline">#</a></h2>
 <p>The first kind of model we’ll study is a linear equation:</p>
 <div class="math notranslate nohighlight">
 \[y = \beta_0 + \beta_1 x.\]</div>
@@ -453,9 +765,19 @@ document.write(`
 <p>Our intuition is this: we want to determine the parameters <span class="math notranslate nohighlight">\(\beta_0, \beta_1\)</span> that define a line that is as “close” to the points as possible.</p>
 <p>Let’s develop some terminology for evaluating a model.</p>
 <p>Suppose we have a line <span class="math notranslate nohighlight">\(y = \beta_0 + \beta_1 x\)</span>.   For each data point <span class="math notranslate nohighlight">\((x_j, y_j),\)</span> there is a point <span class="math notranslate nohighlight">\((x_j, \beta_0 + \beta_1 x_j)\)</span> that is the point on the line with the same <span class="math notranslate nohighlight">\(x\)</span>-coordinate.</p>
+<<<<<<< HEAD
 <div class="cell tag_remove-input docutils container">
+=======
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit: Lay, LAA, 4th edition</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/Lay-fig-6-6-1.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">550</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+>>>>>>> 59b2a5108846aaea9c9546f5152e0c1967e13be8
 <div class="cell_output docutils container">
-<img alt="_images/48f6f40940ff62e227b595d38d3e89c5b7770e9d3afe06aabec9e95f2483b09e.jpg" src="_images/48f6f40940ff62e227b595d38d3e89c5b7770e9d3afe06aabec9e95f2483b09e.jpg" />
+<img alt="_images/L23LinearModels_26_0.jpg" src="_images/L23LinearModels_26_0.jpg" />
 </div>
 </div>
 <p>We call <span class="math notranslate nohighlight">\(y_j\)</span> the <strong>observed</strong> value of <span class="math notranslate nohighlight">\(y\)</span></p>
@@ -468,7 +790,7 @@ document.write(`
 <p>The coefficients <span class="math notranslate nohighlight">\(\beta_0, \beta_1\)</span> of the line are called <strong>regression coefficients.</strong></p>
 </section>
 <section id="a-least-squares-problem">
-<h2>A Least-Squares Problem<a class="headerlink" href="#a-least-squares-problem" title="Permalink to this heading">#</a></h2>
+<h2>A Least-Squares Problem<a class="headerlink" href="#a-least-squares-problem" title="Permalink to this headline">#</a></h2>
 <p>Let’s imagine for a moment that the data fit a line perfectly.</p>
 <p>Then, if each of the data points happened to fall exactly on the line, the parameters <span class="math notranslate nohighlight">\(\beta_0\)</span> and <span class="math notranslate nohighlight">\(\beta_1\)</span> would satisfy the equations</p>
 <div class="math notranslate nohighlight">
@@ -498,16 +820,34 @@ document.write(`
 <p>This is key: <strong>the sum of squares of the residuals</strong> is <strong>exactly</strong> the <strong>square of the distance between the vectors <span class="math notranslate nohighlight">\(X\mathbf{\beta}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{y}.\)</span></strong></p>
 <p>This is a least-squares problem, <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b},\)</span> with different notation.</p>
 <p><em>Computing the least-squares solution of <span class="math notranslate nohighlight">\(X\mathbf{\beta} = \mathbf{y}\)</span> is equivalent to finding the <span class="math notranslate nohighlight">\(\mathbf{\beta}\)</span> that determines the least-squares line.</em></p>
+<<<<<<< HEAD
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/bfcb7ffcd7a7aaef58a2a6cb64d3b5db1fad5f64268f307188e88db21ec5d209.png" src="_images/bfcb7ffcd7a7aaef58a2a6cb64d3b5db1fad5f64268f307188e88db21ec5d209.png" />
+=======
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">line</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="n">xlin</span> <span class="o">=</span> <span class="o">-</span><span class="mf">10.0</span> <span class="o">+</span> <span class="mf">20.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">ylin</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">+</span> <span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">xlin</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span> <span class="o">=</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xlin</span><span class="p">,</span> <span class="n">ylin</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xlin</span><span class="p">,</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">xlin</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">9</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="sa">r</span><span class="s1">&#39;$y = \beta_0 + \beta_1x$&#39;</span><span class="p">,</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L23LinearModels_39_0.png" src="_images/L23LinearModels_39_0.png" />
+>>>>>>> 59b2a5108846aaea9c9546f5152e0c1967e13be8
 </div>
 </div>
 <div class="toggle docutils container">
 <p>Question Time!  Q23.1</p>
 </div>
 <p><strong>Example 1.</strong>  Find the equation <span class="math notranslate nohighlight">\(y = \beta_0 + \beta_1 x\)</span> of the least-squares line that best fits the data points</p>
-<table class="table">
+<table class="colwidths-auto table">
 <thead>
 <tr class="row-odd"><th class="head"><p>x</p></th>
 <th class="head"><p>y</p></th>
@@ -528,9 +868,23 @@ document.write(`
 </tr>
 </tbody>
 </table>
+<<<<<<< HEAD
 <div class="cell tag_remove-input docutils container">
+=======
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">3</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">markersize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+>>>>>>> 59b2a5108846aaea9c9546f5152e0c1967e13be8
 <div class="cell_output docutils container">
-<img alt="_images/ea108fd1e8084df8abab5257f9385c83e657150ea39b28d71f36701f785eaf09.png" src="_images/ea108fd1e8084df8abab5257f9385c83e657150ea39b28d71f36701f785eaf09.png" />
+<img alt="_images/L23LinearModels_42_0.png" src="_images/L23LinearModels_42_0.png" />
 </div>
 </div>
 <p><strong>Solution.</strong> Use the <span class="math notranslate nohighlight">\(x\)</span>-coordinates of the data to build the design matrix <span class="math notranslate nohighlight">\(X\)</span>, and the <span class="math notranslate nohighlight">\(y\)</span>-coordinates to build the observation vector <span class="math notranslate nohighlight">\(\mathbf{y}\)</span>:</p>
@@ -558,14 +912,28 @@ document.write(`
 <p>So the least-squares line has the equation</p>
 <div class="math notranslate nohighlight">
 \[y = \frac{2}{7} + \frac{5}{14}x.\]</div>
+<<<<<<< HEAD
 <div class="cell tag_remove-input docutils container">
+=======
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">pts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">8</span><span class="p">,</span><span class="mi">3</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">pts</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">pts</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">markersize</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">plotLinEqn</span><span class="p">(</span><span class="o">-</span><span class="mf">5.</span><span class="o">/</span><span class="mi">14</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">2.</span><span class="o">/</span><span class="mi">7</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;$y = \frac</span><span class="si">{2}{7}</span><span class="s1"> + \frac</span><span class="si">{5}{14}</span><span class="s1">x$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+>>>>>>> 59b2a5108846aaea9c9546f5152e0c1967e13be8
 <div class="cell_output docutils container">
-<img alt="_images/637260fc1709d2cc1758726dabc2ac904975aa229131619a1de68474e2a08a4f.png" src="_images/637260fc1709d2cc1758726dabc2ac904975aa229131619a1de68474e2a08a4f.png" />
+<img alt="_images/L23LinearModels_50_0.png" src="_images/L23LinearModels_50_0.png" />
 </div>
 </div>
 </section>
 <section id="the-general-linear-model">
-<h2>The General Linear Model<a class="headerlink" href="#the-general-linear-model" title="Permalink to this heading">#</a></h2>
+<h2>The General Linear Model<a class="headerlink" href="#the-general-linear-model" title="Permalink to this headline">#</a></h2>
 <p>Another way that the inconsistent linear system is often written is to collect all the residuals into a <strong>residual vector.</strong></p>
 <p>Then an exact equation is</p>
 <div class="math notranslate nohighlight">
@@ -580,7 +948,7 @@ document.write(`
 \[X^TX\mathbf{\beta} = X^T\mathbf{y}.\]</div>
 </section>
 <section id="least-squares-fitting-of-other-models">
-<h2>Least-Squares Fitting of Other Models<a class="headerlink" href="#least-squares-fitting-of-other-models" title="Permalink to this heading">#</a></h2>
+<h2>Least-Squares Fitting of Other Models<a class="headerlink" href="#least-squares-fitting-of-other-models" title="Permalink to this headline">#</a></h2>
 <p>Most models have parameters, and the object of <strong>model fitting</strong> is to to fix those parameters.   Let’s talk about model parameters.</p>
 <p>In model fitting, the parameters are the unknown.  A central question for us is whether the model is <em>linear</em> in its parameters.</p>
 <p>For example, the model <span class="math notranslate nohighlight">\(y = \beta_0 e^{-\beta_1 x}\)</span> is <strong>not</strong> linear in its parameters.</p>
@@ -611,6 +979,7 @@ document.write(`
 <p>Clearly, this system can be written as <span class="math notranslate nohighlight">\(\mathbf{y} = X\mathbf{\beta} + \mathbf{\epsilon}.\)</span></p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{bmatrix}y_1\\y_2\\\vdots\\y_n\end{bmatrix} = \begin{bmatrix}1&amp;x_1&amp;x_1^2\\1&amp;x_2&amp;x_2^2\\\vdots&amp;\vdots&amp;\vdots\\1&amp;x_n&amp;x_n^2\end{bmatrix} \begin{bmatrix}\beta_0\\\beta_1\\\beta_2\end{bmatrix} + \begin{bmatrix}\epsilon_1\\\epsilon_2\\\vdots\\\epsilon_n\end{bmatrix}\end{split}\]</div>
+<<<<<<< HEAD
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/6ddaecb2798b11f0f83a1a4a96cbdee82d13d53e1df51e576010a153967da9f0.png" src="_images/6ddaecb2798b11f0f83a1a4a96cbdee82d13d53e1df51e576010a153967da9f0.png" />
@@ -619,6 +988,44 @@ document.write(`
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/5564eec8fb755ab0a3571373aef8e62b2667aea079537234dacc3a383599a7cc.png" src="_images/5564eec8fb755ab0a3571373aef8e62b2667aea079537234dacc3a383599a7cc.png" />
+=======
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">xquad</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">m</span><span class="p">),</span> <span class="n">xquad</span><span class="p">,</span><span class="n">xquad</span><span class="o">**</span><span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span><span class="p">)</span> <span class="o">@</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">yquad</span>
+<span class="c1">#</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">xplot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">yestplot</span> <span class="o">=</span> <span class="n">beta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">beta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="o">*</span> <span class="n">xplot</span> <span class="o">+</span> <span class="n">beta</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">xplot</span><span class="o">**</span><span class="mi">2</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xplot</span><span class="p">,</span> <span class="n">yestplot</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xquad</span><span class="p">,</span> <span class="n">yquad</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">markersize</span> <span class="o">=</span> <span class="mi">8</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L23LinearModels_67_0.png" src="_images/L23LinearModels_67_0.png" />
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">shape</span><span class="p">(</span><span class="n">xlog</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">m</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">xlog</span><span class="p">)])</span><span class="o">.</span><span class="n">T</span>
+<span class="n">beta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">X</span><span class="p">)</span> <span class="o">@</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">ylog</span>
+<span class="c1"># </span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">xplot</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+<span class="n">yestplot</span> <span class="o">=</span> <span class="n">beta</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">beta</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">xplot</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xplot</span><span class="p">,</span> <span class="n">yestplot</span><span class="p">,</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xlog</span><span class="p">,</span> <span class="n">ylog</span><span class="p">,</span> <span class="s1">&#39;ro&#39;</span><span class="p">,</span> <span class="n">markersize</span> <span class="o">=</span> <span class="mi">8</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/L23LinearModels_68_0.png" src="_images/L23LinearModels_68_0.png" />
+>>>>>>> 59b2a5108846aaea9c9546f5152e0c1967e13be8
 </div>
 </div>
 <div class="toggle docutils container">
@@ -626,7 +1033,7 @@ document.write(`
 </div>
 </section>
 <section id="multiple-regression">
-<h2>Multiple Regression<a class="headerlink" href="#multiple-regression" title="Permalink to this heading">#</a></h2>
+<h2>Multiple Regression<a class="headerlink" href="#multiple-regression" title="Permalink to this headline">#</a></h2>
 <p>Suppose an experiment involves two independent variables – say, <span class="math notranslate nohighlight">\(u\)</span> and <span class="math notranslate nohighlight">\(v\)</span>, – and one dependent variable, <span class="math notranslate nohighlight">\(y\)</span>.</p>
 <p>A linear equation for predicting <span class="math notranslate nohighlight">\(y\)</span> from <span class="math notranslate nohighlight">\(u\)</span> and <span class="math notranslate nohighlight">\(v\)</span> has the form</p>
 <div class="math notranslate nohighlight">
@@ -642,9 +1049,43 @@ document.write(`
 <p>with <span class="math notranslate nohighlight">\(f_0,\dots,f_k\)</span> any sort of known functions and <span class="math notranslate nohighlight">\(\beta_0,...,\beta_k\)</span> unknown weights.</p>
 <p><strong>Example.</strong>  In geography, local models of terrain are constructed from data <span class="math notranslate nohighlight">\((u_1, v_1, y_1), \dots, (u_n, v_n, y_n)\)</span> where <span class="math notranslate nohighlight">\(u_j, v_j\)</span>, and <span class="math notranslate nohighlight">\(y_j\)</span> are latitude, longitude, and altitude, respectively.</p>
 <p>Let’s take an example.   Here are a set of points in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>:</p>
+<<<<<<< HEAD
 <div class="cell tag_remove-input docutils container">
+=======
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">23</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="s1">&#39;multivariate regression example&#39;</span><span class="p">,</span> 
+                       <span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span>
+                        <span class="n">equalAxes</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span>  <span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]</span>
+<span class="n">u</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+<span class="n">npts</span> <span class="o">=</span> <span class="mi">70</span>
+<span class="c1"># set locations of points that fall within x,y</span>
+<span class="n">xc</span> <span class="o">=</span> <span class="o">-</span><span class="mf">7.0</span> <span class="o">+</span> <span class="mf">14.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">npts</span><span class="p">)</span>
+<span class="n">yc</span> <span class="o">=</span> <span class="o">-</span><span class="mf">7.0</span> <span class="o">+</span> <span class="mf">14.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">npts</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="c1"># project these points onto the plane</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">A</span><span class="p">)</span> <span class="o">@</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span>
+<span class="n">coords</span> <span class="o">=</span> <span class="n">P</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">xc</span><span class="p">,</span><span class="n">yc</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">npts</span><span class="p">)])</span>
+<span class="n">coords</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">npts</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">coords</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">],</span><span class="n">coords</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">],</span> <span class="n">coords</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="n">i</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Terrain Data for Multiple Regression&#39;</span><span class="p">,</span> <span class="s1">&#39;Terrain Data for Multiple Regression&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">desc</span><span class="p">[</span><span class="s1">&#39;xlabel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;u&#39;</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">desc</span><span class="p">[</span><span class="s1">&#39;ylabel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;v&#39;</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">desc</span><span class="p">[</span><span class="s1">&#39;zlabel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">elev</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+>>>>>>> 59b2a5108846aaea9c9546f5152e0c1967e13be8
 <div class="cell_output docutils container">
-<img alt="_images/6f39f302a54cc36747119aa3f4c59d235b96b0fb6df6ff1b2f851d780010f2fb.png" src="_images/6f39f302a54cc36747119aa3f4c59d235b96b0fb6df6ff1b2f851d780010f2fb.png" />
+<img alt="_images/L23LinearModels_77_0.png" src="_images/L23LinearModels_77_0.png" />
 </div>
 </div>
 <p>Let’s describe the linear models that gives a least-squares fit to such data.  The solution is called the least-squares <em>plane.</em></p>
@@ -660,9 +1101,44 @@ document.write(`
 <p>This system has the matrix for <span class="math notranslate nohighlight">\(\mathbf{y} = X\mathbf{\beta} + \epsilon,\)</span> where</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\mathbf{y} = \begin{bmatrix}y_1\\y_1\\\vdots\\y_n\end{bmatrix},\;\;X = \begin{bmatrix}1&amp;u_1&amp;v_1\\1&amp;u_2&amp;v_2\\\vdots&amp;\vdots&amp;\vdots\\1&amp;u_n&amp;v_n\end{bmatrix},\;\;\mathbf{\beta}=\begin{bmatrix}\beta_0\\\beta_1\\\beta_2\end{bmatrix},\;\;\epsilon = \begin{bmatrix}\epsilon_1\\\epsilon_2\\\vdots\\\epsilon_n\end{bmatrix}\end{split}\]</div>
+<<<<<<< HEAD
 <div class="cell tag_remove-input docutils container">
+=======
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">three_d_figure</span><span class="p">((</span><span class="mi">23</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="s1">&#39;multivariate regression example with fitted plane&#39;</span><span class="p">,</span> 
+                       <span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span>
+                        <span class="n">equalAxes</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">qr</span> <span class="o">=</span> <span class="n">qr_setting</span><span class="p">)</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span>  <span class="mf">4.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]</span>
+<span class="n">u</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
+<span class="n">npts</span> <span class="o">=</span> <span class="mi">70</span>
+<span class="c1"># set locations of points that fall within x,y</span>
+<span class="n">xc</span> <span class="o">=</span> <span class="o">-</span><span class="mf">7.0</span> <span class="o">+</span> <span class="mf">14.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">npts</span><span class="p">)</span>
+<span class="n">yc</span> <span class="o">=</span> <span class="o">-</span><span class="mf">7.0</span> <span class="o">+</span> <span class="mf">14.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">npts</span><span class="p">)</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">u</span><span class="p">,</span><span class="n">v</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
+<span class="c1"># project these points onto the plane</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">A</span><span class="p">)</span> <span class="o">@</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span>
+<span class="n">coords</span> <span class="o">=</span> <span class="n">P</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">xc</span><span class="p">,</span><span class="n">yc</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">npts</span><span class="p">)])</span>
+<span class="n">coords</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">scale</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="n">npts</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">coords</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]):</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">plotPoint</span><span class="p">(</span><span class="n">coords</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="n">i</span><span class="p">],</span><span class="n">coords</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">],</span> <span class="n">coords</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="n">i</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Multiple Regression Fit to Data&#39;</span><span class="p">,</span> <span class="s1">&#39;Multiple Regression Fit to Data&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;v&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">desc</span><span class="p">[</span><span class="s1">&#39;xlabel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;u&#39;</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">desc</span><span class="p">[</span><span class="s1">&#39;ylabel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;v&#39;</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">desc</span><span class="p">[</span><span class="s1">&#39;zlabel&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;y&#39;</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">plotSpan</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="s1">&#39;Green&#39;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">view_init</span><span class="p">(</span><span class="n">azim</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">elev</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">save</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+>>>>>>> 59b2a5108846aaea9c9546f5152e0c1967e13be8
 <div class="cell_output docutils container">
-<img alt="_images/91f3d1fd3ae8c3159bb40c0659654ed70ec014dfc53af877c5ee1a7d43664c0b.png" src="_images/91f3d1fd3ae8c3159bb40c0659654ed70ec014dfc53af877c5ee1a7d43664c0b.png" />
+<img alt="_images/L23LinearModels_81_0.png" src="_images/L23LinearModels_81_0.png" />
 </div>
 </div>
 <p>This example shows that the linear model for multiple regression has the same abstract form as the model for the simple regression in the earlier examples.</p>
@@ -671,7 +1147,7 @@ document.write(`
 <p>Thus, for any linear model where <span class="math notranslate nohighlight">\(X^TX\)</span> is invertible, the least squares <span class="math notranslate nohighlight">\(\hat{\mathbf{\beta}}\)</span> is given by <span class="math notranslate nohighlight">\((X^TX)^{-1}X^T\mathbf{y}\)</span>.</p>
 </section>
 <section id="multiple-regression-in-practice">
-<h2>Multiple Regression in Practice<a class="headerlink" href="#multiple-regression-in-practice" title="Permalink to this heading">#</a></h2>
+<h2>Multiple Regression in Practice<a class="headerlink" href="#multiple-regression-in-practice" title="Permalink to this headline">#</a></h2>
 <p>Let’s see how powerful multiple regression can be on a real-world example.</p>
 <p>A typical application of linear models is predicting house prices.   Linear models have been used for this problem for decades, and when a municipality does a value assessment on your house, they typically use a linear model.</p>
 <p>We can consider various measurable attributes of a house (its “features”) as the independent variables, and the most recent sale price of the house as the dependent variable.</p>
@@ -874,9 +1350,24 @@ document.write(`
 </div>
 </div>
 <p>And for each house, we’ll plot its predicted versus actual sale value:</p>
+<<<<<<< HEAD
 <div class="cell tag_remove-input docutils container">
+=======
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;Actual Sale Price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;Predicted Sale Price&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Linear Model Predictions of House Prices&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">500000</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">500000</span><span class="p">],</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;yhat = y&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span> <span class="o">=</span> <span class="s1">&#39;best&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+>>>>>>> 59b2a5108846aaea9c9546f5152e0c1967e13be8
 <div class="cell_output docutils container">
-<img alt="_images/703b097a38008a8ae89e9bc7e299d698342b1e332636ebe2335e2a2e2b33cda2.png" src="_images/703b097a38008a8ae89e9bc7e299d698342b1e332636ebe2335e2a2e2b33cda2.png" />
+<img alt="_images/L23LinearModels_105_0.png" src="_images/L23LinearModels_105_0.png" />
 </div>
 </div>
 <p>We see that the model does a reasonable job for house values less than about $250,000.</p>
@@ -896,7 +1387,7 @@ document.write(`
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -904,106 +1395,50 @@ document.write(`
     </script>
     <script>kernelName = 'python3'</script>
 
-                </article>
+              </div>
               
-
-              
-              
-                <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="L22LeastSquares.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Least Squares</p>
-      </div>
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="L22LeastSquares.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Least Squares</p>
+        </div>
     </a>
-    <a class="right-next"
-       href="L24SymmetricMatrices.html"
-       title="next page">
-      <div class="prev-next-info">
+    <a class='right-next' id="next-link" href="L24SymmetricMatrices.html" title="next page">
+    <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">Symmetric Matrices</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
+    </div>
+    <i class="fas fa-angle-right"></i>
     </a>
 </div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regression-problems">Regression Problems</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-framework-of-linear-models">The Framework of Linear Models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-a-line-to-data">Fitting a Line to Data</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-least-squares-problem">A Least-Squares Problem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-general-linear-model">The General Linear Model</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#least-squares-fitting-of-other-models">Least-Squares Fitting of Other Models</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-regression">Multiple Regression</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-regression-in-practice">Multiple Regression in Practice</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
-              
-            
-          </div>
-          <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
-<div class="bd-footer-content__inner container">
-  
-  <div class="footer-item">
-    
-<p class="component-author">
-By Mark Crovella
-</p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-  <p class="copyright">
-    
-      © Copyright 2020-2022.
-      <br/>
-    
-  </p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-</div></div>
-          </footer>
-        
-
-      </main>
+            </footer>
+        </div>
     </div>
-  </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Mark Crovella<br/>
+  
+      &copy; Copyright 2020-2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
-  <footer class="bd-footer">
-  </footer>
+
   </body>
 </html>
