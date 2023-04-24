@@ -366,49 +366,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="cell tag_hide-cell docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for conversion to PDF use these settings</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="c1"># qr_setting = &#39;url&#39;</span>
-<span class="c1"># qrviz_setting = &#39;show&#39;</span>
-<span class="c1">#</span>
-<span class="c1"># for lecture use notebook</span>
-<span class="c1">#%matplotlib notebook</span>
-<span class="n">qr_setting</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="n">qrviz_setting</span> <span class="o">=</span> <span class="s1">&#39;save&#39;</span>
-<span class="c1">#</span>
-<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format=&#39;retina&#39;
-<span class="c1"># import libraries</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mp</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">laUtilities</span> <span class="k">as</span> <span class="nn">ut</span>
-<span class="kn">import</span> <span class="nn">slideUtilities</span> <span class="k">as</span> <span class="nn">sl</span>
-<span class="kn">import</span> <span class="nn">demoUtilities</span> <span class="k">as</span> <span class="nn">dm</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display_html</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Math</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Latex</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
-<span class="n">reload</span><span class="p">(</span><span class="n">sl</span><span class="p">)</span>
-<span class="n">reload</span><span class="p">(</span><span class="n">ut</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-</details>
-</div>
-<section class="tex2jax_ignore mathjax_ignore" id="applications-of-the-svd">
+  <section class="tex2jax_ignore mathjax_ignore" id="applications-of-the-svd">
 <h1>Applications of the SVD<a class="headerlink" href="#applications-of-the-svd" title="Permalink to this heading">#</a></h1>
 <!-- image credit: https://en.wikipedia.org/wiki/Swiss_Army_knife -->
 <center>
@@ -533,21 +491,7 @@ document.write(`
 </ul>
 <p>For example, here is a photo.</p>
 <p>We can think of this as a <span class="math notranslate nohighlight">\(512\times 512\)</span> matrix <span class="math notranslate nohighlight">\(A\)</span> whose entries are grayscale values (numbers between 0 and 1).</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">boat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">loadtxt</span><span class="p">(</span><span class="s1">&#39;data/boat.dat&#39;</span><span class="p">)</span>
-<span class="kn">import</span> <span class="nn">matplotlib.cm</span> <span class="k">as</span> <span class="nn">cm</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">boat</span><span class="p">,</span><span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-</details>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/8151776681f4b6f683d26eb50b6dc0b50752de7811c61b1dae0646aebe2f4d1e.png" src="_images/8151776681f4b6f683d26eb50b6dc0b50752de7811c61b1dae0646aebe2f4d1e.png" />
 </div>
@@ -555,24 +499,7 @@ document.write(`
 <p>Let’s look at the singular values of this matrix.</p>
 <p>We compute <span class="math notranslate nohighlight">\(A = U\Sigma V^T\)</span> and look at the values on the diagonal of <span class="math notranslate nohighlight">\(\Sigma\)</span>.</p>
 <p>This is often called the matrix’s “spectrum.”</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">vt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">boat</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">16</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$\sigma_k$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$k$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">24</span><span class="p">);</span> 
-</pre></div>
-</div>
-</div>
-</details>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/d1a4433dcd5855506a6497802b612c8c567640b33d6b59b666c39ffa4dac83da.png" src="_images/d1a4433dcd5855506a6497802b612c8c567640b33d6b59b666c39ffa4dac83da.png" />
 </div>
@@ -584,28 +511,7 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[\Vert A-A^{(k)}\Vert_F = \sqrt{\sum_{i=k+1}^r\sigma^2_i}.\]</div>
 <p>So we can use the singular values of <span class="math notranslate nohighlight">\(A\)</span> to compute the relative error over a range of possible approximations <span class="math notranslate nohighlight">\(A^{(k)}\)</span>.</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="n">Anorm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">boat</span><span class="p">)</span>
-<span class="n">err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">s</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">err</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">41</span><span class="p">),</span> <span class="n">err</span><span class="p">[:</span><span class="mi">40</span><span class="p">]</span><span class="o">/</span><span class="n">Anorm</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">40</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;$k$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span> <span class="o">=</span> <span class="mi">18</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Relative Error of rank-$k$ approximation to $A$&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span> 
-</pre></div>
-</div>
-</div>
-</details>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/679569a8d06e3f174dc3292500dfd6ba0e58f7ddc2af50bb4985a1f91c55ed9f.png" src="_images/679569a8d06e3f174dc3292500dfd6ba0e58f7ddc2af50bb4985a1f91c55ed9f.png" />
 </div>
@@ -616,34 +522,7 @@ document.write(`
 <p>Let’s find the closest rank-40 matrix to <span class="math notranslate nohighlight">\(A\)</span> and view it.</p>
 <p>We can do this quite easily using the SVD.</p>
 <p>We simply construct our approximation of <span class="math notranslate nohighlight">\(A\)</span> using only the first 40 columns of <span class="math notranslate nohighlight">\(U\)</span> and top 40 rows of <span class="math notranslate nohighlight">\(V^T\)</span>.</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># note: put a slider on this to vary rank</span>
-<span class="c1">#</span>
-<span class="c1"># construct a rank-n version of the boat</span>
-<span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">vt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">boat</span><span class="p">,</span> <span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">scopy</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">rank</span> <span class="o">=</span> <span class="mi">40</span>
-<span class="n">scopy</span><span class="p">[</span><span class="n">rank</span><span class="p">:]</span><span class="o">=</span><span class="mi">0</span>
-<span class="n">boatApprox</span> <span class="o">=</span> <span class="n">u</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">scopy</span><span class="p">)</span> <span class="o">@</span> <span class="n">vt</span>
-<span class="c1">#</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">boatApprox</span><span class="p">,</span><span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Rank </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">rank</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">boat</span><span class="p">,</span><span class="n">cmap</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">Greys_r</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Rank 512&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">subplots_adjust</span><span class="p">(</span><span class="n">wspace</span><span class="o">=</span><span class="mf">0.1</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-</details>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/01f1f3ad37ef258acbf66312b6ee7e3a0d40bdf21b69293e9360684aea55ac90.png" src="_images/01f1f3ad37ef258acbf66312b6ee7e3a0d40bdf21b69293e9360684aea55ac90.png" />
 </div>
@@ -690,26 +569,9 @@ document.write(`
 <p>Here we use a statistical criterion: a dimensionality reduction that captures the maximum <strong>variance</strong> in the data.</p>
 <p>Here is a classic example.</p>
 <p>Consider the points below, which live in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>.</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">n_samples</span> <span class="o">=</span> <span class="mi">150</span>
-<span class="n">C</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.</span><span class="p">,</span> <span class="mf">.6</span><span class="p">]])</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_samples</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">@</span> <span class="n">C</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,(</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
-<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-</details>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/93fa03431a5cdb9dd97dfa0563d644b16af5e3ffcfb1a8420c5a46556d6b7347.png" src="_images/93fa03431a5cdb9dd97dfa0563d644b16af5e3ffcfb1a8420c5a46556d6b7347.png" />
+<img alt="_images/3fd05496b265f64c696aba163573d8a806c570c24922438e3fcf823ad38cc918.png" src="_images/3fd05496b265f64c696aba163573d8a806c570c24922438e3fcf823ad38cc918.png" />
 </div>
 </div>
 <p>Now, although the points are in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>, they seem to show effective low-rank.</p>
@@ -721,54 +583,15 @@ document.write(`
 <p>However the variance in the data is defined with respect to the data mean, so we need to mean-center the data first, before using SVD.</p>
 <p>That is, without mean centering, SVD finds the best 1-D subspace, not the best line though the data (which might not pass through the origin).</p>
 <p>So to capture the best line through the data, we first move the data points to the origin:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Xc</span> <span class="o">=</span> <span class="n">X</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,(</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
-<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">arrow</span><span class="p">(</span><span class="o">-</span><span class="mf">2.8</span><span class="p">,</span> <span class="mf">2.8</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.1</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">Xc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">Xc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</details>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/95a0f5d5aae1c75aeab0c5b71676d048d7cc1199392e0de2dfab426a2d9150cc.png" src="_images/95a0f5d5aae1c75aeab0c5b71676d048d7cc1199392e0de2dfab426a2d9150cc.png" />
+<img alt="_images/013dbf7e1cda1a8c450b38454fcc1f7166dea8e4ffb118920e3fdb23bd663c46.png" src="_images/013dbf7e1cda1a8c450b38454fcc1f7166dea8e4ffb118920e3fdb23bd663c46.png" />
 </div>
 </div>
 <p>Now we use SVD to construct the best 1-D approximation of the mean-centered data:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">vt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">Xc</span><span class="p">,</span><span class="n">full_matrices</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="n">scopy</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="n">scopy</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.</span>
-<span class="n">reducedX</span> <span class="o">=</span> <span class="n">u</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">scopy</span><span class="p">)</span> <span class="o">@</span> <span class="n">vt</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">ut</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,(</span><span class="mi">9</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
-<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s1">&#39;equal&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">Xc</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span><span class="n">Xc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">reducedX</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">reducedX</span><span class="p">[:,</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">endpoints</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">10</span><span class="p">],[</span><span class="mi">10</span><span class="p">]])</span> <span class="o">@</span> <span class="n">vt</span><span class="p">[[</span><span class="mi">0</span><span class="p">],:]</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">endpoints</span><span class="p">[:,</span><span class="mi">0</span><span class="p">],</span> <span class="n">endpoints</span><span class="p">[:,</span><span class="mi">1</span><span class="p">],</span> <span class="s1">&#39;g-&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;PCA applied to 2D Data&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-</details>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/f5b96766a66c7b046431fb7488fb177888f8bec69bb1d8ad1acd3e6e2a7058c4.png" src="_images/f5b96766a66c7b046431fb7488fb177888f8bec69bb1d8ad1acd3e6e2a7058c4.png" />
+<img alt="_images/743cb3e3afe02ab47137141a279345052167cb43587f15402c001f4b34f1acb5.png" src="_images/743cb3e3afe02ab47137141a279345052167cb43587f15402c001f4b34f1acb5.png" />
 </div>
 </div>
 <p>This method is called <strong>Principal Component Analysis.</strong></p>
@@ -848,22 +671,7 @@ document.write(`
 <p>Our visualization will be in two dimensions.</p>
 <p>This is pretty extreme …</p>
 <p>– we are taking points in 9409-dimensional space and projecting them into a subspace of only two dimensions!</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Xk</span> <span class="o">=</span> <span class="n">u</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">Xk</span><span class="p">[:,</span><span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">Xk</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]),</span> 
-                    <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;2D Visualization of Documents via PCA&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-</details>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/0e41d528da0786a9f5b411f79158735ab135c9fca7de8ee3be655c0f57f316ee.png" src="_images/0e41d528da0786a9f5b411f79158735ab135c9fca7de8ee3be655c0f57f316ee.png" />
 </div>
@@ -871,25 +679,7 @@ document.write(`
 <p>This visualization shows that our collection of documents has considerable internal structure.</p>
 <p>In particular, based on word frequency, it appears that there are three general groups of documents.</p>
 <p>As you might guess, this is because the discussion topics of the document sets are different:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Xk</span> <span class="o">=</span> <span class="n">u</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">9</span><span class="p">))</span>
-<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">news_data</span><span class="o">.</span><span class="n">target</span><span class="p">)):</span>
-        <span class="n">point_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">news_data</span><span class="o">.</span><span class="n">target</span> <span class="o">==</span> <span class="n">label</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">Xk</span><span class="p">[</span><span class="n">point_indices</span><span class="p">,</span><span class="mi">0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">Xk</span><span class="p">[</span><span class="n">point_indices</span><span class="p">,</span><span class="mi">1</span><span class="p">]),</span> 
-                    <span class="n">s</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;D&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">news_data</span><span class="o">.</span><span class="n">target_names</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;2D PCA Visualization Labeled with Document Source&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-</details>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/2c571e7c5a7d8c74adeed4afa628e36acb9eed3bbd858f93a3674b3936ff681e.png" src="_images/2c571e7c5a7d8c74adeed4afa628e36acb9eed3bbd858f93a3674b3936ff681e.png" />
 </div>

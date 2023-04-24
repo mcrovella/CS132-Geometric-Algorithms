@@ -378,49 +378,7 @@ document.write(`
 <br>
 <center>
 <a class="reference internal image-reference" href="_images/rolls-royce.jpg"><img alt="figure" src="_images/rolls-royce.jpg" style="width: 650px;" /></a>
-</center><div class="cell tag_hide-cell docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell content</span>
-<span class="expanded">Hide code cell content</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for conversion to PDF use these settings</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="c1"># qr_setting = &#39;url&#39;</span>
-<span class="c1"># qrviz_setting = &#39;show&#39;</span>
-<span class="c1">#</span>
-<span class="c1"># for lecture use notebook</span>
-<span class="c1">#%matplotlib notebook</span>
-<span class="n">qr_setting</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="n">qrviz_setting</span> <span class="o">=</span> <span class="s1">&#39;save&#39;</span>
-<span class="c1">#</span>
-<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format=&#39;retina&#39;
-<span class="c1"># import libraries</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mp</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">laUtilities</span> <span class="k">as</span> <span class="nn">ut</span>
-<span class="kn">import</span> <span class="nn">slideUtilities</span> <span class="k">as</span> <span class="nn">sl</span>
-<span class="kn">import</span> <span class="nn">demoUtilities</span> <span class="k">as</span> <span class="nn">dm</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display_html</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Math</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Latex</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
-<span class="n">reload</span><span class="p">(</span><span class="n">sl</span><span class="p">)</span>
-<span class="n">reload</span><span class="p">(</span><span class="n">ut</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-</details>
-</div>
-<p>Today we’ll begin our study of the most useful decomposition in applied Linear Algebra.</p>
+</center><p>Today we’ll begin our study of the most useful decomposition in applied Linear Algebra.</p>
 <p>Pretty exciting, eh?</p>
 <blockquote>
 <div><p>The Singular Value Decomposition is the <strong>“Swiss Army Knife”</strong> and the <strong>“Rolls Royce”</strong> of matrix decompositions.</p>
@@ -440,37 +398,7 @@ document.write(`
 <p>For example, for a square <span class="math notranslate nohighlight">\(A\)</span>, if <span class="math notranslate nohighlight">\(A\mathbf{x} = \lambda\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\Vert \mathbf{x}\Vert = 1,\)</span> then</p>
 <div class="math notranslate nohighlight">
 \[\Vert A\mathbf{x}\Vert = \Vert\lambda\mathbf{x}\Vert = |\lambda|\,\Vert\mathbf{x}\Vert = |\lambda|.\]</div>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mf">.1</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
-<span class="n">L</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.2</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
-              <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.7</span><span class="p">]])</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">V</span> <span class="o">@</span> <span class="n">L</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">V</span><span class="p">)</span>
-<span class="c1">#</span>
-<span class="n">ax</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
-<span class="n">theta</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">360</span><span class="p">))</span><span class="o">/</span><span class="mf">360.0</span><span class="p">]</span>
-<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">)])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">theta</span><span class="p">]</span>
-<span class="n">Ax</span> <span class="o">=</span> <span class="p">[</span><span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">xv</span><span class="p">)</span> <span class="k">for</span> <span class="n">xv</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">xv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">xv</span> <span class="ow">in</span> <span class="n">x</span><span class="p">],[</span><span class="n">xv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">xv</span> <span class="ow">in</span> <span class="n">x</span><span class="p">],</span><span class="s1">&#39;-b&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">Axv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">Axv</span> <span class="ow">in</span> <span class="n">Ax</span><span class="p">],[</span><span class="n">Axv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">Axv</span> <span class="ow">in</span> <span class="n">Ax</span><span class="p">],</span><span class="s1">&#39;--r&#39;</span><span class="p">)</span>
-<span class="n">theta_step</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">th</span> <span class="ow">in</span> <span class="n">theta_step</span><span class="p">:</span>
-    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">th</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">th</span><span class="p">)])</span>
-    <span class="n">ut</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">A</span> <span class="o">@</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">length_includes_head</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
-<span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-<span class="n">ut</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.3</span><span class="o">*</span> <span class="n">V</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="mf">0.3</span><span class="o">*</span><span class="n">V</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">length_includes_head</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Black&#39;</span><span class="p">)</span>
-<span class="n">ut</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.3</span><span class="o">*</span> <span class="n">V</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="mf">0.3</span><span class="o">*</span><span class="n">V</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]],</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">length_includes_head</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Black&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Eigenvectors of $A$ and the image of the unit circle under $A$&#39;</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-</details>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/845c325a27d2d654a3f82d2b4fecf3a0d63a61d9dd3507982ff074b13aac0f00.png" src="_images/845c325a27d2d654a3f82d2b4fecf3a0d63a61d9dd3507982ff074b13aac0f00.png" />
 </div>
@@ -481,18 +409,7 @@ document.write(`
 <p>For example:</p>
 <p>If <span class="math notranslate nohighlight">\(A = \begin{bmatrix}4&amp;11&amp;14\\8&amp;7&amp;-2\end{bmatrix},\)</span></p>
 <p>then the linear transformation <span class="math notranslate nohighlight">\(\mathbf{x} \mapsto A\mathbf{x}\)</span> maps the unit sphere <span class="math notranslate nohighlight">\(\{\mathbf{x} : \Vert \mathbf{x} \Vert = 1\}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> onto an ellipse in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>, as shown here:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/Lay-fig-7-4-1.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">650</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</details>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/bf3f01b36eb51cd5c54e611384ee891aa3ab1d8c96fb8ac26cfc39559a0da5eb.jpg" src="_images/bf3f01b36eb51cd5c54e611384ee891aa3ab1d8c96fb8ac26cfc39559a0da5eb.jpg" />
 </div>
@@ -528,34 +445,7 @@ document.write(`
 <p>This example shows that the key to understanding the effect of <span class="math notranslate nohighlight">\(A\)</span> on the unit sphere in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> is to examime the quadratic form <span class="math notranslate nohighlight">\(\mathbf{x}^T(A^TA)\mathbf{x}.\)</span></p>
 <p>We can also go back to our 2 <span class="math notranslate nohighlight">\(\times\)</span> 2 example.</p>
 <p>Let’s plot the eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span><span class="mf">1.5</span><span class="p">,</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
-<span class="n">ut</span><span class="o">.</span><span class="n">centerAxes</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
-<span class="n">theta</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">f</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">360</span><span class="p">))</span><span class="o">/</span><span class="mf">360.0</span><span class="p">]</span>
-<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t</span><span class="p">)])</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">theta</span><span class="p">]</span>
-<span class="n">Ax</span> <span class="o">=</span> <span class="p">[</span><span class="n">A</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">xv</span><span class="p">)</span> <span class="k">for</span> <span class="n">xv</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">xv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">xv</span> <span class="ow">in</span> <span class="n">x</span><span class="p">],[</span><span class="n">xv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">xv</span> <span class="ow">in</span> <span class="n">x</span><span class="p">],</span><span class="s1">&#39;-b&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">Axv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">Axv</span> <span class="ow">in</span> <span class="n">Ax</span><span class="p">],[</span><span class="n">Axv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">Axv</span> <span class="ow">in</span> <span class="n">Ax</span><span class="p">],</span><span class="s1">&#39;--r&#39;</span><span class="p">)</span>
-<span class="n">theta_step</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">24</span><span class="p">)</span>
-<span class="c1">#for th in theta_step:</span>
-<span class="c1">#    x = np.array([np.sin(th), np.cos(th)])</span>
-<span class="c1">#    ut.plotArrowVec(ax, A @ x, x, head_width=.04, head_length=.04, length_includes_head = True, color=&#39;g&#39;)</span>
-<span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-<span class="n">ut</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">length_includes_head</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Black&#39;</span><span class="p">)</span>
-<span class="n">ut</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]],</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">length_includes_head</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;Black&#39;</span><span class="p">)</span>
-<span class="n">ut</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span> <span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]],</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">length_includes_head</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
-<span class="n">ut</span><span class="o">.</span><span class="n">plotArrowVec</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">u</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]],</span> <span class="p">[</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]],</span> <span class="n">head_width</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">head_length</span><span class="o">=</span><span class="mf">.04</span><span class="p">,</span> <span class="n">length_includes_head</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Eigenvectors of $A^TA$ and their images under $A$&#39;</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-</details>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/cd6f372f95b330d43fdbe809fc4cd24e01c658c3bba332efdcf0e56e23af91bc.png" src="_images/cd6f372f95b330d43fdbe809fc4cd24e01c658c3bba332efdcf0e56e23af91bc.png" />
 </div>
