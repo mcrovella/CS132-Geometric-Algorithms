@@ -369,45 +369,7 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># for QR codes use inline</span>
-<span class="o">%</span><span class="k">matplotlib</span> inline
-<span class="n">qr_setting</span> <span class="o">=</span> <span class="s1">&#39;url&#39;</span>
-<span class="c1">#</span>
-<span class="c1"># for lecture use notebook</span>
-<span class="c1"># %matplotlib notebook</span>
-<span class="c1"># qr_setting = None</span>
-<span class="c1">#</span>
-<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format=&#39;retina&#39;
-<span class="c1"># import libraries</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mp</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">laUtilities</span> <span class="k">as</span> <span class="nn">ut</span>
-<span class="kn">import</span> <span class="nn">slideUtilities</span> <span class="k">as</span> <span class="nn">sl</span>
-<span class="kn">import</span> <span class="nn">demoUtilities</span> <span class="k">as</span> <span class="nn">dm</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">reload</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display_html</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">display</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Math</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Latex</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span><span class="p">;</span>
-</pre></div>
-</div>
-</div>
-</details>
-</div>
-<section class="tex2jax_ignore mathjax_ignore" id="matrix-factorizations">
+  <section class="tex2jax_ignore mathjax_ignore" id="matrix-factorizations">
 <h1>Matrix Factorizations<a class="headerlink" href="#matrix-factorizations" title="Permalink to this heading">#</a></h1>
 <p>Just as muiltiplication can be generalized from scalars to matrices, the notion of a factorization can also be generalized from scalars to matrices.</p>
 <p>A <em>factorization</em> of a matrix <span class="math notranslate nohighlight">\(A\)</span> is an equation that expresses <span class="math notranslate nohighlight">\(A\)</span> as a product of two or more matrices.</p>
@@ -513,9 +475,6 @@ document.write(`
 <p>One more thing: is an elementary matrix invertible?</p>
 <p>Clearly, <strong>yes:</strong> any row reduction operation can be reversed by another (related) row reduction operation.</p>
 <p>So every row reduction is an invertible linear transformation – so <strong>every elementary matrix is invertible.</strong></p>
-<div class="toggle docutils container">
-<p>Question Time! Q12.1</p>
-</div>
 </section>
 </section>
 <section id="the-lu-factorization">
@@ -578,9 +537,6 @@ L&amp;U\\
 <p><span class="math notranslate nohighlight">\(L^{-1}\)</span> captures the row reductions that transform <span class="math notranslate nohighlight">\(A\)</span> to row echelon form.</p>
 <p><span class="math notranslate nohighlight">\(U\)</span> is the row echelon form of <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>Note however that we have assumed that the Gaussian Elimination procedure only used certain row reductions – in particular, no row interchanges.    (We’ll deal with row interchanges later.)</p>
-<div class="toggle docutils container">
-<p>Question Time! Q12.2</p>
-</div>
 <section id="finding-l">
 <h3>Finding <span class="math notranslate nohighlight">\(L\)</span><a class="headerlink" href="#finding-l" title="Permalink to this heading">#</a></h3>
 <p>Recall that the motivation for developing the LU decomposition is that it is more efficient than matrix inversion.   So we don’t want to have to invert <span class="math notranslate nohighlight">\(L^{-1}\)</span> in the standard way in order to find <span class="math notranslate nohighlight">\(L\)</span>.</p>
