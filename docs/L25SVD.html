@@ -511,7 +511,7 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[ = c_1A\mathbf{v}_1 + \dots + c_rA\mathbf{v}_r. \]</div>
 <p>(because <span class="math notranslate nohighlight">\(A\mathbf{v}_i = {\mathbf 0}\)</span> for <span class="math notranslate nohighlight">\(i &gt; r\)</span>).</p>
-<p>In summary: <span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_n\}\)</span> is an (orthogonal) linearly independent set whose span is <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span>, so it is an (orthogonal) basis for <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span>.</p>
+<p>In summary: <span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span> is an (orthogonal) linearly independent set whose span is <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span>, so it is an (orthogonal) basis for <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span>.</p>
 <p>Notice that we have also proved that <span class="math notranslate nohighlight">\(\operatorname{rank} A = \dim\operatorname{Col} A = r.\)</span></p>
 <p>In other words, if <span class="math notranslate nohighlight">\(A\)</span> has <span class="math notranslate nohighlight">\(r\)</span> nonzero singular values, <span class="math notranslate nohighlight">\(A\)</span> has rank <span class="math notranslate nohighlight">\(r\)</span>.</p>
 </section>
@@ -603,36 +603,14 @@ aren’t covering it in this course, but that is what you would use here to exte
 <p>Let’s say <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(m\times n\)</span> with <span class="math notranslate nohighlight">\(m&lt;n\)</span>.</p>
 <p>(The situation when <span class="math notranslate nohighlight">\(m&gt;n\)</span> follows similarly).</p>
 <p>The SVD looks like this, with singular values on the diagonal of <span class="math notranslate nohighlight">\(\Sigma\)</span>:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/IMG_D4D3570826C7-1.jpeg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">650</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</details>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/9cb27601b0eeacaab24a9c6557f2e2a5b59415350aa90c45e257bc674e32c615.jpg" src="_images/9cb27601b0eeacaab24a9c6557f2e2a5b59415350aa90c45e257bc674e32c615.jpg" />
 </div>
 </div>
 <p>Now, let’s assume that the number of nonzero singular values <span class="math notranslate nohighlight">\(r\)</span> is less than <span class="math notranslate nohighlight">\(m\)</span>.</p>
 <p>Again, other cases would be similar.</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/IMG_9002E2E7AD74-1.jpeg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">650</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</details>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/2086b5e36e3125e65eef58f42b6a155c7fa2d283374adeab1f452144a71e2ee5.jpg" src="_images/2086b5e36e3125e65eef58f42b6a155c7fa2d283374adeab1f452144a71e2ee5.jpg" />
 </div>
