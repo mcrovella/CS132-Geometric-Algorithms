@@ -11,7 +11,7 @@ book: ## compile the book but do not publish it
         # -W make warning treated as errors
         # -n nitpick generate warnings for all missing links
         # --keep-going despite -W don't stop delay errors till the end
-	jupyter-book build -v -n --keep-going .
+	jupyter-book build --keep-going .
 
 pushbook:
 pushbook: ## publish the last compiled book
