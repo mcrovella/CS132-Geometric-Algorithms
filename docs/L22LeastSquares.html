@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,8 +38,8 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -377,19 +377,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="least-squares">
 <h1>Least Squares<a class="headerlink" href="#least-squares" title="Permalink to this heading">#</a></h1>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit: http://en.wikipedia.org/wiki/Carl_Friedrich_Gauss#mediaviewer/File:Carl_Friedrich_Gauss.jpg</span>
-<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/Carl_Friedrich_Gauss.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">450</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</details>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/ff7aad0ebe04cd93633f519e2c7752fc262518a1f917e727ad305c76db776265.jpg" src="_images/ff7aad0ebe04cd93633f519e2c7752fc262518a1f917e727ad305c76db776265.jpg" />
 </div>
@@ -421,7 +409,7 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[ X\mathbf{a} = \mathbf{b}\]</div>
 <p>where <span class="math notranslate nohighlight">\(X\)</span> is <span class="math notranslate nohighlight">\(n\times 6\)</span> and <span class="math notranslate nohighlight">\(\mathbf{b} \in \mathbb{R}^n\)</span>.</p>
-<p>But now, due to measurement errors, we can’t expect <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> will lie in the column space of <span class="math notranslate nohighlight">\(X\)</span>.  We have an inconsistent system.</p>
+<p>But now, due to measurement errors, we can’t expect <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> will lie in the column space of <span class="math notranslate nohighlight">\(X.\)</span>  We have an inconsistent system.</p>
 <p>This system has <strong>no solutions!</strong></p>
 <p>What can we do if <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> has <strong>no solutions?</strong></p>
 <p>Here is the key idea: the fact that our measurements include errors does not make them worthless!</p>
@@ -435,7 +423,7 @@ document.write(`
 <p>Here is an example we can visualize, in which <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(3 \times 2\)</span>:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/0dc9daf40d44dfe50e088716be104e15997723733f464521ffb5fb2d0d65b1e6.png" src="_images/0dc9daf40d44dfe50e088716be104e15997723733f464521ffb5fb2d0d65b1e6.png" />
+<img alt="_images/d5e574803cb55b7805a88860ab198bbfce912ceb3c8efbad62e21cdea4d4d36c.png" src="_images/d5e574803cb55b7805a88860ab198bbfce912ceb3c8efbad62e21cdea4d4d36c.png" />
 </div>
 </div>
 <p>Now our assumption is that the reason that <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> does not lie in <span class="math notranslate nohighlight">\(\operatorname{Col}\,A\)</span> is due to measurement error.</p>
@@ -445,7 +433,7 @@ document.write(`
 <p>In other words, we are looking for an <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> such that <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> makes a good <strong>approximation</strong> to <span class="math notranslate nohighlight">\(\mathbf{b}.\)</span></p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/657984dd6819a4cf90eea8eba9ffc0536a41dd5b034a372b99140704cd9a3a9b.png" src="_images/657984dd6819a4cf90eea8eba9ffc0536a41dd5b034a372b99140704cd9a3a9b.png" />
+<img alt="_images/3d747827de3e909ad7ab7a4e0a6a8ee6b5e45e7ad50c3639b2ceec17436c958a.png" src="_images/3d747827de3e909ad7ab7a4e0a6a8ee6b5e45e7ad50c3639b2ceec17436c958a.png" />
 </div>
 </div>
 <p>We can think of the quality of the approximation of <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> as the distance from <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b},\)</span> which is</p>
@@ -464,7 +452,8 @@ document.write(`
 <p>So this expression is the <strong>sum of squared error.</strong></p>
 <p>This is the most common measure of error used in statistics.</p>
 <p>This is a key principle!</p>
-<center><font color = "blue">Minimizing the length of $A\mathbf{x} - \mathbf{b}$ is the same as minimizing the sum of squared error.</font></center><p><strong>Definition.</strong> If A is <span class="math notranslate nohighlight">\(m\times n\)</span> and <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is in <span class="math notranslate nohighlight">\(\mathbb{R}^m,\)</span> a <strong>least squares solution</strong> of <span class="math notranslate nohighlight">\(A\mathbf{x} =\mathbf{b}\)</span> is an <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> such that</p>
+<p>Minimizing the <font color = "blue">length</font> of <span class="math notranslate nohighlight">\(A\mathbf{x} - \mathbf{b}\)</span> is the same as minimizing the <font color = "blue">sum of squared error.</font></p>
+<p><strong>Definition.</strong> If A is <span class="math notranslate nohighlight">\(m\times n\)</span> and <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is in <span class="math notranslate nohighlight">\(\mathbb{R}^m,\)</span> a <strong>least squares solution</strong> of <span class="math notranslate nohighlight">\(A\mathbf{x} =\mathbf{b}\)</span> is an <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> such that</p>
 <div class="math notranslate nohighlight">
 \[\Vert A\mathbf{\hat{x}} - \mathbf{b}\Vert \leq \Vert A\mathbf{x} - \mathbf{b}\Vert\]</div>
 <p>for all <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
@@ -479,7 +468,7 @@ document.write(`
 <p>So <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is outside <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>, and we are looking for <span class="math notranslate nohighlight">\(\hat{\mathbf{x}}\)</span>, which specifies the closest point in <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/e72c36c8c1f9ec978954567eb4c2f34d43afe8d5eaff518455ae289f2cb694ec.png" src="_images/e72c36c8c1f9ec978954567eb4c2f34d43afe8d5eaff518455ae289f2cb694ec.png" />
+<img alt="_images/db5fa030a03e2c47731a1782e52c54299bb461d4e248612faccfe8c61b8604c4.png" src="_images/db5fa030a03e2c47731a1782e52c54299bb461d4e248612faccfe8c61b8604c4.png" />
 </div>
 </div>
 <p>The vector <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is closer to <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}}\)</span> than it is to <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> for any other <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>.</p>
@@ -501,12 +490,12 @@ document.write(`
 <p>where <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span> is in <span class="math notranslate nohighlight">\(W\)</span> and <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> is orthogonal to every vector in <span class="math notranslate nohighlight">\(W\)</span>.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/1a32e2ac396eb66de30999f8fb6d9967e6afdfc78b1b9aa10a93e2acb49846f6.png" src="_images/1a32e2ac396eb66de30999f8fb6d9967e6afdfc78b1b9aa10a93e2acb49846f6.png" />
+<img alt="_images/8f7f31297a43a248a6995963981e7ed186970bf8b8a49cb7a3d17c9d5a9f78e0.png" src="_images/8f7f31297a43a248a6995963981e7ed186970bf8b8a49cb7a3d17c9d5a9f78e0.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/c0d9f534b38d5975c5f2676b38524b3aa86a679610aadbfa80ea321c8a2247e6.png" src="_images/c0d9f534b38d5975c5f2676b38524b3aa86a679610aadbfa80ea321c8a2247e6.png" />
+<img alt="_images/3f65cfa2f94f767313e0e6386a56528eee578313ac47b8778eedc81860a13bb3.png" src="_images/3f65cfa2f94f767313e0e6386a56528eee578313ac47b8778eedc81860a13bb3.png" />
 </div>
 </div>
 <p><strong>Proof.</strong> (straightforward extension of the 1D case from last lecture.)</p>
@@ -522,7 +511,7 @@ document.write(`
 <p>Take <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> in <span class="math notranslate nohighlight">\(W\)</span> distinct from <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span>.   Here is what the setup looks like:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/c4e7e366cdf62e0f2bd906830945a49f59b7064c0733d6525ac2fec6ce582626.png" src="_images/c4e7e366cdf62e0f2bd906830945a49f59b7064c0733d6525ac2fec6ce582626.png" />
+<img alt="_images/8d687a09b3ee8f3e92fa2c1b57f814e5bda683ac1ff73b53f3a90e23257f148f.png" src="_images/8d687a09b3ee8f3e92fa2c1b57f814e5bda683ac1ff73b53f3a90e23257f148f.png" />
 </div>
 </div>
 <p>Both <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> are in <span class="math notranslate nohighlight">\(W\)</span>, so <span class="math notranslate nohighlight">\(\hat{\mathbf{y}} - \mathbf{v}\)</span> is in <span class="math notranslate nohighlight">\(W\)</span>.</p>
@@ -561,7 +550,7 @@ document.write(`
 \[A\mathbf{\hat{x}} = \hat{\mathbf{b}}.\]</div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/bc3bc1d4e9bdc68e410e08ca85478564635b72d3477a30dab7d63264f9124af9.png" src="_images/bc3bc1d4e9bdc68e410e08ca85478564635b72d3477a30dab7d63264f9124af9.png" />
+<img alt="_images/7fefd0467664714c1f70a2154c3008b0163afa357a10d2f84e44b494e1d99abf.png" src="_images/7fefd0467664714c1f70a2154c3008b0163afa357a10d2f84e44b494e1d99abf.png" />
 </div>
 </div>
 <p>Since <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> is the closest point in <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b},\)</span> a vector <span class="math notranslate nohighlight">\(\hat{\mathbf{x}}\)</span> is a least-squares solution of <span class="math notranslate nohighlight">\(A\mathbf{x}=\mathbf{b}\)</span> if and only if <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> satisfies <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}} = \hat{\mathbf{b}}.\)</span></p>
@@ -573,13 +562,13 @@ document.write(`
 <p>So <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> may not lie in <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>, and in our example it does not:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/8f494313b9dec6cb901be231d158479a0badc6ccdd1ac1e5e2e74e278f76e3ad.png" src="_images/8f494313b9dec6cb901be231d158479a0badc6ccdd1ac1e5e2e74e278f76e3ad.png" />
+<img alt="_images/5c0227d02b1538c591e85b3bc559d882b3b8eb692146983f295ff77051102f83.png" src="_images/5c0227d02b1538c591e85b3bc559d882b3b8eb692146983f295ff77051102f83.png" />
 </div>
 </div>
 <p>And what we want to find is the projection of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> onto the column space of <span class="math notranslate nohighlight">\(A\)</span>:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/73b362a590a572c679cb8469d0deaec8d1507a67d3c9f530771c131117aefa5d.png" src="_images/73b362a590a572c679cb8469d0deaec8d1507a67d3c9f530771c131117aefa5d.png" />
+<img alt="_images/cf76e695e27054ee53907a365091aee64e749d216b5d5b8e2fa62930748bb4ea.png" src="_images/cf76e695e27054ee53907a365091aee64e749d216b5d5b8e2fa62930748bb4ea.png" />
 </div>
 </div>
 <section id="the-normal-equations">
@@ -604,7 +593,7 @@ document.write(`
 \[A^TA\mathbf{\hat{x}} = A^T\mathbf{b}\]</div>
 <p>Looking at this, we see that <span class="math notranslate nohighlight">\(A^T\mathbf{b}\)</span> is a vector, and <span class="math notranslate nohighlight">\(A^TA\)</span> is a matrix, so this is a standard linear system.</p>
 <p>This linear system is called the <strong>normal equations</strong> for <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}.\)</span></p>
-<p>It’s solution is usually denoted <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span>.</p>
+<p>Its solution is usually denoted <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span>.</p>
 <p><strong>Theorem.</strong>  The set of least-squares solutions of <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> is equal to the (nonempty) set of solutions of the normal equations <span class="math notranslate nohighlight">\(A^TA\mathbf{x} = A^T\mathbf{b}.\)</span></p>
 <p><strong>Proof.</strong></p>
 <p>(1) The set of solutions is nonempty.  The matrix on the left has the same column space as <span class="math notranslate nohighlight">\(A^T\)</span> and the vector on the right is a vector in the column  space of <span class="math notranslate nohighlight">\(A^T.\)</span></p>
@@ -657,7 +646,7 @@ document.write(`
 <p>But note, that <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span> is only two-dimensional because the three columns are linearly dependent.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/319589685bc2fdff35ae85d41cfb11a72fa930510281e6be760c162368512dae.png" src="_images/319589685bc2fdff35ae85d41cfb11a72fa930510281e6be760c162368512dae.png" />
+<img alt="_images/6170ff4057bedf9a983a5ae049bab6629925c15efd7ea87b2951b34b70f2e663.png" src="_images/6170ff4057bedf9a983a5ae049bab6629925c15efd7ea87b2951b34b70f2e663.png" />
 </div>
 </div>
 <p><strong>Example.</strong></p>
@@ -743,7 +732,10 @@ document.write(`
               
               
                 <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="L21OrthogonalSets.html"
@@ -763,7 +755,10 @@ document.write(`
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -803,7 +798,7 @@ document.write(`
             
           </div>
           <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
+            
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -833,7 +828,7 @@ By Mark Crovella
     
   </div>
   
-</div></div>
+</div>
           </footer>
         
 
@@ -842,8 +837,8 @@ By Mark Crovella
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>
