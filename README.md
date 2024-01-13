@@ -2,9 +2,11 @@ CS132
 =====
 
 These are lecture notes for Computer Science 132, _Geometric
-Algorithms,_ as taught by me at Boston University.  The overall
-structure of the course is based on _Linear Algebra and its Applications,_ by David
-C. Lay, Addison-Wesley (Pearson).
+Algorithms,_ as taught by me at Boston University. 
+ The overall
+structure of the course is roughly based on _Linear Algebra and its
+Applications,_ by David C. Lay, Addison-Wesley (Pearson).   Many
+examples and illustrations are based on that excellent text. 
 
 The notes are in the form of Jupyter notebooks.   Demos and most figures
 are included as executable Python code. Lecture notes are also available
