@@ -1,0 +1,1058 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>The Matrix of a Linear Transformation &#8212; Linear Algebra, Geometry, and Computation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'L08MatrixofLinearTranformation';</script>
+    <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Matrix Algebra" href="L09MatrixOperations.html" />
+    <link rel="prev" title="Linear Transformations" href="L07LinearTransformations.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="landing-page.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/DiagramAR-icon.png" class="logo__image only-light" alt="Linear Algebra, Geometry, and Computation - Home"/>
+    <script>document.write(`<img src="_static/DiagramAR-icon.png" class="logo__image only-dark" alt="Linear Algebra, Geometry, and Computation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="landing-page.html">
+                    Preface
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="L01LinearEquations.html">Linear Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L02Numerics.html">(Getting Serious About) Numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L03RowReductions.html">Gaussian Elimination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L04VectorEquations.html">Vector Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L05Axb.html"><span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="L06LinearIndependence.html">Linear Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L07LinearTransformations.html">Linear Transformations</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">The Matrix of a Linear Transformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L09MatrixOperations.html">Matrix Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L10MatrixInverse.html">The Inverse of a Matrix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L11MarkovChains.html">Markov Chains</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L12MatrixFactorizations.html">Matrix Factorizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L13ComputerGraphics.html">Computer Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L14Subspaces.html">Subspaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L15DimensionRank.html">Dimension and Rank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L16Eigenvectors.html">Eigenvectors and Eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L17CharacteristicEqn.html">The Characteristic Equation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L18Diagonalization.html">Diagonalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L19PageRank.html">PageRank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L20Orthogonality.html">Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="L21OrthogonalSets.html">Orthogonal Sets and Projection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L22LeastSquares.html">Least Squares</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L23LinearModels.html">Linear Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L24SymmetricMatrices.html">Symmetric Matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L25SVD.html">The Singular Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L26ApplicationsOfSVD.html">Applications of the SVD</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/L08MatrixofLinearTranformation.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>The Matrix of a Linear Transformation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-linear-transformations-of-mathbb-r-2">Geometric Linear Transformations of <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#area-is-scaled-by-the-determinant">Area is Scaled by the Determinant</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#existence-and-uniqueness">Existence and Uniqueness</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="the-matrix-of-a-linear-transformation">
+<h1>The Matrix of a Linear Transformation<a class="headerlink" href="#the-matrix-of-a-linear-transformation" title="Permalink to this heading">#</a></h1>
+<p>In the last lecture we introduced the idea of a <strong>linear transformation</strong>:</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/6cc84d7076ff2ad84485b62de3da2a4016f1743faf03d7219e5a91c109682608.jpg" src="_images/6cc84d7076ff2ad84485b62de3da2a4016f1743faf03d7219e5a91c109682608.jpg" />
+</div>
+</div>
+<p>We have seen that every matrix multiplication is a linear transformation from vectors to vectors.</p>
+<p>But, are there any other possible linear transformations from vectors to vectors?</p>
+<p>No.</p>
+<p>In other words, the reverse statement is also true:</p>
+<p><font color = "blue"> every linear transformation from vectors to vectors is a matrix multiplication. </font></p>
+<p>We’ll now prove this fact.</p>
+<p>We’ll do it <strong>constructively</strong>, meaning we’ll actually show how to find the matrix corresponding to any given linear transformation <span class="math notranslate nohighlight">\(T\)</span>.</p>
+<p><strong>Theorem.</strong>  Let <span class="math notranslate nohighlight">\(T: \mathbb{R}^n \rightarrow \mathbb{R}^m\)</span> be a linear transformation.   Then there is (always) a unique matrix <span class="math notranslate nohighlight">\(A\)</span> such that:</p>
+<div class="math notranslate nohighlight">
+\[ T({\bf x}) = A{\bf x} \;\;\; \mbox{for all}\; {\bf x} \in \mathbb{R}^n.\]</div>
+<p>In fact, <span class="math notranslate nohighlight">\(A\)</span> is the <span class="math notranslate nohighlight">\(m \times n\)</span> matrix whose <span class="math notranslate nohighlight">\(j\)</span>th column is the vector <span class="math notranslate nohighlight">\(T({\bf e_j})\)</span>, where <span class="math notranslate nohighlight">\({\bf e_j}\)</span> is the <span class="math notranslate nohighlight">\(j\)</span>th column of the identity matrix in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[A = \left[T({\bf e_1}) \dots T({\bf e_n})\right].\]</div>
+<p><span class="math notranslate nohighlight">\(A\)</span> is called the <em>standard matrix</em> of <span class="math notranslate nohighlight">\(T\)</span>.</p>
+<p><strong>Proof.</strong>  Write</p>
+<div class="math notranslate nohighlight">
+\[{\bf x} = I{\bf x} = \left[{\bf e_1} \dots {\bf e_n}\right]\bf x\]</div>
+<div class="math notranslate nohighlight">
+\[ = x_1{\bf e_1} + \dots + x_n{\bf e_n}.\]</div>
+<p>In other words, for any <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>, we can always expand it as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \mathbf{x} 
+\;= \;\;\;\;\;
+\begin{bmatrix}
+1 &amp; 0 &amp; \dots &amp; 0 \\
+0 &amp; 1 &amp; \dots &amp; 0\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+0 &amp; 0 &amp; \dots &amp; 1 
+\end{bmatrix} \; \begin{bmatrix}x_1\\x_2\\ \vdots \\ x_n\end{bmatrix} 
+\;\;\;\;\;= \;\;\;\;\;
+\begin{bmatrix} x_1 \\ 0 \\ \vdots \\ 0 \end{bmatrix} +
+\begin{bmatrix} 0 \\ x_2 \\ \vdots \\ 0 \end{bmatrix} +
+\dots +
+\begin{bmatrix} 0 \\ 0 \\ \vdots \\ x_n \end{bmatrix} \end{split}\]</div>
+<p>Because <span class="math notranslate nohighlight">\(T\)</span> is linear, we have:</p>
+<div class="math notranslate nohighlight">
+\[ T({\bf x}) = T(x_1{\bf e_1} + \dots + x_n{\bf e_n})\]</div>
+<div class="math notranslate nohighlight">
+\[ = x_1T({\bf e_1}) + \dots + x_nT({\bf e_n})\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} = \left[T({\bf e_1}) \dots T({\bf e_n})\right] \, \left[\begin{array}{r}x_1\\\vdots\\x_n\end{array}\right] = A{\bf x}.\end{split}\]</div>
+<p>So … we see that the ideas of <strong>matrix multiplication</strong> and <strong>linear transformation</strong> are essentially equivalent.</p>
+<p>Every matrix multiplication is a linear transformation, and every linear transformation is a matrix multiplication.</p>
+<p><strong>However</strong>, term <em>linear transformation</em> focuses on a <strong>property</strong> of the mapping, while the term <em>matrix multiplication</em> focuses on how such a mapping is <strong>implemented.</strong></p>
+<p>This proof shows us an important idea:</p>
+<p><font color='blue'> To find the standard matrix of a linear tranformation, ask what the transformation does to the columns of <span class="math notranslate nohighlight">\(I\)</span>.</font></p>
+<p>In other words, if <span class="math notranslate nohighlight">\( T(\mathbf{x}) = A\mathbf{x} \)</span>, then:</p>
+<div class="math notranslate nohighlight">
+\[A = \left[T({\bf e_1}) \dots T({\bf e_n})\right].\]</div>
+<p>This gives us a way to compute the standard matrix of a transformation.</p>
+<p>Now, in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>, <span class="math notranslate nohighlight">\(I = \left[\begin{array}{cc}1&amp;0\\0&amp;1\end{array}\right]\)</span>.   So:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{e_1} = \left[\begin{array}{c}1\\0\end{array}\right]\;\;\mbox{and}\;\;\mathbf{e_2} = \left[\begin{array}{c}0\\1\end{array}\right].\end{split}\]</div>
+<p>So to find the matrix of any given linear transformation of vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>, we only have to know what that transformation does to these two points:</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/3fd49a4c73bda8df6ccde3282e58e6914f700b9aca1d8b4bd43ba29adfeff9f3.png" src="_images/3fd49a4c73bda8df6ccde3282e58e6914f700b9aca1d8b4bd43ba29adfeff9f3.png" />
+</div>
+</div>
+<p>This is a <strong>hugely</strong> powerful tool.</p>
+<p>Let’s say we start from some given linear transformation; we can use this idea to find the matrix that implements that linear transformation.</p>
+<p>For example, let’s consider rotation about the origin as a kind of transformation.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/75a0ee7be2f0ccdbe19779ac6f2a1dc1ee784d9c9ecf229a9f89e8cb31d4aed7.png" src="_images/75a0ee7be2f0ccdbe19779ac6f2a1dc1ee784d9c9ecf229a9f89e8cb31d4aed7.png" />
+</div>
+</div>
+<p>First things first: Is rotation a <strong>linear</strong> transformation?</p>
+<p>Recall that a for a transformation to be linear, it must be true that <span class="math notranslate nohighlight">\(T(\mathbf{u} + \mathbf{v}) = T(\mathbf{u}) + T(\mathbf{v}).\)</span></p>
+<p>I’m going to show you a “geometric proof.”</p>
+<p>This figure shows that “the rotation of <span class="math notranslate nohighlight">\(\mathbf{u+v}\)</span> is the sum of the rotation of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and the rotation of <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>”.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/dcbec68944ae8e3e0fbcdea38be342a480fe47b8f801a28cd7e392035df4284b.png" src="_images/dcbec68944ae8e3e0fbcdea38be342a480fe47b8f801a28cd7e392035df4284b.png" />
+</div>
+</div>
+<p>OK, so rotation is a linear transformation.</p>
+<p>Let’s see how to <strong>compute</strong> the linear transformation that is a rotation.</p>
+<p><strong>Specifically:</strong>  Let <span class="math notranslate nohighlight">\(T: \mathbb{R}^2 \rightarrow \mathbb{R}^2\)</span> be the transformation that rotates each point in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> about the origin through an angle <span class="math notranslate nohighlight">\(\theta\)</span>, with counterclockwise rotation for a positive angle.</p>
+<p>Let’s find the standard matrix <span class="math notranslate nohighlight">\(A\)</span> of this transformation.</p>
+<p><strong>Solution.</strong>  The columns of <span class="math notranslate nohighlight">\(I\)</span> are <span class="math notranslate nohighlight">\({\bf e_1} = \left[\begin{array}{r}1\\0\end{array}\right]\)</span> and <span class="math notranslate nohighlight">\({\bf e_2} = \left[\begin{array}{r}0\\1\end{array}\right].\)</span></p>
+<p>Referring to the diagram below, we can see that <span class="math notranslate nohighlight">\(\left[\begin{array}{r}1\\0\end{array}\right]\)</span> rotates into <span class="math notranslate nohighlight">\(\left[\begin{array}{r}\cos\theta\\\sin\theta\end{array}\right],\)</span> and <span class="math notranslate nohighlight">\(\left[\begin{array}{r}0\\1\end{array}\right]\)</span> rotates into <span class="math notranslate nohighlight">\(\left[\begin{array}{r}-\sin\theta\\\cos\theta\end{array}\right].\)</span></p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># red circle portion</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">arc</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Arc</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">340.</span><span class="p">,</span> <span class="mf">200.</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>                  <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span>                  <span class="n">linestyle</span> <span class="o">=</span> <span class="s1">&#39;-.&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">arc</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1">#</span>
+<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="c1"># labels</span>
+
+<span class="ne">TypeError</span>: __init__() takes 4 positional arguments but 7 were given
+</pre></div>
+</div>
+<img alt="_images/15bef68157b1e1f6a68e882fd47bcc3b65226d6a088f05ff713f47833394bb0a.png" src="_images/15bef68157b1e1f6a68e882fd47bcc3b65226d6a088f05ff713f47833394bb0a.png" />
+</div>
+</div>
+<p>So by the Theorem above,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} A = \left[\begin{array}{rr}\cos\theta&amp;-\sin\theta\\\sin\theta&amp;\cos\theta\end{array}\right].\end{split}\]</div>
+<p>To demonstrate the use of a rotation matrix, let’s rotate the following shape:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
+<span class="n">note</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">mnote</span><span class="p">()</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotShape</span><span class="p">(</span><span class="n">note</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/9889507afaa156a322984d17bb168b68d81a10f9bcdabee15a5be27ef6943e35.png" src="_images/9889507afaa156a322984d17bb168b68d81a10f9bcdabee15a5be27ef6943e35.png" />
+</div>
+</div>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">note</span></code> is a array of 26 vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> that define its shape.</p>
+<p>In other words, it is a 2 <span class="math notranslate nohighlight">\(\times\)</span> 26 matrix.</p>
+<p>To rotate <code class="docutils literal notranslate"><span class="pre">note</span></code> we need to multiply each column of <code class="docutils literal notranslate"><span class="pre">note</span></code> by the rotation matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>In Python matrix multiplication is performed using the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> operator.</p>
+<p>That is, if <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> are matrices,</p>
+<p><code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">&#64;</span> <span class="pre">B</span></code></p>
+<p>will multiply <code class="docutils literal notranslate"><span class="pre">A</span></code> by every column of <code class="docutils literal notranslate"><span class="pre">B,</span></code> and the resulting vectors will be formed
+into a matrix.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
+<span class="n">angle</span> <span class="o">=</span> <span class="mi">90</span>
+<span class="n">theta</span> <span class="o">=</span> <span class="p">(</span><span class="n">angle</span><span class="o">/</span><span class="mi">180</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">)],</span>
+     <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">theta</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">theta</span><span class="p">)]])</span>
+<span class="n">rnote</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">note</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotShape</span><span class="p">(</span><span class="n">rnote</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/219f3cb157a813d0235715b04c9244ec2bdb4460317ff43b1b8512939ff95c64.png" src="_images/219f3cb157a813d0235715b04c9244ec2bdb4460317ff43b1b8512939ff95c64.png" />
+</div>
+</div>
+<section id="geometric-linear-transformations-of-mathbb-r-2">
+<h2>Geometric Linear Transformations of <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span><a class="headerlink" href="#geometric-linear-transformations-of-mathbb-r-2" title="Permalink to this heading">#</a></h2>
+<p>Let’s use our understanding of how to constuct linear transformations to look at some specific linear transformations of <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> to <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>.</p>
+<p>First, let’s recall the linear transformation</p>
+<div class="math notranslate nohighlight">
+\[T(\mathbf{x}) = r\mathbf{x}.\]</div>
+<p>With <span class="math notranslate nohighlight">\(r &gt; 1\)</span>, this is a dilation.  It moves every vector further from the origin.</p>
+<p>Let’s say the dilation is by a factor of 2.5.</p>
+<p>To construct the matrix <span class="math notranslate nohighlight">\(A\)</span> that implements this transformation, we ask: where do <span class="math notranslate nohighlight">\({\bf e_1}\)</span> and <span class="math notranslate nohighlight">\({\bf e_2}\)</span> go?</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/ec04a97882dc29250b1f711eed5394acf0730c0d98f5645d2e59e47c1936981b.png" src="_images/ec04a97882dc29250b1f711eed5394acf0730c0d98f5645d2e59e47c1936981b.png" />
+</div>
+</div>
+<p>Under the action of <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(\mathbf{e_1}\)</span> goes to <span class="math notranslate nohighlight">\(\left[\begin{array}{c}2.5\\0\end{array}\right]\)</span> and <span class="math notranslate nohighlight">\(\mathbf{e_2}\)</span> goes to <span class="math notranslate nohighlight">\(\left[\begin{array}{c}0\\2.5\end{array}\right]\)</span>.</p>
+<p>So the matrix <span class="math notranslate nohighlight">\(A\)</span> must be <span class="math notranslate nohighlight">\(\left[\begin{array}{cc}2.5&amp;0\\0&amp;2.5\end{array}\right]\)</span>.</p>
+<p>Let’s test this out:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">square</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+     <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
+<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[[</span><span class="mf">2.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+     <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">]])</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="sa">rf</span><span class="s2">&quot;$A = </span><span class="si">{</span><span class="n">ltx_array_fmt</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;</span><span class="si">{:1.1f}</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">))</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">square</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">square</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}
+  2.5 &amp;  0.0\\
+  0.0 &amp;  2.5
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/ad91667e6fb1ccfcd1704c52ea633b37af77ae8e32604cdf8dd003877ed7a50b.png" src="_images/ad91667e6fb1ccfcd1704c52ea633b37af77ae8e32604cdf8dd003877ed7a50b.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="o">-</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotShape</span><span class="p">(</span><span class="n">note</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotShape</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">note</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/321c913f8ae8cd5b74760a3f5c2c0c675945027d3fe0a255eb7d0d020bf4f052.png" src="_images/321c913f8ae8cd5b74760a3f5c2c0c675945027d3fe0a255eb7d0d020bf4f052.png" />
+</div>
+</div>
+<p>OK, now let’s reflect through the <span class="math notranslate nohighlight">\(x_1\)</span> axis.   Where do <span class="math notranslate nohighlight">\({\bf e_1}\)</span> and <span class="math notranslate nohighlight">\({\bf e_2}\)</span> go?</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/ec04a97882dc29250b1f711eed5394acf0730c0d98f5645d2e59e47c1936981b.png" src="_images/ec04a97882dc29250b1f711eed5394acf0730c0d98f5645d2e59e47c1936981b.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[[</span><span class="mi">1</span><span class="p">,</span>  <span class="mi">0</span><span class="p">],</span>
+     <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="sa">rf</span><span class="s2">&quot;$A = </span><span class="si">{</span><span class="n">ltx_array_fmt</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;</span><span class="si">{:d}</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">))</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">square</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">square</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Reflection through the $x_1$ axis&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}
+  1  &amp;  0 \\
+  0  &amp; -1 
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/4b38e5dc48f66beb282482f9f0648d99a9017669ebf950605d05b46a6dcaac42.png" src="_images/4b38e5dc48f66beb282482f9f0648d99a9017669ebf950605d05b46a6dcaac42.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotShape</span><span class="p">(</span><span class="n">note</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotShape</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">note</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2b6a54e83a8b723ed544b3031977ff082e9e570a7c71d8a8ac60fa955bd2fb64.png" src="_images/2b6a54e83a8b723ed544b3031977ff082e9e570a7c71d8a8ac60fa955bd2fb64.png" />
+</div>
+</div>
+<p>What about reflection through the <span class="math notranslate nohighlight">\(x_2\)</span> axis?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+    <span class="p">[[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
+     <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="n">display</span><span class="p">(</span><span class="n">Latex</span><span class="p">(</span><span class="sa">rf</span><span class="s2">&quot;$A = </span><span class="si">{</span><span class="n">ltx_array_fmt</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;</span><span class="si">{:2d}</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">$&quot;</span><span class="p">))</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">square</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">square</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Reflection through the $x_2$ axis&#39;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">20</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}
+ -1  &amp;   0 \\
+   0  &amp;   1 
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/8a9418094a96809950c2d3f2ca8c6d7794552f5c0fb2f2b20ef4f1d73824d95c.png" src="_images/8a9418094a96809950c2d3f2ca8c6d7794552f5c0fb2f2b20ef4f1d73824d95c.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotShape</span><span class="p">(</span><span class="n">note</span><span class="p">)</span>
+<span class="n">dm</span><span class="o">.</span><span class="n">plotShape</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">note</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/5ce0d1ac803ba9283a7e8f5fc5d7c98ef1473d098b3dae834541679c6c1960cf.png" src="_images/5ce0d1ac803ba9283a7e8f5fc5d7c98ef1473d098b3dae834541679c6c1960cf.png" />
+</div>
+</div>
+<p>What about reflection through the line <span class="math notranslate nohighlight">\(x_1 = x_2\)</span>?</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}
+  0  &amp;  1 \\
+  1  &amp;  0 
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/60b03c23328dd55998a13fc2dd382793d34b4d7c7eee0fe717a0cc070a8b4f99.png" src="_images/60b03c23328dd55998a13fc2dd382793d34b4d7c7eee0fe717a0cc070a8b4f99.png" />
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/5c97648f7b38b711918fc1cd325f49bc47873f511e33f40747c81d449ebf5728.png" src="_images/5c97648f7b38b711918fc1cd325f49bc47873f511e33f40747c81d449ebf5728.png" />
+</div>
+</div>
+<p>What about reflection through the line <span class="math notranslate nohighlight">\(x_1 = -x_2\)</span>?</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}
+  0  &amp; -1 \\
+ -1  &amp;  0 
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/3101051a20a411308ceb56fa853b9421ec2d28b7a762caaa41e4393839616efb.png" src="_images/3101051a20a411308ceb56fa853b9421ec2d28b7a762caaa41e4393839616efb.png" />
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/e2f874b7b2198b7cc44ed0ed0cefd484341fc40c7bec8aabdb863cc6472b69eb.png" src="_images/e2f874b7b2198b7cc44ed0ed0cefd484341fc40c7bec8aabdb863cc6472b69eb.png" />
+</div>
+</div>
+<p>What about reflection through the origin?</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}
+ -1  &amp;  0 \\
+  0  &amp; -1 
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/8aee2d99425d519ba16175607854c19fc065817e262f2562a1c006ab53984aa4.png" src="_images/8aee2d99425d519ba16175607854c19fc065817e262f2562a1c006ab53984aa4.png" />
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/c244029e76221d5d476c5d68bfabfe1f7f11c1b76d39a447892ee345830c9454.png" src="_images/c244029e76221d5d476c5d68bfabfe1f7f11c1b76d39a447892ee345830c9454.png" />
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}
+  0.45 &amp;  0.00\\
+  0.00 &amp;  1.00
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/0c6832ce57112a60254d29fcac62dc0d29245fa23ae74980b0af6e0df2347161.png" src="_images/0c6832ce57112a60254d29fcac62dc0d29245fa23ae74980b0af6e0df2347161.png" />
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/e12f55763ab2886ba8d9d2a230e2955d4d91e34b5100057f8329b977807b44a2.png" src="_images/e12f55763ab2886ba8d9d2a230e2955d4d91e34b5100057f8329b977807b44a2.png" />
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}
+  2.5 &amp;  0.0\\
+  0.0 &amp;  1.0
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/52aba804d84c68609b314c0dd429f3aecc5094ac83d78219d0b03960c9941956.png" src="_images/52aba804d84c68609b314c0dd429f3aecc5094ac83d78219d0b03960c9941956.png" />
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}
+  1.0 &amp;  0.0\\
+ -1.5 &amp;  1.0
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/fab4f7fac247612c6809239d6b0940f929b3bb11c850ff2a2d311519152128dc.png" src="_images/fab4f7fac247612c6809239d6b0940f929b3bb11c850ff2a2d311519152128dc.png" />
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/42df409804bddf70eeea53a8acea117d0b636c54c9b6e48b3c8bc160f997de1b.png" src="_images/42df409804bddf70eeea53a8acea117d0b636c54c9b6e48b3c8bc160f997de1b.png" />
+</div>
+</div>
+<p>Now let’s look at a particular kind of transformation called a <strong>projection</strong>.</p>
+<p>Imagine we took any given point and ‘dropped’ it onto the <span class="math notranslate nohighlight">\(x_1\)</span>-axis.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}
+  1  &amp;  0 \\
+  0  &amp;  0 
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/a1099dde229cab169797a1ebf8c9e158978fea25f8706927a26923f2255cdc06.png" src="_images/a1099dde229cab169797a1ebf8c9e158978fea25f8706927a26923f2255cdc06.png" />
+</div>
+</div>
+<p>What happens to the <strong>shape</strong> of the point set?</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/b760c8ce829475f78600abbff745e34428849ba06aacf8542682b3040ee37959.png" src="_images/b760c8ce829475f78600abbff745e34428849ba06aacf8542682b3040ee37959.png" />
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}
+  0  &amp;  0 \\
+  0  &amp;  1 
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/d887098cfd5ef1dca7b0e04e8ae53c6ed796811c2f0436a6596fb65079b3bc51.png" src="_images/d887098cfd5ef1dca7b0e04e8ae53c6ed796811c2f0436a6596fb65079b3bc51.png" />
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/2408fece6fe42acc952300c4e5d3de517c80909347df928862e00b4cb0f4552d.png" src="_images/2408fece6fe42acc952300c4e5d3de517c80909347df928862e00b4cb0f4552d.png" />
+</div>
+</div>
+</section>
+<section id="area-is-scaled-by-the-determinant">
+<h2>Area is Scaled by the Determinant<a class="headerlink" href="#area-is-scaled-by-the-determinant" title="Permalink to this heading">#</a></h2>
+<p>Notice that in some of the transformations above, the “size” of a shape grows or shrinks.</p>
+<p>Let’s look at how area (or volume) of a shape is affected by a linear transformation.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}
+  0.45 &amp;  0.00\\
+  0.00 &amp;  1.00
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/165cefb6f87843cbd6fdac91b49c2df9d216b6225df6ce5a335d78e61b82ccea.png" src="_images/165cefb6f87843cbd6fdac91b49c2df9d216b6225df6ce5a335d78e61b82ccea.png" />
+</div>
+</div>
+<p>In this transformation, each unit of area in the blue shape is transformed to a smaller region in the red shape.</p>
+<p>So to understand how area changes, it suffices to ask what happens to the unit square (or hypercube):</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/a40fc25e5c6a9473d09f3c7ce77a192c77a07b01018d75324b476e6d8c86044b.png" src="_images/a40fc25e5c6a9473d09f3c7ce77a192c77a07b01018d75324b476e6d8c86044b.png" />
+</div>
+</div>
+<p>Let’s denote the matrix of our linear transformation as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} A = \begin{bmatrix} a &amp; b \\ c &amp; d \end{bmatrix} \end{split}\]</div>
+<p>Then, here is what happens to the unit square:</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/18bf9a61e66ea0d11f684692dc28c15a21a67981a3bd906c5410de50a299bbde.png" src="_images/18bf9a61e66ea0d11f684692dc28c15a21a67981a3bd906c5410de50a299bbde.png" />
+</div>
+</div>
+<p>Now, let’s determine the area of the blue diamond in terms of <span class="math notranslate nohighlight">\(a, b, c\)</span>, and <span class="math notranslate nohighlight">\(d\)</span>.</p>
+<p>To do that, we’ll use this diagram:</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/36f1c298a6afafc3e733b46a2776071187ab25c855b8def0cb9a1cda2ea20b20.png" src="_images/36f1c298a6afafc3e733b46a2776071187ab25c855b8def0cb9a1cda2ea20b20.png" />
+</div>
+</div>
+<p>Each of the triangles and rectangles has an area we can determine in terms of <span class="math notranslate nohighlight">\(a, b, c\)</span> and <span class="math notranslate nohighlight">\(d\)</span>.</p>
+<p>The large rectangle has sides <span class="math notranslate nohighlight">\((a+b)\)</span> and <span class="math notranslate nohighlight">\((c+d)\)</span>, so its area is:</p>
+<div class="math notranslate nohighlight">
+\[ (a+b)(c+d) = ac + ad + bc + bd. \]</div>
+<p>From this large rectangle we need to subtract:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(bd\)</span> (red triangles),</p></li>
+<li><p><span class="math notranslate nohighlight">\(ac\)</span> (gray triangles), and</p></li>
+<li><p><span class="math notranslate nohighlight">\(2bc\)</span> (green rectangles).</p></li>
+</ul>
+<p>So the area of the blue diamond is:</p>
+<div class="math notranslate nohighlight">
+\[ (ac + ad + bc + bd) - (bd + ac + 2bc) \]</div>
+<div class="math notranslate nohighlight">
+\[ = ad - bc \]</div>
+<p>So we conclude that when we use a linear transformation</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} A = \begin{bmatrix} a &amp; b \\ c &amp; d \end{bmatrix} \end{split}\]</div>
+<p>the <strong>area of a unit square</strong> (or any shape) <strong>is scaled by a factor of <span class="math notranslate nohighlight">\(ad - bc\)</span>.</strong></p>
+<p>This quantity is a fundamental property of the matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>So, we give it a name: it is the <strong>determinant</strong> of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>We denote it as</p>
+<div class="math notranslate nohighlight">
+\[\det(A)\]</div>
+<p>So, for a <span class="math notranslate nohighlight">\(2\times 2\)</span> matrix <span class="math notranslate nohighlight">\( A = \begin{bmatrix} a &amp; b \\ c &amp; d \end{bmatrix} \)</span>,</p>
+<div class="math notranslate nohighlight">
+\[\det(A) = ad-bc.\]</div>
+<p>However, the determinant can be defined for <strong>any</strong> <span class="math notranslate nohighlight">\(n\times n\)</span> (square) matrix.</p>
+<p>For a square matrix <span class="math notranslate nohighlight">\(A\)</span> larger than <span class="math notranslate nohighlight">\(2\times 2\)</span>, the determinant tells us how the <strong>volume</strong> of a unit (hyper)cube is scaled when it is linearly transformed by <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>We will learn how to compute determinants for larger matrices in a later lecture.</p>
+<p>There are important cases in which the determinant of a matrix is <strong>zero.</strong></p>
+<p>When does it happen that <span class="math notranslate nohighlight">\(\det(A) = 0\)</span>?</p>
+<p>Consider when <span class="math notranslate nohighlight">\(A\)</span> is the matrix of a projection:</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<div class="output text_latex math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}
+  1  &amp;  0 \\
+  0  &amp;  0 
+\end{bmatrix}\end{split}\]</div>
+<img alt="_images/a1099dde229cab169797a1ebf8c9e158978fea25f8706927a26923f2255cdc06.png" src="_images/a1099dde229cab169797a1ebf8c9e158978fea25f8706927a26923f2255cdc06.png" />
+</div>
+</div>
+<p>The unit square has been collapsed onto the <span class="math notranslate nohighlight">\(x\)</span>-axis, resulting in a shape with area of zero.</p>
+<p>This is confirmed by the determinant, which is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \det\left(\begin{bmatrix}1 &amp; 0 \\ 0 &amp; 0\end{bmatrix}\right) = (1 \cdot 0) - (0 \cdot 0) = 0.\end{split}\]</div>
+</section>
+<section id="existence-and-uniqueness">
+<h2>Existence and Uniqueness<a class="headerlink" href="#existence-and-uniqueness" title="Permalink to this heading">#</a></h2>
+<p>Notice that some of these transformations map multiple inputs to the same output, and some are incapable of generating certain outputs.</p>
+<p>For example, the <strong>projections</strong> above can send multiple different points to the same point.</p>
+<p>We need some terminology to understand these properties of linear transformations.</p>
+<p><strong>Definition.</strong> A mapping <span class="math notranslate nohighlight">\(T: \mathbb{R}^n \rightarrow \mathbb{R}^m\)</span> is said to be <strong>onto</strong> <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span> if each <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span> is the image of <em>at least one</em> <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
+<p>Informally, <span class="math notranslate nohighlight">\(T\)</span> is onto if every element of its codomain is in its range.</p>
+<p>Another (important) way of thinking about this is that <span class="math notranslate nohighlight">\(T\)</span> is onto if there is a solution <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> of</p>
+<div class="math notranslate nohighlight">
+\[T(\mathbf{x}) = \mathbf{b}\]</div>
+<p>for all possible <span class="math notranslate nohighlight">\(\mathbf{b}.\)</span></p>
+<p>This is asking an <strong>existence</strong> question about a solution of the equation <span class="math notranslate nohighlight">\(T(\mathbf{x}) = \mathbf{b}\)</span> for all <span class="math notranslate nohighlight">\(\mathbf{b}.\)</span></p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/6cc84d7076ff2ad84485b62de3da2a4016f1743faf03d7219e5a91c109682608.jpg" src="_images/6cc84d7076ff2ad84485b62de3da2a4016f1743faf03d7219e5a91c109682608.jpg" />
+</div>
+</div>
+<p>Here, we see that <span class="math notranslate nohighlight">\(T\)</span> maps points in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> to a plane lying <strong>within</strong> <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>.</p>
+<p>That is, the range of <span class="math notranslate nohighlight">\(T\)</span> is a strict subset of the codomain of <span class="math notranslate nohighlight">\(T\)</span>.</p>
+<p>So <span class="math notranslate nohighlight">\(T\)</span> is <strong>not onto</strong> <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/d9503ef508361d8a203f9d0f5b3cbad26bb9c8ed5c64cabf52a89e9b33b60705.png" src="_images/d9503ef508361d8a203f9d0f5b3cbad26bb9c8ed5c64cabf52a89e9b33b60705.png" />
+</div>
+</div>
+<p>In this case, for every point in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>, there is an <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> that maps to that point.</p>
+<p>So, the range of <span class="math notranslate nohighlight">\(T\)</span> is equal to the codomain of <span class="math notranslate nohighlight">\(T\)</span>.</p>
+<p>So <span class="math notranslate nohighlight">\(T\)</span> is <strong>onto</strong> <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>.</p>
+<p>Here is an example of the reflection transformation.  The red points are the images of the blue points.</p>
+<p>What about this transformation?   Is it onto <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>?</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/e2f874b7b2198b7cc44ed0ed0cefd484341fc40c7bec8aabdb863cc6472b69eb.png" src="_images/e2f874b7b2198b7cc44ed0ed0cefd484341fc40c7bec8aabdb863cc6472b69eb.png" />
+</div>
+</div>
+<p>Here is an example of the projection transformation.  The red points (which all lie on the <span class="math notranslate nohighlight">\(x\)</span>-axis) are the images of the blue points.</p>
+<p>What about this transformation?  Is it onto <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>?</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/b760c8ce829475f78600abbff745e34428849ba06aacf8542682b3040ee37959.png" src="_images/b760c8ce829475f78600abbff745e34428849ba06aacf8542682b3040ee37959.png" />
+</div>
+</div>
+<p><strong>Definition.</strong>  A mapping <span class="math notranslate nohighlight">\(T: \mathbb{R}^n \rightarrow \mathbb{R}^m\)</span> is said to be <strong>one-to-one</strong> if each <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span> is the image of <em>at most one</em> <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
+<p>If <span class="math notranslate nohighlight">\(T\)</span> is one-to-one, then for each <span class="math notranslate nohighlight">\(\mathbf{b},\)</span> the equation <span class="math notranslate nohighlight">\(T(\mathbf{x}) = \mathbf{b}\)</span> has either a unique solution, or none at all.</p>
+<p>This is asking a <strong>uniqueness</strong> question about a solution of the equation <span class="math notranslate nohighlight">\(T(\mathbf{x}) = \mathbf{b}\)</span> for all <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/6ed345688ae0abc244e0d2ad69e23fe34311c05d6d3cd56cd8a8d3e5c2e1cbbe.jpg" src="_images/6ed345688ae0abc244e0d2ad69e23fe34311c05d6d3cd56cd8a8d3e5c2e1cbbe.jpg" />
+</div>
+</div>
+<p>Let’s examine the relationship between these ideas and some previous definitions.</p>
+<p>If for all <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>, <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> is consistent, is <span class="math notranslate nohighlight">\(T(\mathbf{x}) = A\mathbf{x}\)</span>  onto?  one-to-one?</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(T(\mathbf{x})\)</span> is onto.   <span class="math notranslate nohighlight">\(T(\mathbf{x})\)</span> may or may not be one-to-one.  If the system has multiple solutions for some <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>, <span class="math notranslate nohighlight">\(T(\mathbf{x})\)</span> is not one-to-one.</p></li>
+</ul>
+<p>If for all <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>, <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> is consistent and has a unique solution, is <span class="math notranslate nohighlight">\(T(\mathbf{x}) = A\mathbf{x}\)</span> onto?  one-to-one?</p>
+<ul class="simple">
+<li><p>Yes to both.</p></li>
+</ul>
+<p>If it is not the case that for all <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>, <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> is consistent, is <span class="math notranslate nohighlight">\(T(\mathbf{x}) = A\mathbf{x}\)</span>  onto?  one-to-one?</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(T(\mathbf{x})\)</span> is <strong>not</strong> onto.   <span class="math notranslate nohighlight">\(T(\mathbf{x})\)</span> may or may not be one-to-one.</p></li>
+</ul>
+<p>If <span class="math notranslate nohighlight">\(T(\mathbf{x}) = A\mathbf{x}\)</span> is onto, is <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> consistent for all <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>?   is the solution unique for all <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>?</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> is consistent for all <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.  The solution may not be unique for any  <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.</p></li>
+</ul>
+<p>If <span class="math notranslate nohighlight">\(T(\mathbf{x}) = A\mathbf{x}\)</span> is one-to-one, is <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> consistent for all <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>?   is the solution unique for all <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>?</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> may or may not be consistent for all <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.  For any <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>, if there is a solution, it is unique.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="L07LinearTransformations.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Linear Transformations</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="L09MatrixOperations.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Matrix Algebra</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-linear-transformations-of-mathbb-r-2">Geometric Linear Transformations of <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#area-is-scaled-by-the-determinant">Area is Scaled by the Determinant</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#existence-and-uniqueness">Existence and Uniqueness</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mark Crovella
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2020-2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,857 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Least Squares &#8212; Linear Algebra, Geometry, and Computation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'L22LeastSquares';</script>
+    <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Linear Models" href="L23LinearModels.html" />
+    <link rel="prev" title="Orthogonal Sets and Projection" href="L21OrthogonalSets.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="landing-page.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/DiagramAR-icon.png" class="logo__image only-light" alt="Linear Algebra, Geometry, and Computation - Home"/>
+    <script>document.write(`<img src="_static/DiagramAR-icon.png" class="logo__image only-dark" alt="Linear Algebra, Geometry, and Computation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="landing-page.html">
+                    Preface
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="L01LinearEquations.html">Linear Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L02Numerics.html">(Getting Serious About) Numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L03RowReductions.html">Gaussian Elimination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L04VectorEquations.html">Vector Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L05Axb.html"><span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="L06LinearIndependence.html">Linear Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L07LinearTransformations.html">Linear Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L08MatrixofLinearTranformation.html">The Matrix of a Linear Transformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L09MatrixOperations.html">Matrix Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L10MatrixInverse.html">The Inverse of a Matrix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L11MarkovChains.html">Markov Chains</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L12MatrixFactorizations.html">Matrix Factorizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L13ComputerGraphics.html">Computer Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L14Subspaces.html">Subspaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L15DimensionRank.html">Dimension and Rank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L16Eigenvectors.html">Eigenvectors and Eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L17CharacteristicEqn.html">The Characteristic Equation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L18Diagonalization.html">Diagonalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L19PageRank.html">PageRank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L20Orthogonality.html">Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="L21OrthogonalSets.html">Orthogonal Sets and Projection</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Least Squares</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L23LinearModels.html">Linear Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L24SymmetricMatrices.html">Symmetric Matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L25SVD.html">The Singular Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L26ApplicationsOfSVD.html">Applications of the SVD</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/L22LeastSquares.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Least Squares</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-an-inconsistent-system-is-better-than-a-consistent-system">When an Inconsistent System is Better than a Consistent System</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-a-good-approximate-solution">Finding a Good <em>Approximate</em> Solution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-general-least-squares-problem">The General Least-Squares Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-of-the-least-squares-problem">Interpretation of the Least Squares Problem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-the-general-least-squares-problem">Solving the General Least Squares Problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-orthogonal-decomposition-theorem">The Orthogonal Decomposition Theorem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-best-approximation-theorem">The Best Approximation Theorem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-solves-least-squares">Projection Solves Least Squares</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-normal-equations">The Normal Equations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-the-normal-equations-have-multiple-solutions">When the Normal Equations have Multiple Solutions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-onto-an-abitrary-basis">Projection onto an Abitrary Basis</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="least-squares">
+<h1>Least Squares<a class="headerlink" href="#least-squares" title="Permalink to this heading">#</a></h1>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/ff7aad0ebe04cd93633f519e2c7752fc262518a1f917e727ad305c76db776265.jpg" src="_images/ff7aad0ebe04cd93633f519e2c7752fc262518a1f917e727ad305c76db776265.jpg" />
+</div>
+</div>
+<p><a title="Justin Cowart / CC BY (https://creativecommons.org/licenses/by/2.0)" href="https://commons.wikimedia.org/wiki/File:Ceres_-_RC3_-_Haulani_Crater_(22381131691)_(cropped).jpg"><a class="reference internal" href="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg/512px-Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg"><img alt="Ceres - RC3 - Haulani Crater (22381131691) (cropped)" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg/512px-Ceres_-_RC3_-_Haulani_Crater_%2822381131691%29_%28cropped%29.jpg" style="width: 512px;" /></a></a></p>
+<p>Let’s go back to week 1.  A long time ago!</p>
+<p>Recall Gauss’s remarkable accomplishment in his early 20s.  He took the set of measurements made by Piazzi of the dwarf planet Ceres and predicted where Ceres subsequently would appear in the sky (after it was lost behind the sun).  This told Olbers exactly where to look, and lo and behold …</p>
+<p>We can understand now a little better what Gauss had to do.</p>
+<p>Kepler had discovered, and Newton had explained, that each planet orbits the sun following the path of an ellipse.</p>
+<p>To describe the orbit of Ceres, Gauss had to construct the equation for its ellipse:</p>
+<div class="math notranslate nohighlight">
+\[a_1 x_1^2 + a_2 x_2^2 + a_3 x_1x_2 + a_4 x_1 + a_5 x_2 + a_6 = 0.\]</div>
+<p>He had many measurements of <span class="math notranslate nohighlight">\((x_1, x_2)\)</span> pairs and had to find the <span class="math notranslate nohighlight">\(a_1, \dots, a_6.\)</span></p>
+<p>This is actually a linear system:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{bmatrix}x_{11}^2 &amp;x_{21}^2&amp;x_{11}x_{21}&amp;x_{11}&amp;x_{21}&amp;1\\x_{12}^2 &amp;x_{22}^2&amp;x_{12}x_{22}&amp;x_{12}&amp;x_{22}&amp;1\\
+\vdots&amp;\vdots&amp;\vdots&amp;\vdots&amp;\vdots&amp;\vdots\\x_{1n}^2 &amp;x_{2n}^2&amp;x_{1n}x_{2n}&amp;x_{1n}&amp;x_{2n}&amp;1\end{bmatrix} \begin{bmatrix}a_1\\a_2\\a_3\\a_4\\a_5\\a_6\end{bmatrix} = \mathbf{0}\end{split}\]</div>
+<p>Now, according to Newton, this is a consistent linear system.</p>
+<p>The equation for the ellipse is exactly correct and all we need is six <span class="math notranslate nohighlight">\((x_1, x_2)\)</span> sets of measurements to know the orbit of Ceres exactly.</p>
+<p>What could go wrong? :)</p>
+<p>Obviously, there are going to be measurement errors in Piazzi’s observations.</p>
+<p>If we just solve the system using six measurements, we will probably get incorrect values for the coefficients <span class="math notranslate nohighlight">\(a_1, \dots, a_6.\)</span></p>
+<section id="when-an-inconsistent-system-is-better-than-a-consistent-system">
+<h2>When an Inconsistent System is Better than a Consistent System<a class="headerlink" href="#when-an-inconsistent-system-is-better-than-a-consistent-system" title="Permalink to this heading">#</a></h2>
+<p>Notice that each time Piazzi takes a measurement of the position of Ceres, we add an additional equation to our linear system.</p>
+<p>Just using six measurements will certainly result in incorrect coefficients due to measurement error.</p>
+<p>A better idea is to use all of the <span class="math notranslate nohighlight">\(n\)</span> measurement data available, and try to find a way to cancel out errors.</p>
+<p>So, using all the <span class="math notranslate nohighlight">\(n\)</span> data measurements available, we construct a linear system:</p>
+<div class="math notranslate nohighlight">
+\[ X\mathbf{a} = \mathbf{b}\]</div>
+<p>where <span class="math notranslate nohighlight">\(X\)</span> is <span class="math notranslate nohighlight">\(n\times 6\)</span> and <span class="math notranslate nohighlight">\(\mathbf{b} \in \mathbb{R}^n\)</span>.</p>
+<p>But now, due to measurement errors, we can’t expect <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> will lie in the column space of <span class="math notranslate nohighlight">\(X.\)</span>  We have an inconsistent system.</p>
+<p>This system has <strong>no solutions!</strong></p>
+<p>What can we do if <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> has <strong>no solutions?</strong></p>
+<p>Here is the key idea: the fact that our measurements include errors does not make them worthless!</p>
+<p>We simply need a principled approach to doing the best job we can given the errors in our measurements.</p>
+<p>Let’s see how we can do that.</p>
+<p>We now understand if <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(m\times n\)</span> and <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> has no solutions, that is because</p>
+<ul class="simple">
+<li><p>the columns of <span class="math notranslate nohighlight">\(A\)</span> do not span <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span>, and</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is not in the column space of <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+</ul>
+<p>Here is an example we can visualize, in which <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(3 \times 2\)</span>:</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/e82c206f1179dd49236bd888ae6930e174b725d0e25d7bb55bc203b89fac16cb.png" src="_images/e82c206f1179dd49236bd888ae6930e174b725d0e25d7bb55bc203b89fac16cb.png" />
+</div>
+</div>
+<p>Now our assumption is that the reason that <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> does not lie in <span class="math notranslate nohighlight">\(\operatorname{Col}\,A\)</span> is due to measurement error.</p>
+<section id="finding-a-good-approximate-solution">
+<h3>Finding a Good <em>Approximate</em> Solution<a class="headerlink" href="#finding-a-good-approximate-solution" title="Permalink to this heading">#</a></h3>
+<p>If we make the assumption that measurement errors are small, then we should be quite satisfied to find an <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> that makes <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> as close as possible to <span class="math notranslate nohighlight">\(\mathbf{b}.\)</span></p>
+<p>In other words, we are looking for an <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> such that <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> makes a good <strong>approximation</strong> to <span class="math notranslate nohighlight">\(\mathbf{b}.\)</span></p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/a3ebc51e1827f330b4908fcbd32a75944d37f30bb1fc0072c8af9b6332b2b2c7.png" src="_images/a3ebc51e1827f330b4908fcbd32a75944d37f30bb1fc0072c8af9b6332b2b2c7.png" />
+</div>
+</div>
+<p>We can think of the quality of the approximation of <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> as the distance from <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b},\)</span> which is</p>
+<div class="math notranslate nohighlight">
+\[\Vert A\mathbf{x} - \mathbf{b}\Vert.\]</div>
+</section>
+<section id="the-general-least-squares-problem">
+<h3>The General Least-Squares Problem<a class="headerlink" href="#the-general-least-squares-problem" title="Permalink to this heading">#</a></h3>
+<p>We can now formally express what we are looking for when we seek a “good” solution to an inconsistent system:</p>
+<p>The <strong>general least-squares problem</strong> is to find an <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> that makes <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}-\mathbf{b}\Vert\)</span> as small as possible.</p>
+<p>This is called “least squares” because it is equivalent to minimizing <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}-\mathbf{b}\Vert^2,\)</span> which is the sum of squared differences.</p>
+<p>Just to make this explicit: say that we denote <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> by <span class="math notranslate nohighlight">\(\mathbf{y}\)</span>.    Then</p>
+<div class="math notranslate nohighlight">
+\[\Vert A\mathbf{x}-\mathbf{b}\Vert^2 = \sum_i (y_i-b_i)^2\]</div>
+<p>Where we interpret <span class="math notranslate nohighlight">\(y_i\)</span> as the <em>estimated value</em> and <span class="math notranslate nohighlight">\(b_i\)</span> as the <em>measured value.</em></p>
+<p>So this expression is the <strong>sum of squared error.</strong></p>
+<p>This is the most common measure of error used in statistics.</p>
+<p>This is a key principle!</p>
+<p>Minimizing the <font color = "blue">length</font> of <span class="math notranslate nohighlight">\(A\mathbf{x} - \mathbf{b}\)</span> is the same as minimizing the <font color = "blue">sum of squared error.</font></p>
+<p><strong>Definition.</strong> If A is <span class="math notranslate nohighlight">\(m\times n\)</span> and <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is in <span class="math notranslate nohighlight">\(\mathbb{R}^m,\)</span> a <strong>least squares solution</strong> of <span class="math notranslate nohighlight">\(A\mathbf{x} =\mathbf{b}\)</span> is an <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[\Vert A\mathbf{\hat{x}} - \mathbf{b}\Vert \leq \Vert A\mathbf{x} - \mathbf{b}\Vert\]</div>
+<p>for all <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
+<p>An equivalent (and more common) way to express this is:</p>
+<div class="math notranslate nohighlight">
+\[\hat{\mathbf{x}} = \arg\min_\mathbf{x} \Vert A\mathbf{x} - \mathbf{b}\Vert.\]</div>
+<p>which emphasizes that this is a minimization problem, also called an <em>optimization</em> problem.</p>
+</section>
+<section id="interpretation-of-the-least-squares-problem">
+<h3>Interpretation of the Least Squares Problem<a class="headerlink" href="#interpretation-of-the-least-squares-problem" title="Permalink to this heading">#</a></h3>
+<p>The point here is that no matter what <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is, <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> will be in the column space of <span class="math notranslate nohighlight">\(A\)</span> — that is, <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>.</p>
+<p>So <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is outside <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>, and we are looking for <span class="math notranslate nohighlight">\(\hat{\mathbf{x}}\)</span>, which specifies the closest point in <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/f3833554d54ad6de16a5564ec9dca41d21309c9aad0a02d983f4331cc07c4264.png" src="_images/f3833554d54ad6de16a5564ec9dca41d21309c9aad0a02d983f4331cc07c4264.png" />
+</div>
+</div>
+<p>The vector <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is closer to <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}}\)</span> than it is to <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> for any other <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>.</p>
+<p>For example, the red points in the figure are both further from  <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> than is <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}}\)</span>.</p>
+</section>
+</section>
+<section id="solving-the-general-least-squares-problem">
+<h2>Solving the General Least Squares Problem<a class="headerlink" href="#solving-the-general-least-squares-problem" title="Permalink to this heading">#</a></h2>
+<p>In order to solve the Least Squares problem, we need to bring in a bit more theory.</p>
+<p>All we need to do is to extend some of the ideas we developed in the last lecture.</p>
+<p>The last lecture developed methods for finding the point in a 1D subspace that is closest to a given point.</p>
+<p>We need to generalize the idea of “closest point” to the case of an <strong>arbitrary</strong> subspace.</p>
+<p>This leads to two theorems: the <strong>Orthogonal Decomposition Theorem</strong> and the <strong>Best Approximation Theorem.</strong></p>
+<section id="the-orthogonal-decomposition-theorem">
+<h3>The Orthogonal Decomposition Theorem<a class="headerlink" href="#the-orthogonal-decomposition-theorem" title="Permalink to this heading">#</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(W\)</span> be a subspace of <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.  Then each <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> can be written uniquely in the form</p>
+<div class="math notranslate nohighlight">
+\[ \mathbf{y} = \hat{\mathbf{y}} + \mathbf{z}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span> is in <span class="math notranslate nohighlight">\(W\)</span> and <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> is orthogonal to every vector in <span class="math notranslate nohighlight">\(W\)</span>.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/d6076a41c24c40bac6ec1a1bea35665f3e88bf376ea9bfc2b3cb6a7c1130c457.png" src="_images/d6076a41c24c40bac6ec1a1bea35665f3e88bf376ea9bfc2b3cb6a7c1130c457.png" />
+</div>
+</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/d043f72c1008504e13f9938aae70e62df01fa5653a6d37138250e823a5e8ffcf.png" src="_images/d043f72c1008504e13f9938aae70e62df01fa5653a6d37138250e823a5e8ffcf.png" />
+</div>
+</div>
+<p><strong>Proof.</strong> (straightforward extension of the 1D case from last lecture.)</p>
+<p>Just as in the case of a 1D subspace (in the last lecture), we say that <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span> is the <strong>orthogonal projection of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> onto <span class="math notranslate nohighlight">\(W\)</span></strong> and write <span class="math notranslate nohighlight">\(\hat{\mathbf{y}} = \mbox{proj}_W \mathbf{y}.\)</span></p>
+</section>
+<section id="the-best-approximation-theorem">
+<h3>The Best Approximation Theorem<a class="headerlink" href="#the-best-approximation-theorem" title="Permalink to this heading">#</a></h3>
+<p>Let <span class="math notranslate nohighlight">\(W\)</span> be a subspace of <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, let <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> be any vector in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, and let <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span> be the orthogonal projection of <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> onto <span class="math notranslate nohighlight">\(W\)</span>.  Then <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span> is the closest point in <span class="math notranslate nohighlight">\(W\)</span> to <span class="math notranslate nohighlight">\(\mathbf{y}\)</span>, in the sense that</p>
+<div class="math notranslate nohighlight">
+\[\Vert \mathbf{y}-\hat{\mathbf{y}} \Vert &lt; \Vert \mathbf{y} - \mathbf{v} \Vert\]</div>
+<p>for all <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> in <span class="math notranslate nohighlight">\(W\)</span> distinct from <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span>.</p>
+<p><strong>Proof.</strong></p>
+<p>Take <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> in <span class="math notranslate nohighlight">\(W\)</span> distinct from <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span>.   Here is what the setup looks like:</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/e843d378272876b24aa1d24ad9c9cfd4e5602f2d0e097735015ba969e9a8400d.png" src="_images/e843d378272876b24aa1d24ad9c9cfd4e5602f2d0e097735015ba969e9a8400d.png" />
+</div>
+</div>
+<p>Both <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> are in <span class="math notranslate nohighlight">\(W\)</span>, so <span class="math notranslate nohighlight">\(\hat{\mathbf{y}} - \mathbf{v}\)</span> is in <span class="math notranslate nohighlight">\(W\)</span>.</p>
+<p>By the orthogonal decomposition theorem, <span class="math notranslate nohighlight">\(\mathbf{y} - \hat{\mathbf{y}}\)</span> is orthogonal to every vector in <span class="math notranslate nohighlight">\(W\)</span>, so it is orthogonal to <span class="math notranslate nohighlight">\(\hat{\mathbf{y}} - \mathbf{v}.\)</span></p>
+<p>Now, these three points form a right triangle because</p>
+<div class="math notranslate nohighlight">
+\[ \mathbf{y} - \mathbf{v} = (\mathbf{y} - \hat{\mathbf{y}}) + (\hat{\mathbf{y}} - \mathbf{v}). \]</div>
+<p>So the Pythagorean Theorem tells us that</p>
+<div class="math notranslate nohighlight">
+\[ \Vert\mathbf{y} - \mathbf{v}\Vert^2 = \Vert\mathbf{y} - \hat{\mathbf{y}}\Vert^2 + \Vert\hat{\mathbf{y}} - \mathbf{v}\Vert^2. \]</div>
+<p>Now <span class="math notranslate nohighlight">\(\hat{\mathbf{y}} - \mathbf{v} \neq {\bf 0}\)</span> because <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> is distinct from <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>.</p>
+<p>So</p>
+<div class="math notranslate nohighlight">
+\[\Vert \hat{\mathbf{y}} - \mathbf{v} \Vert &gt; 0.\]</div>
+<p>So</p>
+<div class="math notranslate nohighlight">
+\[ \Vert\mathbf{y} - \mathbf{v}\Vert^2 &gt; \Vert\mathbf{y} - \hat{\mathbf{y}}\Vert^2. \]</div>
+<p>So we have shown a key fact:</p>
+<div class="math notranslate nohighlight">
+\[ \operatorname{Proj}_W \mathbf{y} \mbox{ is the closest point in } W \mbox{ to } \mathbf{y}.\]</div>
+</section>
+</section>
+<section id="projection-solves-least-squares">
+<h2>Projection Solves Least Squares<a class="headerlink" href="#projection-solves-least-squares" title="Permalink to this heading">#</a></h2>
+<p>Let’s apply these ideas to solving the least squares problem.</p>
+<p>Here is what we want to achieve:</p>
+<div class="math notranslate nohighlight">
+\[\hat{\mathbf{x}} = \arg\min_\mathbf{x} \Vert A\mathbf{x} - \mathbf{b}\Vert.\]</div>
+<p>That is, we want <span class="math notranslate nohighlight">\(A\hat{\mathbf{x}}\)</span> to be the closest point in <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.</p>
+<p>… and we now know that the closest point to <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> in a subspace <span class="math notranslate nohighlight">\(W\)</span> is the <strong>projection</strong> of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> onto <span class="math notranslate nohighlight">\(W.\)</span></p>
+<p>So the point we are looking for, which we’ll call <span class="math notranslate nohighlight">\(\hat{\mathbf{b}},\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[\hat{\mathbf{b}} = \mbox{proj}_{\operatorname{Col}A} \mathbf{b}\]</div>
+<p>The key is that <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> <strong>is</strong> in the column space of <span class="math notranslate nohighlight">\(A\)</span>.   So this equation is consistent, and we can solve it:</p>
+<div class="math notranslate nohighlight">
+\[A\mathbf{\hat{x}} = \hat{\mathbf{b}}.\]</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/8e9fcc9f089ff021514ac9e1b7552213db1066ec8779efaf59b1dc996e47ee3f.png" src="_images/8e9fcc9f089ff021514ac9e1b7552213db1066ec8779efaf59b1dc996e47ee3f.png" />
+</div>
+</div>
+<p>Since <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> is the closest point in <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b},\)</span> a vector <span class="math notranslate nohighlight">\(\hat{\mathbf{x}}\)</span> is a least-squares solution of <span class="math notranslate nohighlight">\(A\mathbf{x}=\mathbf{b}\)</span> if and only if <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> satisfies <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}} = \hat{\mathbf{b}}.\)</span></p>
+<p>(Note: we know that <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}} =\hat{\mathbf{b}}\)</span> is consistent (by definition), so there exists at least one solution.</p>
+<p>However note that if <span class="math notranslate nohighlight">\(A\)</span> has free variables – the columns of <span class="math notranslate nohighlight">\(A\)</span> are not independent – then there would be many solutions of <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}} =\hat{\mathbf{b}}\)</span>.)</p>
+<p>Let’s go back to the case that we can visualize.</p>
+<p><span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(3 \times 2.\)</span></p>
+<p>We have only two columns <span class="math notranslate nohighlight">\(\mathbf{a}_1\)</span> and <span class="math notranslate nohighlight">\(\mathbf{a}_2\)</span> so they can not span <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>.</p>
+<p>So <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> may not lie in <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>, and in our example it does not:</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/d93f9e12073e00d394ac6f256f2ee6807b34f3a55e3dc17f9994812ca1d9d8a8.png" src="_images/d93f9e12073e00d394ac6f256f2ee6807b34f3a55e3dc17f9994812ca1d9d8a8.png" />
+</div>
+</div>
+<p>And what we want to find is the projection of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> onto the column space of <span class="math notranslate nohighlight">\(A\)</span>:</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/af4ff4b163904d12b1b751ab3df53d9fb529e3de6d8bb1bb2b7ac6a4e1629b8c.png" src="_images/af4ff4b163904d12b1b751ab3df53d9fb529e3de6d8bb1bb2b7ac6a4e1629b8c.png" />
+</div>
+</div>
+<section id="the-normal-equations">
+<h3>The Normal Equations<a class="headerlink" href="#the-normal-equations" title="Permalink to this heading">#</a></h3>
+<p>So: how are we going to find this projection <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span>?</p>
+<p>Here is the key idea:</p>
+<p>We know that the projection <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> has the property that <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}-\mathbf{b}\)</span> is orthogonal to <span class="math notranslate nohighlight">\(\operatorname{Col}A.\)</span></p>
+<p>Suppose <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> is <span class="math notranslate nohighlight">\(\mbox{proj}_{\operatorname{Col}A}\mathbf{b},\)</span> and that <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> satisfies <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}} = \hat{\mathbf{b}}\)</span>.</p>
+<p>So <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}} - \mathbf{b}\)</span> is orthogonal to each column of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>If <span class="math notranslate nohighlight">\(\mathbf{a}_j\)</span> is any column of <span class="math notranslate nohighlight">\(A\)</span>, then</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{a}_j^T(A\mathbf{\hat{x}} - \mathbf{b}) = 0.\]</div>
+<p>Now, each <span class="math notranslate nohighlight">\(\mathbf{a}_j^T\)</span> is a row of <span class="math notranslate nohighlight">\(A^T\)</span>.</p>
+<p>We can collect all of the equations for all the <span class="math notranslate nohighlight">\(\mathbf{a}_j\)</span> as:</p>
+<div class="math notranslate nohighlight">
+\[A^T(A\mathbf{\hat{x}} - \mathbf{b}) = {\bf 0}.\]</div>
+<p>So</p>
+<div class="math notranslate nohighlight">
+\[A^TA\mathbf{\hat{x}} - A^T\mathbf{b} = {\bf 0}\]</div>
+<p>So</p>
+<div class="math notranslate nohighlight">
+\[A^TA\mathbf{\hat{x}} = A^T\mathbf{b}\]</div>
+<p>Looking at this, we see that <span class="math notranslate nohighlight">\(A^T\mathbf{b}\)</span> is a vector, and <span class="math notranslate nohighlight">\(A^TA\)</span> is a matrix, so this is a standard linear system.</p>
+<p>This linear system is called the <strong>normal equations</strong> for <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}.\)</span></p>
+<p>Its solution is usually denoted <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span>.</p>
+<p><strong>Theorem.</strong>  The set of least-squares solutions of <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> is equal to the (nonempty) set of solutions of the normal equations <span class="math notranslate nohighlight">\(A^TA\mathbf{x} = A^T\mathbf{b}.\)</span></p>
+<p><strong>Proof.</strong></p>
+<p>(1) The set of solutions is nonempty.  The matrix on the left has the same column space as <span class="math notranslate nohighlight">\(A^T\)</span> and the vector on the right is a vector in the column  space of <span class="math notranslate nohighlight">\(A^T.\)</span></p>
+<p>And, by the arguments above, any least-squares solution of <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> must satisfy the normal equations <span class="math notranslate nohighlight">\(A^TA\mathbf{x} = A^T\mathbf{b}.\)</span></p>
+<p>(2) Now let’s show that any solution of <span class="math notranslate nohighlight">\(A^TA\mathbf{x} = A^T\mathbf{b}\)</span> is a least squares solution of <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span>.</p>
+<p>If <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> satisfies <span class="math notranslate nohighlight">\(A^TA\mathbf{x} = A^T\mathbf{b},\)</span> then <span class="math notranslate nohighlight">\(A^T(A\mathbf{\hat{x}} -\mathbf{b}) = {\bf 0},\)</span></p>
+<p>which shows that <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}} - \mathbf{b}\)</span> is orthogonal to the rows of <span class="math notranslate nohighlight">\(A^T,\)</span> and so is orthogonal to the columns of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>So the vector <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}} - \mathbf{b}\)</span> is orthogonal to <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>.</p>
+<p>So the equation</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{b} = A\mathbf{\hat{x}} + (\mathbf{b} - A\mathbf{\hat{x}})\]</div>
+<p>is a decomposition of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> into the sum of a vector in <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span> and a vector orthogonal to <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>.</p>
+<p>Since the orthogonal decomposition is unique, <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}}\)</span> must be the orthogonal projection of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> onto the column space of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>So <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}} = \hat{\mathbf{b}}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> is a least-squares solution.</p>
+<p><strong>Example.</strong>  Find the least squares solution of the inconsistent system <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> for</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}4&amp;0\\0&amp;2\\1&amp;1\end{bmatrix}, \;\;\; \mathbf{b} = \begin{bmatrix}2\\0\\11\end{bmatrix}.\end{split}\]</div>
+<p><strong>Solution.</strong></p>
+<p>We will use the normal equations <span class="math notranslate nohighlight">\(A^TA\hat{\mathbf{x}} = A^T\mathbf{b}.\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A^TA = \begin{bmatrix}4&amp;0&amp;1\\0&amp;2&amp;1\end{bmatrix} \begin{bmatrix}4&amp;0\\0&amp;2\\1&amp;1\end{bmatrix} = \begin{bmatrix}17&amp;1\\1&amp;5\end{bmatrix}\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}A^T\mathbf{b} =  \begin{bmatrix}4&amp;0&amp;1\\0&amp;2&amp;1\end{bmatrix} \begin{bmatrix}2\\0\\11\end{bmatrix} = \begin{bmatrix}19\\11\end{bmatrix}\end{split}\]</div>
+<p>So the normal equations are:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \begin{bmatrix}17&amp;1\\1&amp;5\end{bmatrix}\begin{bmatrix}\hat{x}_1\\\hat{x}_2\end{bmatrix} = \begin{bmatrix}19\\11\end{bmatrix}\end{split}\]</div>
+<p>We can solve this using row operations, or by inverting <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}(A^TA)^{-1} = \frac{1}{84}\begin{bmatrix}5&amp;-1\\-1&amp;17\end{bmatrix}\end{split}\]</div>
+<p>And we can then solve <span class="math notranslate nohighlight">\(A^TA\hat{\mathbf{x}} = A^T\mathbf{b}\)</span> as</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{\hat{x}} = (A^TA)^{-1}A^T\mathbf{b}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} = \frac{1}{84}\begin{bmatrix}5&amp;-1\\-1&amp;17\end{bmatrix}\begin{bmatrix}19\\11\end{bmatrix} = \frac{1}{84}\begin{bmatrix}84\\168\end{bmatrix} = \begin{bmatrix}1\\2\end{bmatrix}.\end{split}\]</div>
+<p>So we conclude that <span class="math notranslate nohighlight">\(\mathbf{\hat{x}} = \begin{bmatrix}1\\2\end{bmatrix}\)</span> is the vector that minimizes <span class="math notranslate nohighlight">\(\Vert A\mathbf{x} -\mathbf{b}\Vert.\)</span></p>
+<p>More formally,</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{\hat{x}} = \arg\min_{\mathbf{x}} \Vert A\mathbf{x} - \mathbf{b}\Vert.\]</div>
+<p>That is, <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> is the least-squares solution of <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span>.</p>
+</section>
+<section id="when-the-normal-equations-have-multiple-solutions">
+<h3>When the Normal Equations have Multiple Solutions<a class="headerlink" href="#when-the-normal-equations-have-multiple-solutions" title="Permalink to this heading">#</a></h3>
+<p>We have seen that the normal equations <strong>always</strong> have a solution.</p>
+<p>Is there always a <strong>unique</strong> solution?</p>
+<p>No, there can be multiple solutions that <strong>all</strong> minimize <span class="math notranslate nohighlight">\(\Vert A\mathbf{x} - \mathbf{b}\Vert.\)</span></p>
+<p>Let’s remind ourselves of what is going on when a linear system has multiple solutions.</p>
+<p>We know that a linear system has multiple solutions when there are columns that are not pivot columns.</p>
+<p>Equivalently, when <span class="math notranslate nohighlight">\(A\hat{\mathbf{x}} = \hat{\mathbf{b}}\)</span> has multiple solutions, the columns of <span class="math notranslate nohighlight">\(A\)</span> are linearly dependent.</p>
+<p>Here is a picture of what is going on.  In this case, <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(3 \times 3\)</span>.</p>
+<p>But note, that <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span> is only two-dimensional because the three columns are linearly dependent.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/05cfa67a756aa6c4d5b97019844e45bd35bb579e3219e9a02a58735921776278.png" src="_images/05cfa67a756aa6c4d5b97019844e45bd35bb579e3219e9a02a58735921776278.png" />
+</div>
+</div>
+<p><strong>Example.</strong></p>
+<p>Find a least-squares solution for <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> for</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A = \begin{bmatrix}1&amp;1&amp;0&amp;0\\1&amp;1&amp;0&amp;0\\1&amp;0&amp;1&amp;0\\1&amp;0&amp;1&amp;0\\1&amp;0&amp;0&amp;1\\1&amp;0&amp;0&amp;1\end{bmatrix},\;\;\; \mathbf{b} = \begin{bmatrix}-3\\-1\\0\\2\\5\\1\end{bmatrix}.\end{split}\]</div>
+<p><strong>Solution.</strong> Compute</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A^TA = \begin{bmatrix}1&amp;1&amp;1&amp;1&amp;1&amp;1\\1&amp;1&amp;0&amp;0&amp;0&amp;0\\0&amp;0&amp;1&amp;1&amp;0&amp;0\\0&amp;0&amp;0&amp;0&amp;1&amp;1\end{bmatrix}\begin{bmatrix}1&amp;1&amp;0&amp;0\\1&amp;1&amp;0&amp;0\\1&amp;0&amp;1&amp;0\\1&amp;0&amp;1&amp;0\\1&amp;0&amp;0&amp;1\\1&amp;0&amp;0&amp;1\end{bmatrix} = \begin{bmatrix}6&amp;2&amp;2&amp;2\\2&amp;2&amp;0&amp;0\\2&amp;0&amp;2&amp;0\\2&amp;0&amp;0&amp;2\end{bmatrix}\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}A^T\mathbf{b} = \begin{bmatrix}1&amp;1&amp;1&amp;1&amp;1&amp;1\\1&amp;1&amp;0&amp;0&amp;0&amp;0\\0&amp;0&amp;1&amp;1&amp;0&amp;0\\0&amp;0&amp;0&amp;0&amp;1&amp;1\end{bmatrix}\begin{bmatrix}-3\\-1\\0\\2\\5\\1\end{bmatrix} = \begin{bmatrix}4\\-4\\2\\6\end{bmatrix}\end{split}\]</div>
+<p>To solve <span class="math notranslate nohighlight">\(A^TA\hat{\mathbf{x}} = A^T\mathbf{b},\)</span> we’ll use row reduction.  The augmented matrix <span class="math notranslate nohighlight">\([A^TA\; A^T\mathbf{b}]\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{bmatrix}6&amp;2&amp;2&amp;2&amp;4\\2&amp;2&amp;0&amp;0&amp;-4\\2&amp;0&amp;2&amp;0&amp;2\\2&amp;0&amp;0&amp;2&amp;6\end{bmatrix} \sim \begin{bmatrix}1&amp;0&amp;0&amp;1&amp;3\\0&amp;1&amp;0&amp;-1&amp;-5\\0&amp;0&amp;1&amp;-1&amp;-2\\0&amp;0&amp;0&amp;0&amp;0\end{bmatrix}\end{split}\]</div>
+<p>Since there is a row of zeros, we know the columns of <span class="math notranslate nohighlight">\(A^TA\)</span> are linearly dependent.</p>
+<p>This happens because the columns of <span class="math notranslate nohighlight">\(A\)</span> are linearly dependent.</p>
+<p>You can see this as follows:  if <span class="math notranslate nohighlight">\(A\)</span> has a non-trivial null space, then <span class="math notranslate nohighlight">\(A^TA\)</span> also has a nontrival null space.</p>
+<p>So there is a free variable.</p>
+<p>The general solution is then <span class="math notranslate nohighlight">\(x_1 = 3-x_4\)</span>, <span class="math notranslate nohighlight">\(x_2 = -5+x_4\)</span>, <span class="math notranslate nohighlight">\(x_3 = -2 + x_4\)</span>, and <span class="math notranslate nohighlight">\(x_4\)</span> is free.</p>
+<p>So the general least-squares solution of <span class="math notranslate nohighlight">\(A\hat{\mathbf{x}} = \mathbf{b}\)</span> has the form</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\mathbf{\hat{x}} = \begin{bmatrix}3\\-5\\-2\\0\end{bmatrix} + x_4\begin{bmatrix}-1\\1\\1\\1\end{bmatrix}\end{split}\]</div>
+<p>Keep in mind that the orthogonal projection <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> is always unique.</p>
+<p>The reason that there are multiple solutions to this least squares problem is that there are <strong>multiple ways</strong> to construct <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span>.</p>
+<p>The reason that there are multiple ways to construct <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> is that the columns of <span class="math notranslate nohighlight">\(A\)</span> are linearly dependent, so <strong>any</strong> vector in the column space of <span class="math notranslate nohighlight">\(A\)</span> can be constructed in multiple ways.</p>
+<p>Here is a theorem that allows use to identify when there are multiple least-squares solutions.</p>
+<p><strong>Theorem.</strong>  Let <span class="math notranslate nohighlight">\(A\)</span> be an <span class="math notranslate nohighlight">\(m\times n\)</span> matrix.  The following statements are equivalent:</p>
+<ol class="arabic simple">
+<li><p>The equation <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> has a unique least-squares solution for each <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^m.\)</span></p></li>
+<li><p>The columns of <span class="math notranslate nohighlight">\(A\)</span> are linearly independent.</p></li>
+<li><p>The matrix <span class="math notranslate nohighlight">\(A^TA\)</span> is invertible.</p></li>
+</ol>
+<p>When these statements are true, the least-squares solution <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{\hat{x}} = (A^TA)^{-1}A^T\mathbf{b}\]</div>
+</section>
+<section id="projection-onto-an-abitrary-basis">
+<h3>Projection onto an Abitrary Basis<a class="headerlink" href="#projection-onto-an-abitrary-basis" title="Permalink to this heading">#</a></h3>
+<p>When <span class="math notranslate nohighlight">\(A^TA\)</span> is invertible, and <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> is unique, we can put together the two equations</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{\hat{x}} = (A^TA)^{-1}A^T\mathbf{b}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[A\mathbf{\hat{x}} = \hat{\mathbf{b}}\]</div>
+<p>to get:</p>
+<div class="math notranslate nohighlight">
+\[\hat{\mathbf{b}} = A(A^TA)^{-1}A^T\mathbf{b}\]</div>
+<p>Let’s stop and look at this from a very general standpoint.</p>
+<p>Consider <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> to be an arbitrary point, and <span class="math notranslate nohighlight">\(A\)</span> to be a matrix whose columns are a basis for a subspace (ie, <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span>).</p>
+<p>Then <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> is the projection of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> onto <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span>.</p>
+<p>Up until now we have seen how to project a point onto a line, or on to a subspace with an orthogonal basis.</p>
+<p>But now we see that</p>
+<div class="math notranslate nohighlight">
+\[ \operatorname{proj}_{\operatorname{Col} A} \mathbf{b} = A(A^TA)^{-1}A^T\mathbf{b} \]</div>
+<p>So we now have an expression for projection onto a subspace given an <strong>arbitrary</strong> basis.  This is a general formula that can be very useful!</p>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="L21OrthogonalSets.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Orthogonal Sets and Projection</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="L23LinearModels.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Linear Models</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-an-inconsistent-system-is-better-than-a-consistent-system">When an Inconsistent System is Better than a Consistent System</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-a-good-approximate-solution">Finding a Good <em>Approximate</em> Solution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-general-least-squares-problem">The General Least-Squares Problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation-of-the-least-squares-problem">Interpretation of the Least Squares Problem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-the-general-least-squares-problem">Solving the General Least Squares Problem</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-orthogonal-decomposition-theorem">The Orthogonal Decomposition Theorem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-best-approximation-theorem">The Best Approximation Theorem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-solves-least-squares">Projection Solves Least Squares</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-normal-equations">The Normal Equations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-the-normal-equations-have-multiple-solutions">When the Normal Equations have Multiple Solutions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-onto-an-abitrary-basis">Projection onto an Abitrary Basis</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mark Crovella
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2020-2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
