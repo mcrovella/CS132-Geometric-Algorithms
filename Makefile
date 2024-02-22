@@ -15,7 +15,7 @@ book: ## compile the book but do not publish it
 
 pushbook:
 pushbook: ## publish the last compiled book
-	rsync -avb _build/html docs
+	rsync -avb _build/html/ docs
 	git add docs
 	git commit -m 'book update'
 	git push
