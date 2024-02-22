@@ -387,7 +387,9 @@ document.write(`
 <p>But, are there any other possible linear transformations from vectors to vectors?</p>
 <p>No.</p>
 <p>In other words, the reverse statement is also true:</p>
-<p><font color = "blue"> every linear transformation from vectors to vectors is a matrix multiplication. </font></p>
+<blockquote>
+<div><p><font color = "blue"> every linear transformation from vectors to vectors is a matrix multiplication. </font></p>
+</div></blockquote>
 <p>We’ll now prove this fact.</p>
 <p>We’ll do it <strong>constructively</strong>, meaning we’ll actually show how to find the matrix corresponding to any given linear transformation <span class="math notranslate nohighlight">\(T\)</span>.</p>
 <p><strong>Theorem.</strong>  Let <span class="math notranslate nohighlight">\(T: \mathbb{R}^n \rightarrow \mathbb{R}^m\)</span> be a linear transformation.   Then there is (always) a unique matrix <span class="math notranslate nohighlight">\(A\)</span> such that:</p>
@@ -424,11 +426,11 @@ document.write(`
 \[ = x_1T({\bf e_1}) + \dots + x_nT({\bf e_n})\]</div>
 <div class="math notranslate nohighlight">
 \[\begin{split} = \left[T({\bf e_1}) \dots T({\bf e_n})\right] \, \left[\begin{array}{r}x_1\\\vdots\\x_n\end{array}\right] = A{\bf x}.\end{split}\]</div>
-<p>So … we see that the ideas of <strong>matrix multiplication</strong> and <strong>linear transformation</strong> are essentially equivalent.</p>
-<p>Every matrix multiplication is a linear transformation, and every linear transformation is a matrix multiplication.</p>
+<p>So … we see that the ideas of <strong>matrix multiplication</strong> and <strong>linear transformation</strong> are essentially equivalent when applied to vectors.</p>
+<p>Every matrix multiplication is a linear transformation, and every linear transformation from vectors to vectors is a matrix multiplication.</p>
 <p><strong>However</strong>, term <em>linear transformation</em> focuses on a <strong>property</strong> of the mapping, while the term <em>matrix multiplication</em> focuses on how such a mapping is <strong>implemented.</strong></p>
 <p>This proof shows us an important idea:</p>
-<p><font color='blue'> To find the standard matrix of a linear tranformation, ask what the transformation does to the columns of <span class="math notranslate nohighlight">\(I\)</span>.</font></p>
+<p><font color='blue'> To find the standard matrix of a linear transformation, ask what the transformation does to the columns of <span class="math notranslate nohighlight">\(I\)</span>.</font></p>
 <p>In other words, if <span class="math notranslate nohighlight">\( T(\mathbf{x}) = A\mathbf{x} \)</span>, then:</p>
 <div class="math notranslate nohighlight">
 \[A = \left[T({\bf e_1}) \dots T({\bf e_n})\right].\]</div>
@@ -467,22 +469,7 @@ document.write(`
 <p>Referring to the diagram below, we can see that <span class="math notranslate nohighlight">\(\left[\begin{array}{r}1\\0\end{array}\right]\)</span> rotates into <span class="math notranslate nohighlight">\(\left[\begin{array}{r}\cos\theta\\\sin\theta\end{array}\right],\)</span> and <span class="math notranslate nohighlight">\(\left[\begin{array}{r}0\\1\end{array}\right]\)</span> rotates into <span class="math notranslate nohighlight">\(\left[\begin{array}{r}-\sin\theta\\\cos\theta\end{array}\right].\)</span></p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">(</span><span class="o">-</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1"># red circle portion</span>
-<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">arc</span> <span class="o">=</span> <span class="n">patches</span><span class="o">.</span><span class="n">Arc</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">340.</span><span class="p">,</span> <span class="mf">200.</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>                  <span class="n">linewidth</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;r&#39;</span><span class="p">,</span>
-<span class="g g-Whitespace">      </span><span class="mi">6</span>                  <span class="n">linestyle</span> <span class="o">=</span> <span class="s1">&#39;-.&#39;</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span> <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span><span class="n">arc</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> <span class="c1">#</span>
-<span class="g g-Whitespace">      </span><span class="mi">9</span> <span class="c1"># labels</span>
-
-<span class="ne">TypeError</span>: __init__() takes 4 positional arguments but 7 were given
-</pre></div>
-</div>
-<img alt="_images/15bef68157b1e1f6a68e882fd47bcc3b65226d6a088f05ff713f47833394bb0a.png" src="_images/15bef68157b1e1f6a68e882fd47bcc3b65226d6a088f05ff713f47833394bb0a.png" />
+<img alt="_images/2050fd20a2388de3d088ae1bacb981c8503a13436d62bd06901bd2948e28974f.png" src="_images/2050fd20a2388de3d088ae1bacb981c8503a13436d62bd06901bd2948e28974f.png" />
 </div>
 </div>
 <p>So by the Theorem above,</p>
@@ -498,13 +485,13 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/9889507afaa156a322984d17bb168b68d81a10f9bcdabee15a5be27ef6943e35.png" src="_images/9889507afaa156a322984d17bb168b68d81a10f9bcdabee15a5be27ef6943e35.png" />
+<img alt="_images/b271037992491a7553bff2326ddb7375f46cdc3d5dc3fa869ea3f7b23e618c3a.png" src="_images/b271037992491a7553bff2326ddb7375f46cdc3d5dc3fa869ea3f7b23e618c3a.png" />
 </div>
 </div>
 <p>The variable <code class="docutils literal notranslate"><span class="pre">note</span></code> is a array of 26 vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> that define its shape.</p>
 <p>In other words, it is a 2 <span class="math notranslate nohighlight">\(\times\)</span> 26 matrix.</p>
 <p>To rotate <code class="docutils literal notranslate"><span class="pre">note</span></code> we need to multiply each column of <code class="docutils literal notranslate"><span class="pre">note</span></code> by the rotation matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<p>In Python matrix multiplication is performed using the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> operator.</p>
+<p>In Python this can be performed using the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> operator.</p>
 <p>That is, if <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B</span></code> are matrices,</p>
 <p><code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">&#64;</span> <span class="pre">B</span></code></p>
 <p>will multiply <code class="docutils literal notranslate"><span class="pre">A</span></code> by every column of <code class="docutils literal notranslate"><span class="pre">B,</span></code> and the resulting vectors will be formed
@@ -523,12 +510,12 @@ into a matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/219f3cb157a813d0235715b04c9244ec2bdb4460317ff43b1b8512939ff95c64.png" src="_images/219f3cb157a813d0235715b04c9244ec2bdb4460317ff43b1b8512939ff95c64.png" />
+<img alt="_images/1d30853b5a998d89539344ae8475c0ba5b099336f0f3dd2f7ffeeb746fa6849f.png" src="_images/1d30853b5a998d89539344ae8475c0ba5b099336f0f3dd2f7ffeeb746fa6849f.png" />
 </div>
 </div>
 <section id="geometric-linear-transformations-of-mathbb-r-2">
 <h2>Geometric Linear Transformations of <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span><a class="headerlink" href="#geometric-linear-transformations-of-mathbb-r-2" title="Permalink to this heading">#</a></h2>
-<p>Let’s use our understanding of how to constuct linear transformations to look at some specific linear transformations of <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> to <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>.</p>
+<p>Let’s use our understanding of how to construct linear transformations to look at some specific linear transformations of <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> to <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>.</p>
 <p>First, let’s recall the linear transformation</p>
 <div class="math notranslate nohighlight">
 \[T(\mathbf{x}) = r\mathbf{x}.\]</div>
@@ -537,7 +524,7 @@ into a matrix.</p>
 <p>To construct the matrix <span class="math notranslate nohighlight">\(A\)</span> that implements this transformation, we ask: where do <span class="math notranslate nohighlight">\({\bf e_1}\)</span> and <span class="math notranslate nohighlight">\({\bf e_2}\)</span> go?</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/ec04a97882dc29250b1f711eed5394acf0730c0d98f5645d2e59e47c1936981b.png" src="_images/ec04a97882dc29250b1f711eed5394acf0730c0d98f5645d2e59e47c1936981b.png" />
+<img alt="_images/3fd49a4c73bda8df6ccde3282e58e6914f700b9aca1d8b4bd43ba29adfeff9f3.png" src="_images/3fd49a4c73bda8df6ccde3282e58e6914f700b9aca1d8b4bd43ba29adfeff9f3.png" />
 </div>
 </div>
 <p>Under the action of <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(\mathbf{e_1}\)</span> goes to <span class="math notranslate nohighlight">\(\left[\begin{array}{c}2.5\\0\end{array}\right]\)</span> and <span class="math notranslate nohighlight">\(\mathbf{e_2}\)</span> goes to <span class="math notranslate nohighlight">\(\left[\begin{array}{c}0\\2.5\end{array}\right]\)</span>.</p>
@@ -564,7 +551,7 @@ into a matrix.</p>
   2.5 &amp;  0.0\\
   0.0 &amp;  2.5
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/ad91667e6fb1ccfcd1704c52ea633b37af77ae8e32604cdf8dd003877ed7a50b.png" src="_images/ad91667e6fb1ccfcd1704c52ea633b37af77ae8e32604cdf8dd003877ed7a50b.png" />
+<img alt="_images/424c86d187e8d41231ebf823eb485ccbcf9aa93e11aa72d6e8987e380bb0bb38.png" src="_images/424c86d187e8d41231ebf823eb485ccbcf9aa93e11aa72d6e8987e380bb0bb38.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -576,13 +563,13 @@ into a matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/321c913f8ae8cd5b74760a3f5c2c0c675945027d3fe0a255eb7d0d020bf4f052.png" src="_images/321c913f8ae8cd5b74760a3f5c2c0c675945027d3fe0a255eb7d0d020bf4f052.png" />
+<img alt="_images/25e01f127e433fe6b9d4f903953457a56a4ea5eebb5046c57d46aec29c0cd1ec.png" src="_images/25e01f127e433fe6b9d4f903953457a56a4ea5eebb5046c57d46aec29c0cd1ec.png" />
 </div>
 </div>
 <p>OK, now let’s reflect through the <span class="math notranslate nohighlight">\(x_1\)</span> axis.   Where do <span class="math notranslate nohighlight">\({\bf e_1}\)</span> and <span class="math notranslate nohighlight">\({\bf e_2}\)</span> go?</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/ec04a97882dc29250b1f711eed5394acf0730c0d98f5645d2e59e47c1936981b.png" src="_images/ec04a97882dc29250b1f711eed5394acf0730c0d98f5645d2e59e47c1936981b.png" />
+<img alt="_images/3fd49a4c73bda8df6ccde3282e58e6914f700b9aca1d8b4bd43ba29adfeff9f3.png" src="_images/3fd49a4c73bda8df6ccde3282e58e6914f700b9aca1d8b4bd43ba29adfeff9f3.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -604,7 +591,7 @@ into a matrix.</p>
   1  &amp;  0 \\
   0  &amp; -1 
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/4b38e5dc48f66beb282482f9f0648d99a9017669ebf950605d05b46a6dcaac42.png" src="_images/4b38e5dc48f66beb282482f9f0648d99a9017669ebf950605d05b46a6dcaac42.png" />
+<img alt="_images/a16495e2b943b2cf22d5ee385fa85ad236436a4ce483a9f737a77ee5126d2147.png" src="_images/a16495e2b943b2cf22d5ee385fa85ad236436a4ce483a9f737a77ee5126d2147.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -616,7 +603,7 @@ into a matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/2b6a54e83a8b723ed544b3031977ff082e9e570a7c71d8a8ac60fa955bd2fb64.png" src="_images/2b6a54e83a8b723ed544b3031977ff082e9e570a7c71d8a8ac60fa955bd2fb64.png" />
+<img alt="_images/0ec6657d266118a881cb50025d546b815b892c5d4dd413730200522683251eac.png" src="_images/0ec6657d266118a881cb50025d546b815b892c5d4dd413730200522683251eac.png" />
 </div>
 </div>
 <p>What about reflection through the <span class="math notranslate nohighlight">\(x_2\)</span> axis?</p>
@@ -639,7 +626,7 @@ into a matrix.</p>
  -1  &amp;   0 \\
    0  &amp;   1 
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/8a9418094a96809950c2d3f2ca8c6d7794552f5c0fb2f2b20ef4f1d73824d95c.png" src="_images/8a9418094a96809950c2d3f2ca8c6d7794552f5c0fb2f2b20ef4f1d73824d95c.png" />
+<img alt="_images/b7cb88d3ffd620a35dca5f7e87d3c3b56064c0b1e289729a20368752a86d647f.png" src="_images/b7cb88d3ffd620a35dca5f7e87d3c3b56064c0b1e289729a20368752a86d647f.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -651,7 +638,7 @@ into a matrix.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/5ce0d1ac803ba9283a7e8f5fc5d7c98ef1473d098b3dae834541679c6c1960cf.png" src="_images/5ce0d1ac803ba9283a7e8f5fc5d7c98ef1473d098b3dae834541679c6c1960cf.png" />
+<img alt="_images/ea3083e8a9b5ec05b2d8eeff534c651826bf73aa0e488d61741d3fb0951bf9fd.png" src="_images/ea3083e8a9b5ec05b2d8eeff534c651826bf73aa0e488d61741d3fb0951bf9fd.png" />
 </div>
 </div>
 <p>What about reflection through the line <span class="math notranslate nohighlight">\(x_1 = x_2\)</span>?</p>
@@ -662,12 +649,12 @@ into a matrix.</p>
   0  &amp;  1 \\
   1  &amp;  0 
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/60b03c23328dd55998a13fc2dd382793d34b4d7c7eee0fe717a0cc070a8b4f99.png" src="_images/60b03c23328dd55998a13fc2dd382793d34b4d7c7eee0fe717a0cc070a8b4f99.png" />
+<img alt="_images/529f7f28931bfa043a21c7871bb1d4e1ba3e3dbbb299f175d4a0b25596ef6583.png" src="_images/529f7f28931bfa043a21c7871bb1d4e1ba3e3dbbb299f175d4a0b25596ef6583.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/5c97648f7b38b711918fc1cd325f49bc47873f511e33f40747c81d449ebf5728.png" src="_images/5c97648f7b38b711918fc1cd325f49bc47873f511e33f40747c81d449ebf5728.png" />
+<img alt="_images/db981e21289a28ddd6ca00a0033342e59730d28804580c1431d571bfaed7708c.png" src="_images/db981e21289a28ddd6ca00a0033342e59730d28804580c1431d571bfaed7708c.png" />
 </div>
 </div>
 <p>What about reflection through the line <span class="math notranslate nohighlight">\(x_1 = -x_2\)</span>?</p>
@@ -678,12 +665,12 @@ into a matrix.</p>
   0  &amp; -1 \\
  -1  &amp;  0 
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/3101051a20a411308ceb56fa853b9421ec2d28b7a762caaa41e4393839616efb.png" src="_images/3101051a20a411308ceb56fa853b9421ec2d28b7a762caaa41e4393839616efb.png" />
+<img alt="_images/07b08ed0ecc3af8b530ef383bd96bd151bfe283df0bb2dbe94f480ef7c5d2e30.png" src="_images/07b08ed0ecc3af8b530ef383bd96bd151bfe283df0bb2dbe94f480ef7c5d2e30.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/e2f874b7b2198b7cc44ed0ed0cefd484341fc40c7bec8aabdb863cc6472b69eb.png" src="_images/e2f874b7b2198b7cc44ed0ed0cefd484341fc40c7bec8aabdb863cc6472b69eb.png" />
+<img alt="_images/011013b27f197e33f726d222fca48672e3a089de8bc715ba2f3e70eefc004731.png" src="_images/011013b27f197e33f726d222fca48672e3a089de8bc715ba2f3e70eefc004731.png" />
 </div>
 </div>
 <p>What about reflection through the origin?</p>
@@ -694,12 +681,12 @@ into a matrix.</p>
  -1  &amp;  0 \\
   0  &amp; -1 
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/8aee2d99425d519ba16175607854c19fc065817e262f2562a1c006ab53984aa4.png" src="_images/8aee2d99425d519ba16175607854c19fc065817e262f2562a1c006ab53984aa4.png" />
+<img alt="_images/87d9ce11b89482fbd6fbbec3145cc6e4d4ea62a29e6c4a5cdf1607300dd37e22.png" src="_images/87d9ce11b89482fbd6fbbec3145cc6e4d4ea62a29e6c4a5cdf1607300dd37e22.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/c244029e76221d5d476c5d68bfabfe1f7f11c1b76d39a447892ee345830c9454.png" src="_images/c244029e76221d5d476c5d68bfabfe1f7f11c1b76d39a447892ee345830c9454.png" />
+<img alt="_images/590ea8aa02006158bddfc0369426348d84b8b8dfcbd2c1c608ee39e37579930f.png" src="_images/590ea8aa02006158bddfc0369426348d84b8b8dfcbd2c1c608ee39e37579930f.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
@@ -709,12 +696,12 @@ into a matrix.</p>
   0.45 &amp;  0.00\\
   0.00 &amp;  1.00
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/0c6832ce57112a60254d29fcac62dc0d29245fa23ae74980b0af6e0df2347161.png" src="_images/0c6832ce57112a60254d29fcac62dc0d29245fa23ae74980b0af6e0df2347161.png" />
+<img alt="_images/1e843e1262ae7f59960f257cbb4ca4988791d2044d959b07edd7841a07eacc7d.png" src="_images/1e843e1262ae7f59960f257cbb4ca4988791d2044d959b07edd7841a07eacc7d.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/e12f55763ab2886ba8d9d2a230e2955d4d91e34b5100057f8329b977807b44a2.png" src="_images/e12f55763ab2886ba8d9d2a230e2955d4d91e34b5100057f8329b977807b44a2.png" />
+<img alt="_images/d037a6a5c6668cc85a6536756e234fbf520fc3c722d4d25515ad43a427a24e2f.png" src="_images/d037a6a5c6668cc85a6536756e234fbf520fc3c722d4d25515ad43a427a24e2f.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
@@ -724,7 +711,7 @@ into a matrix.</p>
   2.5 &amp;  0.0\\
   0.0 &amp;  1.0
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/52aba804d84c68609b314c0dd429f3aecc5094ac83d78219d0b03960c9941956.png" src="_images/52aba804d84c68609b314c0dd429f3aecc5094ac83d78219d0b03960c9941956.png" />
+<img alt="_images/26433b1ee0b58b772386457e13cf6d072c4026e6de29ab76cd3b19637df00fa2.png" src="_images/26433b1ee0b58b772386457e13cf6d072c4026e6de29ab76cd3b19637df00fa2.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
@@ -734,12 +721,12 @@ into a matrix.</p>
   1.0 &amp;  0.0\\
  -1.5 &amp;  1.0
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/fab4f7fac247612c6809239d6b0940f929b3bb11c850ff2a2d311519152128dc.png" src="_images/fab4f7fac247612c6809239d6b0940f929b3bb11c850ff2a2d311519152128dc.png" />
+<img alt="_images/ac531ab366540b8690f9d499c612f0ddbc962ae7121140d3d2befc39d8899f5d.png" src="_images/ac531ab366540b8690f9d499c612f0ddbc962ae7121140d3d2befc39d8899f5d.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/42df409804bddf70eeea53a8acea117d0b636c54c9b6e48b3c8bc160f997de1b.png" src="_images/42df409804bddf70eeea53a8acea117d0b636c54c9b6e48b3c8bc160f997de1b.png" />
+<img alt="_images/8a01f6e7240757bfab25b9ca4f0eee763fe3008f17f596b9f5da04d199e4f79e.png" src="_images/8a01f6e7240757bfab25b9ca4f0eee763fe3008f17f596b9f5da04d199e4f79e.png" />
 </div>
 </div>
 <p>Now let’s look at a particular kind of transformation called a <strong>projection</strong>.</p>
@@ -751,13 +738,13 @@ into a matrix.</p>
   1  &amp;  0 \\
   0  &amp;  0 
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/a1099dde229cab169797a1ebf8c9e158978fea25f8706927a26923f2255cdc06.png" src="_images/a1099dde229cab169797a1ebf8c9e158978fea25f8706927a26923f2255cdc06.png" />
+<img alt="_images/4ba9d4fc56a086125631446d7920f61efea13288c514ad88a49cef89d75f3f61.png" src="_images/4ba9d4fc56a086125631446d7920f61efea13288c514ad88a49cef89d75f3f61.png" />
 </div>
 </div>
 <p>What happens to the <strong>shape</strong> of the point set?</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/b760c8ce829475f78600abbff745e34428849ba06aacf8542682b3040ee37959.png" src="_images/b760c8ce829475f78600abbff745e34428849ba06aacf8542682b3040ee37959.png" />
+<img alt="_images/34f2bbf111de20aa749d02e3fb64a5e9d61592ae4631ead817a4d4f7d74da80c.png" src="_images/34f2bbf111de20aa749d02e3fb64a5e9d61592ae4631ead817a4d4f7d74da80c.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
@@ -767,12 +754,12 @@ into a matrix.</p>
   0  &amp;  0 \\
   0  &amp;  1 
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/d887098cfd5ef1dca7b0e04e8ae53c6ed796811c2f0436a6596fb65079b3bc51.png" src="_images/d887098cfd5ef1dca7b0e04e8ae53c6ed796811c2f0436a6596fb65079b3bc51.png" />
+<img alt="_images/f1eabbe8b54a65981a170bcfee60a8e88c6182a8cfaf4fefa3dfe62ff98037c7.png" src="_images/f1eabbe8b54a65981a170bcfee60a8e88c6182a8cfaf4fefa3dfe62ff98037c7.png" />
 </div>
 </div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/2408fece6fe42acc952300c4e5d3de517c80909347df928862e00b4cb0f4552d.png" src="_images/2408fece6fe42acc952300c4e5d3de517c80909347df928862e00b4cb0f4552d.png" />
+<img alt="_images/aeb13fbea7e209822c2e7c2016e0f5c4119538f367d664d2475b38e73455612c.png" src="_images/aeb13fbea7e209822c2e7c2016e0f5c4119538f367d664d2475b38e73455612c.png" />
 </div>
 </div>
 </section>
@@ -787,14 +774,14 @@ into a matrix.</p>
   0.45 &amp;  0.00\\
   0.00 &amp;  1.00
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/165cefb6f87843cbd6fdac91b49c2df9d216b6225df6ce5a335d78e61b82ccea.png" src="_images/165cefb6f87843cbd6fdac91b49c2df9d216b6225df6ce5a335d78e61b82ccea.png" />
+<img alt="_images/8f7cd1ba90961d6ec300516c1d8cd93fd34ef28437ca1afc81f231dda6bd597d.png" src="_images/8f7cd1ba90961d6ec300516c1d8cd93fd34ef28437ca1afc81f231dda6bd597d.png" />
 </div>
 </div>
 <p>In this transformation, each unit of area in the blue shape is transformed to a smaller region in the red shape.</p>
 <p>So to understand how area changes, it suffices to ask what happens to the unit square (or hypercube):</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/a40fc25e5c6a9473d09f3c7ce77a192c77a07b01018d75324b476e6d8c86044b.png" src="_images/a40fc25e5c6a9473d09f3c7ce77a192c77a07b01018d75324b476e6d8c86044b.png" />
+<img alt="_images/105844a7600bb77c27470f8135be5a3c74aaa9117a735ec2ae9f22ebee10198f.png" src="_images/105844a7600bb77c27470f8135be5a3c74aaa9117a735ec2ae9f22ebee10198f.png" />
 </div>
 </div>
 <p>Let’s denote the matrix of our linear transformation as:</p>
@@ -803,14 +790,14 @@ into a matrix.</p>
 <p>Then, here is what happens to the unit square:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/18bf9a61e66ea0d11f684692dc28c15a21a67981a3bd906c5410de50a299bbde.png" src="_images/18bf9a61e66ea0d11f684692dc28c15a21a67981a3bd906c5410de50a299bbde.png" />
+<img alt="_images/279462702ffc0ceb15a9016a59484634a32a0d2bcfd02d18a0eed0f4d39a8566.png" src="_images/279462702ffc0ceb15a9016a59484634a32a0d2bcfd02d18a0eed0f4d39a8566.png" />
 </div>
 </div>
 <p>Now, let’s determine the area of the blue diamond in terms of <span class="math notranslate nohighlight">\(a, b, c\)</span>, and <span class="math notranslate nohighlight">\(d\)</span>.</p>
 <p>To do that, we’ll use this diagram:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/36f1c298a6afafc3e733b46a2776071187ab25c855b8def0cb9a1cda2ea20b20.png" src="_images/36f1c298a6afafc3e733b46a2776071187ab25c855b8def0cb9a1cda2ea20b20.png" />
+<img alt="_images/f92b43da0587a09f416dbae14d14e2dfebccacebc1cd91dd4ac4525a2a971fa5.png" src="_images/f92b43da0587a09f416dbae14d14e2dfebccacebc1cd91dd4ac4525a2a971fa5.png" />
 </div>
 </div>
 <p>Each of the triangles and rectangles has an area we can determine in terms of <span class="math notranslate nohighlight">\(a, b, c\)</span> and <span class="math notranslate nohighlight">\(d\)</span>.</p>
@@ -853,7 +840,7 @@ into a matrix.</p>
   1  &amp;  0 \\
   0  &amp;  0 
 \end{bmatrix}\end{split}\]</div>
-<img alt="_images/a1099dde229cab169797a1ebf8c9e158978fea25f8706927a26923f2255cdc06.png" src="_images/a1099dde229cab169797a1ebf8c9e158978fea25f8706927a26923f2255cdc06.png" />
+<img alt="_images/4ba9d4fc56a086125631446d7920f61efea13288c514ad88a49cef89d75f3f61.png" src="_images/4ba9d4fc56a086125631446d7920f61efea13288c514ad88a49cef89d75f3f61.png" />
 </div>
 </div>
 <p>The unit square has been collapsed onto the <span class="math notranslate nohighlight">\(x\)</span>-axis, resulting in a shape with area of zero.</p>
@@ -893,14 +880,14 @@ into a matrix.</p>
 <p>What about this transformation?   Is it onto <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>?</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/e2f874b7b2198b7cc44ed0ed0cefd484341fc40c7bec8aabdb863cc6472b69eb.png" src="_images/e2f874b7b2198b7cc44ed0ed0cefd484341fc40c7bec8aabdb863cc6472b69eb.png" />
+<img alt="_images/011013b27f197e33f726d222fca48672e3a089de8bc715ba2f3e70eefc004731.png" src="_images/011013b27f197e33f726d222fca48672e3a089de8bc715ba2f3e70eefc004731.png" />
 </div>
 </div>
 <p>Here is an example of the projection transformation.  The red points (which all lie on the <span class="math notranslate nohighlight">\(x\)</span>-axis) are the images of the blue points.</p>
 <p>What about this transformation?  Is it onto <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>?</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/b760c8ce829475f78600abbff745e34428849ba06aacf8542682b3040ee37959.png" src="_images/b760c8ce829475f78600abbff745e34428849ba06aacf8542682b3040ee37959.png" />
+<img alt="_images/34f2bbf111de20aa749d02e3fb64a5e9d61592ae4631ead817a4d4f7d74da80c.png" src="_images/34f2bbf111de20aa749d02e3fb64a5e9d61592ae4631ead817a4d4f7d74da80c.png" />
 </div>
 </div>
 <p><strong>Definition.</strong>  A mapping <span class="math notranslate nohighlight">\(T: \mathbb{R}^n \rightarrow \mathbb{R}^m\)</span> is said to be <strong>one-to-one</strong> if each <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span> is the image of <em>at most one</em> <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
