@@ -101,14 +101,6 @@ the github repository
 Each of the Chapters is based on a single notebook, and each forms the
 basis for one lecture (more or less).
 
-Note that all of the 3D figures used in this book can be viewed in
-augmented reality using the app **DiagramAR.**  Using DiagramAR you can look at the
-figures "in space'' and can move around them to look at them from
-different angles, rotate them, or zoom in/out.  DiagramAR is available
-for [iOS](https://apps.apple.com/us/app/diagramar/id1484987191) and  [Android](https://play.google.com/store/apps/details?id=com.crovella.diagramar).
-Adapting DiagramAR for any course that uses python for 3D figure creation
-is not hard; contact me for details.
-
 I hope you enjoy this book, whose goal is to __prevent__ you from falling
 into this trap:
 
