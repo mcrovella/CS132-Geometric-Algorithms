@@ -582,19 +582,7 @@ L&amp;U\\
 \[U{\bf x} = {\bf y}.\]</div>
 <p>The idea is that we first solve <span class="math notranslate nohighlight">\(L{\bf y} = {\bf b}\)</span> for <span class="math notranslate nohighlight">\({\bf y},\)</span> then solve <span class="math notranslate nohighlight">\(U{\bf x} = {\bf y}\)</span> for <span class="math notranslate nohighlight">\({\bf x}.\)</span></p>
 <p>In a sense, this corresponds to first performing the forward step of Gaussian Elimination (but in a specially streamlined, efficient way) and then performing the backwards (backsubstitution) step in the usual (efficient) fashion.</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># image credit: Lay, 4th edition</span>
-<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/Lay-fig-2-5-2.jpeg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">550</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</details>
+<div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
 <img alt="_images/5cb9d67bdfd8f0cefa4f81416ababe35349a54119a3c279bd0b8ab36619cca4e.jpg" src="_images/5cb9d67bdfd8f0cefa4f81416ababe35349a54119a3c279bd0b8ab36619cca4e.jpg" />
 </div>
@@ -620,7 +608,9 @@ L&amp;U\\
 <p>Therefore to solve <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> using <span class="math notranslate nohighlight">\(LU\mathbf{x} = \mathbf{b}\)</span>, the dominating step is doing the factorization <span class="math notranslate nohighlight">\(A = LU\)</span>.</p>
 <p>We’ve seen that the factorization step is essentially Gaussian Elimination, and therefore requires <span class="math notranslate nohighlight">\(\sim\frac{2}{3}n^3\)</span> flops.</p>
 <p>Now, to return to our original problem.</p>
-<p>To solve $<span class="math notranslate nohighlight">\(AX = B\)</span>$</p>
+<p>To solve</p>
+<div class="math notranslate nohighlight">
+\[AX = B\]</div>
 <p>where <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(n\times n\)</span>, and both <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(B\)</span> have <span class="math notranslate nohighlight">\(p\)</span> columns,</p>
 <ul class="simple">
 <li><p>By matrix inversion of <span class="math notranslate nohighlight">\(A\)</span> requires <span class="math notranslate nohighlight">\(\sim 2n^3 + 2p n^2\)</span> flops</p></li>
