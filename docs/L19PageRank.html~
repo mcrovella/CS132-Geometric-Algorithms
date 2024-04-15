@@ -406,17 +406,17 @@ document.write(`
 <h2>The History<a class="headerlink" href="#the-history" title="Permalink to this heading">#</a></h2>
 <p>Today we’ll study an algorithm that is probably important in your life: Google’s PageRank.</p>
 <p>Let’s set the stage.</p>
-<p>The World Wide Web starting becoming widely used in 1994.</p>
+<p>The World Wide Web started becoming widely used in 1994.</p>
 <p>By 1998 the Web had become an indispensable information resource.</p>
-<p>However, the problem of effectively searching the Web for relevant information was not well addressed.  A number of large search engines were available, with names that are now forgotten: Alta Vista, Lycos, Excite, and others.</p>
+<p>However, the problem of effectively searching the Web for relevant information was not well addressed.  A number of large search engines were available, with names that are now forgotten: <em>Alta Vista, Lycos, Excite,</em> and others.</p>
 <p>At present, most of them are no longer in existence, because Google emerged in 1998 and came to dominate Web search almost overnight.</p>
 <p>How did this happen?</p>
 <p>As background: a typical search engine uses a two-step process to retrieve pages related to a user’s query.</p>
 <p>In
 the first step, basic text processing is done to find all documents that contain the query terms.
-Due to the massive size of the Web, this first step can result in many thousands of retrieved pages related to the query.</p>
+Due to the massive size of the Web, this first step can result in thousands to millions of retrieved pages related to the query.</p>
 <p>Some of these pages are important, but most are not.</p>
-<p>The problem that Google solves better than the search engines of the mid 1990’s concerns the <strong>ordering</strong> in which the resulting search results are presented.  This is the crucial factor in utility.  A user wants to find the “correct” or “best” item at the top of the search results.</p>
+<p>The problem that Google solved better than it competitors is deciding the <strong>ordering</strong> in which the resulting search results are presented.  This is crucial: a user wants to find the “correct” or “best” item at the top of the search results.</p>
 <p>By displaying the most relevant pages at the top of the list returned each query, Google makes its search results very useful. The algorithm that gave Google this advantage is called PageRank.</p>
 <p><strong>The Insight</strong></p>
 <p>Around 1998, the limitations of standard search engines, which just used term frequency, we becoming apparent.   A number of researchers were thinking about using additional sources of information to “rate” pages.</p>
@@ -478,12 +478,9 @@ Due to the massive size of the Web, this first step can result in many thousands
 <p><strong>Example.</strong>  A random walk on <span class="math notranslate nohighlight">\(\{0,1,2,3,4\}\)</span> with absorbing boundaries has a transition matrix of</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}P=\begin{bmatrix}1&amp;p&amp;0&amp;0&amp;0\\0&amp;0&amp;p&amp;0&amp;0\\0&amp;1-p&amp;0&amp;p&amp;0\\0&amp;0&amp;1-p&amp;0&amp;0\\0&amp;0&amp;0&amp;1-p&amp;1\end{bmatrix}\end{split}\]</div>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/6b0076bb6d1a81fb0933f129844455c56b9e866dc645605ed876d021a6d42274.jpg" src="_images/6b0076bb6d1a81fb0933f129844455c56b9e866dc645605ed876d021a6d42274.jpg" />
-</div>
-</div>
-<p><strong>Example.</strong> (“Gambler’s Ruin”).   Consider a very simple casino game.  A gambler (with some money to lose) flips a coin and calls heads or tails.  If the gambler is correct, she wins a dollar.  If she is wrong, she loses a dollar.  The gambler will quit the game when she has either won <span class="math notranslate nohighlight">\(n-1\)</span> dollars or lost all of her money.</p>
+<center>
+<a class="reference internal image-reference" href="_images/Lay-fig-10-3.jpg"><img alt="Figure" src="_images/Lay-fig-10-3.jpg" style="width: 650px;" /></a>
+</center><p><strong>Example.</strong> (“Gambler’s Ruin”).   Consider a very simple casino game.  A gambler (with some money to lose) flips a coin and calls heads or tails.  If the gambler is correct, she wins a dollar.  If she is wrong, she loses a dollar.  The gambler will quit the game when she has either won <span class="math notranslate nohighlight">\(n-1\)</span> dollars or lost all of her money.</p>
 <p>Suppose that <span class="math notranslate nohighlight">\(n=5\)</span> and the gambler starts with $2.  The gambler’s winnings must move up or down one dollar with each coin flip, and once the gambler’s winnings reach 0 or 4, they do not change any more since the gambler has quit the game.</p>
 <p>Such a process may be modeled as a random walk on <span class="math notranslate nohighlight">\(\{0,1,2,3,4\}\)</span> with absorbing boundaries.   Since a move up or down is equally likely in this case, <span class="math notranslate nohighlight">\(p = 1/2\)</span>.</p>
 <p>This transition matrix is not regular.  Why?  Consider column 1.</p>
@@ -537,7 +534,7 @@ Due to the massive size of the Web, this first step can result in many thousands
 0&amp;0&amp;1/4&amp;0&amp;1/2&amp;0&amp;1\\
 0&amp;0&amp;0&amp;0&amp;0&amp;1/3&amp;0\end{bmatrix}\end{split}\]</div>
 <p>It turns out that this matrix is regular (<span class="math notranslate nohighlight">\(P^3\)</span> has no zero entries.)</p>
-<p>Hence, the associated Markov Chain converges to a single steady state.  (It has only one eigenvalue of 1.)</p>
+<p>Hence, the associated Markov Chain converges to a single steady state.</p>
 <p>The eigenvector corresponding to the eigenvalue of 1 is the steady-state of the Markov Chain.</p>
 <p>Hence we can find that the steady-state is <span class="math notranslate nohighlight">\(\frac{1}{16}\begin{bmatrix}2\\3\\4\\1\\2\\3\\1\end{bmatrix}.\)</span></p>
 <p>That is, the probability of bring in node 1 at steady state is 2/16;  the probability of being in node 2 is 3/16;  the probability of being in node 3 is 4/16, etc.</p>
@@ -591,23 +588,25 @@ Due to the massive size of the Web, this first step can result in many thousands
 <p>In fact, the intuiution they started from was simpler:</p>
 <center>Their insight was just to say that <font color = "blue">a page is 'important' if many 'important' pages link to it.</font> </center><p>More precisely, this definition of ‘importance’ is:</p>
 <div class="math notranslate nohighlight">
-\[\mbox{Importance of page $k$} = \sum_j \mbox{(Importance of page $j$)}\cdot\mbox{(Probability of going from page $j$ to page $k$.)}\]</div>
+\[\mbox{Importance of page $i$} = \sum_j \mbox{(Importance of page $j$)}\cdot\mbox{(Probability of going from page $j$ to page $i$.)}\]</div>
 <p>This is a very intuitive definition of importance.</p>
 <p>There is a bit of a issue however – it is self-referential!</p>
 <p>The ‘importance’ of a page appears on both sides of the equation.</p>
 <p>How can we solve this equation to get a fixed ‘importance’ for a given page?</p>
 <p>Answering this question is where the random walk comes in.</p>
+<p>Let’s define a vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> to hold importance:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} \mathbf{x} = \begin{bmatrix}\text{importance of page 1}\\\text{importance of page 2}\\\vdots\\\text{importance of page n}\end{bmatrix} \end{split}\]</div>
+<p>And let’s define <span class="math notranslate nohighlight">\(P\)</span> as the transition matrix of the Markov Chain defined by the link structure of the pages:</p>
+<div class="math notranslate nohighlight">
+\[ P_{ij} = \text{probability of going from page } j \text{ to page } i \text{ in a random walk}\]</div>
 <p>What Page and Brin observed was that this equation</p>
 <div class="math notranslate nohighlight">
-\[\mbox{Importance of page $k$} = \sum_j \mbox{(Importance of page $j$)}\cdot\mbox{(Probability of going from page $j$ to page $k$.)}\]</div>
+\[\mbox{Importance of page $i$} = \sum_j \mbox{(Importance of page $j$)}\cdot\mbox{(Probability of going from page $j$ to page $i$.)}\]</div>
 <p>is the same as:</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{x} = P\mathbf{x}\]</div>
-<p>if we encode</p>
-<ul class="simple">
-<li><p>‘importance’ of all pages in the vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>, and</p></li>
-<li><p>‘probability of going from page <span class="math notranslate nohighlight">\(j\)</span> to page <span class="math notranslate nohighlight">\(k\)</span>’ in the stochastic matrix <span class="math notranslate nohighlight">\(P\)</span>.</p></li>
-</ul>
+<p>Which is the equation defining the steady state of the Markov chain <span class="math notranslate nohighlight">\(P\)</span>.</p>
 <p>Now we are ready to understand what Page and Brin were saying in 1998:</p>
 <blockquote>
 <div><p>PageRank can be thought of as a model of user behavior. We assume there is a “random surfer” who is given a web page at random and keeps clicking on links, never hitting “back” but eventually gets bored and starts on another random page. The probability that the random surfer visits a page is its PageRank.</p>
