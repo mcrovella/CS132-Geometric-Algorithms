@@ -226,9 +226,10 @@ class three_d_figure:
     def showAxes(self):
         self.desc['displayAxes'] = True
         
-    def plotPoint (self, x1, x2, x3, color='r', alpha=1.0):
+    def plotPoint (self, x1, x2, x3, color='r', alpha=1.0,
+                       marker = '{}o'):
         # do the plotting
-        self.ax.plot([x1], [x2], '{}o'.format(color), zs=[x3])
+        self.ax.plot([x1], [x2], marker.format(color), zs=[x3])
         # save the graphics element
         hex_color = colors.to_hex(color)
         self.desc['objects'].append(
