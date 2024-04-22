@@ -464,6 +464,14 @@ document.write(`
 \left[\begin{array}{ccccc}\dots&amp;\dots&amp;\mathbf{v}_1&amp;\dots&amp;\dots\\\dots&amp;\dots&amp;\mathbf{v}_k&amp;\dots&amp;\dots\end{array}\right]\)</span></p>
 <p>The rank-<span class="math notranslate nohighlight">\(k\)</span> approximation takes up space <span class="math notranslate nohighlight">\((m+n)k\)</span> while <span class="math notranslate nohighlight">\(A\)</span> itself takes space <span class="math notranslate nohighlight">\(mn\)</span>.</p>
 <p>For example, if <span class="math notranslate nohighlight">\(k=10\)</span> and <span class="math notranslate nohighlight">\(m = n = 1000\)</span>, then the rank-<span class="math notranslate nohighlight">\(k\)</span> approximation takes space <span class="math notranslate nohighlight">\(20000/1000000 = 2\%\)</span> of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The fact that the SVD finds the <em>best</em> rank-<span class="math notranslate nohighlight">\(k\)</span> approximation to any matrix is called the Eckart-Young-Mirsky Theorem.  You can find a proof of the theorem <a class="reference external" href="https://en.wikipedia.org/wiki/Low-rank_approximation">here</a>.  In fact it is true for the Frobenius norm (the norm we are using here) as well as another matrix norm, the <em>spectral</em> norm.</p>
+<p>More good resources on how to understand SVD as a data approximation method are <a class="reference external" href="https://www.jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/">here</a> and <a class="reference external" href="https://liorpachter.wordpress.com/2014/05/26/what-is-principal-component-analysis/">here</a>.</p>
+</div>
+</aside>
 <p>The key to using the SVD for matrix approximation is as follows:</p>
 <center><font color = "blue"><b>The best rank-<em>k</em> approximation to any matrix can be found via the SVD.</b></font></center><p>In fact, for an <span class="math notranslate nohighlight">\(m\times n\)</span> matrix <span class="math notranslate nohighlight">\(A\)</span>, the SVD does two things:</p>
 <ol class="arabic simple">
@@ -585,7 +593,7 @@ document.write(`
 <p>Consider the points below, which live in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/335df6b11679139ebfdfa99dbde6b08099eb4ff943d254d9ea401a2b5bb39548.png" src="_images/335df6b11679139ebfdfa99dbde6b08099eb4ff943d254d9ea401a2b5bb39548.png" />
+<img alt="_images/31e138ee0555c5ad18a841a5e922631855e6b222ee820ec6d2885976a3d646c1.png" src="_images/31e138ee0555c5ad18a841a5e922631855e6b222ee820ec6d2885976a3d646c1.png" />
 </div>
 </div>
 <p>Now, although the points are in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>, they seem to show effective low-rank.</p>
@@ -599,13 +607,13 @@ document.write(`
 <p>So to capture the best line through the data, we first move the data points to the origin:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/776f00f0b4aaafc58ce0ec1831bea50fe2f26e90f297b2e048b5c10c158dae51.png" src="_images/776f00f0b4aaafc58ce0ec1831bea50fe2f26e90f297b2e048b5c10c158dae51.png" />
+<img alt="_images/112b2bc8d4bffb2b67099ea9c7bbc6883f122c11db101b87c7bd89c21fb8cb3a.png" src="_images/112b2bc8d4bffb2b67099ea9c7bbc6883f122c11db101b87c7bd89c21fb8cb3a.png" />
 </div>
 </div>
 <p>Now we use SVD to construct the best 1-D approximation of the mean-centered data:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/b2e98ae9d164a541abeca21a99d1c613f04a3480b37ac5e0a24a5f7275a7f891.png" src="_images/b2e98ae9d164a541abeca21a99d1c613f04a3480b37ac5e0a24a5f7275a7f891.png" />
+<img alt="_images/4173244da00cec3818e85416838c5fae13f278d29fe5c45d60af9e51a1b54e0c.png" src="_images/4173244da00cec3818e85416838c5fae13f278d29fe5c45d60af9e51a1b54e0c.png" />
 </div>
 </div>
 <p>This method is called <strong>Principal Component Analysis.</strong></p>

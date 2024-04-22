@@ -372,7 +372,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-best-approximation-theorem">The Best Approximation Theorem</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-solves-least-squares">Projection Solves Least Squares</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#orthogonal-projection-solves-least-squares">Orthogonal Projection Solves Least Squares</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-normal-equations">The Normal Equations</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-the-normal-equations-have-multiple-solutions">When the Normal Equations have Multiple Solutions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-onto-an-abitrary-basis">Projection onto an Abitrary Basis</a></li>
@@ -426,7 +426,7 @@ document.write(`
 <p>But now, due to measurement errors, we can’t expect <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> will lie in the column space of <span class="math notranslate nohighlight">\(X.\)</span>  We have an inconsistent system.</p>
 <p>This system has <strong>no solutions!</strong></p>
 <p>What can we do if <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> has <strong>no solutions?</strong></p>
-<p>Here is the key idea: the fact that our measurements include errors does not make them worthless!</p>
+<p>Here is the key idea: the fact that our measurements include errors does not make our measurements worthless!</p>
 <p>We simply need a principled approach to doing the best job we can given the errors in our measurements.</p>
 <p>Let’s see how we can do that.</p>
 <p>We now understand if <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(m\times n\)</span> and <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> has no solutions, that is because</p>
@@ -437,7 +437,7 @@ document.write(`
 <p>Here is an example we can visualize, in which <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(3 \times 2\)</span>:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/e82c206f1179dd49236bd888ae6930e174b725d0e25d7bb55bc203b89fac16cb.png" src="_images/e82c206f1179dd49236bd888ae6930e174b725d0e25d7bb55bc203b89fac16cb.png" />
+<img alt="_images/56b15e5802f68cbc99b3e549efd24bd0e9664f9e3dd17d4f496827b34a42146c.png" src="_images/56b15e5802f68cbc99b3e549efd24bd0e9664f9e3dd17d4f496827b34a42146c.png" />
 </div>
 </div>
 <p>Now our assumption is that the reason that <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> does not lie in <span class="math notranslate nohighlight">\(\operatorname{Col}\,A\)</span> is due to measurement error.</p>
@@ -447,10 +447,10 @@ document.write(`
 <p>In other words, we are looking for an <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> such that <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> makes a good <strong>approximation</strong> to <span class="math notranslate nohighlight">\(\mathbf{b}.\)</span></p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/a3ebc51e1827f330b4908fcbd32a75944d37f30bb1fc0072c8af9b6332b2b2c7.png" src="_images/a3ebc51e1827f330b4908fcbd32a75944d37f30bb1fc0072c8af9b6332b2b2c7.png" />
+<img alt="_images/94a55adeecb5f1ce1da04df37562fdc6eb6de75654a112b89a82ced144b7b3b6.png" src="_images/94a55adeecb5f1ce1da04df37562fdc6eb6de75654a112b89a82ced144b7b3b6.png" />
 </div>
 </div>
-<p>We can think of the quality of the approximation of <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> as the distance from <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b},\)</span> which is</p>
+<p>We can think of the <font color="blue">quality of the approximation</font> of <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> as the <font color="blue">distance</font> from <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b},\)</span> which is</p>
 <div class="math notranslate nohighlight">
 \[\Vert A\mathbf{x} - \mathbf{b}\Vert.\]</div>
 </section>
@@ -459,7 +459,7 @@ document.write(`
 <p>We can now formally express what we are looking for when we seek a “good” solution to an inconsistent system:</p>
 <p>The <strong>general least-squares problem</strong> is to find an <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> that makes <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}-\mathbf{b}\Vert\)</span> as small as possible.</p>
 <p>This is called “least squares” because it is equivalent to minimizing <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}-\mathbf{b}\Vert^2,\)</span> which is the sum of squared differences.</p>
-<p>Just to make this explicit: say that we denote <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> by <span class="math notranslate nohighlight">\(\mathbf{y}\)</span>.    Then</p>
+<p>To make this correspondence explicit: say that we denote <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> by <span class="math notranslate nohighlight">\(\mathbf{y}\)</span>.    Then</p>
 <div class="math notranslate nohighlight">
 \[\Vert A\mathbf{x}-\mathbf{b}\Vert^2 = \sum_i (y_i-b_i)^2\]</div>
 <p>Where we interpret <span class="math notranslate nohighlight">\(y_i\)</span> as the <em>estimated value</em> and <span class="math notranslate nohighlight">\(b_i\)</span> as the <em>measured value.</em></p>
@@ -479,10 +479,15 @@ document.write(`
 <section id="interpretation-of-the-least-squares-problem">
 <h3>Interpretation of the Least Squares Problem<a class="headerlink" href="#interpretation-of-the-least-squares-problem" title="Permalink to this heading">#</a></h3>
 <p>The point here is that no matter what <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is, <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> will be in the column space of <span class="math notranslate nohighlight">\(A\)</span> — that is, <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>.</p>
-<p>So <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is outside <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>, and we are looking for <span class="math notranslate nohighlight">\(\hat{\mathbf{x}}\)</span>, which specifies the closest point in <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.</p>
+<p>So in our problem,</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is outside <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>, and</p></li>
+<li><p>we are looking for <span class="math notranslate nohighlight">\(\hat{\mathbf{x}}\)</span>,</p></li>
+<li><p>which specifies the closest point in <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.</p></li>
+</ul>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/f3833554d54ad6de16a5564ec9dca41d21309c9aad0a02d983f4331cc07c4264.png" src="_images/f3833554d54ad6de16a5564ec9dca41d21309c9aad0a02d983f4331cc07c4264.png" />
+<img alt="_images/9b639dd2e5a2dd93cf4e3478048c0b170db5e6123eea685227100f5c395f6337.png" src="_images/9b639dd2e5a2dd93cf4e3478048c0b170db5e6123eea685227100f5c395f6337.png" />
 </div>
 </div>
 <p>The vector <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> is closer to <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}}\)</span> than it is to <span class="math notranslate nohighlight">\(A\mathbf{x}\)</span> for any other <span class="math notranslate nohighlight">\(\mathbf{x}\)</span>.</p>
@@ -498,7 +503,7 @@ document.write(`
 <p>This leads to two theorems: the <strong>Orthogonal Decomposition Theorem</strong> and the <strong>Best Approximation Theorem.</strong></p>
 <section id="the-orthogonal-decomposition-theorem">
 <h3>The Orthogonal Decomposition Theorem<a class="headerlink" href="#the-orthogonal-decomposition-theorem" title="Permalink to this heading">#</a></h3>
-<p>Let <span class="math notranslate nohighlight">\(W\)</span> be a subspace of <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.  Then each <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> can be written uniquely in the form</p>
+<p>Let <span class="math notranslate nohighlight">\(W\)</span> be a subspace of <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.  Then each <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> can be written <strong>uniquely</strong> in the form</p>
 <div class="math notranslate nohighlight">
 \[ \mathbf{y} = \hat{\mathbf{y}} + \mathbf{z}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\hat{\mathbf{y}}\)</span> is in <span class="math notranslate nohighlight">\(W\)</span> and <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> is orthogonal to every vector in <span class="math notranslate nohighlight">\(W\)</span>.</p>
@@ -548,8 +553,8 @@ document.write(`
 \[ \operatorname{Proj}_W \mathbf{y} \mbox{ is the closest point in } W \mbox{ to } \mathbf{y}.\]</div>
 </section>
 </section>
-<section id="projection-solves-least-squares">
-<h2>Projection Solves Least Squares<a class="headerlink" href="#projection-solves-least-squares" title="Permalink to this heading">#</a></h2>
+<section id="orthogonal-projection-solves-least-squares">
+<h2>Orthogonal Projection Solves Least Squares<a class="headerlink" href="#orthogonal-projection-solves-least-squares" title="Permalink to this heading">#</a></h2>
 <p>Let’s apply these ideas to solving the least squares problem.</p>
 <p>Here is what we want to achieve:</p>
 <div class="math notranslate nohighlight">
@@ -564,7 +569,7 @@ document.write(`
 \[A\mathbf{\hat{x}} = \hat{\mathbf{b}}.\]</div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/8e9fcc9f089ff021514ac9e1b7552213db1066ec8779efaf59b1dc996e47ee3f.png" src="_images/8e9fcc9f089ff021514ac9e1b7552213db1066ec8779efaf59b1dc996e47ee3f.png" />
+<img alt="_images/1dde010b3803bbd4244070658833dc79afa6bc0f0bed77a774e3b545fd210ab3.png" src="_images/1dde010b3803bbd4244070658833dc79afa6bc0f0bed77a774e3b545fd210ab3.png" />
 </div>
 </div>
 <p>Since <span class="math notranslate nohighlight">\(\hat{\mathbf{b}}\)</span> is the closest point in <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span> to <span class="math notranslate nohighlight">\(\mathbf{b},\)</span> a vector <span class="math notranslate nohighlight">\(\hat{\mathbf{x}}\)</span> is a least-squares solution of <span class="math notranslate nohighlight">\(A\mathbf{x}=\mathbf{b}\)</span> if and only if <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> satisfies <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}} = \hat{\mathbf{b}}.\)</span></p>
@@ -576,13 +581,13 @@ document.write(`
 <p>So <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> may not lie in <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>, and in our example it does not:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/d93f9e12073e00d394ac6f256f2ee6807b34f3a55e3dc17f9994812ca1d9d8a8.png" src="_images/d93f9e12073e00d394ac6f256f2ee6807b34f3a55e3dc17f9994812ca1d9d8a8.png" />
+<img alt="_images/e3f4ee8ffe4a1ac47682aa75c3f83cd2f1efe9def96bb0fcc0ea7682b9949f41.png" src="_images/e3f4ee8ffe4a1ac47682aa75c3f83cd2f1efe9def96bb0fcc0ea7682b9949f41.png" />
 </div>
 </div>
 <p>And what we want to find is the projection of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> onto the column space of <span class="math notranslate nohighlight">\(A\)</span>:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/af4ff4b163904d12b1b751ab3df53d9fb529e3de6d8bb1bb2b7ac6a4e1629b8c.png" src="_images/af4ff4b163904d12b1b751ab3df53d9fb529e3de6d8bb1bb2b7ac6a4e1629b8c.png" />
+<img alt="_images/31a18c0ca6bcba8f940431025b017731aaedc0b9686b6721ac644ace292ec73c.png" src="_images/31a18c0ca6bcba8f940431025b017731aaedc0b9686b6721ac644ace292ec73c.png" />
 </div>
 </div>
 <section id="the-normal-equations">
@@ -634,10 +639,10 @@ document.write(`
 <p>So the normal equations are:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} \begin{bmatrix}17&amp;1\\1&amp;5\end{bmatrix}\begin{bmatrix}\hat{x}_1\\\hat{x}_2\end{bmatrix} = \begin{bmatrix}19\\11\end{bmatrix}\end{split}\]</div>
-<p>We can solve this using row operations, or by inverting <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
+<p>We can solve this using row operations, or by inverting <span class="math notranslate nohighlight">\(A^TA\)</span> (if it is invertible).</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}(A^TA)^{-1} = \frac{1}{84}\begin{bmatrix}5&amp;-1\\-1&amp;17\end{bmatrix}\end{split}\]</div>
-<p>And we can then solve <span class="math notranslate nohighlight">\(A^TA\hat{\mathbf{x}} = A^T\mathbf{b}\)</span> as</p>
+<p>Since <span class="math notranslate nohighlight">\(A^TA\)</span> is invertible, we can then solve <span class="math notranslate nohighlight">\(A^TA\hat{\mathbf{x}} = A^T\mathbf{b}\)</span> as</p>
 <div class="math notranslate nohighlight">
 \[\mathbf{\hat{x}} = (A^TA)^{-1}A^T\mathbf{b}\]</div>
 <div class="math notranslate nohighlight">
@@ -794,7 +799,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-best-approximation-theorem">The Best Approximation Theorem</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-solves-least-squares">Projection Solves Least Squares</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#orthogonal-projection-solves-least-squares">Orthogonal Projection Solves Least Squares</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-normal-equations">The Normal Equations</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-the-normal-equations-have-multiple-solutions">When the Normal Equations have Multiple Solutions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#projection-onto-an-abitrary-basis">Projection onto an Abitrary Basis</a></li>
