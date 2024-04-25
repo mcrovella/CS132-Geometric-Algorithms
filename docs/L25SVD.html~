@@ -617,39 +617,19 @@ aren’t covering it in this course, but that is what you would use here to exte
 <p>Let’s say <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(m\times n\)</span> with <span class="math notranslate nohighlight">\(m&lt;n\)</span>.</p>
 <p>(The situation when <span class="math notranslate nohighlight">\(m&gt;n\)</span> follows similarly).</p>
 <p>The SVD looks like this, with singular values on the diagonal of <span class="math notranslate nohighlight">\(\Sigma\)</span>:</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/9cb27601b0eeacaab24a9c6557f2e2a5b59415350aa90c45e257bc674e32c615.jpg" src="_images/9cb27601b0eeacaab24a9c6557f2e2a5b59415350aa90c45e257bc674e32c615.jpg" />
-</div>
-</div>
-<p>Now, let’s assume that the number of nonzero singular values <span class="math notranslate nohighlight">\(r\)</span> is less than <span class="math notranslate nohighlight">\(m\)</span>.</p>
+<center>
+<a class="reference internal image-reference" href="_images/L25-F1.png"><img alt="Figure" src="_images/L25-F1.png" style="width: 650px;" /></a>
+</center><p>Now, let’s assume that the number of nonzero singular values <span class="math notranslate nohighlight">\(r\)</span> is less than <span class="math notranslate nohighlight">\(m\)</span>.</p>
 <p>Again, other cases would be similar.</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/2086b5e36e3125e65eef58f42b6a155c7fa2d283374adeab1f452144a71e2ee5.jpg" src="_images/2086b5e36e3125e65eef58f42b6a155c7fa2d283374adeab1f452144a71e2ee5.jpg" />
-</div>
-</div>
-<p>In many cases we are only concerned with representing <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<center>
+<a class="reference internal image-reference" href="_images/L25-F2.png"><img alt="Figure" src="_images/L25-F2.png" style="width: 850px;" /></a>
+</center><p>In many cases we are only concerned with representing <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>That is, we don’t need <span class="math notranslate nohighlight">\(U\)</span> or <span class="math notranslate nohighlight">\(V\)</span> to be orthogonal (square) matrices.</p>
 <p>Then, to compute <span class="math notranslate nohighlight">\(A\)</span>, we only need the <span class="math notranslate nohighlight">\(r\)</span> leftmost columns of <span class="math notranslate nohighlight">\(U\)</span>, and the <span class="math notranslate nohighlight">\(r\)</span> upper rows of <span class="math notranslate nohighlight">\(V^T\)</span>.</p>
 <p>That’s because all the other values on the diagonal of <span class="math notranslate nohighlight">\(\Sigma\)</span> are zero, so they don’t contribute anything to <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/IMG_3669574F73A7-1.jpeg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">650</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<img alt="_images/c5634135c4d8165cbdf0ff8d5bfa551f705a6843167c8d8da8ef6b40dbbecc5e.jpg" src="_images/c5634135c4d8165cbdf0ff8d5bfa551f705a6843167c8d8da8ef6b40dbbecc5e.jpg" />
-</div>
-</div>
-<p>So we often work with the <strong>reduced SVD</strong> of <span class="math notranslate nohighlight">\(A\)</span>:</p>
+<center>
+<a class="reference internal image-reference" href="_images/L25-F3.png"><img alt="Figure" src="_images/L25-F3.png" style="width: 850px;" /></a>
+</center><p>So we often work with the <strong>reduced SVD</strong> of <span class="math notranslate nohighlight">\(A\)</span>:</p>
 <p><span class="math notranslate nohighlight">\(m\left\{\begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\right.\;\;\overbrace{\left[\begin{array}{cccc}\begin{array}{c}\vdots\\\vdots\\{\bf a_1}\\\vdots\\\vdots\end{array}&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_2}\\\vdots\\\vdots\end{array}&amp;\dots&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_n}\\\vdots\\\vdots\end{array}\\\end{array}\right]}^{\Large n} =
 \overbrace{\left[\begin{array}{ccc}\vdots&amp;&amp;\vdots\\\vdots&amp;&amp;\vdots\\\mathbf{u}_1&amp;\cdots&amp;\mathbf{u}_r\\\vdots&amp;&amp;\vdots\\\vdots&amp;&amp;\vdots\end{array}\right]}^{\large r}
 \times
