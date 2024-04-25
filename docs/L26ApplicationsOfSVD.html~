@@ -380,14 +380,17 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="applications-of-the-svd">
+  <aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>By Marcel Duchamp (1887-1968) - Philadelphia Museum of Art, PD-US, <a class="reference external" href="https://en.wikipedia.org/w/index.php?curid=3922548">https://en.wikipedia.org/w/index.php?curid=3922548</a></p>
+</aside>
+<section class="tex2jax_ignore mathjax_ignore" id="applications-of-the-svd">
 <h1>Applications of the SVD<a class="headerlink" href="#applications-of-the-svd" title="Permalink to this heading">#</a></h1>
 <!-- image credit: https://en.wikipedia.org/wiki/Swiss_Army_knife -->
 <center>
-<a class="reference internal image-reference" href="_images/Duchamp_-_Nude_Descending_a_Staircase.jpg"><img alt="Figure" src="_images/Duchamp_-_Nude_Descending_a_Staircase.jpg" style="width: 300px;" /></a>
+<a class="reference internal image-reference" href="_images/Duchamp_-_Nude_Descending_a_Staircase.jpg"><img alt="Figure" src="_images/Duchamp_-_Nude_Descending_a_Staircase.jpg" style="width: 400px;" /></a>
 </center>
 <p>In “Nude Descending a Staircase” Marcel Duchamp captures a four-dimensional object on a two-dimensional canvas.  Accomplishing this without losing essential information is called <em>dimensionality reduction.</em></p>
-<p>By Marcel Duchamp (1887-1968) - Philadelphia Museum of Art, PD-US, <a class="reference external" href="https://en.wikipedia.org/w/index.php?curid=3922548">https://en.wikipedia.org/w/index.php?curid=3922548</a></p>
 <!-- image credit: https://en.wikipedia.org/wiki/Swiss_Army_knife -->
 <center>
 <a class="reference internal image-reference" href="_images/440px-Wenger_EvoGrip_S17.JPG"><img alt="Figure" src="_images/440px-Wenger_EvoGrip_S17.JPG" style="width: 440px;" /></a>
@@ -402,7 +405,7 @@ document.write(`
 <p>(Rather than thinking of matrices as linear operators.)</p>
 <!-- image credit: https://xkcd.com/2610/ -->
 <center>
-<a class="reference internal image-reference" href="https://imgs.xkcd.com/comics/assigning_numbers.png"><img alt="Figure" src="https://imgs.xkcd.com/comics/assigning_numbers.png" style="width: 350px;" /></a>
+<a class="reference internal image-reference" href="https://imgs.xkcd.com/comics/assigning_numbers.png"><img alt="Figure" src="https://imgs.xkcd.com/comics/assigning_numbers.png" style="width: 450px;" /></a>
 </center><p>As a specific example, here is a typical data matrix.   This matrix could be the result of measuring a collection of data objects, and noting a set of features for each object.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}{\mbox{$m$ data objects}}\left\{\begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\right.\;\;\overbrace{\left[\begin{array}{ccccc}
@@ -593,7 +596,7 @@ document.write(`
 <p>Consider the points below, which live in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/31e138ee0555c5ad18a841a5e922631855e6b222ee820ec6d2885976a3d646c1.png" src="_images/31e138ee0555c5ad18a841a5e922631855e6b222ee820ec6d2885976a3d646c1.png" />
+<img alt="_images/825c74345d625e47d1d829447088b5112ee4dc5936c706fe67c25a0acc08561b.png" src="_images/825c74345d625e47d1d829447088b5112ee4dc5936c706fe67c25a0acc08561b.png" />
 </div>
 </div>
 <p>Now, although the points are in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>, they seem to show effective low-rank.</p>
@@ -607,13 +610,13 @@ document.write(`
 <p>So to capture the best line through the data, we first move the data points to the origin:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/112b2bc8d4bffb2b67099ea9c7bbc6883f122c11db101b87c7bd89c21fb8cb3a.png" src="_images/112b2bc8d4bffb2b67099ea9c7bbc6883f122c11db101b87c7bd89c21fb8cb3a.png" />
+<img alt="_images/76140e2abdb60552fc086dadd52eb9a673c185fc07e889b9ce4a1f3c139d0caf.png" src="_images/76140e2abdb60552fc086dadd52eb9a673c185fc07e889b9ce4a1f3c139d0caf.png" />
 </div>
 </div>
 <p>Now we use SVD to construct the best 1-D approximation of the mean-centered data:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="_images/4173244da00cec3818e85416838c5fae13f278d29fe5c45d60af9e51a1b54e0c.png" src="_images/4173244da00cec3818e85416838c5fae13f278d29fe5c45d60af9e51a1b54e0c.png" />
+<img alt="_images/ecdbde14d94a98e8c21e39b0f9123115c39d1cb20b9003cabccad421deffe243.png" src="_images/ecdbde14d94a98e8c21e39b0f9123115c39d1cb20b9003cabccad421deffe243.png" />
 </div>
 </div>
 <p>This method is called <strong>Principal Component Analysis.</strong></p>
@@ -671,7 +674,8 @@ document.write(`
 </div>
 </div>
 </div>
-<p>So we have 1781 documents, and there 9409 different words that are contained in the documents.  We can think of each document as a vector in 9409-dimensional space.</p>
+<p>So we have 1781 documents, and there are 9409 different words that are contained in the documents.</p>
+<p>We can think of each document as a vector in 9409-dimensional space.</p>
 <p>Let us apply PCA to the document-term matrix.</p>
 <p>First, we mean center the data.</p>
 <div class="cell docutils container">
@@ -728,7 +732,7 @@ document.write(`
 <section id="wrapup">
 <h3>Wrapup<a class="headerlink" href="#wrapup" title="Permalink to this heading">#</a></h3>
 <center>
-<a class="reference internal image-reference" href="_images/in-conclusion.jpg"><img alt="Figure" src="_images/in-conclusion.jpg" style="width: 550px;" /></a>
+<a class="reference internal image-reference" href="_images/in-conclusion.jpg"><img alt="Figure" src="_images/in-conclusion.jpg" style="width: 750px;" /></a>
 </center><p>We have reached the end!</p>
 <p>Of course, this is not really the end … more like the beginning.</p>
 <p>If we had more time, we’d talk about how linear algebra informs the study of graphs, the methods of machine learning, data mining, and many more topics.</p>
