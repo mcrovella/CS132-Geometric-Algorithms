@@ -2,41 +2,12 @@ project:
   output-dir: _revealjs
   pre-render: print_quarto_config.py
   render:
-    - 00-Class-Introduction.qmd
-    - 01-Intro-to-Python.qmd
-    - 02A-Git.qmd
-    - 02B-Pandas.qmd
-    - 02C-Sklearn.qmd
-    - 03-Probability-and-Statistics-Refresher.qmd
-    - 04-Linear-Algebra-Refresher.qmd
-    - 05-Distances-Timeseries.qmd
-    - 05A-Learning.qmd
-    - 06-Clustering-I-kmeans.qmd
-    - 07-Clustering-II-in-practice.qmd
-    - 08-Clustering-III-hierarchical.qmd
-    - 09-Clustering-IV-GMM-EM.qmd
-    - 10-Low-Rank-and-SVD.qmd
-    - 11-Dimensionality-Reduction-SVD-II.qmd
-    - 12-Anomaly-Detection-SVD-III.qmd
-    - 13-Learning-From-Data.qmd
-    - 14-Classification-I-Decision-Trees.qmd
-    - 15-Classification-II-kNN.qmd
-    - 16-Classification-III-NB-SVM.qmd
-    - 17-Regression-I-Linear.qmd
-    - 18-Regression-II-Logistic.qmd
-    - 19-Regression-III-More-Linear.qmd
-    - 20-Recommender-Systems.qmd
-    - 21-Networks-I.qmd
-    - 22-Networks-II-Centrality-Clustering.qmd
-    #- 23-NN-I-Gradient-Descent.qmd
-    - 24-NN-II-Backprop.qmd
-    - 25-NN-III-CNNs.qmd
-    - "!23-NN-I-Gradient-Descent.qmd" # for now ignore this file since cell 10 is stuck
+    - L00Introduction.qmd
 
 
 format:
   revealjs:
-    footer: "DS701 -- Gardos/Ladenheim"
+    footer: "CS 132 Geometric Algorithms"
     scrollable: true
     slide-number: c/t
     show-slide-number: all
@@ -45,8 +16,11 @@ format:
     html-math-method: mathjax
     echo: true
     code-fold: true
-    theme: beige
-    
+    # eventually I think we want to use this option but I don't want
+    # to enable it so late in the semester since it will effect all
+    # the earlier slides. See
+    # https://quarto.org/docs/presentations/revealjs/advanced.html#stretch
+    auto-stretch: false
 
 execute: 
   freeze: auto # see https://quarto.org/docs/projects/code-execution.html#freeze
