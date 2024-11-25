@@ -1,0 +1,40 @@
+project:
+  type: website
+  output-dir: _site
+  pre-render: print_quarto_config.py
+  render:
+    - L00Introduction.qmd
+
+
+website:
+  title: "Geometric Algorithms"
+  back-to-top-navigation: true
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+    - href: index.qmd
+      text: Home
+    - section: "Preliminaries"
+      contents:
+        - L00Introduction.qmd 
+    - section: "Other Topics"
+      contents:
+        - L00Introduction.qmd 
+    - section: "Classification"
+      contents:
+    - section: "Selected Topics"
+      contents:
+
+# bibliography: references.bib
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    code-fold: true
+
+execute: 
+  freeze: auto # see https://quarto.org/docs/projects/code-execution.html#freeze
+  cache: true # see https://quarto.org/docs/projects/code-execution.html#cache
