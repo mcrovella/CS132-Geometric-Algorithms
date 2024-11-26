@@ -1,28 +1,121 @@
 ---
 title: Introduction to CS 132
 jupyter: python3
+
 ---
+
+```{python}
+#| echo: false
+import numpy as np
+import matplotlib as mp
+import pandas as pd
+import matplotlib.pyplot as plt
+import laUtilities as ut
+import slideUtilities as sl
+import demoUtilities as dm
+import pandas as pd
+from importlib import reload
+from datetime import datetime
+qr_setting = None
+```
 
 "Geometric Algorithms"
 
 aka
 
-::: {.incremental}
-
 "Linear Algebra, Geometry, and Computation"
 
+## 
+
+Who am I:
+
+Mark Crovella
+
+Professor of Computer Science
+
+Professor of Computing and Data Sciences
+
+## 
+
+::: {.fragment}
 In this course we will study __linear algebra.__  
-
 :::
-
-::: {.incremental}
-
+::: {.fragment}
 Linear algebra is an incredibly useful tool that is crucially important to a number of areas in Computer Science.  
-
-If you study __optimization__ or __machine learning__, the starting point is linear algebra.  
-
 :::
+::: {.fragment}
+If you study __optimization__ or __machine learning__, the starting point is linear algebra.  
+:::
+::: {.fragment}
+If you study __computer graphics,__ the language you use every day is linear algebra.  
+:::
+::: {.fragment}
+If you study the __performance of computer systems,__ you need linear algebra.
+:::
+::: {.fragment}
+If you study __algorithms__ -- especially graph algorithms and optimization algorithms -- you will absolutely need linear algebra. 
+:::
+::: {.fragment}
+If you study __data mining,__ you will use linear algebra all the time.  
+:::
+::: {.fragment}
+And if you study __quantum computing,__ the standard computations you use are in the language of linear algebra.
+:::
+
+##
 
 <center><img src="images/sophie-germain.jpeg" width="400px"/>
 <br>
 Sophie Germain</center>
+
+::: {.fragment}
+>Algebra is but written geometry.
+>
+> Sophie Germain
+:::
+::: {.fragment}
+$$ \hat{y} = A(A^TA)^{-1}A^T y $$
+:::
+
+```{python}
+#| echo: false
+
+ax = ut.plotSetup(-3,11,-1,7,(7,5))
+ut.centerAxes(ax)
+plt.axis('equal')
+u = np.array([4.,2])
+y = np.array([6, 8])
+yhat = (y.T.dot(u)/u.T.dot(u))*u
+z = y-yhat
+ut.plotLinEqn(1.,-2.,0.)
+ut.plotVec(ax,y)
+ut.plotVec(ax,yhat)
+ax.text(yhat[0]+0.3,yhat[1]-0.5,r'$\mathbf{\hat{y}}$',size=20)
+ax.text(y[0],y[1]+0.8,r'$\mathbf{y}$',size=20)
+mm = (y + yhat)/2
+ax.text(mm[0]+.1,mm[1],r'$\mathbf{y - \hat{y}}$',size=20)
+ax.text(11,4.5,r'$L$',size=20)
+perpline1, perpline2 = ut.perp_sym(yhat, y, np.array([0,0]), 0.75)
+plt.plot(perpline1[0], perpline1[1], 'k', lw = 1)
+plt.plot(perpline2[0], perpline2[1], 'k', lw = 1)
+ax.plot([y[0],yhat[0]],[y[1],yhat[1]],'b--');
+```
+
+##
+
+> Linear algebra is a fantastic subject.  On the one hand it is clean and beautiful.  If you have three vectors in 12-dimensional space, you can almost see them. [...]
+> [And] It is _needed_ and _used_. [...] Linear algebra has become as basic and as applicable as calculus, and fortunately it is easier.
+
+Gilbert Strang
+
+> This course is potentially the most interesting and worthwhile undergraduate mathematics course you will complete.
+
+David Lay
+
+##
+
+__The dominance of linear algebra arises because it is so fundamental,__ and in some ways, very simple.  
+
+It deals with objects that almost always can be interpreted geometrically.  So often we can use linear algebra in a very intuitive manner -- so much so that many times it is actually the best way to think about geometric problems. 
+
+But it is also rigorous and captures situations that sometimes we would overlook if we were proceeding purely intuitively.  This is because it is also about solving equations, and finding solutions to various kinds of problems.  So the advantage of being basic and fundamental is that it can be used and applied in so many ways.
