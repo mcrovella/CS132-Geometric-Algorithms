@@ -1,0 +1,61 @@
+---
+jupyter: python3
+---
+```{python}
+#| echo: false
+qr_setting = None
+#
+import numpy as np
+import matplotlib as mp
+import pandas as pd
+import matplotlib.pyplot as plt
+import laUtilities as ut
+import slideUtilities as sl
+import demoUtilities as dm
+import pandas as pd
+from matplotlib import animation
+```
+
+# Linear Equations
+
+::: {.content-visible when-profile="slides"}
+![](images/nine-chapters-mathematical-art.jpg){width=300 fig-alt="A page from Nine Chapters on the Mathematical Art"}
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+> Traditionally, algebra was the art of solving equations and systems of equations.  The word _algebra_ comes form the Arabic _al-jabr_ which means _restoration_ (of broken parts).   
+>
+> The term was first used in a mathematical sense by Mohammed al-Khowarizmi (c. 780-850) who worked at the House of Wisdom, an academy established by Caliph al Ma'mum in Baghdad.   
+>
+> Linear algebra, then, is the art of solving systems of linear equations.
+>
+>_Linear Algebra with Applications_, Bretscher
+
+::: {.fragment}
+Al-Khowarizmi gave his name to the _algorithm_.  
+
+He wrote a book called _ilm al-jabr wa'l-muqābala'_ which means "The science of restoring what is missing and equating like with like."
+
+Our entry point into linear algebra will be __solving systems of linear equations.__
+:::
+
+::: {.content-visible when-profile="slides"}
+---
+:::
+
+Here is a famous example of such a problem.
+
+> The yield of one bundle of inferior rice, two bundles of medium grade rice, and three bundles of superior rice is 39 _dou_ of grain.  The yield of one bundle of inferior rice, three bundles of medium grade rice, and two bundles of superior rice is 34 _dou_.  The yield of three bundles of inferior rice, two bundles of medium grain rice, and one bundle of superior rice is 26 _dou_.  What is the yield of one bundle of each grade of rice?
+>
+>_Nine Chapters on the Mathematical Art_, c. 200 BCE, China
+
+![](images/nine-chapters-mathematical-art.jpg){width=300 fig-alt="A page from Nine Chapters on the Mathematical Art"}
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+<a href="http://commons.wikimedia.org/wiki/File:%E4%B9%9D%E7%AB%A0%E7%AE%97%E8%A1%93%E7%B4%B0%E8%8D%89%E5%9C%96%E8%AA%AA.jpg#/media/File:%E4%B9%9D%E7%AB%A0%E7%AE%97%E8%A1%93%E7%B4%B0%E8%8D%89%E5%9C%96%E8%AA%AA.jpg">九章算術細草圖說</a> by 中國書店海王邨公司 - <a rel="nofollow" class="external free" href="http://pmgs.kongfz.com/detail/1_158470/">http://pmgs.kongfz.com/detail/1_158470/</a>. Licensed under Public Domain via <a href="//commons.wikimedia.org/wiki/">Wikimedia Commons</a>.
+:::
+::::
