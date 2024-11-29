@@ -14,6 +14,7 @@ import slideUtilities as sl
 import demoUtilities as dm
 import pandas as pd
 from matplotlib import animation
+from IPython.display import HTML
 ```
 
 ## Linear Equations
@@ -21,6 +22,13 @@ from matplotlib import animation
 ::: {.content-visible when-profile="slides"}
 ![](images/nine-chapters-mathematical-art.jpg){width=350 fig-alt="A page from Nine Chapters on the Mathematical Art"}
 :::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Many parts of this page are based on _Linear Algebra and its
+Applications,_ by David C. Lay
+:::
+::::
 
 ::: {.content-visible when-profile="slides"}
 ##
@@ -50,6 +58,11 @@ Our entry point into linear algebra will be __solving systems of linear equation
 ![](images/khwarizmi1.jpg){width=250 fig-alt="USSR stamp with image of Al-Khowarizmi"}
 ::::
 :::::
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+[Source](https://muslimheritage.com/al-khawarizmi/)
+:::
+::::
 ::::::
 
 ::: {.content-visible when-profile="slides"}
@@ -75,3 +88,412 @@ Here is a famous example of such a problem.
 <a href="http://commons.wikimedia.org/wiki/File:%E4%B9%9D%E7%AB%A0%E7%AE%97%E8%A1%93%E7%B4%B0%E8%8D%89%E5%9C%96%E8%AA%AA.jpg#/media/File:%E4%B9%9D%E7%AB%A0%E7%AE%97%E8%A1%93%E7%B4%B0%E8%8D%89%E5%9C%96%E8%AA%AA.jpg">九章算術細草圖說</a> by 中國書店海王邨公司 - <a rel="nofollow" class="external free" href="http://pmgs.kongfz.com/detail/1_158470/">http://pmgs.kongfz.com/detail/1_158470/</a>. Licensed under Public Domain via <a href="//commons.wikimedia.org/wiki/">Wikimedia Commons</a>.
 :::
 ::::
+
+::: {.fragment}
+Let's denote the unknown quantities as $x_1$, $x_2$, and $x_3$.  These are the yields of one bundle of inferior, medium grade, and superior rice, respectively.  We can then write the problem as:
+
+$$
+\begin{eqnarray}
+x_1 + 2 x_2 + 3 x_3 &=& 39\\
+x_1 + 3 x_2 + 2 x_3 &=& 34\\
+3 x_1 + 2 x_2 + x_3 &=& 26
+\end{eqnarray}
+$$
+
+The problem then is to determine the values of $x_1, x_2,$ and $x_3$.
+:::
+
+::: {.fragment}
+These are _linear_ equations.   A linear equation is one in which no term has power other than 1.  
+
+For example, there are no terms involving $x_1^2$, or $x_1x_2$, or $\sqrt{x_3}$.
+:::
+
+## Basic Definitions
+
+::: {.incremental}
+* A _linear equation_ in the variables $x_1, \dots, x_n$ is an equation that can be written in the form 
+$$a_1 x_1 + a_2 x_2 + \dots + a_n x_n = b$$ 
+where $b$ and the coefficients $a_1, \dots, a_n$ are real or complex numbers that are usually known in advance.
+
+* A _system of linear equations_ (or _linear system_ ) is a collection of one or more linear equations involving the same variables - say $x_1, \dots, x_n$.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+::: {.incremental}
+* A _solution_ of the system is a list of numbers $(s_1, s_2, \dots, s_n)$ that makes each equation a true statement when the values $s_1, s_2, \dots, s_n$ are substituted for $x_1, x_2, \dots, x_n,$ respectively.
+* The set of all possible solutions is called the _solution set_ of the linear system. 
+* Two linear systems are called _equivalent_ if they have the same solution set. 
+:::
+
+## How Many Solutions?
+
+:::: {.fragment}
+A system of linear equations has:
+
+::: {.incremental}
+1. __no__ solution, or
+2. __exactly one__ solution, or
+3. __infinitely many__ solutions.
+:::
+::::
+
+:::: {.fragment}
+::: {.incremental}
+* A system of linear equations is said to be __consistent__ if it has either one solution or infinitely many solutions.
+* A system of linear equations is said to be __inconsistent__ if it has no solution.
+:::
+::::
+
+## The Geometry of Linear Equations
+
+::: {.fragment}
+Any list of numbers $(s_1, s_2, \dots, s_n)$ can be thought of as a point in $n$-dimensional space.
+
+We call that space $\mathbb{R}^n$.
+
+So if we are considering linear equations with $n$ unknowns, the solutions are points in $\mathbb{R}^n$.
+:::
+
+::: {.fragment}
+Now, any linear equation defines a point set with dimension one less than the space.  For example:
+
+* if we are in 2-space (2 unknowns), a linear equation defines a line.
+* if we are in 3-space (3 unknowns), a linear equation defines a plane.
+* in higher dimensions, we refer to all such sets as _hyperplanes._
+
+Question: why does a linear equation define a point-set of dimension one less than the space?
+:::
+
+## Some Examples in $\mathbb{R}^2$ 
+
+::: {.fragment}
+How many solutions does the linear system have in each case?
+:::
+
+::: {.fragment}
+```{python}
+#| echo: false
+fig = ut.two_d_figure('Figure 1.2d.1', size = (5,5))
+fig.centerAxes()
+fig.plotLinEqn( 1, -2, -1, color = 'r')
+fig.plotLinEqn(-1,  3,  3, color = 'b')
+plt.legend(loc='best', fontsize = 14);
+```
+:::
+
+::: {.fragment}
+The above system of two equations has __exactly one__ solution.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+```{python}
+#| echo: false
+fig = ut.two_d_figure('Figure 1.2d.2', size = (5,5))
+fig.centerAxes()
+fig.plotLinEqn( 1, -2, -1, color = 'r')
+fig.plotLinEqn(-1,  2,  3, color = 'b')
+plt.legend(loc='best', fontsize = 14);
+```
+
+::: {.fragment}
+The above system of two equations has __no__ solutions.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+```{python}
+#| echo: false
+fig = ut.two_d_figure('Figure 1.2d.3', size = (5,5))
+fig.centerAxes()
+fig.plotLinEqn( 1, -2, -1, color = 'r')
+fig.plotLinEqn(-1,  2,  1, format = '--', color = 'b')
+plt.legend(loc='best', fontsize = 14)
+```
+
+::: {.fragment}
+The above system of equations has __infinitely many__ solutions.
+:::
+
+## Some Examples in $\mathbb{R}^3$
+
+::: {.fragment}
+How many solutions are there in each of these cases?
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+```{python}
+#| echo: false
+fig = ut.three_d_figure((1, 1), fig_desc = 'Example 1: One Solution',
+                        xmin = -5, xmax = 5, ymin = -5, ymax = 5, zmin = -5, zmax = 5, 
+                        figsize = (5,5), qr = qr_setting, displayAxes = False)
+plt.close()
+eq1 = [1, 0, 0,  1]
+eq2 = [0, 1, 0, -2]
+eq3 = [0, 0, 1,  0]
+fig.plotLinEqn(eq1, 'Brown')
+fig.plotLinEqn(eq2, 'Green')
+fig.plotLinEqn(eq3, 'Blue')
+fig.plotIntersection(eq1, eq2, color='Blue', line_type='--')
+fig.plotIntersection(eq2, eq3, color='Blue', line_type='--')
+fig.plotIntersection(eq1, eq3, color='Blue', line_type='--')
+# fig.set_title('Example 1')
+fig.ax.view_init(azim = 0, elev = 22)
+fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 4 * np.arange(90),
+                       fargs = None,
+                       interval = 30,
+                       repeat = False).to_jshtml(default_mode = 'loop'))
+```
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+```{python}
+#| echo: false
+fig = ut.three_d_figure((1, 2), fig_desc = 'Example 2: No Solutions',
+                        xmin = -5, xmax = 5, ymin = -5, ymax = 5, zmin = -5, zmax = 5, 
+                        figsize = (5,5), qr = qr_setting, displayAxes = False)
+plt.close()
+# equation of a line from its normal a is a'x = a'a
+# three normals 120 degrees spread around the y axis
+eq1 = [np.sqrt(3/4),  0, 1/2,  1]
+eq2 = [-np.sqrt(3/4), 0, 1/2,  1]
+eq3 = [0,                 0, -1,       2]
+fig.plotLinEqn(eq1, 'Brown')
+fig.plotLinEqn(eq2, 'Green')
+fig.plotLinEqn(eq3, 'Blue')
+fig.plotIntersection(eq1, eq2, color='Blue', line_type='--')
+fig.plotIntersection(eq2, eq3, color='Blue', line_type='--')
+fig.plotIntersection(eq1, eq3, color='Blue', line_type='--')
+# fig.set_title('Example 2')
+fig.ax.view_init(azim = 0, elev = 22)
+fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 4 * np.arange(90),
+                       fargs = None,
+                       interval = 30,
+                       repeat = False).to_jshtml(default_mode = 'loop'))
+```
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+```{python}
+#| echo: false
+fig = ut.three_d_figure((1, 3), fig_desc = 'Example 3: Infinite Number of Solutions',
+                        xmin = -5, xmax = 5, ymin = -5, ymax = 5, zmin = -5, zmax = 5, 
+                        figsize = (5,5), qr = qr_setting, displayAxes = False)
+plt.close()
+# equation of a line from its normal a is a'x = a'a
+# three normals 120 degrees spread around the y axis
+eq1 = [np.sqrt(3/4),  0, 1/2,  0]
+eq2 = [-np.sqrt(3/4), 0, 1/2,  0]
+eq3 = [0,             0,  -1,  0]
+fig.plotLinEqn(eq1, 'Brown')
+fig.plotLinEqn(eq2, 'Green')
+fig.plotLinEqn(eq3, 'Blue')
+fig.plotIntersection(eq1, eq2, color='Blue', line_type='--')
+fig.plotIntersection(eq2, eq3, color='Blue', line_type='--')
+fig.plotIntersection(eq1, eq3, color='Blue', line_type='--')
+#fig.set_title('Example 3')
+#
+fig.ax.view_init(azim = 0, elev = 22)
+fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 4 * np.arange(90),
+                       fargs = None,
+                       interval = 30,
+                       repeat = False).to_jshtml(default_mode = 'loop'))
+```
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+```{python}
+#| echo: false
+fig = ut.three_d_figure((1, 4), fig_desc = 'Example 4: No Solutions',
+                        xmin = -5, xmax = 5, ymin = -5, ymax = 5, zmin = -5, zmax = 5, 
+                        figsize = (5,5), qr = qr_setting, displayAxes = False)
+plt.close()
+# equation of a line from its normal a is a'x = a'a
+# three normals 120 degrees spread around the y axis
+eq1 = [np.sqrt(3/4),  0, 1/2,  0]
+eq2 = [np.sqrt(3/4),  0, 1/2,  2]
+eq3 = [np.sqrt(3/4),  0, 1/2,  -2]
+fig.plotLinEqn(eq1, 'Brown')
+fig.plotLinEqn(eq2, 'Green')
+fig.plotLinEqn(eq3, 'Blue')
+# fig.plotIntersection(eq1, eq2, color='Blue', line_type='--')
+# fig.plotIntersection(eq2, eq3, color='Blue', line_type='--')
+# fig.plotIntersection(eq1, eq3, color='Blue', line_type='--')
+#fig.set_title('Example 4')
+# 
+fig.ax.view_init(azim = 0, elev = 22)
+fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 4 * np.arange(90),
+                       fargs = None,
+                       interval = 30,
+                       repeat = False).to_jshtml(default_mode = 'loop'))
+```
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+```{python}
+#| echo: false
+fig = ut.three_d_figure((1, 5), fig_desc = 'Example 5: No Solutions',
+                        xmin = -5, xmax = 5, ymin = -5, ymax = 5, zmin = -5, zmax = 5, 
+                        figsize = (5,5), qr = qr_setting, displayAxes = False)
+plt.close()
+# equation of a line from its normal a is a'x = a'a
+# three normals 120 degrees spread around the y axis
+eq1 = [np.sqrt(4/3),  0, -2,  0]
+eq2 = [np.sqrt(3/4),  0, 1/2,  2]
+eq3 = [np.sqrt(3/4),  0, 1/2,  -2]
+fig.plotLinEqn(eq1, 'Brown')
+fig.plotLinEqn(eq2, 'Green')
+fig.plotLinEqn(eq3, 'Blue')
+fig.plotIntersection(eq1, eq2, color='Blue', line_type='--')
+# fig.plotIntersection(eq2, eq3, color='Blue', line_type='--')
+fig.plotIntersection(eq1, eq3, color='Blue', line_type='--')
+# fig.set_title('Example 5')
+#
+fig.ax.view_init(azim = 0, elev = 22)
+fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 4 * np.arange(90),
+                       fargs = None,
+                       interval = 30,
+                       repeat = False).to_jshtml(default_mode = 'loop'))
+```
+
+## The Matrices of a System
+
+::: {.fragment}
+The essential information of a linear system can be recorded compactly in a rectangular array called a __matrix.__
+For the following system of equations, 
+
+$$\begin{array}{rcr}
+    x_1 - 2x_2 +x_3 &=& 5\\
+    2x_2 - 8x_3 &=& -4\\
+    6x_1 +5x_2 +9x_3 &=& -4
+\end{array}$$     
+:::
+
+::: {.fragment}
+the matrix                             
+
+$$\left[\begin{array}{rrr}
+    1  & -2  & 1 \\
+    0 & 2 &  - 8 \\
+    6 & 5 &9 
+\end{array}\right]$$
+
+is called the _coefficient matrix_ of the system.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+An __augmented matrix__ of a system consists of the coefficient matrix with an added column containing the constants from the right sides of the equations.
+
+For the same system of equations,
+
+$$
+\begin{array}{rcr}
+    x_1 - 2x_2 +x_3 &=& 5\\
+    2x_2 - 8x_3 &=& -4\\
+    6x_1 +5x_2 +9x_3 &=& -4
+\end{array}
+$$  
+
+::: {.fragment}
+the matrix                             
+
+$$\left[\begin{array}{rrrr}
+    1  & -2  & 1 & 5\\
+    0 & 2 &  - 8 & -4\\
+    6 & 5 &9 & -4
+\end{array}\right]$$
+
+is called the _augmented matrix_ of the system.   
+:::
+
+::: {.fragment}
+A matrix with $m$ rows and $n$ columns is referred to as ''an $m \times n$ matrix'' and is an element of the set $\mathbb{R}^{m\times n}.$  
+
+(Note that we always list the number of rows first, then the number of columns.)
+:::
+
+::: {.content-visible when-profile="slides"}
+
+##
+
+:::: {.center}
+
+::::: {.fragment .fade-down}
+Question Time!   Q1.1
+:::::
+::::
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
