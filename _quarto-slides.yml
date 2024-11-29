@@ -21,8 +21,19 @@ format:
     # the earlier slides. See
     # https://quarto.org/docs/presentations/revealjs/advanced.html#stretch
     auto-stretch: false
-    theme: beige
+    theme: [beige, slide_theme_adjustments.scss]
     transition: fade
+
+# this is an example of how to override CSS.  
+# not normally using the YAML titles
+include-in-header: 
+  - text: |
+      <style>
+      #title-slide .title {
+        font-size: 2em;
+        color: #b22222;
+      }
+      </style>
 
 execute: 
   freeze: auto # see https://quarto.org/docs/projects/code-execution.html#freeze
