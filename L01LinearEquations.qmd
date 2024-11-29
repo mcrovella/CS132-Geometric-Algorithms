@@ -486,14 +486,677 @@ Question Time!   Q1.1
 ::::
 :::
 
-::: {.fragment}
+## Solving Linear Systems
 
+::: {.fragment}
+To solve a linear system, we transform it into a _new_ system which is equivalent to the old system, meaning it has the same solution set.   
+
+However, in the new system the solution is explicit.
+
+We can make these transformations because of three facts.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Fact Number 1:__ Given a set of linear equations, we can __add one equation to another__ without changing the solution set. 
+
+::: {.fragment}
+By definition, any solution of the old system makes each old equation true;  therefore any solution of the old system makes each new equation true.
 :::
 
 ::: {.fragment}
-
+It's also true that any assignment of values to variables that is __not__ a solution of the old system, is __not__ a solution of the new system.
 :::
 
 ::: {.fragment}
+For example, this system:
+
+$$ 
+\begin{array}{rcr}
+3x_1 + 2x_2 &=& -3\\
+-x_1 + 4x_2 &=& 2\\
+\end{array}
+$$ 
+:::
+
+::: {.fragment}
+... has the same solution set as:
+
+$$ 
+\begin{array}{rcr}
+3x_1 + 2x_2 &=& -3\\
+2x_1 + 6x_2 &=& -1\\
+\end{array}
+$$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Fact Number 2:__ Another, more obvious fact is that we can __multiply any equation by a constant__ (not zero) without changing its meaning (and therefore the solution set).
+
+::: {.fragment}
+Example: 
+
+$$ 
+3x = 2
+$$
+
+has the same solution set as:
+
+$$
+9x = 6
+$$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Fact Number 3:__ And an even more obvious fact is that we can __change the order__ of the equations without changing anything.
+
+::: {.fragment}
+Together, these three rules form a set of tools we can use to solve linear systems.   Here is an example.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Step 1: Elimination
+
+::: {.fragment}
+The process we'll describe consists of two steps: _Elimination_ and _Backsubstitution._ 
+:::
+
+::: {.fragment}
+The goal of _elimination_ is to create a _triangular_ matrix (or system).  
+
+The basic operation we will repeatedly apply is to __add a multiple of one equation (row) to another.__  We'll do this with the equations and the matrix side-by-side. 
+:::
+
+::: {.fragment}
+Here is the original system:
+
+$$\begin{array}{cc}
+\begin{array}{rcr}
+    x_1 - 2x_2 +x_3 &=& 5\\
+    2x_2 - 8x_3 &=& -4\\
+    6x_1 +5x_2 +9x_3 &=& -4
+\end{array}
+& 
+\;\;\;\;\;\;\left[\begin{array}{rrrr}
+    1  & -2  & 1 & 5\\
+    0 & 2 &  - 8 & -4\\
+    6 & 5 &9 & -4
+\end{array}\right]\\
+\end{array}$$
+:::
+
+::: {.fragment}
+To start the _elimination_ stage, we add -6 times the first equation to the third equation:
+
+$$
+\begin{array}{rrrrrr}
+    &6x_1& +5x_2& +9x_3& =& -4\\
+ +  &-6x_1& +12x_2& -6x_3& =& -30\\
+ \hline
+   & &      17x_2& +3x_3 &=& -34\\
+\end{array}
+$$
+:::
+
+::: {.fragment}
+This gives us a new system.
+
+$$\begin{array}{cr}
+\begin{array}{rcr}
+    x_1 - 2x_2 +x_3 &=& 5\\
+    2x_2 - 8x_3 &=& -4\\
+     17x_2 +3x_3 &=& -34
+\end{array}
+&
+\;\;\;\;\;\;\left[\begin{array}{rrrr}
+    1  & -2  & 1 & 5\\
+    0 & 2 &  - 8 & -4\\
+    0 & 17 & 3 & -34
+\end{array}\right]\\
+\end{array}
+$$
+
+Note that this is not the _same_ system of equations, but it is _equivalent_ -- it has the same solution set.
+:::
+
+::: {.fragment}
+Next, we multiply the second equation by $1/2$ to get its leading coefficient to be 1:
+
+$$\begin{array}{cr}
+\begin{array}{rcr}
+    x_1 - 2x_2 +x_3 &=& 5\\
+    x_2 - 4x_3 &=& -2\\
+     17x_2 +3x_3 &=& -34
+\end{array}
+&
+\;\;\;\;\;\;\left[\begin{array}{rrrr}
+    1  & -2  & 1 & 5\\
+    0 & 1 &  - 4 & -2\\
+    0 & 17 & 3 & -34
+\end{array}\right]\\
+\end{array}
+$$
+:::
+
+::: {.fragment}
+Next, we multiply the second equation by $-17$ and add it to the third equation:
+
+$$\begin{array}{cr}
+\begin{array}{rcr}
+    x_1 - 2x_2 +x_3 &=& 5\\
+    x_2 - 4x_3 &=& -2\\
+         71x_3 &=& 0
+\end{array}
+&
+\;\;\;\;\;\;\left[\begin{array}{rrrr}
+    1  & -2  & 1 & 5\\
+    0 & 1 &  - 4 & -2\\
+    0 & 0 & 71 & 0
+\end{array}
+\right]\\
+\end{array}
+$$
+:::
+
+::: {.fragment}
+And next we can divide the third equation by $71$ to get its leading coefficient equal to 1:
+
+$$\begin{array}{cr}
+\begin{array}{rcr}
+    x_1 - 2x_2 +x_3 &=& 5\\
+    x_2 - 4x_3 &=& -2\\
+           x_3 &=& 0
+\end{array}
+&
+\;\;\;\;\;\;\left[\begin{array}{rrrr}
+    1  & -2  & 1 & 5\\
+    0 & 1 &  - 4 & -2\\
+    0 & 0 &  1 & 0\\
+\end{array}\right]\\
+\end{array}
+$$
+
+We have now put the system and matrix into _triangular_ form.  In a triangular matrix, all values below the diagonal are zero.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Step 2: Backsubstitution
+
+::: {.fragment}
+At this point, the process shifts to _backsubstitution_.  We now have the value for one variable, and we will substitute it into other equations to simplify them and get values for the other variables.
+:::
+
+::: {.fragment}
+Although we think of its as a somewhat different stage, in reality it still comes down to applying the three rules.   
+:::
+
+::: {.fragment}
+First, we substitute the value of $x_3$ into the equations above it.  This is actually multiplying equation 3 by the proper value and adding it to equations above it.
+
+$$\begin{array}{cr}
+\begin{array}{rcr}
+    x_1 - 2x_2 &=& 5\\
+    x_2  &=& -2\\
+           x_3 &=& 0
+\end{array}
+&
+\;\;\;\;\;\;\left[\begin{array}{rrrr}
+    1  & -2  & 0 & 5\\
+    0 & 1 &  0 & -2\\
+    0 & 0 &  1 & 0
+\end{array}\right]\\
+\end{array}
+$$
+:::
+
+::: {.fragment}
+Next, we do the same thing with equation 2, substituting it into equation 1 above it:
+
+$$\begin{array}{cr}
+\begin{array}{rcr}
+    x_1  &=& 1\\
+    x_2  &=& -2\\
+           x_3 &=& 0
+\end{array}
+&
+\;\;\;\;\;\;\left[\begin{array}{rrrr}
+    1  & 0  & 0 & 1\\
+    0 & 1 &  0 & -2\\
+    0 & 0 &  1 & 0
+\end{array}\right]\\
+\end{array}
+$$
+:::
+
+::: {.fragment}
+Now we can __read off the solution:__ it is $x_1 = 1$, $x_2 = -2$, $x_3 = 0$.   Notice the particular form of the resulting matrix: ones on the diagonal, zeros above and below each 1.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Let's get a sense of this process geometrically. 
+
+::: {.fragment}
+Here are the three starting equations:
+:::
+
+::: {.fragment}
+```{python}
+#| echo: false
+#| layout-ncol: 3
+eq1 = [1, -2,  1,  5]
+eq2 = [0,  2, -8, -4]
+eq3 = [6,  5,  9, -4]
+
+fig = ut.three_d_figure((1, 6), fig_desc = format(ut.formatEqn(eq1[0:3], eq1[3])),
+                        xmin = -5, xmax = 5, ymin = -5, ymax = 5, zmin = -5, zmax = 5, qr = qr_setting)
+fig.plotLinEqn(eq1, 'Brown')
+fig.set_title('${}$'.format(ut.formatEqn(eq1[0:3], eq1[3])))
+fig.save()
+
+fig = ut.three_d_figure((1, 7), format(ut.formatEqn(eq2[0:3], eq2[3])),
+                        xmin = -5, xmax = 5, ymin = -5, ymax = 5, zmin = -5, zmax = 5, qr = qr_setting)
+fig.plotLinEqn(eq2, 'Green')
+fig.set_title('${}$'.format(ut.formatEqn(eq2[0:3], eq2[3])))
+fig.save()
+
+fig = ut.three_d_figure((1, 8), fig_desc = format(ut.formatEqn(eq3[0:3], eq3[3])),
+                        xmin = -5, xmax = 5, ymin = -5, ymax = 5, zmin = -5, zmax = 5, qr = qr_setting)
+fig.plotLinEqn(eq3, 'Blue')
+fig.set_title('${}$'.format(ut.formatEqn(eq3[0:3], eq3[3])))
+```
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Now let's compare the starting point and the finishing point:
+
+$$
+\begin{array}{rcr}
+    x_1 - 2x_2 +x_3 &=& 5\\
+    2x_2 - 8x_3 &=& -4\\
+    6x_1 +5x_2 +9x_3 &=& -4
+\end{array}
+\hspace{0.5in}
+{\LARGE\rightarrow}
+\hspace{0.5in}
+\begin{array}{rcr}
+    x_1  &=& 1\\
+    x_2  &=& -2\\
+           x_3 &=& 0
+\end{array}
+$$
+
+::::: {.columns}
+:::: {.column width="50%"}
+::: {.fragment}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((1, 9), fig_desc = 'All Three Equations',
+                        xmin = -5, xmax = 5, ymin = -5, ymax = 5, zmin = -5, zmax = 5, 
+                        figsize = (5,5), qr = qr_setting)
+plt.close()
+eq1 = [1, -2,  1,  5]
+eq2 = [0,  2, -8, -4]
+eq3 = [6,  5,  9, -4]
+fig.plotLinEqn(eq1, 'Brown')
+fig.plotLinEqn(eq2, 'Green')
+fig.plotLinEqn(eq3, 'Blue')
+fig.plotIntersection(eq1, eq2, color='Blue', line_type='--')
+fig.plotIntersection(eq2, eq3, color='Blue', line_type='--')
+fig.plotIntersection(eq1, eq3, color='Blue', line_type='--')
+fig.plotPoint(1, -2, 0)
+fig.set_title('All Three Equations')
+#
+fig.ax.view_init(azim = 0, elev = 22)
+fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 4 * np.arange(90),
+                       fargs = None,
+                       interval = 30,
+                       repeat = False).to_jshtml(default_mode = 'loop'))
+```
+:::
+::::
+
+:::: {.column width="50%"}
+::: {.fragment}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((1, 10), fig_desc = 'The Equivalent System',
+                        xmin = -5, xmax = 5, ymin = -5, ymax = 5, zmin = -5, zmax = 5, 
+                        figsize = (5,5), qr = qr_setting)
+plt.close()
+eq1 = [1, 0, 0,  1]
+eq2 = [0, 1, 0, -2]
+eq3 = [0, 0, 1,  0]
+fig.plotLinEqn(eq1, 'Brown')
+fig.plotLinEqn(eq2, 'Green')
+fig.plotLinEqn(eq3, 'Blue')
+fig.plotIntersection(eq1, eq2, color='Blue', line_type='--')
+fig.plotIntersection(eq2, eq3, color='Blue', line_type='--')
+fig.plotIntersection(eq1, eq3, color='Blue', line_type='--')
+fig.plotPoint(1, -2, 0)
+fig.set_title('The Equivalent System')
+# 
+fig.ax.view_init(azim = 0, elev = 22)
+fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 4 * np.arange(90),
+                       fargs = None,
+                       interval = 30,
+                       repeat = False).to_jshtml(default_mode = 'loop'))
+```
+:::
+::::
+:::::
+
+::: {.fragment}
+$$
+\left[\begin{array}{rrrr}
+    1  & -2  & 1 & 5\\
+    0 & 2 &  - 8 & -4\\
+    6 & 5 &9 & -4
+\end{array}
+\right]
+\hspace{0.5in}
+{\LARGE\rightarrow}
+\hspace{0.5in}
+\left[\begin{array}{rrrr}
+    1  & 0  & 0 & 1\\
+    0 & 1 &  0 & -2\\
+    0 & 0 &  1 & 0
+\end{array}
+\right]
+$$
+
+Notice how all the planes have shifted, but __they still intersect in the same point.__   This is the _geometric_ interpretation of __equivalent__ systems.
+:::
+
+
+## Verifying the Solution
+
+::: {.fragment}
+* It's important that, once you have solved a system, you _verify_ the solution
+* i.e., go back and confirm that what you have computed, in fact meets the original requirements.
+
+So, in our case here is the original system and its solution:
+
+$$
+\begin{array}{rcr}
+    x_1 - 2x_2 +x_3 &=& 5\\
+    2x_2 - 8x_3 &=& -4\\
+    6x_1 +5x_2 +9x_3 &=& -4
+\end{array}
+\hspace{0.5in}
+{\LARGE\rightarrow}
+\hspace{0.5in}
+\begin{array}{rcr}
+    x_1  &=& 1\\
+    x_2  &=& -2\\
+           x_3 &=& 0
+\end{array}
+$$
+:::
+
+::: {.fragment}
+We can verify by substitution:
+
+$$
+\begin{array}{rcr}
+    1 - 2(-2) + 0 &=& 5\\
+    2(-2) - 8(0) &=& -4\\
+    6(1) +5(-2) +9(0) &=& -4
+\end{array}
+$$
+
+The solution $(1, -2, 0)$ makes each equation true.  __Confirmed!__
+:::
+
+## Row Equivalence
+
+::: {.fragment}
+OK, let's step back and formalize what we have done.
+:::
+
+::: {.fragment}
+__Elementary Row Operations__ are the following:
+
+1. (Replacement) Replace one row by the sum of itself and a multiple of another row.
+2. (Interchange) Interchange two rows.
+3. (Scaling) Multiply all entries in a row by a nonzero constant.
+:::
+
+::: {.fragment}
+Two matrices are called __row equivalent__ if there is a sequence of elementary row operations that transforms one matrix into the other.
+
+If the augmented matrices of two linear systems are row equivalent, then the two systems __have the same solution set.__
+:::
+
+## Fundamental Questions
+
+::: {.fragment}
+When presented with a linear system, we always need to ask two fundamental questions:
+
+1. Is the system __consistent;__ that is, does at least one solution exist?
+2. If a solution exists, is there only one; that is, is the solution __unique?__
+
+These really are fundamental; we will see that the answers to these questions have far-reaching implications.
 
 :::
+
+## Recognizing an Inconsistent System
+
+::: {.fragment}
+Consider the following system:
+
+$$
+\begin{array}{rcr}
+x_2 - 4x_3 &=& 8\\
+2x_1 - 3x_2 + 2x_3 &=& 1\\
+4x_1 - 8x_2 + 12x_3 &=& 1
+\end{array}
+$$
+:::
+
+::: {.fragment}
+whose augmented matrix is:
+
+$$
+\left[\begin{array}{rrrr}
+0&1&-4&8\\
+2&-3&2&1\\
+4&-8&12&1
+\end{array}\right]
+$$
+
+Let's apply our row reduction procedure to this matrix.
+:::
+
+::: {.fragment}
+First, we'll interchange rows 1 and 2:
+
+$$
+\left[\begin{array}{rrrr}
+2&-3&2&1\\
+0&1&-4&8\\
+4&-8&12&1
+\end{array}\right]
+$$
+:::
+
+::: {.fragment}
+Next, we'll eliminate the $4x_1$ term in the third equation by adding $-2$ times row 1 to row 3:
+
+$$
+\left[\begin{array}{rrrr}
+2&-3&2&1\\
+0&1&-4&8\\
+0&-2&8&-1
+\end{array}\right]
+$$
+:::
+
+::: {.fragment}
+Next, we use the $x_2$ term in the second equation to eliminate the $-2x_2$ term from the third equation (that is, add 2 times row 2 to row 3).
+
+$$
+\left[\begin{array}{rrrr}
+2&-3&2&1\\
+0&1&-4&8\\
+0&0&0&15
+\end{array}\right]
+$$
+:::
+
+::: {.fragment}
+This matrix is now in triangular form.
+
+What does it mean?  In particular, what does the last row say?
+:::
+
+::: {.fragment}
+The last row stands for the equation:
+
+$$ 0x_1 + 0x_2 + 0x_3 = 15.$$
+:::
+
+::: {.fragment}
+Clearly, this equation has _no_ solution.  
+
+Now, we know that row reductions never change the solution set of a system.  So, the original set of equations also has _no_ solution.   
+
+The system of equations is __inconsistent.__
+:::
+
+::: {.fragment}
+We can see that a system that leads by row reductions to an equation of the form $0 = k$ for some nonzero $k$ must be inconsistent.
+
+In fact, we will show later that __any__ inconsistent system will lead by row reductions to an equation of the form $0 = k$ for some nonzero $k$.
+:::
+
+## Geometric Interpretation of Inconsistency
+
+::: {.fragment}
+Here are our original equations, as hyperplanes:
+:::
+
+::: {.fragment}
+```{python}
+#| echo: false
+#| layout-ncol: 3
+eq1 = [0,  1, -4,   8]
+eq2 = [2, -3,  2,   1]
+eq3 = [5, -8,  7, -20]
+
+fig = ut.three_d_figure((1, 11), fig_desc = format(ut.formatEqn(eq1[0:3], eq1[3])),
+                        xmin = -4, xmax = 4, ymin = -4, ymax = 4, zmin = -4, zmax = 4, qr = qr_setting)
+fig.plotLinEqn(eq1, 'Brown')
+fig.set_title('${}$'.format(ut.formatEqn(eq1[0:3], eq1[3])))
+fig.save()
+
+fig = ut.three_d_figure((1, 12), fig_desc = format(ut.formatEqn(eq2[0:3], eq2[3])),
+                        xmin = -4, xmax = 4, ymin = -4, ymax = 4, zmin = -4, zmax = 4, qr = qr_setting)
+fig.plotLinEqn(eq2, 'Green')
+fig.set_title('${}$'.format(ut.formatEqn(eq2[0:3], eq2[3])))
+fig.save()
+
+fig = ut.three_d_figure((1, 13), fig_desc = format(ut.formatEqn(eq3[0:3], eq3[3])),
+                        xmin = -4, xmax = 4, ymin = -4, ymax = 4, zmin = -4, zmax = 4, qr = qr_setting)
+fig.plotLinEqn(eq3, 'Blue')
+fig.set_title('${}$'.format(ut.formatEqn(eq3[0:3], eq3[3])))
+```
+:::
+
+::: {.r-stack .fragment}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((1, 14), fig_desc = 'All Three Equations',
+                        xmin = -5, xmax = 5, ymin = -5, ymax = 5, zmin = -5, zmax = 5, 
+                        figsize = (5,5), qr = qr_setting)
+plt.close()
+fig.plotLinEqn(eq1, 'Brown')
+fig.plotLinEqn(eq2, 'Green')
+fig.plotLinEqn(eq3, 'Blue')
+fig.plotIntersection(eq1, eq2, color='Blue')
+fig.plotIntersection(eq1, eq3, color='Blue')
+fig.set_title('All Three Equations')
+# 
+fig.ax.view_init(azim = 0, elev = 22)
+fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 4 * np.arange(90),
+                       fargs = None,
+                       interval = 30,
+                       repeat = False).to_jshtml(default_mode = 'loop'))
+```
+:::
+
+::: {.fragment}
+The figure illustrates that the two intersection lines are parallel.  So there is _no point that lies in all the hyperplanes_.  That is the geometric interpretation of inconsistency.
+:::
+
+:::::  {.content-visible when-profile="slides"}
+
+## Summary
+
+::: {.fragment}
+Our entry into linear algebra has been through the solution of systems of linear equations.
+
+* We used a tabular representation called a matrix to represent the linear system.
+* The solution method uses matrix row reductions: exchanging rows, scaling rows, or adding rows.
+* The solution method has two stages: elimination and backsubstitution.
+:::
+
+::: {.fragment}
+We observed some basic properties of linear systems:
+
+* They can be consistent or inconsistent.   
+* If consistent, they can have a single solution or an infinite number of solutions.
+:::
+
+::: {.fragment}
+We thought geometrically about linear systems and their solutions:
+
+* A linear equation defines a hyperplane.
+* In a consistent system, all hyperplanes intersect in one or more points.
+* In an inconsistent system, all hyperplanes do not intersect in any single point.
+* The solution method we used creates hyperplanes that intersect in the same point set as the original hyperplanes.
+:::
+:::::
