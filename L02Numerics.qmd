@@ -16,9 +16,10 @@ import pandas as pd
 from matplotlib import animation
 from IPython.display import HTML
 ```
-
+<!--
+This comment somehow suppresses the title page
+-->
 ## (Getting Serious About) Numbers
-
 
 ![](images/William_Kahan_2008_(cropped).jpeg){width=200 fig-alt="Photo of William Kahan" fig-align="center" fig-scap="William Kahan"}
 
@@ -30,7 +31,7 @@ Photo Credit:
 :::
 
 ::: {.ctrd}
-<b>William Kahan,</b> creator of the IEEE-754 standard.<br>
+__William Kahan,__ creator of the IEEE-754 standard.<br>
 Turing Award Winner, 1989
 :::
 
@@ -371,24 +372,21 @@ If you get one of these values in a computation you should be able to reason abo
 ::: {.fragment}
 
 ```{python}
-#| echo: false
-import warnings
-warnings.simplefilter("ignore")
-```
-
-```{python}
+#| warning: false
 np.sqrt(-1)
 ```
 :::
 
 ::: {.fragment}
 ```{python}
+#| warning: false
 np.log(0)
 ```
 :::
 
 ::: {.fragment}
 ```{python}
+#| warning: false
 1/np.log(0)
 ```
 :::
