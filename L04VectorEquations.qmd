@@ -1,0 +1,732 @@
+---
+jupyter: python3
+---
+```{python}
+#| echo: false
+qr_setting = None
+#
+import numpy as np
+import matplotlib as mp
+import pandas as pd
+import matplotlib.pyplot as plt
+import laUtilities as ut
+import slideUtilities as sl
+import demoUtilities as dm
+import pandas as pd
+from matplotlib import animation
+from IPython.display import HTML
+```
+<!--
+This comment somehow suppresses the title page
+-->
+## Vector Equations
+
+::: {.content-visible when-profile="slides"}
+```{python}
+#| echo: False
+ax = ut.plotSetup(size=(8,4))
+ut.centerAxes(ax)
+ax.arrow(0, 0, 1, 2, head_width=0.2, head_length=0.2, length_includes_head = True)
+ax.arrow(0, 0, 4, 1, head_width=0.2, head_length=0.2, length_includes_head = True)
+ax.plot([4,5],[1,3],'--')
+ax.plot([1,5],[2,3],'--')
+ax.text(5.25,3.25,r'${\bf u}$+${\bf v}$',size=12)
+ax.text(1.5,2.5,r'${\bf u}$',size=12)
+ax.text(4.75,1,r'${\bf v}$',size=12)
+ut.plotPoint(ax,5,3,'b')
+ax.plot(0,0,'');
+```
+:::
+
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Many parts of this page are based on _Linear Algebra and its
+Applications,_ by David C. Lay
+:::
+::::
+
+## Vectors
+
+::: {.fragment}
+We're going to expand our view of what a linear system can represent.   
+:::
+
+::: {.fragment padding-top: 0.5em;}
+Instead of thinking of it as a collection of equations, we are going to think about it as a __single__ equation.  
+
+This is a major shift in perspective that will open up an entirely new way of thinking about matrices.
+
+(...and it's going to open the door to computer graphics, machine learning, and statistics ... later on!)
+:::
+
+::: {.fragment}
+To make this fundamental shift we need to introduce the idea of a __vector__.  We'll mainly talk about vectors today. 
+
+We'll then return to thinking about a linear system -- now interpreted as a _vector_ equation -- in the next lecture.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+A matrix with only one column is called a __column vector__, or simply a __vector__.
+
+Here are some examples:
+
+$$
+\begin{array}{ccc}
+{\bf u} = \left[\begin{array}{r}3\\-1\end{array}\right] &
+{\bf v} = \left[\begin{array}{c}.2\\.3\end{array}\right] &
+{\bf w} = \left[\begin{array}{c}w_1\\w_2\end{array}\right]
+\end{array}
+$$
+
+We will always use __boldface__ for vectors -- so you can tell that $\mathbf{u}$ is a vector, while $u$ is just an ordinary number.
+
+We will use the term __scalar__ to refer to ordinary numbers (not vectors).
+
+::: {.fragment}
+The numbers within the vector are called __components.__
+
+Because each of these vectors has two components, we say these vectors are in $\mathbb{R}^2.$
+:::
+
+::: {.fragment}
+There is an important notational point here:
+    
+When we write $\mathbb{R}^n$, we mean __all the vectors that have exactly $n$ components.__
+:::
+
+::: {.fragment}
+Here are some vectors in $\mathbb{R}^3$:
+
+$$
+\begin{array}{ccc}
+{\bf u} = \left[\begin{array}{c}2\\3\\4\end{array}\right] &
+{\bf v} = \left[\begin{array}{r}-1\\0\\2\end{array}\right] &
+{\bf w} = \left[\begin{array}{c}w_1\\w_2\\w_3\end{array}\right]
+\end{array}
+$$
+:::
+
+## Vectors are Fundamental Objects
+
+We are going to define operations over vectors, so that we can write equations in terms of vectors.  
+
+In particular, we now define how to compare vectors, add vectors, and multiply vectors __by a scalar__.
+
+::: {.fragment}
+__First:__ Two vectors are __equal__ if and only if their corresponding entries are equal.
+
+Thus $\left[\begin{array}{c}7\\4\end{array}\right]$ and $\left[\begin{array}{c}4\\7\end{array}\right]$ are __not__ equal.
+:::
+
+::: {.fragment}
+__Next:__ Multiplying a vector by a scalar is accomplished by multiplying each entry by the scalar.
+
+For example:
+
+$$3 \left[\begin{array}{r}1\\-2\end{array}\right] = \left[\begin{array}{r}3\\-6\end{array}\right]$$
+:::
+
+::: {.fragment}
+__And finally:__ the sum of two vectors is the vector whose entries are the corresponding sums.
+
+For example:
+
+$$\left[\begin{array}{r}1\\-2\end{array}\right] + \left[\begin{array}{c}2\\5\end{array}\right] = \left[\begin{array}{r}1 + 2\\-2 + 5\end{array}\right] = \left[\begin{array}{c}3\\3\end{array}\right].$$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Note that __vectors of different sizes cannot be compared or added.__ 
+
+For example, if ${\bf u} \in \mathbb{R}^2$ and ${\bf v} \in \mathbb{R}^3$:
+
+* we cannot ask whether ${\bf u} = {\bf v}$, and 
+* ${\bf u} + {\bf v}$ is undefined.
+
+::: {.fragment}
+So with these three definitions, we have all the tools to write equations using vectors.  
+
+For example, if ${\bf u} = \left[\begin{array}{r}1\\-2\end{array}\right]$ and  ${\bf v} = \left[\begin{array}{r}2\\-5\end{array}\right]$ then 
+
+$$ 4{\bf u} - 3{\bf v} = \left[\begin{array}{r}-2\\7\end{array}\right]$$
+:::
+
+## Vectors Correspond to Points
+
+::: {.fragment}
+As already noted, an ordered sequence of $n$ numbers can be thought of as a __point__ in $n$-dimensional space.  
+:::
+
+::: {.fragment}
+Hence, a vector like $\left[\begin{array}{c}-2\\-1\end{array}\right]$ can be thought of as a point on the plane.
+
+We will sometimes write vectors as a list, like this: $(-2,-1).$ 
+
+(which lists the vector components from top to bottom).
+
+
+```{python}
+#| echo: false
+ax = ut.plotSetup(size=(6,3))
+ut.centerAxes(ax)
+ut.plotPoint(ax, -2, -1)
+ut.plotPoint(ax, 2, 2)
+ut.plotPoint(ax, 3, -1)
+ax.plot(0, -2, '')
+ax.plot(-4, 0, '')
+ax.text(3.5, -1.1, '$(3,-1)$', size=12)
+ax.text(2.5, 1.9, '$(2,2)$', size=12)
+ax.text(-4.5, -1.1, '$(-2,-1)$', size=12);
+```
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Sometimes we draw an arrow from the origin to the point.  
+
+This style comes from physics, but can be a helpful visualization in any case.
+
+```{python}
+#| echo: false
+ax = ut.plotSetup(size=(6,3))
+ut.centerAxes(ax)
+ax.arrow(0, 0, -2, -1, head_width=0.2, head_length=0.2, length_includes_head = True)
+ax.arrow(0, 0, 2, 2, head_width=0.2, head_length=0.2, length_includes_head = True)
+ax.arrow(0, 0, 3, -1, head_width=0.2, head_length=0.2, length_includes_head = True)
+ax.plot(0, -2, '')
+ax.plot(-4, 0, '')
+ax.plot(0, 2, '')
+ax.plot(4 ,0, '')
+ax.text(3.5, -1.1, '$(3,-1)$', size=12)
+ax.text(2.5, 1.9, '$(2,2)$', size=12)
+ax.text(-4.5, -1.1, '$(-2,-1)$', size=12);
+```
+
+## Vector Addition, Geometrically
+
+::: {.fragment}
+A geometric interpretation of vector sum is as a __parallelogram.__
+:::
+
+::: {.fragment}
+If ${\bf u}$ and ${\bf v}$ in $\mathbb{R}^2$ are represented as points in the plane, then ${\bf u} + {\bf v}$ corresponds to the fourth vertex of the parallelogram whose other vertices are ${\bf u}, 0,$ and ${\bf v}$.
+
+```{python}
+#| echo: false
+ax = ut.plotSetup(size=(6,3))
+ut.centerAxes(ax)
+ax.arrow(0, 0, 1, 2, head_width=0.2, head_length=0.2, length_includes_head = True)
+ax.arrow(0, 0, 4, 1, head_width=0.2, head_length=0.2, length_includes_head = True)
+ax.plot([4,5],[1,3],'--')
+ax.plot([1,5],[2,3],'--')
+ax.text(5.25,3.25,r'${\bf u}$+${\bf v}$',size=12)
+ax.text(1.5,2.5,r'${\bf u}$',size=12)
+ax.text(4.75,1,r'${\bf v}$',size=12)
+ut.plotPoint(ax,5,3,'b')
+ax.plot(0,0,'');
+```
+
+This should be clear from the definition of vector addition (i.e., addition of corresponding elements).
+:::
+
+## Vector Scaling, Geometrically
+
+::: {.fragment}
+For a given vector ${\bf v}$ and a scalar $a$, multiplying $a$ and ${\bf v}$ corresponds to _lengthening_ $\bf v$ by a _factor_ of $a$.  
+:::
+
+::: {.fragment}
+So $2\bf v$ is twice as long as $\bf v$.  
+
+Multiplying by a negative value reverses the "direction" of $\bf v$.
+
+
+```{python}
+#| echo: false
+ax = ut.plotSetup(size=(6,3))
+ut.centerAxes(ax)
+factors = [-1.5, 0, 1, 2]
+ftext = ['-3/2', '0', '', '2']
+for f in factors:
+    ut.plotPoint(ax, 3.0*f, f)
+ax.arrow(0,0,6,2,head_width=0.2, head_length=0.2, length_includes_head = True)
+ax.arrow(0,0,-4.5,-1.5,head_width=0.2, head_length=0.2,length_includes_head = True)
+for f in range(len(factors)):
+    ax.text(3.0*factors[f]+0.2, factors[f]-0.5, r'{}$\bf v$'.format(ftext[f]), size=20)
+print('');
+```
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+```{python}
+#| echo: false
+fig = ut.three_d_figure((4, 1), 'Multiplying a vector by a scalar', 0, 4, 0, 6, 0, 8, 
+                        figsize = (5, 5), qr=qr_setting)
+plt.close()
+fig.plotCube([2, 2, 3])
+fig.plotCube([4, 4, 6])
+fig.text(2, 2, 3, r'$\bf v$', 'v', size=18)
+fig.text(4.1, 4.1, 6.1, r'$2\bf v$', '2v', size=18, color='k')
+fig.plotLine([[0, 0, 0], [4, 4, 6]], 'r', '--')
+fig.plotPoint(4, 4, 6, 'r')
+fig.plotPoint(2, 2, 3, 'r')
+fig.set_title('Multiplying a 3D vector by a scalar')
+fig.ax.view_init(azim = 0, elev = 22)
+fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 5 * np.arange(72),
+                       fargs = None,
+                       interval = 100).to_jshtml(default_mode = 'loop'))
+```
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q4.1
+:::::
+:::
+
+## The Algebra of $\mathbb{R}^n$
+
+We've defined a new object (the vector), and it has certain algebraic properties.
+
+::: {.fragment}
+1. ${\bf u} + {\bf v} = {\bf v} + {\bf u}$
+2. $({\bf u} + {\bf v}) + {\bf w} = {\bf u} + ({\bf v} + {\bf w})$
+3. ${\bf u} + {\bf 0} = {\bf 0} + {\bf u} = {\bf u}$
+4. ${\bf u} + ({\bf -u}) = {\bf -u} + {\bf u} = {\bf 0}$
+5. $c({\bf u} + {\bf v}) = c{\bf u} + c{\bf v}$
+6. $(c+d){\bf u} = c{\bf u} + d{\bf u}$
+7. $c(d{\bf u}) = (cd){\bf u}$
+8. $1{\bf u} = {\bf u}$
+
+You can verify each of these by from the definitions of vector addition and scalar-vector multiplication.  
+:::
+
+## Linear Combinations
+
+A fundamental thing we will do is to construct __linear combinations__ of vectors:
+
+$$ {\bf y} = c_1{\bf v_1} + ... + c_p{\bf v_p} $$
+
+::: {.fragment}
+The $c_i$ values are called __weights__.   Weights can be any real number, including zero.  So some examples of linear combinations of $\mathbf{v_1}$ and $\mathbf{v_2}$ are:
+
+$$ \sqrt{3}{\bf v_1} + {\bf v_2}, $$
+
+$$ \frac{1}{2}{\bf v_1} \;\; (= \frac{1}{2}{\bf v_1} + 0{\bf v_2}) $$
+and 
+
+$$ {\bf 0} \;\;(= 0{\bf v_1} + 0{\bf v_2}) $$
+:::
+
+## Linear Combinations, Geometrically
+
+```{python}
+#| echo: false
+ax = ut.plotSetup(-6, 6, -4, 4, size=(10,5))
+ut.centerAxes(ax)
+ax.set_xticks([])
+ax.set_yticks([])
+factors = [-3, -2, -1, 0, 1, 2, 3]
+u = [2, 1]
+v = [-1, 1]
+for f in factors:
+    ut.plotPoint(ax, f*u[0], f*u[1])
+    ax.text(f*u[0]+0.25,f*u[1]-0.25,r'{}$\bf u$'.format(f),size=12)
+    ut.plotPoint(ax, f*v[0], f*v[1])
+    ax.text(f*v[0]+0.25,f*v[1]-0.25,r'{}$\bf v$'.format(f),size=12)
+ax.arrow(0, 0, u[0], u[1], lw = 2, head_width=0.2, head_length=0.2, length_includes_head = True)
+ax.arrow(0, 0, v[0], v[1], lw = 2, head_width=0.2, head_length=0.2, length_includes_head = True)
+ut.plotPoint(ax,2*u[0]+v[0],2*u[1]+v[1],'g')
+ax.text(2*u[0]+v[0]+0.25,2*u[1]+v[1]+0.25,r'$\bf w$',size=12)
+ut.plotPoint(ax,-u[0]-v[0],-u[1]-v[1],'b')
+ax.text(-u[0]-v[0]+0.25,-u[1]-v[1]+0.25,r'$\bf p$',size=12)
+ut.plotPoint(ax,-u[0]+3*v[0],-u[1]+3*v[1],'y')
+ax.text(-u[0]+3*v[0]+0.25,-u[1]+3*v[1]+0.25,r'$\bf q$',size=12);
+```
+
+::: {.fragment}
+$${\bf w} = 2{\bf u} + {\bf v}$$
+:::
+
+::: {.fragment}
+$${\bf p} = -{\bf u} - {\bf v}$$
+:::
+
+::: {.fragment}
+$${\bf q} = -{\bf u} + 3{\bf v}$$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+```{python}
+#| echo: false
+ax = ut.plotSetup(-6, 6, -4, 4, size=(10, 5))
+ut.centerAxes(ax)
+ax.set_xticks([])
+ax.set_yticks([])
+factors = [-3, -2, -1, 0, 1, 2, 3]
+u = [2, 1]
+v = [-1, 1]
+for f in factors:
+    ut.plotPoint(ax, f*u[0], f*u[1])
+    ax.text(f*u[0]+0.25,f*u[1]-0.25,r'{}$\bf u$'.format(f),size=12)
+    ut.plotPoint(ax, f*v[0], f*v[1])
+    ax.text(f*v[0]+0.25,f*v[1]-0.25,r'{}$\bf v$'.format(f),size=12)
+ax.plot([factors[0]*u[0],factors[-1]*u[0]],[factors[0]*u[1],factors[-1]*u[1]],'b--')
+ax.plot([factors[0]*v[0],factors[-1]*v[0]],[factors[0]*v[1],factors[-1]*v[1]],'b--')
+ut.plotPoint(ax,2*u[0]+v[0],2*u[1]+v[1],'g')
+ax.text(2*u[0]+v[0]+0.25,2*u[1]+v[1]+0.25,r'${\bf w} = 2{\bf u} + {\bf v}$',size=12)
+ut.plotPoint(ax,-u[0]-v[0],-u[1]-v[1],'b')
+ax.text(-u[0]-v[0]-1.2,-u[1]-v[1]-0.5,r'${\bf p} = -{\bf u} -{\bf v}$',size=12)
+ut.plotPoint(ax,-u[0]+3*v[0],-u[1]+3*v[1],'y')
+ax.text(-u[0]+3*v[0]-0.25,-u[1]+3*v[1]+0.35,r'${\bf q} = -{\bf u} + 3{\bf v}$',size=12);
+```
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q4.2
+:::::
+:::
+
+## A Fundamental Question
+
+We are now going to take up a very basic question that will lead us to a deeper understanding of linear systems.
+
+::: {.fragment}
+>Given some set of vectors ${\bf a_1, a_2, ..., a_k}$, can a given vector $\bf b$ be written as a linear combination of ${\bf a_1, a_2, ..., a_k}$?
+:::
+
+::: {.fragment}
+Let's take a specific example.
+
+Let ${\bf a_1} = \left[\begin{array}{c}1\\-2\\-5\end{array}\right], {\bf a_2} = \left[\begin{array}{c}2\\5\\6\end{array}\right],$ and ${\bf b} = \left[\begin{array}{c}7\\4\\-3\end{array}\right]$.
+
+We need to determine whether ${\bf b}$ can be generated as a linear combination of ${\bf a_1}$ and ${\bf a_2}$.  That is, we seek to find whether weights $x_1$ and $x_2$ exist such that
+
+$$ x_1{\bf a_1} + x_2{\bf a_2} = {\bf b}.$$
+:::
+
+::: {.fragment}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((4, 2), 'Can we find x1 a1 + x2 a2 = b?', -10, 10, -10, 10, -10, 10, 
+                        figsize = (5,5), qr = qr_setting)
+plt.close()
+#
+a1 = [1, -2, -5]
+a2 = [2, 5, 6]
+b = [7, 4, -3]
+fig.text(a1[0]+0.2, a1[1]+0.2, a1[2]+0.2, r'$\bf a_1$', 'a1', size=18)
+fig.text(a2[0]+0.2, a2[1]+0.2, a2[2]+0.2, r'$\bf a_2$', 'a2', size=18)
+fig.text(b[0], b[1], b[2], r'$\bf b$', 'b', size=18)
+fig.text(0.2, 0.2, 0.2, r'$\bf 0$', '0', size=18)
+fig.plotPoint(a1[0], a1[1], a1[2], 'b')
+fig.plotPoint(a2[0], a2[1], a2[2], 'b')
+fig.plotPoint(b[0], b[1], b[2], 'r')
+fig.plotPoint(0, 0, 0, 'b')
+fig.ax.quiver(0, 0, 0, a1[0], a1[1], a1[2], length = 1)
+fig.ax.quiver(0, 0, 0, a2[0], a2[1], a2[2], length = 1, lw = 1)
+fig.set_title(r'Can we find $x_1\mathbf{a_1} + x_2\mathbf{a_2} = \mathbf{b}$?')
+fig.ax.view_init(azim = 0, elev = 22)
+fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 5 * np.arange(72),
+                       fargs = None,
+                       interval = 100,
+                       repeat = False).to_jshtml(default_mode = 'loop'))
+```
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Solution.__ We are going to convert from a __single__ vector equation to a __set__ of linear equations, that is, a __linear system.__
+
+We start by writing the form of the solution, if it exists:
+
+$$ x_1{\bf a_1} + x_2{\bf a_2} = {\bf b}.$$
+
+::: {.fragment}
+Written out, this is:
+
+$$ x_1 \left[\begin{array}{c}1\\-2\\-5\end{array}\right]+ x_2\left[\begin{array}{c}2\\5\\6\end{array}\right] = \left[\begin{array}{c}7\\4\\-3\end{array}\right].$$
+:::
+
+::: {.fragment}
+By the definition of scalar-vector multiplication, this is:
+
+$$\left[\begin{array}{c}x_1\\-2x_1\\-5x_1\end{array}\right]+ \left[\begin{array}{c}2x_2\\5x_2\\6x_2\end{array}\right]= \left[\begin{array}{c}7\\4\\-3\end{array}\right].$$
+:::
+
+::: {.fragment}
+By the definition of vector addition, this is:
+
+$$\left[\begin{array}{r}x_1 + 2x_2\\-2x_1 + 5x_2\\-5x_1+6x_2\end{array}\right] = \left[\begin{array}{c}7\\4\\-3\end{array}\right].$$
+:::
+
+::: {.fragment}
+By the definition of vector equality, this is:
+
+$$\begin{array}{rcl}x_1 + 2x_2&=&7\\-2x_1 + 5x_2&=&4\\-5x_1+6x_2&=&-3\end{array}.$$
+:::
+
+::: {.fragment}
+We know how to solve this!  Firing up Gaussian Elimination, we first construct the augmented matrix of this system, and then find its reduced row echelon form:
+
+$$\left[\begin{array}{rrr}1&2&7\\-2&5&4\\-5&6&-3\end{array}\right] \sim \left[\begin{array}{rrr}1&2&7\\0&9&18\\0&16&32\end{array}\right] \sim \left[\begin{array}{rrr}1&2&7\\0&1&2\\0&16&32\end{array}\right] \sim \left[\begin{array}{rrr}1&0&3\\0&1&2\\0&0&0\end{array}\right]$$
+
+Voila!
+:::
+
+::: {.fragment}
+Now, reading off the answer, we have $x_1 = 3$, $x_2 = 2$.  So we have found the solution to our original problem:
+
+$$ 3 \left[\begin{array}{c}1\\-2\\-5\end{array}\right]+ 2\left[\begin{array}{c}2\\5\\6\end{array}\right] = \left[\begin{array}{c}7\\4\\-3\end{array}\right].$$
+
+In other words, we have found that
+
+$$ 3{\bf a_1} + 2{\bf a_2} = {\bf b}.$$
+:::
+
+::: {.fragment}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((4, 3), '3 a1 + 2 a2 = b', -10, 10, -10, 10, -10, 10, 
+                        figsize = (5, 5), qr = qr_setting)
+plt.close()
+#
+a1 = [1, -2, -5]
+a2 = [2, 5, 6]
+b = [7, 4, -3]
+fig.text(a1[0]+0.2, a1[1]+0.2, a1[2]+0.2, r'$\bf a_1$', 'a1', size=18)
+fig.text(a2[0]+0.2, a2[1]+0.2, a2[2]+0.2, r'$\bf a_2$', 'a2', size=18)
+fig.text(b[0]+0.2, b[1]+0.2, b[2]+0.2, r'$\mathbf{b} = 3\mathbf{a_1} + 2\mathbf{a_2}$', 'b = 3 a1 + 2 a2', size=18)
+fig.text(0.2, 0.2, 0.2, r'$\bf 0$', '0', size=18)
+fig.plotPoint(a1[0], a1[1], a1[2], 'b')
+fig.plotPoint(a2[0], a2[1], a2[2], 'b')
+fig.plotPoint(b[0], b[1], b[2], 'r')
+fig.plotPoint(0, 0, 0, 'b')
+fig.ax.quiver(0, 0, 0, a1[0], a1[1], a1[2], length = 3, arrow_length_ratio = 0.15, lw = 2)
+fig.ax.quiver(3 * a1[0], 3 * a1[1], 3 * a1[2], a2[0], a2[1], a2[2], length = 2, arrow_length_ratio = 0.15, lw = 2)
+fig.text(3*a1[0]+0.3, 3*a1[1]+0.3, 3*a1[2]+0.3, r'$3\bf a_1$', '3 a1', size=18)
+fig.set_title(r'$3\mathbf{a_1} + 2\mathbf{a_2} = \mathbf{b}$')
+fig.ax.view_init(azim = 0, elev = 22)
+fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 5 * np.arange(72),
+                       fargs = None,
+                       interval = 100,
+                       repeat = False).to_jshtml(default_mode = 'loop'))
+```
+:::
+
+## A Vector Equation is a Linear System!
+
+And vice versa!
+
+::: {.fragment}
+Let's state this formally.   First, of all, recalling that vectors are columns, we can write the augmented matrix for the linear system in a very simple way.
+:::
+
+::: {.fragment}
+For the vector equation  
+
+$$x_1{\bf a_1} + x_2{\bf a_2} = {\bf b},$$ 
+
+the corresponding linear system has augmented matrix:
+
+$$[{\bf a_1}\;{\bf a_2}\;{\bf b}].$$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Then we can make the following statement:
+    
+A vector equation
+
+$$ x_1{\bf a_1} + x_2{\bf a_2} + ... + x_n{\bf a_n} = {\bf b} $$
+
+has the same solution set as the linear system whose augmented matrix is
+
+$$ [{\bf a_1} \; {\bf a_2} \; ... \; {\bf a_n} \; {\bf b}].$$
+
+::: {.fragment}
+This is a powerful concept; we have related 
+
+* a single equation involving _columns_ 
+* to a set of equations corresponding to _rows_.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q4.3
+:::::
+:::
+
+## Span
+
+If a vector equation is equivalent to a linear system, then it must be possible for a vector equation to be inconsistent as well.
+
+How can we understand what it means -- in terms of _vectors_ -- for a vector equation to be inconsistent?
+
+The answer involves a new concept: the __span__ of a set of vectors.
+
+::: {.fragment}
+Let's say we are given vectors ${\bf a_1}, {\bf a_2},$ and ${\bf b}$.  
+
+And, say we know that it is possible to express $\mathbf{b}$ as a linear combination of $\mathbf{a}_1$ and $\mathbf{a}_2$.
+
+That is, there are some $x_1, x_2$ such that $x_1{\bf a_1} + x_2{\bf a_2} = {\bf b}.$ 
+:::
+
+::: {.fragment}
+Then we say that ${\bf b}$ is in the __Span__ of the set of vectors $\{{\bf a_1}, {\bf a_2}\}.$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+More generally, let's say we are given a set of vectors ${\bf v_1, ..., v_p}$ where each ${\bf v_i} \in \mathbb{R}^n.$  
+
+Then the set of all linear combinations of ${\bf v_1, ..., v_p}$ is denoted by 
+
+$$ \mbox{Span}\{{\bf v_1, ..., v_p}\}$$ 
+
+and is called the __subset of $\mathbb{R}^n$ spanned by ${\bf v_1, ..., v_p}.$__
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Span of a single vector in $\mathbb{R}^3$__
+
+```{python}
+#| echo: false
+fig = ut.three_d_figure((4, 4), 'Span of a single vector', -10, 10, -10, 10, -10, 10, 
+                        figsize = (5, 5), qr = qr_setting)
+plt.close()
+#
+v = [4,4,2]
+fig.text(v[0], v[1], v[2], r'$\bf v$', 'v', size=18)
+fig.text(-9, -7, -9, r'Span{$\bf v$}', 'Span{v}', size=16)
+fig.text(0.2, 0.2, -4, r'$\bf 0$', '0', size=18)
+# plotting the span of v
+# this is based on the reduced echelon matrix that expresses the system whose solution is v
+fig.plotIntersection([1, 0, -v[0]/v[2], 0], [0, 1, -v[1]/v[2], 0], '--', 'Red')
+fig.plotPoint(v[0], v[1], v[2], 'r')
+fig.plotPoint(0, 0, 0, 'b')
+# plotting the axes
+fig.plotIntersection([0,0,1,0], [0,1,0,0])
+fig.plotIntersection([0,0,1,0], [1,0,0,0])
+fig.plotIntersection([0,1,0,0], [1,0,0,0])
+fig.set_title('Span of a Single Vector')
+fig.ax.view_init(azim = 0, elev = 22)
+fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 5 * np.arange(72),
+                       fargs = None,
+                       interval = 100,
+                       repeat = False).to_jshtml(default_mode = 'loop'))
+```
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Span of two vectors in $\mathbb{R}^3$__
+
+```{python}
+#| echo: false
+fig = ut.three_d_figure((4, 5), 'Span of two vectors', -10, 10, -10, 10, -10, 10, 
+                        figsize = (5, 5), qr = qr_setting)
+plt.close()
+#
+v = [ 4.0, 4.0, 2.0]
+u = [-4.0, 3.0, 1.0]
+fig.text(v[0], v[1], v[2], r'$\bf v$', 'v', size=18)
+fig.text(u[0], u[1], u[2], r'$\bf u$', 'u', size=18)
+fig.text(1, -4, -10, r'Span{$\bf u,v$}', 'Span{u, v}', size=16)
+fig.text(0.2, 0.2, -4, r'$\bf 0$', '0', size=18)
+# plotting the span of v
+fig.plotSpan(u, v, 'Green')
+fig.plotPoint(u[0], u[1], u[2], 'b')
+fig.plotPoint(v[0], v[1], v[2], 'r')
+fig.plotPoint(0, 0, 0, 'b')
+# plotting the axes
+fig.plotIntersection([0,0,1,0], [0,1,0,0])
+fig.plotIntersection([0,0,1,0], [1,0,0,0])
+fig.plotIntersection([0,1,0,0], [1,0,0,0])
+fig.set_title('Span of two vectors')
+fig.ax.view_init(azim = 0, elev = 22)
+fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 5 * np.arange(72),
+                       fargs = None,
+                       interval = 100,
+                       repeat = False).to_jshtml(default_mode = 'loop'))
+```
+::: {.fragment}
+:::
+
+::: {.fragment}
+:::
+
+::: {.fragment}
+:::
+
+::: {.fragment}
+:::
+
+::: {.fragment}
+:::
