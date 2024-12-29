@@ -52,7 +52,7 @@ Applications,_ by David C. Lay
 We're going to expand our view of what a linear system can represent.   
 :::
 
-::: {.fragment padding-top: 0.5em;}
+::: {.fragment}
 Instead of thinking of it as a collection of equations, we are going to think about it as a __single__ equation.  
 
 This is a major shift in perspective that will open up an entirely new way of thinking about matrices.
@@ -320,7 +320,7 @@ We've defined a new object (the vector), and it has certain algebraic properties
 You can verify each of these by from the definitions of vector addition and scalar-vector multiplication.  
 :::
 
-## Linear Combinations
+## Linear Combinations {.padded}
 
 A fundamental thing we will do is to construct __linear combinations__ of vectors:
 
@@ -629,7 +629,7 @@ More generally, let's say we are given a set of vectors ${\bf v_1, ..., v_p}$ wh
 
 Then the set of all linear combinations of ${\bf v_1, ..., v_p}$ is denoted by 
 
-$$ \mbox{Span}\{{\bf v_1, ..., v_p}\}$$ 
+$$ \operatorname{Span}\{{\bf v_1, ..., v_p}\}$$ 
 
 and is called the __subset of $\mathbb{R}^n$ spanned by ${\bf v_1, ..., v_p}.$__
 
@@ -716,17 +716,190 @@ HTML(animation.FuncAnimation(fig.fig, anim,
                        interval = 100,
                        repeat = False).to_jshtml(default_mode = 'loop'))
 ```
+
+## Asking Whether a Vector Lies Within a Span
+
+Asking whether a vector ${\bf b}$ is in Span$\{{\bf v_1, ..., v_p}\}$ is the same as asking whether the vector equation
+
+$$x_1{\bf v_1} + x_2{\bf v_2} + \dots + x_p{\bf v_p} = {\bf b}$$ 
+
+has a solution.
+
 ::: {.fragment}
+... which we now know is the same as asking whether the linear system with augmented matrix
+
+$$ [{\bf v_1} \; {\bf v_2} \; ... \; {\bf v_p} \; {\bf b}]$$
+has a solution.
 :::
 
 ::: {.fragment}
+Let ${\bf a_1} = \left[\begin{array}{c}1\\-2\\3\end{array}\right], {\bf a_2} = \left[\begin{array}{c}5\\-13\\-3\end{array}\right],$ and ${\bf b} = \left[\begin{array}{c}6\\8\\-5\end{array}\right]$.
+
+Then Span{$\bf a_1, a_2$} is a plane through the origin in $\mathbb{R}^3$. Is $\bf b$ in that plane?
 :::
 
 ::: {.fragment}
+__Solution:__  Does the equation $x_1{\bf a_1} + x_2{\bf a_2} = \bf b$ have a solution?  
+
+To answer this, consider the equivalent linear system.  Solve the system by row reducing the augmented matrix 
+
+$$[{\bf a_1} \; {\bf a_2} \; {\bf b}]:$$
+
+$$\left[\begin{array}{rrr}1&5&6\\-2&-13&8\\3&-3&-5\end{array}\right] \sim \left[\begin{array}{rrr}1&5&6\\0&-3&20\\0&-18&-23\end{array}\right] \sim \left[\begin{array}{rrr}1&5&6\\0&-3&20\\0&0&-143\end{array}\right]$$
 :::
 
 ::: {.fragment}
+The third row shows that the system has no solution.  
+
+This means that the vector equation $x_1{\bf a_1} + x_2{\bf a_2} = \bf b$ has no solution.  
+
+So ${\bf b}$ is _not_ in Span{$\bf a_1, a_2$}.
 :::
 
 ::: {.fragment}
+What does this situation look like geometrically?
+
+```{python}
+#| echo: false
+fig = ut.three_d_figure((4, 6), 'Inconsistent System', -15, 15, -15, 15, -15, 15, 
+                        figsize = (5, 5), qr = qr_setting)
+plt.close()
+#
+v = [1.0,  -2.0,  3.0]
+u = [5.0, -13.0, -3.0]
+b = [6.0,   8.0, -5.0]
+fig.text(v[0], v[1], v[2], r'$\bf a_1$', 'a_1', size=18)
+fig.text(u[0], u[1], u[2], r'$\bf a_2$', 'a_2', size=18)
+fig.text(b[0], b[1], b[2], r'$\bf b$', 'b', size=18)
+fig.text(0.2, 0.2, -4, r'$\bf 0$', '0', size=18)
+# plotting the span of v
+fig.plotSpan(u, v, 'Green')
+fig.plotPoint(u[0], u[1], u[2], 'r')
+fig.plotPoint(v[0], v[1], v[2], 'r')
+fig.plotPoint(b[0], b[1], b[2], 'b')
+fig.plotPoint(0, 0, 0, 'b')
+fig.ax.view_init(azim=135.0,elev=43.0)
+fig.set_title('An Inconsistent System', size = 14)
+fig.ax.view_init(azim = 0, elev = 22)
+fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 5 * np.arange(72),
+                       fargs = None,
+                       interval = 100,
+                       repeat = False).to_jshtml(default_mode = 'loop'))
+```
+:::
+
+## Two Distinct Vector Spaces
+
+Be sure to keep clear in your mind that we have been working with two different vector spaces.   
+
+One vector space is for visualizing equations that correspond to rows.   
+
+The other vector space is for visualizing vector equations (involving columns).
+
+::: {.fragment}
+These are two different ways of visualizing the same linear system.
+:::
+
+::: {.fragment}
+Let's look at an inconsistent system both ways:
+:::
+
+::: {.fragment}
+Here are the views, first as a vector equation, and then as a system of equations.
+
+::::: {.columns}
+:::: {.column width="50%"}
+::: {.fragment}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((4, 7), 'Inconsistent Vector Equation', 
+                        -15, 15, -15, 15, -15, 15, 
+                        figsize = (5, 5), qr = qr_setting)
+plt.close()
+#
+v = [1.0,  -2.0,  3.0]
+u = [5.0, -13.0, -3.0]
+b = [6.0,   8.0, -5.0]
+fig.text(v[0], v[1], v[2], r'$\bf a_1$', 'a_1', size=18)
+fig.text(u[0], u[1], u[2], r'$\bf a_2$', 'a_2', size=18)
+fig.text(b[0], b[1], b[2], r'$\bf b$', 'b', size=18)
+#ax.text(1,-4,-10,r'Span{$\bf a,b$}',size=16)
+fig.text(0.2, 0.2, -4, r'$\bf 0$', '0', size=18)
+# plotting the span of v
+fig.plotSpan(u, v, 'Green')
+fig.plotPoint(u[0], u[1], u[2], 'r')
+fig.plotPoint(v[0], v[1], v[2], 'r')
+fig.plotPoint(b[0], b[1], b[2], 'b')
+fig.plotPoint(0, 0, 0, 'b')
+fig.ax.view_init(azim=135.0,elev=43.0)
+# plt.suptitle('$x_1{\bf a_1} + x_2{\bf a_2} = {\bf b}$',size=20)
+fig.set_title('Inconsistent Vector Equation')
+fig.ax.view_init(azim = 0, elev = 22)
+fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 5 * np.arange(72),
+                       fargs = None,
+                       interval = 100,
+                       repeat = False).to_jshtml(default_mode = 'loop'))
+```
+:::
+::::
+
+:::: {.column width="50%"}
+::: {.fragment}
+```{python}
+#| echo: false
+A = np.array([v, u, [0,0,0], b]).T
+eq1 = A[0]
+eq2 = A[1]
+eq3 = A[2]
+#
+fig = ut.three_d_figure((4, 8), 'Inconsistent System of Equations', 
+                        -15, 15, -15, 15, -15, 15, 
+                        figsize = (5, 5), qr = qr_setting)
+plt.close()
+#
+fig.plotLinEqn(eq1, 'Brown')
+fig.plotLinEqn(eq2, 'Green')
+fig.plotLinEqn(eq3, 'Blue')
+fig.plotIntersection(eq1, eq3, color = 'Brown')
+fig.plotIntersection(eq2, eq3, color = 'Green')
+fig.set_title('Inconsistent System of Equations', size = 14)
+fig.ax.view_init(azim = 0, elev = 22)
+fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 5 * np.arange(72),
+                       fargs = None,
+                       interval = 100,
+                       repeat = False).to_jshtml(default_mode = 'loop'))
+```
+:::
+::::
+:::::
+:::
+
+::: {.fragment}
+The second vector space (and visualization) is more familiar to us right now.   
+
+However, as the course goes on we will use the first vector space -- the one in which columns are vectors -- much more often.   Make sure you understand the figure!
 :::

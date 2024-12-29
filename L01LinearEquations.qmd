@@ -94,11 +94,11 @@ Here is a famous example of such a problem.
 Let's denote the unknown quantities as $x_1$, $x_2$, and $x_3$.  These are the yields of one bundle of inferior, medium grade, and superior rice, respectively.  We can then write the problem as:
 
 $$
-\begin{eqnarray}
+\begin{array}{rcr}
 x_1 + 2 x_2 + 3 x_3 &=& 39\\
 x_1 + 3 x_2 + 2 x_3 &=& 34\\
 3 x_1 + 2 x_2 + x_3 &=& 26
-\end{eqnarray}
+\end{array}
 $$
 
 The problem then is to determine the values of $x_1, x_2,$ and $x_3$.
@@ -595,14 +595,12 @@ $$\begin{array}{cc}
 ::: {.fragment}
 To start the _elimination_ stage, we add -6 times the first equation to the third equation:
 
-$$
-\begin{array}{rrrrrr}
+$$\begin{array}{rrrrrr}
     &6x_1& +5x_2& +9x_3& =& -4\\
  +  &-6x_1& +12x_2& -6x_3& =& -30\\
- \hline
+\hline 
    & &      17x_2& +3x_3 &=& -34\\
-\end{array}
-$$
+\end{array}$$
 :::
 
 ::: {.fragment}
@@ -1096,7 +1094,6 @@ fig.set_title('${}$'.format(ut.formatEqn(eq3[0:3], eq3[3])))
 
 ::: {.r-stack .fragment}
 ```{python}
-#
 #| echo: false
 fig = ut.three_d_figure((1, 14), fig_desc = 'All Three Equations',
                         xmin = -5, xmax = 5, ymin = -5, ymax = 5, zmin = -5, zmax = 5, 
