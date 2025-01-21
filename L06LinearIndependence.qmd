@@ -1,0 +1,371 @@
+---
+jupyter: python3
+---
+```{python}
+#| echo: false
+qr_setting = None
+#
+import numpy as np
+import matplotlib as mp
+import pandas as pd
+import matplotlib.pyplot as plt
+import laUtilities as ut
+import slideUtilities as sl
+import demoUtilities as dm
+import pandas as pd
+from matplotlib import animation
+from IPython.display import HTML
+```
+
+## Linear Independence
+
+:::: {.content-visible when-profile="slides"}
+```{python}
+#| echo: false
+fig = ut.two_d_figure('Figure 6.7', -6.0, 10.0, -4.0, 6.0)
+fig.centerAxes()
+u = np.array([-4.0, 2.0])
+v = np.array([ 4.0, 4.0])
+w = np.array([ 8.0, 1.0])
+fig.plotArrowVec(u, head_width=0.2, head_length=0.2)
+fig.plotArrowVec(v, head_width=0.2, head_length=0.2)
+fig.plotArrowVec(w, head_width=0.2, head_length=0.2)
+fig.ax.text(0.625*v[0]-1.5, 0.625*v[1]+0.3, r'$c_2\bf v$', size=20)
+fig.plotArrowVec(0.625*v, head_width=0.2, head_length=0.2, color='b')
+fig.ax.text(4, 2, r'$c_1\bf u$', size=20)
+fig.plotArrowVec(-0.875*u+0.625*v, 0.625*v, head_width=0.2, head_length=0.2, color='g')
+fig.ax.text(2,0.5,r'$c_3\bf w$', size=20)
+fig.plotArrowVec([0, 0], 0.75*w,  head_width=0.2, head_length=0.2, color='cyan')
+fig.ax.text(u[0]-0.5, u[1]-0.5, r'$\bf u$', size=20)
+fig.ax.text(v[0]+0.35, v[1]+0.25, r'$\bf v$', size=20)
+fig.ax.text(w[0]+0.35, w[1]+0.25, r'$\bf w$', size=20);
+```
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Many parts of this page are based on _Linear Algebra and its
+Applications,_ by David C. Lay
+:::
+::::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+We start by returning the question: when does $A\mathbf{x} = \mathbf{b}$ have a solution $\mathbf{x}$?
+
+That is, when is $A\mathbf{x} = \mathbf{b}$ consistent?
+
+::: {.fragment}
+In the last lecture, we learned that $A{\bf x} = {\bf b}$ is consistent if and only if $\bf b$ lies in the __span of the columns of $A.$__
+:::
+
+::: {.fragment}
+As an example, we saw for the following matrix $A$:
+
+$$A = \left[\begin{array}{rrr}1&3&4\\-4&2&-6\\-3&-2&-7\end{array}\right]$$
+
+$A{\bf x} = {\bf b}$ is not consistent for all ${\bf b}$.
+:::
+
+::: {.fragment}
+We realized that was because the span of $A$'s columns is not all of $\mathbb{R}^3$, but rather only a part of $\mathbb{R}^3$ -- namely, a plane lying within $\mathbb{R}^3$.   
+
+So, when $\bf b$ does not lie in that plane, then $A{\bf x} = {\bf b}$ is not consistent and has no solution.
+:::
+
+::: {.fragment}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((6, 1), fig_desc = 'Span of the columns of A',
+                        xmin = -10, xmax = 10, ymin = -10, ymax = 10, zmin = -10, zmax = 10, 
+                        figsize = (5, 5), qr = qr_setting)
+plt.close()
+#
+a1 = [1.0, -4.0, -3.0]
+a2 = [3.0,  2.0, -2.0]
+a3 = [4.0, -6.0, -7.0]
+#
+fig.text(a1[0], a1[1], a1[2], r'$\bf a_1$', 'a_1', size=18)
+fig.text(a2[0], a2[1], a2[2], r'$\bf a_2$', 'a_2', size=18)
+fig.text(a3[0], a3[1], a3[2], r'$\bf a_3$', 'a_3', size=18)
+fig.text(0.1, 0.1, -3, r'$\bf 0$', '0', size=12)
+fig.plotSpan(a1, a2,'Green')
+fig.plotPoint(a1[0], a1[1], a1[2],'r')
+fig.plotPoint(a2[0], a2[1], a2[2],'r')
+fig.plotPoint(a3[0], a3[1], a3[2],'r')
+fig.plotPoint(0, 0, 0, 'b')
+fig.set_title('Span of the columns of A', size = 16)
+fig.ax.view_init(azim = 0, elev = 22)
+img = fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+saved_anim = animation.FuncAnimation(fig.fig, anim,
+                       frames = 5 * np.arange(72),
+                       fargs = None,
+                       interval = 100,
+                       repeat = True)
+HTML(saved_anim.to_jshtml())
+```
+
+As a reminder, here is the picture of the span of the columns of $A$.
+:::
+
+::: {.fragment}
+Clearly, $\bf 0, a_1, a_2,$ and $\bf a_3$ have a particular relationship:
+
+namely, they all lie <font color=blue>within the same plane</font> -- even though <font color=blue>the vectors are in $\mathbb{R}^3$.</font> 
+
+This is a special relationship.  It only happens under certain circumstances. 
+:::
+
+::: {.fragment}
+That is, it is not the case in general that <font color=blue>four points</font> in  $\mathbb{R}^3$ would lie in the same plane!
+
+Today we will talk about how to define this relationship precisely for vectors of arbitrary dimension, that is, vectors in $\mathbb{R}^n$.
+:::
+
+## Linear Dependence
+
+::: {.fragment}
+The relationship between these vectors will be called _linear dependence._
+:::
+
+::: {.fragment}
+Before stating the definition, let's get a sense intuitively of what we want to capture.  
+
+We make this observation: 
+
+* <font color=blue>the plane defined by $\mathbf{a_1}, \mathbf{a_2}, \mathbf{a_3}$ happens to include the origin.</font>
+
+That's one way of capturing the special relationship among ${\bf a_1, a_2,}$ and ${\bf a_3}.$  
+:::
+
+
+::: {.fragment}
+```{python}
+#| echo: false
+#
+# create and display the animation 
+saved_anim = animation.FuncAnimation(fig.fig, anim,
+                       frames = 5 * np.arange(72),
+                       fargs = None,
+                       interval = 100,
+                       repeat = True)
+HTML(saved_anim.to_jshtml())
+```
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Here is the formal definition:
+
+A set of vectors $\{{\bf v_1, ..., v_p}\}$ all of which are in $\mathbb{R}^n$ is said to be <font color=blue> _linearly dependent_ </font> if there exist weights $\{c_1, ..., c_p\},$ __not all zero,__ such that
+
+$$c_1{\bf v_1} + ... + c_p{\bf v_p} = {\bf 0}.$$
+
+::: {.fragment}
+Can you see how this definition captures our intuition about the special relationship of the vectors in Figure 6.1?
+:::
+
+::: {.fragment}
+Conversely, the set $\{{\bf v_1, ..., v_p}\}$ is said is said to be <font color=blue> _linearly independent_ </font> if the vector equation
+
+$$c_1{\bf v_1} + ... + c_p{\bf v_p} = {\bf 0}.$$
+
+has only the __trivial__ solution $c_1 = 0, ..., c_p = 0$.
+:::
+
+::: {.fragment}
+A set of nonzero weights that yield zero is called a _linear dependence relation_ among $\{{\bf v_1, ..., v_p}\}$.
+
+A set of vectors is linearly dependent if and only if it is not linearly independent.
+:::
+
+## Testing if a Set of Vectors is Linearly (In)dependent
+
+::: {.fragment}
+Let's work out how we would test, algebraically, whether a set of vectors is linearly dependent.
+
+We'll use a specific example.
+:::
+
+::: {.fragment}
+Let ${\bf v_1} = \left[\begin{array}{r}1\\2\\3\end{array}\right], {\bf v_2} = \left[\begin{array}{r}4\\5\\6\end{array}\right],$ and ${\bf v_3} = \left[\begin{array}{r}2\\1\\0\end{array}\right].$
+
+Let's determine (a) if the set $\{{\bf v_1, v_2, v_3}\}$ is linearly independent, and (b) if not, a linear dependence relation among them.
+:::
+
+::: {.fragment}
+(a). Are $\{{\bf v_1, v_2, v_3}\}$ linearly independent?
+:::
+
+::: {.fragment}
+We must determine if there is a nontrivial solution of the vector equation:
+
+$$x_1{\bf v_1} + x_2{\bf v_2} + x_3{\bf v_3} = {\bf 0}.$$
+:::
+
+::: {.fragment}
+Let's row reduce the augmented matrix:
+
+$$\left[\begin{array}{rrrc}1&4&2&0\\2&5&1&0\\3&6&0&0\end{array}\right] \sim 
+\left[\begin{array}{rrrc}1&4&2&0\\0&-3&-3&0\\0&0&0&0\end{array}\right].$$
+:::
+
+::: {.fragment}
+We can see that $x_1$ and $x_2$ are basic variables, and $x_3$ is free.  
+
+Each nonzero value of $x_3$ determines a nontrivial solution of the vector equation.  
+
+So $\{{\bf v_1, v_2, v_3}\}$ are linearly dependent.
+:::
+
+::: {.fragment}
+(b). To find the linear dependence relation among ${\bf v_1, v_2,}$ and ${\bf v_3},$ we continue the row reduction to obtain the reduced echelon form:
+
+$$\left[\begin{array}{rrrc}1&4&2&0\\2&5&1&0\\3&6&0&0\end{array}\right] \sim 
+\left[\begin{array}{rrrc}1&4&2&0\\0&-3&-3&0\\0&0&0&0\end{array}\right] \sim
+\left[\begin{array}{rrrc}1&0&-2&0\\0&1&1&0\\0&0&0&0\end{array}\right]$$
+:::
+
+::: {.fragment}
+Which denotes the system of equations:
+
+$$\begin{array}{rrrcl}x_1&&-2x_3&=&0\\&x_2&+x_3&=&0\\&&0&=&0\end{array}$$
+
+So $x_1 = 2x_3, x_2 = -x_3,$ and $x_3$ is free.  
+:::
+
+::: {.fragment}
+We can choose any nonzero value for $x_3$ -- say, $x_3 = 5$.  Then $x_1 = 10$ and $x_2 = -5$.  This gives us the solution:
+
+$$ 10{\bf v_1} - 5{\bf v_2} + 5{\bf v_3} = {\bf 0}.$$
+
+This is one (out of infinitely many) linear dependence relations among ${\bf v_1, v_2,}$ and ${\bf v_3}.$
+:::
+
+## Linear Independence of Matrix Columns
+
+
+::: {.fragment}
+The columns of a matrix are a set of vectors, so our definition of linear dependence extends naturally to them.  
+
+In particular if $A = [{\bf a_1}\;\dots\;{\bf a_n}]$ then
+
+$$x_1{\bf a_1} + ... + x_n{\bf a_n} = {\bf 0}$$
+
+can be written as 
+
+$$A{\bf x} = {\bf 0}.$$
+:::
+
+::: {.fragment}
+So each linear dependence relation among the columns of $A$ corresponds to a nontrivial solution of $A{\bf x} = {\bf 0}.$
+
+Putting it another way: the columns of the matrix $A$ are linearly __independent__ if and only if the equation $A{\bf x} = {\bf 0}$ has __only__ the trivial solution ${\bf x} = {\bf 0}$.
+:::
+
+::: {.fragment}
+So, let's connect this to what we know about solutions of linear systems:
+* $A{\bf x} = {\bf 0}$ is __always__ consistent;  that is, it always has the solution ${\bf x} = {\bf 0}$ (at least).
+* The columns of $A$ are linearly independent if and only if the __only__ solution of $A{\bf x} = {\bf 0}$ is ${\bf x} = {\bf 0}$.
+* So: The columns of $A$ are linearly __dependent__ if and only if $A{\bf x} = {\bf 0}$ has an __infinite__ solution set.
+:::
+
+::: {.fragment}
+So we can also say:  the columns of $A$ are linearly __dependent__ if and only if  
+* The solution set of $A{\bf x} = {\bf 0}$ has a free variable, or
+* in other words, $A$ does not have a pivot in every column.   
+:::
+
+## Another Interpretation of Linear Dependence
+
+Here is another way of thinking about linear dependence.
+
+::: {.fragment}
+__Theorem.__  A set $S = \{{\bf v_1, ..., v_p}\}$ of two or more vectors is linearly dependent if and only if at least one of the vectors in $S$ is a linear combination of the others.
+:::
+
+::: {.fragment}
+__Proof.__
+
+First, let's consider the "if" part:
+
+Assume ${\bf v_p} = c_1{\bf v_1} + \dots + c_{p-1} {\bf v_{p-1}}.$  
+:::
+
+::: {.fragment}
+Then clearly 
+
+$$c_1{\bf v_1} + \dots + c_{p-1} {\bf v_{p-1}} - {\bf v_p} = {\bf 0},$$
+
+and not all the coefficients are zero (the coefficient of ${\bf v_p}$ is $-1$).  Thus, the vectors are linearly dependent.
+:::
+
+::: {.fragment}
+Now, we consider the "only if" part:
+
+Assume $S$ is linearly dependent.  Then $c_1{\bf v_1} + \dots + c_p{\bf v_p} = 0$ and at least one of the $c_i$ is nonzero.  
+:::
+
+::: {.fragment}
+Pick one of the nonzero $c_i,$ and rearranging, we get:
+
+$${\bf v_i} = -(c_1/c_i){\bf v_1} + \dots + -(c_p/c_i){\bf v_p}$$
+
+Thus, there is at least one vector that is a linear combination of the others.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q6.1
+:::::
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
