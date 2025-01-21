@@ -16,8 +16,14 @@ import pandas as pd
 from matplotlib import animation
 from IPython.display import HTML
 ```
-
+<!--
+This comment somehow suppresses the title page
+-->
 ## $A\mathbf{x} = \mathbf{b}$
+
+::: {.content-visible when-profile="slides"}
+##
+:::
 
 :::: {.content-hidden when-profile="slides"}
 ::: {.column-margin}
@@ -25,10 +31,6 @@ Many parts of this page are based on _Linear Algebra and its
 Applications,_ by David C. Lay
 :::
 ::::
-
-::: {.content-visible when-profile="slides"}
-##
-:::
 
 ::::: {.columns}
 :::: {.column width="50%" .ctrd}
@@ -159,7 +161,7 @@ Notice that if $A = [{\bf a_1} \; {\bf a_2} \; ... \;{\bf a_n}]$ then $A{\bf x}$
 
 ```{python}
 #| echo: false
-mp.rcParams['animation.embed_limit'] = 40
+# mp.rcParams['animation.embed_limit'] = 10
 fig = ut.three_d_figure((5, 1), 'Ax where A = [a1 a2]', 
                         -10, 10, -10, 10, -10, 10, figsize=(5, 5), qr=qr_setting)
 plt.close()
@@ -196,7 +198,7 @@ def anim(frame):
 #
 # create and display the animation 
 HTML(animation.FuncAnimation(fig.fig, anim,
-                       frames = 4 * np.arange(90),
+                       frames = 8 * np.arange(45),
                        fargs = None,
                        interval = 30,
                        repeat = False).to_jshtml(default_mode = 'loop'))

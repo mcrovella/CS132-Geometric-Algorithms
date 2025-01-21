@@ -16,7 +16,9 @@ import pandas as pd
 from matplotlib import animation
 from IPython.display import HTML
 ```
-
+<!--
+This comment somehow suppresses the title page
+-->
 ## Linear Independence
 
 :::: {.content-visible when-profile="slides"}
@@ -40,6 +42,7 @@ fig.ax.text(u[0]-0.5, u[1]-0.5, r'$\bf u$', size=20)
 fig.ax.text(v[0]+0.35, v[1]+0.25, r'$\bf v$', size=20)
 fig.ax.text(w[0]+0.35, w[1]+0.25, r'$\bf w$', size=20);
 ```
+::::
 
 :::: {.content-hidden when-profile="slides"}
 ::: {.column-margin}
@@ -274,13 +277,15 @@ Putting it another way: the columns of the matrix $A$ are linearly __independent
 
 ::: {.fragment}
 So, let's connect this to what we know about solutions of linear systems:
+
 * $A{\bf x} = {\bf 0}$ is __always__ consistent;  that is, it always has the solution ${\bf x} = {\bf 0}$ (at least).
 * The columns of $A$ are linearly independent if and only if the __only__ solution of $A{\bf x} = {\bf 0}$ is ${\bf x} = {\bf 0}$.
 * So: The columns of $A$ are linearly __dependent__ if and only if $A{\bf x} = {\bf 0}$ has an __infinite__ solution set.
 :::
 
 ::: {.fragment}
-So we can also say:  the columns of $A$ are linearly __dependent__ if and only if  
+So we can also say:  the columns of $A$ are linearly __dependent__ if and only if
+
 * The solution set of $A{\bf x} = {\bf 0}$ has a free variable, or
 * in other words, $A$ does not have a pivot in every column.   
 :::
@@ -330,42 +335,491 @@ Question Time!   Q6.1
 :::::
 :::
 
+## Spanning Sets and Linear Dependence
+
+Let's return to the motivation at the start of the lecture, and formalize the connection between spanning sets and linear dependence.
+
+::: {.fragment}
+We'll start with two __linearly independent__ vectors ${\bf u} = \left[\begin{array}{r}3\\1\\0\end{array}\right]$ and ${\bf v} = \left[\begin{array}{r}1\\6\\0\end{array}\right].$  
+
+Let's 
+
+* describe the set spanned by ${\bf u}$ and ${\bf v}$ and
+* explain why a vector ${\bf w}$ is in Span$\{\bf u, v\}$ if and only if $\{\bf u, v, w\}$ is linearly dependent.
+:::
+
+::: {.fragment}
+__Solution.__ 
+
+The vectors ${\bf u}$ and ${\bf v}$ are linearly independent so they span a plane in $\mathbb{R}^3$.  
+
+In fact, since $x_3 = 0$ in both vectors, they span the $x_1x_2$ plane.
+:::
+
+::: {.fragment}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((6, 2), fig_desc = 'Span of {u, v}',
+                        xmin = -10, xmax = 10, ymin = -10, ymax = 10, zmin = -10, zmax = 10, 
+                        figsize = (5, 5), qr = qr_setting)
+plt.close()
+#
+u = [3.0, 1, 0]
+v = [1.0, 6, 0]
+#
+fig.text(u[0], u[1], u[2], r'$\bf u$', 'u', size=18)
+fig.text(v[0], v[1], v[2], r'$\bf v$', 'v', size=18)
+fig.text(0, 0, 0, r'$\bf 0$', '0', size=12)
+fig.plotSpan(u, v,'Green')
+fig.plotPoint(u[0], u[1], u[2], 'r')
+fig.plotPoint(v[0], v[1], v[2], 'r')
+fig.plotPoint(0, 0, 0, 'b')
+fig.set_title(r'Span of $\{{\bf u, v}\}$', size=16)
+fig.ax.view_init(azim = 0, elev = 22)
+fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 5 * np.arange(72),
+                       fargs = None,
+                       interval = 100,
+                       repeat = False).to_jshtml(default_mode = 'loop'))
+```
+:::
+
+::: {.fragment}
+Now, if ${\bf w}$ is in Span$\{\bf u, v\}$, then ${\bf w}$ is a linear combination of ${\bf u}$ and ${\bf v}$. 
+
+So then $\{\bf u, v, w\}$ is linearly dependent (by the Theorem we just proved).
+:::
+
+::: {.fragment}
+And conversely, if $\{\bf u, v, w\}$ is linearly dependent, then there exist $c_1, c_2,$ and $c_3,$ not all zero, such that
+
+$$ c_1 {\bf u} + c_2 {\bf v} + c_3 {\bf w} = {\bf 0}.$$
+:::
+
+::: {.fragment}
+We know that ${\bf u}$ and ${\bf v}$ are linearly independent, so the only way for $c_1 {\bf u} + c_2{\bf v}$ to be zero is if $c_1 = c_2 = 0$.  
+
+So $c_1 {\bf u} + c_2{\bf v}$ must be nonzero, and that means $c_3$ must be different from zero.  
+:::
+
+::: {.fragment}
+So we can write:
+
+$$ {\bf w} = -(c_1/c_3) {\bf u} - (c_2/c_3) {\bf v},$$
+
+that is, ${\bf w}$ is a linear combination of ${\bf u}$ and ${\bf v}$, and therefore lies in Span$\{\bf u, v\}$.
+:::
+
+::: {.fragment}
+So we conclude:
+
+* If a set of vectors $\{\bf v_1, v_2, \dots, v_p\}$ is linearly dependent, then __at least one__ of them lies within the span of the others, and
+* If one vector in the set $\{\bf v_1, v_2, \dots, v_p\}$ lies within the span of the others, then the set is linearly dependent.
+:::
+
+::: {.fragment}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((6, 3), fig_desc = 'Linearly Dependent {u, v, w}',
+                        xmin = -10, xmax = 10, ymin = -10, ymax = 10, zmin = -10, zmax = 10, 
+                        figsize = (5, 5), qr = qr_setting)
+plt.close()
+#
+u = np.array([3.0, 1,0])
+v = np.array([1.0, 6,0])
+w = -1.0*u -0.5*v
+#
+fig.text(u[0], u[1], u[2], r'$\bf u$', 'u', size=18)
+fig.text(v[0], v[1], v[2], r'$\bf v$', 'v', size=18)
+fig.text(w[0], w[1], w[2], r'$\bf w$', 'w', size=18)
+fig.text(0, 0, 0, r'$\bf 0$', '0', size=12)
+fig.plotSpan(u, v, 'Green')
+fig.plotPoint(u[0], u[1], u[2], 'r')
+fig.plotPoint(v[0], v[1], v[2], 'r')
+fig.plotPoint(w[0], w[1], w[2], 'r')
+fig.plotPoint(0, 0, 0, 'b')
+fig.set_title(r'Linearly Dependent $\{{\bf u, v, w}\}$', size=16)
+fig.ax.view_init(azim = 0, elev = 22)
+fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 5 * np.arange(72),
+                       fargs = None,
+                       interval = 100,
+                       repeat = False).to_jshtml(default_mode = 'loop'))
+```
+:::
+
+::: {.fragment}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((6, 4), fig_desc = 'Linearly Independent {u, v, w}',
+                        xmin = -10, xmax = 10, ymin = -10, ymax = 10, zmin = -10, zmax = 10, 
+                        figsize = (5, 5), qr = qr_setting)
+plt.close()
+#
+u = np.array([3.0, 1,0])
+v = np.array([1.0, 6,0])
+w = -1.0*u -0.5*v + np.array([0.7,0,12.0])
+#
+fig.text(u[0], u[1], u[2], r'$\bf u$', 'u', size=18)
+fig.text(v[0], v[1], v[2], r'$\bf v$', 'v', size=18)
+fig.text(w[0], w[1], w[2], r'$\bf w$', 'w', size=18)
+fig.text(0, 0, 0, r'$\bf 0$', '0', size=12)
+fig.plotSpan(u, v, 'Green')
+fig.plotPoint(u[0], u[1], u[2], 'r')
+fig.plotPoint(v[0], v[1], v[2], 'r')
+fig.plotPoint(w[0], w[1], w[2], 'r')
+fig.plotPoint(0, 0, 0, 'b')
+fig.set_title(r'Linearly Independent $\{{\bf u, v, w}\}$', size=16)
+fig.ax.view_init(azim = 0, elev = 22)
+fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 5 * np.arange(72),
+                       fargs = None,
+                       interval = 100,
+                       repeat = False).to_jshtml(default_mode = 'loop'))
+```
+:::
+
+## Linear Dependence Geometrically: $\mathbb{R}^2$
+
+Now let's try to get a geometric sense of linear dependence. 
+
+We'll use $\mathbb{R}^2$ for visualization.
+
+Let's try to interpret linear dependence directly in terms of the definition, which involves vector sums.
+
+::: {.fragment}
+```{python}
+#| echo: false
+fig = ut.two_d_figure('Figure 6.2d.1', -6.0, 10.0, -4.0, 6.0)
+fig.centerAxes()
+u = np.array([-4.0, 2.0])
+v = np.array([ 4.0, 4.0])
+w = np.array([ 8.0, 1.0])
+fig.plotArrowVec(u, head_width=0.2, head_length=0.2)
+fig.plotArrowVec(v, head_width=0.2, head_length=0.2)
+fig.ax.text(u[0]-0.75, u[1]-0.5, r'$\bf u$', size=20)
+fig.ax.text(v[0]+0.25, v[1]+0.25, r'$\bf v$', size=20);
+```
+:::
+
+::: {.fragment}
+The vectors $\{{\bf u},{\bf v}\}$ are independent because there is no nozero combination of them that yields the origin.
+
+A nonzero combination of ${\bf u}$ and ${\bf v}$ geometrically means moving in the direction of ${\bf u}$ or ${\bf v}$ or both.  There is no way to move in the direction of ${\bf u}$ and then in the direction of ${\bf v}$ and arrive back at the origin.  
+:::
+
+::: {.fragment}
+Now let's add another vector ${\bf w}$:
+:::
+
+::: {.fragment}
+```{python}
+#| echo: false
+fig = ut.two_d_figure('Figure 6.2d.2', -6.0, 10.0, -4.0, 6.0)
+fig.centerAxes()
+u = np.array([-4.0, 2.0])
+v = np.array([ 4.0, 4.0])
+w = np.array([ 8.0, 1.0])
+fig.plotArrowVec(u, head_width=0.2, head_length=0.2)
+fig.plotArrowVec(v, head_width=0.2, head_length=0.2)
+fig.plotArrowVec(w, head_width=0.2, head_length=0.2)
+fig.ax.text(u[0]-0.75, u[1]-0.5, r'$\bf u$', size=20)
+fig.ax.text(v[0]+0.25, v[1]+0.25, r'$\bf v$', size=20)
+fig.ax.text(w[0]+0.25, w[1]+0.25, r'$\bf w$',size=20);
+```
+:::
+
+::: {.fragment}
+Now the situation is different.  The set ${\bf u, v, w}$ is linearly dependent.   
+
+There are nonzero moves along the three directions that can bring you back to the origin:
+:::
+
+::: {.fragment}
+```{python}
+#| echo: false
+fig = ut.two_d_figure('Figure 6.7', -6.0, 10.0, -4.0, 6.0)
+fig.centerAxes()
+u = np.array([-4.0, 2.0])
+v = np.array([ 4.0, 4.0])
+w = np.array([ 8.0, 1.0])
+fig.plotArrowVec(u, head_width=0.2, head_length=0.2)
+fig.plotArrowVec(v, head_width=0.2, head_length=0.2)
+fig.plotArrowVec(w, head_width=0.2, head_length=0.2)
+fig.ax.text(0.625*v[0]-1.5, 0.625*v[1]+0.3, r'$c_2\bf v$', size=20)
+fig.plotArrowVec(0.625*v, head_width=0.2, head_length=0.2, color='b')
+fig.ax.text(4, 2, r'$c_1\bf u$', size=20)
+fig.plotArrowVec(-0.875*u+0.625*v, 0.625*v, head_width=0.2, head_length=0.2, color='g')
+fig.ax.text(2,0.5,r'$c_3\bf w$', size=20)
+fig.plotArrowVec([0, 0], 0.75*w,  head_width=0.2, head_length=0.2, color='cyan')
+fig.ax.text(u[0]-0.5, u[1]-0.5, r'$\bf u$', size=20)
+fig.ax.text(v[0]+0.35, v[1]+0.25, r'$\bf v$', size=20)
+fig.ax.text(w[0]+0.35, w[1]+0.25, r'$\bf w$', size=20);
+```
+:::
+
+::: {.fragment}
+This is a geometric interpretation of the equation
+
+$$ c_1{\bf u} + c_2{\bf v} + c_3{\bf w} = 0.$$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q6.2
+:::::
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+The last example suggested that three vectors in $\mathbb{R}^2$ are linearly dependent.  
+
+This is in fact __always true__, and furthermore, we can generalize to $\mathbb{R}^n$.
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Theorem.__  If a set contains more vectors than there are entries in each vector, then the set is linearly dependent.  
+
+That is, any set $\{{\bf v_1}, \dots, {\bf v_p}\}$ in $\mathbb{R}^n$ is linearly dependent if $p>n.$
+
+::: {.fragment}
+__Proof.__  Let $A = [{\bf v_1} \; \dots \; {\bf v_p}].$  Then $A$ is $n \times p$, and the equation $A{\bf x} = {\bf 0}$ corresponds to a system of $n$ equations in $p$ unknowns.  
+
+If $p>n,$ there are more variables than equations, so there must be a free variable.  
+
+Hence $A{\bf x} = {\bf 0}$ has a nontrivial solution, and the columns of $A$ are linearly dependent.
+:::
+
+::: {.fragment}
+__Example.__
+
+The vectors $\left[\begin{array}{r}2\\1\end{array}\right], 
+\left[\begin{array}{r}4\\-1\end{array}\right],$ and
+$\left[\begin{array}{r}-2\\2\end{array}\right]$ are linearly dependent because these vectors live in $\mathbb{R}^2$ and there are 3 of them.
+:::
+
+::: {.fragment}
+Here is something else that we can say:
+
+__Theorem.__  If a set $S = \{{\bf v_1, ..., v_p}\}$ in $\mathbb{R}^n$ contains the zero vector, then the set is linearly dependent.
+:::
+
+::: {.fragment}
+__Proof.__ Let's say ${\bf v_1} = {\bf 0}$.  Then $1{\bf v_1} + 0{\bf v_2}+ \dots + 0{\bf v_p} = {\bf 0}.$  The coefficients are not all zero, so the set is linearly dependent.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q6.3
+:::::
+:::
+
+## Application Example: Network Flow
+
+::: {.fragment}
+Systems of linear equations arise when considering flow through a network.  
+:::
+
+::: {.fragment}
+A _network_ is a set of _nodes_ and _links_.   Links connect nodes.
+
+__Be aware__ that there is another set of terminology that is used more often in theoretical computer science and mathematics: A _graph_ , which consists of _vertices_ and _edges_.  A network and a graph are exactly the same thing.
+:::
+
+
 ::: {.fragment}
 
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+[Image Source](https://almende.github.io/chap-links-library/network.html)
+:::
+::::
+
+
+Here are some examples of networks:
+
+<!-- image credit: https://almende.github.io/chap-links-library/network.html -->
+
+
+:::: {.ctrd}
+<img src="images/network.png" alt="Figure" width="50%">
+::::    
+
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Many times we are interested in _flow_ through a network.      Flows can represent movement from place to place.   For example, consider this map of the MBTA:
+
+
+
+::: {.fragment}
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+[Image Source](http://www.mbta.com/uploadedimages/Schedules_and_Maps/System_Map/Survey%20Map%204%20lg.jpg)
+:::
+::::
+
+:::: {.ctrd}
+<img src="images/mbta-map.jpg" alt="Figure" width="50%">
+::::
+:::
+
+::: {.fragment}
+We can think of T stops as nodes and rail connections as links.  Flow corresponds to the movement of subway cars from station to station.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Here is another example: this is a representation of the _Abilene_ data network, which is used by universities to exchange data traffic (packets) within the US:
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+[Image Source](http://c-bgp.sourceforge.net/images/abilene-map.gif)
+:::
+::::
+
+:::: {.ctrd}
+<img src="images/abilene-map.png" alt="Figure" width="50%">
+::::    
+
+::: {.fragment}
+Networks usually obey the rule of "flow balance" or "conservation of flow."  
+
+This simply means that the amount of flow going into a node equals the amount coming out.  
+
+For example, the number of packets that enter any node of the Abilene network equals the number that leave that node.  This reflects the fact that packets are not created or destroyed _within the network._
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Image Source: Lay, 4th edition.
+:::
+::::
+
+:::: {.ctrd}
+<img src="images/Lay-Road-Network.jpg" alt="Figure" width="50%">
+::::    
+
+Here is another example: a simplified view of downtown Baltimore during rush hour.
+
+The flows are vehicles per hour.
+
+::: {.fragment}
+Note that some of the traffic flows are measured, and some are not.  The unmeasured flows are marked with symbols $x_1, x_2,$ etc.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+We'd like to understand the traffic pattern in the city, despite the presence of unmeasured flows.  We can do that by using the principle of flow balance.
+
+
+::: {.fragment}
+The key idea is: flow balance dictates that _every node determines a linear equation._  The equation is of the form:
+
+$$ \text{Flow in} = \text{Flow out}.$$
+:::
+
+::: {.fragment}
+| Intersection | Flow in  | Flow out  |
+|---|---|---|
+| A| 300 + 500 | $x_1 + x_2$ |
+| B| $x_2 + x_4$ | 300 + $x_3$ |
+| C| 100 + 400 | $x_4 + x_5$ |
+| D| $x_1 + x_5$ | 600 |
+|network| 1300 | 900 + $x_3$ |
+
+:::: {.ctrd}
+<img src="images/Lay-Road-Network.jpg" alt="Figure" width="50%">
+::::    
+:::
+
+::: {.fragment}
+The last line indicates that the total flow into the network equals the total flow out of the network, which means that $x_3 = 400.$
+:::
+
+::: {.fragment}
+This yields the following system of equations:
+
+$$\begin{array}{rrrrrcl}
+x_1 & + x_2 & & & & = & 800\\
+& x_2 & -x_3 & + x_4 & & = &300\\
+&&&x_4 & +x_5 &=& 500\\
+x_1 &&&& + x_5 &=& 600\\
+&&x_3&&&=&400\\
+\end{array}$$
+:::
+
+::: {.fragment}
+When we row reduce the associated augmented matrix, the reduced echelon form yields these equations:
+
+$$\begin{array}{rrrrrcl}
+x_1 & & & & +x_5 & = & 600\\
+& x_2 & & & -x_5 & = &200\\
+&& x_3 & & &=& 400\\
+&&& x_4 & + x_5 &=& 500\\
+\end{array}$$
+:::
+
+::: {.fragment}
+Thus the general flow pattern for the network is described by
+
+$$\left\{\begin{array}{l}
+x_1 = 600 - x_5\\
+x_2 = 200 + x_5\\
+x_3 = 400\\
+x_4 = 500 - x_5\\
+x_5 \text{ is free}\\
+\end{array}\right.$$
 :::
 
 ::: {.fragment}
 
-:::
+:::: {.ctrd}
+<img src="images/Lay-Road-Network.jpg" alt="Figure" width="30%">
+::::
 
-::: {.fragment}
+How can we interpret this result?  
 
-:::
+A negative flow corresponds to a flow in the opposite direction assumed in the diagram.  Since these streets are one-way, none of the variables here can be negative.  So, for example, $x_5 \leq 500$ because $x_4$ cannot be negative.   
 
-::: {.fragment}
-
-:::
-
-::: {.fragment}
-
-:::
-
-::: {.fragment}
-
-:::
-
-::: {.fragment}
-
-:::
-
-::: {.fragment}
-
-:::
-
-::: {.fragment}
-
-:::
-
-::: {.fragment}
-
+What else can we infer?
 :::
