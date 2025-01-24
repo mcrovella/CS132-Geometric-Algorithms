@@ -1,0 +1,222 @@
+---
+jupyter: python3
+---
+```{python}
+#| echo: false
+qr_setting = None
+#
+import numpy as np
+import matplotlib as mp
+import pandas as pd
+import matplotlib.pyplot as plt
+import laUtilities as ut
+import slideUtilities as sl
+import demoUtilities as dm
+import pandas as pd
+from matplotlib import animation
+from IPython.display import HTML
+```
+<!--
+This comment somehow suppresses the title page
+-->
+## Linear Transformations
+
+::: {.content-visible when-profile="slides"}
+![](images/L7 F3.jpg){width=650 fig-alt="A figure showing a linear transformation"}
+:::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Many parts of this page are based on _Linear Algebra and its
+Applications,_ by David C. Lay
+:::
+::::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+So far we've been treating the matrix equation
+
+$$ A{\bf x} = {\bf b}$$
+
+as simply another way of writing the vector equation
+
+$$ x_1{\bf a_1} + \dots + x_n{\bf a_n} = {\bf b}.$$
+
+::: {.fragment}
+However, we'll now think of the matrix equation in a new way: 
+
+We will think of $A$ as <font color=blue>"acting on" the vector ${\bf x}$</font> to create a <font color=blue>new vector ${\bf b}$.</font>
+:::
+
+::: {.fragment}
+For example, let's let $A = \left[\begin{array}{rrr}2&1&1\\3&1&-1\end{array}\right].$  Then we find:
+
+$$ A \left[\begin{array}{r}1\\-4\\-3\end{array}\right] = \left[\begin{array}{r}-5\\2\end{array}\right] $$
+:::
+
+::: {.fragment}
+In other words, if ${\bf x} = \left[\begin{array}{r}1\\-4\\-3\end{array}\right]$ and ${\bf b} = \left[\begin{array}{r}-5\\2\end{array}\right]$, then $A$ _transforms_ ${\bf x}$ into ${\bf b}$.
+
+:::
+
+::: {.fragment}
+![](images/L7 F1.jpg){width=650 fig-alt="A figure showing a linear transformation"}
+:::
+
+::: {.fragment}
+Notice what $A$ has done: it took a vector in $\mathbb{R}^3$ and transformed it into a vector in $\mathbb{R}^2$.
+:::
+
+::: {.fragment}
+How does this fact relate to the shape of $A$?   
+
+$A$ is $2 \times 3$ --- that is, $A \in \mathbb{R}^{2\times 3}$.
+:::
+
+::: {.fragment}
+This gives a __new__ way of thinking about solving $A{\bf x} = {\bf b}$.  
+
+To solve $A{\bf x} = {\bf b}$, we much "search for" the vector(s) ${\bf x}$ in $\mathbb{R}^3$ that are transformed into ${\bf b}$ in $\mathbb{R}^2$ under the "action" of $A$. 
+:::
+
+::: {.fragment}
+For a different $A$, the mapping might be from $\mathbb{R}^1$ to $\mathbb{R}^3$:
+:::
+
+::: {.fragment}
+![](images/L7 F2.jpg){width=650 fig-alt="A figure showing a linear transformation"}
+:::
+
+::: {.fragment}
+What would the shape of $A$ be in the above case?
+:::
+
+::: {.fragment}
+Since $A$ maps from $\mathbb{R}^1$ to $\mathbb{R}^3$, $A \in \mathbb{R}^{3\times 1}$.  
+
+That is, $A$ has 3 rows and 1 column.
+:::
+
+::: {.fragment}
+In another case, $A$ could be a square $2\times 2$ matrix.  
+
+Then, it would map from $\mathbb{R}^2$ to $\mathbb{R}^2$:
+:::
+
+::: {.fragment}
+![](images/L7 F3.jpg){width=650 fig-alt="A figure showing a linear transformation"}
+:::
+
+::: {.fragment}
+We have moved out of the familiar world of functions of one variable:  we are now thinking about <font color = blue>functions that transform a vector into a vector.</font>
+
+Or, put another way, functions that transform multiple variables into multiple variables.
+:::
+
+## Transformations
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
