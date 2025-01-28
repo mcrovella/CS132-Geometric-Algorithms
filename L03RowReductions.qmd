@@ -57,12 +57,14 @@ In the course of his computations Gauss had to solve systems of 17 linear equati
 Although Gauss invented this method (which Jordan then popularized), it was a reinvention.   As we mentioned in a previous lecture, linear systems were being solved by a similar method in China 2,000 years earlier.
 :::: 
 
+<!--
 ::: {.content-visible when-profile="slides"}
 ##
 ::::: {.fragment .fade-down .r-fit-text}
 Question Time!   Q3.1
 :::::
 :::
+-->
 
 ## Echelon Forms
 
@@ -144,14 +146,16 @@ The goal of the __second__ step of Gaussian elimination is to convert the matrix
 
 Any matrix may be row reduced to an echelon form.  
 
-Echelon forms are _not_ unique; depending on the sequence of row operations, different echelon forms may be produced from a given matrix.
-
-However, the reduced echelon form of a matrix _is_ unique.
-
-__Theorem:__ <font color=blue>Each matrix is equivalent to one and only one reduced echelon matrix.</font>
+An echelon form of a matrix is _not_ unique; for any given matrix, depending on the sequence of row operations, different echelon forms may be produced .
 
 ::: {.fragment}
-The positions of the leading entries of an echelon matrix and its reduced form are the same.  So, by the Theorem, the leading entries of _any_ echelon form of a given matrix are in the same positions.
+However, the _reduced_ echelon form of a matrix _is_ unique.
+
+__Theorem:__ <font color=blue>Each matrix is equivalent to one and only one reduced echelon matrix.</font>
+:::
+
+::: {.fragment}
+The positions of the leading entries of an echelon matrix and its reduced form are the same.  So, by the Theorem, the leading entries of _any_ echelon form of a given matrix are in the same positions.  Hence, we give those positions a name: _pivots._
 
 __Definition:__ A __pivot position__ in a matrix $A$ is the position of a leading 1 in the reduced echelon form of $A$.
 :::
@@ -190,10 +194,10 @@ Repeat the following steps:
 
 ::: {.incremental}
 * Let $j$ be the position of the __leftmost nonzero value__ in row $i$ or any row below it.  If there is no such position, stop.
-* If the value in the $j$th position in row $i$ is zero, swap this row with a row below it to make the $j$th position nonzero.  This creates a __pivot__ in position $i,j$.
+* If the value in the $j$th position in row $i$ is zero, swap this row with a row below it to make the $j$th position nonzero.  This creates a __pivot__ in position $(i,j)$.
 * Use row reduction operations to create zeros in all positions below the pivot.  
 If any operation creates a row that is all zeros _except the last element,_ the system is inconsistent; stop.
-* Let $i = i + 1.$ If $i$ equals the number of rows in $A$, stop.
+* Let $i = i + 1.$ If $i$ equals the number of rows in $A$, stop. Otherwise start at the first bullet again.
 :::
 
 ::: {.fragment}
@@ -222,7 +226,7 @@ We start at the top again, so let $i = 1$.  Repeat the following steps:
 * If row $i$ is all zeros, or if $i$ exceeds the number of rows in $A$, stop.
 * If row $i$ has a nonzero pivot value, divide row $i$ by its pivot value.  This creates a 1 in the pivot position.
 * Use row reduction operations to create zeros in all positions above the pivot.  
-* Let $i = i+1$.
+* Let $i = i+1$ and either stop or repeat from the first bullet.
 ::::
 :::
 
@@ -401,7 +405,9 @@ Next, we define how we count operations:
 This tells us how the flop count scales for very large inputs.
 
 ::: {.fragment}
-For example, let's say for a problem with input size $n$, an algorithm has flop count $12n^2 + 3n + 2$.  
+For example, let's say for a problem with input size $n$, an algorithm has flop count 
+
+$$12n^2 + 3n + 2.$$
 
 Then the __cost__ of the algorithm is $12n^2$.
 :::
@@ -554,7 +560,7 @@ $$
 \end{array}\right]
 $$
 
-This system is consistent.  Is the solution unique?
+This system is consistent.  Is there a unique solution?
 :::
 
 ::: {.fragment}
@@ -593,7 +599,7 @@ So the solution set is:
 $$\begin{array}{rl}
 x_1 &= 1 + 5x_3\\
 x_2 &= 4 - x_3\\
-x_3 &\mbox{is free}
+x_3 &\text{is free}
 \end{array}
 $$
 
@@ -672,7 +678,7 @@ Therefore, the equations
 $$\begin{array}{rl}
 x_1 &= 1 + 5x_3\\
 x_2 &= 4 - x_3\\
-x_3 &\mbox{is free}
+x_3 &\text{is free}
 \end{array}
 $$
 
