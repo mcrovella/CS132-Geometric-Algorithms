@@ -118,105 +118,355 @@ Or, put another way, functions that transform multiple variables into multiple v
 ## Transformations
 
 ::: {.fragment}
+Some terminology:
 
+A __transformation__ (or __function__ or __mapping__) $T$ from $\mathbb{R}^n$ to $\mathbb{R}^m$ is a rule that assigns to each vector ${\bf x}$ in $\mathbb{R}^n$ a vector $T({\bf x})$ in $\mathbb{R}^m$. 
 :::
 
 ::: {.fragment}
+The set $\mathbb{R}^n$ is called the __domain__ of $T$, and $\mathbb{R}^m$ is called the __codomain__ of $T$.  
 
+The notation:
+
+$$ T: \mathbb{R}^n \rightarrow \mathbb{R}^m$$ 
+
+indicates that the domain of $T$ is $\mathbb{R}^n$ and the codomain is $\mathbb{R}^m$.
 :::
 
 ::: {.fragment}
+For $\bf x$ in $\mathbb{R}^n,$ the vector $T({\bf x})$ is called the __image__ of $\bf x$ (under $T$).  
 
+The set of all images $T({\bf x})$ is called the __range__ of $T$.
 :::
 
 ::: {.fragment}
+![](images/L7 F4.jpg){width=650 fig-alt="A figure showing a linear transformation"}
 
+Here, the green plane is the set of all points that are possible outputs of $T$ for some input $\mathbf{x}$.
+
+So in this example:
+
+   * The __domain__ of $T$ is $\mathbb{R}^2$
+   * The __codomain__ of $T$ is $\mathbb{R}^3$
+   * The __range__ of $T$ is the green plane.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q7.1
+:::::
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Let's do an example.   Let's say I have these points in $\mathbb{R}^2$:
+
+$$ \left[\begin{array}{r}0\\1\end{array}\right],\left[\begin{array}{r}1\\1\end{array}\right],\left[\begin{array}{r}1\\0\end{array}\right],\left[\begin{array}{r}0\\0\end{array}\right]$$
+
+Where are these points located?
+
+::: {.fragment}
+```{python}
+#| echo: false
+square = np.array([[0, 1, 1, 0],
+                   [1, 1, 0, 0]])
+dm.plotSetup()
+print(square)
+dm.plotSquare(square)
+```
 :::
 
 ::: {.fragment}
+Now let's transform each of these points according to the following rule.   Let 
 
+$$ A = \left[\begin{array}{rr}1&1.5\\0&1\end{array}\right]. $$
+
+We define $T({\bf x}) = A{\bf x}$.  Then we have 
+
+$$ T: \mathbb{R}^2 \rightarrow \mathbb{R}^2.$$
+::: 
+
+::: {.fragment}
+What is the image of each of these points under $T$?
+
+$$ A\left[\begin{array}{r}0\\1\end{array}\right] = \left[\begin{array}{r}1.5\\1\end{array}\right]$$
+
+
+$$ A\left[\begin{array}{r}1\\1\end{array}\right] = \left[\begin{array}{r}2.5\\1\end{array}\right]$$
+
+
+$$ A\left[\begin{array}{r}1\\0\end{array}\right] = \left[\begin{array}{r}1\\0\end{array}\right]$$
+
+
+$$ A\left[\begin{array}{r}0\\0\end{array}\right] = \left[\begin{array}{r}0\\0\end{array}\right]$$
 :::
 
 ::: {.fragment}
-
+```{python}
+#| echo: false
+ax = dm.plotSetup()
+print("square = "); print(square)
+dm.plotSquare(square)
+#
+# create the A matrix
+A = np.array([[1.0, 1.5],[0.0,1.0]])
+print("A matrix = "); print(A)
+#
+# apply the shear matrix to the square
+ssquare = np.zeros(np.shape(square))
+for i in range(4):
+    ssquare[:,i] = dm.AxVS(A,square[:,i])
+print("transformed square = "); print(ssquare)
+dm.plotSquare(ssquare,'r')
+```
 :::
 
 ::: {.fragment}
+This sort of transformation, where points are successively slid sideways, is called a __shear__ transformation.
+:::
 
+## Linear Transformations
+
+By the properties of matrix-vector multiplication, we know that the transformation ${\bf x} \mapsto A{\bf x}$ has the properties that 
+
+$$ A({\bf u} + {\bf v}) = A{\bf u} + A{\bf v} \;\;\;\text{and}\;\;\; A(c{\bf u}) = cA{\bf u}$$
+
+for all $\bf u, v$ in $\mathbb{R}^n$ and all scalars $c$.
+
+::: {.fragment}
+We are now ready to define one of the most fundamental concepts in the course: 
+the concept of a
+<font color=blue>__linear transformation.__</font>  
+
+(You are now finding out why the subject is called linear algebra!)
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Definition.__  A transformation $T$ is __linear__ if:
+1. $T({\bf u} + {\bf v}) = T({\bf u}) + T({\bf v}) \;\;\;$ for all $\bf u, v$ in the domain of $T$; and
+2. $T(c{\bf u}) = cT({\bf u}) \;\;\;$ for all scalars $c$ and all $\bf u$ in the domain of $T$.
+
+::: {.fragment}
+To fully grasp the significance of what a linear transformation is, don't think of just matrix-vector multiplication.  Think of $T$ as a function in more general terms.  
 :::
 
 ::: {.fragment}
+The definition above captures a _lot_ of transformations that are not matrix-vector multiplication.  For example, think of:
 
+$$ T(f) = \int_0^1 f(t) \,dt $$
+
+Is $T$ a linear transformation?
 :::
 
 ::: {.fragment}
+Checking the conditions of our definition:
+    
+$$ T(f + g) = T(f) + T(g) $$
 
+in other words:
+    
+$$  \int_0^1 f(t) + g(t) \,dt = \int_0^1 f(t) \,dt + \int_0^1 g(t) \,dt$$
 :::
 
 ::: {.fragment}
+and also:
+    
+$$ T(c \cdot f) = c \cdot T(f) $$
 
+(check that yourself)
 :::
 
 ::: {.fragment}
+What about:
+    
+$$ T(f) = \frac{d f(t)}{dt} $$
 
+Is $T$ a linear transformation?
 :::
 
 ::: {.fragment}
+What about:
+    
+$$ T(x) = e^x $$
 
+Is $T$ a linear transformation?
+:::
+
+## Properties of Linear Transformations
+
+A key aspect of a linear transformation is that it __preserves the operations of vector addition and scalar multiplication.__
+
+::: {.fragment}
+For example: for vectors $\mathbf{u}$ and $\mathbf{v}$, one can either:
+1. Transform them both according to $T()$, then add them, or:
+2. Add them, and then transform the result according to $T()$.
+
+One gets the same result either way.  The transformation does not affect the addition.
 :::
 
 ::: {.fragment}
+This leads to two important facts.
 
+If $T$ is a linear transformation, then
+
+$$ T({\mathbf 0}) = {\mathbf 0} $$
+
+and
+
+$$ T(c\mathbf{u} + d\mathbf{v}) = cT(\mathbf{u}) + dT(\mathbf{v}) $$
 :::
 
 ::: {.fragment}
+In fact, if a transformation satisfies the second equation for all $\mathbf{u}, \mathbf{v}$ and $c, d,$ then it must be a linear transformation.   
 
+Both of the rules defining a linear transformation derive from this single equation.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Example.__
+
+Given a scalar $r$, define $T: \mathbb{R}^2 \rightarrow \mathbb{R}^2$ by $T(\mathbf{x}) = r\mathbf{x}$.  
+
+($T$ is called a __contraction__ when $0\leq r \leq 1$ and a __dilation__ when $r > 1$.)  
+
+Let $r = 3$, and show that $T$ is a linear transformation.
+
+::: {.fragment}
+__Solution.__
+
+Let $\mathbf{u}, \mathbf{v}$ be in $\mathbb{R}^2$ and let $c, d$ be scalars.   Then
+
+$$
+T(c\mathbf{u} + d\mathbf{v}) = 3(c\mathbf{u} + d\mathbf{v})
+$$
 :::
 
 ::: {.fragment}
-
+$$ = 3c\mathbf{u} + 3d\mathbf{v} $$
 :::
 
 ::: {.fragment}
-
+$$ = c(3\mathbf{u}) + d(3\mathbf{v}) $$
 :::
 
 ::: {.fragment}
-
+$$ = cT(\mathbf{u}) + dT(\mathbf{v}) $$
 :::
 
 ::: {.fragment}
+Thus $T$ is a linear transformation because it satisfies the rule $T(c\mathbf{u} + d\mathbf{v}) = cT(\mathbf{u}) + dT(\mathbf{v})$.
+:::
 
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Example.__
+
+::: {.fragment}
+Let $T(\mathbf{x}) = \mathbf{x} + \mathbf{b}$ for some $\mathbf{b} \neq 0$.   
+
+What sort of operation does $T$ implement?
 :::
 
 ::: {.fragment}
+Answer: __translation.__
 
+Is $T$ a linear transformation?
 :::
 
 ::: {.fragment}
+__Solution.__
 
+We only need to compare 
+
+$$T(\mathbf{u} + \mathbf{v})$$ 
+
+to 
+
+$$T(\mathbf{u}) + T(\mathbf{v}).$$
 :::
 
 ::: {.fragment}
+So:
 
+$$T(\mathbf{u} + \mathbf{v}) = \mathbf{u} + \mathbf{v} + \mathbf{b}$$ 
+
+and
+
+$$T(\mathbf{u}) + T(\mathbf{v}) = (\mathbf{u} + \mathbf{b}) + (\mathbf{v} + \mathbf{b})$$
 :::
 
 ::: {.fragment}
+If $\mathbf{b} \neq 0$, then the above two expressions are not equal.
 
+So $T$ is __not__ a linear transformation.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q7.2
+:::::
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### A Non-Geometric Example: Manufacturing
+
+::: {.fragment}
+A company manufactures two products, B and C.  To do so, it requires materials, labor, and overhead.
+
+For one dollar's worth of product B, it spends 45 cents on materials, 25 cents on labor, and 15 cents on overhead.
+
+For one dollar's worth of product C, it spends 40 cents on materials, 30 cents on labor, and 15 cents on overhead.
 :::
 
 ::: {.fragment}
+Let us construct a "unit cost" matrix:
 
+$$U = \begin{array}{r}
+\begin{array}{rrr}\text{B}&\;\;\;\;\text{C}\;&\;\;\;\;\;\;\;\;\;\;\;\end{array}\\
+\left[\begin{array}{rr}.45&.40\\.25&.30\\.15&.15\end{array}\right]
+\begin{array}{r}\text{Materials}\\\text{Labor}\\\text{Overhead}\end{array}\\
+\end{array}$$
 :::
 
 ::: {.fragment}
+Let $\mathbf{x} = \left[\begin{array}{r}x_1\\x_2\end{array}\right]$ be a production vector, corresponding to $x_1$ dollars of product B and $x_2$ dollars of product C.
 
+Then define $T: \mathbb{R}^2 \rightarrow \mathbb{R}^3$ by
+
+$$T(\mathbf{x}) = U\mathbf{x} $$
 :::
 
 ::: {.fragment}
-
+$$ = x_1 \left[\begin{array}{r}.45\\.25\\.15\end{array}\right] + x_2 \left[\begin{array}{r}.40\\.30\\.15\end{array}\right]$$ 
 :::
 
 ::: {.fragment}
+$$ = \left[\begin{array}{r}\text{Total cost of materials}\\\text{Total cost of labor}\\\text{Total cost of overhead}\end{array}\right]
+$$
+:::
 
+::: {.fragment}
+The mapping $T$ transforms a list of production quantities into a list of total costs.
+:::
+
+::: {.fragment}
+The linearity of this mapping is reflected in two ways:
+
+1. If production is increased by a factor of, say, 4, ie, from $\mathbf{x}$ to $4\mathbf{x}$, then the costs increase by the same factor, from $T(\mathbf{x})$ to $4T(\mathbf{x})$.
+2. If $\mathbf{x}$ and $\mathbf{y}$ are production vectors, then the total cost vector associated with combined production of $\mathbf{x} + \mathbf{y}$ is precisely the sum of the cost vectors $T(\mathbf{x})$ and $T(\mathbf{y})$.
 :::
