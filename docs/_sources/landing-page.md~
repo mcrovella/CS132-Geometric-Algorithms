@@ -6,15 +6,15 @@
 
 # Preface
 
-Welcome to this book!
+Welcome!
 
 These are lecture notes for Computer Science 132, _Geometric
 Algorithms,_ as taught by me at Boston University.  The overall
 structure of the course is roughly based on _Linear Algebra and its
 Applications,_ by David C. Lay, Addison-Wesley (Pearson).   Many
-examples and illustrations are based on that excellent text.  However all
-the content has been significantly revised by me.  The book also
-includes contributions and improvements from Wayne Snyder, as well as
+examples, illustrations, and explanations are based on that excellent text.  However all
+the content has been significantly revised by me.  The notes also
+include contributions and improvements from Wayne Snyder, as well as
 from students who have taken CS 132 (see the list of contributors [here](https://github.com/mcrovella/CS132-Geometric-Algorithms/)).
 
 ## The Story
@@ -101,7 +101,7 @@ the github repository
 Each of the Chapters is based on a single notebook, and each forms the
 basis for one lecture (more or less).
 
-I hope you enjoy this book, whose goal is to __prevent__ you from falling
+I hope you enjoy this course, whose goal is to __prevent__ you from falling
 into this trap:
 
 > Algebra is the offer made by the devil to the mathematician. The devil
