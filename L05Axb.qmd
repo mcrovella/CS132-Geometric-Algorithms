@@ -82,7 +82,10 @@ $$ m\left\{\begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\right.\;\;
 \overbrace{\left[\begin{array}{cccc}\begin{array}{c}\vdots\\\vdots\\{\bf a_1}\\\vdots\\\vdots\end{array}&\begin{array}{c}\vdots\\\vdots\\{\bf a_2}\\\vdots\\\vdots\end{array}&\dots&\begin{array}{c}\vdots\\\vdots\\{\bf a_n}\\\vdots\\\vdots\end{array}\\\end{array}\right]}^{\large n} $$
 :::
 
-::: {.fragment}
+::: {.content-visible when-profile="slides"}
+##
+:::
+
 We're now going to express a vector equation in a new way.  We are going to say that 
 
 $$x_1{\bf a_1} + x_2{\bf a_2} + ... + x_n{\bf a_n}$$
@@ -90,7 +93,6 @@ $$x_1{\bf a_1} + x_2{\bf a_2} + ... + x_n{\bf a_n}$$
 is the same as:
 
 $$A{\bf x}$$
-:::
 
 ::: {.fragment}
 where $A = \left[\begin{array}{cccc}\begin{array}{c}\vdots\\\vdots\\{\bf a_1}\\\vdots\\\vdots\end{array}&\begin{array}{c}\vdots\\\vdots\\{\bf a_2}\\\vdots\\\vdots\end{array}&\dots&\begin{array}{c}\vdots\\\vdots\\{\bf a_n}\\\vdots\\\vdots\end{array}\\\end{array}\right]$ and ${\bf x} = \left[\begin{array}{c}x_1\\x_2\\\vdots\\x_n\end{array}\right].$
@@ -99,7 +101,7 @@ where $A = \left[\begin{array}{cccc}\begin{array}{c}\vdots\\\vdots\\{\bf a_1}\\\
 ::: {.fragment}
 What we have done is to define __Matrix-vector multiplication__.  
 
-That is, $A{\bf x}$ denotes multiplying a matrix and a vector, and we define it to be the same as a linear combination of the $\{\bf a_1, a_2, \dots, a_n\}$ with weights $x_1, x_2, \dots, x_n.$
+That is, $A{\bf x}$ denotes multiplying a matrix and a vector, and we define it to be the same as a linear combination of the vectors $\{\bf a_1, a_2, \dots, a_n\}$ using weights $x_1, x_2, \dots, x_n.$
 :::
 
 ::: {.content-visible when-profile="slides"}
@@ -406,10 +408,10 @@ Now we will tie together all three views of our question.
 
 __Theorem:__ Let $A$ be an $m \times n$ matrix.  Then the following statements are logically equivalent.  That is, for a particular $A,$ either they are all true or they are all false.
 
-1. For each $\bf b$ in $\mathbb{R}^m,$ the equation $A{\bf x} = {\bf b}$ has a solution.
-1. Each $\bf b$ in $\mathbb{R}^m$ is a linear combination of the columns of $A$.
-1. The columns of $A$ span $\mathbb{R}^m$.
-1. $A$ has a pivot position in every row.
+* For each $\bf b$ in $\mathbb{R}^m,$ the equation $A{\bf x} = {\bf b}$ has a solution.
+* Each $\bf b$ in $\mathbb{R}^m$ is a linear combination of the columns of $A$.
+* The columns of $A$ span $\mathbb{R}^m$.
+* $A$ has a pivot position in every row.
 
 
 ::: {.fragment}
