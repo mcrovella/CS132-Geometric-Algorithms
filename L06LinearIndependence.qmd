@@ -135,7 +135,7 @@ Today we will talk about how to define this relationship precisely for vectors o
 ## Linear Dependence
 
 ::: {.fragment}
-The relationship between these vectors will be called _linear dependence._
+The relationship between these four vectors is called _linear dependence._
 :::
 
 ::: {.fragment}
@@ -174,7 +174,7 @@ A set of vectors $\{{\bf v_1, ..., v_p}\}$ all of which are in $\mathbb{R}^n$ is
 $$c_1{\bf v_1} + ... + c_p{\bf v_p} = {\bf 0}.$$
 
 ::: {.fragment}
-Can you see how this definition captures our intuition about the special relationship of the vectors in Figure 6.1?
+Can you see how this definition captures our intuition about the special relationship of the four vectors?
 :::
 
 ::: {.fragment}
@@ -205,9 +205,11 @@ Let ${\bf v_1} = \left[\begin{array}{r}1\\2\\3\end{array}\right], {\bf v_2} = \l
 Let's determine (a) if the set $\{{\bf v_1, v_2, v_3}\}$ is linearly independent, and (b) if not, a linear dependence relation among them.
 :::
 
-::: {.fragment}
-(a). Are $\{{\bf v_1, v_2, v_3}\}$ linearly independent?
+::: {.content-visible when-profile="slides"}
+##
 :::
+
+(a). Are $\{{\bf v_1, v_2, v_3}\}$ linearly independent?
 
 ::: {.fragment}
 We must determine if there is a nontrivial solution of the vector equation:
@@ -230,13 +232,15 @@ Each nonzero value of $x_3$ determines a nontrivial solution of the vector equat
 So $\{{\bf v_1, v_2, v_3}\}$ are linearly dependent.
 :::
 
-::: {.fragment}
+::: {.content-visible when-profile="slides"}
+##
+:::
+
 (b). To find the linear dependence relation among ${\bf v_1, v_2,}$ and ${\bf v_3},$ we continue the row reduction to obtain the reduced echelon form:
 
 $$\left[\begin{array}{rrrc}1&4&2&0\\2&5&1&0\\3&6&0&0\end{array}\right] \sim 
 \left[\begin{array}{rrrc}1&4&2&0\\0&-3&-3&0\\0&0&0&0\end{array}\right] \sim
 \left[\begin{array}{rrrc}1&0&-2&0\\0&1&1&0\\0&0&0&0\end{array}\right]$$
-:::
 
 ::: {.fragment}
 Which denotes the system of equations:
@@ -275,13 +279,15 @@ So each linear dependence relation among the columns of $A$ corresponds to a non
 Putting it another way: the columns of the matrix $A$ are linearly __independent__ if and only if the equation $A{\bf x} = {\bf 0}$ has __only__ the trivial solution ${\bf x} = {\bf 0}$.
 :::
 
-::: {.fragment}
+::: {.content-visible when-profile="slides"}
+##
+:::
+
 So, let's connect this to what we know about solutions of linear systems:
 
 * $A{\bf x} = {\bf 0}$ is __always__ consistent;  that is, it always has the solution ${\bf x} = {\bf 0}$ (at least).
 * The columns of $A$ are linearly independent if and only if the __only__ solution of $A{\bf x} = {\bf 0}$ is ${\bf x} = {\bf 0}$.
 * So: The columns of $A$ are linearly __dependent__ if and only if $A{\bf x} = {\bf 0}$ has an __infinite__ solution set.
-:::
 
 ::: {.fragment}
 So we can also say:  the columns of $A$ are linearly __dependent__ if and only if
@@ -820,6 +826,4 @@ x_5 \text{ is free}\\
 How can we interpret this result?  
 
 A negative flow corresponds to a flow in the opposite direction assumed in the diagram.  Since these streets are one-way, none of the variables here can be negative.  So, for example, $x_5 \leq 500$ because $x_4$ cannot be negative.   
-
-What else can we infer?
 :::
