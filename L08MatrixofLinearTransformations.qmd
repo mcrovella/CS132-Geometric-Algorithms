@@ -149,7 +149,7 @@ This proof shows us an important idea:
 
 <font color='blue'> To find the standard matrix of a linear transformation, ask what the transformation does to the columns of $I$.</font>
 
-In other words, if $ T(\mathbf{x}) = A\mathbf{x} $, then:
+In other words, if $T(\mathbf{x}) = A\mathbf{x}$, then:
 
 $$A = \left[T({\bf e_1}) \dots T({\bf e_n})\right].$$
 
@@ -161,7 +161,7 @@ This gives us a way to compute the standard matrix of a transformation.
 
 Now, in $\mathbb{R}^2$, $I = \left[\begin{array}{cc}1&0\\0&1\end{array}\right]$.   So:
 
-$$\mathbf{e_1} = \left[\begin{array}{c}1\\0\end{array}\right]\;\;\mbox{and}\;\;\mathbf{e_2} = \left[\begin{array}{c}0\\1\end{array}\right].$$
+$$\mathbf{e_1} = \left[\begin{array}{c}1\\0\end{array}\right]\;\;\text{and}\;\;\mathbf{e_2} = \left[\begin{array}{c}0\\1\end{array}\right].$$
 
 So to find the matrix of any given linear transformation of vectors in $\mathbb{R}^2$, we only have to know what that transformation does to these two points:
 
@@ -453,6 +453,10 @@ dm.plotShape(A @ note,'r')
 ::::: {.fragment .fade-down .r-fit-text}
 Question Time!   Q8.1
 :::::
+:::
+
+::: {.content-visible when-profile="slides"}
+##
 :::
 
 ::: {.fragment}
@@ -913,22 +917,170 @@ $$ \det\left(\begin{bmatrix}1 & 0 \\ 0 & 0\end{bmatrix}\right) = (1 \cdot 0) - (
 
 ## Existence and Uniqueness
 
+Notice that some of these transformations map multiple inputs to the same output, and some are incapable of generating certain outputs.
+
+For example, the __projections__ above can send multiple different points to the same point.
+
+We need some terminology to understand these properties of linear transformations.
+
 ::: {.fragment}
-NOT DONE YET
+__Definition.__ A mapping $T: \mathbb{R}^n \rightarrow \mathbb{R}^m$ is said to be __onto__ $\mathbb{R}^m$ if each $\mathbf{b}$ in $\mathbb{R}^m$ is the image of _at least one_ $\mathbf{x}$ in $\mathbb{R}^n$.
+
+In other words, $T$ is __onto__ if every element of its codomain is in its range.
 :::
 
 ::: {.fragment}
+Another (important) way of thinking about this is that $T$ is __onto__ if there is a solution $\mathbf{x}$ of
 
+$$T(\mathbf{x}) = \mathbf{b}$$
+
+for all possible $\mathbf{b}.$
+
+This is asking an __existence__ question about a solution of the equation $T(\mathbf{x}) = \mathbf{b}$ for all $\mathbf{b}.$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+![](images/L7 F4.jpg){width=650}
+
+Here, we see that $T$ maps points in $\mathbb{R}^2$ to a plane lying __within__ $\mathbb{R}^3$.  
+
+That is, the range of $T$ is a strict subset of the codomain of $T$.
+
+So $T$ is __not onto__ $\mathbb{R}^3$.
+
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+![](images/L7 F3.jpg){width=650}
+
+In this case, for every point in $\mathbb{R}^2$, there is an $\mathbf{x}$ that maps to that point.
+
+So, the range of $T$ is equal to the codomain of $T$.
+
+So $T$ is __onto__ $\mathbb{R}^2$.
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Here is an example of the reflection transformation.  The red points are the images of the blue points.
+
+What about this transformation?   Is it onto $\mathbb{R}^2$?
+
+```{python}
+#| echo: false
+A = np.array(
+    [[ 0,-1],
+     [-1, 0]])
+dm.plotSetup()
+dm.plotShape(note)
+dm.plotShape(A @ note,'r')
+```
+
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Here is an example of the projection transformation.  The red points (which all lie on the $x$-axis) are the images of the blue points.
+
+What about this transformation?  Is it onto $\mathbb{R}^2$?
+
+```{python}
+#| echo: false
+A = np.array(
+    [[1,0],
+     [0,0]])
+dm.plotSetup()
+dm.plotShape(note)
+dm.plotShape(A @ note,'r')
+```
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q8.3
+:::::
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Definition.__  A mapping $T: \mathbb{R}^n \rightarrow \mathbb{R}^m$ is said to be __one-to-one__ if each 
+$\mathbf{b}$ in $\mathbb{R}^m$ is the image of _at most one_ $\mathbf{x}$ in $\mathbb{R}^n$.
+
+::: {.fragment}
+If $T$ is one-to-one, then for each $\mathbf{b},$ the equation $T(\mathbf{x}) = \mathbf{b}$ has either a unique solution, or none at all.
+
+This is asking a __uniqueness__ question about a solution of the equation $T(\mathbf{x}) = \mathbf{b}$ for all $\mathbf{b}$.
+:::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Image from _Linear Algebra and its
+Applications,_ by David C. Lay
+:::
+::::
+
+::: {.fragment}
+![](images/Lay-fig-1-9-4.jpeg){width=650}
 :::
 
 ::: {.fragment}
+Let's examine the relationship between these ideas and some previous definitions.
 
+If for all $\mathbf{b}$, $A\mathbf{x} = \mathbf{b}$ is consistent, is $T(\mathbf{x}) = A\mathbf{x}$  onto?  one-to-one?
 :::
 
 ::: {.fragment}
-
+* $T(\mathbf{x})$ is onto.   $T(\mathbf{x})$ may or may not be one-to-one.  If the system has multiple solutions for some $\mathbf{b}$, $T(\mathbf{x})$ is not one-to-one.
 :::
 
-::: {.fragment}
+::: {.content-visible when-profile="slides"}
+##
+:::
 
+If for all $\mathbf{b}$, $A\mathbf{x} = \mathbf{b}$ is consistent and has a unique solution, 
+is $T(\mathbf{x}) = A\mathbf{x}$ onto?  one-to-one?
+
+::: {.fragment}
+* Yes to both.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+If it is not the case that for all $\mathbf{b}$, $A\mathbf{x} = \mathbf{b}$ is consistent, is $T(\mathbf{x}) = A\mathbf{x}$  onto?  one-to-one?
+
+::: {.fragment}
+* $T(\mathbf{x})$ is __not__ onto.   $T(\mathbf{x})$ may or may not be one-to-one.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+If $T(\mathbf{x}) = A\mathbf{x}$ is onto, is $A\mathbf{x} = \mathbf{b}$ consistent for all $\mathbf{b}$?  Is the solution unique for all $\mathbf{b}$?
+
+
+::: {.fragment}
+* $A\mathbf{x} = \mathbf{b}$ is consistent for all $\mathbf{b}$.  The solution may not be unique for any  $\mathbf{b}$.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+If $T(\mathbf{x}) = A\mathbf{x}$ is one-to-one, is $A\mathbf{x} = \mathbf{b}$ consistent for all $\mathbf{b}$?   Is the solution unique for all $\mathbf{b}$?
+
+
+::: {.fragment}
+* $A\mathbf{x} = \mathbf{b}$ may or may not be consistent for all $\mathbf{b}$.  For any $\mathbf{b}$, if there is a solution, it is unique.
 :::
