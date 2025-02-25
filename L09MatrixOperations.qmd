@@ -17,14 +17,25 @@ from matplotlib import animation
 from IPython.display import HTML
 from IPython.display import Latex
 
+import array_to_latex as a2l
+
+def ltx_array_fmt(x, fmt):
+    '''converts a numpy array to a latex array'''
+    return a2l.to_ltx(x, frmt = fmt, row = False, print_out = False)
+
+def int_fmt(x):
+    return ltx_array_fmt(x, '{:d}')
+
+def float_fmt(x):
+    return ltx_array_fmt(x, '{:f}')
 ```
 <!--
 This comment somehow suppresses the title page
 -->
-## Matrix Algebra
+## The Matrix of a Linear Transformation
 
 ::: {.content-visible when-profile="slides"}
-![](images/Arthur_Cayley.jpg){width=250}
+![](images/Dos-Equis-Linear-Transform.jpg){width=350}
 :::
 
 :::: {.content-hidden when-profile="slides"}
@@ -38,460 +49,964 @@ Applications,_ by David C. Lay
 ##
 :::
 
-Today we will talk about multiplying matrices:
+In the last lecture we introduced the idea of a __linear transformation__:
 
-* How do you multiply matrices?
-* What does the product of two matrices mean?
-* What algebraic rules apply to matrix multiplication?
-* What is the computational cost of matrix multiplication?
+![](images/L7 F4.jpg){width=650}
+
+::: {.fragment}
+We have seen that every matrix multiplication is a linear transformation from vectors to vectors.
+:::
+
+::: {.fragment}
+But, are there any other possible linear transformations from vectors to vectors?
+:::
+
+::: {.fragment}
+No. 
+
+In other words, the reverse statement is also true:  
+
+> <font color = "blue"> every linear transformation from vectors to vectors is a matrix multiplication. </font>
+:::
 
 ::: {.content-visible when-profile="slides"}
 ##
 :::
 
-<a title="Herbert Beraud (1845–1896) / Public domain" href="https://commons.wikimedia.org/wiki/File:Arthur_Cayley.jpg"><img width="256" alt="Arthur Cayley" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Arthur_Cayley.jpg/256px-Arthur_Cayley.jpg"></a>
+We'll now prove this fact.   
 
-Early in his life, Arthur Cayley practiced law to support his passion for mathematics. During his time as a practicing lawyer, he published over 200 papers on mathematics. Finally at the age of 42 he got a position at Cambridge University and took a big pay cut so he could become a full-time mathematician. He said he never regretted the choice. Cayley often said, “I love my subject.”
-
-In 1855-1857 Cayley formed the theory of matrices, and came up with a way to multiply matrices. As we’ll see, it is not the most obvious thing to do, but it was quickly realized that it was the “right” way. Cayley came about this idea by first thinking about linear transformations, and how to compose linear transformations. So that’s where we’ll start.
-
-## Composing Linear Transformations
-
-Let's start our discussion by recalling the linear transformation we called __reflection through the origin.__
+We'll do it __constructively__, meaning we'll actually show how to find the matrix corresponding to any given linear transformation $T$.
 
 ::: {.fragment}
-Here is a picture of what this transformation does to a shape:
+__Theorem.__  Let $T: \mathbb{R}^n \rightarrow \mathbb{R}^m$ be a linear transformation.   Then there is (always) a unique matrix $A$ such that:
+
+$$ T({\bf x}) = A{\bf x} \;\;\; \text{for all}\; {\bf x} \in \mathbb{R}^n.$$
+:::
+
+::: {.fragment}
+In fact, $A$ is the $m \times n$ matrix whose $j$th column is the vector $T({\bf e_j})$, where ${\bf e_j}$ is the $j$th column of the identity matrix in $\mathbb{R}^n$:
+
+$$A = \left[T({\bf e_1}) \dots T({\bf e_n})\right].$$
+
+$A$ is called the _standard matrix_ of $T$.
+:::
+
+::: {.fragment}
+__Proof.__  Write 
+
+$${\bf x} = I{\bf x} = \left[{\bf e_1} \dots {\bf e_n}\right]\bf x$$
+:::
+
+::: {.fragment}
+$$ = x_1{\bf e_1} + \dots + x_n{\bf e_n}.$$
+:::
+
+::: {.fragment}
+In other words, for any $\mathbf{x}$, we can always expand it as:
+    
+$$ \mathbf{x} 
+\;= \;\;\;\;\;
+\begin{bmatrix}
+1 & 0 & \dots & 0 \\
+0 & 1 & \dots & 0\\
+\vdots & \vdots & \ddots & \vdots\\
+0 & 0 & \dots & 1 
+\end{bmatrix} \; \begin{bmatrix}x_1\\x_2\\ \vdots \\ x_n\end{bmatrix} 
+\;\;\;\;\;= \;\;\;\;\;
+\begin{bmatrix} x_1 \\ 0 \\ \vdots \\ 0 \end{bmatrix} +
+\begin{bmatrix} 0 \\ x_2 \\ \vdots \\ 0 \end{bmatrix} +
+\dots +
+\begin{bmatrix} 0 \\ 0 \\ \vdots \\ x_n \end{bmatrix} $$
+:::
+
+::: {.fragment}
+Because $T$ is linear, we have:
+
+$$ T({\bf x}) = T(x_1{\bf e_1} + \dots + x_n{\bf e_n})$$
+:::
+
+::: {.fragment}
+$$ = x_1T({\bf e_1}) + \dots + x_nT({\bf e_n})$$
+:::
+
+::: {.fragment}
+$$ = \left[T({\bf e_1}) \dots T({\bf e_n})\right] \, \left[\begin{array}{r}x_1\\\vdots\\x_n\end{array}\right] = A{\bf x}.$$
+:::
+
+::: {.fragment}
+So ... we see that the ideas of __matrix multiplication__ and __linear transformation__ are essentially equivalent when applied to vectors.
+
+Every matrix multiplication is a linear transformation, and every linear transformation from vectors to vectors is a matrix multiplication.
+
+__However__, term _linear transformation_ focuses on a __property__ of the mapping, while the term _matrix multiplication_ focuses on how such a mapping is __implemented.__
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+This proof shows us an important idea:
+
+<font color='blue'> To find the standard matrix of a linear transformation, ask what the transformation does to the columns of $I$.</font>
+
+In other words, if $T(\mathbf{x}) = A\mathbf{x}$, then:
+
+$$A = \left[T({\bf e_1}) \dots T({\bf e_n})\right].$$
+
+This gives us a way to compute the standard matrix of a transformation.
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Now, in $\mathbb{R}^2$, $I = \left[\begin{array}{cc}1&0\\0&1\end{array}\right]$.   So:
+
+$$\mathbf{e_1} = \left[\begin{array}{c}1\\0\end{array}\right]\;\;\text{and}\;\;\mathbf{e_2} = \left[\begin{array}{c}0\\1\end{array}\right].$$
+
+So to find the matrix of any given linear transformation of vectors in $\mathbb{R}^2$, we only have to know what that transformation does to these two points:
 
 ```{python}
 #| echo: false
+ax = dm.plotSetup(-3,3,-3,3,size=(6,6))
+ax.plot([0],[1],'ro',markersize=8)
+ax.text(0.25,1,'(0,1)',size=20)
+ax.plot([1],[0],'ro',markersize=8)
+ax.text(1.25,0.25,'(1,0)',size=20);
+```
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+This is a __hugely__ powerful tool.  
+
+Let's say we start from some given linear transformation; we can use this idea to find the matrix that implements that linear transformation.  
+
+::: {.fragment}
+For example, let's consider rotation about the origin as a kind of transformation.
+
+```{python}
+#| echo: false
+u = np.array([1.5, 0.75])
+v = np.array([0.25, 1])
+diamond = np.array([[0,0], u,  u+v, v]).T
+ax = dm.plotSetup()
+plt.plot(u[0], u[1], 'go')
+plt.plot(v[0], v[1], 'yo')
+ax.text(u[0]+.25,u[1],r'$\bf{u}$',size=20)
+ax.text(v[0],v[1]-.35,r'$\bf{v}$',size=20)
+rotation = np.array([[0, -1],[1, 0]])
+up = rotation @ u
+vp = rotation @ v
+plt.plot(up[0], up[1], 'go')
+plt.plot(vp[0], vp[1], 'yo')
+ax.text(up[0]-1,up[1],r'$T(\mathbf{u})$',size=20)
+ax.text(vp[0]-.9,vp[1]+.15,r'$T(\mathbf{v})$',size=20)
+ax.text(0.75, 1.75, r'$\theta$', size = 20)
+ax.text(-.5, 0.25, r'$\theta$', size = 20)
+ax.annotate("",
+            xy=((up)[0]+.1, (up)[1]+.1), xycoords='data',
+            xytext=((u)[0]-.1, (u)[1]+.1), textcoords='data',
+            size=20, va="center", ha="center",
+            arrowprops=dict(arrowstyle="simple",
+                            connectionstyle="arc3,rad=0.3"),
+            )
+ax.annotate("",
+            xy=((vp)[0]+.1, (vp)[1]+.1), xycoords='data',
+            xytext=((v)[0]-.1, (v)[1]), textcoords='data',
+            size=20, va="center", ha="center",
+            arrowprops=dict(arrowstyle="simple",
+                            connectionstyle="arc3,rad=0.3"),
+            );
+```
+:::
+
+::: {.fragment}
+First things first: Is rotation a __linear__ transformation?
+:::
+
+::: {.fragment}
+Recall that a for a transformation to be linear, it must be true that $T(\mathbf{u} + \mathbf{v}) = T(\mathbf{u}) + T(\mathbf{v}).$
+:::
+
+::: {.fragment}
+I'm going to show you a "geometric proof."
+
+This figure shows that "the rotation of $\mathbf{u+v}$ is the sum of the rotation of $\mathbf{u}$ and the rotation of $\mathbf{v}$".
+
+```{python}
+#| echo: false
+u = np.array([1.5, 0.75])
+v = np.array([0.25, 1])
+diamond = np.array([[0,0], u,  u+v, v]).T
+ax = dm.plotSetup()
+dm.plotSquare(diamond)
+ax.text(u[0]+.25,u[1],r'$\bf{u}$',size=20)
+ax.text(v[0],v[1]+.25,r'$\bf{v}$',size=20)
+ax.text(u[0]+v[0]+.25,u[1]+v[1],r'$\bf{u + v}$',size=20)
+rotation = np.array([[0, -1],[1, 0]])
+up = rotation @ u
+vp = rotation @ v
+diamond = np.array([[0,0], up,  up+vp, vp]).T
+dm.plotSquare(diamond)
+ax.text(0.75, 2.4, r'$\theta$', size = 20)
+ax.annotate("",
+            xy=((up+vp)[0]+.1, (up+vp)[1]+.1), xycoords='data',
+            xytext=((u+v)[0]-.1, (u+v)[1]+.1), textcoords='data',
+            size=20, va="center", ha="center",
+            arrowprops=dict(arrowstyle="simple",
+                            connectionstyle="arc3,rad=0.3"),
+            );
+```
+:::
+
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+OK, so rotation is a linear transformation.  
+
+Let's see how to __compute__ the linear transformation that is a rotation.
+
+::: {.fragment}
+__Specifically:__  Let $T: \mathbb{R}^2 \rightarrow \mathbb{R}^2$ be the transformation that rotates each point in $\mathbb{R}^2$ about the origin through an angle $\theta$, with counterclockwise rotation for a positive angle.  
+
+Let's find the standard matrix $A$ of this transformation.
+:::
+
+::: {.fragment}
+__Solution.__  The columns of $I$ are ${\bf e_1} = \left[\begin{array}{r}1\\0\end{array}\right]$ and ${\bf e_2} = \left[\begin{array}{r}0\\1\end{array}\right].$
+:::
+
+::: {.fragment}
+Referring to the diagram below, we can see that $\left[\begin{array}{r}1\\0\end{array}\right]$ rotates into $\left[\begin{array}{r}\cos\theta\\\sin\theta\end{array}\right],$ and $\left[\begin{array}{r}0\\1\end{array}\right]$ rotates into $\left[\begin{array}{r}-\sin\theta\\\cos\theta\end{array}\right].$
+
+```{python}
+#| echo: false
+import matplotlib.patches as patches
+ax = dm.plotSetup(-1.2, 1.2, -0.5, 1.2)
+# red circle portion
+arc = patches.Arc([0., 0.], 2., 2., angle = 0., theta1 = 340., 
+                 theta2 = 200.,
+                 linewidth = 2, color = 'r',
+                 linestyle = '-.')
+ax.add_patch(arc)
+#
+# labels
+ax.text(1.1, 0.1, r'$\mathbf{e}_1 = (1, 0)$', size = 20)
+ax.text(0.1, 1.1, r'$\mathbf{e}_2 = (0, 1)$', size = 20)
+#
+# angle of rotation and rotated points
+theta = np.pi / 6
+e1t = [np.cos(theta), np.sin(theta)]
+e2t = [-np.sin(theta), np.cos(theta)]
+#
+# theta labels
+ax.text(0.5, 0.08, r'$\theta$', size = 20)
+ax.text(-0.25, 0.5, r'$\theta$', size = 20)
+#
+# arrows from origin
+ax.arrow(0, 0, e1t[0], e1t[1],
+        length_includes_head = True,
+        width = .02)
+ax.arrow(0, 0, e2t[0], e2t[1],
+        length_includes_head = True,
+        width = .02)
+#
+# new point labels
+ax.text(e1t[0]+.05, e1t[1]+.05, r'$[\cos\; \theta, \sin \;\theta]$', size = 20)
+ax.text(e2t[0]-1.1, e2t[1]+.05, r'$[-\sin\; \theta, \cos \;\theta]$', size = 20)
+#
+# curved arrows showing rotation
+ax.annotate("",
+            xytext=(0.7, 0), xycoords='data',
+            xy=(0.7*e1t[0], 0.7*e1t[1]), textcoords='data',
+            size=10, va="center", ha="center",
+            arrowprops=dict(arrowstyle="simple",
+                            connectionstyle="arc3,rad=0.3"),
+            )
+ax.annotate("",
+            xytext=(0, 0.7), xycoords='data',
+            xy=(0.7*e2t[0], 0.7*e2t[1]), textcoords='data',
+            size=10, va="center", ha="center",
+            arrowprops=dict(arrowstyle="simple",
+                            connectionstyle="arc3,rad=0.3"),
+            )
+#
+# new points
+plt.plot([e1t[0], e2t[0]], [e1t[1], e2t[1]], 'bo', markersize = 10)
+plt.plot([0, 1], [1, 0], 'go', markersize = 10);
+```
+:::
+
+::: {.fragment}
+So by the Theorem above, 
+
+$$ A = \left[\begin{array}{rr}\cos\theta&-\sin\theta\\\sin\theta&\cos\theta\end{array}\right].$$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+To demonstrate the use of a rotation matrix, let's rotate the following shape:
+
+```{python}
+#| echo: true
+dm.plotSetup()
 note = dm.mnote()
+dm.plotShape(note)
+```
+::: {.fragment}
+The variable `note` is a array of 26 vectors in $\mathbb{R}^2$ that define its shape.   
+
+In other words, it is a 2 $\times$ 26 matrix.
+:::
+
+::: {.fragment}
+To rotate `note` we need to multiply each column of `note` by the rotation matrix $A$.
+
+In Python this can be performed using the `@` operator.  
+
+That is, if `A` and `B` are matrices,
+
+`A @ B`
+
+will multiply `A` by every column of `B,` and the resulting vectors will be formed
+into a matrix.
+
+```{python}
+#| echo: true
+dm.plotSetup()
+angle = 90
+theta = (angle/180) * np.pi
 A = np.array(
-    [[-1, 0],
-     [ 0,-1]])
+    [[np.cos(theta), -np.sin(theta)],
+     [np.sin(theta), np.cos(theta)]])
+rnote = A @ note
+dm.plotShape(rnote)
+```
+:::
+
+## Geometric Linear Transformations of $\mathbb{R}^2$
+
+Let's use our understanding of how to construct linear transformations to look at some specific linear transformations of $\mathbb{R}^2$ to $\mathbb{R}^2$.
+
+::: {.fragment}
+First, let's recall the linear transformation 
+
+$$T(\mathbf{x}) = r\mathbf{x}.$$
+
+With $r > 1$, this is a dilation.  It moves every vector further from the origin.  
+:::
+
+::: {.fragment}
+Let's say the dilation is by a factor of 2.5.
+
+To construct the matrix $A$ that implements this transformation, we ask: where do ${\bf e_1}$ and ${\bf e_2}$ go?
+:::
+
+::: {.fragment}
+```{python}
+#| echo: false
+ax = dm.plotSetup()
+ax.plot([0],[1],'ro',markersize=8)
+ax.text(0.25,1,'(0,1)',size=20)
+ax.plot([1],[0],'ro',markersize=8)
+ax.text(1.25,0.25,'(1,0)',size=20);
+```
+:::
+
+::: {.fragment}
+Under the action of $A$, $\mathbf{e_1}$ goes to $\left[\begin{array}{c}2.5\\0\end{array}\right]$ and $\mathbf{e_2}$ goes to $\left[\begin{array}{c}0\\2.5\end{array}\right]$.
+:::
+
+::: {.fragment}
+So the matrix $A$ must be $\left[\begin{array}{cc}2.5&0\\0&2.5\end{array}\right]$.
+:::
+
+::: {.fragment}
+Let's test this out:
+```{python}
+#| echo: true
+square = np.array(
+    [[0,1,1,0],
+     [1,1,0,0]])
+A = np.array(
+    [[2.5, 0],
+     [0, 2.5]])
+display(Latex(rf"$A = {ltx_array_fmt(A, '{:1.1f}')}$"))
+dm.plotSetup()
+dm.plotSquare(square)
+dm.plotSquare(A @ square,'r')
+```
+:::
+
+::: {.fragment}
+```{python}
+#| echo: true
+dm.plotSetup(-7,7,-7, 7)
+dm.plotShape(note)
+dm.plotShape(A @ note,'r')
+```
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q8.1
+:::::
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+::: {.fragment}
+OK, now let's reflect through the $x_1$ axis.   Where do ${\bf e_1}$ and ${\bf e_2}$ go?
+:::
+
+::: {.fragment}
+```{python}
+#| echo: false
+ax = dm.plotSetup()
+ax.plot([0],[1],'ro',markersize=8)
+ax.text(0.25,1,'(0,1)',size=20)
+ax.plot([1],[0],'ro',markersize=8)
+ax.text(1.25,0.25,'(1,0)',size=20);
+```
+:::
+
+::: {.fragment}
+```{python}
+#| echo: true
+A = np.array(
+    [[1,  0],
+     [0, -1]])
+display(Latex(rf"$A = {ltx_array_fmt(A, '{:d}')}$"))
+dm.plotSetup()
+dm.plotSquare(square)
+dm.plotSquare(A @ square,'r')
+plt.title(r'Reflection through the $x_1$ axis', size = 20);
+```
+:::
+
+::: {.fragment}
+```{python}
+#| echo: true
 dm.plotSetup()
 dm.plotShape(note)
 dm.plotShape(A @ note,'r')
-plt.annotate("",
-            xy=(-0.75, -0.75), xycoords='data',
-            xytext=(0.75, 0.75), textcoords='data',
-            size=20, va="center", ha="center",
-            arrowprops=dict(arrowstyle="simple",
-                            connectionstyle="arc3,rad=0.3"),
-            );
 ```
 :::
 
 ::: {.fragment}
-We determined that the matrix $C = \left[\begin{array}{rr}-1&0\\0&-1\end{array}\right]$ implements this linear transformation.  
-:::
-
-::: {.fragment}
-But notice that we could have accomplished this another way:
-
-* First reflect through the $x_1$ axis 
-* Then reflect through the $x_2$ axis
+What about reflection through the $x_2$ axis?
 :::
 
 ::: {.fragment}
 ```{python}
 #| echo: false
 A = np.array(
-    [[ 1, 0],
-     [ 0,-1]])
-B = np.array(
-    [[-1, 0],
-     [ 0, 1]])
+    [[-1,0],
+     [0, 1]])
+display(Latex(rf"$A = {ltx_array_fmt(A, '{:2d}')}$"))
 dm.plotSetup()
-dm.plotShape(note)
-dm.plotShape(A @ note,'g')
-dm.plotShape(B @ (A @ note),'r')
-plt.annotate("",
-            xy=(0.75, -0.65), xycoords='data',
-            xytext=(0.75, 0.75), textcoords='data',
-            size=20, va="center", ha="center",
-            arrowprops=dict(arrowstyle="simple",
-                            connectionstyle="arc3,rad=0.3"),
-            );
-plt.annotate("",
-            xy=(-0.75, -0.75), xycoords='data',
-            xytext=(0.75, -0.85), textcoords='data',
-            size=20, va="center", ha="center",
-            arrowprops=dict(arrowstyle="simple",
-                            connectionstyle="arc3,rad=0.3"),
-            );
+dm.plotSquare(square)
+dm.plotSquare(A @ square,'r')
+plt.title(r'Reflection through the $x_2$ axis', size = 20);
 ```
 :::
 
 ::: {.fragment}
-As we saw, to reflect a point through the $x_1$ axis, we multiply it by matrix $A = \left[\begin{array}{rr}1&0\\0&-1\end{array}\right]$.
-
-Likewise, to reflect a point through the $x_2$ axis, we multiply it by matrix $B = \left[\begin{array}{rr}-1&0\\0&1\end{array}\right]$.
+```{python}
+#| echo: false
+dm.plotSetup()
+dm.plotShape(note)
+dm.plotShape(A @ note,'r')
+```
 :::
 
 ::: {.fragment}
-So, another way to reflect point ${\bf u}$ through the origin would be:
-
-* ${\bf v} = A{\bf u}$
-* Followed by ${\bf w} = B{\bf v}.$
+What about reflection through the line $x_1 = x_2$?
 :::
 
 ::: {.fragment}
-In other words, ${\bf w} = B(A{\bf u}).$
+```{python}
+#| echo: false
+A = np.array(
+    [[0,1],
+     [1,0]])
+display(Latex(rf"$A = {ltx_array_fmt(A, '{:d}')}$"))
+dm.plotSetup()
+dm.plotSquare(square)
+dm.plotSquare(A @ square,'r')
+plt.plot([-2,2],[-2,2],'b--')
+plt.title(r'Reflection through the line $x_1 = x_2$', size = 20);
+```
 :::
 
 ::: {.fragment}
-What we are doing here is called __composing__ transformations.
+```{python}
+#| echo: false
+dm.plotSetup()
+dm.plotShape(note)
+dm.plotShape(A @ note,'r')
+```
 
-In a composition of transformations, we take the output of one transformation as input for another transformation.
+What about reflection through the line $x_1 = -x_2$?
 :::
 
 ::: {.fragment}
-Now, here is the key point:
+```{python}
+#| echo: false
+A = np.array(
+    [[ 0,-1],
+     [-1, 0]])
+display(Latex(rf"$A = {ltx_array_fmt(A, '{:d}')}$"))
+dm.plotSetup()
+dm.plotSquare(square)
+dm.plotSquare(A @ square,'r')
+plt.plot([-2,2],[2,-2],'b--')
+plt.title(r'Reflection through the line $x_1 = -x_2$', size = 20);
+```
 
-<font color=blue>It is clear that $B(A{\bf x})$ and $C{\bf x}$ are the __same__ linear transformation.</font>  
-
-So, using $C$ we can go directly to the solution using one multiplication, rather than having to multiply twice (once for $A$ and once for $B$).
-:::
-
-::: {.content-visible when-profile="slides"}
-##
-:::
-
-So a natural question is: given $A$ and $B$, could we find $C$ directly?
-
-In other words, for any $A$ and $B$, could we find $C$ such that:
-
-$$ A(B{\bf x}) = C{\bf x}? $$
-
-::: {.fragment}
-Let's determine how to find $C$ given $A$ and $B.$
-:::
-
-::: {.fragment}
-If $A$ is $m \times n$, $B$ is $n \times p$, and ${\bf x} \in \mathbb{R}^p,$ denote the columns of $B$ by ${\bf b_1},\dots,{\bf b_p},$ and the entries in ${\bf x}$ by $x_1, \dots, x_p.$
+```{python}
+#| echo: false
+dm.plotSetup()
+dm.plotShape(note)
+dm.plotShape(A @ note,'r')
+```
 :::
 
 ::: {.fragment}
-Then:
-
-$$ B{\bf x} = x_1{\bf b_1} + \dots + x_p {\bf b_p}. $$
+What about reflection through the origin?
 :::
 
 ::: {.fragment}
-and:
+```{python}
+#| echo: false
+A = np.array(
+    [[-1, 0],
+     [ 0,-1]])
+display(Latex(rf"$A = {ltx_array_fmt(A, '{:d}')}$"))
+ax = dm.plotSetup()
+dm.plotSquare(square)
+dm.plotSquare(A @ square,'r')
+plt.title(r'Reflection through the origin', size = 20);
+```
 
-$$A(B{\bf x}) = A(x_1{\bf b_1} + \dots + x_p {\bf b_p})$$
+```{python}
+#| echo: false
+dm.plotSetup()
+dm.plotShape(note)
+dm.plotShape(A @ note,'r')
+```
 :::
 
 ::: {.fragment}
-Since matrix-vector multiplication is a linear transformation:
+```{python}
+#| echo: false
+A = np.array(
+    [[0.45, 0],
+     [0,    1]])
+display(Latex(rf"$A = {ltx_array_fmt(A, '{:0.2f}')}$"))
+ax = dm.plotSetup()
+dm.plotSquare(square)
+dm.plotSquare(A @ square,'r')
+ax.arrow(1.0,1.5,-1.0,0,head_width=0.15, head_length=0.1, length_includes_head=True)
+plt.title(r'Horizontal Contraction', size = 20);
+```
 
-$$ = x_1A{\bf b_1} + \dots + x_pA{\bf b_p}. $$
+```{python}
+#| echo: false
+dm.plotSetup()
+dm.plotShape(note)
+dm.plotShape(A @ note,'r')
+```
 :::
 
 ::: {.fragment}
-So the vector $A(B{\bf x})$ is a linear combination of the vectors $A{\bf b_1}, \dots, A{\bf b_p},$ using the entries in ${\bf x}$ as weights.
-:::
+```{python}
+#| echo: false
+A = np.array(
+    [[   1, 0],
+     [-1.5, 1]])
+display(Latex(rf"$A = {ltx_array_fmt(A, '{:0.1f}')}$"))
+dm.plotSetup()
+dm.plotSquare(square)
+dm.plotSquare(A @ square,'r')
+plt.title(r'Vertical Shear', size = 20);
+```
 
-::: {.fragment}
-A linear combination of vectors is the same as a matrix-vector multiplication.   In matrix terms, this linear combination is written:
-
-$$ A(B{\bf x}) = [A{\bf b_1} \; \dots \; A{\bf b_p}] {\bf x}.$$
-:::
-
-::: {.fragment}
-So this matrix <font color=blue>$[A{\bf b_1} \; \dots \; A{\bf b_p}]$</font> is what we are looking for!
-:::
-
-## Matrix Multiplication
-
-::: {.fragment}
-__Definition.__  If $A$ is an $m \times n$ matrix and $B$ is $n \times p$ matrix with columns ${\bf b_1},\dots,{\bf b_p},$ then the product $AB$ is defined as the $m \times p$ matrix whose columns are $A{\bf b_1}, \dots, A{\bf b_p}.$  That is,
-
-$$ AB = A[{\bf b_1} \; \dots \; {\bf b_p}] = [A{\bf b_1} \; \dots \; A{\bf b_p}]. $$
-:::
-
-::: {.fragment}
-This definition means that for any $A$ and $B$ for which $AB$ is defined, then if $C$ = $AB$,
-
-$$ C{\bf x} = A(B{\bf x}). $$
-:::
-
-::: {.fragment}
-That is: <font color=blue>_multiplication of matrices_ </font> corresponds to <font color=blue>_composition of linear transformations._ </font>
-:::
-
-::: {.fragment}
-Note that when $C = AB$, $C{\bf x}$ is a vector _in the span of the columns of_ $A.$
-:::
-
-::: {.content-visible when-profile="slides"}
-##
-:::
-
-__Example.__  Compute $AB$ where $A = \left[\begin{array}{rr}2&3\\1&-5\end{array}\right]$ and $B = \left[\begin{array}{rrr}4&3&6\\1&-2&3\end{array}\right].$
-
-
-::: {.fragment}
-__Solution.__ Write $B = \left[{\bf b_1}\;{\bf b_2}\;{\bf b_3}\right],$ and compute:
-
-$$ A{\bf b_1} = \left[\begin{array}{rr}2&3\\1&-5\end{array}\right]\left[\begin{array}{r}4\\1\end{array}\right],\;\;\;
-A{\bf b_2} = \left[\begin{array}{rr}2&3\\1&-5\end{array}\right]\left[\begin{array}{r}3\\-2\end{array}\right],\;\;\;
-A{\bf b_3} = \left[\begin{array}{rr}2&3\\1&-5\end{array}\right]\left[\begin{array}{r}6\\3\end{array}\right],$$
-:::
-
-::: {.fragment}
-$$ = \left[\begin{array}{r}11\\-1\end{array}\right]\;\;\;\left[\begin{array}{r}0\\13\end{array}\right]\;\;\;\left[\begin{array}{r}21\\-9\end{array}\right].$$
-:::
-
-::: {.fragment}
-So:
-
-$$ AB = \left[A{\bf b_1}\;A{\bf b_2}\;A{\bf b_3}\right] = \left[\begin{array}{rrr}11&0&21\\-1&13&-9\end{array}\right].$$
-:::
-
-::: {.content-visible when-profile="slides"}
-##
-:::
-
-__Example.__ Verify that reflection through the $x_1$ axis followed by reflection through the $x_2$ axis is the same as reflection through the origin.
-
-::: {.fragment}
-$$\left[\begin{array}{rr}-1&0\\0&1\end{array}\right]\left[\begin{array}{rr}1&0\\0&-1\end{array}\right] = \left[\begin{array}{rr}~&~\\~&~\end{array}\right].$$
-:::
-
-::: {.fragment}
-$$\left[\begin{array}{rr}-1&0\\0&1\end{array}\right]\left[\begin{array}{rr}1&0\\0&-1\end{array}\right] = \left[\begin{array}{rr}-1&0\\0&-1\end{array}\right].$$
-:::
-
-::: {.fragment}
-Note that this is a valid proof because __every linear transformation of vectors is defined by its standard matrix.__
-:::
-
-::: {.content-visible when-profile="slides"}
-##
-:::
-
-__Example.__  If $A$ is a $3 \times 5$ matrix, and $B$ is a $5 \times 2$ matrix, what are the sizes of $AB$ and $BA$, if they are defined?
-
-::: {.fragment}
-$$\begin{array}{cccc}A&B&=&AB\\
-3\times 5&5 \times 2&& 3 \times 2\\
-\left[\begin{array}{rrrrr}*&*&*&*&*\\ *&*&*&*&*\\ *&*&*&*&*\end{array}\right] & 
-\left[\begin{array}{rr}*&*\\ *&*\\ *&*\\ *&*\\ *&*\end{array}\right] & 
-= &
-\left[\begin{array}{rr}*&*\\ *&*\\ *&*\end{array}\right]
-\end{array}$$
-:::
-
-::: {.fragment}
-What about $BA$?
-:::
-
-::: {.fragment}
-It is <font color=blue>not defined, </font> because the number of columns of $B$ does not match the number of rows of $A$.
-:::
-
-::: {.fragment}
-__Facts.__
-
-If $A$ is $m\times n$, and $B$ is $p \times q$, then $AB$ is defined if and only if $n = p$.   If $AB$ is defined, then it is $m \times q$.
-
-$$\begin{array}{cccc}A&B&=&AB\\
-3\times \fbox{5}&\fbox{5} \times 2&& 3 \times 2\\
-\end{array}$$
-:::
-
-## The Inner Product View of Matrix Multiplication
-
-Recall that the inner product of two vectors ${\bf u}$ and ${\bf v}$ is $\sum_k u_k v_k.$   
-
-Also recall that one way to define the matrix vector product is $(A{\bf x})_i =$ inner product of ${\bf x}$ and row $i$ of $A$.
-
-::: {.fragment}
-This immediately shows another way to think of matrix multiplication:
-
-$(AB)_{ij} =$ inner product of row $i$ of $A$ and column $j$ of $B$
-
-$(AB)_{ij} = \sum_k A_{ik}B_{kj}.$
-:::
-
-::: {.fragment}
-__Example.__ Start with the same matrices as the last example, $A = \left[\begin{array}{rr}2&3\\1&-5\end{array}\right]$ and $B = \left[\begin{array}{rrr}4&3&6\\1&-2&3\end{array}\right].$  Compute the entry in row 1 and column 3 of $C$.
-:::
-
-::: {.fragment}
-$$AB = \left[\begin{array}{rr}\fbox{2} & \fbox{3}\\1&-5\end{array}\right]
-\left[\begin{array}{rrr}4&3&\fbox{6}\\1&-2&\fbox{3}\end{array}\right] = 
-\left[\begin{array}{rrc}*&*&2(6)+3(3)\\ *&*&*\end{array}\right] = 
-\left[\begin{array}{rrr}*&*&21\\ *&*&*\end{array}\right].$$
-
-This agrees with the result of the last example, and we could reproduce the whole solution by repeating this for each element of the result matrix.
+```{python}
+#| echo: false
+dm.plotSetup()
+dm.plotShape(note)
+dm.plotShape(A @ note,'r')
+```
 :::
 
 ::: {.content-visible when-profile="slides"}
 ##
 ::::: {.fragment .fade-down .r-fit-text}
-Question Time!   Q9.1
+Question Time!   Q8.2
 :::::
-:::
-
-## Matrix Algebra
-
-We've defined multiplication of two matrices.   What about addition of two matrices?
-
-::: {.fragment}
-This is straightfoward: if $A$ and $B$ are the same shape, we get $A + B$ by adding the corresponding elements.  (Just like adding vectors.)
-
-That is, 
-
-$$(A + B)_{ij} = A_{ij} + B_{ij}.$$
-
-If $A$ and $B$ are not the same shape, $A + B$ is undefined.
-:::
-
-::: {.fragment}
-Furthermore, we define scalar-matrix multiplication just as for vectors:
-
-$$ (rA)_{ij} = r(A_{ij}).$$
-:::
-
-::: {.fragment}
-So, just as we did for vectors, we can show that the standard properties of addition apply, and that scalar multiplication distributes over addition:
-
-1. $A +  B = B + A$
-2. $(A + B) + C = A + (B + C)$
-3. $A + 0 = A$
-4. $r(A + B) = rA + rB$
-5. $(r + s)A = rA + sA$
-6. $r(sA) = (rs)A$
-:::
-
-::: {.fragment}
-Furthermore, we find that <font color=blue>__some__ </font> (but not all!) of the familiar properties of multiplication apply to matrix multiplication (assume that all sums and products are defined):
-
-1. $A(BC) = (AB)C$  
-    * multiplication of matrices is associative
-2. $A(B+C) = AB + AC$ 
-    * multiplication on the left distributes over addition
-3. $(B+C)A = BA + CA$ 
-    * multiplication on the right distributes over addition
-4. $r(AB) = (rA)B = A(rB)$ 
-    * for any scalar $r$
-5. $I A = A = AI$ 
-:::
-
-::: {.fragment}
-Note that property 1 means that we can write $ABC$ without bothering about parentheses. 
 :::
 
 ::: {.content-visible when-profile="slides"}
 ##
 :::
 
-__Now, here is where things get different!__
+Now let's look at a particular kind of transformation called a __projection__.
+
+Imagine we took any given point and 'dropped' it onto the $x_1$-axis.
 
 ::: {.fragment}
-* In general, $AB$ is __not__ equal to $BA$.  Multiplication is <font color="blue"><B>not commutative!</B></font>
+```{python}
+#| echo: false
+A = np.array(
+    [[1,0],
+     [0,0]])
+display(Latex(rf"$A = {ltx_array_fmt(A, '{:d}')}$"))
+ax = dm.plotSetup()
+# dm.plotSquare(square)
+dm.plotSquare(A @ square,'r')
+ax.arrow(1.0,1.0,0,-0.9,head_width=0.15, head_length=0.1, length_includes_head=True)
+ax.arrow(0.0,1.0,0,-0.9,head_width=0.15, head_length=0.1, length_includes_head=True)
+plt.title(r'Projection onto the $x_1$ axis', size  = 20);
+```
+::: 
 
-    * Consider $A = \left[\begin{array}{rr}1 & 1\\1&1\end{array}\right]$ and $B = \left[\begin{array}{rr}1 & 1\\1&2\end{array}\right].$
+::: {.fragment}
+What happens to the __shape__ of the point set?
 :::
 
 ::: {.fragment}
-* In fact, even if $AB$ is defined, $BA$ may not be defined.  
+```{python}
+#| echo: false
+dm.plotSetup()
+dm.plotShape(note)
+dm.plotShape(A @ note,'r')
+```
 :::
 
 ::: {.fragment}
-* On the other hand, sometimes $A$ and $B$ __do__ commute.
-    * Consider $A$ and $B$ as the reflections through the $x_1$ and $x_2$ axis. Then $AB$ and $BA$ both implement reflection through the origin (i.e., the same transformation.) So in this case $AB = BA$.
+```{python}
+#| echo: false
+A = np.array(
+    [[0,0],
+     [0,1]])
+display(Latex(rf"$A = {ltx_array_fmt(A, '{:d}')}$"))
+ax = dm.plotSetup()
+# dm.plotSquare(square)
+dm.plotSquare(A @ square)
+ax.arrow(1.0,1.0,-0.9,0,head_width=0.15, head_length=0.1, length_includes_head=True)
+ax.arrow(1.0,0.0,-0.9,0,head_width=0.15, head_length=0.1, length_includes_head=True)
+plt.title(r'Projection onto the $x_2$ axis', size = 20);
+```
+::: 
+
+::: {.fragment}
+```{python}
+#| echo: false
+dm.plotSetup()
+dm.plotShape(note)
+dm.plotShape(A @ note,'r')
+```
+:::
+
+## Area is Scaled by the Determinant
+
+::: {.fragment}
+Notice that in some of the transformations above, the "size" of a shape grows or shrinks.
+
+Let's look at how area (or volume) of a shape is affected by a linear transformation.
+
+```{python}
+#| echo: false
+A = np.array(
+    [[0,0],
+     [0,1]])
+display(Latex(rf"$A = {ltx_array_fmt(A, '{:d}')}$"))
+ax = dm.plotSetup()
+# dm.plotSquare(square)
+dm.plotSquare(A @ square)
+ax.arrow(1.0,1.0,-0.9,0,head_width=0.15, head_length=0.1, length_includes_head=True)
+ax.arrow(1.0,0.0,-0.9,0,head_width=0.15, head_length=0.1, length_includes_head=True)
+plt.title(r'Projection onto the $x_2$ axis', size = 20);
+```
 :::
 
 ::: {.fragment}
-* You cannot, in general, cancel out matrices in a multiplication.   That is, <font color=blue>if $AC = AB$, it does not follow that $C = B$.  </font>
-    * Consider the case where $A$ is the projection onto one of the axes.
+In this transformation, each unit of area in the blue shape is transformed to a smaller region in the red shape.
+
+So to understand how area changes, it suffices to ask what happens to the unit square (or hypercube):
 :::
 
 ::: {.fragment}
-* If $AB$ is the zero matrix, you cannot in general conclude that either $A$ or $B$ must be a zero matrix.
-    * Consider $A = \left[\begin{array}{rr}1 & 0\\0&0\end{array}\right]$ and $B = \left[\begin{array}{rr}0 & 0\\0&1\end{array}\right].$
+```{python}
+#| echo: false
+A = np.array([[2, 1],[0.75, 1.5]])
+ax = dm.plotSetup(-1, 4, -1, 4)
+dm.plotSquare(square, 'r')
+dm.plotSquare(A @ square);
+```
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Let's denote the matrix of our linear transformation as:
+
+$$ A = \begin{bmatrix} a & b \\ c & d \end{bmatrix} $$
+
+::: {.fragment}
+Then, here is what happens to the unit square:
+
+```{python}
+#| echo: false
+v1 = np.array([2, 0.75])
+v2 = np.array([1, 1.5])
+A = np.column_stack([v1, v2])
+ax = dm.plotSetup(-1, 4, -1, 4)
+dm.plotSquare(square, 'r')
+dm.plotSquare(A @ square)
+plt.text(1.1, 0.1, '(1, 0)', size = 12)
+plt.text(1.05, 1.05, '(1, 1)', size = 12)
+plt.text(-0.6, 1.2, '(0, 1)', size = 12)
+plt.text(v1[0]+0.2, v1[1]+0.1, '(a, c)', size = 12)
+plt.text((v1+v2)[0]+0.1, (v1+v2)[1]+0.1, '(a+b, c+d)', size = 12)
+plt.text(v2[0]-0.5, v2[1]+0.1, '(b, d)', size = 12);
+```
 :::
 
 ::: {.fragment}
-__Study and remember these rules.  You will use them!__
+Now, let's determine the area of the blue diamond in terms of $a, b, c$, and $d$.
 :::
-
-## Powers of a Matrix
-
-Equipped now with matrix-matrix multiplication, we can define the powers of a matrix in a straightforward way.  For an integer $k > 0$:
-
-$$ A^k = \overbrace{A\cdots A}^k.$$
-
-Obviously, $A$ must be a square matrix for $A^k$ to be defined.
 
 ::: {.fragment}
-What should $A^0$ be?
+To do that, we'll use this diagram:
 
-$A^0{\bf x}$ should be the result of multiplying ${\bf x}$ with $A$ zero times.   So we define $A^0 = I$.
+```{python}
+#| echo: false
+a = 2
+b = 1
+c = 0.75
+d = 1.5
+v1 = np.array([a, c])
+v2 = np.array([b, d])
+A = np.column_stack([v1, v2])
+ax = dm.plotSetup(-1, 4, -1, 4)
+# red triangles
+dm.plotShape(np.array([[0, 0], [0, d], [b, d]]).T, 'r')
+plt.text(0.2, 1, r'$\frac{1}{2}bd$', size = 12)
+dm.plotShape(np.array([[a, c], [a+b, c+d], [a+b, c]]).T, 'r')
+plt.text(2.5, 1, r'$\frac{1}{2}bd$', size = 12)
+# gray triangles
+dm.plotShape(np.array([[b, d], [b, c+d], [a+b, c+d]]).T, 'k')
+plt.text(1.2, 1.9, r'$\frac{1}{2}ac$', size = 12)
+dm.plotShape(np.array([[0, 0], [a, c], [a, 0]]).T, 'k')
+plt.text(1.2, 0.15, r'$\frac{1}{2}ac$', size = 12)
+# green squares
+dm.plotShape(np.array([[a, 0], [a, c], [a+b, c], [a+b, 0]]).T, 'g')
+plt.text(0.2, 1.9, r'$bc$', size = 12)
+dm.plotShape(np.array([[0, d], [0, c+d], [b, c+d], [b, d]]).T, 'g')
+plt.text(2.5, 0.15, r'$bc$', size = 12)
+#
+dm.plotSquare(A @ square)
+plt.text(v1[0]-0.5, v1[1]+0.05, '(a, c)', size = 12)
+plt.text((v1+v2)[0]+0.1, (v1+v2)[1]+0.1, '(a+b, c+d)', size = 12)
+plt.text(v2[0]+0.1, v2[1]-0.15, '(b, d)', size = 12);
+```
 :::
+
+::: {.fragment}
+Each of the triangles and rectangles has an area we can determine in terms of $a, b, c$ and $d$.
+:::
+
+::: {.fragment}
+The large rectangle has sides $(a+b)$ and $(c+d)$, so its area is:
+
+$$ (a+b)(c+d) = ac + ad + bc + bd. $$
+:::
+
+::: {.fragment}
+From this large rectangle we need to subtract:
+
+* $bd$ (red triangles),
+* $ac$ (gray triangles), and
+* $2bc$ (green rectangles).
+:::
+
+::: {.fragment}
+So the area of the blue diamond is:
+
+$$ (ac + ad + bc + bd) - (bd + ac + 2bc) $$
+
+$$ = ad - bc $$
+:::
+
+::: {.fragment}
+So we conclude that when we use a linear transformation
+
+$$ A = \begin{bmatrix} a & b \\ c & d \end{bmatrix} $$
+
+the __area of a unit square__ (or any shape) __is scaled by a factor of $ad - bc$.__
+:::
+
+::: {.fragment}
+This quantity is a fundamental property of the matrix $A$.
+
+So, we give it a name: it is the __determinant__ of $A$.
+
+We denote it as 
+
+$$\det(A)$$
+:::
+
+::: {.fragment}
+So, for a $2\times 2$ matrix $A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}$, 
+
+$$\det(A) = ad-bc.$$
+:::
+
+::: {.fragment}
+However, the determinant can be defined for __any__ $n\times n$ (square) matrix.
+
+For a square matrix $A$ larger than $2\times 2$, the determinant tells us how the __volume__ of a unit (hyper)cube is scaled when it is linearly transformed by $A$.
+:::
+
+::: {.fragment}
+We will learn how to compute determinants for larger matrices in a later lecture.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+There are important cases in which the determinant of a matrix is __zero.__
+
+::: {.fragment}
+When does it happen that $\det(A) = 0$?
+
+Consider when $A$ is the matrix of a projection:
+:::
+
+::: {.fragment}
+```{python}
+#| echo: false
+A = np.array(
+    [[1,0],
+     [0,0]])
+display(Latex(rf'$A = {int_fmt(A)}$'))
+ax = dm.plotSetup()
+# dm.plotSquare(square)
+dm.plotSquare(A @ square,'r')
+ax.arrow(1.0,1.0,0,-0.9,head_width=0.15, head_length=0.1, length_includes_head=True)
+ax.arrow(0.0,1.0,0,-0.9,head_width=0.15, head_length=0.1, length_includes_head=True)
+plt.title(r'Projection onto the $x_1$ axis', size = 20);
+```
+:::
+
+::: {.fragment}
+The unit square has been collapsed onto the $x$-axis, resulting in a shape with area of zero.
+
+This is confirmed by the determinant, which is 
+
+$$ \det\left(\begin{bmatrix}1 & 0 \\ 0 & 0\end{bmatrix}\right) = (1 \cdot 0) - (0 \cdot 0) = 0.$$
+:::
+
+## Existence and Uniqueness
+
+Notice that some of these transformations map multiple inputs to the same output, and some are incapable of generating certain outputs.
+
+For example, the __projections__ above can send multiple different points to the same point.
+
+We need some terminology to understand these properties of linear transformations.
+
+::: {.fragment}
+__Definition.__ A mapping $T: \mathbb{R}^n \rightarrow \mathbb{R}^m$ is said to be __onto__ $\mathbb{R}^m$ if each $\mathbf{b}$ in $\mathbb{R}^m$ is the image of _at least one_ $\mathbf{x}$ in $\mathbb{R}^n$.
+
+In other words, $T$ is __onto__ if every element of its codomain is in its range.
+:::
+
+::: {.fragment}
+Another (important) way of thinking about this is that $T$ is __onto__ if there is a solution $\mathbf{x}$ of
+
+$$T(\mathbf{x}) = \mathbf{b}$$
+
+for all possible $\mathbf{b}.$
+
+This is asking an __existence__ question about a solution of the equation $T(\mathbf{x}) = \mathbf{b}$ for all $\mathbf{b}.$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+![](images/L7 F4.jpg){width=650}
+
+Here, we see that $T$ maps points in $\mathbb{R}^2$ to a plane lying __within__ $\mathbb{R}^3$.  
+
+That is, the range of $T$ is a strict subset of the codomain of $T$.
+
+So $T$ is __not onto__ $\mathbb{R}^3$.
+
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+![](images/L7 F3.jpg){width=650}
+
+In this case, for every point in $\mathbb{R}^2$, there is an $\mathbf{x}$ that maps to that point.
+
+So, the range of $T$ is equal to the codomain of $T$.
+
+So $T$ is __onto__ $\mathbb{R}^2$.
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Here is an example of the reflection transformation.  The red points are the images of the blue points.
+
+What about this transformation?   Is it onto $\mathbb{R}^2$?
+
+```{python}
+#| echo: false
+A = np.array(
+    [[ 0,-1],
+     [-1, 0]])
+dm.plotSetup()
+dm.plotShape(note)
+dm.plotShape(A @ note,'r')
+```
+
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Here is an example of the projection transformation.  The red points (which all lie on the $x$-axis) are the images of the blue points.
+
+What about this transformation?  Is it onto $\mathbb{R}^2$?
+
+```{python}
+#| echo: false
+A = np.array(
+    [[1,0],
+     [0,0]])
+dm.plotSetup()
+dm.plotShape(note)
+dm.plotShape(A @ note,'r')
+```
 
 ::: {.content-visible when-profile="slides"}
 ##
 ::::: {.fragment .fade-down .r-fit-text}
-Question Time!   Q9.2
-:::::
-:::
-
-## The Transpose of a Matrix
-
-Given an $m \times n$ matrix $A,$ the _transpose_ of $A$ is the matrix we get by interchanging its rows and columns.
-
-It is denoted $A^T$.   Its shape is $n \times m$.
-
-::: {.fragment}
-For example, if:
-
-$$
-\begin{array}{ccc}
-A = \left[\begin{array}{rr}a&b\\c&d\end{array}\right],&
-B = \left[\begin{array}{rr}-5&2\\1&-3\\0&4\end{array}\right],&
-C = \left[\begin{array}{rrrr}1&1&1&1\\-3&5&-2&7\end{array}\right]
-\end{array}
-$$
-
-Then:
-
-$$
-\begin{array}{ccc}
-A^T = \left[\begin{array}{rr}a&c\\b&d\end{array}\right],&
-B^T = \left[\begin{array}{rrr}-5&1&0\\2&-3&4\end{array}\right],&
-C^T = \left[\begin{array}{rr}1&-3\\1&5\\1&-2\\1&7\end{array}\right]
-\end{array}
-$$
-:::
-
-::: {.fragment}
-The definition can be stated succinctly:
-
-$$A^T_{ij} = A_{ji}.$$
-:::
-
-::: {.fragment}
-__Rules for Transposes:__
-
-1. $(A^T)^T = A$
-2. $(A + B)^T = A^T + B^T$
-3. For any scalar $r$, $(rA)^T = r(A^T)$
-4. $(AB)^T = B^TA^T$
-
-The first three are pretty obvious.  
-
-The last one is a bit different. __Memorize it.__ You will use it: the transpose of a product is the product of the transposes __in reverse order__.
-:::
-
-::: {.content-visible when-profile="slides"}
-##
-::::: {.fragment .fade-down .r-fit-text}
-Question Time!   Q9.3
+Question Time!   Q8.3
 :::::
 :::
 
@@ -499,221 +1014,75 @@ Question Time!   Q9.3
 ##
 :::
 
-__Question:__ For a vector in ${\bf x} \in \mathbb{R}^n$, what is ${\bf x}^T$?   
+__Definition.__  A mapping $T: \mathbb{R}^n \rightarrow \mathbb{R}^m$ is said to be __one-to-one__ if each 
+$\mathbf{b}$ in $\mathbb{R}^m$ is the image of _at most one_ $\mathbf{x}$ in $\mathbb{R}^n$.
 
 ::: {.fragment}
-__Answer:__ For the purposes of the definition, we treat ${\bf x}$ as a $n \times 1$ matrix.  So its transpose is an $1\times n$ matrix, i.e., a matrix with a single row.
+If $T$ is one-to-one, then for each $\mathbf{b},$ the equation $T(\mathbf{x}) = \mathbf{b}$ has either a unique solution, or none at all.
+
+This is asking a __uniqueness__ question about a solution of the equation $T(\mathbf{x}) = \mathbf{b}$ for all $\mathbf{b}$.
+:::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Image from _Linear Algebra and its
+Applications,_ by David C. Lay
+:::
+::::
+
+::: {.fragment}
+![](images/Lay-fig-1-9-4.jpeg){width=650}
 :::
 
 ::: {.fragment}
-__Question:__ For two vectors ${\bf x}$ and ${\bf y}$, what is ${\bf x}^T {\bf y}$?
+Let's examine the relationship between these ideas and some previous definitions.
+
+If for all $\mathbf{b}$, $A\mathbf{x} = \mathbf{b}$ is consistent, is $T(\mathbf{x}) = A\mathbf{x}$  onto?  one-to-one?
 :::
 
 ::: {.fragment}
-__Answer:__ By the definition of matrix-vector multiplication,  ${\bf x}^T {\bf y} = \sum_{i=1}^n x_i y_i.$
-
-That is, ${\bf x}^T {\bf y}$ is the __inner product__ of ${\bf x}$ and ${\bf y}$.  This simple construction is a very useful one to remember.
-:::
-
-## The Computational Viewpoint
-
-::: {.fragment}
-You recall in the last lecture I said that in Python/numpy:
-
-    C = A @ B
-    
-was the same as:
-
-    for i in range(k):
-        C[:,k] = AxIP(A, B[:,k])
-        
-So now you know: `A @ B` is really _matrix multiplication_ of `A` and `B.` :)
-:::
-
-::: {.fragment}
-Matrix multiplication is a mainstay of computing.  Thousands of applications rely heavily on matrix multiplication.  
-
-Some examples include:
-
-* Computer graphics and animation
-* Google's algorithm for ranking search results
-* Modeling mechanical structures such as aircraft and buildings
-* Compressing and decompressing audio signals
-* Weather modeling and prediction
-* Modeling quantum computing
-
-So minimizing the time required to do matrix multiplication is immensely important.
+* $T(\mathbf{x})$ is onto.   $T(\mathbf{x})$ may or may not be one-to-one.  If the system has multiple solutions for some $\mathbf{b}$, $T(\mathbf{x})$ is not one-to-one.
 :::
 
 ::: {.content-visible when-profile="slides"}
 ##
 :::
 
-### Complexity
-
-What is the computational complexity of matrix multiplication?
-
-::: {.fragment}
-For two $n \times n$ matrices, consider the definition that uses inner product:
-
-$$ (AB)_{ij} = \sum_{k=1}^n A_{ik}B_{kj}.$$
-:::
+If for all $\mathbf{b}$, $A\mathbf{x} = \mathbf{b}$ is consistent and has a unique solution, 
+is $T(\mathbf{x}) = A\mathbf{x}$ onto?  one-to-one?
 
 ::: {.fragment}
-So each element of the product $AB$ requires $n$ multiplications and $n$ additions.
-
-There are $n^2$ elements of $AB$, so the overall computation requires 
-
-$$2n \cdot n^2 = 2n^3$$ 
-
-operations.
-:::
-
-::: {.fragment}
-That's not particularly good news; for two matrices of size 10,000 $\times$ 10,000 (which is not particularly large in practice), this is 2 trillion operations (2 teraflops).
-:::
-
-::: {.fragment}
-What is the computational complexity of matrix-vector multiplication?
-
-We know that matrix-vector multiplication requires $n$ inner products, each of size $n$.  
-
-So, matrix-vector multiplication requires 
-
-$$2n^2$$
-
-operations.
+* Yes to both.
 :::
 
 ::: {.content-visible when-profile="slides"}
 ##
 :::
 
-### Order matters!
-
-When you look at a mathematical expression involving matrices, think __carefully__ about what it means and how you might efficiently compute it.
+If it is not the case that for all $\mathbf{b}$, $A\mathbf{x} = \mathbf{b}$ is consistent, is $T(\mathbf{x}) = A\mathbf{x}$  onto?  one-to-one?
 
 ::: {.fragment}
-__For example:__
-
-What is the most efficient way to compute $A^2{\bf x}$?
-
-Here are your choices:
-:::
-
-::::: {.columns}
-:::: {.column width="50%"}
-::: {.fragment}
-First compute $A^2$, then compute $(A^2){\bf x}$
-:::
-::::
-
-:::: {.column width="50%"}
-::: {.fragment}
-First compute $A{\bf x}$, then compute $A(A{\bf x})$
-:::
-::::
-:::::
-
-::::: {.columns}
-:::: {.column width="50%"}
-::: {.fragment}
-$$2n^3 + 2n^2$$
-:::
-::::
-
-:::: {.column width="50%"}
-::: {.fragment}
-$$2 \cdot 2n^2 = 4n^2$$
-:::
-::::
-:::::
-
-::: {.fragment}
-Again, if we are working with a square matrix with 10,000 rows, then
-:::
-
-::::: {.columns}
-:::: {.column width="50%"}
-::: {.fragment}
-$(A^2){\bf x}$ requires 2 Trillion flops
-:::
-::::
-
-:::: {.column width="50%"}
-::: {.fragment}
- $A(A{\bf x})$ requires 400 Million flops
-:::
-::::
-:::::
-
-::: {.fragment .ctrd}
-Which would you choose? :)
-:::
-
-::::: {.columns}
-:::: {.column width="50%"}
-::: {.fragment}
-![](images/one_trillion_a-300x217.jpg){height=250}
-
-One Trillion Pennies
-:::
-::::
-
-:::: {.column width="50%"}
-::: {.fragment}
-![](images/one_mill_a-295x300.jpg){height=250}
-
-One Million Pennies
-:::
-::::
-
-:::::
-
-::: {.content-visible when-profile="slides"}
-##
-:::
-
-### Parallelization
-
-Although matrix multiplication is computationally demanding, it has a wonderful property: it is _highly parallel_.  
-
-That is, the computation needed for each element does not require computing the other elements.  
-
-(This is not true, for example, for Gaussian elimination; think about the role of a pivot.)
-
-::: {.fragment}
-This means that if we have multiple processors, and each has access to $A$ and $B$, the work can be divided up very cleanly.
-
-For example, let's say you have $n$ processors.   Then each processor can independently compute one column of the result, without needing to know anything about what the other processors are doing.  
-
-Specifically, processor $i$ can compute its column as $A{\bf b_i}$.  
-
-In that case, since all processors are working in parallel, the elapsed time is reduced from $2n^3$ down to $2n^2.$
+* $T(\mathbf{x})$ is __not__ onto.   $T(\mathbf{x})$ may or may not be one-to-one.
 :::
 
 ::: {.content-visible when-profile="slides"}
 ##
 :::
 
-### The Importance of Libraries
+If $T(\mathbf{x}) = A\mathbf{x}$ is onto, is $A\mathbf{x} = \mathbf{b}$ consistent for all $\mathbf{b}$?  Is the solution unique for all $\mathbf{b}$?
 
-The pervasive use of matrix multiplication in science and engineering means that very efficient and carefully constructed libraries have been developed for it.
-
-Important issues for high performance include:
-
-* how are the matrix elements actually laid out in memory?
-* what is the order in which matrix elements are accessed?
-* what are the architectural details of the computer you are using?  
-    * memories, caches, number of processors, etc
-
-The premier library is called __LAPACK.__
-
-LAPACK has been developed over the past 40 years and is updated frequently to tune it for new computer hardware.  
 
 ::: {.fragment}
-Python's "numpy" uses LAPACK under the hood for its matrix computations.
-
-Hence, even though Python is an interpreted language, for doing intensive matrix computations it is very fast, just as fast as compiled code.
+* $A\mathbf{x} = \mathbf{b}$ is consistent for all $\mathbf{b}$.  The solution may not be unique for any  $\mathbf{b}$.
 :::
 
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+If $T(\mathbf{x}) = A\mathbf{x}$ is one-to-one, is $A\mathbf{x} = \mathbf{b}$ consistent for all $\mathbf{b}$?   Is the solution unique for all $\mathbf{b}$?
+
+
+::: {.fragment}
+* $A\mathbf{x} = \mathbf{b}$ may or may not be consistent for all $\mathbf{b}$.  For any $\mathbf{b}$, if there is a solution, it is unique.
+:::
