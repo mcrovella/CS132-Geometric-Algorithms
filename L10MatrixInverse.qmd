@@ -1,0 +1,860 @@
+---
+jupyter: python3
+---
+```{python}
+#| echo: false
+qr_setting = None
+#
+import numpy as np
+import matplotlib as mp
+import pandas as pd
+import matplotlib.pyplot as plt
+import laUtilities as ut
+import slideUtilities as sl
+import demoUtilities as dm
+import pandas as pd
+from matplotlib import animation
+from IPython.display import HTML
+from IPython.display import Latex
+
+```
+<!--
+This comment somehow suppresses the title page
+-->
+## The Inverse of a Matrix
+
+::: {.content-visible when-profile="slides"}
+![](images/L10 F1.png){width=450}
+:::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Many parts of this page are based on _Linear Algebra and its
+Applications,_ by David C. Lay
+:::
+::::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Today we investigate the idea of the <font color=blue>"reciprocal"</font> of a matrix.
+
+::: {.fragment}
+For reasons that will become clear, we will think about this way:
+    
+The reciprocal of any nonzero number $r$ is its multiplicative inverse.
+
+That is, $1/r = r^{-1}$ such that $r \cdot r^{-1} = 1.$
+
+This gives a way to define what is called the <font color = blue>inverse</font> of a matrix.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Importantly: we have to recognize that this inverse does not exist for all matrices.
+
+* It only exists for square matrices
+* And not even for all square matrices -- only those that are "invertible."
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Definition.__ An $n\times n$ matrix $A$ is called __invertible__ if there exists an $n\times n$ matrix $C$ such that
+
+$$ AC = I \;\;\text{ and }\;\; CA = I. $$
+
+::: {.fragment}
+In that case $C$ is called the _inverse_ of $A$.   
+:::
+
+::: {.fragment}
+Clearly, $C$ must also be square and the same size as $A$.
+
+The inverse of $A$ is denoted $A^{-1}.$
+:::
+
+::: {.fragment}
+A matrix that is not invertible is called a __singular__ matrix.
+
+A strange term, but you just have to memorize and get used to it.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Example.__
+
+If $A = \left[\begin{array}{rr}2&5\\-3&-7\end{array}\right]$ and $C = \left[\begin{array}{rr}-7&-5\\3&2\end{array}\right]$, then:
+
+::: {.fragment}
+$$ AC = \left[\begin{array}{rr}2&5\\-3&-7\end{array}\right]\left[\begin{array}{rr}-7&-5\\3&2\end{array}\right] = \left[\begin{array}{rr}1&0\\0&1\end{array}\right],$$
+
+and:
+
+$$ CA = \left[\begin{array}{rr}-7&-5\\3&2\end{array}\right]\left[\begin{array}{rr}2&5\\-3&-7\end{array}\right] = \left[\begin{array}{rr}1&0\\0&1\end{array}\right],$$
+
+so we conclude that $C = A^{-1}.$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Let's think about what a matrix inverse does in a linear equation.
+
+::: {.fragment}
+Take a standard linear equation:
+
+$$ A{\bf x} = {\bf b}. $$
+:::
+
+::: {.fragment}
+Then:
+
+$$A^{-1}(A{\bf x}) = A^{-1}{\bf b}$$
+:::
+
+::: {.fragment}
+$$(A^{-1}A){\bf x} = A^{-1}{\bf b}$$
+:::
+
+::: {.fragment}
+$$I{\bf x} = A^{-1}{\bf b}$$
+:::
+
+::: {.fragment}
+$${\bf x} = A^{-1}{\bf b}$$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+
+__Theorem.__  If $A$ is an invertible $n\times n$ matrix, then for each ${\bf b}$ in $\mathbb{R}^n,$ the equation $A{\bf x} = {\bf b}$ has the unique solution $A^{-1}{\bf b}.$
+
+__Proof.__ Follows directly from the definition of $A^{-1}.$
+
+::: {.fragment}
+This very simple, powerful theorem gives us a new way to solve a linear system.
+:::
+
+
+::: {.fragment}
+Furthermore, this theorem connects the matrix inverse to certain kinds of linear systems.  
+
+We know that not all linear systems of $n$ equations in $n$ variables have a unique solution.  
+
+Such systems may have no solutions (inconsistent) or an infinite number of solutions.  
+
+But this theorem says that __if $A$ is invertible, then the system has a unique solution.__
+:::
+
+## Computing the Matrix Inverse
+
+Wonderful - so to solve a linear system, we simply need to compute the inverse of $A$ (if it exists)!  
+
+Well ... how do we do that?
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### The $2\times 2$ case
+
+Before answering this question for arbitrary matices, I will answer it for the special case of $2 \times 2$ matrices.
+
+::: {.fragment}
+__Theorem.__  Let $A$ = $\left[\begin{array}{rr}a&b\\c&d\end{array}\right].$  
+
+* If $ad-bc \neq 0$, then $A$ is invertible and $A^{-1} = \frac{1}{ad-bc}\left[\begin{array}{rr}d&-b\\-c&a\end{array}\right].$
+
+* If $ad-bc = 0$, then $A$ is not invertible.
+:::
+
+::: {.fragment}
+Notice that this theorem tells us, for $2\times 2$ matrices, exactly _which ones_ are invertible.
+
+Namely: those which have $ad-bc \neq 0$.   
+
+Of course, we recognize the quantity $ad-bc$!  
+
+It is the __determinant__ of $A$.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Example.__  Given a $2\times 2$ matrix $A$, if the columns of $A$ are linearly dependent, is $A$ invertible?
+
+::: {.fragment}
+__Solution.__ If the columns of $A$ are linearly dependent, then at least one of the columns is a multiple of the other.  
+
+Let the multiplier be $m.$
+
+Then we can express $A$ as:
+$\left[\begin{array}{rr}a&ma\\b&mb\end{array}\right].$
+:::
+
+::: {.fragment}
+The determinant of $A$ is $a(mb) - b(ma) = 0.$  
+
+So a $2\times 2$ matrix with linearly dependent columns is __not invertible.__
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q10.1
+:::::
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Matrices larger than $2 \times 2$.
+
+::: {.fragment}
+OK, now let's look at a general method for computing the inverse of $A$.
+:::
+
+::: {.fragment}
+Recall our definition of matrix multiplication: $AB$ is the matrix formed by multiplying $A$ times each column of $B$.
+
+$$ AB = [A{\bf b_1} \; \dots \; A{\bf b_n}]. $$
+:::
+
+::: {.fragment}
+Let's look at the equation
+
+$$AA^{-1} = I.$$
+:::
+
+::: {.fragment}
+Let's call the columns of $A^{-1}$ = $[{\bf x_1}, {\bf x_2}, \dots, {\bf x_n}].$  
+
+We know what the columns of $I$ are: $[{\bf e_1}, {\bf e_2}, \dots, {\bf e_n}].$
+:::
+
+::: {.fragment}
+So: 
+
+$$ AA^{-1} = A[{\bf x_1}, {\bf x_2}, \dots, {\bf x_n}] = [{\bf e_1}, {\bf e_2}, \dots, {\bf e_n}].$$
+:::
+
+::: {.fragment}
+Notice that we can break this up into $n$ separate problems:
+    
+$$ A{\bf x_1} = {\bf e_1} $$
+$$ A{\bf x_2} = {\bf e_2} $$
+$$ \vdots $$
+$$ A{\bf x_n} = {\bf e_n} $$
+
+(This is a common trick ... make sure you understand why it works!)
+:::
+
+::: {.fragment}
+So here is a general way to compute the inverse of $A$:
+
+* Solve the linear system $A{\bf x_1} = {\bf e_1}$ to get the first column of $A^{-1}.$
+* Solve the linear system $A{\bf x_2} = {\bf e_2}$ to get the second column of $A^{-1}.$
+* $\dots$
+* Solve the linear system $A{\bf x_n} = {\bf e_n}$ to get the last column of $A^{-1}.$
+:::
+
+::: {.fragment}
+If any of the systems are inconsistent or has an infinite solution set, then $A^{-1}$ does not exist.
+:::
+
+::: {.fragment}
+In fact, the above procedure is equivalent to the following:
+    
+1. Construct the $n \times 2n$ matrix $B = [A \;I]$
+2. Find the $C$ = the reduced echelon form of $B$
+3. In the resulting matrix $C$:
+    * if the columns on the left half are $I$, then
+        * the columns in the right half of $C$ will be $A^{-1}$.
+    * Otherwise, $A$ is not invertible.
+:::
+
+
+## The Computational View
+
+### The Operation Count of Matrix Inversion
+
+Thus, when we perform Matrix Inversion on an $n\times n$ matrix, we are row reducing a $n\times 2n$ matrix.
+
+This increased size results in the operation count of matrix inversion being $\sim 2n^3.$
+
+(To see a derivation of this, check the lecture notes.)
+
+This fact will be important!
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Here is more detail on the operation count of Matrix Inversion. 
+
+To do Matrix inversion, we perform row reduction on $[A I]$ to obtain $[I A^{-1}]$ as just described.   Since $[A I]$ is $n\times 2n$, the forward elimination step is $\sim\frac{5}{3}n^3$ and the backsubstitution step is $\sim\frac{1}{3}n^3$.  
+
+In more detail:
+
+If you go back to the derivation of the cost of Gaussian Elimination in Lecture 3, you need to extend the diagram.  It is no longer $n\times(n+1)$ but now is $n\times 2n$.  Then for the forward elimination phase of matrix inversion, you get:
+
+$$ 2\sum_{k=1}^n (k-1)(k+n) = 2\sum_{k=1}^n k^2 + (n-1)k - n$$
+
+flops.
+
+If you expand this out, and use standard formulas for sums (eg, see https://brilliant.org/wiki/sum-of-n-n2-or-n3/), you will get the high order term of $\sim\frac{5}{3}n^3.$
+
+Now, for the back substitution phase, at the start you have a matrix that is $[U L]$ where $U$ is upper triangular and $L$ is lower triangular.  To backsubstitute row $k$ in this matrix, you need 
+
+$$2 \sum_{i=1}^{k} i = 2\frac{(k-1)k}{2}$$ 
+
+flops.   So the total for back substitution is
+
+$$ \sum_{k=1}^n k^2 - k $$ 
+
+whose highest order term is $\frac{1}{3}n^3$.  
+
+So the total operation count of Matrix Inversion is
+
+$$\sim \frac{5}{3}n^3 + \frac{1}{3}n^3 =  2n^3$$
+:::
+::::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### In Code
+
+This general strategy leads to an algorithm for inverting any matrix.  
+
+However, in this course I will not ask you invert matrices larger than $2\times 2$ by hand.  
+
+Any time you need to invert a matrix larger than $2\times 2,$ you may use a calculator or computer.
+
+::: {.fragment}
+To invert a matrix in `Python/numpy,` use the function `np.linalg.inv().`  For example:
+:::
+
+::: {.fragment}
+```{python}
+import numpy as np
+A = np.array(
+    [[ 2.0, 5.0],
+     [-3.0,-7.0]])
+print('A =\n',A)
+B = np.linalg.inv(A)
+print('B = \n',B)
+```
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+What do you think happens if you call `np.linalg.inv()` on a matrix that is not invertible?
+
+::: {.fragment}
+```{python}
+#| error: true
+A = np.array([[2.,4.],[2.,4.]])
+np.linalg.inv(A)
+```
+:::
+
+::: {.fragment}
+The right way to handle this is:
+:::
+
+::: {.fragment}
+```{python}
+A = np.array([[2.,4.],[2.,4.]])
+try:
+    np.linalg.inv(A)
+except np.linalg.LinAlgError:
+    print('Oops, looks like A is singular!')
+```
+:::
+
+## Using the Matrix Inverse to Solve a Linear System
+
+::: {.fragment}
+Solve the system:
+
+$$\begin{array}{rcl}
+3x_1 +4x_2 &=& 3\\
+5x_1 +6x_2 &=& 7
+\end{array}$$
+:::
+
+::: {.fragment}
+Rewrite this system as $A{\bf x} = {\bf b}:$
+
+$$ \left[\begin{array}{rr}3&4\\5&6\end{array}\right] {\bf x} = \left[\begin{array}{r}3\\7\end{array}\right].$$
+:::
+
+::: {.fragment}
+The determinant of $A$ is $3(6)-4(5) = -2,$ which is nonzero, so $A$ has an inverse. 
+
+According to our $2\times 2$ formula, the inverse of $A$ is:
+
+$$ A^{-1} = \frac{1}{-2}\left[\begin{array}{rr}6&-4\\-5&3\end{array}\right] = \left[\begin{array}{rr}-3&2\\5/2&-3/2\end{array}\right].$$
+:::
+
+::: {.fragment}
+So the solution is:
+
+$$ {\bf x} = A^{-1}{\bf b} = \left[\begin{array}{rr}-3&2\\5/2&-3/2\end{array}\right]\left[\begin{array}{r}3\\7\end{array}\right] = \left[\begin{array}{r}5\\-3\end{array}\right].$$
+:::
+
+## Algebra of Matrix Inverses
+
+::: {.fragment}
+__Theorem.__
+
+* If $A$ is an invertible matrix, then $A^{-1}$ is invertible, and
+
+$$(A^{-1})^{-1} = A.$$
+:::
+
+::: {.fragment}
+* If $A$ is an invertible matrix, then so is $A^T,$ and the inverse of $A^T$ is the transpose of $A^{-1}.$
+
+$$(A^T)^{-1} = (A^{-1})^T.$$
+:::
+
+::: {.fragment}
+* If $A$ and $B$ are $n\times n$ invertible matrices, then so is $AB,$ and the inverse of $AB$ is the product of the inverses of $A$ and $B$ in the reverse order.  
+
+$$(AB)^{-1} = B^{-1}A^{-1}.$$
+:::
+
+::: {.fragment}
+The first two are straightforward.  Let's verify the last one because it shows some common calculation patterns:
+
+$$(AB)(B^{-1}A^{-1})$$
+:::
+
+::: {.fragment}
+$$=A(BB^{-1})A^{-1}$$
+:::
+
+::: {.fragment}
+$$=AIA^{-1}$$
+:::
+
+::: {.fragment}
+$$=AA^{-1}$$
+:::
+
+::: {.fragment}
+$$=I.$$
+:::
+
+## The Invertible Matrix Theorem
+
+Earlier we saw that if a matrix $A$ is invertible, then $A{\bf x} = {\bf b}$ has a unique solution for any ${\bf b}$.
+
+This suggests a deep connection between the invertibility of $A$ and the nature of the linear system $A{\bf x} = {\bf b}.$
+
+::: {.fragment}
+In fact, we are now at the point where we can collect together in a fairly complete way much of what we have learned about matrices and linear systems.   
+
+This remarkable collection of ten interrelated properties is called the __Invertible Matrix Theorem (IMT).__
+:::
+
+::: {.fragment}
+__Invertible Matrix Theorem.__  Let $A$ by a square $n\times n$ matrix.  
+
+Then the following statements are equivalent; that is, they are either __all true__ or __all false__:
+:::
+
+::: {.fragment}
+* $A$ is an invertible matrix.
+:::
+
+::: {.fragment}
+* $A^T$ is an invertible matrix.
+    * Proof by direct construction: $(A^T)^{-1} = (A^{-1})^T.$
+:::
+
+::: {.fragment}
+* The equation $A{\bf x} = {\bf b}$ has a unique solution for each ${\bf b}$ in $\mathbb{R}^n.$
+    * As already mentioned, we proved this above.
+:::
+
+::: {.fragment}
+* A is row equivalent to the identity matrix.
+    * If $A{\bf x} = {\bf b}$ has a unique solution for any ${\bf b},$ then the reduced row echelon form of $A$ is $I$.
+:::
+
+::: {.fragment}
+* A has $n$ pivot positions.
+    * Follows directly from the previous statement.
+:::
+
+::: {.fragment}
+* The equation $A{\bf x} = {\bf 0}$ has only the trivial solution.
+    * If $A{\bf x} = {\bf b}$ has a unique solution for any ${\bf b},$ then the unique solution for ${\bf b} = {\bf 0}$ must be ${\bf 0.}$
+:::
+
+::: {.fragment}
+* The columns of $A$ form a linearly independent set.
+    * Follows directly the previous statement and the definition of linear independence.
+:::
+
+
+::: {.fragment}
+* The columns of $A$ span $\mathbb{R}^n.$
+    * For any ${\bf b} \in \mathbb{R}^n,$ there is a set of coefficients ${\bf x}$ which can be used to construct ${\bf b}$ from the columns of $A.$
+:::
+
+::: {.fragment}
+* The linear transformation ${\bf x} \mapsto A{\bf x}$ maps $\mathbb{R}^n$ onto $\mathbb{R}^n.$
+    * Follows directly from the previous statement.
+:::
+
+::: {.fragment}
+* The linear transformation ${\bf x} \mapsto A{\bf x}$ is one-to-one.
+    * Follows directly from the fact that $A{\bf x} = {\bf b}$ has a unique solution for any ${\bf b}.$
+:::
+
+::: {.fragment}
+The arguments above show that if $A$ is invertible, then all the other statements are true.  
+
+In fact, the converse holds as well: if $A$ is not invertible, then all the other statements are false.  
+
+(We will skip the proof of the converse, but it's not difficult.)
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+This theorem has wide-ranging implications.  
+
+It divides the set of all $n\times n$ matrices into two disjoint classes: 
+1. the invertible (nonsingular) matrices, and 
+2. the noninvertible (singular) matrices.
+
+::: {.fragment}
+The power of the IMT lies in the conections it provides among so many important concepts.
+
+For example, notice how it connects linear independence of the columns of a matrix $A$ to the existence of solutions to equations of the form $A{\bf x} = {\bf b}.$
+
+This allows us to bring many tools to bear as needed to solve a problem.
+:::
+
+::: {.fragment}
+__Example.__  
+
+Decide if $A$ is invertible:
+
+$$A = \left[\begin{array}{rrr}1&0&-2\\3&1&-2\\-5&-1&9\end{array}\right].$$
+:::
+
+::: {.fragment}
+__Solution.__
+
+$$A \sim \left[\begin{array}{rrr}1&0&-2\\0&1&4\\0&-1&-1\end{array}\right] \sim \left[\begin{array}{rrr}1&0&-2\\0&1&4\\0&0&3\end{array}\right].$$
+
+$A$ has three pivot positions and hence is invertible, by the IMT.
+:::
+
+::: {.fragment}
+__Example.__
+
+Decide if $A\mathbf{x} = \mathbf{b}$ has a solution for all $\mathbf{b}$:
+    
+$$ A = \left[\begin{array}{rr}3 & 7\\-6 & -14\end{array}\right].$$
+:::
+
+::: {.fragment}
+__Solution.__
+
+The determinant of $A$ is $(3 \cdot -14) - (7 \cdot -6) = 0$.
+
+So $A$ is not invertible, so $A\mathbf{x} = \mathbf{b}$ does __not__ have a solution for all $\mathbf{b}$.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q10.2
+:::::
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Note.__ 
+
+Keep in mind: while the IMT is quite powerful, it does not completely settle issues that arise with respect to $A{\bf x} = {\bf b}.$  
+
+This is because __it only applies to square matrices.__
+
+So if $A$ is nonsquare, then we can't use the IMT to conclude anything about the existence or nonexistence of solutions to $A{\bf x} = {\bf b}.$
+
+## Invertible Linear Transformations
+
+![](mages/L10 F1.png){width=350}
+
+::: {.fragment}
+A linear transformation $T: \mathbb{R}^n \rightarrow \mathbb{R}^n$ is __invertible__ if there exists a function $S: \mathbb{R}^n \rightarrow \mathbb{R}^n$ such that
+
+$$ S(T({\bf x})) = {\bf x}\;\;\;\text{for all}\;{\bf x}\in\mathbb{R}^n,$$
+
+and
+
+$$ T(S({\bf x})) = {\bf x}\;\;\;\text{for all}\;{\bf x}\in\mathbb{R}^n.$$
+:::
+
+::: {.fragment}
+__Theorem.__ 
+
+Let $T: \mathbb{R}^n \rightarrow \mathbb{R}^n$ be a linear transformation and let $A$ be the standard matrix for $T$.  
+
+Then $T$ is invertible if and only if $A$ is an invertible matrix.  
+
+In that case the linear transformation $S$ given by $S({\bf x}) = A^{-1}{\bf x}$ is the unique function satisfying the definition.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Let's look at some invertible and non-invertible linear transformations.
+
+::: {.fragment}
+```{python}
+square = np.array([[0.0,1,1,0],[1,1,0,0]])
+A = np.array(
+    [[0.5, 0], 
+     [  0, 1]])
+print(A)
+dm.plotSetup()
+dm.plotSquare(square)
+dm.plotSquare(A @ square,'r')
+Latex(r'Horizontal Contraction')
+```
+:::
+
+::: {.fragment}
+Here $A = \left[\begin{array}{rr}0.5&0\\0&1\end{array}\right].$  Its determinant is $1(0.5)-0(0) = 0.5,$ so this linear transformation is invertible.
+
+Its inverse is:
+
+$$ \frac{1}{0.5}\left[\begin{array}{rr}1&0\\0&0.5\end{array}\right] = \left[\begin{array}{rr}2&0\\0&1\end{array}\right].$$
+:::
+
+::: {.fragment}
+Clearly, just as $A$ contracted the $x_1$ direction by 0.5, $A^{-1}$ will expand the $x_1$ direction by 2.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+```{python}
+A = np.array(
+    [[0,0],
+     [0,1]])
+dm.plotSetup()
+dm.plotSquare(A @ square)
+Latex(r'Projection onto the $x_2$ axis')
+```
+
+::: {.fragment}
+Here $A = \left[\begin{array}{rr}0&0\\0&1\end{array}\right].$  
+
+Its determinant is zero, so this linear transformation is __not__ invertible.
+:::
+
+::: {.fragment}
+By the IMT, there are many equivalent ways to describe this linear transformation:
+
+* The mapping $T$ is not onto $\mathbb{R}^2.$ (Only a subset of $\mathbb{R}^2$ can be output by $T$).
+* The mapping $T$ is not one-to-one.  (There are many values ${\bf x}$ that give the same $A{\bf x}.$)
+* $A$ does not have 2 pivots.
+* The columns of $A$ do not span $\mathbb{R}^2.$
+* $A\mathbf{x} = 0$ has a non-trivial solution.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Here is another example:
+
+::: {.fragment}
+```{python}
+#| echo: false
+subspace = np.array([[2, 1]])
+P = 1.3 * (subspace.T @ subspace) / (subspace @ subspace.T)
+ax = dm.plotSetup()
+testpoints = np.array([[1, 0.], [0.5, 1], [0.5, 2], [-1, 1], [-1, -2], [2.8, -1], [-2.7, 1]])
+for point in testpoints:
+    p = P @ point
+    plt.plot(p[0], p[1], 'go', markersize = 8)
+    plt.plot(point[0], point[1], 'ro', markersize = 7)
+    ax.arrow(point[0],point[1],p[0]-point[0],p[1]-point[1],head_width=0.1, head_length=0.15, length_includes_head = True, color='k')
+#Latex(r'Projection onto the line [2, 1]')
+```
+
+In this figure, we are looking at how the red points $(x_1, x_2)$ are mapped to the green points under the transformation
+
+$$ \left[\begin{array}{r} x_1 \\ x_2 \end{array}\right]  \mapsto \left[\begin{array}{rr} 1.04 & 0.52 \\ 0.52 & 0.26 \end{array}\right]\left[\begin{array}{r} x_1 \\ x_2 \end{array}\right].$$
+
+:::
+
+::: {.fragment}
+We notice a few things:
+    
+* The green points appear to lie along a line
+* There are cases where more than one red point maps to the same green point
+
+How do these two facts relate to:
+
+* The determinant of the matrix?
+* The invertibility of the transformation?
+:::
+
+:::: {.content-hidden when-profile="slides"}
+
+## <font color = "blue"> Further Reading </font>
+
+This material is not required, but may interest you.
+
+### Ill-Conditioned Matrices
+
+The notion of a matrix inverse has some complications when used in practice.  
+
+As we've noted, numerical computations are not always exact.
+
+In particular, we often find that `a - b(a/b)` does not evaluate to exactly zero on a computer.
+
+For similar reasons, a matrix which is actually singular may not appear to be so when used in a computation.  
+
+This happens because, for example, the determinant does not evaluate to exactly zero, even though it should.  
+
+Recall that when we were implementing Gaussian elimination, we established a rule:
+
+If `a - b(a/b) < epsilon` for sufficiently small `epsilon`, we would treat that quantity as if it were zero.   
+
+We need an equivalent rule for matrices, so that we recognize when matrices are "effectively singular." 
+
+When a matrix $A$ is "effectively singular" we should not try to solve $A{\bf x} = {\bf b}$.
+
+The value we use for this purpose is called the __condition number.__  
+
+Every matrix has a condition number.
+
+The larger the condition number of a matrix, the closer the matrix is to being singular.  
+
+A __singular__ matrix has an __infinite__ condition number.
+
+At the other extreme, the condition number of the identity matrix is 1, which is the smallest possible value.  
+
+__Here is the point:__ a matrix with a very large condition number will __behave much like a singular matrix__ in practice.  
+
+Specifically: one should not try to solve linear systems by computer when the matrix $A$ has a very large condition number.
+
+How large is large?  
+
+It depends, but as a rule of thumb a condition number of $10^8$ or greater would be considered a large condition number.
+
+If a matrix has a large condition number, we might say that it is "effectively singular."
+
+The most common way to put this is that the matrix is "ill-conditioned".
+
+A matrix that has a large condition number can behave almost like it is singular.   
+
+We know that if $A$ is a singular matrix, then $A{\bf x}={\bf b}$ does not have a unique solution.    
+
+If on the other hand $A$ is not singular, but is ill-conditioned, then solving $A{\bf x}={\bf b}$ can be very inaccurate.   
+
+A small change in ${\bf b}$ (such as might be introduced by limited precision in your computer) will result in a huge change to the solution, ${\bf x}$.
+
+### Demonstration of Ill-Conditioning
+
+Here is a demonstration of why this is a problem.
+
+Here is a matrix that is singular:
+
+$$M = \left[\begin{array}{rr}1&2\\2&4\end{array}\right].$$
+
+You can see that it is singular because the second column is a multiple of the first column, so
+
+* the determinant is zero
+* the columns are linearly dependent
+* there is only one pivot position
+* etc.  (see the IMT!)
+
+Here is a matrix that is _almost_ singular:
+
+$$A = \left[\begin{array}{ll}1&2.0000000001\\2&4\end{array}\right].$$
+
+The second column is not a multiple of the first column, so technically this matrix is not singular.  
+
+But the second column is _almost_ a multiple of the first column. 
+
+The determinant is -0.0000000002
+
+You could say the determinant is "almost zero".
+
+This matrix is ill-conditioned.
+
+Now let's solve $A{\bf x} = {\bf b}$ using the ill-conditioned matrix $A.$
+
+First, let's consider when ${\bf b} = \left[\begin{array}{r}1\\2\end{array}\right].$
+
+Solving  $A{\bf x} = \left[\begin{array}{r}1\\2\end{array}\right]$ we get ${\bf x} = \left[\begin{array}{r}1\\0\end{array}\right].$
+
+Now, let's change ${\bf b}$ just a __little bit,__ and solve again.
+
+Let's set ${\bf b} = \left[\begin{array}{l}1\\2.01\end{array}\right].$  
+
+Solving  $A{\bf x} = \left[\begin{array}{l}1\\2.01\end{array}\right]$ we get ${\bf x} = \left[\begin{array}{r}100000000\\-50000000\end{array}\right].$
+
+Notice how a small change in ${\bf b}$ resulted in a huge change in ${\bf x}.$  
+
+This is __very bad!__
+
+It means that we cannot trust the solution -- it could be wildly wrong due to small errors in the input!
+
+This is happening because the matrix $A$ is ill-conditioned -- it has a large condition number.   
+
+In fact the condition number of $A$ is about 12,500,000,000.
+
+Now, this situation would not be a problem ... if you were always dealing with exact quantities in your computer.   
+
+But you are <font color=blue>not.</font>   
+
+Every floating point number has limited precision -- a limited number of digits that can be stored.   
+
+As a result, there can be a small error in the value of any number stored in the computer.    
+
+This is not normally a problem -- you would not typically notice it. 
+
+But if you are solving a system with a large condition number, the small error in ${\bf b}$ can get expanded in a large error in ${\bf x}$.  
+
+The error can be so large that the value you get for ${\bf x}$ is __completely wrong.__
+
+To compute the condition number of a matrix `A` in `Python/numpy`, use `np.linalg.cond(A)`.
+
+```{python}
+A = np.array([[1, 2.0000000001],[2, 4]])
+np.linalg.cond(A)
+```
+
+::::
