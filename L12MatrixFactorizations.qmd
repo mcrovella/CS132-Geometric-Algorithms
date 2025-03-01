@@ -1,0 +1,492 @@
+---
+jupyter: python3
+---
+```{python}
+#| echo: false
+qr_setting = None
+#
+import numpy as np
+import matplotlib as mp
+import pandas as pd
+import matplotlib.pyplot as plt
+import laUtilities as ut
+import slideUtilities as sl
+import demoUtilities as dm
+import pandas as pd
+from matplotlib import animation
+from IPython.display import HTML
+from IPython.display import Latex
+
+```
+<!--
+This comment somehow suppresses the title page
+-->
+## Matrix Factorizations
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Many parts of this page are based on _Linear Algebra and its
+Applications,_ by David C. Lay
+:::
+::::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Just as muiltiplication can be generalized from scalars to matrices, the notion of a factorization can also be generalized from scalars to matrices.
+
+A _factorization_ of a matrix $A$ is an equation that expresses $A$ as a product of two or more matrices.  
+
+$$A = BC.$$
+
+
+
+
+::: {.fragment}
+The essential difference with what we have done so far is that we have been given factors ($B$ and $C$) and then computed $A$.  
+
+In a factorization problem, you are given $A$, and you want to find $B$ and $C$ -- that meet some conditions.
+:::
+
+::: {.fragment}
+There are a number of reasons one may want to factor a matrix.
+
+* Recasting $A$ into a form that makes computing with $A$ faster.
+* Recasting $A$ into a form that makes working with $A$ easier.
+* Recasting $A$ into a form that exposes important properties of $A$.
+:::
+
+::: {.fragment}
+Today we'll work with one particular factorization that addesses the first case.   Later one we'll study factorizations that address the other two cases.
+:::
+
+::: {.fragment}
+The factorization we will study is called the __LU Factorization.__  It is worth studying in its own right, and because it introduces the idea of factorizations, which we will study again later on.
+:::
+
+## ## A Rationale for the LU Factorization
+
+::: {.fragment}
+Consider the following problem.  You are given $A \in \mathbb{R}^{n\times n}$ and $B \in \mathbb{R}^{n\times p}$. 
+
+You seek $X \in \mathbb{R}^{n\times p}$ such that:
+
+$$ AX = B. $$
+
+In other words, instead of the usual $A\mathbf{x} = \mathbf{b}$, now $X$ and $B$ are matrices.
+:::
+
+::: {.fragment}
+By the rules of matrix multiplication, we can break this problem up.
+
+Let $X = [\mathbf{x_1} \mathbf{x_2} \dots \mathbf{x_p}],$ and $B = [\mathbf{b_1} \mathbf{b_2} \dots \mathbf{b_p}]$.
+
+Then:
+
+$$A{\bf x_1} = {\bf b_1}$$
+$$A{\bf x_2} = {\bf b_2}$$
+$$\dots$$
+$$A{\bf x_p} = {\bf b_p}$$
+:::
+
+::: {.fragment}
+In other words, there are $p$ linear systems to solve.
+
+Each linear system is conceptually a separate problem.
+
+Note however that every linear system has the __same $A$ matrix.__
+:::
+
+::: {.fragment}
+Naturally, you could solve these systems by first computing $A^{-1}$ and then computing:
+
+$${\bf x_1} = A^{-1}{\bf b_1}$$
+$${\bf x_2} = A^{-1}{\bf b_2}$$
+$$\dots$$
+$${\bf x_p} = A^{-1}{\bf b_p}$$
+
+Or, more concisely:
+
+$$ X = A^{-1}B $$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+What is the computational cost of using the matrix inverse to solve $AX = B$?   
+
+As [discussed earlier](https://mcrovella.github.io/CS132-Geometric-Algorithms/L10MatrixInverse.html#matrices-larger-than-2-times-2) the operation count of matrix inversion is  $\sim 2n^3$ flops 
+
+... that is, three times as many as Gaussian Elimination.
+
+This cost will dominate the process.
+
+::: {.fragment}
+Alternatively, we could perform Gaussian Elimination on each of the separate systems.  
+
+This is probably worse, because [then we have to perform $\sim p \cdot \frac{2}{3}n^3$ flops.](https://mcrovella.github.io/CS132-Geometric-Algorithms/L03RowReductions.html#the-cost-of-gaussian-elimination)  
+
+Assuming $p > 3$, using Gaussian Elimination on each system means doing more work than if we invert $A$.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+What if we could solve all these systems while performing Gaussian Elimination only __once?__ 
+
+That would be a win, as it would cut our running time by a factor of 3 compared to using the matrix inverse.
+
+::: {.fragment}
+The LU factorization allows us to do exactly this.
+:::
+
+::: {.fragment}
+Today we will explore the LU factorization.   We will see that LU factorization has a close connection to Gaussian Elimination.
+
+In fact, I hope that when we are done, you will see Gaussian Elimination in a new way, namely:
+    
+> __Gaussian Elimination is really a matrix factorization!__
+:::
+
+::: {.fragment}
+Before we start to discuss the LU factorization, we need to introduce a powerful tool for performing factorizations, called _elementary matrices._
+:::
+
+## Elementary Matrices
+
+::: {.fragment}
+Recall from the first and second lectures that the row reduction process consists of repeated applications of elementary row operations:
+
+* Exchange two rows
+* Multiply a row by a constant
+* Add a multiple of one row to another
+:::
+
+::: {.fragment}
+Now that we have much more theoretical machinery in our toolbox, we can make an important observation:
+
+__Every elementary row operation on $A$ can be performed by multiplying $A$ by a suitable matrix.__
+:::
+
+::: {.fragment}
+That is, an elementary row operation is a linear transformation!  
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Furthermore, the matrices that implement elementary row operations are particularly simple.  They are called __elementary matrices.__
+
+
+::: {.fragment}
+An elementary matrix is one that is obtained by __performing a single elementary row operation on the identity matrix.__
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Example.__  Let
+
+$$E_1 = \left[\begin{array}{rrr}1&0&0\\0&1&0\\-4&0&1\end{array}\right],\;\; E_2 = \left[\begin{array}{rrr}0&1&0\\1&0&0\\0&0&1\end{array}\right],\;\; E_3 = \left[\begin{array}{rrr}1&0&0\\0&1&0\\0&0&5\end{array}\right].$$
+
+Let's see what each matrix does to an arbitrary matrix $A = \left[\begin{array}{rrr}a&b&c\\d&e&f\\g&h&i\end{array}\right].$
+
+::: {.fragment}
+$$ E_1A = \left[\begin{array}{rrr}a&b&c\\d&e&f\\g-4a&h-4b&i-4c\end{array}\right]. $$
+:::
+
+::: {.fragment}
+$$ E_2A = \left[\begin{array}{rrr}d&e&f\\a&b&c\\g&h&i\end{array}\right].$$
+:::
+
+::: {.fragment}
+$$ E_3A = \left[\begin{array}{rrr}a&b&c\\d&e&f\\5g&5h&5i\end{array}\right].$$
+:::
+
+::: {.fragment}
+Clearly, left-multiplication by $E_1$ will add -4 times row 1 to row 3 (for any matrix $A$).
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Finding the Elementary Matrix
+
+::: {.fragment}
+In fact, you can look at this as follows.  
+
+Assume that some matrix $E$ exists that implements the operation "add -4 times row 1 to row 3."  
+:::
+
+::: {.fragment}
+Now, for any matrix, $EI = E$ by the definition of $I$.  
+:::
+
+::: {.fragment}
+But note that this equation also says:
+
+"the matrix ($E$) that implements the operation 'add -4 times row 1 to row 3' is the one you get by performing this operation on $I$"
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Thus we have the following:
+
+__Fact.__ If an elementary row operation is performed on an $m\times n$ matrix $A,$ the resulting matrix can be written as $EA$, where the $m\times m$ matrix $E$ is created by performing the same row operation on $I_m$.
+
+::: {.fragment}
+This is actually a special case of a general rule we already know: 
+
+> to compute the standard matrix of a linear transformation, ask what that transformation does to the identity matrix.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+One more thing: is an elementary matrix invertible?   
+
+Clearly, __yes:__ any row reduction operation can be reversed by another (related) row reduction operation.   
+
+So every row reduction is an invertible linear transformation -- so __every elementary matrix is invertible.__
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
