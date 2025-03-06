@@ -34,7 +34,7 @@ Applications,_ by David C. Lay
 ##
 :::
 
-Just as muiltiplication can be generalized from scalars to matrices, the notion of a factorization can also be generalized from scalars to matrices.
+Just as multiplication can be generalized from scalars to matrices, the notion of a factorization can also be generalized from scalars to matrices.
 
 A _factorization_ of a matrix $A$ is an equation that expresses $A$ as a product of two or more matrices.  
 
@@ -65,7 +65,7 @@ Today we'll work with one particular factorization that addesses the first case.
 The factorization we will study is called the __LU Factorization.__  It is worth studying in its own right, and because it introduces the idea of factorizations, which we will study again later on.
 :::
 
-## ## A Rationale for the LU Factorization
+## A Rationale for the LU Factorization
 
 ::: {.fragment}
 Consider the following problem.  You are given $A \in \mathbb{R}^{n\times n}$ and $B \in \mathbb{R}^{n\times p}$. 
@@ -258,160 +258,363 @@ Clearly, __yes:__ any row reduction operation can be reversed by another (relate
 
 So every row reduction is an invertible linear transformation -- so __every elementary matrix is invertible.__
 
-::: {.fragment}
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q12.1
+:::::
+:::
 
+## The LU Factorization
+
+::: {.fragment}
+Now, we will introduce the factorization 
+
+$$ A = LU.$$
+
+Note that we don't need to consider only square matrices $A$.  
+
+LU decomposition (like Gaussian Elimination) works for a matrix $A$ having any shape.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+An LU factorization of $A$ constructs two matrices that have this structure:
+
+$$A = \begin{array}{cc}
+\left[\begin{array}{cccc}1&0&0&0\\ *&1&0&0\\ *&*&1&0\\ *&*&*&1\end{array}\right]&
+\left[\begin{array}{ccccc}\blacksquare&*&*&*&*\\0&\blacksquare&*&*&*\\0&0&0&\blacksquare&*\\0&0&0&0&0\end{array}\right]\\
+L&U\\
+\end{array}
+$$
+
+Stars ($*$) denote arbitrary entries, and blocks ($\blacksquare$) denote nonzero entries.
+
+::: {.fragment}
+These two matrices each have a special structure.
 :::
 
 ::: {.fragment}
-
+First of all, $U$ is in row echelon form, and it has the same shape as $A$.   
+This is the "upper" matrix (hence its name $U$).
 :::
 
 ::: {.fragment}
+Second, $L$ is a lower triangular square matrix, and it has 1s on the diagonal.  
+This is called a __unit lower triangular__ matrix (hence its name $L$).
+:::
 
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+The fact that $U$ is in row echelon form may suggest to you (correctly!) that we could get it from $A$ by a sequence of row operations.  
+
+For now, let us suppose that the row reductions that convert $A$ to $U$ only add a multiple of one row to another row __below__ it.
+
+::: {.fragment}
+Now, if you consider an elementary matrix that implements such a row reduction, you will see that it will have 1s on the diagonal, and an additional entry somewhere below the diagonal.  
+::: 
+
+::: {.fragment}
+For example, recall $E_1$ above: 
+
+$$E_1 = \left[\begin{array}{rrr}1&0&0\\0&1&0\\-4&0&1\end{array}\right]$$
+
+$$ E_1A = \left[\begin{array}{rrr}a&b&c\\d&e&f\\g-4a&h-4b&i-4c\end{array}\right]. $$
 :::
 
 ::: {.fragment}
+In other words, this sort of elementary matrix would actually be a unit lower triangular matrix.
+:::
 
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+So if there is a sequence of row operations that convert $A$ to $U$, then there is a sequence of unit lower triangular elementary matrices $E_1, E_2, \dots, E_p$ such that
+
+$$E_p\cdots E_2 E_1A = U.$$
+
+
+::: {.fragment}
+Remember the order that the linear transformations are occurring.  It is the same as:
+    
+$$(E_p (\cdots (E_2 (E_1A)))) = U.$$
+
+But we can also think of this product as:
+
+$$(E_p \cdots E_1) A = U.$$
 :::
 
 ::: {.fragment}
+Now, we know that all elementary matrices are invertible, and the product of invertible matrices is invertible, so:
 
+$$A = (E_p\cdots E_1)^{-1} U.$$
+
+If we define
+
+$$L = (E_p\cdots E_1)^{-1}$$
+
+Then
+
+$$ A = LU.$$
 :::
 
 ::: {.fragment}
+It's not hard to show that the product of unit lower triangular matrices is unit lower triangular.   
 
+It's also true that the inverse of a unit lower triangular matrix is unit lower triangular.
 :::
 
 ::: {.fragment}
+So we can conclude that $L,$ as constructed from $(E_p\cdots E_1)^{-1}$, is unit lower triangular.   
 
+Hence, we have defined the  LU decomposition based on Gaussian Elimination.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+So: we have rewritten the Gaussian Elimination of $A$ as:
+
+$$U = L^{-1}A.$$
+
+We've shown that $U$ is in row echelon form, and was obtained from $A$ by a sequence of elementary row operations.
+
+And we've shown that the $L$ so defined is unit lower triangular.
+
+::: {.fragment}
+Let's take stock of what this all means: the LU decomposition is a way of capturing the application of Gaussian Elimination to $A$.   
+
+It incorporates both the process of performing Gaussian Elimination, and the result:
+
+$L^{-1}$ captures the row reductions that transform $A$ to row echelon form.
+
+$U$ is the row echelon form of $A$.
 :::
 
 ::: {.fragment}
+Note however that we have assumed that the Gaussian Elimination procedure only used certain row reductions -- in particular, no row interchanges.   
+ (We'll deal with row interchanges later.)
+:::
 
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q12.2
+:::::
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Finding $L$
+
+::: {.fragment}
+Recall that the motivation for developing the LU decomposition is that it is more efficient than matrix inversion.   
+So we don't want to have to invert $L^{-1}$ in the standard way in order to find $L$.
 :::
 
 ::: {.fragment}
+There is an algorithm that does this, and using it one can invert $L^{-1}$ efficiently.  
 
+The basic idea is that $L^{-1}$ is a sequence of elementary row operations, and the inverse of $L^{-1}$ is the matrix $L$ that gives $L^{-1}L = I.$  
+
+So if we examine the sequence of elementary row operations, we can efficiently determine what $L$ will give $I$ under those row operations.
 :::
 
 ::: {.fragment}
-
+This gives the following algorithm for LU factorization:
+    
+* Reduce $A$ to an echelon form $U$ by a sequence of row replacement operations, if possible.
+* Place entries in $L$ such that the _same sequence of row operations_ reduces $L$ to $I$.
 :::
 
 ::: {.fragment}
+Here is the key observation: the step of reducing $A$ to echelon form is simply Gaussian Elimination.    If the second step can be done efficiently, then the whole LU factorization doesn't take any longer than Gaussian Elimination itself.  
 
+The fact is that constructing $L$ __can__ be done efficiently by a simple modification of Gaussian Elimination.
+
+This leads to the important conclusion: the __operation count of LU decomposition is only $\sim \frac{2}{3}n^3.$__
+:::
+
+## Using the LU Factorization
+
+Let's return to the motivation for developing the LU factorization.
+
+We've seen that performing LU decomposition is essentially equivalent to performing Gaussian Elimination, and as such, it doesn't take time much longer than Gaussian Elimination.  
+
+::: {.fragment}
+Now we want to show that, using the LU decomposition, that the system $A{\bf x} = {\bf b}$ can be solved for any ${\bf b}$ in time that is proportional to $n^2$.
 :::
 
 ::: {.fragment}
-
+Informally, what we are going to do is to use $L$ to do a special, very efficient version of the forward step of Gaussian Elimination, and then use $U$ in the usual way to do backsubstitution.
 :::
 
 ::: {.fragment}
+We can write these two steps concisely as follows:
 
+When $A = LU$, the equation $A{\bf x} = {\bf b}$ can be written as $L(U{\bf x}) = {\bf b}.$  
+
+Let's take this apart, and write ${\bf y}$ for $U{\bf x}$.  Then we can find ${\bf x}$ by solving the pair of equations:
+
+$$L{\bf y} = {\bf b},$$
+$$U{\bf x} = {\bf y}.$$
 :::
 
 ::: {.fragment}
+The idea is that we first solve $L{\bf y} = {\bf b}$ for ${\bf y},$ then solve $U{\bf x} = {\bf y}$ for ${\bf x}.$
 
+In a sense, this corresponds to first performing the forward step of Gaussian Elimination (but in a specially streamlined, efficient way) and then performing the backwards (backsubstitution) step in the usual (efficient) fashion.
+:::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Image credit: _Linear Algebra and its
+Applications,_ by David C. Lay
+:::
+::::
+
+::: {.fragment .ctrd}
+![](images/Lay-fig-2-5-2.jpeg){width=550}
 :::
 
 ::: {.fragment}
+The key observation: __each equation is fast to solve__ because $L$ and $U$ are each __triangular.__
+:::
 
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Example.__
+
+Given the following LU decomposition of $A$:
+
+$$A = \left[\begin{array}{rrrr}3&-7&-2&2\\-3&5&1&0\\6&-4&0&-5\\-9&5&-5&12\end{array}\right] = 
+\left[\begin{array}{rrrr}1&0&0&0\\-1&1&0&0\\2&-5&1&0\\-3&8&3&1\end{array}\right]
+\left[\begin{array}{rrrr}3&-7&-2&2\\0&-2&-1&2\\0&0&-1&1\\0&0&0&-1\end{array}\right] = LU$$
+
+::: {.fragment}
+Use this LU factorization of $A$ to solve $A{\bf x} = {\bf b}$, where ${\bf b} = \left[\begin{array}{r}-9\\5\\7\\11\end{array}\right].$
 :::
 
 ::: {.fragment}
+__Solution.__  To solve $L{\bf y} = {\bf b},$ note that the arithmetic takes place only in the augmented column (column 5).   The zeros below each pivot in $L$ are created automatically by the choice of row operations.
 
+$$[L\;\; {\bf b}] = \left[\begin{array}{rrrrr}1&0&0&0&-9\\-1&1&0&0&5\\2&-5&1&0&7\\-3&8&3&1&11\end{array}\right] \sim
+\left[\begin{array}{rrrrr}1&0&0&0&-9\\0&1&0&0&-4\\0&0&1&0&5\\0&0&0&1&1\end{array}\right] = [I\;{\bf y}].$$
 :::
 
 ::: {.fragment}
+Next, for $U{\bf x} = {\bf y}$ (the "backward" phase) the row reduction is again streamlined:
 
+$$[U\;\;{\bf y}] =  \left[\begin{array}{rrrrr}3&-7&-2&2&-9\\0&-2&-1&2&-4\\0&0&-1&1&5\\0&0&0&-1&1\end{array}\right] \sim
+\left[\begin{array}{rrrrr}1&0&0&0&3\\0&1&0&0&4\\0&0&1&0&-6\\0&0&0&1&-1\end{array}\right].$$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Operation Count Analysis.__
+
+Both the forward and backward phases of solving a system as $L(U{\bf x}) = {\bf b}$ have flop counts of $\sim 2n^2$. 
+
+Therefore to solve $A\mathbf{x} = \mathbf{b}$ using $LU\mathbf{x} = \mathbf{b}$, the dominating step is doing the factorization $A = LU$. 
+
+We've seen that the factorization step is essentially Gaussian Elimination, and therefore requires $\sim\frac{2}{3}n^3$ flops.
+
+::: {.fragment}
+Now, to return to our original problem.
+
+To solve 
+
+$$AX = B$$
+
+where $A$ is $n\times n$, and both $X$ and $B$ have $p$ columns,
+
+* By matrix inversion of $A$ requires $\sim 2n^3 + 2p n^2$ flops
+* By LU factorization of $A$ requires $\sim \frac{2}{3}n^3 + 2p n^2$ flops
 :::
 
 ::: {.fragment}
+Hence we have found that by using the LU decomposition, one can solve a series of systems all involving the same $A$ in $\sim\frac{2}{3}n^3$ flops, 
 
+while doing Gaussian Elimination would require $\sim\frac{2}{3}n^3$ flops __for each system__,
+
+and using the matrix inverse would require $\sim2n^3$ flops to invert the matrix.
+:::
+
+## Pivoting
+
+::: {.fragment}
+Up until now we have assumed that the Gaussian Elimination we used to define $U$ only involves adding a multiple of a row to a row below it.
 :::
 
 ::: {.fragment}
+However, in real situations, we sometime need to exchange two rows.
 
+One reason is, as we know, that if the current row has a zero in the pivot position, we need to exchange it with a row that does not have a zero in the pivot position.
+
+But there is another, more subtle reason having to do with numerical accuracy.
 :::
 
 ::: {.fragment}
+We make the following observation: in general, we would like to avoid __dividing by a small number.__
 
+Here is why.   Consider the problem of computing $a/b$ where $a$ and $b$ are scalars. 
 :::
 
 ::: {.fragment}
+Let's say there is some small error in the value of $a$, call it $\epsilon.$   
 
+That means that what we are really computing is $(a+\epsilon)/b = a/b + \epsilon/b$. 
+
+Note that $a/b$ is the correct value, but that what we compute is off by $\epsilon/b$.  Now, if $b$ is a very small number, then the error in the result ($\epsilon/b$) will be large.
 :::
 
 ::: {.fragment}
+Hence we would like to avoid dividing by small numbers whenever possible.  
 
+Now: note that in performing Gaussian Elimination, we divide each row by the value of its pivot.
+
+What this suggests is that we would like to avoid having small pivots.
 :::
 
 ::: {.fragment}
-
+There is a simple way to address this.   In processing any particular row, we can avoid having a small pivot by interchanging the current row with one of those below it.  
 :::
 
 ::: {.fragment}
-
+We would like to exchange the current row with the row that __has the largest absolute value of its pivot.__  This algorithmic technique is called "partial pivoting."
 :::
 
 ::: {.fragment}
+Now, a row interchange is an elementary row operation, and can be implemented by an elementary matrix.  This elementary matrix is the identity with its corresponding rows interchanged.   
 
+An elementary matrix that exchanges rows is called a _permutation_ matrix.  The product of permutation matrices is a permutation matrix.  
+
+Hence, the net result of all the partial pivoting done during Gaussian Elimination can be expressed in a single permutation matrix $P$.
 :::
 
 ::: {.fragment}
+This means that the final factorization of $A$ is:
 
+$$A = P L U.$$
 :::
 
 ::: {.fragment}
+You can read this equation two ways:
 
-:::
-
-::: {.fragment}
-
-:::
-
-::: {.fragment}
-
-:::
-
-::: {.fragment}
-
-:::
-
-::: {.fragment}
-
-:::
-
-::: {.fragment}
-
-:::
-
-::: {.fragment}
-
-:::
-
-::: {.fragment}
-
-:::
-
-::: {.fragment}
-
-:::
-
-::: {.fragment}
-
-:::
-
-::: {.fragment}
-
-:::
-
-::: {.fragment}
-
-:::
-
-::: {.fragment}
-
+1. $A$ is the product of a unit lower triangular matrix $L$ and an echelon form matrix $U$, and the rows of their product have been reordered according to the permulation $P$.  This is $A = P(LU).$
+2. $A$ is the product of a _permuted_ lower triangular matrix $PL$ and an echelon form matrix $U$.  This is $A = (PL)U.$
 :::
 
 ::: {.fragment}
