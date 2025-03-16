@@ -1,0 +1,791 @@
+---
+jupyter: python3
+---
+```{python}
+#| echo: false
+qr_setting = None
+#
+import numpy as np
+import matplotlib as mp
+import pandas as pd
+import matplotlib.pyplot as plt
+import laUtilities as ut
+import slideUtilities as sl
+import demoUtilities as dm
+import pandas as pd
+from matplotlib import animation
+from IPython.display import HTML
+from IPython.display import Latex
+
+```
+<!--
+This comment somehow suppresses the title page
+-->
+## Computer Graphics
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Many parts of this page are based on _Linear Algebra and its
+Applications,_ by David C. Lay
+:::
+::::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Computer Graphics is the study of creating, synthesizing,  manipulating, and using visual information in the computer.
+
+Today we'll study the mathematics behind computer graphics.
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+If you are interested in learning more about computer graphics, you can take CS 480 here at BU.  A good book for more detail specifically on mathematical aspects is [Mathematics for 3D Game Programming and Computer Graphics](http://mathfor3dgameprogramming.com), by Eric Lengyel.
+:::
+::::
+
+## Computer Graphics is Everywhere
+
+::: {.fragment}
+Computer graphics (CG) is pervasive in the world today.
+:::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Image credits: [CS 184 Lecture Slides](https://cs184.eecs.berkeley.edu/uploads/lectures/01_intro/01_intro_slides.pdf), UC Berkeley, Ng Ren
+:::
+::::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+CG is used in films and games.
+
+![](images/ComputerGraphics/motivation-entertainment.png)
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+CG is used in science and engineering for product design, visualization and computer-aided design.
+
+![](images/ComputerGraphics/motivation-product-visual.png){height=600}
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+CG is used in the arts: graphical user interfaces, digital photography, graphic design, and fine arts.
+
+![](images/ComputerGraphics/motivation-finearts.png){height=600}
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Remarkably, all of the applications we see here are based, at their core, on linear algebra.
+
+Today we'll start to unlock the methods of computer graphics and see how they depend on linear algebra.
+
+::: {.fragment}
+To do that, we'll go back to the notion of a linear transformation.
+:::
+
+## Linear Transformations
+
+::: {.fragment}
+In the lecture on [linear transformations and matrices](https://mcrovella.github.io/CS132-Geometric-Algorithms/L08MatrixofLinearTranformation.html) we talked about linear transformations of $\mathbb{R}^2$:
+
+1. __Reflection__ 
+    * over the $x_1$ or $x_2$ axes, 
+    * over the lines $x_2=x_1$ or $x_2=-x_1$, and
+    * through the origin. 
+2. Horizontal and vertical __dilation__ and __contraction__.
+3. Horizontal and vertical __shearing.__
+4. __Projection__ onto the $x_1$ or $x_2$ axes or onto a line through the origin.
+
+Today, we'll talk about __3D__ transformations: linear transformations on $\mathbb{R}^3$.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+The computer graphics seen in movies and videogames works in three stages:
+
+1. A 3D model of the scene objects is created; 
+2. The model is converted into (many small) polygons in 3D that approximate the surfaces of the model; and
+3. The polygons are transformed via a linear transformation to yield a 2D representation that can be shown on a flat screen.
+
+::: {.fragment}
+There is interesting mathematics in each stage, but the transformations that take place in the third stage are __linear__, and that's what we'll study today.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+![](images/ComputerGraphics/Akira_class_CGI_wireframe_model_by_ILM.jpg){height=600}
+
+::: {.content-hidden when-profile="slides"}
+Initially, object models may be expressed in terms of smooth functions like polynomials. 
+
+However the first step is to convert those smooth functions into a set of discrete pieces -- coordinates and line segments.   
+
+All subsequent processing is done in terms of the discrete coordinates that approximate the shape of the original model.  
+
+The reason for this conversion is that most transformations needed in graphics are _linear._  
+
+Expressing the scene in terms of coordinates is equivalent to expressing it in terms of vectors, that is, in $\mathbb{R}^3$.   
+
+And linear transformations on vectors are always matrix multiplications, so implementation is simple and uniform.
+
+The resulting representation consists of lists of 3D coordinates called _faces._   Each face is a polygon.
+
+The lines drawn between coordinates are implied by the way that coordinates are grouped into faces. 
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### The Coordinate System
+
+The standard coordinate system used in computer graphics places the axes in this relationship: 
+
+![](images/SitTF.png){width=200}
+
+::: {.fragment}
+Note the relative position of three axes.  We generally think of the $z$-axis as coming out of the screen towards us.
+:::
+
+::: {.fragment}
+We consider the columns of the identity -- $\mathbf{e}_1, \mathbf{e}_2,$ and $\mathbf{e}_3$ -- to be associated with the $x$, $y$, and $z$ directions in this figure.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### An Example
+
+Here is a view of a ball-like object.  It is centered at the origin.
+
+The ball is represented in terms of 3D coordinates, but we are only plotting the $x$ and $y$ coordinates here.
+
+Colors correspond to faces.
+
+```{python}
+#| echo: false
+#
+# load ball wireframe
+import obj2clist as obj
+with open('snub_icosidodecahedron.wrl','r') as fp:
+    ball = obj.wrl2flist(fp)
+#
+# set up view
+fig = plt.figure()
+ax = plt.axes(xlim=(-5,5),ylim=(-5,5))
+plt.plot(-2,-2,'')
+plt.plot(2,2,'')
+plt.axis('equal')
+#
+# plot the ball
+for b in ball:
+    ax.plot(b[0],b[1])
+```
+
+## Rotation
+
+::: {.fragment}
+Imagine that we want to circle the camera around the ball by moving sideways.   In terms of what we would see through the camera, this is equivalent to rotating the ball around the $y$ axis.
+:::
+
+::: {.fragment}
+Rotation is a linear transformation.  We can implement it by multiplying the coordinates of the ball by a _rotation matrix._   To define the rotation matrix, we need to think about what happens to each of the columns of $I: \mathbf{e}_1, \mathbf{e}_2,$ and $\mathbf{e}_3.$
+:::
+
+::: {.fragment}
+To rotate through an angle of $\alpha$ radians around the $y$ axis, 
+
+the vector ${\bf e_1} = \left[\begin{array}{r}1\\0\\0\end{array}\right]$ goes to $\left[\begin{array}{c}\cos \alpha\\0\\-\sin \alpha\end{array}\right].$
+
+Of course, ${\bf e_2}$ is unchanged.
+
+And ${\bf e_3} = \left[\begin{array}{r}0\\0\\1\end{array}\right]$ goes to $\left[\begin{array}{c}\sin \alpha\\0\\\cos \alpha\end{array}\right].$
+:::
+
+::: {.fragment}
+So the entire rotation matrix is:
+
+$$\begin{bmatrix}\cos \alpha&0&\sin \alpha\\0&1&0\\-\sin \alpha&0&\cos\alpha\end{bmatrix}.$$
+:::
+
+::: {.fragment}
+```{python}
+#| echo: false
+import matplotlib.animation as animation
+mp.rcParams['animation.html'] = 'jshtml'
+
+fig = plt.figure()
+ax = plt.axes(xlim=(-4,4),ylim=(-4,4))
+plt.plot(-2,-2,'')
+plt.plot(2,2,'')
+plt.axis('equal')
+ballLines = []
+for b in ball:
+    ballLines += ax.plot([],[])
+plt.close()
+#
+#to get additional args to animate:
+#def animate(angle, *fargs):
+#    fargs[0].view_init(azim=angle)
+def animate(frame):
+    angle = 2.0 * np.pi * (frame/100.0)
+    rotationMatrix = np.array([[np.cos(angle), 0, -np.sin(angle)],
+                               [0,             1,              0],
+                               [np.sin(angle), 0, np.cos(angle)]])
+    for b,l in zip(ball,ballLines):
+        rb = rotationMatrix @ b
+        l.set_data(rb[0],rb[1])
+    fig.canvas.draw()
+#
+# create the animation 
+animation.FuncAnimation(fig, animate,
+                       frames=np.arange(0,100,1),
+                       fargs=None,
+                       interval=100,
+                       repeat=True)
+```
+:::
+
+## Translation
+
+::: {.fragment}
+Manipulating graphics objects using matrix multiplication is very convenient.
+:::
+
+::: {.fragment}
+However, there is a commonly used operation that is __not__ a linear transformation: _translation --_ that is, movement in space.
+:::
+
+::: {.fragment}
+Remember that a transformation $T(x)$ is linear if $T(x + y) = T(x) + T(y)$ and $T(cx) = cT(x)$. 
+
+Now, if $T(x)$ is a translation, then $T(x) = x + b$ for some nonzero $b$.
+:::
+
+::: {.fragment}
+But then $T(x + y) \neq T(x) + T(y)$.   
+
+So a __translation__ is __not__ a linear transformation.
+:::
+
+::: {.fragment}
+There is a nice way to avoid this difficulty, while keeping things linear.
+
+We will use what are called __homogeneous coordinates.__
+:::
+
+::: {.fragment}
+When using homogeneous coordinates, we add __another__ component to the vector representing a point.
+:::
+
+::: {.fragment}
+The coordinates of the point in $\mathbb{R}^4$ are the homogeneous coordinates for the point in $\mathbb{R}^3.$
+:::
+
+::: {.fragment}
+The extra component gives us a constant that we can scale and add to the other coordinates, as needed, via matrix multiplication.
+:::
+
+::: {.fragment}
+This means for 3D graphics, all transformation matrices are $4\times 4.$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Example
+
+Let's say we want to move a point $(x, y, z)$ to location $(x+h, y+k, z+m).$
+
+::: {.fragment}
+We represent the point in homogeneous coordinates as $\left[\begin{array}{r}x\\y\\z\\1\end{array}\right].$
+:::
+
+::: {.fragment}
+The transformation corresponding to this 'translation' is:
+
+$$\left[\begin{array}{cccc}1&0&0&h\\0&1&0&k\\0&0&1&m\\0&0&0&1\end{array}\right]\left[\begin{array}{r}x\\y\\z\\1\end{array}\right] = \left[\begin{array}{c}x+h\\y+k\\z+m\\1\end{array}\right].$$
+:::
+
+::: {.fragment}
+If we only consider $x, y,$ and $z$ this is not a linear transformation.   But of course, in $\mathbb{R}^4$ this most definitely __is__ a linear transformation.   
+
+We have 'sheared' in the fourth dimension, which affects the other three. A very useful trick!
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Constructing Matrices for Homogeneous Coordinates
+
+For any transformation $A$ that is linear in $\mathbb{R}^3$ (such as scaling, rotation, reflection, shearing, etc.), we can construct the corresponding matrix for homogeneous coordinates quite simply:
+
+::: {.fragment}
+If 
+
+$$ 
+A = \begin{bmatrix}\blacksquare&\blacksquare&\blacksquare\\\blacksquare&\blacksquare&\blacksquare\\\blacksquare&\blacksquare&\blacksquare\end{bmatrix}
+$$
+:::
+
+::: {.fragment}
+Then the corresponding transformation for homogeneous coordinates is:
+
+$$\begin{bmatrix}\blacksquare&\blacksquare&\blacksquare&0\\\blacksquare&\blacksquare&\blacksquare&0\\\blacksquare&\blacksquare&\blacksquare&0\\0&0&0&1\end{bmatrix}$$
+:::
+
+::: {.fragment}
+In other words, when performing a linear transformation on $x, y$, and $z$, one simply 'carries along' the extra coordinate without modifying it.
+:::
+
+## Matrices for 3D Transformations
+
+::: {.fragment}
+
+$$\begin{bmatrix} s_x&0&0&0 \\ 0&s_y&0&0 \\0&0&s_z&0 \\0&0&0&1\end{bmatrix}$$
+:::
+
+::: {.fragment}
+__Translation__
+
+$$\begin{bmatrix} 1&0&0&h\\0&1&0&k\\0&0&1&m\\0&0&0&1\end{bmatrix}$$
+:::
+
+::: {.fragment}
+__Rotation around x-, y-, z- axis couterclockwise and looking towards the origin__
+
+$$R_x(\alpha)=\begin{bmatrix}1&0&0&0\\ 0&\cos \alpha&-\sin \alpha&0\\0&\sin \alpha&\cos\alpha&0\\0&0&0&1\end{bmatrix}.$$
+
+$$R_y(\alpha)=\begin{bmatrix}\cos \alpha&0&\sin \alpha&0\\0&1&0&0\\-\sin \alpha&0&\cos\alpha&0\\0&0&0&1\end{bmatrix}.$$
+
+$$R_z(\alpha)=\begin{bmatrix}\cos \alpha&-\sin \alpha&0&0\\\sin \alpha&\cos\alpha&0&0\\0&0&1&0\\0&0&0&1\end{bmatrix}.$$
+:::
+
+## Perspective Projections
+
+::: {.fragment}
+There is another nonlinear transformation that is important in computer graphics: perspective.
+:::
+
+::: {.fragment}
+Happily, we will see that homogeneous coordinates allow us to capture this too as a linear transformation in $\mathbb{R}^4$.
+:::
+
+::: {.fragment}
+The eye, or a camera, captures light (essentially) in a single location, and hence gathers light rays that are converging. 
+
+So, to portray a scene with realistic appearance, it is necessary to reproduce this effect.   
+
+The effect can be thought of as "nearer objects are larger than further objects." 
+:::
+
+::: {.fragment}
+This was (re)discovered by Renaissance artists (supposedly first by Filippo Brunelleschi, around 1405).
+
+Here is a famous example: Raphael's _School of Athens_ (1510).
+:::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Images from [here.](http://www.webexhibits.org/sciartperspective/tylerperspective.html)
+:::
+::::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+![](images/Raphael-SchoolofAthens.jpg)
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+![](images/Raphael-SchoolofAthens-Perspective.jpg)
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+We now understand that this effect interacts in a powerful way with neural circuitry in our brains.  
+
+The mind reconstructs a sense of three dimensions from the two dimensional information presented to it by the retina.  
+
+This is done by sophisticated processing in the visual cortex, which is a fairly large portion of the brain.
+
+
+::: {.fragment}
+```{python}
+#| echo: false
+fig = plt.figure()
+
+ax = plt.axes(xlim=(-5,5),ylim=(-5,5))
+plt.plot(-2,-2,'')
+plt.plot(2,2,'')
+plt.axis('equal')
+with open('cube.obj','r') as fp:
+    cube = obj.obj2flist(fp)
+cube = obj.homogenize(cube)
+cubeLines = []
+for c in cube:
+    cubeLines += ax.plot([],[])
+plt.close()
+#
+def animate(i):
+    angle = 2.0 * np.pi * (i/100.0)
+    P = np.array([[1.,0,0,0],[0,1.,0,0],[0,0,0,0],[0,0,-1./8,1]]).dot(np.array([[np.cos(angle),0,-np.sin(angle),0],[0,1,0,0],[np.sin(angle),0,np.cos(angle),0],[0,0,0,1]]))
+    for b,l in zip(cube,cubeLines):
+        rb = P.dot(b)
+        l.set_data(rb[0]/rb[3],rb[1]/rb[3])
+    #fig.canvas.draw()
+#
+# create the animation 
+HTML(animation.FuncAnimation(fig, animate,
+                       frames=np.arange(0,100,1),
+                       fargs=None,
+                       interval=100,
+                       repeat=False).to_jshtml(default_mode = 'loop'))
+```
+:::
+
+::: {.fragment}
+Notice that when the image is stationary, it appears flat (like a picture frame).  As soon as it starts to move, it springs into 3D in perception.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Computing Perspective 
+
+To render a scene with perspective, we simply have to consider how objects appear when viewed from a point (like an eye or a camera).
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Figures from _Linear Alegebra and its Applications,_ Lay, Lay, and MacDonald.
+:::
+::::
+
+::: {.fragment}
+A standard setup for computing a perspective transformation is as shown in this figure:
+
+![](images/Lay-fig-2-7-1.png){width=350}
+:::
+
+::: {.fragment}
+For simplicity, we will let the $xy$-plane represent the screen.  This is called the _viewing plane._  
+
+The eye/camera is located on the $z$ axis, at the point $(0,0,d)$.  This is call the _center of projection._
+:::
+
+::: {.fragment}
+A _perspective projection_ maps each point $(x,y,z)$ onto an image point $(x^*,y^*,0)$ so that the center of projection and the two points are all on the same line.
+:::
+
+::: {.fragment}
+![](images/Lay-fig-2-7-2.png){width=350}
+:::
+
+::: {.fragment}
+We can compute the projection transformation using similar triangles.
+
+The triangle in the $xz$-plane shows the lengths of corresponding line segments.
+:::
+
+::: {.fragment}
+Similar triangles show that
+
+$$\frac{x^*}{d} = \frac{x}{d-z}$$
+:::
+
+::: {.fragment}
+and so
+
+$$x^*=\frac{dx}{d-z}\;=\;\frac{x}{1-z/d}.$$
+:::
+
+::: {.fragment}
+Notice that the function $T: (x,z)\mapsto\frac{x}{1-z/d}$ is __not__ linear.
+:::
+
+::: {.fragment}
+However, using homogeneous coordinates, we can construct a linear version of $T$ in $\mathbb{R}^4.$
+:::
+
+::: {.fragment}
+To do so, we establish the following convention: we will allow the fourth coordinate to vary away from 1.
+
+However, when we plot, for a point $\begin{bmatrix}x\\y\\z\\\end{bmatrix}$ we will plot the point $\begin{bmatrix}\frac{x}{h}\\\frac{y}{h}\\\frac{z}{h}\end{bmatrix}.$ 
+:::
+
+::: {.fragment}
+In this way, by dividing the $x,y,z$ coordinates by the $h$ coordinate, we can implement a __nonlinear__ transform in $\mathbb{R}^3.$
+:::
+
+::: {.fragment}
+So, to implement the perspective transform, we want $\begin{bmatrix}x\\y\\z\\1\end{bmatrix}$ to map to $\begin{bmatrix}\frac{x}{1-z/d}\\\frac{y}{1-z/d}\\0\\1\end{bmatrix}.$   
+:::
+
+::: {.fragment}
+The way we will implement this is to actually cause it to map to  $\begin{bmatrix}x\\y\\0\\1-z/d\end{bmatrix}.$
+
+Then, when we plot (dividing $x$ and $y$ by the $h$ value) we will get the proper transform.
+:::
+
+::: {.fragment}
+The matrix that implements this transformation is quite simple:
+
+$$\begin{bmatrix}1&0&0&0\\0&1&0&0\\0&0&0&0\\0&0&-1/d&1\end{bmatrix}.$$
+
+So:
+
+$$\begin{bmatrix}1&0&0&0\\0&1&0&0\\0&0&0&0\\0&0&-1/d&1\end{bmatrix}\begin{bmatrix}x\\y\\z\\1\end{bmatrix} = \begin{bmatrix}x\\y\\0\\1-z/d\end{bmatrix}.$$
+:::
+
+## Composing Transformations
+
+::: {.fragment}
+One big payoff for casting all graphics operations as linear transformations comes in the __composition__ of transformations.
+:::
+
+::: {.fragment}
+Consider two linear transformations $T$ and $S$.   For example, $T$ could be a scaling and $S$ could be a rotation.  Assume $S$ is implemented by a matrix $A$ and $T$ is implemented by a matrix $B$. 
+:::
+
+::: {.fragment}
+To first scale and then rotate a vector $\mathbf{x}$ we would compute $S(T(\mathbf{x}))$.
+
+Of course this is implemented as $A(B\mathbf{x}).$
+:::
+
+::: {.fragment}
+But note that this is the same as $(AB)\mathbf{x}.$   In other words, $AB$ is a _single matrix that both scales and rotates_ $\mathbf{x}$.  
+:::
+
+::: {.fragment}
+By extension, we can combine any arbitrary sequence of linear transformations into a single matrix.   This greatly simplifies high-speed graphics.  
+
+Note though that if $C = AB$, then $C$ is the transformation that _first_ applies $B$, _then_ applies $A$ (order matters).
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Example.__   Let's work in homogenous coordinates for points in $\mathbb{R}^2$.    Find the $3\times 3$ matrix that corresponds to the composite transformation of first scaling by 0.3, then rotation of 90$^\circ$ about the origin, and finally a translation of $\begin{bmatrix}-0.5\\2\end{bmatrix}$ to each point of a figure.
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+
+```{python}
+#| echo: false
+ax = plt.axes(xlim=(-5,5),ylim=(-5,5))
+plt.plot(-2,-2,'')
+plt.plot(2,2,'')
+plt.axis('equal')
+tri = np.array([[0.,1,-1,0],[1,-1,-1,1],[1,1,1,1]])
+plt.plot(tri[0]/tri[2],tri[1]/tri[2],'b',label='X')
+plt.legend();
+```
+We'll use this triangle to show the sequence of transformations.
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+
+```{python}
+#| echo: false
+ax = plt.axes(xlim=(-5,5),ylim=(-5,5))
+plt.plot(-2,-2,'')
+plt.plot(2,2,'')
+plt.axis('equal')
+tri = np.array([[0.,1,-1,0],[1,-1,-1,1],[1,1,1,1]])
+plt.plot(tri[0]/tri[2],tri[1]/tri[2],'b',label='X')
+scale = np.array([[.3,0,0],[0,.3,0],[0,0,1]])
+rotate = np.array([[0,-1.,0],[1,0,0],[0,0,1]])
+translate = np.array([[1,0,-0.5],[0,1,2],[0,0,1]])
+newtri = scale.dot(tri)
+plt.plot(newtri[0]/newtri[2],newtri[1]/newtri[2],'r',label='S(X)')
+plt.legend();
+```
+
+Scaling by 0.3.
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+```{python}
+#| echo: false
+ax = plt.axes(xlim=(-5,5),ylim=(-5,5))
+plt.plot(-2,-2,'')
+plt.plot(2,2,'')
+plt.axis('equal')
+tri = np.array([[0.,1,-1,0],[1,-1,-1,1],[1,1,1,1]])
+plt.plot(tri[0]/tri[2],tri[1]/tri[2],'b',label='X')
+scale = np.array([[.3,0,0],[0,.3,0],[0,0,1]])
+rotate = np.array([[0,-1.,0],[1,0,0],[0,0,1]])
+translate = np.array([[1,0,-0.5],[0,1,2],[0,0,1]])
+newtri = scale.dot(tri)
+plt.plot(newtri[0]/newtri[2],newtri[1]/newtri[2],'r',label='S(X)')
+newtri = rotate.dot(scale).dot(tri)
+plt.plot(newtri[0]/newtri[2],newtri[1]/newtri[2],'g',label='R(S(X))')
+plt.legend();
+```
+
+Scaling by 0.3, then rotating by 90$^\circ$ about the origin.
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+```{python}
+#| echo: false
+ax = plt.axes(xlim=(-5,5),ylim=(-5,5))
+plt.plot(-2,-2,'')
+plt.plot(2,2,'')
+plt.axis('equal')
+tri = np.array([[0.,1,-1,0],[1,-1,-1,1],[1,1,1,1]])
+plt.plot(tri[0]/tri[2],tri[1]/tri[2],'b',label='X')
+scale = np.array([[.3,0,0],[0,.3,0],[0,0,1]])
+rotate = np.array([[0,-1.,0],[1,0,0],[0,0,1]])
+translate = np.array([[1,0,-0.5],[0,1,2],[0,0,1]])
+newtri = scale.dot(tri)
+plt.plot(newtri[0]/newtri[2],newtri[1]/newtri[2],'r',label='S(X)')
+newtri = rotate.dot(scale).dot(tri)
+plt.plot(newtri[0]/newtri[2],newtri[1]/newtri[2],'g',label='R(S(X))')
+newtri = translate.dot(rotate).dot(scale).dot(tri)
+plt.plot(newtri[0]/newtri[2],newtri[1]/newtri[2],'y',label='T(R(S(X)))')
+plt.legend();
+```
+
+Scaling by 0.3, then rotation of 90$^\circ$ about the origin, then translation of $\begin{bmatrix}-0.5\\2\end{bmatrix}$.
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Let's see how to compose these three transformations into a single matrix multiplication.
+
+::: {.fragment}
+The scaling matrix is:
+
+$$S = \begin{bmatrix}0.3&0&0\\0&0.3&0\\0&0&1\end{bmatrix}$$
+:::
+
+::: {.fragment}
+The rotation matrix is:
+
+$$R = \begin{bmatrix}0&-1&0\\1&0&0\\0&0&1\end{bmatrix}$$
+
+(Note that $\sin 90^\circ = 1$ and $\cos 90^\circ = 0.$)
+:::
+
+::: {.fragment}
+The translation matrix is:
+
+$$T = \begin{bmatrix}1&0&-0.5\\0&1&2\\0&0&1\end{bmatrix}$$
+:::
+
+::: {.fragment}
+So the matrix for the composite transformation is:
+
+$$TRS = \begin{bmatrix}1&0&-0.5\\0&1&2\\0&0&1\end{bmatrix}\begin{bmatrix}0&-1&0\\1&0&0\\0&0&1\end{bmatrix}\begin{bmatrix}0.3&0&0\\0&0.3&0\\0&0&1\end{bmatrix} = \begin{bmatrix}0&-0.3&-0.5\\0.3&0&2\\0&0&1\end{bmatrix}.$$
+:::
+
+::: {.fragment}
+Note that $TRS$ first applies S (scaling), then applis R (rotation), and last applies T (translation).
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+We need to be careful with the order of the matrices!
+
+Consider a vector $\mathbf{x}\in \mathbb{R}^2$. 
+
+Let $P$ be projection matrix that projects $\mathbf{x}$ onto the x-axis and $R$ be a rotation matrix that rotates $\mathbf{x}$ by 30$^\circ$ about the origin.
+
+Note that $PR \ne RP$:
+
+* $PR$ first rotates the vector and then applies projection, while 
+* $RP$ first projects the vector and then applies rotation.
+
+## Homework 7
+
+Homework 7 will allow you to explore these ideas by computing various transformation matrices.   I will give you some 3D wireframe objects and you will compute the necessary matrices to create a simple animation.
+
+::: {.fragment}
+Here is what your finished product will look like:
+
+```{python}
+#| echo: false
+import base64
+VIDEO_TAG = """<video controls>
+ <source src="data:video/x-m4v;base64,{0}" type="video/mp4">
+ Your browser does not support the video tag.
+</video>"""
+def display_saved_anim(fname):
+    with open(fname,'rb') as f:
+        video = f.read()
+    return HTML(VIDEO_TAG.format(base64.b64encode(video).decode('utf-8')))
+display_saved_anim('images/hwk7Solution.mp4')
+```
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
