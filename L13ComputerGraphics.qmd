@@ -753,8 +753,104 @@ display_saved_anim('images/hwk7Solution.mp4')
 ```
 :::
 
-::: {.fragment}
+## Fast Computation of Linear Systems using Graphics Processing Units (GPUs)
 
+<!-- Note: Another good source is http://pixeljetstream.blogspot.de/2015/02/life-of-triangle-nvidias-logical.html -->
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+[Sources in this section.](http://on-demand.gputechconf.com/gtc/2013/video/S3424-Unlikely-Symbiosis-HPC-And-Gaming.mp4)
+:::
+::::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+![](images/ComputerGraphics/Triangle-Processing.jpg){width=600}
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+![](images/ComputerGraphics/CPU-GPU-Comparison.jpg){width=600}
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+![](images/ComputerGraphics/GPU-Transistor-Scaling.jpg){width=600}
+
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Examples of Other Linear Systems Used in Computer Graphics__
+
+__Cloth Simulation__
+
+In cloth simulation, we treat the cloth as a collection of particles interconnected with different types of springs.  The springs cause the cloth to behave properly with respect to bending, shearing, etc.  
+
+Hooke's Law and Newton's 2nd Law are used as the equations of motion to capture the cloth behaviors.  These are linear difference equations.
+
+::: {.fragment}
+![](images/ComputerGraphics/Cloth-Simulation.jpg){width=600}
+:::
+
+::: {.fragment}
+![](images/ComputerGraphics/spring.png){width=600}
+:::
+
+::: {.fragment}
+```{python}
+#| echo: false
+from IPython.display import YouTubeVideo
+id='ib1vmRDs8Vw'
+display(YouTubeVideo(id=id, width=900, height=400))
+```
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Hair Simulation__
+
+A similar strategy is used for hair, except that the connections are 1-D (along each hair strand) instead of 2-D.
+
+::: {.fragment}
+![](images/ComputerGraphics/Hair-Simulation.jpg){width=600}
+:::
+
+::: {.fragment}
+![](images/ComputerGraphics/hair.png){width=600}
+:::
+
+::: {.fragment}
+![](images/ComputerGraphics/hair-render.png){width=600}
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Convolution__
+
+Interestingly, the fact that GPUs are optimized for fast convolution was crucial in their adoption for fast machine learning.
+
+::: {.fragment}
+![](images/ComputerGraphics/Convolution-Diagram.jpg){width=600}
+:::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+[Source](http://on-demand.gputechconf.com/gtc/2013/video/S3424-Unlikely-Symbiosis-HPC-And-Gaming.mp4)
+:::
+::::
+
+::: {.fragment}
+![](images/ComputerGraphics/Convolution-Image-Example.jpg){width=600}
 :::
 
 ::: {.fragment}
@@ -789,3 +885,10 @@ display_saved_anim('images/hwk7Solution.mp4')
 
 :::
 
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
