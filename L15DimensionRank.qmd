@@ -1,0 +1,74 @@
+---
+jupyter: python3
+---
+```{python}
+#| echo: false
+qr_setting = None
+#
+import numpy as np
+import matplotlib as mp
+import pandas as pd
+import matplotlib.pyplot as plt
+import laUtilities as ut
+import slideUtilities as sl
+import demoUtilities as dm
+import pandas as pd
+from matplotlib import animation
+from IPython.display import HTML
+from IPython.display import Latex
+
+```
+<!--
+This comment somehow suppresses the title page
+-->
+## Dimension and Rank
+
+::: {.content-visible when-profile="slides"}
+::: {.ctrd}
+![](images/descartes.jpg){width=300}
+
+__Andrei Markov, 1856 - 1922, St Petersburg.__
+:::
+:::
+
+::: {content-visible when-profile="slides"}
+##
+:::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Many parts of this page are based on _Linear Algebra and its
+Applications,_ by David C. Lay
+:::
+::::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Image credit: <a href="http://commons.wikimedia.org/wiki/File:Frans_Hals_-_Portret_van_Ren%C3%A9_Descartes.jpg#/media/File:Frans_Hals_-_Portret_van_Ren%C3%A9_Descartes.jpg">"Frans Hals - Portret van René Descartes</a>" by After <a href="//en.wikipedia.org/wiki/Frans_Hals" class="extiw" title="en:Frans Hals">Frans Hals</a> (1582/1583–1666) - André Hatala [e.a.] (1997) De eeuw van Rembrandt, Bruxelles: Crédit communal de Belgique, <a href="//commons.wikimedia.org/wiki/Special:BookSources/2908388324" class="internal mw-magiclink-isbn">ISBN 2-908388-32-4</a>.. Licensed under Public Domain via <a href="//commons.wikimedia.org/wiki/">Wikimedia Commons</a>.
+:::
+::::
+
+![](images/descartes.jpg){width=300}
+
+Rene Descartes (1596-1650) was a French philosopher, mathematician, and writer.  He is often credited with developing the idea of a coordinate system, although versions of coordinate systems had been seen in Greek mathematics since 300BC.  
+
+As a young man, Descartes had health problems and generally stayed in bed late each day.  The story goes that one day as he lay in bed, he observed a fly on the ceiling of his room.  He thought about how to describe the movement of the fly, and realized that he could completely describe it by measuring its distance from the walls of the room.  This gave birth to the so-called _Cartesian coordinate system_.
+
+What is certain is that Descartes championed the idea that geometric problems could be cast into algebraic form and solved in that fashion. 
+
+::: {content-visible when-profile="slides"}
+##
+:::
+
+This was an important shift in thinking; the mathematical tradition begun by the Greeks held that geometry, as practiced by Euclid with __compass and straightedge,__ was a more fundamental approach.  For example, the problem of constructing a regular hexagon was one that the Greeks had studied and solved using non-numeric methods.  
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Image credit: by Aldoaldoz - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=10023563
+:::
+::::
+
+::: {.fragment}
+![](images/Regular_Hexagon_Inscribed_in_a_Circle_240px.gif){width=350}
+:::
+
