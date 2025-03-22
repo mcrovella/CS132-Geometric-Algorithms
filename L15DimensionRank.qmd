@@ -26,12 +26,10 @@ This comment somehow suppresses the title page
 ::: {.content-visible when-profile="slides"}
 ::: {.ctrd}
 ![](images/descartes.jpg){width=300}
-
-__Andrei Markov, 1856 - 1922, St Petersburg.__
 :::
 :::
 
-::: {content-visible when-profile="slides"}
+::: {.content-visible when-profile="slides"}
 ##
 :::
 
@@ -56,7 +54,7 @@ As a young man, Descartes had health problems and generally stayed in bed late e
 
 What is certain is that Descartes championed the idea that geometric problems could be cast into algebraic form and solved in that fashion. 
 
-::: {content-visible when-profile="slides"}
+::: {.content-visible when-profile="slides"}
 ##
 :::
 
@@ -70,5 +68,531 @@ Image credit: by Aldoaldoz - Own work, CC BY-SA 3.0, https://commons.wikimedia.o
 
 ::: {.fragment}
 ![](images/Regular_Hexagon_Inscribed_in_a_Circle_240px.gif){width=350}
+:::
+
+::: {.fragment}
+Descartes would have argued that a hexagon could be constructed exactly by simply computing the coordinates of its vertices.
+
+The study of curves and shapes in algebraic form laid important groundwork for calculus, and Newton was strongly influenced by Descartes' ideas.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Why is a coordinate system so useful?
+
+The value of a coordinate system is that it gives a _unique name_ to each point in the plane (or in any vector space).
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Now, here is a question:  what if the walls of Descartes' room had __not been square__?
+
+... in other words, the corners were not perpendicular?   
+
+Would his system still have worked?   Would he still have been able to __precisely specify__ the path of the fly?
+
+We'll explore this question today and use it to further deepen our understanding of linear operators.
+
+## Coordinate Systems
+
+::: {.fragment}
+In the last lecture we developed the idea of a _basis_ -- a minimal spanning set for a subspace $H$.
+:::
+
+::: {.fragment}
+Today we'll emphasize this aspect: a key value of a basis is that
+
+<center><font color = "blue">a basis provides a <b>coordinate system</b> for <em>H</em>.</font></center>
+:::
+
+::: {.fragment}
+In other words: if we are given a basis for $H$, then __each vector in $H$ can be written in only one way__ as a linear combination of the basis vectors.
+:::
+
+::: {.fragment}
+Let's see this convincingly.
+
+Suppose $\mathcal{B}\ = \{\mathbf{b}_1,\dots,\mathbf{b}_p\}$ is a basis for $H,$ and suppose a vector $\mathbf{x}$ in $H$ can be generated in two ways, say
+
+$$\mathbf{x} = c_1\mathbf{b}_1+\cdots+c_p\mathbf{b}_p$$
+
+<center>and</center>
+
+$$\mathbf{x} = d_1\mathbf{b}_1+\cdots+d_p\mathbf{b}_p.$$
+:::
+
+::: {.fragment}
+Then, subtracting gives
+
+$${\bf 0} = \mathbf{x} - \mathbf{x} = (c_1-d_1)\mathbf{b}_1+\cdots+(c_p-d_p)\mathbf{b}_p.$$
+:::
+
+::: {.fragment}
+Now, since $\mathcal{B}$ is a basis, we know that the vectors $\{\mathbf{b}_1\dots\mathbf{b}_p\}$ are linearly independent.
+:::
+
+::: {.fragment}
+So by the definition of linear independence, the weights in the above expression must all be zero.  
+
+That is, $c_j = d_j$ for all $j$. 
+
+... which shows that the two representations must be the same.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Definition.__  Suppose the set $\mathcal{B}\ = \{\mathbf{b}_1,\dots,\mathbf{b}_p\}$ is a basis for the subspace $H$.  
+
+For each $\mathbf{x}$ in $H$, the __coordinates of $\mathbf{x}$ relative to the basis $\mathcal{B}$__ are the weights $c_1,\dots,c_p$ such that $\mathbf{x} = c_1\mathbf{b}_1+\cdots+c_p\mathbf{b}_p$. 
+
+::: {.fragment}
+The vector in $\mathbb{R}^p$
+
+$$[\mathbf{x}]_\mathcal{B} = \begin{bmatrix}c_1\\\vdots\\c_p\end{bmatrix}$$
+
+is called the __coordinate vector of $\mathbf{x}$ (relative to $\mathcal{B}$)__ or the __$\mathcal{B}$-coordinate vector of $\mathbf{x}$.__
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Here is an example in $\mathbb{R}^2$:
+
+Let's look at the point $\begin{bmatrix}1\\6\end{bmatrix}$.
+
+```{python}
+#| echo: false
+import ipywidgets as widgets
+# idea: put a simple button here that switches between the two plots
+xmin = -6.0 
+xmax = 6.0 
+ymin = -2.0
+ymax = 8.0
+
+b0 = [1, 0]
+b1 = [1, 2]
+
+fig = ut.two_d_figure('Dummylabel', xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, size=(6,5))
+for x in np.linspace(ymin, ymax, int(ymax-ymin+1)):
+    fig.plotLinEqn(0., 1., x, alpha=0.3)
+for y in np.linspace(xmin, xmax, int(xmax-xmin+1)):
+    fig.plotLinEqn(1., 0., y, alpha=0.3)
+fig.plotLinEqn(1., 0, 0, color = 'k')
+fig.plotLinEqn(0, 1, 0, color = 'k')
+fig.plotPoint(0, 0, 'k')
+fig.ax.text(0+.1, 0-.1, r'$\bf 0$', size = 12, horizontalalignment='left', verticalalignment='top')
+fig.plotPoint(1, 0, 'r')
+fig.ax.text(1+.1, 0-.1, r'${\bf e}_0$', size = 12, horizontalalignment='left', verticalalignment='top')
+fig.plotPoint(0, 1, 'r')
+fig.ax.text(0+.1, 1-.1, r'${\bf e}_1$', size = 12, horizontalalignment='left', verticalalignment='top')
+fig.plotPoint(b1[0], b1[1], 'g')
+fig.ax.text(b1[0]+.1, b1[1]-.1, r'${\bf b}_1$', size = 12, horizontalalignment='left', verticalalignment='top')
+fig.plotPoint(1, 6, 'b')
+fig.ax.text(1+.1, 6-.1, r'${\bf x}$', size = 12, horizontalalignment='left', verticalalignment='top')
+fig.ax.axis('off')
+fig.ax.set_title(r'Standard Basis.  $\mathbf{x}$ = (1, 6)', size = 16)
+fig.fig.savefig('images/L15f1-standard.png')
+plt.close()
+
+fig = ut.two_d_figure('Dummylabel', xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, size=(6,5))
+m = b1[1]/b1[0]
+upper_intercept = ymax - m * xmin
+upper_intercept = b1[1] * np.ceil(upper_intercept / b1[1])
+lower_intercept = ymin - m * xmax
+lower_intercept = b1[1] * np.floor(lower_intercept / b1[1])
+for yint in np.linspace(lower_intercept, upper_intercept, int((upper_intercept-lower_intercept)/b1[1])+1):
+    fig.plotLinEqn(-b1[1], b1[0], yint, color = 'g', alpha=0.3)
+for y in np.linspace(ymin, ymax, int(((ymax-ymin)/b1[1])+1)):
+    fig.plotLinEqn(0., 1., y, color = 'g', alpha=0.3)
+fig.plotLinEqn(b1[1], -b1[0], 0, color = 'k')
+fig.plotLinEqn(b0[1], -b0[0], 0, color = 'k')
+fig.plotPoint(0, 0, 'k')
+fig.ax.text(0+.1, 0-.1, r'$\bf 0$', size = 12, horizontalalignment='left', verticalalignment='top')
+fig.plotPoint(1, 0, 'g')
+fig.ax.text(1+.1, 0-.1, r'${\bf b}_0$', size = 12, horizontalalignment='left', verticalalignment='top')
+fig.plotPoint(b1[0], b1[1], 'g')
+fig.ax.text(b1[0]+.1, b1[1]-.1, r'${\bf b}_1$', size = 12, horizontalalignment='left', verticalalignment='top')
+fig.plotPoint(1, 6, 'b')
+fig.ax.text(1+.1, 6-.1, r'${\bf x}$', size = 12, horizontalalignment='left', verticalalignment='top')
+fig.ax.axis('off')
+fig.ax.set_title('B-Basis. $[\mathbf{x}]_\mathcal{B}$ = (-2, 3)', size = 16)
+fig.fig.savefig('images/L15f1-B-basis.png')
+plt.close()
+#
+# create widget to alternate views of images
+# labels on tab do not work, seems like a bug in ipywidgets < 8.0.0
+tab_nest = widgets.Tab()
+z = widgets.Image().from_file('images/L15f1-standard.png')
+w = widgets.Image().from_file('images/L15f1-B-basis.png')
+tab_nest.children = [z, w]
+tab_nest.titles = ['Standard', 'B-Basis']
+display(tab_nest)
+```
+
+
+::: {.fragment}
+Now we'll use a new basis:
+
+$$ \mathcal{B} = \left\{\begin{bmatrix}1\\0\end{bmatrix}, \begin{bmatrix}1\\2\end{bmatrix}\right\} $$
+:::
+
+::: {.fragment}
+Notice that the __location__ of $\mathbf{x}$ relative to the origin does not change.  
+
+However, using the $\mathcal{B}$-basis, it has __different coordinates__.
+
+The new coordinates are $[\mathbf{x}]_\mathcal{B} = \begin{bmatrix}-2\\3\end{bmatrix}$.
+:::
+
+<!-- now should work, so convert to this approach
+::: {.fragment}
+```{python}
+# when it is a clean install, convert to this approach
+button = widgets.Button(description='Click here')
+slider = widgets.IntSlider()
+stacked = widgets.Stack([button, slider])
+display(stacked)  # will show only the button
+dropdown = widgets.Dropdown(options=['button', 'slider'])
+widgets.jslink((dropdown, 'index'), (stacked, 'selected_index'))
+widgets.VBox([dropdown, stacked])
+```
+:::
+-->
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Finding the Coordinates of a Point in a Basis.
+
+OK.  Now, let's say we are given a particular basis.  How do we find the coordinates of a point in that basis?
+
+::: {.fragment}
+Let's consider a specific example.
+
+Let $\mathbf{v}_1 = \begin{bmatrix}3\\6\\2\end{bmatrix}, \mathbf{v}_2 = \begin{bmatrix}-1\\0\\1\end{bmatrix}, \mathbf{x} = \begin{bmatrix}3\\12\\7\end{bmatrix},$ and $\mathcal{B} = \{\mathbf{v}_1,\mathbf{v}_2\}.$
+
+Then $\mathcal{B}$ is a basis for $H$ = Span$\{\mathbf{v}_1,\mathbf{v}_2\}$ because $\mathbf{v}_1$ and $\mathbf{v}_2$ are linearly independent.
+:::
+
+::: {.fragment}
+__Problem:__ Determine if $\mathbf{x}$ is in $H$, and if it is, find the coordinate vector of $\mathbf{x}$ relative to $\mathcal{B}.$
+:::
+
+::: {.fragment}
+__Solution.__  If $\mathbf{x}$ is in $H,$ then the following vector equation is consistent:
+
+$$c_1\begin{bmatrix}3\\6\\2\end{bmatrix} + c_2\begin{bmatrix}-1\\0\\1\end{bmatrix} = \begin{bmatrix}3\\12\\7\end{bmatrix}.$$
+:::
+
+::: {.fragment}
+The scalars $c_1$ and $c_2,$ if they exist, are the $\mathcal{B}$-coordinates of $\mathbf{x}.$  
+:::
+
+::: {.fragment}
+Row operations show that
+
+$$\begin{bmatrix}3&-1&3\\6&0&12\\2&1&7\end{bmatrix} \sim \begin{bmatrix}1&0&2\\0&1&3\\0&0&0\end{bmatrix}.$$
+:::
+
+::: {.fragment}
+The reduced row echelon form shows that the system is consistent, so $\mathbf{x}$ is in $H$.
+
+Furthermore, it shows that $c_1 = 2$ and $c_2 = 3,$ 
+
+so $[\mathbf{x}]_\mathcal{B} = \begin{bmatrix}2\\3\end{bmatrix}.$  
+:::
+
+::: {.fragment}
+In this example, the basis $\mathcal{B}$ determines a coordinate system on $H$, which can be visualized like this:
+
+```{python}
+#| echo: false
+fig = ut.three_d_figure((15, 2), fig_desc = 'Basis-B coordinate system on the subspace H', figsize = (8, 8),
+                        xmin = -1, xmax = 10, ymin = -1, ymax = 10, zmin = -1, zmax = 14, qr = qr_setting)
+v = [3.0, 6, 2]
+u = [-1,  0, 1]
+#
+v = np.array([2, 0.5, 0.5])
+u = np.array([1.,  2,   1])
+fig.text(v[0], v[1]-0.75, v[2]-2, r'$\bf v_1$', 'v1', size=16)
+fig.text(u[0]-0.5, u[1], u[2]+2, r'$\bf v_2$', 'v2', size=16)
+fig.text(3*u[0]+2*v[0], 3*u[1]+2*v[1], 3*u[2]+2*v[2]+1, r'$\bf 2v_1+3v_2$', '2 v1 + 3 v2', size=16)
+# plotting the span of v
+fig.plotSpan(u, v, 'Green')
+# blue grid lines
+fig.plotPoint(0, 0, 0, 'y')
+fig.plotPoint(u[0], u[1], u[2], 'b')
+fig.plotPoint(2*u[0], 2*u[1], 2*u[2],'b')
+fig.plotPoint(3*u[0], 3*u[1], 3*u[2], 'b')
+fig.plotLine([[0, 0, 0], 4*u], color='b')
+fig.plotLine([v, v+4*u], color='b')
+fig.plotLine([2*v, 2*v+3*u], color='b')
+fig.plotLine([3*v, 3*v+2.5*u], color='b')
+# red grid lines
+fig.plotPoint(v[0], v[1], v[2], 'r')
+fig.plotPoint(2*v[0], 2*v[1], 2*v[2], 'r')
+fig.plotPoint(3*v[0], 3*v[1], 3*v[2], 'r')
+fig.plotLine([[0, 0, 0], 3.5*v], color='r')
+fig.plotLine([u, u+3.5*v], color='r')
+fig.plotLine([2*u, 2*u+3.5*v], color='r')
+fig.plotLine([3*u, 3*u+2*v], color='r')
+#
+fig.plotPoint(3*u[0]+2*v[0], 3*u[1]+2*v[1], 3*u[2]+2*v[2], color='m')
+# plotting the axes
+fig.plotIntersection([0,0,1,0], [0,1,0,0], color='Black')
+fig.plotIntersection([0,0,1,0], [1,0,0,0], color='Black')
+fig.plotIntersection([0,1,0,0], [1,0,0,0], color='Black')
+fig.set_title('Basis-B coordinate system on the subspace H', size=16)
+fig.save()
+```
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Isomorphism
+
+Another important idea is that, although points in $H$ are in $\mathbb{R}^3$, they are completely determined by their coordinate vectors, which belong to $\mathbb{R}^2.$
+
+In our example, $\begin{bmatrix}3\\12\\7\end{bmatrix}\mapsto\begin{bmatrix}2\\3\end{bmatrix}$.
+
+::: {.fragment}
+We can see that the grid in the figure above makes $H$ "look like" $\mathbb{R}^2.$
+:::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Note that a _one-to-one correspondence_ is a function that is both one-to-one and onto -- in other words, a bijection.
+:::
+::::
+
+::: {.fragment}
+The correspondence $\mathbf{x} \mapsto [\mathbf{x}]_\mathcal{B}$ is one-to-one correspondence between $H$ and $\mathbb{R}^2$ that preserves linear combinations.
+
+In other words, if $\mathbf{a} = \mathbf{b} + \mathbf{c}$ when $\mathbf{a}, \mathbf{b}, \mathbf{c} \in H$, 
+
+then
+$[\mathbf{a}]_\mathcal{B} = [\mathbf{b}]_\mathcal{B} + [\mathbf{c}]_\mathcal{B}$ with $[\mathbf{a}]_\mathcal{B}, [\mathbf{b}]_\mathcal{B}, [\mathbf{c}]_\mathcal{B} \in \mathbb{R}^2$
+:::
+
+::: {.fragment}
+When we have a one-to-one correspondence between two subspaces that preserves linear combinations, we call such a correspondence an _isomorphism,_ and we say that $H$ is _isomorphic_ to $\mathbb{R}^2.$
+:::
+
+::: {.fragment}
+In general, if $\mathcal{B}\ = \{\mathbf{b}_1,\dots,\mathbf{b}_p\}$ is a basis for $H$, then the mapping $\mathbf{x} \mapsto [\mathbf{x}]_\mathcal{B}$ is a one-to-one correspondence that makes $H$ look and act the same as $\mathbb{R}^p.$   
+
+This is _even through the vectors in $H$ themselves may have more than $p$ entries._
+:::
+
+## The Dimension of a Subspace
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Here is an informal proof:  Since $H$ has a basis of $p$ vectors, $H$ is isomorphic to $\mathbb{R}^p$.  Any set consisting of more than $p$ vectors in $\mathbb{R}^p$ must be dependent.  Recall that an isomorphism preserves vector relationships (sums, linear combinations, etc).  So by the nature of an isomorphism, we can establish that any set of more than $p$ vectors in $H$ must be dependent.  So any basis for $H$ must have $p$ vectors.
+:::
+::::
+
+::: {.fragment}
+It can be shown that if a subspace $H$ has a basis of $p$ vectors, then every basis of $H$ must consist of exactly $p$ vectors.  
+:::
+
+::: {.fragment}
+That is, for a given $H$, the number $p$ is a special number.
+:::
+
+::: {.fragment}
+Thus we can make this definition:
+
+__Definition.__ The _dimension_ of a nonzero subspace $H,$ denoted by $\dim H,$ is the number of vectors in any basis for $H.$  
+
+The dimension of the zero subspace $\{{\bf 0}\}$ is defined to be zero.
+:::
+
+::: {.fragment}
+So now we can say __with precision__ things we've previous said informally.   
+
+For example, a plane through ${\bf 0}$ is two-dimensional, and a line through ${\bf 0}$ is one-dimensional.
+:::
+
+::: {.fragment}
+__Question:__ What is the dimension of a line not through the origin?
+:::
+
+::: {.fragment}
+__Answer:__ It is undefined, because a line not through the the origin is not a subspace, so cannot have a basis, so does not have a dimension.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Dimension of the Null Space
+
+At the end of the last lecture we looked at this matrix:
+
+$$A = \begin{bmatrix}-3&6&-1&1&-7\\1&-2&2&3&-1\\2&-4&5&8&-4\end{bmatrix}$$
+
+We determined that its null space 
+had a basis consisting of 3 vectors.  
+
+So the dimension of $A$'s null space (ie, $\dim\operatorname{Nul} A$) is 3.
+
+::: {.fragment}
+Remember that we constructed an explicit description of the null space of this matrix, as:
+
+$$ = 
+x_2\begin{bmatrix}2\\1\\0\\0\\0\end{bmatrix}+x_4\begin{bmatrix}1\\0\\-2\\1\\0\end{bmatrix}+x_5\begin{bmatrix}-3\\0\\2\\0\\1\end{bmatrix} $$
+
+Each basis vector corresponds to a free variable in the equation $A\mathbf{x} = {\bf 0}.$   
+
+So, to find the dimension of $\operatorname{Nul}\ A,$ simply identify and count the number of free variables in $A\mathbf{x} = {\bf 0}.$ 
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q15.1
+:::::
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Matrix Rank
+
+__Definition.__  The __rank__ of a matrix, denoted by $\operatorname{Rank} A,$ is the __dimension of the column space__ of $A$.
+
+::: {.fragment}
+Since the pivot columns of $A$ form a basis for $\operatorname{Col} A,$ the rank of $A$ is just the number of pivot columns in $A$.
+:::
+
+::: {.fragment}
+__Example.__  Determine the rank of the matrix
+
+$$A = \begin{bmatrix}2&5&-3&-4&8\\4&7&-4&-3&9\\6&9&-5&2&4\\0&-9&6&5&-6\end{bmatrix}.$$
+:::
+
+::: {.fragment}
+__Example.__  Determine the rank of the matrix
+
+$$A = \begin{bmatrix}2&5&-3&-4&8\\4&7&-4&-3&9\\6&9&-5&2&4\\0&-9&6&5&-6\end{bmatrix}.$$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q15.2
+:::::
+:::
+
+## The Rank Theorem
+
+::: {.fragment}
+Consider a matrix $A.$
+
+In the last lecture we showed the following: one can construct a basis for $\operatorname{Nul} A$ using the columns corresponding to free variables in the solution of $A\mathbf{x} = {\bf 0}.$   
+:::
+
+::: {.fragment}
+This shows that $\dim\operatorname{Nul} A$ = the number of free variables in $A\mathbf{x} = {\bf 0},$  
+
+which is the number of non-pivot columns in $A$.
+:::
+
+::: {.fragment}
+We also saw that the number of columns in any basis for $\operatorname{Col}\ A$ is the number of pivot columns.
+:::
+
+::: {.fragment}
+So we can now make this important connection:
+
+$$
+\begin{array}{rcl}
+\dim\operatorname{Nul} A + \dim\operatorname{Col} A &= &\text{number of non-pivot columns of $A$}\\ && + \;\;\text{number of pivot columns of $A$}\\
+&= &\text{number of columns of $A$}.
+\end{array}
+$$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+These considerations lead to the following theorem:
+
+__Theorem.__ If a matrix $A$ has $n$ columns, then $\operatorname{Rank} A + \dim\operatorname{Nul} A = n$.
+
+::: {.fragment}
+This is a terrifically important fact!  
+
+Here is an intuitive way to understand it.   Let's think about a matrix $A$ and the associated linear transformation $T(x) = Ax$.
+:::
+
+::: {.fragment}
+If the matrix $A$ has $n$ columns, then $A$'s column space _could_ have dimension as high as $n$.   
+
+In other words, $T$'s range _could_ have dimension as high as $n$.
+:::
+
+::: {.fragment}
+_However,_ if $A$ "throws away" a nullspace of dimension $p$, then that _reduces_ the columnspace of $A$ to $n-p$.
+
+Meaning, the dimension of $T$'s range is reduced to $n-p$.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q15.3
+:::::
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Extending the Invertible Matrix Theorem
+
+The above arguments show that when $A$ has $n$ columns, then the "larger" that the column space is, the "smaller" that the null space is.  
+
+(Where "larger" means "has more dimensions.")
+
+::: {.fragment}
+This is particularly important when $A$ is square $(n\times n)$.
+
+Let's consider the extreme, in which the column space of $A$ has maximum dimension -- i.e., $\dim\operatorname{Col}\ A= n.$
+:::
+
+::: {.fragment}
+Recall that the IMT said that an $n\times n$ matrix is invertible if and only if its columns are linearly independent,  and if and only if its columns span $\mathbb{R}^n.$
+:::
+
+::: {.fragment}
+Hence we now can see that an $n\times n$ matrix is invertible if and only if the columns of $A$ form a basis for $\mathbb{R}^n.$
+:::
+
+::: {.fragment}
+This leads to the following facts, which further extend the IMT:
+:::
+
+::: {.fragment}
+Let $A$ be an $n\times n$ matrix.  Then the following statements are each equivalent to the statement that $A$ is an invertible matrix:
+
+1. The columns of $A$ form a basis for $\mathbb{R}^n.$
+2. $\operatorname{Col} A = \mathbb{R}^n.$
+3. $\dim\operatorname{Col} A = n.$
+4. $\operatorname{Rank} A = n.$
+5. $\operatorname{Nul} A = \{{\bf 0}\}.$
+6. $\dim\operatorname{Nul} A = 0.$
 :::
 
