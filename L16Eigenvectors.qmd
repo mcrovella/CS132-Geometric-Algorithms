@@ -13,6 +13,7 @@ import laUtilities as ut
 import slideUtilities as sl
 import demoUtilities as dm
 import pandas as pd
+from datetime import datetime
 from matplotlib import animation
 from IPython.display import HTML
 from IPython.display import Latex
@@ -21,11 +22,11 @@ from IPython.display import Latex
 <!--
 This comment somehow suppresses the title page
 -->
-## Dimension and Rank
+## Eigenvectors and Eigenvalues
 
 ::: {.content-visible when-profile="slides"}
 ::: {.ctrd}
-![](images/descartes.jpg){width=300}
+![](images/eigshow-fig.png){width=300}
 :::
 :::
 
@@ -40,562 +41,708 @@ Applications,_ by David C. Lay
 :::
 ::::
 
-:::: {.content-hidden when-profile="slides"}
-::: {.column-margin}
-Image credit: <a href="http://commons.wikimedia.org/wiki/File:Frans_Hals_-_Portret_van_Ren%C3%A9_Descartes.jpg#/media/File:Frans_Hals_-_Portret_van_Ren%C3%A9_Descartes.jpg">"Frans Hals - Portret van René Descartes</a>" by After <a href="//en.wikipedia.org/wiki/Frans_Hals" class="extiw" title="en:Frans Hals">Frans Hals</a> (1582/1583–1666) - André Hatala [e.a.] (1997) De eeuw van Rembrandt, Bruxelles: Crédit communal de Belgique, <a href="//commons.wikimedia.org/wiki/Special:BookSources/2908388324" class="internal mw-magiclink-isbn">ISBN 2-908388-32-4</a>.. Licensed under Public Domain via <a href="//commons.wikimedia.org/wiki/">Wikimedia Commons</a>.
-:::
-::::
-
-![](images/descartes.jpg){width=300}
-
-Rene Descartes (1596-1650) was a French philosopher, mathematician, and writer.  He is often credited with developing the idea of a coordinate system, although versions of coordinate systems had been seen in Greek mathematics since 300BC.  
-
-As a young man, Descartes had health problems and generally stayed in bed late each day.  The story goes that one day as he lay in bed, he observed a fly on the ceiling of his room.  He thought about how to describe the movement of the fly, and realized that he could completely describe it by measuring its distance from the walls of the room.  This gave birth to the so-called _Cartesian coordinate system_.
-
-What is certain is that Descartes championed the idea that geometric problems could be cast into algebraic form and solved in that fashion. 
-
-::: {.content-visible when-profile="slides"}
-##
-:::
-
-This was an important shift in thinking; the mathematical tradition begun by the Greeks held that geometry, as practiced by Euclid with __compass and straightedge,__ was a more fundamental approach.  For example, the problem of constructing a regular hexagon was one that the Greeks had studied and solved using non-numeric methods.  
-
-:::: {.content-hidden when-profile="slides"}
-::: {.column-margin}
-Image credit: by Aldoaldoz - Own work, CC BY-SA 3.0, https://commons.wikimedia.org/w/index.php?curid=10023563
-:::
-::::
-
-::: {.fragment}
-![](images/Regular_Hexagon_Inscribed_in_a_Circle_240px.gif){width=350}
-:::
-
-::: {.fragment}
-Descartes would have argued that a hexagon could be constructed exactly by simply computing the coordinates of its vertices.
-
-The study of curves and shapes in algebraic form laid important groundwork for calculus, and Newton was strongly influenced by Descartes' ideas.
-:::
-
-::: {.content-visible when-profile="slides"}
-##
-:::
-
-Why is a coordinate system so useful?
-
-The value of a coordinate system is that it gives a _unique name_ to each point in the plane (or in any vector space).
-
-::: {.content-visible when-profile="slides"}
-##
-:::
-
-Now, here is a question:  what if the walls of Descartes' room had __not been square__?
-
-... in other words, the corners were not perpendicular?   
-
-Would his system still have worked?   Would he still have been able to __precisely specify__ the path of the fly?
-
-We'll explore this question today and use it to further deepen our understanding of linear operators.
-
-## Coordinate Systems
-
-::: {.fragment}
-In the last lecture we developed the idea of a _basis_ -- a minimal spanning set for a subspace $H$.
-:::
-
-::: {.fragment}
-Today we'll emphasize this aspect: a key value of a basis is that
-
-<center><font color = "blue">a basis provides a <b>coordinate system</b> for <em>H</em>.</font></center>
-:::
-
-::: {.fragment}
-In other words: if we are given a basis for $H$, then __each vector in $H$ can be written in only one way__ as a linear combination of the basis vectors.
-:::
-
-::: {.fragment}
-Let's see this convincingly.
-
-Suppose $\mathcal{B}\ = \{\mathbf{b}_1,\dots,\mathbf{b}_p\}$ is a basis for $H,$ and suppose a vector $\mathbf{x}$ in $H$ can be generated in two ways, say
-
-$$\mathbf{x} = c_1\mathbf{b}_1+\cdots+c_p\mathbf{b}_p$$
-
-<center>and</center>
-
-$$\mathbf{x} = d_1\mathbf{b}_1+\cdots+d_p\mathbf{b}_p.$$
-:::
-
-::: {.fragment}
-Then, subtracting gives
-
-$${\bf 0} = \mathbf{x} - \mathbf{x} = (c_1-d_1)\mathbf{b}_1+\cdots+(c_p-d_p)\mathbf{b}_p.$$
-:::
-
-::: {.fragment}
-Now, since $\mathcal{B}$ is a basis, we know that the vectors $\{\mathbf{b}_1\dots\mathbf{b}_p\}$ are linearly independent.
-:::
-
-::: {.fragment}
-So by the definition of linear independence, the weights in the above expression must all be zero.  
-
-That is, $c_j = d_j$ for all $j$. 
-
-... which shows that the two representations must be the same.
-:::
-
-::: {.content-visible when-profile="slides"}
-##
-:::
-
-__Definition.__  Suppose the set $\mathcal{B}\ = \{\mathbf{b}_1,\dots,\mathbf{b}_p\}$ is a basis for the subspace $H$.  
-
-For each $\mathbf{x}$ in $H$, the __coordinates of $\mathbf{x}$ relative to the basis $\mathcal{B}$__ are the weights $c_1,\dots,c_p$ such that $\mathbf{x} = c_1\mathbf{b}_1+\cdots+c_p\mathbf{b}_p$. 
-
-::: {.fragment}
-The vector in $\mathbb{R}^p$
-
-$$[\mathbf{x}]_\mathcal{B} = \begin{bmatrix}c_1\\\vdots\\c_p\end{bmatrix}$$
-
-is called the __coordinate vector of $\mathbf{x}$ (relative to $\mathcal{B}$)__ or the __$\mathcal{B}$-coordinate vector of $\mathbf{x}$.__
-:::
-
-::: {.content-visible when-profile="slides"}
-##
-:::
-
-Here is an example in $\mathbb{R}^2$:
-
-Let's look at the point $\begin{bmatrix}1\\6\end{bmatrix}$.
-
 ```{python}
 #| echo: false
-import ipywidgets as widgets
-# idea: put a simple button here that switches between the two plots
-xmin = -6.0 
-xmax = 6.0 
-ymin = -2.0
-ymax = 8.0
-
-b0 = [1, 0]
-b1 = [1, 2]
-
-fig = ut.two_d_figure('Dummylabel', xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, size=(6,5))
-for x in np.linspace(ymin, ymax, int(ymax-ymin+1)):
-    fig.plotLinEqn(0., 1., x, alpha=0.3)
-for y in np.linspace(xmin, xmax, int(xmax-xmin+1)):
-    fig.plotLinEqn(1., 0., y, alpha=0.3)
-fig.plotLinEqn(1., 0, 0, color = 'k')
-fig.plotLinEqn(0, 1, 0, color = 'k')
-fig.plotPoint(0, 0, 'k')
-fig.ax.text(0+.1, 0-.1, r'$\bf 0$', size = 12, horizontalalignment='left', verticalalignment='top')
-fig.plotPoint(1, 0, 'r')
-fig.ax.text(1+.1, 0-.1, r'${\bf e}_0$', size = 12, horizontalalignment='left', verticalalignment='top')
-fig.plotPoint(0, 1, 'r')
-fig.ax.text(0+.1, 1-.1, r'${\bf e}_1$', size = 12, horizontalalignment='left', verticalalignment='top')
-fig.plotPoint(b1[0], b1[1], 'g')
-fig.ax.text(b1[0]+.1, b1[1]-.1, r'${\bf b}_1$', size = 12, horizontalalignment='left', verticalalignment='top')
-fig.plotPoint(1, 6, 'b')
-fig.ax.text(1+.1, 6-.1, r'${\bf x}$', size = 12, horizontalalignment='left', verticalalignment='top')
-fig.ax.axis('off')
-fig.ax.set_title(r'Standard Basis.  $\mathbf{x}$ = (1, 6)', size = 16)
-fig.fig.savefig('images/L15f1-standard.png')
-plt.close()
-
-fig = ut.two_d_figure('Dummylabel', xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax, size=(6,5))
-m = b1[1]/b1[0]
-upper_intercept = ymax - m * xmin
-upper_intercept = b1[1] * np.ceil(upper_intercept / b1[1])
-lower_intercept = ymin - m * xmax
-lower_intercept = b1[1] * np.floor(lower_intercept / b1[1])
-for yint in np.linspace(lower_intercept, upper_intercept, int((upper_intercept-lower_intercept)/b1[1])+1):
-    fig.plotLinEqn(-b1[1], b1[0], yint, color = 'g', alpha=0.3)
-for y in np.linspace(ymin, ymax, int(((ymax-ymin)/b1[1])+1)):
-    fig.plotLinEqn(0., 1., y, color = 'g', alpha=0.3)
-fig.plotLinEqn(b1[1], -b1[0], 0, color = 'k')
-fig.plotLinEqn(b0[1], -b0[0], 0, color = 'k')
-fig.plotPoint(0, 0, 'k')
-fig.ax.text(0+.1, 0-.1, r'$\bf 0$', size = 12, horizontalalignment='left', verticalalignment='top')
-fig.plotPoint(1, 0, 'g')
-fig.ax.text(1+.1, 0-.1, r'${\bf b}_0$', size = 12, horizontalalignment='left', verticalalignment='top')
-fig.plotPoint(b1[0], b1[1], 'g')
-fig.ax.text(b1[0]+.1, b1[1]-.1, r'${\bf b}_1$', size = 12, horizontalalignment='left', verticalalignment='top')
-fig.plotPoint(1, 6, 'b')
-fig.ax.text(1+.1, 6-.1, r'${\bf x}$', size = 12, horizontalalignment='left', verticalalignment='top')
-fig.ax.axis('off')
-fig.ax.set_title(r'B-Basis. $[\mathbf{x}]_\mathcal{B}$ = (-2, 3)', size = 16)
-fig.fig.savefig('images/L15f1-B-basis.png')
-plt.close()
+cohortMatrix = np.array([
+[56, 42, 49, 39, 40, 31, 33, 46, 55, 91, 83, 129, 153, 178],
+[43, 36, 27, 34, 24, 29, 39, 56, 74, 69, 111, 136, 168, 171],
+[32, 24, 22, 21, 26, 25, 44, 64, 52, 77, 105, 130, 139, 175],
+[25, 16, 19, 28, 24, 30, 37, 40, 49, 56, 79, 93, 90, 126]])
+nyears = np.shape(cohortMatrix)[1]
+# index rows by time, and columns by cohort    
+Year = pd.DateOffset(years=1)
+# need to fliplr because spreadsheet rows are in decreasing cohort order
+datestrs=['09-2004','09-2005','09-2006','09-2007','09-2008','09-2009','09-2010','09-2011','09-2012','09-2013','09-2014','09-2015','09-2016','09-2017']
+dates = [datetime.strptime(x, '%m-%Y') for x in datestrs[:nyears]]
+cohorts = pd.DataFrame(np.fliplr(cohortMatrix.T),index=dates,columns=pd.Index(['U1','U2','U3','U4']))
+# learning the model
+b = np.array(cohorts[1:])
+a = np.array(cohorts[:-1])
+x, resid, rank, s = np.linalg.lstsq(a,b,rcond=None)
+A = x.T
 #
-# create widget to alternate views of images
-# labels on tab do not work, seems like a bug in ipywidgets < 8.0.0
-tab_nest = widgets.Tab()
-z = widgets.Image().from_file('images/L15f1-standard.png')
-w = widgets.Image().from_file('images/L15f1-B-basis.png')
-tab_nest.children = [z, w]
-tab_nest.titles = ['Standard', 'B-Basis']
-display(tab_nest)
+cohorts.sum(axis=1).plot(figsize = (6,4))
+plt.ylim(ymin=0)
+# plt.legend(['Model','Actual'],loc='best')
+plt.title('Number of BU CS Majors',size=20);
 ```
 
 
 ::: {.fragment}
-Now we'll use a new basis:
+During the time period shown, the number of CS majors was growing very rapidly.  I needed to have some estimate of where the numbers might be going.
 
-$$ \mathcal{B} = \left\{\begin{bmatrix}1\\0\end{bmatrix}, \begin{bmatrix}1\\2\end{bmatrix}\right\} $$
+Modeling the number of students in the CS major is challenging because students enter and leave the major at various points during their undergraduate degree.
 :::
 
 ::: {.fragment}
-Notice that the __location__ of $\mathbf{x}$ relative to the origin does not change.  
+We will use a linear difference model that we will train on historical data. 
 
-However, using the $\mathcal{B}$-basis, it has __different coordinates__.
+Our state variable is 
 
-The new coordinates are $[\mathbf{x}]_\mathcal{B} = \begin{bmatrix}-2\\3\end{bmatrix}$.
+$$\mathbf{x}_t = \begin{bmatrix}x_{1,t}\\ x_{2,t}\\ x_{3,t}\\ x_{4,t}\end{bmatrix}$$
+
+where $x_{i,t}$ is the number of students who are declared CS majors and in their $i$th year at BU, in the fall of year $t$.   
+
+Our model is a linear dynamical system:
+
+$$ \mathbf{x}_{t+1} = A \mathbf{x}_t.$$
 :::
 
-<!-- now should work, so convert to this approach
 ::: {.fragment}
+Given historical data which are measurements of our state variable from past years, we can estimate $A$ by a method called _least squares_.
+
+(We will cover least squares later in the semester.)
+:::
+
+::: {.fragment}
+Here is the $A$ that we get when look at historical data:
+
 ```{python}
-# when it is a clean install, convert to this approach
-button = widgets.Button(description='Click here')
-slider = widgets.IntSlider()
-stacked = widgets.Stack([button, slider])
-display(stacked)  # will show only the button
-dropdown = widgets.Dropdown(options=['button', 'slider'])
-widgets.jslink((dropdown, 'index'), (stacked, 'selected_index'))
-widgets.VBox([dropdown, stacked])
+print(A)
 ```
 :::
--->
+
+::: {.fragment}
+Now, using $A$, we can predict growth into the future via $\mathbf{x}_{t+1} = A \mathbf{x}_t.$
+:::
+
+::: {.fragment}
+```{python}
+#| echo: false
+OneYearAhead = cohorts.dot(A.T).shift(1,freq=Year)
+OneYearAhead.columns=pd.Index(['U1','U2','U3','U4'])
+OneYearAhead.sum(axis=1).plot(figsize = (6, 4))
+cohorts.sum(axis=1).plot()
+plt.ylim(ymin=0)
+plt.legend(['Model','Actual'],loc='best');
+```
+:::
+
+::: {.fragment}
+Notice how the matrix $A$ captures the complex way that one year's student population relates to the next year's population.  
+
+Because of this complexity, can be hard to understand what is going on just by looking at the values of $A$.
+
+But, when we look at the plot above, it appears that there is a relatively simple kind of exponential growth going on.
+
+Can we "extract" this exponential growth model from $A$?    How?
+:::
+
+::: {.fragment}
+Today's lecture will start to develop the tools to answer such questions (and more).
+:::
+
+## Eigenvectors and Eigenvalues
+
+::: {.fragment}
+As we've seen, linear transformations (thinking geometrically) can "move" a vector to a new location.
+:::
+
+::: {.fragment}
+For example, a linear transformation $A\mathbf{x}$ can do the following to $\mathbf{x}$:
+
+* rotate $\mathbf{x}$
+* reflect $\mathbf{x}$
+* shear $\mathbf{x}$
+* project $\mathbf{x}$
+* scale $\mathbf{x}$
+:::
+
+::: {.fragment}
+Of the above transformations, one is a bit different: __scaling__.
+    
+That is because, if a matrix $A$ scales $\mathbf{x}$, 
+
+that transformation could also have been expressed __without__ a matrix-vector multiplication
+:::
+
+::: {.fragment}
+that is, a scalinbg can be simply written as $\lambda\mathbf{x}$ for some scalar value $\lambda$.
+:::
+
+::: {.fragment}
+In many ways, life would be simpler if we could avoid all of the complexities of rotation, reflection, and projection ... and only work in terms of scaling.
+
+That is the idea we will develop today.
+:::
 
 ::: {.content-visible when-profile="slides"}
 ##
+
+Demo: eigshow
+
+##
 :::
 
-### Finding the Coordinates of a Point in a Basis.
+::: {.content-visible when-profile="web"}
+Let's start with a simple example: a __shear__ matrix:
 
-OK.  Now, let's say we are given a particular basis.  How do we find the coordinates of a point in that basis?
+$$ A = \begin{bmatrix}1&0.1\\0&1\end{bmatrix} $$
 
-::: {.fragment}
-Let's consider a specific example.
+Let's look at what this matrix does to each point in the plane.
 
-Let $\mathbf{v}_1 = \begin{bmatrix}3\\6\\2\end{bmatrix}, \mathbf{v}_2 = \begin{bmatrix}-1\\0\\1\end{bmatrix}, \mathbf{x} = \begin{bmatrix}3\\12\\7\end{bmatrix},$ and $\mathcal{B} = \{\mathbf{v}_1,\mathbf{v}_2\}.$
+```{python}
+#| echo: False
+A = np.array([[1, 0.1],
+              [0,   1]])
+ax = ut.plotSetup(-7,7,-7, 7, size=(8,6))
+ut.centerAxes(ax)
+for x in range(-6,7):
+    for y in range(-6,7):
+        v = np.array([x,y])
+        ut.plotVec(ax, v)
+        ut.plotVec(ax, A.dot(v),'b')
+```
 
-Then $\mathcal{B}$ is a basis for $H$ = Span$\{\mathbf{v}_1,\mathbf{v}_2\}$ because $\mathbf{v}_1$ and $\mathbf{v}_2$ are linearly independent.
+We can use arrows to show how each red point is moved to the corresponding blue point.
+
+```{python}
+#| echo: False
+ax = ut.plotSetup(-7,7,-7, 7, size=(8,6))
+ut.centerAxes(ax)
+A = np.array([[1,0.1],[0,1]])
+for x in range(-6,7):
+    for y in range(-6,7):
+        ut.plotArrowVec(ax, A.dot(np.array([x,y])), [x,y])
+```
+
+Now let's look at a more complicated situation.
+
+Consider the matrix $A = \begin{bmatrix}1.0&0.2\\0.1&0.9\end{bmatrix}$.
+
+```{python}
+#| echo: False
+V = np.array([[2,-1],[1,1]])
+L = np.array([[1.1,0],
+              [0,0.8]])
+A = V.dot(L).dot(np.linalg.inv(V))
+ax = ut.plotSetup(-7,7,-7, 7, size=(12,8))
+ut.centerAxes(ax)
+for x in range(-6,7):
+    for y in range(-6,7):
+        v = np.array([x,y])
+        ut.plotArrowVec(ax, A.dot(v), v)
+```
 :::
 
-::: {.fragment}
-__Problem:__ Determine if $\mathbf{x}$ is in $H$, and if it is, find the coordinate vector of $\mathbf{x}$ relative to $\mathcal{B}.$
-:::
+The starting point for understanding what $A$ does is to look for special vectors which __do not change their direction__ when multiplied by $A$.
 
 ::: {.fragment}
-__Solution.__  If $\mathbf{x}$ is in $H,$ then the following vector equation is consistent:
+__Example.__
 
-$$c_1\begin{bmatrix}3\\6\\2\end{bmatrix} + c_2\begin{bmatrix}-1\\0\\1\end{bmatrix} = \begin{bmatrix}3\\12\\7\end{bmatrix}.$$
-:::
-
-::: {.fragment}
-The scalars $c_1$ and $c_2,$ if they exist, are the $\mathcal{B}$-coordinates of $\mathbf{x}.$  
-:::
-
-::: {.fragment}
-Row operations show that
-
-$$\begin{bmatrix}3&-1&3\\6&0&12\\2&1&7\end{bmatrix} \sim \begin{bmatrix}1&0&2\\0&1&3\\0&0&0\end{bmatrix}.$$
-:::
-
-::: {.fragment}
-The reduced row echelon form shows that the system is consistent, so $\mathbf{x}$ is in $H$.
-
-Furthermore, it shows that $c_1 = 2$ and $c_2 = 3,$ 
-
-so $[\mathbf{x}]_\mathcal{B} = \begin{bmatrix}2\\3\end{bmatrix}.$  
-:::
-
-::: {.fragment}
-In this example, the basis $\mathcal{B}$ determines a coordinate system on $H$, which can be visualized like this:
+Let $A = \begin{bmatrix}3&-2\\1&0\end{bmatrix}, \mathbf{u} = \begin{bmatrix}-1\\1\end{bmatrix}, \mathbf{v}=\begin{bmatrix}2\\1\end{bmatrix}.$  The images of $\mathbf{u}$ and $\mathbf{v}$ under multiplication by $A$ are shown here:
 
 ```{python}
 #| echo: false
-fig = ut.three_d_figure((15, 2), fig_desc = 'Basis-B coordinate system on the subspace H', figsize = (8, 8),
-                        xmin = -1, xmax = 10, ymin = -1, ymax = 10, zmin = -1, zmax = 14, qr = qr_setting)
-v = [3.0, 6, 2]
-u = [-1,  0, 1]
+ax = ut.plotSetup(size=(12,8))
+ut.centerAxes(ax)
+A = np.array([[3,-2],[1,0]])
+u = np.array([-1,1])
+v = np.array([2,1])
 #
-v = np.array([2, 0.5, 0.5])
-u = np.array([1.,  2,   1])
-fig.text(v[0], v[1]-0.75, v[2]-2, r'$\bf v_1$', 'v1', size=16)
-fig.text(u[0]-0.5, u[1], u[2]+2, r'$\bf v_2$', 'v2', size=16)
-fig.text(3*u[0]+2*v[0], 3*u[1]+2*v[1], 3*u[2]+2*v[2]+1, r'$\bf 2v_1+3v_2$', '2 v1 + 3 v2', size=16)
+ut.plotArrowVec(ax, v, [0,0], color='Blue')
+ut.plotArrowVec(ax, A.dot(v), [0,0], color='Blue')
+ax.text(v[0],v[1]+0.2,r'${\bf v}$',size=20)
+ax.text(A.dot(v)[0],A.dot(v)[1]+0.2,r'$A{\bf v}$',size=20)
+#
+ut.plotArrowVec(ax, u, [0,0], color='Red')
+ut.plotArrowVec(ax, A.dot(u), [0,0], color='Red')
+ax.text(u[0]-0.5,u[1]+0.1,r'${\bf u}$',size=20)
+ax.text(A.dot(u)[0]-0.7,A.dot(u)[1]+0.3,r'$A{\bf u}$',size=20);
+```
+:::
+
+::: {.fragment}
+For a "typical" vector (like $\mathbf{u}$) the action of $A$ is to scale, reflect, and/or rotate it.  
+
+But for some special vectors (like $\mathbf{v}$) the action of $A$ is only to "stretch" it (without any rotation or reflection).
+
+In fact, $A\mathbf{v}$ is simply $2\mathbf{v}.$
+:::
+
+::: {.fragment}
+Today we will by studying equations such as 
+
+$$ A\mathbf{x} = 2\mathbf{x}\;\;\;\;\text{or}\;\;\;\;A\mathbf{x} = -4\mathbf{x}$$
+
+where special vectors are transformed by $A$ into scalar multiples of themselves.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::: 
+
+__Definitions.__  
+
+::: {.fragment}
+An __eigenvector__ of an $n\times n$ matrix $A$ is a nonzero vector $\mathbf{x}$ such that $A\mathbf{x} = \lambda\mathbf{x}$ for some scalar $\lambda.$  
+:::
+
+::: {.fragment}
+A scalar $\lambda$ is called an __eigenvalue__ of $A$ if there is a nontrivial solution $\mathbf{x}$ of $A\mathbf{x} = \lambda\mathbf{x}.$  
+:::
+
+::: {.fragment}
+Such an $\mathbf{x}$ is called an _eigenvector corresponding to $\lambda.$_
+:::
+
+## Checking Eigenvectors and Eigenvalues
+
+::: {.fragment}
+Before considering how to compute eigenvectors, let's look at simply how to determine if a given vector is an eigenvector of a matrix.
+:::
+
+::: {.fragment}
+__Example.__  Let $A = \begin{bmatrix}1&6\\5&2\end{bmatrix}, \mathbf{u} = \begin{bmatrix}6\\-5\end{bmatrix}, \mathbf{v}=\begin{bmatrix}3\\-2\end{bmatrix}.$  
+
+Are $\mathbf{u}$ and $\mathbf{v}$ eigenvectors of $A$?
+:::
+
+::: {.fragment}
+__Solution.__
+
+$$A\mathbf{u} = \begin{bmatrix}1&6\\5&2\end{bmatrix}\begin{bmatrix}6\\-5\end{bmatrix} = \begin{bmatrix}-24\\20\end{bmatrix} = -4\begin{bmatrix}6\\-5\end{bmatrix} = -4\mathbf{u}.$$
+:::
+
+::: {.fragment}
+$$A\mathbf{v} = \begin{bmatrix}1&6\\5&2\end{bmatrix}\begin{bmatrix}3\\-2\end{bmatrix} = \begin{bmatrix}-9\\11\end{bmatrix} \neq \lambda\begin{bmatrix}3\\-2\end{bmatrix}.$$
+:::
+
+::: {.fragment}
+So $\mathbf{u}$ is an eigenvector corresponding to the eigenvalue $-4$, 
+
+but $\mathbf{v}$ is not an eigenvector of $A$.
+:::
+
+## Finding Eigenvectors
+
+Our first task will be to find eigenvectors.  We'll start by working through an example.
+
+::: {.fragment}
+__Example.__   Let's use the same matrix $A = \begin{bmatrix}1&6\\5&2\end{bmatrix}.$
+
+We'll now show that 7 is an eigenvalue of the matrix $A$, and we will find the corresponding eigenvectors.
+:::
+
+::: {.fragment}
+For 7 to be an eigenvalue of $A$, it must be the case that 
+
+$$ A\mathbf{x}=7\mathbf{x}$$
+
+has a nontrivial solution.
+:::
+
+::: {.fragment}
+This is equivalent to:
+
+$$ A\mathbf{x} - 7\mathbf{x} = {\bf 0}$$
+:::
+
+::: {.fragment}
+or 
+
+$$ (A - 7I)\mathbf{x} = {\bf 0}.$$
+:::
+
+::: {.fragment}
+To solve this homogeneous equation, form the matrix
+
+$$A - 7I = \begin{bmatrix}1&6\\5&2\end{bmatrix}-\begin{bmatrix}7&0\\0&7\end{bmatrix} = \begin{bmatrix}-6&6\\5&-5\end{bmatrix}.$$
+:::
+
+::: {.fragment}
+To see that $(A - 7I)\mathbf{x} = {\bf 0}$ has a nontrivial solution, observe that the columns of $A-7I$ are obviously linearly dependent. 
+
+So there are nonzero vectors that are solutions of $(A - 7I)\mathbf{x} = {\bf 0}$.
+
+<font color = "blue">So 7 is an eigenvalue of $A$.</font>
+:::
+
+::: {.fragment}
+To find the corresponding eigenvectors, we solve $(A - 7I)\mathbf{x} = {\bf 0}$ using row operations:
+
+$$\begin{bmatrix}-6&6&0\\5&-5&0\end{bmatrix}\sim\begin{bmatrix}1&-1&0\\0&0&0\end{bmatrix}.$$
+:::
+
+::: {.fragment}
+This says that $x_1 = x_2,$ and $x_2$ is free.
+
+So the general solution has the form $x_2\begin{bmatrix}1\\1\end{bmatrix}.$  
+
+<font color = "blue">Each vector of this form with $x_2 \neq 0$ is an eigenvector corresponding to $\lambda = 7.$</font>
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q16.1
+:::::
+:::
+
+## Eigenspace
+
+::: {.fragment}
+Now, let's generalize what we just did.
+
+From the previous example, we can conclude that $\lambda$ is an eigenvalue of an $n\times n$ matrix $A$ if and only if the equation
+
+$$(A-\lambda I)\mathbf{x} = {\bf 0}$$
+
+has a nontrivial solution.
+:::
+
+::: {.fragment}
+Notice that the set of _all_ solutions of that equation is just 
+
+__the null space of the matrix $A-\lambda I.$__
+:::
+
+::: {.fragment}
+So the set of all eigenvectors corresponding to a particular $\lambda$ (along with the trivial solution, that is the $\mathbf{0}$ vector) forms a _subspace_ of $\mathbb{R}^n$, 
+
+and is called the __eigenspace__ of $A$ corresponding to $\lambda$.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::: 
+
+__Example.__  For matrix $A = \begin{bmatrix}1&6\\5&2\end{bmatrix},$ we found that the general solution for the eigenvector corresponding to $\lambda = 7$ is the expression $x_2\begin{bmatrix}1\\1\end{bmatrix}.$  
+
+::: {.fragment}
+This means that the eigenspace corresponding to $\lambda = 7$ consist|s of all multiples of $\begin{bmatrix}1\\1\end{bmatrix},$ 
+
+... in other words $\operatorname{Span}\left\{\begin{bmatrix}1\\1\end{bmatrix}\right\}$.
+:::
+
+::: {.fragment}
+So we would also say that $\left\{\begin{bmatrix}1\\1\end{bmatrix}\right\}$ is a basis for the eigenspace corresponding to $\lambda = 7$.
+:::
+
+::: {.fragment}
+We could also show that the eigenspace corresponding to $\lambda = -4$ is $\operatorname{Span}\left\{\begin{bmatrix}-6\\5\end{bmatrix}\right\}$
+:::
+
+::: {.fragment}
+```{python}
+#| echo: false
+ax = ut.plotSetup(-10,10,-6,10,size=(7,7))
+ut.centerAxes(ax)
+A = np.array([[1,6],[5,2]])
+u = np.array([1,1])
+v = np.array([3./2,-5./4])
+#
+ax.plot(v[0],v[1],'bo')
+ax.plot(A.dot(v)[0],A.dot(v)[1],'bo')
+ax.text(v[0],v[1]+0.2,r'${\bf v}$',size=20)
+ax.text(A.dot(v)[0]+0.2,A.dot(v)[1]+0.2,r'$A{\bf v}$',size=20)
+ax.plot([-10,10],[5*10/6.0,-5*10/6.0],'b-',lw=2)
+#
+ax.plot(u[0],u[1],'ro')
+ax.plot(A.dot(u)[0],A.dot(u)[1],'ro')
+ax.text(u[0]+0.7,u[1],r'${\bf u}$',size=20)
+ax.text(A.dot(u)[0]+0.7,A.dot(u)[1],r'$A{\bf u}$',size=20)
+ax.plot([-6,10],[-6,10],'r-',lw=2)
+# 
+ax.annotate('', xy=(A.dot(u)[0], A.dot(u)[1]),  xycoords='data',
+                xytext=(u[0], u[1]), textcoords='data',
+                size=18,
+                #bbox=dict(boxstyle="round", fc="0.8"),
+                arrowprops={'arrowstyle': 'simple',
+                                'fc': '0.5', 
+                                'ec': 'none',
+                                'connectionstyle' : 'arc3,rad=0.5'},
+                )
+ax.annotate('', xy=(A.dot(v)[0], A.dot(v)[1]),  xycoords='data',
+                xytext=(v[0], v[1]), textcoords='data',
+                size=18,
+                #bbox=dict(boxstyle="round", fc="0.8"),
+                arrowprops={'arrowstyle': 'simple',
+                                'fc': '0.5', 
+                                'ec': 'none',
+                                'connectionstyle' : 'arc3,rad=-0.5'},
+                )
+ax.text(3,9,r'Eigenspace for $\lambda$ = 7',size=16)
+ax.text(-9.5,8,r'Eigenspace for $\lambda = -4$',size=16);
+```
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::: 
+
+__Example.__  Let $A = \begin{bmatrix}4&-1&6\\2&1&6\\2&-1&8\end{bmatrix}.$  An eigenvalue of $A$ is $2.$  Find a basis for the the corresponding eigenspace.
+
+::: {.fragment}
+__Solution.__  The eigenspace we are looking for is the nullspace of $A - 2I.$  
+
+We will use the strategy for finding a basis for a nullspace that we learned in the last lecture.
+:::
+
+::: {.fragment}
+Form
+
+$$A - 2I = \begin{bmatrix}4&-1&6\\2&1&6\\2&-1&8\end{bmatrix}-\begin{bmatrix}2&0&0\\0&2&0\\0&0&2\end{bmatrix} = \begin{bmatrix}2&-1&6\\2&-1&6\\2&-1&6\end{bmatrix}$$
+:::
+
+::: {.fragment}
+and row reduce the augmented matrix for $(A-2I)\mathbf{x}={\bf 0}$:
+
+$$\begin{bmatrix}2&-1&6&0\\2&-1&6&0\\2&-1&6&0\end{bmatrix} \sim \begin{bmatrix}2&-1&6&0\\0&0&0&0\\0&0&0&0\end{bmatrix}$$
+:::
+
+::: {.fragment}
+At this point, it is clear that 2 is indeed an eigenvalue of $A$, 
+
+because the equation $(A-2I)\mathbf{x} = {\bf 0}$ has free variables.  
+:::
+
+::: {.fragment}
+The general solution is $x_1 = \frac{1}{2}x_2 -3x_3.$
+
+Expressed as a vector, the general solution is:
+
+$$\begin{bmatrix}\frac{1}{2}x_2 - 3x_3\\x_2\\x_3\end{bmatrix}.$$
+:::
+
+::: {.fragment}
+Expressed as a vector sum, this is:
+
+$$x_2\begin{bmatrix}1/2\\1\\0\end{bmatrix} + x_3\begin{bmatrix}-3\\0\\1\end{bmatrix}\;\;\;\;\text{with $x_2$ and $x_3$ free.}$$
+:::
+
+::: {.fragment}
+So this eigenspace is a two-dimensional subspace of $\mathbb{R}^3,$ and a basis for this subspace is
+
+$$\left\{\begin{bmatrix}1/2\\1\\0\end{bmatrix},\begin{bmatrix}-3\\0\\1\end{bmatrix}\right\}.$$
+:::
+
+::: {.fragment}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((16, 1), fig_desc = '2D Eigenspace for lambda = 2',
+                        xmin = -3, xmax = 3, ymin = -3, ymax = 3, zmin = -3, zmax = 3,
+                        qr = qr_setting, figsize = (7, 7))
+plt.close()
+v = np.array([1.,2.,0])
+v = v/np.sqrt(np.sum(v*v))
+u = np.array([-3.0,0,1.0])
+u = u/np.sqrt(np.sum(u*u))
+w = -v-2.0*u
+w = w/np.sqrt(np.sum(w*w))
+pts = np.array([v,u,w])
+#ax.text(v[0],v[1],v[2],r'$\bf v$',size=20)
+#ax.text(u[0],u[1],u[2],r'$\bf u$',size=20)
+fig.text(-2, -2, -3, r'Eigenspace for $\lambda=2$', 'Eigenspace for lambda = 2', size=20)
+#ax.text(0.2,0.2,-4,r'$\bf 0$',size=20)
 # plotting the span of v
 fig.plotSpan(u, v, 'Green')
-# blue grid lines
-fig.plotPoint(0, 0, 0, 'y')
-fig.plotPoint(u[0], u[1], u[2], 'b')
-fig.plotPoint(2*u[0], 2*u[1], 2*u[2],'b')
-fig.plotPoint(3*u[0], 3*u[1], 3*u[2], 'b')
-fig.plotLine([[0, 0, 0], 4*u], color='b')
-fig.plotLine([v, v+4*u], color='b')
-fig.plotLine([2*v, 2*v+3*u], color='b')
-fig.plotLine([3*v, 3*v+2.5*u], color='b')
-# red grid lines
+fig.plotPoint(u[0], u[1], u[2], 'r')
 fig.plotPoint(v[0], v[1], v[2], 'r')
-fig.plotPoint(2*v[0], 2*v[1], 2*v[2], 'r')
-fig.plotPoint(3*v[0], 3*v[1], 3*v[2], 'r')
-fig.plotLine([[0, 0, 0], 3.5*v], color='r')
-fig.plotLine([u, u+3.5*v], color='r')
-fig.plotLine([2*u, 2*u+3.5*v], color='r')
-fig.plotLine([3*u, 3*u+2*v], color='r')
-#
-fig.plotPoint(3*u[0]+2*v[0], 3*u[1]+2*v[1], 3*u[2]+2*v[2], color='m')
+fig.plotPoint(w[0], w[1], w[2], 'r')
+fig.plotPoint(0, 0, 0, 'k')
+fig.ax.quiver(pts[:,0],pts[:,1],pts[:,2],pts[:,0],pts[:,1],pts[:,2],length=1.0,color='Red',lw=2)
+pts = 2.0*pts
+fig.ax.quiver(pts[:,0],pts[:,1],pts[:,2],pts[:,0],pts[:,1],pts[:,2],length=1.0,color='Blue',lw=2)
+u = 2*u
+v = 2*v
+w = 2*w
+fig.plotPoint(u[0], u[1], u[2], 'b')
+fig.plotPoint(v[0], v[1], v[2], 'b')
+fig.plotPoint(w[0], w[1], w[2], 'b')
 # plotting the axes
-fig.plotIntersection([0,0,1,0], [0,1,0,0], color='Black')
-fig.plotIntersection([0,0,1,0], [1,0,0,0], color='Black')
-fig.plotIntersection([0,1,0,0], [1,0,0,0], color='Black')
-fig.set_title('Basis-B coordinate system on the subspace H', size=16)
+# ut.plotIntersection3d(ax,[0,0,1,0],[0,1,0,0])
+# ut.plotIntersection3d(ax,[0,0,1,0],[1,0,0,0])
+fig.plotIntersection([0,1,0,0], [1,0,0,0])
+fig.ax.view_init(azim = 0, elev = 22)
 fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 5 * np.arange(72),
+                       fargs = None,
+                       interval = 100).to_jshtml(default_mode = 'loop'))
 ```
 :::
 
 ::: {.content-visible when-profile="slides"}
 ##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q16.2
+:::::
 :::
 
-### Isomorphism
-
-Another important idea is that, although points in $H$ are in $\mathbb{R}^3$, they are completely determined by their coordinate vectors, which belong to $\mathbb{R}^2.$
-
-In our example, $\begin{bmatrix}3\\12\\7\end{bmatrix}\mapsto\begin{bmatrix}2\\3\end{bmatrix}$.
+## Eigenvalues of a Triangular Matrix
 
 ::: {.fragment}
-We can see that the grid in the figure above makes $H$ "look like" $\mathbb{R}^2.$
-:::
-
-:::: {.content-hidden when-profile="slides"}
-::: {.column-margin}
-Note that a _one-to-one correspondence_ is a function that is both one-to-one and onto -- in other words, a bijection.
-:::
-::::
-
-::: {.fragment}
-The correspondence $\mathbf{x} \mapsto [\mathbf{x}]_\mathcal{B}$ is one-to-one correspondence between $H$ and $\mathbb{R}^2$ that preserves linear combinations.
-
-In other words, if $\mathbf{a} = \mathbf{b} + \mathbf{c}$ when $\mathbf{a}, \mathbf{b}, \mathbf{c} \in H$, 
-
-then
-$[\mathbf{a}]_\mathcal{B} = [\mathbf{b}]_\mathcal{B} + [\mathbf{c}]_\mathcal{B}$ with $[\mathbf{a}]_\mathcal{B}, [\mathbf{b}]_\mathcal{B}, [\mathbf{c}]_\mathcal{B} \in \mathbb{R}^2$
+__Theorem.__  The eigenvalues of a triangular matrix are the entries on its main diagonal.
 :::
 
 ::: {.fragment}
-When we have a one-to-one correspondence between two subspaces that preserves linear combinations, we call such a correspondence an _isomorphism,_ and we say that $H$ is _isomorphic_ to $\mathbb{R}^2.$
+__Proof.__  We'll consider the $3\times 3$ case.  If $A$ is upper triangular, then $A-\lambda I$ has the form
+
+$$A - \lambda I = \begin{bmatrix}a_{11}&a_{12}&a_{13}\\0&a_{22}&a_{23}\\0&0&a_{33}\end{bmatrix} - \begin{bmatrix}\lambda&0&0\\0&\lambda&0\\0&0&\lambda\end{bmatrix}$$
 :::
 
 ::: {.fragment}
-In general, if $\mathcal{B}\ = \{\mathbf{b}_1,\dots,\mathbf{b}_p\}$ is a basis for $H$, then the mapping $\mathbf{x} \mapsto [\mathbf{x}]_\mathcal{B}$ is a one-to-one correspondence that makes $H$ look and act the same as $\mathbb{R}^p.$   
-
-This is _even through the vectors in $H$ themselves may have more than $p$ entries._
-:::
-
-## The Dimension of a Subspace
-
-:::: {.content-hidden when-profile="slides"}
-::: {.column-margin}
-Here is an informal proof:  Since $H$ has a basis of $p$ vectors, $H$ is isomorphic to $\mathbb{R}^p$.  Any set consisting of more than $p$ vectors in $\mathbb{R}^p$ must be dependent.  Recall that an isomorphism preserves vector relationships (sums, linear combinations, etc).  So by the nature of an isomorphism, we can establish that any set of more than $p$ vectors in $H$ must be dependent.  So any basis for $H$ must have $p$ vectors.
-:::
-::::
-
-::: {.fragment}
-It can be shown that if a subspace $H$ has a basis of $p$ vectors, then every basis of $H$ must consist of exactly $p$ vectors.  
+$$ = \begin{bmatrix}a_{11}-\lambda&a_{12}&a_{13}\\0&a_{22}-\lambda&a_{23}\\0&0&a_{33}-\lambda\end{bmatrix}$$
 :::
 
 ::: {.fragment}
-That is, for a given $H$, the number $p$ is a special number.
+Now, $\lambda$ is an eigenvalue of $A$ if and only if the equation $(A-\lambda I)\mathbf{x} = {\bf 0}$ has a nontrivial solution -- 
+
+in other words, if and only if the equation has a free variable.
 :::
 
 ::: {.fragment}
-Thus we can make this definition:
-
-__Definition.__ The _dimension_ of a nonzero subspace $H,$ denoted by $\dim H,$ is the number of vectors in any basis for $H.$  
-
-The dimension of the zero subspace $\{{\bf 0}\}$ is defined to be zero.
+The special pattern that the zero entries have in $A$ means that there will be a free variable if any diagonal entry is also zero, because then there will be a column without a pivot.
 :::
 
 ::: {.fragment}
-So now we can say __with precision__ things we've previous said informally.   
-
-For example, a plane through ${\bf 0}$ is two-dimensional, and a line through ${\bf 0}$ is one-dimensional.
+That is, $(A-\lambda I)\mathbf{x} = {\bf 0}$ has a free variable if and only if at least one of the entries on the diagonal of $(A-\lambda I)$ is zero.
 :::
 
 ::: {.fragment}
-__Question:__ What is the dimension of a line not through the origin?
+This happens if and only if $\lambda$ equals one of the entries $a_{11}, a_{22},$ or $a_{33}$ on the diagonal of $A$.
 :::
 
 ::: {.fragment}
-__Answer:__ It is undefined, because a line not through the the origin is not a subspace, so cannot have a basis, so does not have a dimension.
+__Example.__  Let $A = \begin{bmatrix}3&6&-8\\0&0&6\\0&0&2\end{bmatrix}$ and $B = \begin{bmatrix}4&0&0\\-2&1&0\\5&3&4\end{bmatrix}$.
 :::
-
-::: {.content-visible when-profile="slides"}
-##
-:::
-
-### Dimension of the Null Space
-
-At the end of the last lecture we looked at this matrix:
-
-$$A = \begin{bmatrix}-3&6&-1&1&-7\\1&-2&2&3&-1\\2&-4&5&8&-4\end{bmatrix}$$
-
-We determined that its null space 
-had a basis consisting of 3 vectors.  
-
-So the dimension of $A$'s null space (ie, $\dim\operatorname{Nul} A$) is 3.
 
 ::: {.fragment}
-Remember that we constructed an explicit description of the null space of this matrix, as:
+Then the eigenvalues of $A$ are 3, 0, and 2.   The eigenvalues of $B$ are 4 and 1.
+:::
 
-$$ = 
-x_2\begin{bmatrix}2\\1\\0\\0\\0\end{bmatrix}+x_4\begin{bmatrix}1\\0\\-2\\1\\0\end{bmatrix}+x_5\begin{bmatrix}-3\\0\\2\\0\\1\end{bmatrix} $$
+## Invertibility and Eigenvalues
 
-Each basis vector corresponds to a free variable in the equation $A\mathbf{x} = {\bf 0}.$   
+::: {.fragment}
+So far we haven't probed what it means for a matrix to have an eigenvalue of 0.
+:::
 
-So, to find the dimension of $\operatorname{Nul}\ A,$ simply identify and count the number of free variables in $A\mathbf{x} = {\bf 0}.$ 
+::: {.fragment}
+This happens if and only if the equation $A\mathbf{x} = 0\mathbf{x}$ has a nontrivial solution.
+:::
+
+::: {.fragment}
+But that equation is equivalent to $A\mathbf{x} = {\bf 0}$ which has a nontrivial solution if and only if $A$ is not invertible.
+:::
+
+::: {.fragment}
+This means that 
+
+<center><font color = "blue">0 is an eigenvalue of <em>A</em> if and only if <em>A</em> is not invertible.</font></center>
+:::
+
+::: {.fragment}
+This draws an important connection between invertibility and zero eigenvalues.
+:::
+
+::: {.fragment}
+So we have __yet another__ addition to the Invertible Matrix Theorem!
 :::
 
 ::: {.content-visible when-profile="slides"}
 ##
 ::::: {.fragment .fade-down .r-fit-text}
-Question Time!   Q15.1
+Question Time!   Q16.3
 :::::
 :::
 
-::: {.content-visible when-profile="slides"}
-##
-:::
-
-### Matrix Rank
-
-__Definition.__  The __rank__ of a matrix, denoted by $\operatorname{Rank} A,$ is the __dimension of the column space__ of $A$.
+## Eigenvectors Solve Difference Equations
 
 ::: {.fragment}
-Since the pivot columns of $A$ form a basis for $\operatorname{Col} A,$ the rank of $A$ is just the number of pivot columns in $A$.
+Let's return to the problem we considered at the outset: predicting future values of $\mathbf{x}_t$ (the number of CS majors of each class in year $t$).
 :::
 
 ::: {.fragment}
-__Example.__  Determine the rank of the matrix
+We modeled the future as $\mathbf{x}_{t+1} = A\mathbf{x}_t\;\;\;(t = 0,1,2,\dots).$
 
-$$A = \begin{bmatrix}2&5&-3&-4&8\\4&7&-4&-3&9\\6&9&-5&2&4\\0&-9&6&5&-6\end{bmatrix}.$$
+So then $\mathbf{x}_{t} = A^t\mathbf{x}_0\;\;\;(t = 0,1,2,\dots).$
 :::
 
 ::: {.fragment}
-__Solution__ Reduce $A$ to an echelon form:
-
-$$A = \begin{bmatrix}2&5&-3&-4&8\\0&-3&2&5&-7\\0&-6&4&14&-20\\0&-9&6&5&-6\end{bmatrix}\sim\cdots\sim\begin{bmatrix}2&5&-3&-4&8\\0&-3&2&5&-7\\0&0&0&4&-6\\0&0&0&0&0\end{bmatrix}.$$
-
-The matrix $A$ has 3 pivot columns, so $\operatorname{Rank} A = 3.$
-
-:::
-
-::: {.content-visible when-profile="slides"}
-##
-::::: {.fragment .fade-down .r-fit-text}
-Question Time!   Q15.2
-:::::
-:::
-
-## The Rank Theorem
-
-::: {.fragment}
-Consider a matrix $A.$
-
-In the last lecture we showed the following: one can construct a basis for $\operatorname{Nul} A$ using the columns corresponding to free variables in the solution of $A\mathbf{x} = {\bf 0}.$   
+A __solution__ of such an equation is an explicit description of $\{\mathbf{x}_t\}$ whose formula for each $\mathbf{x}_t$ does not depend directly on $A$ or on the preceding terms in the sequence other than the initial term $\mathbf{x}_0.$
 :::
 
 ::: {.fragment}
-This shows that $\dim\operatorname{Nul} A$ = the number of free variables in $A\mathbf{x} = {\bf 0},$  
+The simplest way to build a solution is to take an eigenvector $\mathbf{x}_0$ and its corresponding eigenvalue $\lambda$.
 
-which is the number of non-pivot columns in $A$.
+Then 
+
+$$ \mathbf{x}_t = \lambda^t \mathbf{x}_0 \;\;\;(t = 0,1,2,\dots)$$
 :::
 
 ::: {.fragment}
-We also saw that the number of columns in any basis for $\operatorname{Col}\ A$ is the number of pivot columns.
-:::
+This sequence is a solution because 
 
-::: {.fragment}
-So we can now make this important connection:
-
-$$
-\begin{array}{rcl}
-\dim\operatorname{Nul} A + \dim\operatorname{Col} A &= &\text{number of non-pivot columns of $A$}\\ && + \;\;\text{number of pivot columns of $A$}\\
-&= &\text{number of columns of $A$}.
-\end{array}
-$$
+$$A\mathbf{x}_t = A(\lambda^t\mathbf{x}_0) = \lambda^t(A\mathbf{x}_0) = \lambda^t(\lambda\mathbf{x}_0) = \lambda^{t+1}\mathbf{x}_0 = \mathbf{x}_{t+1}.$$
 :::
 
 ::: {.content-visible when-profile="slides"}
 ##
 :::
 
-These considerations lead to the following theorem:
-
-__Theorem.__ If a matrix $A$ has $n$ columns, then $\operatorname{Rank} A + \dim\operatorname{Nul} A = n$.
+We can extend this to combinations of eigenvectors.  
 
 ::: {.fragment}
-This is a terrifically important fact!  
+If $A$ has two eigenvectors $\mathbf{u}$ and $\mathbf{v}$ corresponding to eigenvalues $\lambda$ and $\mu$,
+then another solution is 
 
-Here is an intuitive way to understand it.   Let's think about a matrix $A$ and the associated linear transformation $T(x) = Ax$.
-:::
-
-::: {.fragment}
-If the matrix $A$ has $n$ columns, then $A$'s column space _could_ have dimension as high as $n$.   
-
-In other words, $T$'s range _could_ have dimension as high as $n$.
+$$\mathbf{x}_t = \lambda^t\mathbf{u} + \mu^t \mathbf{v}$$
 :::
 
 ::: {.fragment}
-_However,_ if $A$ "throws away" a nullspace of dimension $p$, then that _reduces_ the columnspace of $A$ to $n-p$.
+To address the problem of predicting the CS major population, 
 
-Meaning, the dimension of $T$'s range is reduced to $n-p$.
-:::
+we assume that we can express the state vector $\mathbf{x}$ as a linear combination of eigenvectors $\mathbf{u}_1, \mathbf{u}_2, \dots,\mathbf{u}_p$.  
 
-::: {.content-visible when-profile="slides"}
-##
-::::: {.fragment .fade-down .r-fit-text}
-Question Time!   Q15.3
-:::::
-:::
+That is, 
 
-::: {.content-visible when-profile="slides"}
-##
-:::
-
-### Extending the Invertible Matrix Theorem
-
-The above arguments show that when $A$ has $n$ columns, then the "larger" that the column space is, the "smaller" that the null space is.  
-
-(Where "larger" means "has more dimensions.")
-
-::: {.fragment}
-This is particularly important when $A$ is square $(n\times n)$.
-
-Let's consider the extreme, in which the column space of $A$ has maximum dimension -- i.e., $\dim\operatorname{Col}\ A= n.$
+$$\mathbf{x}_0 = a_1\mathbf{u}_1 + a_2\mathbf{u}_2+\dots+a_p\mathbf{u}_p.$$
 :::
 
 ::: {.fragment}
-Recall that the IMT said that an $n\times n$ matrix is invertible if and only if its columns are linearly independent,  and if and only if its columns span $\mathbb{R}^n.$
+Then at time $t$, 
+
+$$\mathbf{x}_t = \lambda_1^ta_1\mathbf{u}_1 + \lambda_2^ta_2\mathbf{u}_2 + \dots + \lambda_p^ta_p\mathbf{u}_p.$$
+
+Which gives us an explicit solution for the number of students in the major in any future year.
 :::
 
 ::: {.fragment}
-Hence we now can see that an $n\times n$ matrix is invertible if and only if the columns of $A$ form a basis for $\mathbb{R}^n.$
+Note that the expression above is exponential in each of the $\lambda_1,\dots,\lambda_p$. 
 :::
 
 ::: {.fragment}
-This leads to the following facts, which further extend the IMT:
+The resulting value will be essentially determined by the largest $\lambda_i$.   
+
+To see this, let's say that $\lambda_1$ is the largest eigenvalue, and $\lambda_2$ is the second largest.   
 :::
 
 ::: {.fragment}
-Let $A$ be an $n\times n$ matrix.  Then the following statements are each equivalent to the statement that $A$ is an invertible matrix:
+Then the proportion of $\mathbf{u}_1$ to $\mathbf{u}_2$ contained in $\mathbf{x}_t$ will be given by $(\lambda_1/\lambda_2)^t$.   
 
-1. The columns of $A$ form a basis for $\mathbb{R}^n.$
-2. $\operatorname{Col} A = \mathbb{R}^n.$
-3. $\dim\operatorname{Col} A = n.$
-4. $\operatorname{Rank} A = n.$
-5. $\operatorname{Nul} A = \{{\bf 0}\}.$
-6. $\dim\operatorname{Nul} A = 0.$
+Since this ratio is larger than 1, the relative proportion of $\mathbf{u}_1$ will grow exponentially.  
+:::
+
+::: {.fragment}
+This shows the importance of the largest eigenvalue in the value of $\mathbf{x}_t$ for large $t$.  
+
+In the long run, $\mathbf{x}_t$ will be very close to $\lambda_1^t\mathbf{u}_1.$
+:::
+
+::: {.fragment}
+The largest eigenvalue shows the asymptotic rate of growth (or shrinkage) of the state vector $\mathbf{x}_t$.
+:::
+
+::: {.fragment}
+For the matrix $A$ that describes CS major population growth, the largest eigenvalue is 1.19.  
+
+In other words, this models the population growth rate of CS majors at that time as increasing about 19% per year.
 :::
 
