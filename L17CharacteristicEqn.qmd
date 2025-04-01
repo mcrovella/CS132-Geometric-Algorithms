@@ -1,0 +1,826 @@
+---
+jupyter: python3
+---
+```{python}
+#| echo: false
+qr_setting = None
+#
+import numpy as np
+import matplotlib as mp
+import pandas as pd
+import matplotlib.pyplot as plt
+import laUtilities as ut
+import slideUtilities as sl
+import demoUtilities as dm
+import pandas as pd
+from datetime import datetime
+from matplotlib import animation
+from IPython.display import HTML
+from IPython.display import Latex
+
+```
+<!--
+This comment somehow suppresses the title page
+-->
+## The Characteristic Equation
+
+::: {.content-visible when-profile="slides"}
+```{python}
+#| echo: false
+A = np.array([[0.8, 0.5],[-0.1, 1.0]])
+
+x =  np.array([1,500.])
+fig = plt.figure()
+ax = plt.axes(xlim=(-500,500),ylim=(-500,500))
+plt.plot(-500, -500,''),
+plt.plot(500, 500,'')
+plt.axis('equal')
+for i in range(75):
+    newx = A @ x
+    plt.plot([x[0],newx[0]],[x[1],newx[1]],'r-')
+    plt.plot(newx[0],newx[1],'ro')
+    x = newx
+```
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Many parts of this page are based on _Linear Algebra and its
+Applications,_ by David C. Lay
+:::
+::::
+
+Today we deepen our study of _linear dynamical systems,_ 
+
+systems that evolve according to the equation:
+
+$$\mathbf{x}_{k+1} = A\mathbf{x}_k.$$
+
+::: {.fragment}
+Let's look at some examples of how such dynamical systems can evolve in $\mathbb{R}^2$.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+First we'll look at the system corresponding to:
+
+$$ A = \begin{bmatrix}\cos 0.1&-\sin 0.1\\\sin 0.1&\cos 0.1\end{bmatrix} $$
+
+```{python}
+#| echo: false
+# we put x into a list [x] so that it can be read inside the
+# animate() closure.   Currently can only read env variables in a closure
+
+# this is the routine that will be called on each timestep
+# relies on A, [x], xvals, yvals, lines as globals
+def animate(i):
+    newx = A @ x[0]
+    x[0] = newx
+    xvals.append(x[0][0])
+    yvals.append(x[0][1])
+    lines[0].set_data(xvals, yvals)
+    
+def anim_plot(xmin = -500, xmax = 500, ymin = -500, ymax = 500):
+    fig, ax = plt.subplots(figsize = (4.5, 4.5))
+    ax.set_xlim(xmin, xmax)
+    ax.set_ylim(ymin, ymax)
+    plt.plot(xmin, ymin, ''),
+    plt.plot(xmax, ymax, '')
+    plt.axis('equal')
+    #
+    # close the figure so that it doesn't separately plot itself
+    plt.close()
+    return fig, ax
+
+A = np.array([[np.cos(0.1), -np.sin(0.1)], [ np.sin(0.1), np.cos(0.1)]])
+x = [np.array([1, 500.])]
+xvals = []
+yvals = []
+#
+fig, ax = anim_plot()
+#
+#
+lines = ax.plot([], [], 'ro-')
+#
+# instantiate the animator.
+HTML(animation.FuncAnimation(fig, 
+                        animate, 
+                        frames = 75, 
+                        fargs = None,
+                        interval = 100, 
+                        repeat=False).to_jshtml(default_mode = 'once'))
+```
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Next let's look at the system corresponding to:
+
+$$ A = \begin{bmatrix}1.1&0\\0&0.9\end{bmatrix} $$
+
+```{python}
+#| echo: false
+A = np.array([[1.1, 0], [0, 0.9]])
+x = [np.array([1, 500.])]
+xvals = []
+yvals = []
+#
+fig, ax = anim_plot(-200, 1200, -200, 500)
+#
+lines = ax.plot([], [], 'ro-')
+#
+# instantiate the animator.
+HTML(animation.FuncAnimation(fig, 
+                        animate, 
+                        frames = 75, 
+                        fargs = None,
+                        interval = 100, 
+                        repeat=False).to_jshtml(default_mode = 'once'))
+```
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Next let's look at the system corresponding to:
+
+$$ A = \begin{bmatrix}0.8&0.5\\-0.1&1.0\end{bmatrix} $$
+
+```{python}
+#| echo: false
+A = np.array([[0.8, 0.5], [-0.1, 1.0]])
+x = [np.array([1, 500.])]
+xvals = []
+yvals = []
+#
+fig, ax = anim_plot(-400, 800, -300, 500)
+#
+lines = ax.plot([], [], 'ro-')
+#
+# instantiate the animator.
+HTML(animation.FuncAnimation(fig, 
+                        animate, 
+                        frames = 75, 
+                        fargs = None,
+                        interval = 100, 
+                        repeat=False).to_jshtml(default_mode = 'once'))
+```
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+There are very different things happening in these three cases!
+
+Can we find a general method for understanding what is going on in each case? 
+
+
+::: {.fragment}
+The study of __eigenvalues__ and __eigenvectors__ is the key to acquiring that understanding.
+:::
+
+::: {.fragment}
+We will see that to understand each case, we need to learn how to __extract the eigenvalues and eigenvectors of $A$.__
+:::
+
+## Finding $\lambda$
+
+::: {.fragment}
+In the last lecture we saw that, if we know an eigenvalue $\lambda$ of a matrix $A,$ then computing the corresponding eigenspace can be done by __constructing a basis__ for 
+
+$$\operatorname{Nul}\, (A-\lambda I).$$
+:::
+
+::: {.fragment}
+Today we'll discuss how to determine the eigenvalues of a matrix $A$.
+:::
+
+::: {.fragment}
+The theory will make use of the __determinant__ of a matrix.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Let's recall that the determinant of a $2\times 2$ matrix $A = \begin{bmatrix}a&b\\c&d\end{bmatrix}$ is $ad-bc.$
+
+::: {.fragment}
+We also have learned that $A$ is invertible if and only if its determinant is not zero.    
+
+Also recall that the inverse of of $A$ is $\frac{1}{ad-bc}\begin{bmatrix}d&-b\\-c&a\end{bmatrix}.$
+:::
+
+::: {.fragment}
+Let's use these facts to help us find the eigenvalues of a $2\times 2$ matrix.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Example.__  
+
+Let's find the eigenvalues of $A = \begin{bmatrix}2&3\\3&-6\end{bmatrix}.$
+
+::: {.fragment}
+__Solution.__  We must find all scalars $\lambda$ such that the matrix equation
+
+$$(A-\lambda I)\mathbf{x} = {\bf 0}$$
+
+has a nontrivial solution.   
+:::
+
+::: {.fragment}
+By the Invertible Matrix Theorem, this problem is equivalent to finding all $\lambda$ such that the matrix $A-\lambda I$ is _not_ invertible.
+:::
+
+::: {.fragment}
+Now,
+
+$$ A - \lambda I = \begin{bmatrix}2&3\\3&-6\end{bmatrix} - \begin{bmatrix}\lambda&0\\0&\lambda\end{bmatrix} = \begin{bmatrix}2-\lambda&3\\3&-6-\lambda\end{bmatrix}.$$
+:::
+
+::: {.fragment}
+We know that $A$ is not invertible exactly when its determinant is zero.   
+:::
+
+::: {.fragment}
+So the eigenvalues of $A$ are the solutions of the equation
+
+$$\det(A-\lambda I) = \det\begin{bmatrix}2-\lambda&3\\3&-6-\lambda\end{bmatrix} = 0.$$
+:::
+
+::: {.fragment}
+Since $\det\begin{bmatrix}a&b\\c&d\end{bmatrix} = ad-bc,$ then
+
+$$\det(A-\lambda I) = (2-\lambda)(-6-\lambda)-(3)(3)$$
+:::
+
+::: {.fragment}
+$$ = -12 + 6\lambda -2\lambda + \lambda^2 - 9$$
+:::
+
+::: {.fragment}
+$$= \lambda^2+4\lambda-21$$
+:::
+
+::: {.fragment}
+$$=(\lambda-3)(\lambda + 7)$$
+:::
+
+::: {.fragment}
+If $\det(A-\lambda I) = 0,$ then $\lambda = 3$ or $\lambda = -7.$  So the eigenvalues of $A$ are $3$ and $-7$.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q17.1
+:::::
+##
+:::
+
+The same idea works for $n\times n$ matrices -- but, for that, we need to define a _determinant_ for larger matrices.
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Determinants of Larger Matrices
+
+Previously, we've defined a determinant for a $2\times 2$ matrix.   
+
+::: {.fragment}
+To find eigenvalues for larger matrices, we need to define the determinant for any sized (ie, $n\times n$) matrix.
+:::
+
+::: {.fragment}
+__Definition.__   Let $A$ be an $n\times n$ matrix, and let $U$ be any echelon form obtained from $A$ by row replacements and row interchanges (no row scalings), and let $r$ be the number of such row interchanges.
+:::
+
+::: {.fragment}
+Then the __determinant__ of $A$, written as $\det A$, is $(-1)^r$ times the product of the diagonal entries $u_{11},\dots,u_{nn}$ in $U$.
+:::
+
+::: {.fragment}
+If $A$ is invertible, then $u_{11},\dots,u_{nn}$ are all _pivots_.  
+:::
+
+::: {.fragment}
+If $A$ is not invertible, then at least one diagonal entry is zero, and so the product $u_{11} \dots u_{nn}$ is zero.
+:::
+
+::: {.fragment}
+In other words:
+
+$$\det\ A = \left\{\begin{array}{ll}(-1)^r\cdot\left(\text{product of pivots in $U$}\right),&\text{when $A$ is invertible}\\
+0,&\text{when $A$ is not invertible}\end{array}\right.$$
+:::
+
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Example.__  Compute $\det A$ for $A = \begin{bmatrix}1&5&0\\2&4&-1\\0&-2&0\end{bmatrix}.$
+
+::: {.fragment}
+__Solution.__  The following row reduction uses __one__ row interchange:
+
+$$A \sim \begin{bmatrix}1&5&0\\0&-6&-1\\0&-2&0\end{bmatrix} \sim \begin{bmatrix}1&5&0\\0&-2&0\\0&-6&-1\end{bmatrix} \sim \begin{bmatrix}1&5&0\\0&-2&0\\0&0&-1\end{bmatrix}.$$
+:::
+
+::: {.fragment}
+So $\det A$ equals $(-1)^1(1)(-2)(-1) = (-2).$  
+:::
+
+::: {.fragment}
+The remarkable thing is that __any other__ way of computing the echelon form gives the same determinant.  For example,  this row reduction does not use a row interchange:
+
+$$A \sim \begin{bmatrix}1&5&0\\0&-6&-1\\0&-2&0\end{bmatrix} \sim \begin{bmatrix}1&5&0\\0&-6&-1\\0&0&1/3\end{bmatrix}.$$
+:::
+
+::: {.fragment}
+Using this echelon form to compute the determinant yields $(-1)^0(1)(-6)(1/3) = -2,$ the same as before.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q17.2
+:::::
+##
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Invertibility
+
+::: {.fragment}
+The formula for the determinant shows that $A$ is invertible if and only if $\det A$ is nonzero.   
+:::
+
+::: {.fragment}
+We have __yet another__ part to add to the Invertible Matrix Theorem:
+:::
+
+::: {.fragment}
+Let $A$ be an $n\times n$ matrix.   Then $A$ is invertible if and only if:
+
+* The determinant of $A$ is _not_ zero.
+* The number 0 is _not_ an eigenvalue of $A$.
+
+The second fact is true because if zero is an eigenvalue of $A$, then $\det A = \det(A - \lambda I) = 0.$
+:::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+To see that $\det AB = (\det A) (\det B),$ think about $A$ and $B$ as linear transformations.   Then $AB$ is the composition of those transformations.   So the amount that $AB$ scales the unit hypercube is the product of the scaling performed by $A$ and the scaling performed by $B$.
+:::
+::::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Some facts about determinants:
+
+* $\det AB = (\det A) (\det B).$
+* $\det A^T = \det A.$
+* If $A$ is triangular, then $\det A$ is the product of the entries on the main diagonal of $A$.
+
+
+## The Characteristic Equation
+
+::: {.fragment}
+So, $A$ is invertible if and only if $\det A$ is not zero.
+:::
+
+::: {.fragment}
+To return to the question of how to compute eigenvalues of $A,$ recall that $\lambda$ is an eigenvalue if and only if $(A-\lambda I)$ is _not_ invertible.
+:::
+
+::: {.fragment}
+We capture this fact using the __characteristic equation:__
+
+$$\det(A-\lambda I) = 0.$$
+:::
+
+::: {.fragment}
+We can conclude that $\lambda$ is an eigenvalue of an $n\times n$ matrix $A$ if and only if $\lambda$ satisfies the characteristic equation $\det(A-\lambda I) = 0.$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Example.__  Find the characteristic equation of 
+
+$$A = \begin{bmatrix}5&-2&6&-1\\0&3&-8&0\\0&0&5&4\\0&0&0&1\end{bmatrix}$$
+
+::: {.fragment}
+__Solution.__  Form $A - \lambda I,$ and note that $\det A$ is the product of the entries on the diagonal of $A,$ if $A$ is triangular.
+:::
+
+::: {.fragment}
+$$\det(A-\lambda I) = \det\begin{bmatrix}5-\lambda&-2&6&-1\\0&3-\lambda&-8&0\\0&0&5-\lambda&4\\0&0&0&1-\lambda\end{bmatrix}$$
+:::
+
+::: {.fragment}
+$$=(5-\lambda)(3-\lambda)(5-\lambda)(1-\lambda).$$
+:::
+
+::: {.fragment}
+So the characteristic equation is:
+
+$$(\lambda-5)^2(\lambda-3)(\lambda-1) = 0.$$
+:::
+
+::: {.fragment}
+Expanding this out we get:
+
+$$\lambda^4 - 14\lambda^3 + 68 \lambda^2 - 130\lambda + 75 = 0.$$
+:::
+
+::: {.fragment}
+Notice that, once again, $\det(A-\lambda I)$ is a polynomial in $\lambda$.
+:::
+
+::: {.fragment}
+In fact, for any $n\times n$ matrix, $\det(A-\lambda I)$ is a polynomial of degree $n$, called the __characteristic polynomial__ of $A$.
+:::
+
+::: {.fragment}
+We say that the eigenvalue 5 in this example has __multiplicity__ 2, because $(\lambda -5)$ occurs __two times__ as a factor of the characteristic polynomial.   In general, the mutiplicity of an eigenvalue $\lambda$ is its multiplicity as a root of the characteristic equation.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Example.__  The characteristic polynomial of a $6\times 6$ matrix is $\lambda^6 - 4\lambda^5 - 12\lambda^4.$  Find the eigenvalues and their multiplicity.
+
+::: {.fragment}
+__Solution__  Factor the polynomial
+
+$$\lambda^6 - 4\lambda^5 - 12\lambda^4 = \lambda^4(\lambda^2-4\lambda-12) = \lambda^4(\lambda-6)(\lambda+2)$$
+
+So the eigenvalues are 0 (with multiplicity 4), 6, and -2.
+:::
+
+::: {.fragment}
+Since the characteristic polynomial for an $n\times n$ matrix has degree $n,$ the equation has $n$ roots, counting multiplicities -- provided complex numbers are allowed.
+:::
+
+::: {.fragment}
+Note that even for a real matrix, eigenvalues may sometimes be complex.
+:::
+
+::: {.fragment}
+__Practical Issues.__
+
+These facts show that there is, in principle, a way to find eigenvalues of any matrix.   However, you need not compute eigenvalues for matrices larger than $2\times 2$ by hand.   For a matrix $3\times 3$ or larger, you will generally use a computer (unless the matrix has special structure).
+:::
+
+## Similarity
+
+An important concept for things that come later is the notion of __similar__ matrices.
+
+::: {.fragment}
+__Definition.__ If $A$ and $B$ are $n\times n$ matrices, then $A$ __is similar to__ $B$ if there is an invertible matrix $P$ such that $P^{-1}AP = B,$ or, equivalently, $A = PBP^{-1}.$ 
+:::
+
+::: {.fragment}
+ Similarity is symmetric, so if $A$ is similar to $B$, then $B$ is similar to $A$.  Hence we just say that $A$ and $B$ __are similar.__
+ 
+Changing $A$ into $B$ is called a __similarity transformation.__
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+An important way to think of similarity between $A$ and $B$ is that they __have the same eigenvalues.__
+
+::: {.fragment}
+__Theorem.__  If $n\times n$ matrices $A$ and $B$ are similar, then they have the same characteristic polynomial, and hence the same eigenvalues (with the same multiplicities.)
+:::
+
+::: {.fragment}
+__Proof.__  If $B = P^{-1}AP,$ then
+
+$$B - \lambda I = P^{-1}AP - \lambda P^{-1}P$$
+:::
+
+::: {.fragment}
+$$ = P^{-1}(AP-\lambda P)$$
+:::
+
+::: {.fragment}
+$$ = P^{-1}(A-\lambda I)P$$
+:::
+
+::: {.fragment}
+Now let's construct the characteristic polynomial by taking the determinant:
+
+$$\det(B-\lambda I) = \det[P^{-1}(A-\lambda I)P]$$
+:::
+
+::: {.fragment}
+Using the properties of determinants we discussed earlier, we compute:
+
+$$ = \det(P^{-1})\cdot\det(A-\lambda I)\cdot\det(P).$$
+:::
+
+::: {.fragment}
+Since $\det(P^{-1})\cdot\det(P) = \det(P^{-1}P) = \det I = 1,$ we can see that 
+
+$$\det(B-\lambda I) = \det(A - \lambda I).$$
+:::
+
+## Markov Chains
+
+Let's return to the problem of solving a Markov Chain.  
+
+::: {.fragment}
+At this point, we can place the theory of Markov Chains into the broader context of eigenvalues and eigenvectors.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Theorem.__ The largest eigenvalue of a Markov Chain is 1.
+
+::: {.fragment}
+__Proof.__ First of all, it is obvious that 1 is __an__ eigenvalue of a Markov chain since we know that every Markov Chain $A$ has a steady-state vector $\mathbf{v}$ such that $A\mathbf{v} = \mathbf{v}.$
+:::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Previously we only stated that every Markov chain has a steady state.  Now we can prove it: a steady state of $A$ will have eigenvalue 1. So to prove the existence of the steady-state, we need to show that $A-\lambda I = A-I$ has a nontrivial nullspace.  This can be easily seen since every column of $A-I$ sums to zero.  So the bottom row of $A-I$ is a linear combination of the rows above, meaning that we would get at least one row of all zeros in the row echelon form of $A-I$.  So $(A-I)\mathbf{x} = \mathbf{0}$ has a nontrivial solution set, which is the eigenspace of steady states of $A$.
+:::
+::::
+
+::: {.fragment}
+To prove that 1 is the __largest__ eigenvalue, recall that each column of a Markov Chain sums to 1. 
+:::
+
+::: {.fragment}
+So, every row of $A^T$ sums to 1.
+
+Hence, for any vector $\mathbf{x}$, no element of $A^T\mathbf{x}$ can be greater than the largest element of $\mathbf{x}$.   This is because each element of $A^T\mathbf{x}$ is the weighted sum of $\mathbf{x}$ with weights adding up to 1.
+
+So $A^T$ cannot have an eigenvalue greater than 1.
+:::
+
+::: {.fragment}
+Now, any matrix $A$ and $A^T$ have the same eigenvalues.
+
+To see this, suppose $\lambda$ is an eigenvalue of $A$.   Then det($A-\lambda I$) = 0. 
+
+But det($A-\lambda I$) = det$((A-\lambda I)^T)$ = det($A^T-\lambda I$).
+
+So then $\lambda$ is an eigenvalue of $A^T$.  
+:::
+
+::: {.fragment}
+So there can be no $\lambda > 1$ such that $A\mathbf{x} = \lambda \mathbf{x}.$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### The Complete Solution for a Markov Chain
+
+::: {.fragment}
+Previously, we were only able to ask about the "eventual" steady state of a Markov Chain.  
+
+But another crucial question is: __how quickly__ does a particular Markov Chain reach steady state from some initial starting condition?
+
+By completely solving a Markov Chain, we will determine both its __steady state__ _and_ its __rate of convergence__.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Let's use an example: we previously studied the Markov Chain defined by 
+
+$$A = \begin{bmatrix}0.95&0.03\\0.05&0.97\end{bmatrix}.$$
+
+::: {.fragment}
+Let's ask how quickly it reaches steady state, from the starting point defined as 
+
+$$\mathbf{x}_0 = \begin{bmatrix}0.6\\0.4\end{bmatrix}.$$
+:::
+
+::: {.fragment}
+Remember that $\mathbf{x}_0$ is probability vector -- its entries are nonnegative and sum to 1.
+:::
+
+::: {.fragment}
+```{python}
+#| echo: false
+ax = ut.plotSetup(-0.1,1.2,-0.1,1.2)
+ut.centerAxes(ax)
+ax.set_aspect('equal', adjustable='box')
+A = np.array([[0.95,0.03],[0.05,0.97]])
+v1 = np.array([0.375,0.625])
+v2 = np.array([0.225,-0.225])
+x0 = v1 + v2
+#
+ax.plot([1,0],[0,1],'b--')
+ax.plot(x0[0],x0[1],'bo')
+ax.text(x0[0]+0.02,x0[1]+0.02,r'${\bf x_0}$',size=16)
+#ax.text(A.dot(x0)[0]+0.2,A.dot(x0)[1]+0.2,r'$A{\bf x_0}$',size=16)
+# ax.plot([-10,10],[5*10/6.0,-5*10/6.0],'b-')
+#
+ax.annotate('Initial State', xy=(x0[0], x0[1]),  xycoords='data',
+                xytext=(0.4, 0.8), textcoords='data',
+                size=15,
+                #bbox=dict(boxstyle="round", fc="0.8"),
+                arrowprops={'arrowstyle': 'simple',
+                                'fc': '0.5', 
+                                'ec': 'none',
+                                'connectionstyle' : 'arc3,rad=-0.3'},
+                );
+```
+:::
+
+::: {.fragment}
+Using the methods we studied today, we find the characteristic equation, which is:
+    
+$$\lambda^2 -1.92\lambda +0.92 $$
+:::
+
+::: {.fragment}
+Using the quadratic formula, we find the roots of this equation to be 1 and 0.92.  
+
+(Note that, as expected, the largest eigenvalue of the chain is 1.)
+:::
+
+::: {.fragment}
+Next, using the methods in the previous lecture, we find a basis for each eigenspace of $A$ (each nullspace of $A-\lambda I$).  
+
+For $\lambda = 1$, a corresponding eigenvector is $\mathbf{v}_1 = \begin{bmatrix}3\\5\end{bmatrix}.$
+
+For $\lambda = 0.92$, a corresponding eigenvector is $\mathbf{v}_2 = \begin{bmatrix}1\\-1\end{bmatrix}.$
+:::
+
+::: {.fragment}
+Next, we write $\mathbf{x}_0$ as a linear combination of $\mathbf{v}_1$ and $\mathbf{v}_2.$  This can be done because $\{\mathbf{v}_1,\mathbf{v}_2\}$ is obviously a basis for $\mathbb{R}^2.$
+:::
+
+::: {.fragment}
+To write $\mathbf{x}_0$ this way, we want to solve the vector equation 
+
+$$c_1\mathbf{v}_1 + c_2\mathbf{v}_2 = \mathbf{x}_0$$
+
+In other words:
+
+$$[\mathbf{v}_1\;\mathbf{v}_2]\begin{bmatrix}c_1\\c_2\end{bmatrix} = \mathbf{x}_0.$$
+:::
+
+::: {.fragment}
+The matrix $[\mathbf{v}_1\;\mathbf{v}_2]$ is invertible, so, 
+
+$$\begin{bmatrix}c_1\\c_2\end{bmatrix} = [\mathbf{v}_1\;\mathbf{v}_2]^{-1} \mathbf{x}_0 = \begin{bmatrix}3&1\\5&-1\end{bmatrix}^{-1}\begin{bmatrix}0.6\\0.4\end{bmatrix}.$$
+:::
+
+::: {.fragment}
+$$ = \frac{1}{-8}\begin{bmatrix}-1&-1\\-5&3\end{bmatrix}\begin{bmatrix}0.6\\0.4\end{bmatrix} = \begin{bmatrix}0.125\\0.225\end{bmatrix}.$$
+:::
+
+::: {.fragment}
+So, now we can put it all together.
+
+We know that 
+
+$$\mathbf{x}_0 = c_1\mathbf{v}_1 + c_2\mathbf{v}_2$$
+
+and we know the values of $c_1, c_2$ that make this true.
+:::
+
+::: {.fragment}
+So let's compute each $\mathbf{x}_k$:
+
+$$\mathbf{x}_1 = A\mathbf{x}_0 = c_1A\mathbf{v}_1 + c_2A\mathbf{v}_2$$
+:::
+
+::: {.fragment}
+$$ = c_1\mathbf{v}_1 + c_2(0.92)\mathbf{v}_2.$$
+:::
+
+::: {.fragment}
+Now note the power of the eigenvalue approach:
+
+$$\mathbf{x}_2 = A\mathbf{x}_1 = c_1A\mathbf{v}_1 + c_2(0.92)A\mathbf{v}_2$$
+:::
+
+::: {.fragment}
+$$=c_1\mathbf{v}_1 + c_2(0.92)^2\mathbf{v}_2.$$
+:::
+
+::: {.fragment}
+And so in general:
+
+$$\mathbf{x}_k = c_1\mathbf{v}_1 + c_2(0.92)^k\mathbf{v}_2\;\;\;(k = 0, 1, 2, \dots)$$
+:::
+
+::: {.fragment}
+And using the $c_1$ and $c_2$ and $\mathbf{v}_1,$ $\mathbf{v}_2$ we computed above:
+:::
+
+::: {.fragment}
+$$\mathbf{x}_k = 0.125\begin{bmatrix}3\\5\end{bmatrix} + 0.225(0.92)^k\begin{bmatrix}1\\-1\end{bmatrix}\;\;\;(k = 0, 1, 2, \dots)$$
+:::
+
+::: {.fragment}
+This explicit formula for $\mathbf{x}_k$ gives the __solution__ of the Markov Chain $\mathbf{x}_{k+1} = A\mathbf{x}_k$ starting from the initial state $\mathbf{x}_0.$
+:::
+
+::: {.fragment}
+In other words:
+
+$$\mathbf{x}_0 = 0.125\begin{bmatrix}3\\5\end{bmatrix} + 0.225\begin{bmatrix}1\\-1\end{bmatrix}$$  
+
+$$\mathbf{x}_1 = 0.125\begin{bmatrix}3\\5\end{bmatrix} + 0.207\begin{bmatrix}1\\-1\end{bmatrix}$$  
+
+$$\mathbf{x}_2 = 0.125\begin{bmatrix}3\\5\end{bmatrix} + 0.190\begin{bmatrix}1\\-1\end{bmatrix}$$  
+
+$$\mathbf{x}_3 = 0.125\begin{bmatrix}3\\5\end{bmatrix} + 0.175\begin{bmatrix}1\\-1\end{bmatrix}$$  
+
+$$ ... $$  
+
+$$\mathbf{x}_\infty = 0.125\begin{bmatrix}3\\5\end{bmatrix}$$
+:::
+
+::: {.fragment}
+The equation tells us how quickly the chain converges: 
+
+it converges like $(0.92)^k$ 
+
+... which of course goes to zero as $k \rightarrow \infty$.  
+:::
+
+::: {.fragment}
+Thus $\mathbf{x}_k \rightarrow 0.125\mathbf{v}_1 = \begin{bmatrix}0.375\\0.625\end{bmatrix}.$
+:::
+
+::: {.fragment}
+```{python}
+#| echo: false
+ax = ut.plotSetup(-0.1,1.2,-0.1,1.2)
+ut.centerAxes(ax)
+ax.set_aspect('equal', adjustable='box')
+A = np.array([[0.95,0.03],[0.05,0.97]])
+v1 = np.array([0.375,0.625])
+v2 = np.array([0.225,-0.225])
+x0 = v1 + v2
+#
+ax.plot([1,0],[0,1],'b--')
+ax.text(v1[0]+0.02,v1[1]+0.02,r'${\bf v_1}$',size=16)
+ax.plot(x0[0],x0[1],'bo')
+v = np.zeros((40,2))
+for i in range(40):
+    v[i] = v1+(0.92**i)*v2
+    ax.plot(v[i,0],v[i,1],'o')
+ax.text(v[4][0]+0.02,v[4][1]+0.02,r'${\bf x_4}$',size=12)
+ax.text(v[10][0]+0.02,v[10][1]+0.02,r'${\bf x_{10}}$',size=12)
+ax.text(x0[0]+0.02,x0[1]+0.02,r'${\bf x_0}$',size=16)
+ax.plot(v1[0],v1[1],'ro')
+#ax.text(A.dot(x0)[0]+0.2,A.dot(x0)[1]+0.2,r'$A{\bf x_0}$',size=16)
+# ax.plot([-10,10],[5*10/6.0,-5*10/6.0],'b-')
+#
+ax.annotate('Steady State', xy=(v1[0], v1[1]),  xycoords='data',
+                xytext=(0.1, 0.2), textcoords='data',
+                size=15,
+                #bbox=dict(boxstyle="round", fc="0.8"),
+                arrowprops={'arrowstyle': 'simple',
+                                'fc': '0.5', 
+                                'ec': 'none',
+                                'connectionstyle' : 'arc3,rad=-0.3'},
+                )
+ax.annotate('Initial State', xy=(v[0,0], v[0,1]),  xycoords='data',
+                xytext=(0.4, 0.8), textcoords='data',
+                size=15,
+                #bbox=dict(boxstyle="round", fc="0.8"),
+                arrowprops={'arrowstyle': 'simple',
+                                'fc': '0.5', 
+                                'ec': 'none',
+                                'connectionstyle' : 'arc3,rad=-0.3'},
+                );
+```
+:::

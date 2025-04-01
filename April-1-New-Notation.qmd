@@ -1,0 +1,193 @@
+---
+jupyter: python3
+title: New Notation
+format: 
+  revealjs:
+    theme: [beige, slide_theme_adjustments.scss]
+    scrollable: true
+    transition: fade
+---
+```{python}
+#| echo: false
+qr_setting = None
+#
+import numpy as np
+import matplotlib as mp
+import pandas as pd
+import matplotlib.pyplot as plt
+import laUtilities as ut
+import slideUtilities as sl
+import demoUtilities as dm
+import pandas as pd
+from datetime import datetime
+from matplotlib import animation
+from IPython.display import HTML
+from IPython.display import Latex
+
+```
+
+##
+
+Consider the matrix-vector multiplication $A\mathbf{x}$. 
+
+::: {.fragment}
+Because the number of vector components must match the number of columns, it is clearer to write:
+$$
+\begin{array}{r}
+\mathbf{x}\\
+A
+\end{array}
+$$
+:::
+
+::: {.fragment}
+This means that $AB\mathbf{x}$ becomes
+$$
+\begin{array}{r}
+\mathbf{x}\\
+B\\
+A
+\end{array}
+$$
+:::
+
+::: {.fragment}
+Which is much more natural.
+:::
+
+##
+
+
+Note that column vectors will now be written as rows. 
+
+::: {.fragment}
+However they will still be called column vectors.
+:::
+
+::: {.fragment}
+Row vectors will be written as columns, but they will be called row vectors.
+:::
+
+##
+
+__Variants__
+
+::: {.fragment}
+A problem occurs when you get to the bottom of the sheet of paper:
+$$
+\begin{array}{r}
+\mathbf{x}\\
+A\\
+B\\
+C\\
+D\\
+E\\
+F\\
+G\\
+\vdots
+\end{array}
+$$
+:::
+
+::: {.fragment}
+and so it will be acceptable to mix notation:
+$$
+\begin{array}{rrrr}
+\mathbf{x}\\
+A&&&\\
+B&&&\\
+C&&&\\
+D& E &F & G \dots \\
+\end{array}
+$$
+:::
+
+##
+
+__Benefits__
+
+::: {.fragment}
+This enhanced notation has quite a few benefits. 
+:::
+
+::: {.fragment}
+
+It makes better use of space on the page:
+
+$$
+\begin{array}{rrrrrrrr}
+\mathbf{x}&&&&&&&\\
+A&&E&F&G&&K&L\dots\\
+B&C&D&&H&I&J&\\
+\end{array}
+$$
+:::
+
+##
+
+__Benefits__
+
+::: {.fragment}
+Consider the following computation:
+```{python}
+#| eval: false
+#| echo: true
+while(True):
+    x = A @ B @ x
+```
+:::
+
+::: {.fragment}
+Notice how easily this is expressed mathematically:
+::: 
+
+##
+$$
+\begin{array}{rrr}
+\mathbf{x}&&\\
+B&&\\
+A&&\\
+~&~&~\\
+\end{array}
+$$
+
+##
+$$
+\begin{array}{rrr}
+\mathbf{x}&&\\
+B&&\\
+A&&\\
+B&A&~\\
+\end{array}
+$$
+
+##
+$$
+\begin{array}{rrr}
+\mathbf{x}&&\\
+B&&\\
+A&&A\\
+B&A&B\\
+\end{array}
+$$
+
+##
+$$
+\begin{array}{rrr}
+\mathbf{x}&&\\
+B&A&B\\
+A&&A\\
+B&A&B\\
+\end{array}
+$$
+
+Note how the structure of the computation is reflected in the arrangment of symbols on the page.  Brilliant!
+
+##
+
+__Going Forward__
+
+::: {.fragment}
+![](images/von-Neumann-dont-understand.png){width=500}
+:::
+
