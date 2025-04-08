@@ -610,13 +610,6 @@ v1 = np.array([5.0,1.0])
 v1 = v1 / np.sqrt(np.sum(v1*v1))
 v2 = np.array([3.0,5.0])
 v2 = v2 / np.sqrt(np.sum(v2*v2))
-# ut.plotVec(ax,v1,'b')
-# ut.plotVec(ax,v2)
-# ut.plotLinEqn(-v1[1],v1[0],0,color='b')
-# ut.plotLinEqn(-v2[1],v2[0],0,color='r')
-# for i in range(-4,8):
-#    ut.plotLinEqn(-v1[1],v1[0],i*(v1[0]*v2[1]-v1[1]*v2[0]),format=':',color='b')
-#    ut.plotLinEqn(-v2[1],v2[0],i*(v2[0]*v1[1]-v2[1]*v1[0]),format=':',color='r')
 p1 = 2*v1+v2
 p2 = 4*v1+3*v2
 ut.plotVec(ax, p1,'k')
@@ -624,7 +617,6 @@ ut.plotVec(ax, p2,'k')
 ax.annotate('', xy=(p2[0], p2[1]),  xycoords='data',
                 xytext=(p1[0], p1[1]), textcoords='data',
                 size=15,
-                #bbox=dict(boxstyle="round", fc="0.8"),
                 arrowprops={'arrowstyle': 'simple',
                                 'fc': '0.7', 
                                 'ec': 'none',
@@ -664,20 +656,9 @@ for i in range(-4,8):
 p1 = 2*v1+v2
 p2 = 4*v1+3*v2
 ut.plotVec(ax, p1,'k')
-#ut.plotVec(ax, p2,'k')
-#ax.annotate('', xy=(p2[0], p2[1]),  xycoords='data',
-#                xytext=(p1[0], p1[1]), textcoords='data',
-#                size=15,
-                #bbox=dict(boxstyle="round", fc="0.8"),
-#                arrowprops={'arrowstyle': 'simple',
-#                                'fc': '0.7', 
-#                                'ec': 'none',
-#                                'connectionstyle' : 'arc3,rad=-0.3'},
-#                )
 ax.text(2.5,0.75,r'${\bf x}$',size=20)
 ax.text(v2[0]-0.15,v2[1]+0.5,r'${\bf p_2}$',size=20)
 ax.text(v1[0]-0.15,v1[1]+0.35,r'${\bf p_1}$',size=20)
-#ax.text(5.2,2.75,r'$A{\bf x}$',size=16)
 ax.plot(0,0,'');
 ```
 :::
