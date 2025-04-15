@@ -1,0 +1,1073 @@
+---
+jupyter: python3
+---
+```{python}
+#| echo: false
+qr_setting = None
+#
+import numpy as np
+import matplotlib as mp
+import pandas as pd
+import matplotlib.pyplot as plt
+import laUtilities as ut
+import slideUtilities as sl
+import demoUtilities as dm
+import pandas as pd
+from datetime import datetime
+from matplotlib import animation
+from IPython.display import HTML
+from IPython.display import Latex
+
+```
+<!--
+This comment somehow suppresses the title page
+-->
+## Orthogonal Sets and Projection
+
+{{< video images/projection-video.mp4 height=500 >}}
+
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Today we deepen our study of geometry.
+
+In the last lecture we focused on points, lines, and angles.
+
+Today we take on more challenging geometric notions that bring in __sets of vectors__ and __subspaces__.
+
+Within this realm, we will focus on __orthogonality__ and a new notion called __projection.__   
+
+::: {.fragment}
+First of all, today we'll study the properties of __sets__ of orthogonal vectors.   
+
+These can be very useful.
+:::
+
+## Orthogonal Sets
+
+::: {.fragment}
+A set of vectors $\{\mathbf{u}_1,\dots,\mathbf{u}_p\}$ in $\mathbb{R}^n$ is said to be an __orthogonal set__ if each pair of distinct vectors from the set is orthogonal, i.e.,
+
+$$\mathbf{u}_i^T\mathbf{u}_j = 0\;\;\text{whenever}\;i\neq j.$$
+:::
+
+::: {.fragment}
+__Example.__  Show that $\{\mathbf{u}_1,\mathbf{u}_2,\mathbf{u}_3\}$ is an orthogonal set, where
+
+$$ \mathbf{u}_1 = \begin{bmatrix}3\\1\\1\end{bmatrix},\;\;\mathbf{u}_2=\begin{bmatrix}-1\\2\\1\end{bmatrix},\;\;\mathbf{u}_3=\begin{bmatrix}-1/2\\-2\\7/2\end{bmatrix}.$$
+:::
+
+::: {.fragment}
+__Solution.__ Consider the three possible pairs of distinct vectors, namely, $\{\mathbf{u}_1,\mathbf{u}_2\}, \{\mathbf{u}_1,\mathbf{u}_3\},$ and $\{\mathbf{u}_2,\mathbf{u}_3\}.$
+:::
+
+::: {.fragment}
+$$ \mathbf{u}_1^T\mathbf{u}_2 = 3(-1) + 1(2) + 1(1) = 0$$
+
+$$ \mathbf{u}_1^T\mathbf{u}_3 = 3(-1/2) + 1(-2) + 1(7/2) = 0$$
+
+$$ \mathbf{u}_2^T\mathbf{u}_3 = -1(-1/2) + 2(-2) + 1(7/2) = 0$$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Each pair of distinct vectors is orthogonal, and so $\{\mathbf{u}_1,\mathbf{u}_2, \mathbf{u}_3\}$ is an orthogonal set.  
+
+In three-space they describe three lines that we say are __mutually perpendicular.__
+
+```{python}
+#| echo: false
+fig = ut.three_d_figure((21, 1), fig_desc = 'An orthogonal set of vectors',
+                        xmin = -3, xmax = 3, ymin = -3, ymax = 3, zmin = -3, zmax = 3, 
+                        figsize = (6, 4), qr = qr_setting)
+plt.close()
+u1 = np.array([3, 1, 1])
+u2 = np.array([-1, 2, 1])
+u3 = np.array([-1/2, -2, 7/2])
+origin = np.array([0, 0, 0])
+fig.plotLine([origin, u1], 'r', '--')
+fig.plotPoint(u1[0], u1[1], u1[2], 'r')
+fig.text(u1[0]+.1, u1[1]+.1, u1[2]+.1, r'$\bf u_1$', 'u1', size=16, color='k')
+fig.plotLine([origin, u2], 'r', '--')
+fig.plotPoint(u2[0], u2[1], u2[2], 'r')
+fig.text(u2[0]+.1, u2[1]+.1, u2[2]+.1, r'$\bf u_2$', 'u2', size=16, color='k')
+fig.plotLine([origin, u3], 'r', '--')
+fig.plotPoint(u3[0], u3[1], u3[2], 'r')
+fig.text(u3[0]+.1, u3[1]+.1, u3[2]+.1, r'$\bf u_3$', 'u3', size=16, color = 'k')
+fig.text(origin[0]-.45, origin[1]-.45, origin[2]-.45, r'$\bf 0$', 0, size = 16)
+fig.plotPerpSym(origin, u1, u2, 0.5)
+fig.plotPerpSym(origin, u3, u2, 0.5)
+fig.plotPerpSym(origin, u3, u1, 0.5)
+fig.set_title(r'An orthogonal set of vectors in $\mathbb{R}^3$', 'An orthogonal set of vectors in R3', size = 16)
+fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 5 * np.arange(72),
+                       fargs = None,
+                       interval = 100).to_jshtml(default_mode = 'loop'))
+```
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q21.1
+:::::
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Orthogonal Sets Must be Independent
+
+Orthogonal sets are very nice to work with.   
+
+First of all, we will show that any orthogonal set must be linearly independent.
+
+::: {.fragment}
+__Theorem.__  If $S = \{\mathbf{u}_1,\dots,\mathbf{u}_p\}$ is an orthogonal set of nonzero vectors in $\mathbb{R}^n,$ then $S$ is linearly independent.
+:::
+
+::: {.fragment}
+__Proof.__  We will prove that there is no linear combination of the vectors in $S$ with nonzero coefficients that yields the zero vector.
+:::
+
+::: {.fragment}
+Our proof strategy will be: 
+
+we will show that for any linear combination of the vectors in $S$:
+
+* if the combination is the zero vector, 
+* then all coefficients of the combination must be zero.
+:::
+
+::: {.fragment}
+Specifically:
+
+Assume ${\bf 0} = c_1\mathbf{u}_1 + \dots + c_p\mathbf{u}_p$ for some scalars $c_1,\dots,c_p$.  Then:
+
+$${\bf 0} = c_1\mathbf{u}_1 + c_2\mathbf{u}_2 + \dots + c_p\mathbf{u}_p$$
+:::
+
+::: {.fragment}
+$${\bf 0}^T\mathbf{u}_1 = (c_1\mathbf{u}_1 + c_2\mathbf{u}_2 + \dots + c_p\mathbf{u}_p)^T\mathbf{u}_1$$
+:::
+
+::: {.fragment}
+$$0 = (c_1\mathbf{u}_1 + c_2\mathbf{u}_2 + \dots + c_p\mathbf{u}_p)^T\mathbf{u}_1$$
+:::
+
+::: {.fragment}
+$$ 0 = (c_1\mathbf{u}_1)^T\mathbf{u}_1 + (c_2\mathbf{u}_2)^T\mathbf{u}_1 \dots + (c_p\mathbf{u}_p)^T\mathbf{u}_1$$
+:::
+
+::: {.fragment}
+$$ 0 = c_1(\mathbf{u}_1^T\mathbf{u}_1) + c_2(\mathbf{u}_2^T\mathbf{u}_1) + \dots + c_p(\mathbf{u}_p^T\mathbf{u}_1)$$
+:::
+
+::: {.fragment}
+Because $\mathbf{u}_1$ is orthogonal to $\mathbf{u}_2,\dots,\mathbf{u}_p$:
+
+$$ 0 = c_1(\mathbf{u}_1^T\mathbf{u}_1) $$
+:::
+
+::: {.fragment}
+Since $\mathbf{u}_1$ is nonzero, $\mathbf{u}_1^T\mathbf{u}_1$ is not zero and so $c_1 = 0$.  
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+We can use the same kind of reasoning to show that, $c_2,\dots,c_p$ must be zero.
+
+In other words, there is no nonzero combination of $\mathbf{u}_i$'s that yields the zero vector ...
+
+... so $S$ is __linearly independent.__
+
+::: {.fragment}
+Notice that since $S$ is a linearly independent set, it is a basis for the subspace spanned by $S$.
+
+This leads us to a new kind of basis.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Orthogonal Basis
+
+::: {.fragment}
+__Definition.__ An __orthogonal basis__ for a subspace $W$ of $\mathbb{R}^n$ is a basis for $W$ that is also an orthogonal set.
+:::
+
+::: {.fragment}
+For example, consider
+
+$$\mathbf{u} = \begin{bmatrix} -1/2\\ 2\\ 1 \end{bmatrix}, 
+\mathbf{v} = \begin{bmatrix} 8/3\\ 1/3\\ 2/3 \end{bmatrix}.$$
+
+Note that $\mathbf{u}^T\mathbf{v} = 0.$   Hence they form an orthogonal basis for their span.
+:::
+
+::: {.fragment}
+Here is the subspace $W = \text{Span}\{\mathbf{u},\mathbf{v}\}$:
+
+::: {.ctrd}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((21, 2), fig_desc = 'Orthogonal Basis on the subspace W', figsize = (6, 4),
+                        xmin = -2, xmax = 10, ymin = -1, ymax = 10, zmin = -1, zmax = 10, qr = qr_setting)
+plt.close()
+
+v = 1/2 * np.array([-1, 4, 2])
+u = 1/3 * np.array([8, 1, 2])
+vpos = v + 0.4 * v - 0.5 * u
+upos = u - 0.5 * v + 0.15 * u
+fig.text(vpos[0], vpos[1], vpos[2], r'$\bf v$', 'v', size=16)
+fig.text(upos[0], upos[1], upos[2], r'$\bf u$', 'u', size=16)
+# fig.text(3*u[0]+2*v[0], 3*u[1]+2*v[1], 3*u[2]+2*v[2]+1, r'$\bf 2v_1+3v_2$', '2 v1 + 3 v2', size=16)
+# plotting the span of v
+fig.plotSpan(u, v, 'Green')
+# blue grid lines
+fig.plotPoint(0, 0, 0, 'y')
+fig.plotPoint(u[0], u[1], u[2], 'b')
+fig.plotPoint(2*u[0], 2*u[1], 2*u[2],'b')
+fig.plotPoint(3*u[0], 3*u[1], 3*u[2], 'b')
+fig.plotLine([[0, 0, 0], 4*u], color='b')
+fig.plotLine([v, v+4*u], color='b')
+fig.plotLine([2*v, 2*v+3*u], color='b')
+fig.plotLine([3*v, 3*v+2.5*u], color='b')
+# red grid lines
+fig.plotPoint(v[0], v[1], v[2], 'r')
+fig.plotPoint(2*v[0], 2*v[1], 2*v[2], 'r')
+fig.plotPoint(3*v[0], 3*v[1], 3*v[2], 'r')
+fig.plotLine([[0, 0, 0], 3.5*v], color='r')
+fig.plotLine([u, u+3.5*v], color='r')
+fig.plotLine([2*u, 2*u+3.5*v], color='r')
+fig.plotLine([3*u, 3*u+2*v], color='r')
+#
+# fig.plotPoint(3*u[0]+2*v[0], 3*u[1]+2*v[1], 3*u[2]+2*v[2], color='m')
+# plotting the axes
+#fig.plotIntersection([0,0,1,0], [0,1,0,0], color='Black')
+#fig.plotIntersection([0,0,1,0], [1,0,0,0], color='Black')
+#fig.plotIntersection([0,1,0,0], [1,0,0,0], color='Black')
+#
+fig.plotPerpSym(np.array([0, 0, 0]), v, u, 1)
+fig.plotPerpSym(u, v+u, u+u, 1)
+fig.plotPerpSym(2*u, v+2*u, 3*u, 1)
+#
+fig.plotPerpSym(np.array([0, 0, 0])+v, 2*v, v+u, 1)
+fig.plotPerpSym(u+v, 2*v+u, v+2*u, 1)
+#
+fig.set_title(r'Orthogonal Basis on the subspace $W$', 'Orthogonal Basis on the subspace W', size=16)
+fig.save()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 5 * np.arange(72),
+                       fargs = None,
+                       interval = 100).to_jshtml(default_mode = 'loop'))
+```
+:::
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Finding Coordinates in an Orthogonal Basis
+
+::: {.fragment}
+We have seen that for any subspace $W$, there may be many different sets of vectors that can serve as a basis for $W$.
+
+For example, let's say we have a basis $\mathcal{B} = \{\mathbf{u}_1, \mathbf{u}_2, \mathbf{u}_3\}.$
+
+We know that to compute the coordinates of $\mathbf{y}$ in this basis, we need to solve the linear system:
+​
+$$c_1 \mathbf{u}_1 + c_2\mathbf{u}_2 + c_3\mathbf{u}_3 = \mathbf{y}$$
+​
+or
+​
+$$U\mathbf{c} = \mathbf{y}.$$
+:::
+
+::: {.fragment}
+In general, we'd need to perform Gaussian Elimination, or matrix inversion, or some other complex method to do this.
+:::
+
+::: {.fragment}
+However, an orthogonal basis is a particularly nice basis, because the weights (coordinates) of any point can be computed easily and simply.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Let's see how:
+
+::: {.fragment}
+__Theorem.__ Let $\{\mathbf{u}_1,\dots,\mathbf{u}_p\}$ be an orthogonal basis for a subspace $W$ of $\mathbb{R}^n$.  For each $\mathbf{y}$ in $W,$ the weights of the linear combination
+
+$$c_1\mathbf{u}_1 + \dots + c_p\mathbf{u}_p = \mathbf{y}$$
+
+are given by 
+
+$$c_j = \frac{\mathbf{y}^T\mathbf{u}_j}{\mathbf{u}_j^T\mathbf{u}_j}\;\;\;j = 1,\dots,p$$
+:::
+
+::: {.fragment}
+__Proof.__  
+
+Let's consider the inner product of $\mathbf{y}$ and one of the $\mathbf{u}$ vectors --- say, $\mathbf{u}_1$.
+
+As we saw in the last proof, the orthogonality of $\{\mathbf{u}_1,\dots,\mathbf{u}_p\}$ means that
+
+$$\mathbf{y}^T\mathbf{u}_1 = (c_1\mathbf{u}_1 + c_2\mathbf{u}_2 + \dots + c_p\mathbf{u}_p)^T\mathbf{u}_1$$
+
+$$=c_1(\mathbf{u}_1^T\mathbf{u}_1)$$
+:::
+
+::: {.fragment}
+Since $\mathbf{u}_1^T\mathbf{u}_1$ is not zero (why?), the equation above can be solved for $c_1.$   
+
+Thus:
+
+$$c_1 = \frac{\mathbf{y}^T\mathbf{u}_1}{\mathbf{u}_1^T\mathbf{u}_1}$$
+
+To find any other $c_j,$ compute $\mathbf{y}^T\mathbf{u}_j$ and solve for $c_j$.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Example.__  The set $S$ which we saw earlier, ie,
+
+$$ \mathbf{u}_1 = \begin{bmatrix}3\\1\\1\end{bmatrix},\;\;\mathbf{u}_2=\begin{bmatrix}-1\\2\\1\end{bmatrix},\;\;\mathbf{u}_3=\begin{bmatrix}-1/2\\-2\\7/2\end{bmatrix},$$
+
+is an orthogonal basis for $\mathbb{R}^3.$
+
+::: {.ctrd}
+::: {.fragment}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((21, 3), fig_desc = 'An orthogonal set of vectors',
+                        xmin = -3, xmax = 7, ymin = -5, ymax = 5, zmin = -8, zmax = 4, 
+                        figsize = (6, 4), qr = qr_setting, equalAxes = False)
+plt.close()
+u1 = np.array([3, 1, 1])
+u2 = np.array([-1, 2, 1])
+u3 = np.array([-1/2, -2, 7/2])
+origin = np.array([0, 0, 0])
+fig.plotLine([origin, u1], 'r', '--')
+fig.plotPoint(u1[0], u1[1], u1[2], 'r')
+fig.text(u1[0]+.1, u1[1]+.1, u1[2]+.1, r'$\bf u_1$', 'u1', size=16, color='k')
+fig.plotLine([origin, u2], 'r', '--')
+fig.plotPoint(u2[0], u2[1], u2[2], 'r')
+fig.text(u2[0]+.1, u2[1]+.1, u2[2]+.1, r'$\bf u_2$', 'u2', size=16, color='k')
+fig.plotLine([origin, u3], 'r', '--')
+fig.plotPoint(u3[0], u3[1], u3[2], 'r')
+fig.text(u3[0]+.1, u3[1]+.1, u3[2]+.1, r'$\bf u_3$', 'u3', size=16, color = 'k')
+fig.text(origin[0]-.45, origin[1]-.45, origin[2]-.45, r'$\bf 0$', 0, size = 16)
+fig.plotPerpSym(origin, u1, u2, 0.5)
+fig.plotPerpSym(origin, u3, u2, 0.5)
+fig.plotPerpSym(origin, u3, u1, 0.5)
+y = u1 - 2 * u2 - 2 * u3
+fig.plotPoint(y[0], y[1], y[2], 'b')
+fig.text(y[0]-2, y[1]+.1, y[2]+.1, r'$\bf y$ = (6, 1, -8)', 'y = (6, 1, -8)', size=16, color = 'b')
+fig.set_title(r'An orthogonal set of vectors in $\mathbb{R}^3$', 'An orthogonal set of vectors in R3', size = 16)
+fig.save()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 5 * np.arange(72),
+                       fargs = None,
+                       interval = 100).to_jshtml(default_mode = 'loop'))
+```
+:::
+:::
+
+::: {.fragment}
+Now, let us express the vector $\mathbf{y} = \begin{bmatrix}6\\1\\-8\end{bmatrix}$ as a linear combination of the vectors in $S$. 
+
+That is, find $\mathbf{y}$'s coordinates in the basis $S$ --- i.e., in the coordinate system $S$.
+:::
+
+::: {.fragment}
+__Solution.__  Compute
+
+$$\mathbf{y}^T\mathbf{u}_1 = 11,\;\;\;\mathbf{y}^T\mathbf{u}_2 = -12,\;\;\;\mathbf{y}^T\mathbf{u}_3 = -33,$$
+
+$$\mathbf{u}_1^T\mathbf{u}_1 = 11,\;\;\;\mathbf{u}_2^T\mathbf{u}_2 = 6,\;\;\;\mathbf{u}_3^T\mathbf{u}_3 = 33/2$$
+:::
+
+::: {.fragment}
+So 
+
+$$\mathbf{y} = \frac{\mathbf{y}^T\mathbf{u}_1}{\mathbf{u}_1^T\mathbf{u}_1}\mathbf{u}_1 + \frac{\mathbf{y}^T\mathbf{u}_2}{\mathbf{u}_2^T\mathbf{u}_2}\mathbf{u}_2 + \frac{\mathbf{y}^T\mathbf{u}_3}{\mathbf{u}_3^T\mathbf{u}_3}\mathbf{u}_3$$
+:::
+
+::: {.fragment}
+$$ = \frac{11}{11}\mathbf{u}_1 + \frac{-12}{6}\mathbf{u}_2 + \frac{-33}{33/2}\mathbf{u}_3$$
+:::
+
+::: {.ctrd}
+::: {.fragment}
+$$ = \mathbf{u}_1 - 2\mathbf{u}_2 - 2 \mathbf{u}_3.$$
+
+```{python}
+#| echo: false
+fig = ut.three_d_figure((21, 4), fig_desc = 'y in an orthogonal basis',
+                        xmin = -3, xmax = 7, ymin = -5, ymax = 5, zmin = -8, zmax = 4, 
+                        figsize = (6, 4), qr = qr_setting, equalAxes = False)
+plt.close()
+u1 = np.array([3, 1, 1])
+u2 = np.array([-1, 2, 1])
+u3 = np.array([-1/2, -2, 7/2])
+origin = np.array([0, 0, 0])
+#
+fig.plotLine([origin, u1], 'r', '--')
+fig.plotPoint(u1[0], u1[1], u1[2], 'r')
+fig.text(u1[0]+.1, u1[1]+.1, u1[2]+.1, r'$\bf u_1$', 'u1', size=16, color='k')
+#
+fig.plotLine([origin, u2], 'r', '--')
+fig.plotPoint(u2[0], u2[1], u2[2], 'r')
+fig.text(u2[0]+.1, u2[1]+.1, u2[2]+.1, r'$\bf u_2$', 'u2', size=16, color='k')
+#
+fig.plotLine([origin, u3], 'r', '--')
+fig.plotPoint(u3[0], u3[1], u3[2], 'r')
+fig.text(u3[0]+.1, u3[1]+.1, u3[2]+.1, r'$\bf u_3$', 'u3', size=16, color = 'k')
+#
+fig.text(origin[0]-.45, origin[1]-.45, origin[2]-.45, r'$\bf 0$', 0, size = 16)
+#
+fig.plotPerpSym(origin, u1, u2, 0.5)
+fig.plotPerpSym(origin, u3, u2, 0.5)
+fig.plotPerpSym(origin, u3, u1, 0.5)
+#
+y = u1 - 2 * u2 - 2 * u3
+# print(y)
+fig.plotPoint(y[0], y[1], y[2], 'b')
+fig.text(y[0]-2, y[1]+.1, y[2]+.1, r'$\bf y$ = (6, 1, -8)', 'y = (6, 1, -8)', size=16, color = 'b')
+fig.text(y[0]-2, y[1]+.1, y[2]-2.5, r'${\bf y} = 1{\bf u}_1 -2 {\bf u}_2 -2 {\bf u}_3$', 'y = (6, 1, -8)', size=16, color = 'b')
+#
+fig.set_title(r'${\bf y}$ in an Orthogonal Basis', 'y in an Orthogonal Basis', size = 16)
+fig.save()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 5 * np.arange(72),
+                       fargs = None,
+                       interval = 100).to_jshtml(default_mode = 'loop'))
+```
+:::
+:::
+
+::: {.fragment}
+Note how much simpler it is finding the coordinates of $\mathbf{y}$ in the orthogonal basis,
+
+because __each coefficient $c_1$ can be found separately__ without matrix operations.
+:::
+
+## Orthogonal Projection
+
+
+::::: {.columns}
+:::: {.column width="60%"}
+::: {.fragment}
+Now let's turn to the notion of __projection__.
+
+In general, a projection happens when we decompose a vector into the sum of other vectors.
+:::
+
+::: {.fragment}
+Here is the central idea.  We will use this a lot over the next couple lectures.
+
+Given a nonzero vector $\mathbf{u}$ in $\mathbb{R}^n,$ consider the problem of decomposing a vector $\mathbf{y}$ in $\mathbb{R}^n$ into the sum of two vectors:
+
+* one that is a multiple of $\mathbf{u}$, and
+* one that is orthogonal to $\mathbf{u}.$
+:::
+::::
+
+:::: {.column width="40%"}
+![](images/skaters.jpg){height=400}
+::::
+:::::
+
+::: {.ctrd}
+::: {.fragment}
+```{python}
+#| echo: false
+ax = ut.plotSetup(-1,10,-1,4,(6, 4))
+ut.centerAxes(ax)
+pt = [4., 3.]
+plt.plot([0,pt[0]],[0,pt[1]],'b-',lw=2)
+plt.plot([0,pt[0]],[0,0],'r-',lw=3)
+plt.plot([0,0],[0,pt[1]],'g-',lw=3)
+ut.plotVec(ax,pt,'b')
+u = np.array([pt[0],0])
+v = [0,pt[1]]
+ut.plotVec(ax,u)
+ut.plotVec(ax,2*u)
+ut.plotVec(ax,v,'g')
+perpline1, perpline2 = ut.perp_sym(np.array([0,0]), u, v, 0.5)
+plt.plot(perpline1[0], perpline1[1], 'k', lw = 1)
+plt.plot(perpline2[0], perpline2[1], 'k', lw = 1)
+ax.text(2*pt[0],-0.75,r'$\mathbf{u}$',size=20)
+ax.text(pt[0]+0.1,pt[1]+0.2,r'$\mathbf{y}$',size=20);
+```
+:::
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+In other words, we wish to write:
+
+$$\mathbf{y} = \hat{\mathbf{y}} + \mathbf{z}$$
+
+where $\hat{\mathbf{y}} = \alpha\mathbf{u}$ for some scalar $\alpha$ and $\mathbf{z}$ is some vector orthogonal to $\mathbf{u}.$
+
+::: {.ctrd}
+```{python}
+#| echo: false
+ax = ut.plotSetup(-1,10,-1,4,(6,4))
+ut.centerAxes(ax)
+pt = [4., 3.]
+plt.plot([0,pt[0]],[0,pt[1]],'b-',lw=2)
+plt.plot([pt[0],pt[0]],[0,pt[1]],'g--',lw=2)
+plt.plot([0,pt[0]],[0,0],'r-',lw=3)
+plt.plot([0,0],[0,pt[1]],'g-',lw=3)
+ut.plotVec(ax,pt,'b')
+u = np.array([pt[0],0])
+v = [0,pt[1]]
+ut.plotVec(ax,u)
+ut.plotVec(ax,2*u)
+ut.plotVec(ax,v,'g')
+ax.text(pt[0],-0.75,r'${\bf \hat{y}}=\alpha{\bf u}$',size=20)
+ax.text(2*pt[0],-0.75,r'$\mathbf{u}$',size=20)
+ax.text(pt[0]+0.1,pt[1]+0.2,r'$\mathbf{y}$',size=20)
+ax.text(0+0.1,pt[1]+0.2,r'$\mathbf{z}$',size=20)
+perpline1, perpline2 = ut.perp_sym(np.array([0,0]), u, v, 0.5)
+plt.plot(perpline1[0], perpline1[1], 'k', lw = 1)
+plt.plot(perpline2[0], perpline2[1], 'k', lw = 1);
+# ax.text(0+0.1,pt[1]+0.2,r'$\mathbf{z = y -\hat{y}}$',size=20);
+```
+:::
+
+::: {.fragment}
+That is, we are given $\mathbf{y}$ and $\mathbf{u}$, and asked to compute $\mathbf{z}$ and $\hat{\mathbf{y}}.$
+:::
+
+::: {.fragment}
+To solve this, assume that we have some $\alpha$, and with it we compute $\mathbf{y} - \alpha\mathbf{u} = \mathbf{y}-\hat{\mathbf{y}} = \mathbf{z}.$
+:::
+
+::: {.fragment}
+We want $\mathbf{z}$ to be orthogonal to $\mathbf{u}.$
+:::
+
+::: {.fragment}
+Now $\mathbf{z} = \mathbf{y} - \alpha{\mathbf{u}}$ is orthogonal to $\mathbf{u}$ if and only if
+
+$$0 = (\mathbf{y} - \alpha\mathbf{u})^T\mathbf{u}$$
+:::
+
+::: {.fragment}
+$$ = \mathbf{y}^T\mathbf{u} - (\alpha\mathbf{u})^T\mathbf{u}$$
+
+$$ = \mathbf{y}^T\mathbf{u} - \alpha(\mathbf{u}^T\mathbf{u})$$
+:::
+
+::: {.fragment}
+That is, the solution in which $\mathbf{z}$ is orthogonal to $\mathbf{u}$ happens if and only if 
+
+$$\alpha = \frac{\mathbf{y}^T\mathbf{u}}{\mathbf{u}^T\mathbf{u}}$$
+:::
+
+::: {.fragment}
+and since $\hat{\mathbf{y}} = \alpha\mathbf{u}$,
+
+$$\hat{\mathbf{y}} = \frac{\mathbf{y}^T\mathbf{u}}{\mathbf{u}^T\mathbf{u}}\mathbf{u}.$$
+:::
+
+::: {.fragment}
+The vector $\hat{\mathbf{y}}$ is called the __orthogonal projection of $\mathbf{y}$ onto $\mathbf{u}$,__ and the vector $\mathbf{z}$ is called the __component of $\mathbf{y}$ orthogonal to $\mathbf{u}.$__
+
+::: {.ctrd}
+```{python}
+#| echo: false
+ax = ut.plotSetup(-1,10,-1,4,(6, 4))
+ut.centerAxes(ax)
+pt = [4., 3.]
+plt.plot([0,pt[0]],[0,pt[1]],'b-',lw=2)
+plt.plot([pt[0],pt[0]],[0,pt[1]],'g--',lw=2)
+plt.plot([0,pt[0]],[0,0],'r-',lw=3)
+plt.plot([0,0],[0,pt[1]],'g-',lw=3)
+ut.plotVec(ax,pt,'b')
+u = np.array([pt[0],0])
+v = [0,pt[1]]
+ut.plotVec(ax,u)
+ut.plotVec(ax,2*u)
+ut.plotVec(ax,v,'g')
+perpline1, perpline2 = ut.perp_sym(np.array([pt[0], 0]), np.array([0,0]), pt, 0.5)
+plt.plot(perpline1[0], perpline1[1], 'k', lw = 1)
+plt.plot(perpline2[0], perpline2[1], 'k', lw = 1)
+ax.text(pt[0],-0.75,r'${\bf \hat{y}}=\alpha{\bf u}$',size=20)
+ax.text(2*pt[0],-0.75,r'$\mathbf{u}$',size=20)
+ax.text(pt[0]+0.1,pt[1]+0.2,r'$\mathbf{y}$',size=20)
+ax.text(0+0.1,pt[1]+0.2,r'$\mathbf{z = y -\hat{y}}$',size=20)
+ax.text(0+0.1,pt[1]+0.8,r'Component of $\mathbf{y}$ orthogonal to $\mathbf{u}$',size=16)
+ax.text(pt[0],-1.25,r'Orthogonal projection of $\mathbf{y}$ onto to $\mathbf{u}$',size=16);
+```
+:::
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Projections are onto Subspaces
+
+::: {.ctrd}
+```{python}
+#| echo: false
+ax = ut.plotSetup(-1,10,-1,4,(6, 4))
+ut.centerAxes(ax)
+pt = [4., 3.]
+plt.plot([0,pt[0]],[0,pt[1]],'b-',lw=2)
+plt.plot([pt[0],pt[0]],[0,pt[1]],'g--',lw=2)
+plt.plot([0,pt[0]],[0,0],'r-',lw=3)
+plt.plot([0,0],[0,pt[1]],'g-',lw=3)
+ut.plotVec(ax,pt)
+u = np.array([pt[0],0])
+v = [0,pt[1]]
+ut.plotVec(ax,u)
+ut.plotVec(ax,2*u)
+ut.plotVec(ax,v,'g')
+perpline1, perpline2 = ut.perp_sym(np.array([pt[0], 0]), np.array([0,0]), pt, 0.5)
+plt.plot(perpline1[0], perpline1[1], 'k', lw = 1)
+plt.plot(perpline2[0], perpline2[1], 'k', lw = 1)
+ax.text(pt[0],-0.75,r'${\bf \hat{y}}=\alpha{\bf u}$',size=20)
+ax.text(2*pt[0],-0.75,r'$\mathbf{u}$',size=20)
+ax.text(pt[0]+0.1,pt[1]+0.2,r'$\mathbf{y}$',size=20)
+ax.text(0+0.1,pt[1]+0.2,r'$\mathbf{z = y -\hat{y}}$',size=20)
+ax.text(0+0.1,pt[1]+0.8,r'Component of $\mathbf{y}$ orthogonal to $\mathbf{u}$',size=16)
+ax.text(pt[0],-1.25,r'Orthogonal projection of $\mathbf{y}$ onto to $\mathbf{u}$',size=16);
+```
+:::
+
+::: {.fragment}
+Now, note that if we had scaled $\mathbf{u}$ by any amount (ie, moved it to the right or the left), we would not have changed the location of $\hat{\mathbf{y}}.$  
+:::
+
+::: {.fragment}
+This can be seen as well by replacing $\mathbf{u}$ with $c\mathbf{u}$ and recomputing $\hat{\mathbf{y}}$:
+
+$$\hat{\mathbf{y}} = \frac{\mathbf{y}^Tc\mathbf{u}}{c\mathbf{u}^Tc\mathbf{u}}c\mathbf{u} = \frac{\mathbf{y}^T\mathbf{u}}{\mathbf{u}^T\mathbf{u}}\mathbf{u}.$$
+:::
+
+::: {.fragment}
+Thus, the projection of $\mathbf{y}$ is determined by the __subspace__ $L$ that is spanned by $\mathbf{u}$ -- in other words, the line through $\mathbf{u}$ and the origin.
+:::
+
+::: {.fragment}
+Hence sometimes $\hat{\mathbf{y}}$ is denoted by $\operatorname{proj}_L \mathbf{y}$ and is called the __orthogonal projection of $\mathbf{y}$ onto $L$.__
+
+Specifically:
+
+$$\hat{\mathbf{y}} = \operatorname{proj}_L \mathbf{y} = \frac{\mathbf{y}^T\mathbf{u}}{\mathbf{u}^T\mathbf{u}}\mathbf{u}$$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Example.__  Let $\mathbf{y} = \begin{bmatrix}7\\6\end{bmatrix}$ and $\mathbf{u} = \begin{bmatrix}4\\2\end{bmatrix}.$  
+
+Find the orthogonal projection of $\mathbf{y}$ onto $\mathbf{u}.$  Then write $\mathbf{y}$ as the sum of two orthogonal vectors, one in Span$\{\mathbf{u}\}$, and one orthogonal to $\mathbf{u}.$
+
+::: {.fragment}
+__Solution.__  Compute
+
+$$\mathbf{y}^T\mathbf{u} = \begin{bmatrix}7&6\end{bmatrix}\begin{bmatrix}4\\2\end{bmatrix} = 40$$
+
+$$\mathbf{u}^T\mathbf{u} = \begin{bmatrix}4&2\end{bmatrix}\begin{bmatrix}4\\2\end{bmatrix} = 20$$
+:::
+
+::: {.fragment}
+The orthogonal projection of $\mathbf{y}$ onto $\mathbf{u}$ is
+
+$$\hat{\mathbf{y}} = \frac{\mathbf{y}^T\mathbf{u}}{\mathbf{u}^T\mathbf{u}} \mathbf{u}$$
+
+$$=\frac{40}{20}\mathbf{u} = 2\begin{bmatrix}4\\2\end{bmatrix} = \begin{bmatrix}8\\4\end{bmatrix}$$
+:::
+
+::: {.fragment}
+And the component of $\mathbf{y}$ orthogonal to $\mathbf{u}$ is
+
+$$\mathbf{y}-\hat{\mathbf{y}} = \begin{bmatrix}7\\6\end{bmatrix} - \begin{bmatrix}8\\4\end{bmatrix} = \begin{bmatrix}-1\\2\end{bmatrix}.$$
+:::
+
+::: {.fragment}
+So 
+
+$$\mathbf{y} = \hat{\mathbf{y}} + \mathbf{z}$$
+
+$$\begin{bmatrix}7\\6\end{bmatrix} = \begin{bmatrix}8\\4\end{bmatrix} + \begin{bmatrix}-1\\2\end{bmatrix}.$$
+:::
+
+::: {.fragment}
+::: {.ctrd}
+```{python}
+#| echo: false
+ax = ut.plotSetup(-3,11,-1,7,(6,4))
+ut.centerAxes(ax)
+plt.axis('equal')
+u = np.array([4.,2])
+y = np.array([7.,6])
+yhat = (y.T.dot(u)/u.T.dot(u))*u
+z = y-yhat
+ut.plotLinEqn(1.,-2.,0.)
+ut.plotVec(ax,u)
+ut.plotVec(ax,z,'g')
+ut.plotVec(ax,y)
+ut.plotVec(ax,yhat)
+ax.text(u[0]+0.3,u[1]-0.5,r'$\mathbf{u}$',size=20)
+ax.text(yhat[0]+0.3,yhat[1]-0.5,r'$\mathbf{\hat{y}}$',size=20)
+ax.text(y[0],y[1]+0.8,r'$\mathbf{y}$',size=20)
+ax.text(z[0]-2,z[1],r'$\mathbf{y - \hat{y}}$',size=20)
+ax.text(10,4.5,r'$L = $Span$\{\mathbf{u}\}$',size=20)
+perpline1, perpline2 = ut.perp_sym(yhat, y, np.array([0,0]), 0.75)
+plt.plot(perpline1[0], perpline1[1], 'k', lw = 1)
+plt.plot(perpline2[0], perpline2[1], 'k', lw = 1)
+ax.plot([y[0],yhat[0]],[y[1],yhat[1]],'g--')
+ax.plot([0,y[0]],[0,y[1]],'b-')
+ax.plot([0,z[0]],[0,z[1]],'g-');
+```
+:::
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q21.2
+:::::
+##
+
+::: {.ctrd}
+```{python}
+#| echo: false
+ax = ut.plotSetup(-3,11,-1,7,(6,4))
+ut.centerAxes(ax)
+plt.axis('equal')
+u = np.array([4.,2])
+y = np.array([7.,6])
+yhat = (y.T.dot(u)/u.T.dot(u))*u
+z = y-yhat
+ut.plotLinEqn(1.,-2.,0.)
+ut.plotVec(ax,u)
+ut.plotVec(ax,z,'g')
+ut.plotVec(ax,y)
+ut.plotVec(ax,yhat)
+ax.text(u[0]+0.3,u[1]-0.5,r'$\mathbf{u}$',size=20)
+ax.text(yhat[0]+0.3,yhat[1]-0.5,r'$\mathbf{\hat{y}}$',size=20)
+ax.text(y[0],y[1]+0.8,r'$\mathbf{y}$',size=20)
+ax.text(z[0]-2,z[1],r'$\mathbf{y - \hat{y}}$',size=20)
+ax.text(10,4.5,r'$L = $Span$\{\mathbf{u}\}$',size=20)
+perpline1, perpline2 = ut.perp_sym(yhat, y, np.array([0,0]), 0.75)
+plt.plot(perpline1[0], perpline1[1], 'k', lw = 1)
+plt.plot(perpline2[0], perpline2[1], 'k', lw = 1)
+ax.plot([y[0],yhat[0]],[y[1],yhat[1]],'g--')
+ax.plot([0,y[0]],[0,y[1]],'b-')
+ax.plot([0,z[0]],[0,z[1]],'g-');
+```
+:::
+:::
+
+### Important Properties of $\hat{\mathbf{y}}$
+
+__The closest point.__
+
+Recall from geometry that given a line and a point $P$, the closest point on the line to $P$ is given by the perpendicular from $P$ to the line.
+
+So this gives an important interpretation of $\hat{\mathbf{y}}$: it is __the closest point to $\mathbf{y}$ in the subspace $L$.__
+
+::: {.fragment}
+__The distance from $\mathbf{y}$ to $L$__
+
+The distance from $\mathbf{y}$ to $L$ is the length of the perpendicular from $\mathbf{y}$ to its orthogonal projection on $L$, namely $\hat{\mathbf{y}}$.
+
+This distance equals the length of $\mathbf{y} - \hat{\mathbf{y}}$.
+:::
+
+::: {.fragment}
+In this example, the distance is 
+
+$$\Vert\mathbf{y}-\hat{\mathbf{y}}\Vert = \sqrt{(-1)^2 + 2^2} = \sqrt{5}.$$
+:::
+
+## Projections find Coordinates in an Orthogonal Basis
+
+::: {.fragment}
+Earlier today, we saw that when we decompose a vector $\mathbf{y}$ into a linear combination of vectors $\{\mathbf{u}_1,\dots,\mathbf{u}_p\}$ in a orthogonal basis, we have
+
+$$\mathbf{y} = c_1\mathbf{u}_1 + \dots + c_p\mathbf{u}_p$$
+
+where
+
+$$c_j = \frac{\mathbf{y}^T\mathbf{u}_j}{\mathbf{u}_j^T\mathbf{u}_j}$$
+:::
+
+::: {.fragment}
+And just now we have seen that the projection of $\mathbf{y}$ onto the subspace spanned by any $\mathbf{u}$ is
+
+$$\operatorname{proj}_L \mathbf{y} = \frac{\mathbf{y}^T\mathbf{u}}{\mathbf{u}^T\mathbf{u}}\mathbf{u}.$$
+:::
+
+::: {.fragment}
+So a decomposition like $\mathbf{y} = c_1\mathbf{u}_1 + \dots + c_p\mathbf{u}_p$ is really decomposing $\mathbf{y}$ into __a sum of orthogonal projections onto one-dimensional subspaces.__
+:::
+
+::: {.fragment}
+For example, let's take the case where $\mathbf{y} \in \mathbb{R}^2.$   
+
+Let's say we are given $\mathbf{u}_1, \mathbf{u}_2$ such that $\mathbf{u}_1$ is orthogonal to $\mathbf{u}_2$, and so together they span $\mathbb{R}^2.$
+:::
+
+::: {.fragment}
+Then $\mathbf{y}$ can be written in the form
+
+$$\mathbf{y} = \frac{\mathbf{y}^T\mathbf{u}_1}{\mathbf{u}_1^T\mathbf{u}_1}\mathbf{u}_1 +  \frac{\mathbf{y}^T\mathbf{u}_2}{\mathbf{u}_2^T\mathbf{u}_2}\mathbf{u}_2.$$
+:::
+
+::: {.fragment}
+The first term is the projection of $\mathbf{y}$ onto the subspace spanned by $\mathbf{u}_1$ and the second term is the projection of $\mathbf{y}$ onto the subspace spanned by $\mathbf{u}_2.$  
+
+So this equation expresses $\mathbf{y}$ as the sum of its projections onto the (orthogonal) axes determined by $\mathbf{u}_1$ and $\mathbf{u}_2$.
+
+This is an useful way of thinking about coordinates in an orthogonal basis:  coordinates are projections onto the axes!
+:::
+
+::: {.fragment}
+![](images/Lay-fig-6-2-4.jpg){width=600}
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q21.3
+:::::
+:::
+
+## Orthonormal Sets
+
+Orthogonal sets are therefore very useful.   However, they become even more useful if we __normalize__ the vectors in the set.
+
+::: {.fragment}
+A set $\{\mathbf{u}_1,\dots,\mathbf{u}_p\}$ is an __orthonormal set__ if it is an orthogonal set of __unit__ vectors.
+:::
+
+::: {.fragment}
+If $W$ is the subspace spanned by such as a set, then  $\{\mathbf{u}_1,\dots,\mathbf{u}_p\}$ is an __orthonormal basis__ for $W$ since the set is automatically linearly independent.
+:::
+
+::: {.fragment}
+The simplest example of an orthonormal set is the standard basis $\{\mathbf{e}_1, \dots,\mathbf{e}_n\}$ for $\mathbb{R}^n$.  
+:::
+
+::: {.fragment}
+Pro tip: keep the terms clear in your head: 
+
+* __orthogonal__ is (just) perpendicular, while 
+* __orthonormal__ is perpendicular _and_ unit length.   
+
+(You can see the word "normalized" inside "orthonormal").
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Orthogonal Mappings
+
+::: {.fragment}
+Matrices with orthonormal columns are particularly important.
+:::
+
+::: {.fragment}
+__Theorem.__ A $m\times n$ matrix $U$ has orthonormal columns if and only if $U^TU = I$.
+:::
+
+::: {.fragment}
+__Proof.__  Let us suppose that $U$ has only three columns which are each vectors in $\mathbb{R}^m$ (but the proof will generalize to $n$ columns).  
+:::
+
+::: {.fragment}
+Let $U = [\mathbf{u}_1\;\mathbf{u}_2\;\mathbf{u}_3].$   Then:
+
+$$U^TU = \begin{bmatrix}\mathbf{u}_1^T\\\mathbf{u}_2^T\\\mathbf{u}_3^T\end{bmatrix}\begin{bmatrix}\mathbf{u}_1&\mathbf{u}_2&\mathbf{u}_3\end{bmatrix}$$
+:::
+
+::: {.fragment}
+$$ = \begin{bmatrix}
+\mathbf{u}_1^T\mathbf{u}_1&\mathbf{u}_1^T\mathbf{u}_2&\mathbf{u}_1^T\mathbf{u}_3\\
+\mathbf{u}_2^T\mathbf{u}_1&\mathbf{u}_2^T\mathbf{u}_2&\mathbf{u}_2^T\mathbf{u}_3\\
+\mathbf{u}_3^T\mathbf{u}_1&\mathbf{u}_3^T\mathbf{u}_2&\mathbf{u}_3^T\mathbf{u}_3
+\end{bmatrix}$$
+:::
+
+::: {.fragment}
+The columns of $U$ are orthogonal if and only if
+
+$$\mathbf{u}_1^T\mathbf{u}_2 = \mathbf{u}_2^T\mathbf{u}_1 = 0,\;\; \mathbf{u}_1^T\mathbf{u}_3 = \mathbf{u}_3^T\mathbf{u}_1 = 0,\;\; \mathbf{u}_2^T\mathbf{u}_3 = \mathbf{u}_3^T\mathbf{u}_2 = 0$$
+
+The columns of $U$ all have unit length if and only if
+
+$$\mathbf{u}_1^T\mathbf{u}_1 = 1,\;\;\mathbf{u}_2^T\mathbf{u}_2 = 1,\;\;\mathbf{u}_3^T\mathbf{u}_3 = 1.$$
+
+So $U^TU = I.$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Orthonormal Matrices Preserve Length and Orthogonality
+
+::: {.fragment}
+__Theorem.__  Let $U$ by an $m\times n$ matrix with orthonormal columns, and let $\mathbf{x}$ and $\mathbf{y}$ be in $\mathbb{R}^n.$  Then:
+
+&nbsp; 1. $\Vert U\mathbf{x}\Vert = \Vert\mathbf{x}\Vert.$
+&nbsp; 2. $(U\mathbf{x})^T(U\mathbf{y}) = \mathbf{x}^T\mathbf{y}.$
+:::
+
+::: {.fragment}
+Proof of (1):
+
+$$\Vert U\mathbf{x}\Vert = \sqrt{(U\mathbf{x})^T U\mathbf{x}} = \sqrt{\mathbf{x}^T\mathbf{x}} = \Vert\mathbf{x}\Vert.$$
+:::
+
+::: {.fragment}
+Proof of (2):
+
+$$(U\mathbf{x})^T(U\mathbf{y}) = \mathbf{x}^TU^T(U\mathbf{y}) = \mathbf{x}^T(U^TU)\mathbf{y} = \mathbf{x}^T\mathbf{y}.$$
+:::
+
+::: {.fragment}
+These make important statements:
+
+* Property (1) means that the mapping <font color="blue">$\mathbf{x}\mapsto U\mathbf{x}$ preserves the 
+lengths of vectors</font> -- and, therefore, also the __distance__ between any two vectors.
+* Properties (1) and (2) together mean that the mapping <font color="blue">$\mathbf{x}\mapsto U\mathbf{x}$ preserves the 
+angles between vectors</font> -- and, therefore, also any __orthogonality__ between two vectors.
+:::
+
+::: {.fragment}
+So, viewed as a linear operator, an orthonormal matrix is very special: the lengths of vectors, and therefore the __distances between points__ is not changed by the action of $U$.
+:::
+
+::: {.fragment}
+Notice as well that $U$ is $m \times n$ -- it may not be square.  
+
+So it may map vectors from one vector space to an entirely different vector space -- __but__ the distances between points will not be changed!
+:::
+
+::: {.ctrd}
+::: {.fragment}
+![](images/L21 F1.png){width=800}
+:::
+:::
+
+::: {.fragment}
+... and the orthogonality of vectors will not be changed!
+:::
+
+::: {.ctrd}
+::: {.fragment}
+![](images/L21 F2.png){width=700}
+:::
+:::
+
+::: {.fragment}
+Note however that we cannot in general construct an orthonormal map from a higher dimension to a lower one.
+
+For example, three orthogonal vectors in $\mathbb{R}^3$ cannot be mapped to three orthogonal vectors in $\mathbb{R}^2$.   Can you see why this is impossible?  What is it about the definition of an orthonormal set that prevents this?
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Example.__  
+
+Let $U = \begin{bmatrix}1/\sqrt{2}&2/3\\1/\sqrt{2}&-2/3\\0&1/3\end{bmatrix}$ and $\mathbf{x} = \begin{bmatrix}\sqrt{2}\\3\end{bmatrix}.$  
+
+Notice that $U$ has orthonormal columns, so
+
+$$U^TU = \begin{bmatrix}1/\sqrt{2}&1/\sqrt{2}&0\\2/3&-2/3&1/3\end{bmatrix}\begin{bmatrix}1/\sqrt{2}&2/3\\1/\sqrt{2}&-2/3\\0&1/3\end{bmatrix} = \begin{bmatrix}1&0\\0&1\end{bmatrix}.$$
+
+::: {.fragment}
+Let's verify that $\Vert Ux\Vert = \Vert x\Vert.$
+
+$$U\mathbf{x} = \begin{bmatrix}1/\sqrt{2}&2/3\\1/\sqrt{2}&-2/3\\0&1/3\end{bmatrix}\begin{bmatrix}\sqrt{2}\\3\end{bmatrix} = \begin{bmatrix}3\\-1\\1\end{bmatrix}$$
+:::
+
+::: {.fragment}
+$$\Vert U\mathbf{x}\Vert = \sqrt{9 + 1 + 1} = \sqrt{11}.$$
+:::
+
+::: {.fragment}
+$$\Vert\mathbf{x}\Vert = \sqrt{2+9}= \sqrt{11}.$$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### When Orthonormal Matrices are Square
+
+Finally, one of the most useful transformation matrices is obtained when the columns of the matrix are orthonormal...
+
+... __and__ the matrix is __square__.
+
+::: {.fragment}
+These matrices map vectors in $\mathbb{R}^n$ to new locations in the same space, ie, $\mathbb{R}^n$.
+
+... in a way that preserves lengths, distances and orthogonality.
+:::
+
+::: {.fragment}
+Now, consider the case when $U$ is square, and has orthonormal columns.
+
+Then the fact that $U^TU = I$ implies that $U^{-1} = U^T.$  
+:::
+
+::: {.fragment}
+Then $U$ is called an __orthogonal__ matrix.  
+:::
+
+::: {.fragment}
+A good example of an orthogonal matrix is a __rotation__ matrix:
+    
+$${\displaystyle R ={\begin{bmatrix}\cos \theta &-\sin \theta \\\sin \theta &\cos \theta \\\end{bmatrix}}.}$$
+:::
+
+::: {.fragment}
+Using trigonometric identities, you should be able to convince yourself that 
+
+$$R^TR =  I$$
+
+and hopefully you can visualize how $R$ preserves lengths and orthogonality.
+:::
