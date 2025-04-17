@@ -41,7 +41,7 @@ Good additional reading on Gauss's use of Least Squares and determination of the
 :::
 
 ::::: {.columns}
-:::: {.column width="35%"}
+:::: {.column width="40%"}
 ![](images/Carl_Friedrich_Gauss.jpg){height=350 fig-alt="Carl F. Gauss"}
 ::::
 :::: {.column width="50%"}
@@ -62,490 +62,1074 @@ Kepler had discovered, and Newton had explained, that each planet orbits the sun
 :::
 
 ::: {.fragment}
+To describe the orbit of Ceres, Gauss had to construct the equation for its ellipse:
 
+$$a_1 x_1^2 + a_2 x_2^2 + a_3 x_1x_2 + a_4 x_1 + a_5 x_2 + a_6 = 0.$$
 :::
 
 
 ::: {.fragment}
-
+He had many measurements of $(x_1, x_2)$ pairs and had to find the $a_1, \dots, a_6.$
 :::
 
 ::: {.fragment}
+This is actually a linear system:
 
+$$\begin{bmatrix}x_{11}^2 &x_{21}^2&x_{11}x_{21}&x_{11}&x_{21}&1\\x_{12}^2 &x_{22}^2&x_{12}x_{22}&x_{12}&x_{22}&1\\
+\vdots&\vdots&\vdots&\vdots&\vdots&\vdots\\x_{1n}^2 &x_{2n}^2&x_{1n}x_{2n}&x_{1n}&x_{2n}&1\end{bmatrix} \begin{bmatrix}a_1\\a_2\\a_3\\a_4\\a_5\\a_6\end{bmatrix} = \mathbf{0}$$
 :::
 
 ::: {.fragment}
+Now, according to Newton, this is a consistent linear system.  
 
+The equation for the ellipse is exactly correct and all we need is six $(x_1, x_2)$ sets of measurements to know the orbit of Ceres exactly.
 :::
 
 ::: {.fragment}
-
+What could go wrong? :)
 :::
 
 ::: {.fragment}
+Obviously, there are going to be measurement errors in Piazzi's observations.  
 
+If we just solve the system using six measurements, we will probably get incorrect values for the coefficients $a_1, \dots, a_6.$
 :::
-
-::: {.fragment}
 
-:::
+## When an Inconsistent System is Better than a Consistent System
 
 ::: {.fragment}
+Notice that each time Piazzi takes a measurement of the position of Ceres, we add an additional equation to our linear system.
 
+Just using six measurements will certainly result in incorrect coefficients due to measurement error.
 :::
 
 ::: {.fragment}
-
-:::
+A better idea is to use all of the $n$ measurement data available, and try to find a way to cancel out errors.
 
-::: {.fragment}
+So, using all the $n$ data measurements available, we construct a linear system:
 
+$$ X\mathbf{a} = \mathbf{b}$$
+     
+where $X$ is $n\times 6$ and $\mathbf{b} \in \mathbb{R}^n$.
 :::
 
 ::: {.fragment}
+But now, due to measurement errors, we can't expect $\mathbf{b}$ will lie in the column space of $X.$  We have an inconsistent system. 
 
+This system has __no solutions!__
 :::
 
 ::: {.fragment}
-
+What can we do if $A\mathbf{x} = \mathbf{b}$ has __no solutions?__
 :::
 
 ::: {.fragment}
+Here is the key idea: the fact that our measurements include errors does not make our measurements worthless!
 
-:::
-
-::: {.fragment}
+We simply need a principled approach to doing the best job we can given the errors in our measurements.
 
+Let's see how we can do that.
 :::
-
-::: {.fragment}
 
+::: {.content-visible when-profile="slides"}
+##
 :::
-
 
-::: {.fragment}
+We now understand if $A$ is $m\times n$ and $A\mathbf{x} = \mathbf{b}$ has no solutions, that is because 
 
-:::
+* the columns of $A$ do not span $\mathbb{R}^m$, and 
+* $\mathbf{b}$ is not in the column space of $A$.
 
 
 ::: {.fragment}
+Here is an example we can visualize, in which $A$ is $3 \times 2$:
 
-:::
+::: {.ctrd}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((22, 1), 'b is not in Col A',
+                        -15, 15, -15, 15, -15, 15, (6,6), qr = qr_setting)
+a2 = np.array([5.0,-13.0,-3.0])
+a1 = np.array([1,-2.0,3])
+v = -3*a1 + a2
+y = np.array([12.0, 8.0, -5.0])
+A = np.array([a1, a2]).T
+#
+# plotting the span of v
+fig.plotSpan(a1, a2, 'Green')
+#
+#
+fig.plotPoint(y[0], y[1], y[2],'b')
+fig.text(y[0]+0.5, y[1]+0.5, y[2]+0.5, r'$\bf b$', 'b', size=18)
+#
+# origin seems unhelpful
+#fig.plotPoint(0, 0, 0, 'b')
+#fig.text(0-1.5, 0-1.5, 0-1.5, r'$\bf 0$', '0', size=18)
+#
+#
+wpos = -4.5*a1 
+fig.text(wpos[0], wpos[1], wpos[2], r'Col $A$', 'Col A', size=22)
+
+#ut.plotPoint3d(ax,0,0,0,'b')
+fig.ax.view_init(azim=85,elev=-10)
+fig.hideAxes() 
+fig.set_title(r'$\mathbf{b}$ is not in Col $A$ ($A$ is $3 \times 2$)', 'b is not in Col A', size = 16)
+fig.save();
+```
+:::
+:::
+
+::: {.fragment}
+For the problem of Ceres' orbit, the reason that $\mathbf{b}$ does not lie in $\operatorname{Col} A$ is due to __measurement error.__
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Finding a Good _Approximate_ Solution
+
+::: {.fragment}
+If we make the assumption that measurement errors are small, then we should be quite satisfied to find an $\mathbf{x}$ that makes $A\mathbf{x}$ as close as possible to $\mathbf{b}.$
+:::
 
 ::: {.fragment}
-
+In other words, we are looking for an $\mathbf{x}$ such that $A\mathbf{x}$ makes a good __approximation__ to $\mathbf{b}.$
 :::
 
 ::: {.fragment}
+::: {.ctrd}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((22, 2), 'b should be close to Ax',
+                        -15, 15, -15, 15, -15, 15, (6, 6), qr = qr_setting)
+a2 = np.array([5.0,-13.0,-3.0])
+a1 = np.array([1,-2.0,3])
+v = -3*a1 + a2
+y = np.array([12.0, 8.0, -5.0])
+A = np.array([a1, a2]).T
+#
+# plotting the span of v
+fig.plotSpan(a1, a2, 'Green')
+#
+yhat = A @ np.linalg.inv(A.T @ A) @ A.T @ y
+fig.plotPoint(yhat[0], yhat[1], yhat[2], 'b')
+fig.text(yhat[0]+0.5, yhat[1]+0.5, yhat[2]+0.5, r'$A\mathbf{x}$', 'Ax', size=18)
+#
+fig.plotPoint(y[0], y[1], y[2],'b')
+fig.text(y[0]+0.5, y[1]+0.5, y[2]+0.5, r'$\bf b$', 'b', size=18)
+#
+# origin seems unhelpful
+#fig.plotPoint(0, 0, 0, 'b')
+#fig.text(0-1.5, 0-1.5, 0-1.5, r'$\bf 0$', '0', size=18)
+#
+#
+wpos = -4.5*a1 
+fig.text(wpos[0], wpos[1], wpos[2], r'Col $A$', 'Col A', size=22)
 
+#ut.plotPoint3d(ax,0,0,0,'b')
+fig.ax.view_init(azim=85,elev=-10)
+fig.hideAxes() 
+fig.set_title(r'We should be happy with a $\mathbf{x}$ such that $A\mathbf{x}$ is close to $\mathbf{b}$', 
+              'We should be happy with an $\mathbf{x} such that AX is close to b', size = 16)
+fig.save();
+```
 :::
-
-::: {.fragment}
-
 :::
 
-::: {.fragment}
-
-:::
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+We can think of the <font color="blue">error of the approximation</font> of $A\mathbf{x}$ to $\mathbf{b}$ as the <font color="blue">distance</font> from $A\mathbf{x}$ to $\mathbf{b},$ which is
 
-::: {.fragment}
+$$\Vert A\mathbf{x} - \mathbf{b}\Vert.$$
+
+::: {.ctrd}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((22, 2), 'b should be close to Ax',
+                        -15, 15, -15, 15, -15, 15, (6, 6), qr = qr_setting)
+a2 = np.array([5.0,-13.0,-3.0])
+a1 = np.array([1,-2.0,3])
+v = -3*a1 + a2
+y = np.array([12.0, 8.0, -5.0])
+A = np.array([a1, a2]).T
+#
+# plotting the span of v
+fig.plotSpan(a1, a2, 'Green')
+#
+yhat = A @ np.linalg.inv(A.T @ A) @ A.T @ y
+fig.plotPoint(yhat[0], yhat[1], yhat[2], 'b')
+fig.text(yhat[0]+0.5, yhat[1]+0.5, yhat[2]+0.5, r'$A\mathbf{x}$', 'Ax', size=18)
+#
+fig.plotPoint(y[0], y[1], y[2],'b')
+fig.text(y[0]+0.5, y[1]+0.5, y[2]+0.5, r'$\bf b$', 'b', size=18)
+#
+# origin seems unhelpful
+#fig.plotPoint(0, 0, 0, 'b')
+#fig.text(0-1.5, 0-1.5, 0-1.5, r'$\bf 0$', '0', size=18)
+#
+#
+wpos = -4.5*a1 
+fig.text(wpos[0], wpos[1], wpos[2], r'Col $A$', 'Col A', size=22)
 
+#ut.plotPoint3d(ax,0,0,0,'b')
+fig.ax.view_init(azim=85,elev=-10)
+fig.hideAxes() 
+fig.set_title(r'We should be happy with a $\mathbf{x}$ such that $A\mathbf{x}$ is close to $\mathbf{b}$', 
+              'We should be happy with an $\mathbf{x} such that AX is close to b', size = 16)
+fig.save();
+```
 :::
-
-::: {.fragment}
 
-:::
+## The General Least-Squares Problem
 
-::: {.fragment}
+We can now formally express what we are looking for when we seek a "good" solution to an inconsistent system:
 
-:::
+The __general least-squares problem__ is to find an $\mathbf{x}$ that makes $\Vert A\mathbf{x}-\mathbf{b}\Vert$ as small as possible.
 
 ::: {.fragment}
-
+This is called "least squares" because it is equivalent to minimizing $\Vert A\mathbf{x}-\mathbf{b}\Vert^2,$ which is the sum of squared differences.
 :::
-
-::: {.fragment}
 
+::: {.content-visible when-profile="slides"}
+##
 :::
 
-::: {.fragment}
+To make this correspondence explicit: say that we denote $A\mathbf{x}$ by $\mathbf{y}$.    Then
 
-:::
+$$\Vert A\mathbf{x}-\mathbf{b}\Vert^2 = \Vert \mathbf{y}-\mathbf{b}\Vert^2 = \sum_i (y_i-b_i)^2$$
 
-::: {.fragment}
+Where we interpret $y_i$ as the _estimated value_ and $b_i$ as the _measured value._
 
-:::
+So this expression is the __sum of squared error.__   
 
+This is the most common measure of error used in statistics.
+
 ::: {.fragment}
+This is a key principle!  
 
-:::
+Minimizing the <font color = "blue">length</font> of $A\mathbf{x} - \mathbf{b}$ is the same as minimizing the <font color = "blue">sum of squared error.</font>
 
-::: {.fragment}
+::: {.ctrd}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((22, 2), 'b should be close to Ax',
+                        -15, 15, -15, 15, -15, 15, (4, 4), qr = qr_setting)
+a2 = np.array([5.0,-13.0,-3.0])
+a1 = np.array([1,-2.0,3])
+v = -3*a1 + a2
+y = np.array([12.0, 8.0, -5.0])
+A = np.array([a1, a2]).T
+#
+# plotting the span of v
+fig.plotSpan(a1, a2, 'Green')
+#
+yhat = A @ np.linalg.inv(A.T @ A) @ A.T @ y
+fig.plotPoint(yhat[0], yhat[1], yhat[2], 'b')
+fig.text(yhat[0]+0.5, yhat[1]+0.5, yhat[2]+0.5, r'$A\mathbf{x}$', 'Ax', size=18)
+#
+fig.plotPoint(y[0], y[1], y[2],'b')
+fig.text(y[0]+0.5, y[1]+0.5, y[2]+0.5, r'$\bf b$', 'b', size=18)
+#
+# origin seems unhelpful
+#fig.plotPoint(0, 0, 0, 'b')
+#fig.text(0-1.5, 0-1.5, 0-1.5, r'$\bf 0$', '0', size=18)
+#
+#
+#wpos = -4.5*a1 
+#fig.text(wpos[0], wpos[1], wpos[2], r'Col $A$', 'Col A', size=22)
 
+#ut.plotPoint3d(ax,0,0,0,'b')
+fig.ax.view_init(azim=85,elev=-10)
+fig.hideAxes() 
+fig.save();
+```
 :::
-
-::: {.fragment}
+:::
 
+::: {.content-visible when-profile="slides"}
+##
 :::
 
+__Definition.__ If A is $m\times n$ and $\mathbf{b}$ is in $\mathbb{R}^m,$ a __least squares solution__ of $A\mathbf{x} =\mathbf{b}$ is an $\mathbf{\hat{x}}$ in $\mathbb{R}^n$ such that 
 
-::: {.fragment}
+$$\Vert A\mathbf{\hat{x}} - \mathbf{b}\Vert \leq \Vert A\mathbf{x} - \mathbf{b}\Vert$$
 
-:::
+for all $\mathbf{x}$ in $\mathbb{R}^n$.
 
 ::: {.fragment}
-
-:::
+An equivalent (and more common) way to express this is:
 
-::: {.fragment}
+$$\hat{\mathbf{x}} = \arg\min_\mathbf{x} \Vert A\mathbf{x} - \mathbf{b}\Vert.$$
 
+which emphasizes that this is a minimization problem, also called an _optimization_ problem.
 :::
 
-::: {.fragment}
-
+::: {.content-visible when-profile="slides"}
+##
 :::
 
+### Interpretation of the Least Squares Problem
+
 ::: {.fragment}
+The point here is that no matter what $\mathbf{x}$ is, $A\mathbf{x}$ will be in the column space of $A$ --- that is, $\operatorname{Col}A$. 
 
+So in our problem, 
+
+* $\mathbf{b}$ is outside $\operatorname{Col}A$, and 
+* we are looking for $\hat{\mathbf{x}}$, 
+* which specifies the closest point in $\operatorname{Col}A$ to $\mathbf{b}$.
 :::
 
 ::: {.fragment}
+::: {.ctrd}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((22, 3), 'Least Squares looks for the Closest Point in Col A',
+                        -15, 15, -15, 15, -15, 15, (5, 5), qr = qr_setting)
+a2 = np.array([5.0,-13.0,-3.0])
+a1 = np.array([1,-2.0,3])
+v = -3*a1 + a2
+y = np.array([12.0, 8.0, -5.0])
+A = np.array([a1, a2]).T
+#
+# plotting the span of v
+fig.plotSpan(a1, a2, 'Green')
+#
+yhat = A @ np.linalg.inv(A.T @ A) @ A.T @ y
+fig.plotPoint(yhat[0], yhat[1], yhat[2], 'b')
+fig.text(yhat[0]+0.5, yhat[1]+0.5, yhat[2]+0.5, r'$\mathbf{A\hat{x}}$', 'Ax-hat', size=18)
+#
+fig.plotPoint(y[0], y[1], y[2],'b')
+fig.text(y[0]+0.5, y[1]+0.5, y[2]+0.5, r'$\bf b$', 'b', size=18)
+#
+# origin seems unhelpful
+#fig.plotPoint(0, 0, 0, 'b')
+#fig.text(0-1.5, 0-1.5, 0-1.5, r'$\bf 0$', '0', size=18)
+#
+x1 = y + np.array([8, 8, 8])
+x1hat = A @ np.linalg.inv(A.T @ A) @ A.T @ x1
+fig.plotPoint(x1hat[0], x1hat[1], x1hat[2], 'r')
+#
+x2 = y + np.array([-4, -6, 6])
+x2hat = A @ np.linalg.inv(A.T @ A) @ A.T @ x2
+fig.plotPoint(x2hat[0], x2hat[1], x2hat[2], 'r')
+#
+wpos = -4.5*a1 
+fig.text(wpos[0], wpos[1], wpos[2], r'Col $A$', 'Col A', size=22)
+#
+# lines
+fig.plotLine([y, yhat], 'b', '-')
+fig.plotLine([y, x1hat], 'r', '--')
+fig.plotLine([y, x2hat], 'r', '--')
 
+#ut.plotPoint3d(ax,0,0,0,'b')
+fig.ax.view_init(azim=100,elev=-20.0)
+fig.hideAxes() 
+#fig.set_title(r'Least Squares looks for the Closest Point in Col $A$', 'Least Squares looks for the Closest Point in Col A', size = 16)
+fig.save();
+```
+:::
 :::
 
 ::: {.fragment}
+The vector $\mathbf{b}$ is closer to $A\mathbf{\hat{x}}$ than it is to $A\mathbf{x}$ for any other $\mathbf{x}$.
 
+For example, the red points in the figure are both further from  $\mathbf{b}$ than is $A\mathbf{\hat{x}}$.
 :::
 
+## Solving the General Least Squares Problem
+
 ::: {.fragment}
+In order to solve the Least Squares problem, we need to bring in a bit more theory. 
+
+All we need to do is to extend some of the ideas we developed in the last lecture.
 
+The last lecture developed methods for finding the point in a 1D subspace that is closest to a given point.   
 :::
 
 ::: {.fragment}
+We need to generalize the idea of "closest point" to the case of an __arbitrary__ subspace.   
 
+This leads to two theorems: the __Orthogonal Decomposition Theorem__ and the __Best Approximation Theorem.__  
 :::
-
-::: {.fragment}
 
+::: {.content-visible when-profile="slides"}
+##
 :::
 
+### The Orthogonal Decomposition Theorem
+
 ::: {.fragment}
+Let $W$ be a subspace of $\mathbb{R}^n$.  Then each $\mathbf{y}$ in $\mathbb{R}^n$ can be written __uniquely__ in the form 
+
+$$ \mathbf{y} = \hat{\mathbf{y}} + \mathbf{z}$$
 
+where $\hat{\mathbf{y}}$ is in $W$ and $\mathbf{z}$ is orthogonal to every vector in $W$.
 :::
 
 ::: {.fragment}
-
+::: {.ctrd}
+```{python}
+#| echo: false
+ax = ut.plotSetup(-3,11,-1,7,(6,4))
+ut.centerAxes(ax)
+plt.axis('equal')
+u = np.array([4.,2])
+y = np.array([6, 8])
+yhat = (y.T.dot(u)/u.T.dot(u))*u
+z = y-yhat
+ut.plotLinEqn(1.,-2.,0.)
+ut.plotVec(ax,y)
+ut.plotVec(ax,yhat)
+ax.text(yhat[0]+0.3,yhat[1]-0.5,r'$\mathbf{\hat{y}}$',size=20)
+ax.text(y[0],y[1]+0.8,r'$\mathbf{y}$',size=20)
+mm = (y + yhat)/2
+ax.text(mm[0]+.1,mm[1],r'$\mathbf{y - \hat{y}}$',size=20)
+ax.text(11,4.5,r'$W$',size=20)
+perpline1, perpline2 = ut.perp_sym(yhat, y, np.array([0,0]), 0.75)
+plt.plot(perpline1[0], perpline1[1], 'k', lw = 1)
+plt.plot(perpline2[0], perpline2[1], 'k', lw = 1)
+ax.plot([y[0],yhat[0]],[y[1],yhat[1]],'b--');
+```
 :::
+:::
 
 ::: {.fragment}
+::: {.ctrd}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((22, 4), 'Projection of y onto Subspace W',
+                        -15, 15, -15, 15, -15, 15, (7,6), qr = qr_setting)
+a2 = np.array([5.0,-13.0,-3.0])
+a1 = np.array([1,-2.0,3])
+v = -3*a1 + a2
+y = np.array([12.0, 8.0, -5.0])
+A = np.array([a1, a2]).T
+#
+# plotting the span of v
+fig.plotSpan(a1, a2, 'Green')
+#
+yhat = A.dot(np.linalg.inv(A.T.dot(A))).dot(A.T).dot(y)
+fig.plotPoint(yhat[0], yhat[1], yhat[2], 'b')
+fig.text(yhat[0]+0.5, yhat[1]+0.5, yhat[2]+0.5, r'$\mathbf{\hat{y}}$', 'y-hat', size=18)
+#
+fig.plotPoint(y[0], y[1], y[2],'b')
+fig.text(y[0]+0.5, y[1]+0.5, y[2]+0.5, r'$\bf y$', 'y', size=18)
+#
+#
+m2 = (y + yhat) / 2
+m2 = m2 + [0,1,0]
+fig.text(m2[0], m2[1], m2[2], r'$\bf y - \hat{\bf y}$', '||y - y-hat||', size=18)
 
+#
+wpos = -4.5*a1 
+fig.text(wpos[0], wpos[1], wpos[2], r'$W$', 'W', size=22)
+#
+# lines
+fig.plotLine([y, yhat], 'b')
+#ut.plotPoint3d(ax,0,0,0,'b')
+fig.ax.view_init(azim=57.0,elev=-75.0)
+fig.hideAxes() 
+fig.plotPerpSym(yhat, y, a2-2*a1, 2.5)
+fig.set_title(r'Projection of $\mathbf{y}$ onto Subspace $W$', 
+              'Projection of y onto Subspace W', size = 16)
+qrcode = fig.save();
+```
+:::
 :::
 
 ::: {.fragment}
+__Proof.__ (straightforward extension of the 1D case from last lecture.)
 
+Just as in the case of a 1D subspace (in the last lecture), we say that $\hat{\mathbf{y}}$ is the __orthogonal projection of $\mathbf{y}$ onto $W$__ and write $\hat{\mathbf{y}} = \operatorname{proj}_W\mathbf{y}.$
 :::
 
-::: {.fragment}
-
+::: {.content-visible when-profile="slides"}
+##
 :::
 
+### The Best Approximation Theorem
 
 ::: {.fragment}
+Let $W$ be a subspace of $\mathbb{R}^n$, let $\mathbf{y}$ be any vector in $\mathbb{R}^n$, and let $\hat{\mathbf{y}}$ be the orthogonal projection of $\mathbf{y}$ onto $W$.  Then $\hat{\mathbf{y}}$ is the closest point in $W$ to $\mathbf{y}$, in the sense that 
 
-:::
-
-::: {.fragment}
+$$\Vert \mathbf{y}-\hat{\mathbf{y}} \Vert < \Vert \mathbf{y} - \mathbf{v} \Vert$$
 
+for all $\mathbf{v}$ in $W$ distinct from $\hat{\mathbf{y}}$.
 :::
 
 ::: {.fragment}
+__Proof.__ 
 
+Take $\mathbf{v}$ in $W$ distinct from $\hat{\mathbf{y}}$.   Here is what the setup looks like:
+
+::: {.ctrd}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((22, 5), 'Comparison of v to the projection of y',
+                        -15, 15, -15, 15, -15, 15, (6,6), qr = qr_setting)
+a2 = np.array([5.0,-13.0,-3.0])
+a1 = np.array([1,-2.0,3])
+v = -3*a1 + a2
+y = np.array([12.0, 8.0, -5.0])
+A = np.array([a1, a2]).T
+#
+# plotting the span of v
+fig.plotSpan(a1, a2, 'Green')
+#
+yhat = A.dot(np.linalg.inv(A.T.dot(A))).dot(A.T).dot(y)
+fig.plotPoint(yhat[0], yhat[1], yhat[2], 'b')
+fig.text(yhat[0]+0.5, yhat[1]+0.5, yhat[2]+0.5, r'$\mathbf{\hat{y}}$', 'y-hat', size=18)
+#
+fig.plotPoint(y[0], y[1], y[2],'b')
+fig.text(y[0]+0.5, y[1]+0.5, y[2]+0.5, r'$\bf y$', 'y', size=18)
+#
+fig.plotPoint(v[0], v[1], v[2], 'b')
+fig.text(v[0]-1.5, v[1]-1.5, v[2]-1.5, r'$\bf v$', 'v', size=18)
+#
+m1 = (y + v) / 2
+m1 = m1 + [2,-6,0]
+fig.text(m1[0], m1[1], m1[2], r'$\Vert \bf y - \bf v\Vert$', '||y - v||', size=18)
+m2 = (y + yhat) / 2
+m2 = m2 + [0,1,0]
+fig.text(m2[0], m2[1], m2[2], r'$\Vert \bf y - \hat{\bf y}\Vert$', '||y - y-hat||', size=18)
+m3 = (yhat + v) / 2
+m3 = m3 + [-1,0,-4]
+fig.text(m3[0], m3[1], m3[2], r'$\Vert \hat{\bf y} - \bf v\Vert$', '||y - v||', size=18)
+#
+wpos = -4.5*a1 
+fig.text(wpos[0], wpos[1], wpos[2], r'$W$', 'W', size=22)
+#
+# lines
+fig.plotLine([y, yhat], 'b')
+fig.plotLine([v, yhat], 'b')
+fig.plotLine([y, v], 'b')
+#ut.plotPoint3d(ax,0,0,0,'b')
+fig.ax.view_init(azim=57.0,elev=-69.0)
+fig.hideAxes() 
+fig.set_title(r'Relationship of $\mathbf{y}$ to $\hat{\mathbf{y}} = \operatorname{Proj}_W \mathbf{y}$', 
+              'Relationship of y Proj_W y', size = 16)
+qrcode = fig.save();
+```
+:::
 :::
 
 ::: {.fragment}
-
+Both $\hat{\mathbf{y}}$ and $\mathbf{v}$ are in $W$, so $\hat{\mathbf{y}} - \mathbf{v}$ is in $W$.  
 :::
 
 ::: {.fragment}
-
+By the orthogonal decomposition theorem, $\mathbf{y} - \hat{\mathbf{y}}$ is orthogonal to every vector in $W$, so it is orthogonal to $\hat{\mathbf{y}} - \mathbf{v}.$
 :::
 
 ::: {.fragment}
+Now, these three points form a right triangle because
 
+$$ \mathbf{y} - \mathbf{v} = (\mathbf{y} - \hat{\mathbf{y}}) + (\hat{\mathbf{y}} - \mathbf{v}). $$
 :::
 
 ::: {.fragment}
+So the Pythagorean Theorem tells us that
 
+$$ \Vert\mathbf{y} - \mathbf{v}\Vert^2 = \Vert\mathbf{y} - \hat{\mathbf{y}}\Vert^2 + \Vert\hat{\mathbf{y}} - \mathbf{v}\Vert^2. $$
 :::
 
 ::: {.fragment}
-
+Now $\hat{\mathbf{y}} - \mathbf{v} \neq {\bf 0}$ because $\mathbf{y}$ is distinct from $\mathbf{v}$.  
 :::
 
 ::: {.fragment}
+So 
 
+$$\Vert \hat{\mathbf{y}} - \mathbf{v} \Vert > 0.$$
 :::
 
 ::: {.fragment}
+So 
 
+$$ \Vert\mathbf{y} - \mathbf{v}\Vert^2 > \Vert\mathbf{y} - \hat{\mathbf{y}}\Vert^2. $$
 :::
 
 ::: {.fragment}
-
+So we have shown a key fact:
+    
+$$ \operatorname{Proj}_W \mathbf{y} \text{ is the closest point in } W \text{ to } \mathbf{y}.$$
 :::
 
-::: {.fragment}
+## Orthogonal Projection Solves Least Squares
 
-:::
+Let's apply these ideas to solving the least squares problem.
 
 ::: {.fragment}
+Here is what we want to achieve:
+
+$$\hat{\mathbf{x}} = \arg\min_\mathbf{x} \Vert A\mathbf{x} - \mathbf{b}\Vert.$$
 
+That is, we want $A\hat{\mathbf{x}}$ to be the closest point in $\operatorname{Col}A$ to $\mathbf{b}$.
 :::
 
 ::: {.fragment}
-
+... and we now know that the closest point to $\mathbf{b}$ in a subspace $W$ is the __projection__ of $\mathbf{b}$ onto $W.$
 :::
 
 ::: {.fragment}
+So the point we are looking for, which we'll call $\hat{\mathbf{b}},$ is:
 
+$$\hat{\mathbf{b}} = \operatorname{proj}_{\operatorname{Col}A} \mathbf{b}$$
 :::
-
 
 ::: {.fragment}
+The key is that $\hat{\mathbf{b}}$ __is__ in the column space of $A$.   So this equation is consistent, and we can solve it:
 
+$$A\mathbf{\hat{x}} = \hat{\mathbf{b}}.$$
 :::
 
 ::: {.fragment}
+::: {.ctrd}
+```{python}
+#| echo: False
+fig = ut.three_d_figure((22, 6), 'Least Squares looks for the Closest Point in Col A',
+                        -15, 15, -15, 15, -15, 15, (6,6), qr = qr_setting)
+a2 = np.array([5.0,-13.0,-3.0])
+a1 = np.array([1,-2.0,3])
+v = -3*a1 + a2
+y = np.array([12.0, 8.0, -5.0])
+A = np.array([a1, a2]).T
+#
+# plotting the span of v
+fig.plotSpan(a1, a2, 'Green')
+#
+yhat = A @ np.linalg.inv(A.T @ A) @ A.T @ y
+fig.plotPoint(yhat[0], yhat[1], yhat[2], 'b')
+fig.text(yhat[0]+0.5, yhat[1]+0.5, yhat[2]+0.5, r'$\mathbf{A\hat{x}} = \hat{\mathbf{b}}$', 'Ax-hat', size=18)
+#
+fig.plotPoint(y[0], y[1], y[2],'b')
+fig.text(y[0]+0.5, y[1]+0.5, y[2]+0.5, r'$\bf b$', 'b', size=18)
+#
+#
+wpos = -4.5*a1 
+fig.text(wpos[0], wpos[1], wpos[2], r'Col $A$', 'Col A', size=22)
+#
+# lines
+fig.plotLine([y, yhat], 'b', '-')
+#
+fig.plotPerpSym(yhat, y, a2-5*a1, 2.5)
+#
 
+#ut.plotPoint3d(ax,0,0,0,'b')
+fig.ax.view_init(azim=100,elev=-20.0)
+fig.hideAxes() 
+fig.set_title(r'Least Squares looks for the Closest Point in Col $A$', 'Least Squares looks for the Closest Point in Col A', size = 16)
+fig.save();
+```
 :::
+:::
 
 ::: {.fragment}
-
+Since $\hat{\mathbf{b}}$ is the closest point in $\operatorname{Col}A$ to $\mathbf{b},$ a vector $\hat{\mathbf{x}}$ is a least-squares solution of $A\mathbf{x}=\mathbf{b}$ if and only if $\mathbf{\hat{x}}$ satisfies $A\mathbf{\hat{x}} = \hat{\mathbf{b}}.$   
 :::
 
+<!--- Commenting this out for now, because it is a bit too much complexity
 ::: {.fragment}
+(Note: we know that $A\mathbf{\hat{x}} =\hat{\mathbf{b}}$ is consistent (by definition), so there exists at least one solution.  
 
+However note that if $A$ has free variables -- the columns of $A$ are not independent -- then there would be many solutions of $A\mathbf{\hat{x}} =\hat{\mathbf{b}}$.) 
 :::
-
-::: {.fragment}
+-->
 
+::: {.content-visible when-profile="slides"}
+##
 :::
+
+Let's go back to the case that we can visualize.
 
 ::: {.fragment}
+$A$ is $3 \times 2.$
 
-:::
+We have only two columns $\mathbf{a}_1$ and $\mathbf{a}_2$ so they cannot span $\mathbb{R}^3$.  
 
-::: {.fragment}
+So $\mathbf{b}$ may not lie in $\operatorname{Col}A$, and in our example it does not:
 
+::: {.ctrd}
+``` {python}
+#| echo: false
+fig = ut.three_d_figure((22, 7), 'b is not in Col A', 
+                        -15, 15, -15, 15, -15, 15, (6, 6), qr = qr_setting)
+a2 = np.array([5.0,-13.0,-3.0])
+a1 = np.array([1,-2.0,3])
+b = np.array([8.0, 8.0, -5.0])
+A = np.array([a1, a2]).T
+bhat = A @ np.linalg.inv(A.T @ A) @ A.T @ b
+fig.text(a1[0], a1[1], a1[2], r'$\bf a_1$', 'a1', size=18)
+fig.text(a2[0], a2[1], a2[2], r'$\bf a_2$', 'a2', size=18)
+fig.text(b[0], b[1], b[2], r'$\bf b$', 'b', size=18)
+#ax.text(1,-4,-10,r'Span{$\bf a,b$}',size=16)
+#ax.text(0.2,0.2,-4,r'$\bf 0$',size=20)
+# plotting the span of v
+fig.plotSpan(a1, a2, 'Green')
+fig.plotPoint(a1[0], a1[1], a1[2], 'r')
+fig.plotPoint(a2[0], a2[1], a2[2], 'r')
+fig.plotPoint(b[0], b[1], b[2], 'b')
+#ut.plotPoint3d(ax,0,0,0,'b')
+fig.ax.view_init(azim=30, elev=-80.0)
+fig.set_title(r'$\mathbf{b}$ is not in Col $A$', 'b is not in Col A', size = 16)
+fig.save();
+```
 :::
+:::
 
 ::: {.fragment}
+And what we want to find is the projection of $\mathbf{b}$ onto the column space of $A$:
 
+::: {.ctrd}
+``` {python}
+#| echo: false
+fig = ut.three_d_figure((22, 8), 'b-hat is closest to b', 
+                        -15, 15, -15, 15, -15, 15, (6,6), qr = qr_setting)
+a2 = np.array([5.0,-13.0,-3.0])
+a1 = np.array([1,-2.0,3])
+b = np.array([8.0, 8.0, -5.0])
+A = np.array([a1, a2]).T
+bhat = A @ np.linalg.inv(A.T @ A) @ A.T @ b
+fig.text(a1[0], a1[1]+.5, a1[2], r'$\bf a_1$', 'a1', size=18)
+fig.text(a2[0], a2[1]+.5, a2[2], r'$\bf a_2$', 'a2', size=18)
+fig.text(b[0], b[1]+1, b[2], r'$\bf b$', 'b', size=18)
+fig.text(bhat[0], bhat[1]+1, bhat[2], r'$A\mathbf{\hat{x}} = \mathbf{\hat{b}}$', 'Ax-hat = b-hat', size=20)
+#ax.text(1,-4,-10,r'Span{$\bf a,b$}',size=16)
+#ax.text(0.2,0.2,-4,r'$\bf 0$',size=20)
+# plotting the span of v
+fig.plotSpan(a1, a2, 'Green')
+fig.plotPoint(a1[0], a1[1], a1[2], 'r')
+fig.plotPoint(a2[0], a2[1], a2[2], 'r')
+fig.plotPoint(b[0], b[1], b[2], 'b')
+fig.plotPoint(bhat[0], bhat[1], bhat[2], 'b')
+fig.plotLine([b, bhat], 'b', '--')
+#ut.plotPoint3d(ax,0,0,0,'b')
+fig.ax.view_init(azim=30, elev=-80.0)
+fig.set_title(r'$\hat\mathbf{b}$ is closest point in Col $A$ to $\mathbf{b}$', 'b-hat is closest to b', size = 16)
+fig.plotPerpSym(bhat, b, a2-3*a1, 2.5)
+fig.save();
+```
 :::
-
-::: {.fragment}
+:::
 
+::: {.content-visible when-profile="slides"}
+##
 :::
 
-::: {.fragment}
+### The Normal Equations
 
-:::
+So: how are we going to find this projection $\hat{\mathbf{b}}$?
 
 ::: {.fragment}
+Here is the key idea:
 
+We know that the projection $\hat{\mathbf{b}}$ has the property that $\hat{\mathbf{b}}-\mathbf{b}$ is orthogonal to $\operatorname{Col}A.$
 :::
 
 ::: {.fragment}
+Suppose $\hat{\mathbf{b}}$ is $\operatorname{proj}_{\operatorname{Col}A}\mathbf{b},$ and that $\mathbf{\hat{x}}$ satisfies $A\mathbf{\hat{x}} = \hat{\mathbf{b}}$. 
 
+So $A\mathbf{\hat{x}} - \mathbf{b}$ is orthogonal to each column of $A$.   
 :::
 
 ::: {.fragment}
+If $\mathbf{a}_j$ is any column of $A$, then 
 
+$$\mathbf{a}_j^T(A\mathbf{\hat{x}} - \mathbf{b}) = 0.$$
 :::
 
 ::: {.fragment}
+Now, each $\mathbf{a}_j^T$ is a row of $A^T$.  
+
+We can collect all of the equations for all the $\mathbf{a}_j$ as:
 
+$$A^T(A\mathbf{\hat{x}} - \mathbf{b}) = {\bf 0}.$$
 :::
 
 ::: {.fragment}
+So
 
+$$A^TA\mathbf{\hat{x}} - A^T\mathbf{b} = {\bf 0}$$
 :::
 
-
 ::: {.fragment}
+So
 
+$$A^TA\mathbf{\hat{x}} = A^T\mathbf{b}$$
 :::
 
 ::: {.fragment}
-
+Looking at this, we see that $A^T\mathbf{b}$ is a vector, and $A^TA$ is a matrix, so this is a standard linear system.  
 :::
 
 ::: {.fragment}
+This linear system is called the __normal equations__ for $A\mathbf{x} = \mathbf{b}.$
 
+Its solution is usually denoted $\mathbf{\hat{x}}$.
 :::
 
-::: {.fragment}
-
+::: {.content-visible when-profile="slides"}
+##
 :::
 
+__Theorem.__  The set of least-squares solutions of $A\mathbf{x} = \mathbf{b}$ is equal to the (nonempty) set of solutions of the normal equations $A^TA\mathbf{x} = A^T\mathbf{b}.$
+
 ::: {.fragment}
+__Proof.__
 
+&nbsp; (1) The set of solutions is nonempty.  The matrix on the left has the same column space as $A^T$ and the vector on the right is a vector in the column  space of $A^T.$    
+
+And, by the arguments above, any least-squares solution of $A\mathbf{x} = \mathbf{b}$ must satisfy the normal equations $A^TA\mathbf{x} = A^T\mathbf{b}.$
 :::
 
 ::: {.fragment}
+&nbsp; (2) Now let's show that any solution of $A^TA\mathbf{x} = A^T\mathbf{b}$ is a least squares solution of $A\mathbf{x} = \mathbf{b}$.
 
+If $\mathbf{\hat{x}}$ satisfies $A^TA\mathbf{x} = A^T\mathbf{b},$ then $A^T(A\mathbf{\hat{x}} -\mathbf{b}) = {\bf 0},$ 
 :::
 
 ::: {.fragment}
-
+which shows that $A\mathbf{\hat{x}} - \mathbf{b}$ is orthogonal to the rows of $A^T,$ and so is orthogonal to the columns of $A$.
 :::
 
 ::: {.fragment}
-
+So the vector $A\mathbf{\hat{x}} - \mathbf{b}$ is orthogonal to $\operatorname{Col}A$.
 :::
 
 ::: {.fragment}
+So the equation
+
+$$\mathbf{b} = A\mathbf{\hat{x}} + (\mathbf{b} - A\mathbf{\hat{x}})$$
 
+is a decomposition of $\mathbf{b}$ into the sum of a vector in $\operatorname{Col}A$ and a vector orthogonal to $\operatorname{Col}A$.   
 :::
 
 ::: {.fragment}
+Since the orthogonal decomposition is unique, $A\mathbf{\hat{x}}$ must be the orthogonal projection of $\mathbf{b}$ onto the column space of $A$.
 
+So $A\mathbf{\hat{x}} = \hat{\mathbf{b}}$ and $\mathbf{\hat{x}}$ is a least-squares solution.
 :::
 
-::: {.fragment}
-
+::: {.content-visible when-profile="slides"}
+##
 :::
 
-::: {.fragment}
+__Example.__  Find the least squares solution of the inconsistent system $A\mathbf{x} = \mathbf{b}$ for
 
-:::
+$$A = \begin{bmatrix}4&0\\0&2\\1&1\end{bmatrix}, \;\;\; \mathbf{b} = \begin{bmatrix}2\\0\\11\end{bmatrix}.$$
 
 ::: {.fragment}
+__Solution.__
 
-:::
+We will use the normal equations $A^TA\hat{\mathbf{x}} = A^T\mathbf{b}.$
 
-::: {.fragment}
+$$A^TA = \begin{bmatrix}4&0&1\\0&2&1\end{bmatrix} \begin{bmatrix}4&0\\0&2\\1&1\end{bmatrix} = \begin{bmatrix}17&1\\1&5\end{bmatrix}$$
 
+$$A^T\mathbf{b} =  \begin{bmatrix}4&0&1\\0&2&1\end{bmatrix} \begin{bmatrix}2\\0\\11\end{bmatrix} = \begin{bmatrix}19\\11\end{bmatrix}$$
 :::
 
 ::: {.fragment}
+So the normal equations are:
 
+$$ \begin{bmatrix}17&1\\1&5\end{bmatrix}\begin{bmatrix}\hat{x}_1\\\hat{x}_2\end{bmatrix} = \begin{bmatrix}19\\11\end{bmatrix}$$
 :::
 
 
 ::: {.fragment}
+We can solve this using row operations, or by inverting $A^TA$ (if it is invertible).
 
+$$(A^TA)^{-1} = \frac{1}{84}\begin{bmatrix}5&-1\\-1&17\end{bmatrix}$$
 :::
 
 ::: {.fragment}
+Since $A^TA$ is invertible, we can then solve $A^TA\hat{\mathbf{x}} = A^T\mathbf{b}$ as
 
+$$\mathbf{\hat{x}} = (A^TA)^{-1}A^T\mathbf{b}$$
 :::
 
 ::: {.fragment}
+$$ = \frac{1}{84}\begin{bmatrix}5&-1\\-1&17\end{bmatrix}\begin{bmatrix}19\\11\end{bmatrix} = \frac{1}{84}\begin{bmatrix}84\\168\end{bmatrix} = \begin{bmatrix}1\\2\end{bmatrix}.$$
 
+So we conclude that $\mathbf{\hat{x}} = \begin{bmatrix}1\\2\end{bmatrix}$ is the vector that minimizes $\Vert A\mathbf{x} -\mathbf{b}\Vert.$ 
 :::
 
 ::: {.fragment}
-
-:::
+More formally, 
 
-::: {.fragment}
+$$\mathbf{\hat{x}} = \arg\min_{\mathbf{x}} \Vert A\mathbf{x} - \mathbf{b}\Vert.$$
 
+That is, $\mathbf{\hat{x}}$ is the least-squares solution of $A\mathbf{x} = \mathbf{b}$.
 :::
-
-::: {.fragment}
 
+::: {.content-visible when-profile="slides"}
+##
 :::
-
-::: {.fragment}
 
-:::
+### When the Normal Equations have Multiple Solutions
 
-::: {.fragment}
+We have seen that the normal equations __always__ have a solution.  
 
-:::
+Is there always a __unique__ solution?
 
 ::: {.fragment}
-
+No, there can be multiple solutions that __all__ minimize $\Vert A\mathbf{x} - \mathbf{b}\Vert.$  
 :::
 
 ::: {.fragment}
+Let's remind ourselves of what is going on when a linear system has multiple solutions.
 
+We know that a linear system has multiple solutions when there are columns that are not pivot columns.
 :::
 
 ::: {.fragment}
+Equivalently, when $A\hat{\mathbf{x}} = \hat{\mathbf{b}}$ has multiple solutions, the columns of $A$ are linearly dependent.
 
-:::
+Here is a picture of what is going on.  In this case, $A$ is $3 \times 3$.
 
-::: {.fragment}
+But note, that $\operatorname{Col}A$ is only two-dimensional because the three columns are linearly dependent.
 
+::: {.ctrd}
+``` {python}
+#| echo: False
+fig = ut.three_d_figure((22, 9), 'Multiple Solutions to the Normal Equations', 
+                        -15, 15, -15, 15, -15, 15, (6,6), qr = qr_setting)
+a2 = np.array([5.0,-13.0,-3.0])
+a1 = np.array([1,-2.0,3])
+a3 = -2*a1 + a2
+b = np.array([6.0, 8.0, -5.0])
+A = np.array([a1, a2]).T
+bhat = A.dot(np.linalg.inv(A.T.dot(A))).dot(A.T).dot(b)
+fig.text(a1[0], a1[1], a1[2], r'$\bf a_1$', 'a_1', size=20)
+fig.text(a2[0], a2[1], a2[2], r'$\bf a_2$', 'a_2', size=20)
+fig.text(a3[0], a3[1], a3[2], r'$\bf a_3$','a_3', size=20)
+fig.text(b[0], b[1], b[2], r'$\bf b$', 'b', size=20)
+fig.text(bhat[0], bhat[1], bhat[2], r'$A\mathbf{\hat{x}} = \mathbf{\hat{b}}$', 'b-hat', size=20)
+#ax.text(1,-4,-10,r'Span{$\bf a,b$}',size=16)
+#ax.text(0.2,0.2,-4,r'$\bf 0$',size=20)
+# plotting the span of v
+fig.plotSpan(a1, a2, 'Green')
+fig.plotPoint(a1[0], a1[1], a1[2], 'r')
+fig.plotPoint(a2[0], a2[1], a2[2], 'r')
+fig.plotPoint(a3[0], a3[1], a3[2], 'r')
+fig.plotPoint(b[0], b[1], b[2], 'b')
+fig.plotPoint(bhat[0], bhat[1], bhat[2], 'b')
+fig.plotLine([b, bhat], 'b', '--')
+#ut.plotPoint3d(ax,0,0,0,'b')
+#fig.set_title(r'When there are Multiple Solutions to the Normal Equations', 
+#              'When there are Multiple Solutions to the Normal Equations', size=20)
+fig.ax.view_init(azim=26.0,elev=-77.0)
+fig.save();
+```
 :::
-
-::: {.fragment}
-
 :::
-
-::: {.fragment}
 
+::: {.content-visible when-profile="slides"}
+##
 :::
 
-::: {.fragment}
+__Example.__
 
-:::
+Find a least-squares solution for $A\mathbf{x} = \mathbf{b}$ for
 
+$$A = \begin{bmatrix}1&1&0&0\\1&1&0&0\\1&0&1&0\\1&0&1&0\\1&0&0&1\\1&0&0&1\end{bmatrix},\;\;\; \mathbf{b} = \begin{bmatrix}-3\\-1\\0\\2\\5\\1\end{bmatrix}.$$
 
 ::: {.fragment}
+__Solution.__ Compute
 
+$$A^TA = \begin{bmatrix}1&1&1&1&1&1\\1&1&0&0&0&0\\0&0&1&1&0&0\\0&0&0&0&1&1\end{bmatrix}\begin{bmatrix}1&1&0&0\\1&1&0&0\\1&0&1&0\\1&0&1&0\\1&0&0&1\\1&0&0&1\end{bmatrix} = \begin{bmatrix}6&2&2&2\\2&2&0&0\\2&0&2&0\\2&0&0&2\end{bmatrix}$$
+
+$$A^T\mathbf{b} = \begin{bmatrix}1&1&1&1&1&1\\1&1&0&0&0&0\\0&0&1&1&0&0\\0&0&0&0&1&1\end{bmatrix}\begin{bmatrix}-3\\-1\\0\\2\\5\\1\end{bmatrix} = \begin{bmatrix}4\\-4\\2\\6\end{bmatrix}$$
 :::
 
 ::: {.fragment}
+To solve $A^TA\hat{\mathbf{x}} = A^T\mathbf{b},$ we'll use row reduction.  The augmented matrix $[A^TA\; A^T\mathbf{b}]$ is:
 
+$$\begin{bmatrix}6&2&2&2&4\\2&2&0&0&-4\\2&0&2&0&2\\2&0&0&2&6\end{bmatrix} \sim \begin{bmatrix}1&0&0&1&3\\0&1&0&-1&-5\\0&0&1&-1&-2\\0&0&0&0&0\end{bmatrix}$$
 :::
 
 ::: {.fragment}
+Since there is a column without a pivot, we know the columns of $A^TA$ are linearly dependent.  
+
+This happens because the columns of $A$ are linearly dependent.
 
+You can see this as follows:  if $A$ has a non-trivial null space, then $A^TA$ also has a nontrival null space.
 :::
 
 ::: {.fragment}
+So there is a free variable.
 
-:::
+The general solution is then $x_1 = 3-x_4$, $x_2 = -5+x_4$, $x_3 = -2 + x_4$, and $x_4$ is free.
 
-::: {.fragment}
+So the general least-squares solution of $A\hat{\mathbf{x}} = \mathbf{b}$ has the form
 
+$$\mathbf{\hat{x}} = \begin{bmatrix}3\\-5\\-2\\0\end{bmatrix} + x_4\begin{bmatrix}-1\\1\\1\\1\end{bmatrix}$$
 :::
 
 ::: {.fragment}
+Keep in mind that the orthogonal projection $\hat{\mathbf{b}}$ is always unique.  
 
+The reason that there are multiple solutions to this least squares problem is that there are __multiple ways__ to construct $\hat{\mathbf{b}}$.  
+
+The reason that there are multiple ways to construct $\hat{\mathbf{b}}$ is that the columns of $A$ are linearly dependent, so __any__ vector in the column space of $A$ can be constructed in multiple ways.
 :::
 
 ::: {.fragment}
+Here is a theorem that allows use to identify when there are multiple least-squares solutions.
+:::
 
+::: {.content-visible when-profile="slides"}
+##
 :::
 
-::: {.fragment}
+__Theorem.__  Let $A$ be an $m\times n$ matrix.  The following statements are equivalent:
 
-:::
+&nbsp; 1. The equation $A\mathbf{x} = \mathbf{b}$ has a unique least-squares solution for each $\mathbf{b}$ in $\mathbb{R}^m.$
+&nbsp; 2. The columns of $A$ are linearly independent.
+&nbsp; 3. The matrix $A^TA$ is invertible.
 
-::: {.fragment}
+When these statements are true, the least-squares solution $\mathbf{\hat{x}}$ is given by:
 
+$$\mathbf{\hat{x}} = (A^TA)^{-1}A^T\mathbf{b}$$
+
+::: {.content-visible when-profile="slides"}
+##
 :::
+
+### Projection onto an Abitrary Basis
 
 ::: {.fragment}
+When $A^TA$ is invertible, and $\hat{\mathbf{b}}$ is unique, we can put together the two equations
 
-:::
+$$\mathbf{\hat{x}} = (A^TA)^{-1}A^T\mathbf{b}$$
 
-::: {.fragment}
+and 
 
-:::
+$$A\mathbf{\hat{x}} = \hat{\mathbf{b}}$$
 
-::: {.fragment}
+to get:
 
+$$\hat{\mathbf{b}} = A(A^TA)^{-1}A^T\mathbf{b}$$
 :::
 
 ::: {.fragment}
+Let's stop and look at this from a very general standpoint.  
+
+Consider $\mathbf{b}$ to be an arbitrary point, and $A$ to be a matrix whose columns are a basis for a subspace (ie, $\operatorname{Col} A$). 
 
+Then $\hat{\mathbf{b}}$ is the projection of $\mathbf{b}$ onto $\operatorname{Col} A$.
 :::
 
 ::: {.fragment}
+Up until now we have seen how to project a point onto a line, or on to a subspace with an orthogonal basis.  
 
+But now we see that
+
+$$ \operatorname{proj}_{\operatorname{Col} A} \mathbf{b} = A(A^TA)^{-1}A^T\mathbf{b} $$
+
+So we now have an expression for projection onto a subspace given an __arbitrary__ basis.  This is a general formula that can be very useful!
 :::
+
