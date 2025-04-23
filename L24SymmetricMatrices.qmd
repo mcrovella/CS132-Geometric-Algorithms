@@ -1,0 +1,1067 @@
+---
+jupyter: python3
+---
+```{python}
+#| echo: false
+qr_setting = None
+#
+import numpy as np
+import matplotlib as mp
+import pandas as pd
+import matplotlib.pyplot as plt
+import laUtilities as ut
+import slideUtilities as sl
+import demoUtilities as dm
+import pandas as pd
+from datetime import datetime
+from matplotlib import animation
+from IPython.display import HTML
+from IPython.display import Latex
+
+```
+<!--
+This comment somehow suppresses the title page
+-->
+## Symmetric Matrices
+
+::: {.content-visible when-profile="slides"}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((24, 5), 
+                        'Intersection of the positive definite quadratic form z = 3 x1^2 + 7 x2 ^2 with the constraint ||x|| = 1', 
+                        -2, 2, -2, 2, 0, 8, 
+                        equalAxes = False, figsize = (7, 7), qr = qr_setting)
+qf = np.array([[3., 0.],[0., 7.]])
+for angle in np.linspace(0, 2*np.pi, 200):
+    x = np.array([np.cos(angle), np.sin(angle)])
+    z = x.T @ qf @ x
+    fig.plotPoint(x[0], x[1], z, 'b')
+    fig.plotPoint(x[0], x[1], 0, 'g')
+fig.plotQF(qf, alpha=0.5)
+fig.ax.set_zlabel('z')
+fig.desc['zlabel'] = 'z'
+# do not call fig.save here
+```
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Many parts of this page are based on _Linear Algebra and its
+Applications,_ by David C. Lay
+:::
+::::
+
+Today we'll study a very important class of matrices: __symmetric__ matrices.
+
+::: {.fragment}
+We'll see that symmetric matrices have properties that relate to both eigendecomposition, and orthogonality.   
+:::
+
+::: {.fragment}
+Furthermore, symmetric matrices open up a broad class of problems we haven't yet touched on: __constrained optimization.__
+
+As a result, symmetric matrices arise very often in applications.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Definition.__ A __symmetric__ matrix is a matrix $A$ such that $A^T = A$.   
+
+Clearly, such a matrix is square.
+
+Furthermore, the entries that are not on the diagonal come in pairs, on opposite sides of the diagonal.
+
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Example.__ Here are three __symmetric__ matrices:
+
+$$\begin{bmatrix}1&0\\0&-3\end{bmatrix},\;\;\;\;\begin{bmatrix}0&-1&0\\-1&5&8\\0&8&-7\end{bmatrix},\;\;\;\;\begin{bmatrix}a&b&c\\b&d&e\\c&e&f\end{bmatrix}$$
+
+::: {.fragment}
+Here are three __nonsymmetric__ matrices:
+
+$$\begin{bmatrix}1&-3\\3&0\end{bmatrix},\;\;\;\;\begin{bmatrix}0&-4&0\\-6&1&-4\\0&-6&1\end{bmatrix},\;\;\;\;\begin{bmatrix}5&4&3&2\\4&3&2&1\\3&2&1&0\end{bmatrix}$$
+:::
+
+## Orthogonal Diagonalization
+
+::: {.fragment}
+At first glance, a symmetric matrix may not seem that special!  
+
+But in fact symmetric matrices have a number of very nice properties.
+
+First, we'll look at a remarkable fact: 
+
+::: {.ctrd}
+<font color = "blue">the eigenvectors of a symmetric matrix are <b>orthogonal</b></font>
+:::
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Example.__ Let's diagonalize the following symmetric matrix:
+
+$$A = \begin{bmatrix}6&-2&-1\\-2&6&-1\\-1&-1&5\end{bmatrix}$$
+
+::: {.fragment}
+__Solution.__
+
+The characteristic equation of $A$ is
+
+$$0 = -\lambda^3 + 17\lambda^2 -90\lambda + 144 $$
+
+$$ = -(\lambda-8)(\lambda-6)(\lambda-3)$$
+
+So the eigenvalues are 8, 6, and 3.
+:::
+
+::: {.fragment}
+We construct a basis for each eigenspace:
+
+(using our standard method of finding the nullspace of $A-\lambda I$)
+
+$$\lambda_1 = 8: \mathbf{v}_1 = \begin{bmatrix}-1\\1\\0\end{bmatrix};\;\;\;\;\lambda_2=6: \mathbf{v}_2 = \begin{bmatrix}-1\\-1\\2\end{bmatrix};\;\;\;\;\;\lambda_3=3: \mathbf{v}_3=\begin{bmatrix}1\\1\\1\end{bmatrix}$$
+:::
+
+::: {.fragment}
+These three vectors form a basis for $\mathbb{R}^3.$
+
+But here is the remarkable thing: these three vectors form an __orthogonal set.__
+
+That is, any two of these eigenvectors are orthogonal.
+:::
+
+::: {.fragment}
+For example, 
+
+$$\mathbf{v}_1^T\mathbf{v}_2 = (-1)(-1) + (1)(-1) + (0)(2) = 0$$
+:::
+
+::: {.fragment}
+As a result, $\{\mathbf{v}_1, \mathbf{v}_2, \mathbf{v}_3\}$ form an _orthogonal_ basis for $\mathbb{R}^3.$
+:::
+
+::: {.fragment}
+Let's normalize these vectors so they each have length 1:
+
+$$\mathbf{u}_1 = \begin{bmatrix}-1/\sqrt{2}\\1/\sqrt{2}\\0\end{bmatrix};\;\;\;\;\mathbf{u}_2 = \begin{bmatrix}-1/\sqrt{6}\\-1/\sqrt{6}\\2/\sqrt{6}\end{bmatrix};\;\;\;\;\; \mathbf{u}_3=\begin{bmatrix}1/\sqrt{3}\\1/\sqrt{3}\\1/\sqrt{3}\end{bmatrix}$$
+:::
+
+::: {.fragment}
+The orthogonality of the eigenvectors of a symmetric matrix is quite important.
+
+To see this, let's write the diagonalization of $A$ in terms of these eigenvectors and eigenvalues:
+
+$$P = \begin{bmatrix}-1/\sqrt{2}&-1/\sqrt{6}&1/\sqrt{3}\\1/\sqrt{2}&-1/\sqrt{6}&1/\sqrt{3}\\0&2/\sqrt{6}&1/\sqrt{3}\end{bmatrix},\;\;\;\;D = \begin{bmatrix}8&0&0\\0&6&0\\0&0&3\end{bmatrix}.$$
+:::
+
+::: {.fragment}
+Then, $A = PDP^{-1},$ as usual.
+:::
+
+::: {.fragment}
+But, here is the interesting thing:  
+
+<font color = "blue"> $P$ is square and has orthonormal columns. </font>
+
+So $P$ is an __orthogonal__ matrix.
+:::
+
+::: {.fragment}
+So, that means that $P^{-1} = P^T.$
+
+> So, $A = PDP^T.$
+
+This is a remarkably simple factorization of $A$.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### The Spectral Theorem
+
+::: {.fragment}
+It's not a coincidence that the $P$ matrix was orthogonal.
+
+In fact we __always__ get orthogonal eigenvectors when we diagonalize a symmetric matrix.
+:::
+
+::: {.fragment}
+__Theorem.__   If $A$ is symmetric, then any two eigenvectors of $A$ from different eigenspaces are orthogonal.
+:::
+
+::: {.fragment}
+__Proof.__
+
+Let $\mathbf{v}_1$ and $\mathbf{v}_2$ be eigenvectors that correspond to distinct eigenvalues, say, $\lambda_1$ and $\lambda_2.$  
+
+To show that $\mathbf{v}_1^T\mathbf{v}_2 = 0,$ compute
+
+$$\lambda_1\mathbf{v}_1^T\mathbf{v}_2 = (\lambda_1\mathbf{v}_1)^T\mathbf{v}_2$$
+:::
+
+::: {.fragment}
+$$=(A\mathbf{v}_1)^T\mathbf{v}_2$$
+:::
+
+::: {.fragment}
+$$=(\mathbf{v}_1^TA^T)\mathbf{v}_2$$
+:::
+
+::: {.fragment}
+$$=\mathbf{v}_1^T(A\mathbf{v}_2)$$
+:::
+
+::: {.fragment}
+$$=\mathbf{v}_1^T(\lambda_2\mathbf{v}_2)$$
+:::
+
+::: {.fragment}
+$$=\lambda_2\mathbf{v}_1^T\mathbf{v}_2$$
+:::
+
+::: {.fragment}
+So we conclude that $\lambda_1(\mathbf{v}_1^T\mathbf{v}_2) = \lambda_2(\mathbf{v}_1^T\mathbf{v}_2).$
+
+But $\lambda_1 \neq \lambda_2,$ so this can only happen if $\mathbf{v}_1^T\mathbf{v}_2 = 0.$
+
+So $\mathbf{v}_1$ is orthogonal to $\mathbf{v}_2.$
+:::
+
+::: {.fragment}
+The same argument applies to any other pair of eigenvectors with distinct eigenvalues.
+
+So __any two eigenvectors of $A$ from different eigenspaces are orthogonal.__
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+We can now introduce a special kind of diagonalizability:
+
+An $n\times n$ matrix is said to be __orthogonally diagonalizable__ if there are an orthogonal matrix $P$ (with $P^{-1} = P^T$) and a diagonal matrix $D$ such that 
+
+$$A = PDP^T = PDP^{-1}$$
+
+::: {.fragment}
+Such a diagonalization requires $n$ linearly independent and __orthonormal__ eigenvectors.
+:::
+
+::: {.fragment}
+When is it possible for a matrix's eigenvectors to form an orthogonal set?
+:::
+
+::: {.fragment}
+Well, if $A$ is orthogonally diagonalizable, then
+
+$$A^T = (PDP^T)^T = (P^T)^TD^TP^T = PDP^T = A$$
+:::
+
+::: {.fragment}
+So $A$ is symmetric!
+
+That is, whenever $A$ is orthogonally diagonalizable, it is symmetric.
+:::
+
+::: {.fragment}
+It turns out the converse is true (though we won't prove it): every symmetric matrix is orthogonally diagonalizable.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Hence we obtain the following important theorem:
+
+__Theorem.__  An $n\times n$ matrix is orthogonally diagonalizable if and only if it is a symmetric matrix.
+
+::: {.fragment}
+Remember that when we studied diagonalization, we found that it was a difficult process to determine if an arbitrary matrix was diagonalizable.
+
+But here, we have a very nice rule: __every symmetric matrix is (orthogonally) diagonalizable.__
+:::
+
+## Quadratic Forms
+
+::: {.fragment}
+An important reason to study symmetric matrices has to do with __quadratic__ expressions.
+
+Up until now, we have mainly focused on linear equations -- equations in which the $x_i$ terms occur only to the first power.
+:::
+
+::: {.fragment}
+Actually, though, we have looked at some quadratic expressions when we considered least-squares problems.
+
+For example, we looked at expressions such as $\Vert x\Vert^2$ which is $\sum x_i^2.$
+:::
+
+::: {.fragment}
+We'll now look at quadratic expressions generally.   We'll see that there is a natural and useful connection to symmetric matrices.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Definition.__ A __quadratic form__ is a function of variables, eg, $x_1, x_2, \dots, x_n,$ in which every term has degree two.
+
+Examples:  
+
+$4x_1^2 + 2x_1x_2 + 3x_2^2$ is a quadratic form.
+
+$4x_1^2 + 2x_1$ is not a quadratic form.
+
+::: {.fragment}
+Quadratic forms arise in many settings, including signal processing, physics, economics, and statistics. 
+
+In computer science, quadratic forms arise in optimization and graph theory, among other areas.
+
+Essentially, what an expression like $x^2$ is to a scalar, a quadratic form is to a vector.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Fact.__  Every quadratic form can be expressed as $\mathbf{x}^TA\mathbf{x}$, where $A$ is a symmetric matrix.
+
+There is a simple way to go from a quadratic form to a symmetric matrix, and vice versa.
+
+To see this, let's look at some examples.
+
+::: {.fragment}
+__Example.__  Let $\mathbf{x} = \begin{bmatrix}x_1\\x_2\end{bmatrix}.$  Compute $\mathbf{x}^TA\mathbf{x}$ for the matrix $A = \begin{bmatrix}4&0\\0&3\end{bmatrix}.$
+:::
+
+::: {.fragment}
+__Solution.__  
+
+$$\mathbf{x}^TA\mathbf{x} = \begin{bmatrix}x_1&x_2\end{bmatrix}\begin{bmatrix}4&0\\0&3\end{bmatrix}\begin{bmatrix}x_1\\x_2\end{bmatrix}$$
+:::
+
+::: {.fragment}
+$$= \begin{bmatrix}x_1&x_2\end{bmatrix}\begin{bmatrix}4x_1\\3x_2\end{bmatrix}$$
+:::
+
+::: {.fragment}
+$$= 4x_1^2 + 3x_2^2.$$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Example.__   Compute $\mathbf{x}^TA\mathbf{x}$ for the matrix $A = \begin{bmatrix}3&-2\\-2&7\end{bmatrix}.$
+
+::: {.fragment}
+__Solution.__
+
+$$\mathbf{x}^TA\mathbf{x} = \begin{bmatrix}x_1&x_2\end{bmatrix}\begin{bmatrix}3&-2\\-2&7\end{bmatrix}\begin{bmatrix}x_1\\x_2\end{bmatrix}$$
+:::
+
+::: {.fragment}
+$$=x_1(3x_1 - 2x_2) + x_2(-2x_1 + 7x_2)$$
+:::
+
+::: {.fragment}
+$$=3x_1^2-2x_1x_2-2x_2x_1+7x_2^2$$
+:::
+
+::: {.fragment}
+$$=3x_1^2-4x_1x_2+7x_2^2$$
+:::
+
+::: {.fragment}
+Notice the simple structure: 
+
+$$a_{11} \text{ is multiplied by } x_1 x_1$$
+
+$$a_{12} \text{ is multiplied by } x_1 x_2$$
+
+$$a_{21} \text{ is multiplied by } x_2 x_1$$
+
+$$a_{22} \text{ is multiplied by } x_2 x_2$$
+   
+:::
+
+::: {.fragment}
+We can write this concisely:
+    
+$$ \mathbf{x}^TA\mathbf{x} = \sum_{ij} a_{ij}x_i x_j $$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Example.__  For $\mathbf{x}$ in $\mathbb{R}^3$, let 
+
+$$Q(\mathbf{x}) = 5x_1^2 + 3x_2^2 + 2x_3^2 - x_1x_2 + 8x_2x_3.$$
+
+Write this quadratic form  $Q(\mathbf{x})$ as $\mathbf{x}^TA\mathbf{x}$.
+
+::: {.fragment}
+__Solution.__  
+
+The coefficients of $x_1^2, x_2^2, x_3^2$ go on the diagonal of $A$.  
+:::
+
+::: {.fragment}
+Based on the previous example, we can see that the coefficient of each cross term $x_ix_j$ is the sum of two values in symmetric positions on opposite sides of the diagonal of $A$.
+:::
+
+::: {.fragment}
+So to make $A$ symmetric, the coefficient of $x_ix_j$ for $i\neq j$ must be split evenly between the $(i,j)$- and $(j,i)$-entries of $A$.
+:::
+
+::: {.fragment}
+You can check that for
+
+$$Q(\mathbf{x}) = 5x_1^2 + 3x_2^2 + 2x_3^2 - x_1x_2 + 8x_2x_3$$
+
+that
+
+$$Q(\mathbf{x}) = \mathbf{x}^TA\mathbf{x} = \begin{bmatrix}x_1&x_2&x_3\end{bmatrix}\begin{bmatrix}5&-1/2&0\\-1/2&3&4\\0&4&2\end{bmatrix}\begin{bmatrix}x_1\\x_2\\x_3\end{bmatrix}$$
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q24.1
+:::::
+:::
+
+## Classifying Quadratic Forms
+
+::: {.fragment}
+Notice that $\mathbf{x}^TA\mathbf{x}$ is a __scalar__.
+
+In other words, when $A$ is an $n\times n$ matrix, the quadratic form $Q(\mathbf{x}) = \mathbf{x}^TA\mathbf{x}$ is a real-valued function with domain $\mathbb{R}^n$.   
+:::
+
+::: {.fragment}
+Here are four quadratic forms with domain $\mathbb{R}^2$.   
+
+Notice that except at $\mathbf{x}=\mathbf{0},$ the values of $Q(\mathbf{x})$ are all positive in the first case, and all negative in the last case.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+::: {.ctrd}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((24, 1), 'z = 3 x1^2 + 7 x2 ^2',
+                        -2, 2, -2, 2, -1, 3, 
+                        figsize = (5, 5), qr = qr_setting)
+plt.close()
+qf = np.array([[3., 0.],[0., 7.]])
+fig.plotQF(qf, alpha = 0.7)
+fig.ax.set_zlabel('z')
+fig.desc['zlabel'] = 'z'
+fig.set_title(r'$z = 3x_1^2 + 7x_2^2$', 'z = 3x_1^2 + 7x_2^2', size = 18)
+fig.save()
+#
+def anim(frame):
+    fig.ax.view_init(azim = frame, elev = 22)
+    # fig.canvas.draw()
+#
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 8 * np.arange(45),
+                       fargs = None,
+                       interval = 100).to_jshtml(default_mode = 'loop'))
+```
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+::: {.ctrd}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((24, 2), 'z = 3 x1^2', 
+                        -2, 2, -2, 2, -1, 3, 
+                        figsize = (5, 5), qr = qr_setting)
+plt.close()
+qf = np.array([[3., 0.],[0., 0.]])
+fig.plotQF(qf, alpha = 0.7)
+fig.ax.set_zlabel('z')
+fig.desc['zlabel'] = 'z'
+fig.set_title(r'$z = 3x_1^2$', 'z = 3x_1^2', size = 18)
+fig.save()
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 8 * np.arange(45),
+                       fargs = None,
+                       interval = 100).to_jshtml(default_mode = 'loop'))
+```
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+::: {.ctrd}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((24, 3), 'z = 2 x1^2 - 1 x2 ^2', 
+                        -2, 2, -2, 2, -1, 3, 
+                        figsize = (5, 5), qr = qr_setting)
+plt.close()
+qf = np.array([[2., 0.],[0., -1.]])
+fig.plotQF(qf, alpha = 0.7)
+fig.ax.set_zlabel('z')
+fig.desc['zlabel'] = 'z'
+fig.set_title(r'$z = 2x_1^2 - 1x_2^2$', 'z = 2x_1^2 - 1x_2^2', size = 18)
+fig.save()
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 8 * np.arange(45),
+                       fargs = None,
+                       interval = 100).to_jshtml(default_mode = 'loop'))
+```
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+::: {.ctrd}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((24, 4), 'z = -3 x1^2 - 7 x2 ^2', 
+                        -2, 2, -2, 2, -3, 1, 
+                        figsize = (5, 5), qr = qr_setting)
+plt.close()
+qf = np.array([[-3., 0.],[0., -7.]])
+fig.plotQF(qf, alpha = 0.7)
+fig.ax.set_zlabel('z')
+fig.desc['zlabel'] = 'z'
+fig.set_title(r'$z = -3x_1^2 - 7x_2^2$', 'z = -3x_1^2 - 7x_2^2', size = 18)
+fig.save()
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 8 * np.arange(45),
+                       fargs = None,
+                       interval = 100).to_jshtml(default_mode = 'loop'))
+```
+:::
+
+::: {.fragment}
+The differences between these surfaces is important for problems such as __optimization__.
+
+In an optimization problem, one seeks the minimum or maximum value of a function (perhaps over a subset of its domain).
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Definition.__  A quadratic form $Q$ is:
+
+&nbsp; 1. __positive definite__ if $Q(\mathbf{x}) > 0$ for all $\mathbf{x} \neq 0.$
+
+&nbsp; 2. __positive semidefinite__ if $Q(\mathbf{x}) \geq 0$ for all $\mathbf{x} \neq 0.$
+
+&nbsp; 3. __indefinite__ if $Q(\mathbf{x})$ assumes both positive and negative values.
+
+&nbsp; 4. __negative semidefinite__ if $Q(\mathbf{x}) \leq 0$ for all $\mathbf{x} \neq 0.$
+
+&nbsp; 5. __negative definite__ if $Q(\mathbf{x}) < 0$ for all $\mathbf{x} \neq 0.$  
+
+## Classifying Quadratic Forms
+
+::: {.fragment}
+Knowing which kind of quadratic form one is dealing with is important for optimization.
+:::
+
+::: {.fragment}
+Consider these two quadratic forms:
+    
+$$ P(\mathbf{x}) = \mathbf{x}^TA\mathbf{x}, \text{ where } A = \begin{bmatrix}3&2\\2&1\end{bmatrix} $$
+
+$$ Q(\mathbf{x}) = \mathbf{x}^TB\mathbf{x}, \text{ where } B = \begin{bmatrix}3&2\\2&3\end{bmatrix} $$
+
+Notice that that matrices differ in only one position.
+:::
+
+::: {.fragment}
+Let's say we would like to find 
+
+* the minimum value of $P(\mathbf{x})$ over all $\mathbf{x}$, or
+* the minimum value of $Q(\mathbf{x})$ over all $\mathbf{x}$
+
+In each case, we need to ask: is it possible?  Does a minimum value even exist?
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+::: {.ctrd}
+```{python}
+#| echo: false
+#| layout-ncol: 2
+fig = ut.three_d_figure((24, 5), 'P(x)', 
+                        -5, 5, -5, 5, -5, 5, 
+                        figsize = (5, 5), qr = qr_setting)
+qf = np.array([[3., 2],[2, 1]])
+fig.plotQF(qf, alpha = 0.7)
+fig.ax.set_zlabel('z')
+fig.desc['zlabel'] = 'z'
+fig.set_title(r'$z = \mathbf{x}^TA\mathbf{x}$', 'z = x^TAx', size = 18)
+fig.ax.view_init(azim = 30)
+fig.save();
+#
+fig = ut.three_d_figure((24, 6), 'Q(x)', 
+                        -5, 5, -5, 5, -5, 5, 
+                        figsize = (5, 5), qr = qr_setting)
+qf = np.array([[3., 2],[2, 3]])
+fig.plotQF(qf, alpha = 0.7)
+fig.ax.set_zlabel('z')
+fig.desc['zlabel'] = 'z'
+fig.set_title(r'$z = \mathbf{x}^TB\mathbf{x}$', 'z = x^TBx', size = 18)
+fig.save();
+```
+:::
+
+::: {.fragment}
+Clearly, we __cannot__ minimize $\mathbf{x}^TA\mathbf{x}$ over all $\mathbf{x}$,
+
+... but we __can__ minimize $\mathbf{x}^TB\mathbf{x}$ over all $\mathbf{x}$.
+:::
+
+::: {.fragment}
+How can we distinguish between these two cases in general?
+
+That is, in high dimension, without the ability to visualize?
+:::
+
+::: {.fragment}
+There is a remarkably simple way to determine, for any quadratic form, which class it falls into.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Theorem.__  Let $A$ be an $n\times n$ symmetric matrix.  
+
+Then a quadratic form $\mathbf{x}^TA\mathbf{x}$ is 
+
+&nbsp; 1. __positive definite__ if and only if the __eigenvalues__ of $A$ are __all positive.__
+
+&nbsp; 2. __positive semidefinite__ if and only if the eigenvalues of $A$ are __all nonnegative.__
+
+&nbsp; 3. __indefinite__ if and only if $A$ has both __positive and negative eigenvalues.__
+
+&nbsp; 4. __negative semidefinite__ if and only if the eigenvalues of $A$ are __all nonpositive.__
+
+&nbsp; 5. __negative definite__ if and only if the __eigenvalues__ of $A$ are __all negative.__
+
+::: {.fragment}
+__Proof.__
+
+A proof sketch for the positive definite case.  
+
+Let's consider $\mathbf{u}_i$, an eigenvector of $A$.  Then
+
+$$\mathbf{u}_i^TA\mathbf{u}_i = \lambda_i\mathbf{u}_i^T\mathbf{u}_i.$$
+:::
+
+::: {.fragment}
+If all eigenvalues are positive, then all such terms are positive.
+:::
+
+::: {.fragment}
+Since $A$ is symmetric, it is diagonalizable and so its eigenvectors span $\mathbb{R}^n$.
+
+So any $\mathbf{x}$ can be expressed as a weighted sum of $A$'s eigenvectors.
+:::
+
+::: {.fragment}
+Writing out the expansion of $\mathbf{x}^TA\mathbf{x}$ in terms of $A$'s eigenvectors, we get only positive terms.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+
+__Example.__ Let's look at the four quadratic forms above, along with their associated matrices:
+
+::::: {.columns}
+:::: {.column width="50%"}
+
+$$A = \begin{bmatrix}3&0\\0&7\end{bmatrix}$$
+
+::: {.ctrd}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((24, 5), 'P(x)', 
+                        -2, 2, -2, 2, -1, 3, 
+                        figsize = (3.5, 3.5), qr = qr_setting)
+qf = np.array([[3., 0.],[0., 7.]])
+fig.plotQF(qf, alpha = 0.7)
+fig.ax.set_zlabel('z')
+fig.desc['zlabel'] = 'z'
+#fig.set_title(r'$z = \mathbf{x}^TA\mathbf{x}$', 'z = x^TAx', size = 18)
+fig.ax.view_init(azim = 30)
+```
+:::
+
+$$A = \begin{bmatrix}3&0\\0&7\end{bmatrix}$$
+
+::: {.ctrd}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((24, 5), 'P(x)', 
+                        -2, 2, -2, 2, -1, 3, 
+                        figsize = (3.5, 3.5), qr = qr_setting)
+qf = np.array([[3., 0.],[0., 0.]])
+fig.plotQF(qf, alpha = 0.7)
+fig.ax.set_zlabel('z')
+fig.desc['zlabel'] = 'z'
+#fig.set_title(r'$z = \mathbf{x}^TA\mathbf{x}$', 'z = x^TAx', size = 18)
+fig.ax.view_init(azim = 30)
+```
+:::
+::::
+
+:::: {.column width="50%"}
+
+$$A = \begin{bmatrix}2&0\\0&-1\end{bmatrix}$$
+
+::: {.ctrd}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((24, 5), 'P(x)', 
+                        -2, 2, -2, 2, -1, 3, 
+                        figsize = (3.5, 3.5), qr = qr_setting)
+qf = np.array([[2., 0.],[0., -1.]])
+fig.plotQF(qf, alpha = 0.7)
+fig.ax.set_zlabel('z')
+fig.desc['zlabel'] = 'z'
+#fig.set_title(r'$z = \mathbf{x}^TA\mathbf{x}$', 'z = x^TAx', size = 18)
+fig.ax.view_init(azim = 30)
+```
+:::
+
+$$A = \begin{bmatrix}-3&0\\0&-7\end{bmatrix}$$
+
+::: {.ctrd}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((24, 5), 'P(x)', 
+                        -2, 2, -2, 2, -3, 1, 
+                        figsize = (3.5, 3.5), qr = qr_setting)
+qf = np.array([[-3., 0.],[0., -7.]])
+fig.plotQF(qf, alpha = 0.7)
+fig.ax.set_zlabel('z')
+fig.desc['zlabel'] = 'z'
+#fig.set_title(r'$z = \mathbf{x}^TA\mathbf{x}$', 'z = x^TAx', size = 18)
+fig.ax.view_init(azim = 30)
+```
+:::
+::::
+:::::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+__Example.__ Is $Q(\mathbf{x}) = 3x_1^2 + 2x_2^2 + x_3^2 + 4x_1x_2 + 4x_2x_3$ positive definite?
+
+::: {.fragment}
+__Solution.__ Because of all the plus signs, this form "looks" positive definite.  But the matrix of the form is
+
+$$\begin{bmatrix}3&2&0\\2&2&2\\0&2&1\end{bmatrix}$$
+
+and the eigenvalues of this matrix turn out to be 5, 2, and -1.  
+
+So $Q$ is an __indefinite__ quadratic form.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q24.2
+:::::
+:::
+
+## Constrained Optimization
+
+::: {.fragment}
+A common kind of optimization is to find the maximum or the minimum value of a quadratic form $Q(\mathbf{x})$ for $\mathbf{x}$ in __some specified set.__
+
+For example, a common constraint is that $\mathbf{x}$ varies over the set of unit vectors.
+
+This is called __constrained optimization.__  
+
+While it can be a difficult problem in general, for quadratic forms it has a particularly elegant solution.
+:::
+
+::: {.fragment}
+The requirement that a vector $\mathbf{x}$ in $\mathbb{R}^n$ be a unit vector can be stated in several equivalent ways:
+
+$$\Vert\mathbf{x}\Vert = 1,\;\;\;\;\Vert\mathbf{x}\Vert^2=1,\;\;\;\;\mathbf{x}^T\mathbf{x} = 1.$$
+:::
+
+::: {.fragment}
+Here is an example problem:
+
+$$\text{minimize } 3x_1^2 + 7x_2^2 \text{ subject to } \Vert\mathbf{x}\Vert = 1 $$
+:::
+
+::: {.fragment}
+Let's visualize this problem.
+
+Here is the quadratic form $z = 3x_1^2 + 7x_2^2$:
+
+::: {.ctrd}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((24, 7), 'z = 3 x1^2 + 7 x2 ^2', 
+                        -2, 2, -2, 2, 0, 8, 
+                        equalAxes = False,
+                        figsize = (5, 5), qr = qr_setting)
+qf = np.array([[3., 0.],[0., 7.]])
+fig.plotQF(qf, alpha=0.6)
+fig.ax.set_zlabel('z')
+fig.desc['zlabel'] = 'z'
+fig.set_title(r'$z = 3x_1^2 + 7x_2^2$', 'z = 3x_1^2 + 7x_2^2', size = 18)
+fig.save();
+```
+:::
+:::
+
+::: {.fragment}
+Now the set of all vectors $\Vert\mathbf{x}\Vert = 1$ is a circle. 
+
+We plot this circle in the $(x_1, x_2)$ plane in green,
+
+and we plot the value that $z$ takes on for those points in blue.
+
+::: {.ctrd}
+
+Intersection of quadratic form $z = 3 x_1^2 + 7 x_2^2$ and $\Vert \mathbf{x}\Vert = 1$
+
+```{python}
+#| echo: false
+fig = ut.three_d_figure((24, 8), 
+                        'Intersection of the positive definite quadratic form z = 3 x1^2 + 7 x2 ^2 with the constraint ||x|| = 1', 
+                        -2, 2, -2, 2, 0, 8, 
+                        equalAxes = False,
+                        figsize = (5, 5), qr = qr_setting)
+plt.close()
+qf = np.array([[3., 0.],[0., 7.]])
+for angle in np.linspace(0, 2*np.pi, 200):
+    x = np.array([np.cos(angle), np.sin(angle)])
+    z = x.T @ qf @ x
+    fig.plotPoint(x[0], x[1], z, 'b', 1.0, '{}.')
+    fig.plotPoint(x[0], x[1], 0, 'g', 1.0, '{}.')
+fig.plotQF(qf, alpha=0.5)
+fig.ax.set_zlabel('z')
+fig.desc['zlabel'] = 'z'
+#fig.set_title(r'Intersection of quadratic form $z = 3 x_1^2 + 7 x_2^2$ and $\Vert \mathbf{x}\Vert = 1$',
+#                'Intersection of quadratic form z = 3 x_1^2 + 7 x_2^2 and ||x|| = 1',
+#                size = 18)
+fig.save()
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 8 * np.arange(45),
+                       fargs = None,
+                       interval = 100).to_jshtml(default_mode = 'loop'))
+```
+:::
+:::
+
+::: {.fragment}
+The set of blue points is the set $z = 3x_1^2 + 7x_2^2$ such that $\Vert \mathbf{x}\Vert = 1$.
+:::
+
+::: {.fragment}
+Now, we can see the geometric sense of a constrained optimization problem.
+
+In particular, we can visualize the solutions to two constrained optimizations:
+    
+$$ \min 3x_1^2 + 7x_2^2 \text{ such that } \Vert\mathbf{x}\Vert = 1 $$
+
+and
+
+$$ \max 3x_1^2 + 7x_2^2 \text{ such that } \Vert\mathbf{x}\Vert = 1 $$
+:::
+
+::: {.fragment}
+::: {.ctrd}
+```{python}
+#| echo: false
+fig = ut.three_d_figure((24, 9), 
+                        'Maximum and minimum of the positive definite quadratic form z = 3 x1^2 + 7 x2 ^2 subject to ||x|| = 1', 
+                        -2, 2, -2, 2, 0, 8,
+                        equalAxes = False,
+                        figsize = (5, 5), qr = qr_setting)
+plt.close()
+qf = np.array([[3., 0.],[0., 7.]])
+for angle in np.linspace(0, 2*np.pi, 200):
+    x = np.array([np.cos(angle), np.sin(angle)])
+    z = x.T @ qf @ x
+    fig.plotPoint(x[0], x[1], z, 'b', 1.0, '{}.')
+#
+max_pt = np.array([0., 1.])
+max_pt_z = max_pt.T @ qf @ max_pt
+fig.plotPoint(max_pt[0], max_pt[1], max_pt_z, 'r')
+fig.text(max_pt[0]+.2, max_pt[1]+.2, max_pt_z+.2, '(0, 1, 7)', '(0, 1, 7)', 14)
+min_pt = np.array([1., 0.])
+#
+min_pt_z = min_pt.T @ qf @ min_pt
+fig.plotPoint(min_pt[0], min_pt[1], min_pt_z, 'r')
+fig.text(min_pt[0]+.2, min_pt[1]+.2, min_pt_z-.8, '(1, 0, 3)', '(1, 0, 3)', 14)
+#
+fig.ax.set_zlabel('z')
+fig.desc['zlabel'] = 'z'
+#
+fig.set_title(r'Max and Min of $z = 3 x_1^2 + 7 x_2^2$ s.t. $\Vert x\Vert = 1$',
+                'Max and Min of z = 3 x_1^2 + 7 x_2^2 s.t. ||x|| = 1',
+                size = 18)
+fig.save()
+# create and display the animation 
+HTML(animation.FuncAnimation(fig.fig, anim,
+                       frames = 8 * np.arange(45),
+                       fargs = None,
+                       interval = 100).to_jshtml(default_mode = 'loop'))
+```
+:::
+:::
+
+## Solving Constrained Optimization Over Quadratic Forms
+
+::: {.fragment}
+When a quadratic form has no cross-product terms, it is easy to find the maximum and minimum of $Q(\mathbf{x})$ for $\mathbf{x}^T\mathbf{x} = 1.$
+:::
+
+::: {.fragment}
+__Example.__  Find the maximum and minimum values of $Q(\mathbf{x}) = 9x_1^2 + 4x_2^2 + 3x_3^2$ subject to the constraint $\mathbf{x}^T\mathbf{x} = 1.$
+:::
+
+::: {.fragment}
+Since $x_2^2$ and $x_3^2$ are nonnegative, we know that 
+
+$$4x_2^2 \leq 9x_2^2\;\;\;\;\text{and}\;\;\;\;3x_3^2\leq 9x_3^2.$$
+:::
+
+::: {.fragment}
+So
+
+$$Q(\mathbf{x}) = 9x_1^2 + 4x_2^2 + 3x_3^2$$
+:::
+
+::: {.fragment}
+$$\leq 9x_1^2 + 9x_2^2 + 9x_3^2$$
+:::
+
+::: {.fragment}
+$$=9(x_1^2 + x_2^2 + x_3^2)$$
+:::
+
+::: {.fragment}
+$$=9$$
+
+Whenever $x_1^2 + x_2^2 + x_3^2 = 1.$  So the maximum value of $Q(\mathbf{x})$ cannot exceed 9 when $\mathbf{x}$ is a unit vector.
+:::
+
+::: {.fragment}
+Furthermore, $Q(\mathbf{x}) = 9$ when $\mathbf{x}=(1,0,0).$  
+
+Thus 9 is the maximum value of $Q(\mathbf{x})$ for $\mathbf{x}^T\mathbf{x} = 1$.
+:::
+
+::: {.fragment}
+A similar argument shows that the minimum value of $Q(\mathbf{x})$ when $\mathbf{x}^T\mathbf{x}=1$ is 3.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+### Eigenvalues Solve Contrained Optimization
+
+::: {.fragment}
+__Observation.__ 
+
+Note that the matrix of the quadratic form in the example is 
+
+$$A = \begin{bmatrix}9&0&0\\0&4&0\\0&0&3\end{bmatrix}$$
+:::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Proof: Since $A$ is symmetric, it has an orthogonal diagonalization $P^TAP = D = \operatorname{diag}(\lambda_1, \lambda_2, \dots, \lambda_n)$.
+
+Since $P$ is orthogonal, if $\Vert\mathbf{x}\Vert = 1$, then $\Vert P\mathbf{x}\Vert = 1$.  
+
+So, for any $\mathbf{x}$, define $\mathbf{y} = P\mathbf{x}$. 
+
+$$\max_{\mathbf{x}^T\mathbf{x} = 1} \mathbf{x}^TA\mathbf{x} = \max_{\mathbf{y}^T\mathbf{y} = 1} \mathbf{y}^TD\mathbf{y}$$
+
+$$ = \max_{\mathbf{y}^T\mathbf{y} = 1} \sum_{i=1}^n \lambda_i y_i^2 $$
+
+$$ \leq \max_{\mathbf{y}^T\mathbf{y} = 1} \lambda_1 \sum_{i=1}^n y_i^2 $$
+
+$$ = \lambda_1.$$
+
+Note that equality is obtained when $\mathbf{x}$ is an eigenvector of unit norm associated with $\lambda_1.$
+:::
+::::
+
+::: {.fragment}
+So the eigenvalues of $A$ are $9, 4,$ and $3$.
+
+We note that the greatest and least eigenvalues equal, respectively, the (constrained) maximum and minimum of $Q(\mathbf{x})$.
+:::
+
+::: {.fragment}
+In fact, this is true for any quadratic form.
+:::
+
+::: {.fragment}
+__Theorem.__ Let $A$ be an $n\times n$ symmetric matrix, and let 
+
+$$M = \max_{\mathbf{x}^T\mathbf{x} = 1} \mathbf{x}^TA\mathbf{x}.$$
+
+Then $M = \lambda_1$, the greatest eigenvalue of $A$.
+:::
+
+::: {.fragment}
+The value of $Q(\mathbf{x})$ is $\lambda_1$ when $\mathbf{x}$ is the unit eigenvector corresponding to $\lambda_1$.
+:::
+
+
+
+::: {.fragment}
+A similar theorem holds for the constrained minimum of $Q(\mathbf{x})$ and the least eigenvector $\lambda_n$.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+::::: {.fragment .fade-down .r-fit-text}
+Question Time!   Q24.3
+:::::
+:::
+
