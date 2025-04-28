@@ -1,0 +1,585 @@
+---
+jupyter: python3
+---
+```{python}
+#| echo: false
+qr_setting = None
+#
+import numpy as np
+import matplotlib as mp
+import pandas as pd
+import matplotlib.pyplot as plt
+import laUtilities as ut
+import slideUtilities as sl
+import demoUtilities as dm
+import pandas as pd
+from datetime import datetime
+from matplotlib import animation
+from IPython.display import HTML
+from IPython.display import Latex
+
+```
+<!--
+This comment somehow suppresses the title page
+-->
+## The Singular Value Decomposition
+
+![](images/rolls-royce.jpg){width=650 fig-alt="A Rolls-Royce"}
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Many parts of this page are based on _Linear Algebra and its
+Applications,_ by David C. Lay
+:::
+::::
+
+Today we'll begin our study of the most useful matrix decomposition in applied Linear Algebra.
+
+Pretty exciting, eh?
+
+::: {.fragment}
+>The Singular Value Decomposition is the __“Swiss Army Knife”__ and the __“Rolls Royce”__ of matrix decompositions.
+
+-- Diane O'Leary   
+:::
+
+::: {.fragment}
+The singular value decomposition is a matrix factorization.  
+
+Now, the first thing to know is that __EVERY__ matrix has a singular value decomposition.
+:::
+
+## Maximizing $\Vert A\mathbf{x}\Vert$
+
+::: {.fragment}
+The singular value decomposition (let's just call it SVD) is based on a very simple question:
+:::
+
+::: {.fragment}
+Let's say you are given an arbitrary matrix $A$, which does not need to be square.
+:::
+
+::: {.fragment}
+Here is the question:
+
+Among all unit vectors, what is the vector $\mathbf{x}$ that maximizes $\Vert A\mathbf{x}\Vert$?
+:::
+
+::: {.fragment}
+In other words, in which direction does $A$ create the largest output vector from a unit input?
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+To set the stage to answer this question, let's review a few facts.
+
+You recall that the eigenvalues of a __square__ matrix $A$ measure the amount that $A$ "stretches or shrinks" certain special vectors (the eigenvectors).
+
+::: {.fragment}
+For example, for a square $A$, if $A\mathbf{x} = \lambda\mathbf{x}$ and $\Vert \mathbf{x}\Vert = 1,$ then
+
+$$\Vert A\mathbf{x}\Vert = \Vert\lambda\mathbf{x}\Vert = |\lambda|\,\Vert\mathbf{x}\Vert = |\lambda|.$$
+:::
+
+::: {.fragment}
+::: {.ctrd}
+```{python}
+#| echo: false
+V = np.array([[2,1],[.1,1]])
+L = np.array([[1.2,0],
+              [0,0.7]])
+A = V @ L @ np.linalg.inv(V)
+#
+ax = dm.plotSetup(-1.5,1.5,-1.5, 1.5, size=(9,6))
+ut.centerAxes(ax)
+theta = [2 * np.pi * f for f in np.array(range(360))/360.0]
+x = [np.array([np.sin(t), np.cos(t)]) for t in theta]
+Ax = [A.dot(xv) for xv in x]
+ax.plot([xv[0] for xv in x],[xv[1] for xv in x],'-b')
+ax.plot([Axv[0] for Axv in Ax],[Axv[1] for Axv in Ax],'--r')
+theta_step = np.linspace(0, 2*np.pi, 24)
+for th in theta_step:
+    x = np.array([np.sin(th), np.cos(th)])
+    ut.plotArrowVec(ax, A @ x, x, head_width=.04, head_length=.04, length_includes_head = True, color='g')
+u, s, v = np.linalg.svd(A)
+ut.plotArrowVec(ax, [0.3* V[0][0], 0.3*V[1][0]], head_width=.04, head_length=.04, length_includes_head = True, color='Black')
+ut.plotArrowVec(ax, [0.3* V[0][1], 0.3*V[1][1]], head_width=.04, head_length=.04, length_includes_head = True, color='Black')
+ax.set_title(r'Eigenvectors of $A$ and the image of the unit circle under $A$');
+```
+:::
+
+The __largest__ value of $\Vert A\mathbf{x}\Vert$ is the long axis of the ellipse.  Clearly there is some $\mathbf{x}$ that is mapped to that point by $A$.   That $\mathbf{x}$ is what we want to find.
+:::
+
+::: {.fragment}
+And let's make clear that we can apply this idea to __arbitrary__ (non-square) matrices.
+:::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Here is an example that shows that we can still ask the question of what unit $\mathbf{x}$ maximizes $\Vert A\mathbf{x}\Vert$ even when $A$ is not square.
+
+For example:
+
+If $A = \begin{bmatrix}4&11&14\\8&7&-2\end{bmatrix},$ 
+
+then the linear transformation $\mathbf{x} \mapsto A\mathbf{x}$ maps the unit sphere $\{\mathbf{x} : \Vert \mathbf{x} \Vert = 1\}$ in $\mathbb{R}^3$ onto an ellipse in $\mathbb{R}^2$, as shown here:
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
