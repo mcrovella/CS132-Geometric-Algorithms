@@ -125,6 +125,13 @@ And let's make clear that we can apply this idea to __arbitrary__ (non-square) m
 ##
 :::
 
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Image credit: _Linear Algebra and its
+Applications,_ by David C. Lay
+:::
+::::
+
 Here is an example that shows that we can still ask the question of what unit $\mathbf{x}$ maximizes $\Vert A\mathbf{x}\Vert$ even when $A$ is not square.
 
 For example:
@@ -133,453 +140,610 @@ If $A = \begin{bmatrix}4&11&14\\8&7&-2\end{bmatrix},$
 
 then the linear transformation $\mathbf{x} \mapsto A\mathbf{x}$ maps the unit sphere $\{\mathbf{x} : \Vert \mathbf{x} \Vert = 1\}$ in $\mathbb{R}^3$ onto an ellipse in $\mathbb{R}^2$, as shown here:
 
-::: {.fragment}
-
-:::
-
-::: {.fragment}
+![](images/Lay-fig-7-4-1.jpg){width=650 fig-alt="Multiplication by A"}
 
+::: {.content-visible when-profile="slides"}
+##
 :::
 
+### $\Vert A\mathbf{x}\Vert^2$ is a Quadratic Form
 
 ::: {.fragment}
+Now, here is a way to answer our question:
 
+__Problem.__ Find the unit vector $\mathbf{x}$ at which the length $\Vert A\mathbf{x}\Vert$ is maximized, and compute this maximum length.
 :::
 
 ::: {.fragment}
-
-:::
+__Solution.__
 
-::: {.fragment}
+The quantity $\Vert A\mathbf{x}\Vert^2$ is maximized at the same $\mathbf{x}$ that maximizes $\Vert A\mathbf{x}\Vert$, and $\Vert A\mathbf{x}\Vert^2$ is easier to study.
 
+So let's ask to find the unit vector $\mathbf{x}$ at which $\Vert A\mathbf{x}\Vert^2$ is maximized.
 :::
 
-
 ::: {.fragment}
+Observe that
 
+$$ \Vert A\mathbf{x}\Vert^2 = (A\mathbf{x})^T(A\mathbf{x}) $$
 :::
 
 ::: {.fragment}
-
+$$ = \mathbf{x}^TA^TA\mathbf{x} $$
 :::
 
 ::: {.fragment}
-
+$$ = \mathbf{x}^T(A^TA)\mathbf{x} $$
 :::
-
 
 ::: {.fragment}
+Now, $A^TA$ is a symmetric matrix.  
 
-:::
-
-::: {.fragment}
+So we see that $\Vert A\mathbf{x}\Vert^2 = \mathbf{x}^TA^TA\mathbf{x}$ is a quadratic form!
 
+... and we are seeking to maximize it subject to the constraint $\Vert \mathbf{x}\Vert = 1$.
 :::
 
 ::: {.fragment}
-
-:::
-
+As we learned in the last lecture, the maximum value of a quadratic form, subject to the constraint that $\Vert\mathbf{x}\Vert = 1$, is the largest eigenvalue of the symmetric matrix.
 
-::: {.fragment}
+So the maximum value of $\Vert A\mathbf{x}\Vert^2$ subject to $\Vert\mathbf{x}\Vert = 1$ is $\lambda_1$, the largest eigenvalue of $A^TA$.
 
+Also, the maximum is attained at a unit eigenvector of $A^TA$ corresponding to $\lambda_1$.
 :::
-
-::: {.fragment}
 
+::: {.content-visible when-profile="slides"}
+##
 :::
-
-::: {.fragment}
 
-:::
+For the matrix $A$ in the 2 $\times$ 3 example,
 
+$$A^TA = \begin{bmatrix}4&8\\11&7\\14&-2\end{bmatrix} \,\begin{bmatrix}4&11&14\\8&7&-2\end{bmatrix} = \begin{bmatrix}80&100&40\\100&170&140\\40&140&200\end{bmatrix}.$$
 
 ::: {.fragment}
+The eigenvalues of $A^TA$ are $\lambda_1 = 360, \lambda_2 = 90,$ and $\lambda_3 = 0.$   
 
+The corresponding unit eigenvectors are, respectively, 
+
+$$\mathbf{v}_1 = \begin{bmatrix}1/3\\2/3\\2/3\end{bmatrix}, \mathbf{v}_2 = \begin{bmatrix}-2/3\\-1/3\\2/3\end{bmatrix}, \mathbf{v}_3 = \begin{bmatrix}2/3\\-2/3\\1/3\end{bmatrix}.  $$
 :::
 
 ::: {.fragment}
-
+For $\Vert\mathbf{x}\Vert = 1$, the maximum value of $\Vert A\mathbf{x}\Vert$ is $\Vert A\mathbf{v}_1\Vert = \sqrt{360}.$
 :::
 
 ::: {.fragment}
+This example shows that the key to understanding the effect of $A$ on the unit sphere in $\mathbb{R}^3$ is to examime the quadratic form $\mathbf{x}^T(A^TA)\mathbf{x}.$  
+:::
 
+::: {.content-visible when-profile="slides"}
+##
 :::
 
+We can also go back to our 2 $\times$ 2 example.
 
-::: {.fragment}
+Let's plot the eigenvectors of $A^TA$.  
 
+::: {.fragment}
+::: {.ctrd}
+```{python}
+#| echo: false
+ax = dm.plotSetup(-1.5,1.5,-1.5, 1.5, size=(9,6))
+ut.centerAxes(ax)
+theta = [2 * np.pi * f for f in np.array(range(360))/360.0]
+x = [np.array([np.sin(t), np.cos(t)]) for t in theta]
+Ax = [A.dot(xv) for xv in x]
+ax.plot([xv[0] for xv in x],[xv[1] for xv in x],'-b')
+ax.plot([Axv[0] for Axv in Ax],[Axv[1] for Axv in Ax],'--r')
+theta_step = np.linspace(0, 2*np.pi, 24)
+#for th in theta_step:
+#    x = np.array([np.sin(th), np.cos(th)])
+#    ut.plotArrowVec(ax, A @ x, x, head_width=.04, head_length=.04, length_includes_head = True, color='g')
+u, s, v = np.linalg.svd(A)
+ut.plotArrowVec(ax, [v[0][0], v[1][0]], head_width=.04, head_length=.04, length_includes_head = True, color='Black')
+ut.plotArrowVec(ax, [v[0][1], v[1][1]], head_width=.04, head_length=.04, length_includes_head = True, color='Black')
+ut.plotArrowVec(ax, [s[0]*u[0][0], s[0]*u[1][0]], [v[0][0], v[1][0]], head_width=.04, head_length=.04, length_includes_head = True, color='g')
+ut.plotArrowVec(ax, [s[1]*u[0][1], s[1]*u[1][1]], [v[0][1], v[1][1]], head_width=.04, head_length=.04, length_includes_head = True, color='g')
+ax.set_title(r'Eigenvectors of $A^TA$ and their images under $A$');
+```
+:::
 :::
 
 ::: {.fragment}
+We see that the eigenvector corresponding to the largest eigenvalue of $A^TA$ indeed shows us where $\Vert A\mathbf{x}\Vert$ is maximized -- where the ellipse is longest.
 
+Also, the other eigenvector of $A^TA$ shows us where the ellipse is narrowest.
 :::
 
 ::: {.fragment}
-
+In fact, the entire geometric behavior of the transformation $\mathbf{x}\mapsto A\mathbf{x}$ is captured by the quadratic form $\mathbf{x}^TA^TA\mathbf{x}$.
 :::
 
+## The Singular Values of a Matrix
 
 ::: {.fragment}
+Let's continue to consider $A$ to be an arbitrary $m\times n$ matrix. 
 
-:::
+Notice that even though $A$ is not square in general, $A^TA$ is square and __symmetric.__
 
-::: {.fragment}
+So, there is a lot we can say about $A^TA$.  
 
+In particular, since $A^TA$ is symmetric, it can be __orthogonally diagonalized__ (as we saw in the last lecture).
 :::
 
 ::: {.fragment}
-
+So let $\{\mathbf{v}_1, \dots, \mathbf{v}_n\}$ be an orthonormal basis for $\mathbb{R}^n$ consisting of eigenvectors of $A^TA$, and let $\lambda_1, \dots, \lambda_n$ be the corresponding eigenvalues of $A^TA$.  
 :::
-
 
 ::: {.fragment}
+Then, for any eigenvector $\mathbf{v}_i$, 
 
+$$ \Vert A\mathbf{v}_i\Vert^2 = (A\mathbf{v}_i)^T A\mathbf{v}_i = \mathbf{v}_i^T A^TA\mathbf{v}_i $$
 :::
 
 ::: {.fragment}
-
+$$ = \mathbf{v}_i^T(\lambda_i)\mathbf{v}_i $$
+(since $\mathbf{v}_i$ is an eigenvector of $A^TA$)
 :::
 
 ::: {.fragment}
-
+$$ = \lambda_i$$
+(since $\mathbf{v}_i$ is a unit vector.)
 :::
 
-
 ::: {.fragment}
-
-:::
+Now any expression $\Vert\cdot\Vert^2$ is nonnegative.
 
-::: {.fragment}
+So the eigenvalues of $A^TA$ are all nonnegative.
 
+That is: $A^TA$ is __positive semidefinite.__
 :::
 
 ::: {.fragment}
+We can therefore renumber the eigenvalues so that
 
+$$\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n \geq 0.$$
 :::
 
 
-::: {.fragment}
-
+::: {.content-visible when-profile="slides"}
+##
 :::
 
-::: {.fragment}
+__Definition.__ The __singular values__ of $A$ are the square roots of the eigenvalues of $A^TA$.  They are denoted by $\sigma_1,\dots,\sigma_n,$ and they are arranged in decreasing order.
 
-:::
+That is, $\sigma_i = \sqrt{\lambda_i}$ for $i = 1,\dots,n.$
 
 ::: {.fragment}
+By the above argument, __the singular values of $A$ are the lengths of the vectors $A\mathbf{v}_1, \dots, A\mathbf{v}_n.$__
+:::
 
+::: {.content-visible when-profile="slides"}
+##
 :::
 
+### The Eigenvectors of $A^TA$ Lead To an Orthogonal Basis for $\operatorname{Col} A$
 
 ::: {.fragment}
-
-:::
+Now: we know that vectors $\mathbf{v}_1, \dots, \mathbf{v}_n$ are an orthogonal set because they are eigenvectors of the symmetric matrix $A^TA$.  
 
-::: {.fragment}
+However, it's __also__ the case that $A\mathbf{v}_1, \dots, A\mathbf{v}_n$ are an orthogonal set.
 
+<font color="blue">This fact is key to the SVD.</font>
 :::
 
 ::: {.fragment}
+It is not obvious at first that $A\mathbf{v}_1, \dots, A\mathbf{v}_n$ are an orthogonal set!
 
+But it is true -- let's prove it (and a bit more).
 :::
-
 
-::: {.fragment}
-
+::: {.content-visible when-profile="slides"}
+##
 :::
 
-::: {.fragment}
+__Theorem.__ Suppose $\{\mathbf{v}_1, \dots, \mathbf{v}_n\}$ is an orthonormal basis of $\mathbb{R}^n$ consisting of eigenvectors of $A^TA$, arranged so that the corresponding eigenvalues of $A^TA$ satisfy $\lambda_1 \geq \cdots \geq \lambda_n,$ and suppose $A$ has $r$ nonzero singular values.  
 
-:::
+Then $\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}$ is an orthogonal basis for $\operatorname{Col}\ A,$ and rank $A = r$. 
 
 ::: {.fragment}
+Note how surprising this is: while $\{\mathbf{v}_1, \dots, \mathbf{v}_n\}$ are a basis for $\mathbb{R}^n$, $\operatorname{Col} A$ is a subspace of $\mathbb{R}^m$.
 
-:::
+Nonetheless, 
 
+* two eigenvectors $\mathbf{v}_i$ and $\mathbf{v}_j \in \mathbb{R}^n$ are orthogonal, and
+* __their images__ $A\mathbf{v}_i$ and $A\mathbf{v}_j \in \mathbb{R}^m$ are also orthogonal.
+:::
 
 ::: {.fragment}
+__Proof.__   What we need to do is establish that $\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}$ is an orthogonal linearly independent set whose span is $\operatorname{Col}A$.
 
-:::
+Because $\mathbf{v}_i$ and $\mathbf{v}_j$ are orthogonal for $i\neq j$,
 
-::: {.fragment}
+$$ (A\mathbf{v}_i)^T(A\mathbf{v}_j) = \mathbf{v}_i^TA^TA\mathbf{v}_j = \mathbf{v}_i^T(\lambda_j \mathbf{v}_j) = 0.$$
 
+So $\{A\mathbf{v}_1, \dots, A\mathbf{v}_n\}$ is an orthogonal set.
 :::
 
 ::: {.fragment}
+Furthermore, since the lengths of the vectors $A\mathbf{v}_1, \dots, A\mathbf{v}_n$ are the singular values of $A$, and since there are $r$ nonzero singular values, $A\mathbf{v}_i \neq {\mathbf 0}$ if and only if $1 \leq i \leq r.$
 
+So $A\mathbf{v}_1, \dots, A\mathbf{v}_r$ are a __linearly independent__ set (because they are orthogonal and all nonzero), and clearly they are each in $\operatorname{Col}\ A$.
 :::
 
-
 ::: {.fragment}
-
+Finally, we just need to show that $\operatorname{Span}\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}$ = $\operatorname{Col} A$. 
 :::
 
 ::: {.fragment}
+To do this we'll show that for any $\mathbf{y}$ in $\operatorname{Col}\ A$, we can write $\mathbf{y}$ in terms of $\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}$:
 
+Say $\mathbf{y} = A\mathbf{x}.$
 :::
 
 ::: {.fragment}
+Because $\{\mathbf{v}_1, \dots, \mathbf{v}_n\}$ is a basis for $\mathbb{R}^n$, we can write $\mathbf{x} = c_1\mathbf{v}_1 + \dots + c_n\mathbf{v}_n,$ so
 
+$$\mathbf{y} = A\mathbf{x} = c_1A\mathbf{v}_1 + \dots + c_rA\mathbf{v}_r + \dots + c_nA\mathbf{v}_n.$$
 :::
 
-
 ::: {.fragment}
-
+$$ = c_1A\mathbf{v}_1 + \dots + c_rA\mathbf{v}_r. $$
+(because $A\mathbf{v}_i = {\mathbf 0}$ for $i > r$).
 :::
 
 ::: {.fragment}
-
+In summary: $\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}$ is an (orthogonal) linearly independent set whose span is $\operatorname{Col} A$, so it is an (orthogonal) basis for $\operatorname{Col} A$.
 :::
 
 ::: {.fragment}
+Notice that we have also proved that $\operatorname{rank} A = \dim\operatorname{Col} A = r.$
 
+In other words, if $A$ has $r$ nonzero singular values, $A$ has rank $r$.
 :::
 
+## The Singular Value Decomposition
 
 ::: {.fragment}
-
-:::
+What we have just proved is that the eigenvectors of $A^TA$ are rather special.
 
-::: {.fragment}
+Note that, thinking of $A$ as a linear operator:
 
+* its domain is $\mathbb{R}^n$, and 
+* its range is $\operatorname{Col} A.$
 :::
 
 ::: {.fragment}
+So we have just proved that 
+
+* the set $\{\mathbf{v}_i\}$ is an orthogonal basis for the domain of $A$, for $i = 1,\dots, n$ and 
+* the set $\{A\mathbf{v}_i\}$ is an orthogonal basis for the range of $A$, for $i = 1,\dots, r$.
 
+Now we can define the SVD.
 :::
 
+::: {.content-visible when-profile="slides"}
+##
+:::
 
-::: {.fragment}
+__Theorem.__ Let $A$ be an $m\times n$ matrix with rank $r$.  Then there exists an $m\times n$ matrix $\Sigma$ whose diagonal entries are the first $r$ singular values of $A$, $\sigma_1 \geq \sigma_2 \geq \dots \geq \sigma_r > 0,$ and there exists an $m\times m$ orthogonal matrix $U$ and an $n\times n$ orthogonal matrix $V$ such that 
 
-:::
+$$ A = U\Sigma V^T $$
 
 ::: {.fragment}
+Any factorization $A = U\Sigma V^T,$ with $U$ and $V$ orthogonal and $\Sigma$ a diagonal matrix is called a __singular value decomposition (SVD)__ of $A$.  
 
+The columns of $U$ are called the __left singular vectors__ and the columns of $V$ are called the __right singular vectors__ of $A$.
 :::
-
-::: {.fragment}
 
+::: {.content-visible when-profile="slides"}
+##
 :::
 
+__Aside__: regarding the "Rolls Royce" property, consider how elegant this structure is:
 
 ::: {.fragment}
-
-:::
 
-::: {.fragment}
+* $A$ is an arbitrary matrix
+* $U$ and $V$ are both __orthogonal__ matrices
+* $\Sigma$ is a __diagonal__ matrix
+* all singular values are __positive or zero__
+* there are as many __positive__ singular values as the rank of $A$
+    * (not part of the theorem but we'll see it is true)
 
+::: {.ctrd}
+![](images/rolls-royce.jpg){width=450 fig-alt="A Rolls-Royce"}
 :::
-
-::: {.fragment}
-
 :::
 
+::: {.content-visible when-profile="slides"}
+##
+:::
 
-::: {.fragment}
+We have built up enough tools now that the proof is quite straightforward.
 
-:::
+__Proof.__  Let $\lambda_i$ and $\mathbf{v}_i$ be the eigenvalues and eigenvectors of $A^TA$, and $\sigma_i = \sqrt{\lambda_i}$.
 
 ::: {.fragment}
+The starting point is to use the fact that we just proved:
 
+$\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}$ is an orthogonal basis for $\operatorname{Col}\ A.$
 :::
 
 ::: {.fragment}
+Next, let us normalize each $A\mathbf{v}_i$ to obtain an orthonormal basis $\{\mathbf{u}_1,\dots,\mathbf{u}_r\}$, where
 
+$$ \mathbf{u}_i = \frac{1}{\Vert A\mathbf{v}_i\Vert}A\mathbf{v}_i = \frac{1}{\sigma_i}A\mathbf{v}_i $$
 :::
 
-
 ::: {.fragment}
+Then
 
+$$ A\mathbf{v}_i = \sigma_i\mathbf{u}_i\;\;\;\;(1 \leq i \leq r)$$
 :::
-
-::: {.fragment}
 
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+If you have an orthogonal basis for a subspace, and you want to extend it to an orthogonal basis for 
+the entire space, you can do it by a straightforward procedure called the _Gram-Schmidt process._  We
+aren't covering it in this course, but that is what you would use here to extend the set 
+$\{\mathbf{u}_{1} \dots \mathbf{u}_r\}$ to the set
+$\{\mathbf{u}_{1} \dots \mathbf{u}_m\}$.
 :::
+::::
 
 ::: {.fragment}
+Now the rank of $A$ (which is $r$) may be less than $m$.   
 
+In that case, add additional orthonormal vectors $\{\mathbf{u}_{r+1} \dots \mathbf{u}_m\}$ to the set so that they span $\mathbb{R}^m$.   
 :::
-
 
 ::: {.fragment}
+Now collect the vectors into matrices.   
+    
+$$ U = \begin{bmatrix}\mathbf{u}_1&\cdots&\mathbf{u}_m\end{bmatrix}$$
 
-:::
+and
 
-::: {.fragment}
+$$ V = \begin{bmatrix}\mathbf{v}_1&\cdots&\mathbf{v}_n\end{bmatrix}$$
 
+Recall that these matrices are orthogonal because the $\{\mathbf{v_i}\}$ are orthogonal and the $\{A\mathbf{v_i}\}$  are orthogonal, as we previously proved.
 :::
 
 ::: {.fragment}
+So
 
+$$ AV = [A\mathbf{v}_1\;\cdots\;A\mathbf{v}_r\;\overbrace{\mathbf{0}\cdots\mathbf{0}}^{n-r}]$$
 :::
 
-
 ::: {.fragment}
+$$ = [\sigma_1\mathbf{u}_1\;\cdots\;\sigma_r\mathbf{u}_r\;\overbrace{\mathbf{0}\;\cdots\;\mathbf{0}}^{n-r}] = U\Sigma. $$
 
+(keeping in mind that $U$ is $m\times m$ and $\Sigma$ is $m\times n$.)
 :::
 
 ::: {.fragment}
+So 
 
+$$ AV = U\Sigma$$
 :::
 
 ::: {.fragment}
+So:
+    
+$$AVV^T = U\Sigma V^T$$  
+
+And because $V$ is an orthogonal matrix:
 
+$$ A = U\Sigma V^T$$
 :::
 
+## The Reduced SVD and the Pseudoinverse
 
 ::: {.fragment}
-
-:::
+Let's step back to get a sense of how the SVD decomposes a matrix.
 
-::: {.fragment}
+Let's say $A$ is $m\times n$ with $m<n$.   
 
+(The situation when $m>n$ follows similarly).
 :::
 
 ::: {.fragment}
+The SVD looks like this, with singular values on the diagonal of $\Sigma$:
 
+::: {.ctrd}
+![](images/L25-F1.png){width=650}
 :::
-
-
-::: {.fragment}
-
 :::
 
 ::: {.fragment}
+Now, let's assume that the number of nonzero singular values $r$ is less than $m$.   
+
+Again, other cases would be similar.
 
+::: {.ctrd}
+![](images/L25-F2.png){width=650}
 :::
+:::
 
 ::: {.fragment}
+In many cases we are only concerned with representing $A$.   
 
-:::
+That is, we don't need $U$ or $V$ to be orthogonal (square) matrices.
 
+Then, to compute $A$, we only need the $r$ leftmost columns of $U$, and the $r$ upper rows of $V^T$.
 
-::: {.fragment}
+That's because all the other values on the diagonal of $\Sigma$ are zero, so they don't contribute anything to $A$.
 
+::: {.ctrd}
+![](images/L25-F3.png){width=650}
 :::
-
-::: {.fragment}
-
 :::
 
 ::: {.fragment}
+So we often work with the __reduced SVD__ of $A$:
 
+$\small \begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\;\;\overbrace{\left[\begin{array}{ccc}\begin{array}{c}\vdots\\\vdots\\{\bf a_1}\\\vdots\\\vdots\end{array}&\dots&\begin{array}{c}\vdots\\\vdots\\{\bf a_n}\\\vdots\\\vdots\end{array}\\\end{array}\right]}^{\Large n} =
+\overbrace{\left[\begin{array}{ccc}\vdots&&\vdots\\\vdots&&\vdots\\\mathbf{u}_1&\cdots&\mathbf{u}_r\\\vdots&&\vdots\\\vdots&&\vdots\end{array}\right]}^{\large r}
+\times
+\left[\begin{array}{ccc}\sigma_1& &\\&\ddots&\\&&\sigma_r\end{array}\right]
+\times
+\left[\begin{array}{ccc}\dots&\mathbf{v}_1&\dots\\&\vdots&\\\dots&\mathbf{v}_r&\dots\end{array}\right]$
 :::
-
 
 ::: {.fragment}
-
+$$\Large\overset{m\,\times\, n}{A^{\vphantom{T}}} = \overset{m\,\times\, r}{U^{\vphantom{T}}}\;\;\overset{r\,\times\, r}{\Sigma^{\vphantom{T}}}\;\;\overset{r\,\times\, n}{V^T}$$
 :::
 
 ::: {.fragment}
+Note that in the reduced SVD, $\Sigma$ has all nonzero entries on its diagonal, so it can be inverted.
 
+However, we still have that $A = U\Sigma V^T$.
 :::
-
-::: {.fragment}
 
+::: {.content-visible when-profile="slides"}
+##
 :::
 
+### The Pseudoinverse
 
 ::: {.fragment}
+Consider the case where we are working with the reduced SVD of $A$:
+    
+$$A = U\Sigma V^T.$$
 
+In the reduced SVD, $\Sigma$ is invertible (it is a diagonal matrix with all positive entries on the diagonal).
 :::
 
 ::: {.fragment}
-
+Using this decomposition we can define an important matrix corresponding to $A$.
 :::
 
 ::: {.fragment}
-
+$$A^+ = V \Sigma^{-1} U^T$$
 :::
-
 
 ::: {.fragment}
+This matrix $A^+$ is called the __pseudoinverse__ of $A$.
 
+(Sometimes called the Moore-Penrose pseudoinverse).
 :::
 
 ::: {.fragment}
+Obviously, $A$ cannot have an inverse, because it is not even square (let alone invertible) in general.
 
+So why is $A^+$ called the pseudoinverse?
 :::
 
 ::: {.fragment}
-
-:::
+Let's go back to our favorite equation, $A\mathbf{x} = \mathbf{b}$, specifically in the case where there are no solutions.   
 
+In that case, we can find least-squares solutions by finding $\mathbf{\hat{x}}$ such that $A\mathbf{\hat{x}}$ is the projection of $\mathbf{b}$ onto $\operatorname{Col}A$.
 
-::: {.fragment}
+And, __if $A^TA$ is invertible,__ that $\mathbf{\hat{x}}$ is given by
 
+$$ \mathbf{\hat{x}} = (A^TA)^{-1}A^T\mathbf{b}$$
 :::
 
 ::: {.fragment}
-
-:::
+But, what if $A^TA$ is not invertible?   
 
-::: {.fragment}
+There are still least-square solutions, but now there are an infinite number.   
 
+What if we just want to find __one__ of them?
 :::
-
 
 ::: {.fragment}
+We can do that using the pseudoinverse:
 
+$$\mathbf{\hat{x}} = A^+ \mathbf{b}$$
 :::
 
 ::: {.fragment}
+Why does this work?  Let's see.
 
+If we define $\mathbf{\hat{x}}$ this way, then what is $A\mathbf{\hat{x}}$?
+
+$$A\mathbf{\hat{x}} = AA^+ \mathbf{b}$$
 :::
 
 ::: {.fragment}
-
+$$ = (U\Sigma V^T)(V\Sigma^{-1}U^T)\mathbf{b}$$
 :::
 
-
 ::: {.fragment}
-
+$$ = U\Sigma\Sigma^{-1}U^T\mathbf{b}$$
 :::
 
 ::: {.fragment}
-
+$$ = UU^T\mathbf{b}$$
 :::
 
 ::: {.fragment}
+Now, $U$ is an orthonormal basis for $\operatorname{Col}A$.
+
+And, $U^T\mathbf{b}$ are the coefficients of the projection of $\mathbf{b}$ onto each column of $U$, since the columns are unit length.
 
+So, $UU^T\mathbf{b}$ is the projection of $\mathbf{b}$ onto $\operatorname{Col}A$.
 :::
 
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+To see why this is true, recall that when we project onto an orthogonal basis, the projection is especially easy.
 
-::: {.fragment}
+Let's say that $\mathbf{u}_1$ and $\mathbf{u}_2$ form an orthogonal basis for some subspace.  Then the projection of $\mathbf{b}$ onto that subspace is very simple:
 
-:::
+$$ \hat{\mathbf{b}} = \frac{\mathbf{u}_1^T\mathbf{b}}{\mathbf{u}_1^T\mathbf{u}_1}\mathbf{u}_1 + \frac{\mathbf{u}_2^T\mathbf{b}}{\mathbf{u}_2^T\mathbf{u}_2}\mathbf{u}_2. $$
 
-::: {.fragment}
+Now, how does this become $UU^T\mathbf{b}$?   Say that  $\mathbf{u}_1$ and $\mathbf{u}_2$ are the columns of $U$.
 
-:::
+$U$ is an orthonormal matrix, so $\mathbf{u}_1$ and $\mathbf{u}_2$ are unit vectors, so $\mathbf{u}_1^T\mathbf{u}_1 = 1$ and $\mathbf{u}_2^T\mathbf{u}_2 = 1$.
 
-::: {.fragment}
+So 
 
-:::
+$$ \hat{\mathbf{b}} = \mathbf{u}_1^T\mathbf{b}\mathbf{u}_1 + \mathbf{u}_2^T\mathbf{b}\mathbf{u}_2. $$
 
+Note that $\mathbf{u}_1^T\mathbf{b}$ and $\mathbf{u}_2^T\mathbf{b}$ are scalar quantities, which we can collect into a vector, that can be expressed as $U^T\mathbf{b}$.
 
-::: {.fragment}
+And multiplying that vector by $U$ gives us the projection above:
 
+$$ \hat{\mathbf{b}} = \mathbf{u}_1^T\mathbf{b}\mathbf{u}_1 + \mathbf{u}_2^T\mathbf{b}\mathbf{u}_2  = UU^T\mathbf{b}. $$
 :::
+::::
 
 ::: {.fragment}
+So, $\mathbf{\hat{x}} = A^+ \mathbf{b}$ is a least squares solution of $A\mathbf{x} = \mathbf{b}$, 
 
+because $A\mathbf{\hat{x}}$ is the projection of $\mathbf{b}$ onto the column space of $A$.
 :::
 
 ::: {.fragment}
+And this is true __even when $A^TA$ is not invertible__,
 
-:::
+ie, this formula works for __any__ $A$.
 
+Remember, any $A$ has an SVD, and so any $A$ has a pseudoinverse!
+:::
 
 ::: {.fragment}
+Using these facts, we can now think of the least squares solution set of $A\mathbf{x} = \mathbf{b}$ in a particularly simple way.
 
+It is always the case for any least-squares solution $\mathbf{\hat{x}}$ that:
+    
+$$\mathbf{\hat{x}} = A^+ \mathbf{b} + \mathbf{z}$$
+
+where $\mathbf{z}$ is __a vector in the nullspace of $A$__.
 :::
 
 ::: {.fragment}
-
+Hence we can write the set of all least-squares solutions in a particuarly clear way:
+    
+$$\{\hat{\mathbf{x}}\} = \{A^+ \mathbf{b} + \mathbf{z}\,|\,\mathbf{z} \in \operatorname{Nul} A\}.$$
 :::
 
 ::: {.fragment}
+When $A$ has dependent columns, then it has a nontrivial nullspace, and the above expression gives the infinite set of least-squares solutions.
 
+When $A$ has independent columns, then its nullspace consists only of $\mathbf{0}$, and the above expression gives the unique least-squares solution.
 :::
 
