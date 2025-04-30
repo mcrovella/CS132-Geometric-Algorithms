@@ -1,0 +1,515 @@
+---
+jupyter: python3
+---
+```{python}
+#| echo: false
+qr_setting = None
+#
+import numpy as np
+import matplotlib as mp
+import pandas as pd
+import matplotlib.pyplot as plt
+import laUtilities as ut
+import slideUtilities as sl
+import demoUtilities as dm
+import pandas as pd
+from datetime import datetime
+from matplotlib import animation
+from IPython.display import HTML
+from IPython.display import Latex
+
+```
+<!--
+This comment somehow suppresses the title page
+-->
+## Applications of the SVD
+
+::::: {.columns}
+:::: {.column width="50%"}
+![](images/Duchamp_-_Nude_Descending_a_Staircase.jpg){height=550 fig-alt="Nude Descending a Staircase by Marcel Duchamp"}
+::::
+
+:::: {.column width = "50%"}
+In "Nude Descending a Staircase" Marcel Duchamp captures a four-dimensional object on a two-dimensional canvas.  Accomplishing this without losing essential information is called _dimensionality reduction._
+::::
+:::::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+[_Nude Descending a Staircase_ by Marcel Duchamp (1887-1968) - Philadelphia Museum of Art, PD-US](https://en.wikipedia.org/w/index.php?curid=3922548)
+:::
+::::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+::: {.ctrd}
+![](images/440px-Wenger_EvoGrip_S17.JPG){width=440}
+:::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Image from [Wikipedia](https://en.wikipedia.org/wiki/Swiss_Army_knife)
+:::
+::::
+
+>The Singular Value Decomposition is the __“Swiss Army Knife”__ and the __“Rolls Royce”__ of matrix decompositions.
+
+-- Diane O'Leary   
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+Today we will concern ourselves with the "Swiss Army Knife" aspect of the SVD.    
+
+Our focus today will be on applications to data analysis.
+
+So today we will be thinking of matrices as __data__.
+
+(Rather than thinking of matrices as linear operators.)
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+::: {.ctrd}
+![](https://imgs.xkcd.com/comics/assigning_numbers.png){height=450}
+:::
+
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Image Credit: [xkcd](https://imgs.xkcd.com/comics/assigning_numbers.png)
+:::
+::::
+
+::: {.content-visible when-profile="slides"}
+##
+:::
+
+As a specific example, here is a typical data matrix.   This matrix could be the result of measuring a collection of data objects, and noting a set of features for each object.
+
+$${\text{$m$ data objects}}\left\{\begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\right.\;\;\overbrace{\left[\begin{array}{ccccc}
+\begin{array}{c}a_{11}\\\vdots\\a_{i1}\\\vdots\\a_{m1}\end{array}&
+\begin{array}{c}\dots\\\ddots\\\dots\\\ddots\\\dots\end{array}&
+\begin{array}{c}a_{1j}\\\vdots\\a_{ij}\\\vdots\\a_{mj}\end{array}&
+\begin{array}{c}\dots\\\ddots\\\dots\\\ddots\\\dots\end{array}&
+\begin{array}{c}a_{1n}\\\vdots\\a_{in}\\\vdots\\a_{mn}\end{array}
+\end{array}\right]}^{\text{$n$ features}}$$
+
+::: {.fragment}
+For example, rows could be people, and columns could be movie ratings.   
+
+Or rows could be documents, and columns could be words within the documents.
+:::
+
+::: {.fragment}
+To start discussing the set of tools that SVD provides for analyzing data, let's remind ourselves what the SVD is.
+:::
+
+## Recap of SVD
+
+::: {.fragment}
+Today we'll work exclusively with the reduced SVD.
+
+Here it is again, for the case where $A$ is $m \times n$, and $A$ has rank $r$.
+
+In that case, the reduced SVD looks like this, with singular values on the diagonal of $\Sigma$:
+
+$m\left\{\begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\right.\;\;\overbrace{\left[\begin{array}{cccc}\begin{array}{c}\vdots\\\vdots\\{\bf a_1}\\\vdots\\\vdots\end{array}&\begin{array}{c}\vdots\\\vdots\\{\bf a_2}\\\vdots\\\vdots\end{array}&\dots&\begin{array}{c}\vdots\\\vdots\\{\bf a_n}\\\vdots\\\vdots\end{array}\\\end{array}\right]}^{\Large n} =
+\overbrace{\left[\begin{array}{ccc}\vdots&&\vdots\\\vdots&&\vdots\\\mathbf{u}_1&\cdots&\mathbf{u}_r\\\vdots&&\vdots\\\vdots&&\vdots\end{array}\right]}^{\large r}
+\times
+\left[\begin{array}{ccc}\sigma_1& &\\&\ddots&\\&&\sigma_r\end{array}\right]
+\times
+\left[\begin{array}{ccccc}\dots&\dots&\mathbf{v}_1&\dots&\dots\\&&\vdots&&\\\dots&\dots&\mathbf{v}_r&\dots&\dots\end{array}\right]$
+:::
+
+::: {.fragment}
+$$\Large\overset{m\,\times\, n}{A^{\vphantom{T}}} = \overset{m\,\times\, r}{U^{\vphantom{T}}}\;\;\overset{r\,\times\, r}{\Sigma^{\vphantom{T}}}\;\;\overset{r\,\times\, n}{V^T}$$
+:::
+
+::: {.fragment}
+Note that for the reduced version, both $U$ and $V$ have orthonormal columns.    This means that:
+
+$$ U^TU = I $$
+
+and 
+
+$$ V^TV = I. $$
+
+(However, $U$ and $V$ are not square in this version, so they are not orthogonal matrices.)
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
+::: {.fragment}
+
+:::
+
