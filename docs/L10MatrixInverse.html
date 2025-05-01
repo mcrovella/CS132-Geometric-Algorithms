@@ -1,1078 +1,1430 @@
-
-
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<html lang="en" data-content_root="" >
+<title>l10matrixinverse – Geometric Algorithms</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
 
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>The Inverse of a Matrix &#8212; Linear Algebra, Geometry, and Computation</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
-  </script>
-  
-  <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fec4eca8e712537310c7ebcc1543822c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 
-  
-  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-  
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
-
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
 </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'L10MatrixInverse';</script>
-    <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Markov Chains" href="L11MarkovChains.html" />
-    <link rel="prev" title="Matrix Algebra" href="L09MatrixOperations.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
-  </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-  
-  
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+<link rel="stylesheet" href="styles.css">
+</head>
 
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
-<form class="bd-search d-flex align-items-center"
-      action="search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
-  
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
-    </header>
-  
+<body class="nav-sidebar docked slimcontent">
 
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
-      
-      
-      
-      <div class="bd-sidebar-primary bd-sidebar">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-    
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-
-  
-
-<a class="navbar-brand logo" href="landing-page.html">
-  
-  
-  
-  
-  
-    
-    
-      
-    
-    
-    <img src="_static/DiagramAR-icon.png" class="logo__image only-light" alt="Linear Algebra, Geometry, and Computation - Home"/>
-    <script>document.write(`<img src="_static/DiagramAR-icon.png" class="logo__image only-dark" alt="Linear Algebra, Geometry, and Computation - Home"/>`);</script>
-  
-  
-</a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item navbar-nav active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="landing-page.html">
-                    Preface
-                </a>
-            </li>
-        </ul>
-        <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="L01LinearEquations.html">Linear Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L02Numerics.html">(Getting Serious About) Numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L03RowReductions.html">Gaussian Elimination</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L04VectorEquations.html">Vector Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L05Axb.html"><span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span></a></li>
-<li class="toctree-l1"><a class="reference internal" href="L06LinearIndependence.html">Linear Independence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L07LinearTransformations.html">Linear Transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L08MatrixofLinearTranformation.html">The Matrix of a Linear Transformation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L09MatrixOperations.html">Matrix Algebra</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">The Inverse of a Matrix</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L11MarkovChains.html">Markov Chains</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L12MatrixFactorizations.html">Matrix Factorizations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L13ComputerGraphics.html">Computer Graphics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L14Subspaces.html">Subspaces</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L15DimensionRank.html">Dimension and Rank</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L16Eigenvectors.html">Eigenvectors and Eigenvalues</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L17CharacteristicEqn.html">The Characteristic Equation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L18Diagonalization.html">Diagonalization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L19PageRank.html">PageRank</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L20Orthogonality.html">Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span></a></li>
-<li class="toctree-l1"><a class="reference internal" href="L21OrthogonalSets.html">Orthogonal Sets and Projection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L22LeastSquares.html">Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L23LinearModels.html">Linear Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L24SymmetricMatrices.html">Symmetric Matrices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L25SVD.html">The Singular Value Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L26ApplicationsOfSVD.html">Applications of the SVD</a></li>
-</ul>
-
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L10MatrixInverse.html">The Inverse of a Matrix</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
-</nav></div>
-    </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-  </div>
-  
-  <div id="rtd-footer-container"></div>
-
-
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./images/DiagramAR-icon.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
       </div>
-      
-      <main id="main-content" class="bd-main">
-        
-        
-
-<div class="sbt-scroll-pixel-helper"></div>
-
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <span class="fa-solid fa-bars"></span>
-</label></div>
-      
-    </div>
-  
-  
-    <div class="header-article-items__end">
-      
-        <div class="header-article-item">
-
-<div class="article-header-buttons">
-
-
-<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms" target="_blank"
-   class="btn btn-sm btn-source-repository-button"
-   title="Source repository"
-   data-bs-placement="bottom" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-
-</a>
-
-
-
-
-
-
-<div class="dropdown dropdown-download-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
-    <i class="fas fa-download"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="_sources/L10MatrixInverse.ipynb" target="_blank"
-   class="btn btn-sm btn-download-source-button dropdown-item"
-   title="Download source file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="btn__text-container">.ipynb</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li>
-<button onclick="window.print()"
-  class="btn btn-sm btn-download-pdf-button dropdown-item"
-  title="Print to PDF"
-  data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="btn__text-container">.pdf</span>
-</button>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
-<button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
-  title="Fullscreen mode"
-  data-bs-placement="bottom" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-
-
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
-
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
-</div></div>
-      
-    </div>
-  
-</div>
-</div>
-              
-              
-
-<div id="jb-print-docs-body" class="onlyprint">
-    <h1>The Inverse of a Matrix</h1>
-    <!-- Table of contents -->
-    <div id="print-main-content">
-        <div id="jb-print-toc">
-            
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-the-matrix-inverse">Computing the Matrix Inverse</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-2-times-2-case">The <span class="math notranslate nohighlight">\(2\times 2\)</span> case</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrices-larger-than-2-times-2">Matrices larger than <span class="math notranslate nohighlight">\(2 \times 2\)</span>.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-computational-view">The Computational View</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-matrix-inverse-to-solve-a-linear-system">Using the Matrix Inverse to Solve a Linear System</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algebra-of-matrix-inverses">Algebra of Matrix Inverses</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-invertible-matrix-theorem">The Invertible Matrix Theorem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invertible-linear-transformations">Invertible Linear Transformations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-blue-further-reading-font"><font color="blue"> Further Reading </font></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ill-conditioned-matrices">Ill-Conditioned Matrices</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#demonstration-of-ill-conditioning">Demonstration of Ill-Conditioning</a></li>
-</ul>
-</li>
-</ul>
-            </nav>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./landing_page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L01LinearEquations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L02Numerics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(Getting Serious About) Numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L03RowReductions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gaussian Elimination</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L04VectorEquations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vector Equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L05Axb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L06LinearIndependence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Independence</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L07LinearTransformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Transformations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L08MatrixofLinearTransformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Matrix of a Linear Transformation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L09MatrixOperations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Matrix Algebra</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L10MatrixInverse.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">The Inverse of a Matrix</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L11MarkovChains.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Markov Chains</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L12MatrixFactorizations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Matrix Factorizations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L13ComputerGraphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Computer Graphics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L14Subspaces.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Subspaces</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L15DimensionRank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dimension and Rank</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L16Eigenvectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Eigenvectors and Eigenvalues</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L17CharacteristicEqn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Characteristic Equation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L18Diagonalization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diagonalization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L19PageRank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PageRank</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L20Orthogonality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analytic Geometry in <span class="math inline">\(\mathbb{R}^n\)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L21OrthogonalSets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Orthogonal Sets and Projection</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L22LeastSquares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Least Squares</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L23LinearModels.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Models</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L24SymmetricMatrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Symmetric Matrices</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L25SVD.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Singular Value Decomposition</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L26ApplicationsOfSVD.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Applications of the SVD</span></a>
+  </div>
+</li>
+    </ul>
     </div>
-</div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-inverse-of-a-matrix" id="toc-the-inverse-of-a-matrix" class="nav-link active" data-scroll-target="#the-inverse-of-a-matrix">The Inverse of a Matrix</a></li>
+  <li><a href="#computing-the-matrix-inverse" id="toc-computing-the-matrix-inverse" class="nav-link" data-scroll-target="#computing-the-matrix-inverse">Computing the Matrix Inverse</a>
+  <ul class="collapse">
+  <li><a href="#the-2times-2-case" id="toc-the-2times-2-case" class="nav-link" data-scroll-target="#the-2times-2-case">The <span class="math inline">\(2\times 2\)</span> case</a></li>
+  <li><a href="#matrices-larger-than-2-times-2." id="toc-matrices-larger-than-2-times-2." class="nav-link" data-scroll-target="#matrices-larger-than-2-times-2.">Matrices larger than <span class="math inline">\(2 \times 2\)</span>.</a></li>
+  </ul></li>
+  <li><a href="#the-computational-view" id="toc-the-computational-view" class="nav-link" data-scroll-target="#the-computational-view">The Computational View</a>
+  <ul class="collapse">
+  <li><a href="#the-operation-count-of-matrix-inversion" id="toc-the-operation-count-of-matrix-inversion" class="nav-link" data-scroll-target="#the-operation-count-of-matrix-inversion">The Operation Count of Matrix Inversion</a></li>
+  <li><a href="#in-code" id="toc-in-code" class="nav-link" data-scroll-target="#in-code">In Code</a></li>
+  </ul></li>
+  <li><a href="#using-the-matrix-inverse-to-solve-a-linear-system" id="toc-using-the-matrix-inverse-to-solve-a-linear-system" class="nav-link" data-scroll-target="#using-the-matrix-inverse-to-solve-a-linear-system">Using the Matrix Inverse to Solve a Linear System</a></li>
+  <li><a href="#algebra-of-matrix-inverses" id="toc-algebra-of-matrix-inverses" class="nav-link" data-scroll-target="#algebra-of-matrix-inverses">Algebra of Matrix Inverses</a></li>
+  <li><a href="#the-invertible-matrix-theorem" id="toc-the-invertible-matrix-theorem" class="nav-link" data-scroll-target="#the-invertible-matrix-theorem">The Invertible Matrix Theorem</a></li>
+  <li><a href="#invertible-linear-transformations" id="toc-invertible-linear-transformations" class="nav-link" data-scroll-target="#invertible-linear-transformations">Invertible Linear Transformations</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading"><font color="blue"> Further Reading </font></a>
+  <ul class="collapse">
+  <li><a href="#ill-conditioned-matrices" id="toc-ill-conditioned-matrices" class="nav-link" data-scroll-target="#ill-conditioned-matrices">Ill-Conditioned Matrices</a></li>
+  <li><a href="#demonstration-of-ill-conditioning" id="toc-demonstration-of-ill-conditioning" class="nav-link" data-scroll-target="#demonstration-of-ill-conditioning">Demonstration of Ill-Conditioning</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
-              
-                
-<div id="searchbox"></div>
-                <article class="bd-article">
-                  
-  <section class="tex2jax_ignore mathjax_ignore" id="the-inverse-of-a-matrix">
-<h1>The Inverse of a Matrix<a class="headerlink" href="#the-inverse-of-a-matrix" title="Permalink to this heading">#</a></h1>
-<p>Today we investigate the idea of the <font color=blue>”reciprocal”</font> of a matrix.</p>
+
+
+
+<!--
+This comment somehow suppresses the title page
+-->
+<section id="the-inverse-of-a-matrix" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="the-inverse-of-a-matrix">The Inverse of a Matrix</h2>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Many parts of this page are based on <em>Linear Algebra and its Applications,</em> by David C. Lay</p>
+</div></div><p>Today we investigate the idea of the <font color="blue">“reciprocal”</font> of a matrix.</p>
+<div class="fragment">
 <p>For reasons that will become clear, we will think about this way:</p>
-<p>The reciprocal of any nonzero number <span class="math notranslate nohighlight">\(r\)</span> is its multiplicative inverse.</p>
-<p>That is, <span class="math notranslate nohighlight">\(1/r = r^{-1}\)</span> such that <span class="math notranslate nohighlight">\(r \cdot r^{-1} = 1.\)</span></p>
-<p>This gives a way to define what is called the <font color = blue>inverse</font> of a matrix.</p>
+<p>The reciprocal of any nonzero number <span class="math inline">\(r\)</span> is its multiplicative inverse.</p>
+<p>That is, <span class="math inline">\(1/r = r^{-1}\)</span> such that <span class="math inline">\(r \cdot r^{-1} = 1.\)</span></p>
+<p>This gives a way to define what is called the <font color="blue">inverse</font> of a matrix.</p>
+</div>
 <p>Importantly: we have to recognize that this inverse does not exist for all matrices.</p>
-<ul class="simple">
-<li><p>It only exists for square matrices</p></li>
-<li><p>And not even for all square matrices – only those that are “invertible.”</p></li>
+<ul>
+<li>It only exists for square matrices</li>
+<li>And not even for all square matrices – only those that are “invertible.”</li>
 </ul>
-<p><strong>Definition.</strong> An <span class="math notranslate nohighlight">\(n\times n\)</span> matrix <span class="math notranslate nohighlight">\(A\)</span> is called <strong>invertible</strong> if there exists an <span class="math notranslate nohighlight">\(n\times n\)</span> matrix <span class="math notranslate nohighlight">\(C\)</span> such that</p>
-<div class="math notranslate nohighlight">
-\[ AC = I \;\;\text{ and }\;\; CA = I. \]</div>
-<p>In that case <span class="math notranslate nohighlight">\(C\)</span> is called the <em>inverse</em> of <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<p>Clearly, <span class="math notranslate nohighlight">\(C\)</span> must also be square and the same size as <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<p>The inverse of <span class="math notranslate nohighlight">\(A\)</span> is denoted <span class="math notranslate nohighlight">\(A^{-1}.\)</span></p>
+<p><strong>Definition.</strong> An <span class="math inline">\(n\times n\)</span> matrix <span class="math inline">\(A\)</span> is called <strong>invertible</strong> if there exists an <span class="math inline">\(n\times n\)</span> matrix <span class="math inline">\(C\)</span> such that</p>
+<p><span class="math display">\[ AC = I \;\;\text{ and }\;\; CA = I. \]</span></p>
+<div class="fragment">
+<p>In that case <span class="math inline">\(C\)</span> is called the <em>inverse</em> of <span class="math inline">\(A\)</span>.</p>
+</div>
+<div class="fragment">
+<p>Clearly, <span class="math inline">\(C\)</span> must also be square and the same size as <span class="math inline">\(A\)</span>.</p>
+<p>The inverse of <span class="math inline">\(A\)</span> is denoted <span class="math inline">\(A^{-1}.\)</span></p>
+</div>
+<div class="fragment">
 <p>A matrix that is not invertible is called a <strong>singular</strong> matrix.</p>
 <p>A strange term, but you just have to memorize and get used to it.</p>
+</div>
 <p><strong>Example.</strong></p>
-<p>If <span class="math notranslate nohighlight">\(A = \left[\begin{array}{rr}2&amp;5\\-3&amp;-7\end{array}\right]\)</span> and <span class="math notranslate nohighlight">\(C = \left[\begin{array}{rr}-7&amp;-5\\3&amp;2\end{array}\right]\)</span>, then:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split} AC = \left[\begin{array}{rr}2&amp;5\\-3&amp;-7\end{array}\right]\left[\begin{array}{rr}-7&amp;-5\\3&amp;2\end{array}\right] = \left[\begin{array}{rr}1&amp;0\\0&amp;1\end{array}\right],\end{split}\]</div>
+<p>If <span class="math inline">\(A = \left[\begin{array}{rr}2&amp;5\\-3&amp;-7\end{array}\right]\)</span> and <span class="math inline">\(C = \left[\begin{array}{rr}-7&amp;-5\\3&amp;2\end{array}\right]\)</span>, then:</p>
+<div class="fragment">
+<p><span class="math display">\[ AC = \left[\begin{array}{rr}2&amp;5\\-3&amp;-7\end{array}\right]\left[\begin{array}{rr}-7&amp;-5\\3&amp;2\end{array}\right] = \left[\begin{array}{rr}1&amp;0\\0&amp;1\end{array}\right],\]</span></p>
 <p>and:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split} CA = \left[\begin{array}{rr}-7&amp;-5\\3&amp;2\end{array}\right]\left[\begin{array}{rr}2&amp;5\\-3&amp;-7\end{array}\right] = \left[\begin{array}{rr}1&amp;0\\0&amp;1\end{array}\right],\end{split}\]</div>
-<p>so we conclude that <span class="math notranslate nohighlight">\(C = A^{-1}.\)</span></p>
+<p><span class="math display">\[ CA = \left[\begin{array}{rr}-7&amp;-5\\3&amp;2\end{array}\right]\left[\begin{array}{rr}2&amp;5\\-3&amp;-7\end{array}\right] = \left[\begin{array}{rr}1&amp;0\\0&amp;1\end{array}\right],\]</span></p>
+<p>so we conclude that <span class="math inline">\(C = A^{-1}.\)</span></p>
+</div>
 <p>Let’s think about what a matrix inverse does in a linear equation.</p>
+<div class="fragment">
 <p>Take a standard linear equation:</p>
-<div class="math notranslate nohighlight">
-\[ A{\bf x} = {\bf b}. \]</div>
+<p><span class="math display">\[ A{\bf x} = {\bf b}. \]</span></p>
+</div>
+<div class="fragment">
 <p>Then:</p>
-<div class="math notranslate nohighlight">
-\[A^{-1}(A{\bf x}) = A^{-1}{\bf b}\]</div>
-<div class="math notranslate nohighlight">
-\[(A^{-1}A){\bf x} = A^{-1}{\bf b}\]</div>
-<div class="math notranslate nohighlight">
-\[I{\bf x} = A^{-1}{\bf b}\]</div>
-<div class="math notranslate nohighlight">
-\[{\bf x} = A^{-1}{\bf b}\]</div>
-<p><strong>Theorem.</strong>  If <span class="math notranslate nohighlight">\(A\)</span> is an invertible <span class="math notranslate nohighlight">\(n\times n\)</span> matrix, then for each <span class="math notranslate nohighlight">\({\bf b}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n,\)</span> the equation <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> has the unique solution <span class="math notranslate nohighlight">\(A^{-1}{\bf b}.\)</span></p>
-<p><strong>Proof.</strong> Follows directly from the definition of <span class="math notranslate nohighlight">\(A^{-1}.\)</span></p>
+<p><span class="math display">\[A^{-1}(A{\bf x}) = A^{-1}{\bf b}\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[(A^{-1}A){\bf x} = A^{-1}{\bf b}\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[I{\bf x} = A^{-1}{\bf b}\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[{\bf x} = A^{-1}{\bf b}\]</span></p>
+</div>
+<p><strong>Theorem.</strong> If <span class="math inline">\(A\)</span> is an invertible <span class="math inline">\(n\times n\)</span> matrix, then for each <span class="math inline">\({\bf b}\)</span> in <span class="math inline">\(\mathbb{R}^n,\)</span> the equation <span class="math inline">\(A{\bf x} = {\bf b}\)</span> has the unique solution <span class="math inline">\(A^{-1}{\bf b}.\)</span></p>
+<p><strong>Proof.</strong> Follows directly from the definition of <span class="math inline">\(A^{-1}.\)</span></p>
+<div class="fragment">
 <p>This very simple, powerful theorem gives us a new way to solve a linear system.</p>
+</div>
+<div class="fragment">
 <p>Furthermore, this theorem connects the matrix inverse to certain kinds of linear systems.</p>
-<p>We know that not all linear systems of <span class="math notranslate nohighlight">\(n\)</span> equations in <span class="math notranslate nohighlight">\(n\)</span> variables have a unique solution.</p>
+<p>We know that not all linear systems of <span class="math inline">\(n\)</span> equations in <span class="math inline">\(n\)</span> variables have a unique solution.</p>
 <p>Such systems may have no solutions (inconsistent) or an infinite number of solutions.</p>
-<p>But this theorem says that <strong>if <span class="math notranslate nohighlight">\(A\)</span> is invertible, then the system has a unique solution.</strong></p>
-<section id="computing-the-matrix-inverse">
-<h2>Computing the Matrix Inverse<a class="headerlink" href="#computing-the-matrix-inverse" title="Permalink to this heading">#</a></h2>
-<p>Wonderful - so to solve a linear system, we simply need to compute the inverse of <span class="math notranslate nohighlight">\(A\)</span> (if it exists)!</p>
-<p>Well … how do we do that?</p>
-<section id="the-2-times-2-case">
-<h3>The <span class="math notranslate nohighlight">\(2\times 2\)</span> case<a class="headerlink" href="#the-2-times-2-case" title="Permalink to this heading">#</a></h3>
-<p>Before answering this question for arbitrary matices, I will answer it for the special case of <span class="math notranslate nohighlight">\(2 \times 2\)</span> matrices.</p>
-<p><strong>Theorem.</strong>  Let <span class="math notranslate nohighlight">\(A\)</span> = <span class="math notranslate nohighlight">\(\left[\begin{array}{rr}a&amp;b\\c&amp;d\end{array}\right].\)</span></p>
-<ul class="simple">
-<li><p>If <span class="math notranslate nohighlight">\(ad-bc \neq 0\)</span>, then <span class="math notranslate nohighlight">\(A\)</span> is invertible and <span class="math notranslate nohighlight">\(A^{-1} = \frac{1}{ad-bc}\left[\begin{array}{rr}d&amp;-b\\-c&amp;a\end{array}\right].\)</span></p></li>
-<li><p>If <span class="math notranslate nohighlight">\(ad-bc = 0\)</span>, then <span class="math notranslate nohighlight">\(A\)</span> is not invertible.</p></li>
-</ul>
-<p>Notice that this theorem tells us, for <span class="math notranslate nohighlight">\(2\times 2\)</span> matrices, exactly <em>which ones</em> are invertible.</p>
-<p>Namely: those which have <span class="math notranslate nohighlight">\(ad-bc \neq 0\)</span>.</p>
-<p>Of course, we recognize the quantity <span class="math notranslate nohighlight">\(ad-bc\)</span>!</p>
-<p>It is the <strong>determinant</strong> of <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<p><strong>Example.</strong>  Given a <span class="math notranslate nohighlight">\(2\times 2\)</span> matrix <span class="math notranslate nohighlight">\(A\)</span>, if the columns of <span class="math notranslate nohighlight">\(A\)</span> are linearly dependent, is <span class="math notranslate nohighlight">\(A\)</span> invertible?</p>
-<p><strong>Solution.</strong> If the columns of <span class="math notranslate nohighlight">\(A\)</span> are linearly dependent, then at least one of the columns is a multiple of the other.</p>
-<p>Let the multiplier be <span class="math notranslate nohighlight">\(m.\)</span></p>
-<p>Then we can express <span class="math notranslate nohighlight">\(A\)</span> as:
-<span class="math notranslate nohighlight">\(\left[\begin{array}{rr}a&amp;ma\\b&amp;mb\end{array}\right].\)</span></p>
-<p>The determinant of <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(a(mb) - b(ma) = 0.\)</span></p>
-<p>So a <span class="math notranslate nohighlight">\(2\times 2\)</span> matrix with linearly dependent columns is <strong>not invertible.</strong></p>
+<p>But this theorem says that <strong>if <span class="math inline">\(A\)</span> is invertible, then the system has a unique solution.</strong></p>
+</div>
 </section>
-<section id="matrices-larger-than-2-times-2">
-<h3>Matrices larger than <span class="math notranslate nohighlight">\(2 \times 2\)</span>.<a class="headerlink" href="#matrices-larger-than-2-times-2" title="Permalink to this heading">#</a></h3>
-<p>OK, now let’s look at a general method for computing the inverse of <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<p>Recall our definition of matrix multiplication: <span class="math notranslate nohighlight">\(AB\)</span> is the matrix formed by multiplying <span class="math notranslate nohighlight">\(A\)</span> times each column of <span class="math notranslate nohighlight">\(B\)</span>.</p>
-<div class="math notranslate nohighlight">
-\[ AB = [A{\bf b_1} \; \dots \; A{\bf b_n}]. \]</div>
-<p>Let’s look at the equation</p>
-<div class="math notranslate nohighlight">
-\[AA^{-1} = I.\]</div>
-<p>Let’s call the columns of <span class="math notranslate nohighlight">\(A^{-1}\)</span> = <span class="math notranslate nohighlight">\([{\bf x_1}, {\bf x_2}, \dots, {\bf x_n}].\)</span></p>
-<p>We know what the columns of <span class="math notranslate nohighlight">\(I\)</span> are: <span class="math notranslate nohighlight">\([{\bf e_1}, {\bf e_2}, \dots, {\bf e_n}].\)</span></p>
-<p>So:</p>
-<div class="math notranslate nohighlight">
-\[ AA^{-1} = A[{\bf x_1}, {\bf x_2}, \dots, {\bf x_n}] = [{\bf e_1}, {\bf e_2}, \dots, {\bf e_n}].\]</div>
-<p>Notice that we can break this up into <span class="math notranslate nohighlight">\(n\)</span> separate problems:</p>
-<div class="math notranslate nohighlight">
-\[ A{\bf x_1} = {\bf e_1} \]</div>
-<div class="math notranslate nohighlight">
-\[ A{\bf x_2} = {\bf e_2} \]</div>
-<div class="math notranslate nohighlight">
-\[ \vdots \]</div>
-<div class="math notranslate nohighlight">
-\[ A{\bf x_n} = {\bf e_n} \]</div>
-<p>(This is a common trick … make sure you understand why it works!)</p>
-<p>So here is a general way to compute the inverse of <span class="math notranslate nohighlight">\(A\)</span>:</p>
-<ul class="simple">
-<li><p>Solve the linear system <span class="math notranslate nohighlight">\(A{\bf x_1} = {\bf e_1}\)</span> to get the first column of <span class="math notranslate nohighlight">\(A^{-1}.\)</span></p></li>
-<li><p>Solve the linear system <span class="math notranslate nohighlight">\(A{\bf x_2} = {\bf e_2}\)</span> to get the second column of <span class="math notranslate nohighlight">\(A^{-1}.\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(\dots\)</span></p></li>
-<li><p>Solve the linear system <span class="math notranslate nohighlight">\(A{\bf x_n} = {\bf e_n}\)</span> to get the last column of <span class="math notranslate nohighlight">\(A^{-1}.\)</span></p></li>
-</ul>
-<p>If any of the systems are inconsistent or has an infinite solution set, then <span class="math notranslate nohighlight">\(A^{-1}\)</span> does not exist.</p>
-<p>In fact, the above procedure is equivalent to the following:</p>
-<ol class="arabic simple">
-<li><p>Construct the <span class="math notranslate nohighlight">\(n \times 2n\)</span> matrix <span class="math notranslate nohighlight">\(B = [A \;I]\)</span></p></li>
-<li><p>Find the <span class="math notranslate nohighlight">\(C\)</span> = the reduced echelon form of <span class="math notranslate nohighlight">\(B\)</span></p></li>
-<li><p>In the resulting matrix <span class="math notranslate nohighlight">\(C\)</span>:</p>
-<ul class="simple">
-<li><p>if the columns on the left half are <span class="math notranslate nohighlight">\(I\)</span>, then</p>
+<section id="computing-the-matrix-inverse" class="level2">
+<h2 class="anchored" data-anchor-id="computing-the-matrix-inverse">Computing the Matrix Inverse</h2>
+<p>Wonderful - so to solve a linear system, we simply need to compute the inverse of <span class="math inline">\(A\)</span> (if it exists)!</p>
+<p>Well … how do we do that?</p>
+<section id="the-2times-2-case" class="level3">
+<h3 class="anchored" data-anchor-id="the-2times-2-case">The <span class="math inline">\(2\times 2\)</span> case</h3>
+<p>Before answering this question for arbitrary matices, I will answer it for the special case of <span class="math inline">\(2 \times 2\)</span> matrices.</p>
+<div class="fragment">
+<p><strong>Theorem.</strong> Let <span class="math inline">\(A\)</span> = <span class="math inline">\(\left[\begin{array}{rr}a&amp;b\\c&amp;d\end{array}\right].\)</span></p>
 <ul>
-<li><p>the columns in the right half of <span class="math notranslate nohighlight">\(C\)</span> will be <span class="math notranslate nohighlight">\(A^{-1}\)</span>.</p></li>
+<li><p>If <span class="math inline">\(ad-bc \neq 0\)</span>, then <span class="math inline">\(A\)</span> is invertible and <span class="math inline">\(A^{-1} = \frac{1}{ad-bc}\left[\begin{array}{rr}d&amp;-b\\-c&amp;a\end{array}\right].\)</span></p></li>
+<li><p>If <span class="math inline">\(ad-bc = 0\)</span>, then <span class="math inline">\(A\)</span> is not invertible.</p></li>
 </ul>
-</li>
-<li><p>Otherwise, <span class="math notranslate nohighlight">\(A\)</span> is not invertible.</p></li>
+</div>
+<div class="fragment">
+<p>Notice that this theorem tells us, for <span class="math inline">\(2\times 2\)</span> matrices, exactly <em>which ones</em> are invertible.</p>
+<p>Namely: those which have <span class="math inline">\(ad-bc \neq 0\)</span>.</p>
+<p>Of course, we recognize the quantity <span class="math inline">\(ad-bc\)</span>!</p>
+<p>It is the <strong>determinant</strong> of <span class="math inline">\(A\)</span>.</p>
+</div>
+<p><strong>Example.</strong> Given a <span class="math inline">\(2\times 2\)</span> matrix <span class="math inline">\(A\)</span>, if the columns of <span class="math inline">\(A\)</span> are linearly dependent, is <span class="math inline">\(A\)</span> invertible?</p>
+<div class="fragment">
+<p><strong>Solution.</strong> If the columns of <span class="math inline">\(A\)</span> are linearly dependent, then at least one of the columns is a multiple of the other.</p>
+<p>Let the multiplier be <span class="math inline">\(m.\)</span></p>
+<p>Then we can express <span class="math inline">\(A\)</span> as: <span class="math inline">\(\left[\begin{array}{rr}a&amp;ma\\b&amp;mb\end{array}\right].\)</span></p>
+</div>
+<div class="fragment">
+<p>The determinant of <span class="math inline">\(A\)</span> is <span class="math inline">\(a(mb) - b(ma) = 0.\)</span></p>
+<p>So a <span class="math inline">\(2\times 2\)</span> matrix with linearly dependent columns is <strong>not invertible.</strong></p>
+</div>
+</section>
+<section id="matrices-larger-than-2-times-2." class="level3">
+<h3 class="anchored" data-anchor-id="matrices-larger-than-2-times-2.">Matrices larger than <span class="math inline">\(2 \times 2\)</span>.</h3>
+<div class="fragment">
+<p>OK, now let’s look at a general method for computing the inverse of <span class="math inline">\(A\)</span>.</p>
+</div>
+<div class="fragment">
+<p>Recall our definition of matrix multiplication: <span class="math inline">\(AB\)</span> is the matrix formed by multiplying <span class="math inline">\(A\)</span> times each column of <span class="math inline">\(B\)</span>.</p>
+<p><span class="math display">\[ AB = [A{\bf b_1} \; \dots \; A{\bf b_n}]. \]</span></p>
+</div>
+<div class="fragment">
+<p>Let’s look at the equation</p>
+<p><span class="math display">\[AA^{-1} = I.\]</span></p>
+</div>
+<div class="fragment">
+<p>Let’s call the columns of <span class="math inline">\(A^{-1}\)</span> = <span class="math inline">\([{\bf x_1}, {\bf x_2}, \dots, {\bf x_n}].\)</span></p>
+<p>We know what the columns of <span class="math inline">\(I\)</span> are: <span class="math inline">\([{\bf e_1}, {\bf e_2}, \dots, {\bf e_n}].\)</span></p>
+</div>
+<div class="fragment">
+<p>So:</p>
+<p><span class="math display">\[ AA^{-1} = A[{\bf x_1}, {\bf x_2}, \dots, {\bf x_n}] = [{\bf e_1}, {\bf e_2}, \dots, {\bf e_n}].\]</span></p>
+</div>
+<div class="fragment">
+<p>Notice that we can break this up into <span class="math inline">\(n\)</span> separate problems:</p>
+<p><span class="math display">\[ A{\bf x_1} = {\bf e_1} \]</span> <span class="math display">\[ A{\bf x_2} = {\bf e_2} \]</span> <span class="math display">\[ \vdots \]</span> <span class="math display">\[ A{\bf x_n} = {\bf e_n} \]</span></p>
+<p>(This is a common trick … make sure you understand why it works!)</p>
+</div>
+<div class="fragment">
+<p>So here is a general way to compute the inverse of <span class="math inline">\(A\)</span>:</p>
+<ul>
+<li>Solve the linear system <span class="math inline">\(A{\bf x_1} = {\bf e_1}\)</span> to get the first column of <span class="math inline">\(A^{-1}.\)</span></li>
+<li>Solve the linear system <span class="math inline">\(A{\bf x_2} = {\bf e_2}\)</span> to get the second column of <span class="math inline">\(A^{-1}.\)</span></li>
+<li><span class="math inline">\(\dots\)</span></li>
+<li>Solve the linear system <span class="math inline">\(A{\bf x_n} = {\bf e_n}\)</span> to get the last column of <span class="math inline">\(A^{-1}.\)</span></li>
 </ul>
-</li>
+</div>
+<div class="fragment">
+<p>If any of the systems are inconsistent or has an infinite solution set, then <span class="math inline">\(A^{-1}\)</span> does not exist.</p>
+</div>
+<div class="fragment">
+<p>In fact, the above procedure is equivalent to the following:</p>
+<ol type="1">
+<li>Construct the <span class="math inline">\(n \times 2n\)</span> matrix <span class="math inline">\(B = [A \;I]\)</span></li>
+<li>Find the <span class="math inline">\(C\)</span> = the reduced echelon form of <span class="math inline">\(B\)</span></li>
+<li>In the resulting matrix <span class="math inline">\(C\)</span>:
+<ul>
+<li>if the columns on the left half are <span class="math inline">\(I\)</span>, then
+<ul>
+<li>the columns in the right half of <span class="math inline">\(C\)</span> will be <span class="math inline">\(A^{-1}\)</span>.</li>
+</ul></li>
+<li>Otherwise, <span class="math inline">\(A\)</span> is not invertible.</li>
+</ul></li>
 </ol>
-<p><strong>The operation count of Matrix Inversion.</strong></p>
-<p>Thus, when we perform Matrix Inversion on an <span class="math notranslate nohighlight">\(n\times n\)</span> matrix, we are row reducing a <span class="math notranslate nohighlight">\(n\times 2n\)</span> matrix.</p>
-<p>This increased size results in the operation count of matrix inversion being <span class="math notranslate nohighlight">\(\sim 2n^3.\)</span></p>
+</div>
+</section>
+</section>
+<section id="the-computational-view" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="the-computational-view">The Computational View</h2>
+<section id="the-operation-count-of-matrix-inversion" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="the-operation-count-of-matrix-inversion">The Operation Count of Matrix Inversion</h3>
+<p>Thus, when we perform Matrix Inversion on an <span class="math inline">\(n\times n\)</span> matrix, we are row reducing a <span class="math inline">\(n\times 2n\)</span> matrix.</p>
+<p>This increased size results in the operation count of matrix inversion being <span class="math inline">\(\sim 2n^3.\)</span></p>
 <p>(To see a derivation of this, check the lecture notes.)</p>
 <p>This fact will be important!</p>
-<div class="admonition-optional-material admonition">
-<p class="admonition-title">Optional Material</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
 <p>Here is more detail on the operation count of Matrix Inversion.</p>
-<p>To do Matrix inversion, we perform row reduction on <span class="math notranslate nohighlight">\([A I]\)</span> to obtain <span class="math notranslate nohighlight">\([I A^{-1}]\)</span> as just described.   Since <span class="math notranslate nohighlight">\([A I]\)</span> is <span class="math notranslate nohighlight">\(n\times 2n\)</span>, the forward elimination step is <span class="math notranslate nohighlight">\(\sim\frac{5}{3}n^3\)</span> and the backsubstitution step is <span class="math notranslate nohighlight">\(\sim\frac{1}{3}n^3\)</span>.</p>
+<p>To do Matrix inversion, we perform row reduction on <span class="math inline">\([A I]\)</span> to obtain <span class="math inline">\([I A^{-1}]\)</span> as just described. &nbsp; Since <span class="math inline">\([A I]\)</span> is <span class="math inline">\(n\times 2n\)</span>, the forward elimination step is <span class="math inline">\(\sim\frac{5}{3}n^3\)</span> and the backsubstitution step is <span class="math inline">\(\sim\frac{1}{3}n^3\)</span>. &nbsp;</p>
 <p>In more detail:</p>
-<p>If you go back to the derivation of the cost of Gaussian Elimination in Lecture 3, you need to extend the diagram.  It is no longer <span class="math notranslate nohighlight">\(n\times(n+1)\)</span> but now is <span class="math notranslate nohighlight">\(n\times 2n\)</span>.  Then for the forward elimination phase of matrix inversion, you get:</p>
-<div class="math notranslate nohighlight">
-\[ 2\sum_{k=1}^n (k-1)(k+n) = 2\sum_{k=1}^n k^2 + (n-1)k - n\]</div>
+<p>If you go back to the derivation of the cost of Gaussian Elimination in Lecture 3, you need to extend the diagram. &nbsp;It is no longer <span class="math inline">\(n\times(n+1)\)</span> but now is <span class="math inline">\(n\times 2n\)</span>. &nbsp;Then for the forward elimination phase of matrix inversion, you get:</p>
+<p><span class="math display">\[ 2\sum_{k=1}^n (k-1)(k+n) = 2\sum_{k=1}^n k^2 + (n-1)k - n\]</span></p>
 <p>flops.</p>
-<p>If you expand this out, and use standard formulas for sums (eg, see <a class="reference external" href="https://brilliant.org/wiki/sum-of-n-n2-or-n3/">https://brilliant.org/wiki/sum-of-n-n2-or-n3/</a>), you will get the high order term of <span class="math notranslate nohighlight">\(\sim\frac{5}{3}n^3.\)</span></p>
-<p>Now, for the back substitution phase, at the start you have a matrix that is <span class="math notranslate nohighlight">\([U L]\)</span> where <span class="math notranslate nohighlight">\(U\)</span> is upper triangular and <span class="math notranslate nohighlight">\(L\)</span> is lower triangular.  To backsubstitute row <span class="math notranslate nohighlight">\(k\)</span> in this matrix, you need</p>
-<div class="math notranslate nohighlight">
-\[2 \sum_{i=1}^{k} i = 2\frac{(k-1)k}{2}\]</div>
-<p>flops.   So the total for back substitution is</p>
-<div class="math notranslate nohighlight">
-\[ \sum_{k=1}^n k^2 - k \]</div>
-<p>whose highest order term is <span class="math notranslate nohighlight">\(\frac{1}{3}n^3\)</span>.</p>
+<p>If you expand this out, and use standard formulas for sums (eg, see https://brilliant.org/wiki/sum-of-n-n2-or-n3/), you will get the high order term of <span class="math inline">\(\sim\frac{5}{3}n^3.\)</span></p>
+<p>Now, for the back substitution phase, at the start you have a matrix that is <span class="math inline">\([U L]\)</span> where <span class="math inline">\(U\)</span> is upper triangular and <span class="math inline">\(L\)</span> is lower triangular. &nbsp;To backsubstitute row <span class="math inline">\(k\)</span> in this matrix, you need</p>
+<p><span class="math display">\[2 \sum_{i=1}^{k} i = 2\frac{(k-1)k}{2}\]</span></p>
+<p>flops. &nbsp; So the total for back substitution is</p>
+<p><span class="math display">\[ \sum_{k=1}^n k^2 - k \]</span>&nbsp;</p>
+<p>whose highest order term is <span class="math inline">\(\frac{1}{3}n^3\)</span>. &nbsp;</p>
 <p>So the total operation count of Matrix Inversion is</p>
-<div class="math notranslate nohighlight">
-\[\sim \frac{5}{3}n^3 + \frac{1}{3}n^3 =  2n^3\]</div>
-</div>
-</section>
-<section id="the-computational-view">
-<h3>The Computational View<a class="headerlink" href="#the-computational-view" title="Permalink to this heading">#</a></h3>
+<p><span class="math display">\[\sim \frac{5}{3}n^3 + \frac{1}{3}n^3 = &nbsp;2n^3\]</span></p>
+</div></div></section>
+<section id="in-code" class="level3">
+<h3 class="anchored" data-anchor-id="in-code">In Code</h3>
 <p>This general strategy leads to an algorithm for inverting any matrix.</p>
-<p>However, in this course I will not ask you invert matrices larger than <span class="math notranslate nohighlight">\(2\times 2\)</span> by hand.</p>
-<p>Any time you need to invert a matrix larger than <span class="math notranslate nohighlight">\(2\times 2,\)</span> you may use a calculator or computer.</p>
-<p>To invert a matrix in <code class="docutils literal notranslate"><span class="pre">Python/numpy,</span></code> use the function <code class="docutils literal notranslate"><span class="pre">np.linalg.inv().</span></code>  For example:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-    <span class="p">[[</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">],</span>
-     <span class="p">[</span><span class="o">-</span><span class="mf">3.0</span><span class="p">,</span><span class="o">-</span><span class="mf">7.0</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;A =</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">A</span><span class="p">)</span>
-<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;B = </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">,</span><span class="n">B</span><span class="p">)</span>
-</pre></div>
+<p>However, in this course I will not ask you invert matrices larger than <span class="math inline">\(2\times 2\)</span> by hand.</p>
+<p>Any time you need to invert a matrix larger than <span class="math inline">\(2\times 2,\)</span> you may use a calculator or computer.</p>
+<div class="fragment">
+<p>To invert a matrix in <code>Python/numpy,</code> use the function <code>np.linalg.inv().</code> For example:</p>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>A =
+<div class="fragment">
+<div id="8d5187d0" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    [[ <span class="fl">2.0</span>, <span class="fl">5.0</span>],</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>     [<span class="op">-</span><span class="fl">3.0</span>,<span class="op">-</span><span class="fl">7.0</span>]])</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'A =</span><span class="ch">\n</span><span class="st">'</span>,A)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> np.linalg.inv(A)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'B = </span><span class="ch">\n</span><span class="st">'</span>,B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>A =
  [[ 2.  5.]
  [-3. -7.]]
 B = 
  [[-7. -5.]
- [ 3.  2.]]
-</pre></div>
+ [ 3.  2.]]</code></pre>
 </div>
 </div>
 </div>
-<p>What do you think happens if you call <code class="docutils literal notranslate"><span class="pre">np.linalg.inv()</span></code> on a matrix that is not invertible?</p>
-<div class="cell tag_raises-exception docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">2.</span><span class="p">,</span><span class="mf">4.</span><span class="p">],[</span><span class="mf">2.</span><span class="p">,</span><span class="mf">4.</span><span class="p">]])</span>
-<span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">LinAlgError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">2.</span><span class="p">,</span><span class="mf">4.</span><span class="p">],[</span><span class="mf">2.</span><span class="p">,</span><span class="mf">4.</span><span class="p">]])</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<p>What do you think happens if you call <code>np.linalg.inv()</code> on a matrix that is not invertible?</p>
+<div class="fragment">
+<div id="84f85988" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array([[<span class="fl">2.</span>,<span class="fl">4.</span>],[<span class="fl">2.</span>,<span class="fl">4.</span>]])</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>np.linalg.inv(A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<div class="ansi-escaped-output">
+<pre><span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">LinAlgError</span>                               Traceback (most recent call last)
+Cell <span class="ansi-green-fg">In[3], line 2</span>
+<span class="ansi-green-fg ansi-bold">      1</span> A <span style="color:rgb(98,98,98)">=</span> np<span style="color:rgb(98,98,98)">.</span>array([[<span style="color:rgb(98,98,98)">2.</span>,<span style="color:rgb(98,98,98)">4.</span>],[<span style="color:rgb(98,98,98)">2.</span>,<span style="color:rgb(98,98,98)">4.</span>]])
+<span class="ansi-green-fg">----&gt; 2</span> <span class="ansi-yellow-bg">np</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">linalg</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">inv</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">A</span><span class="ansi-yellow-bg">)</span>
 
-<span class="nn">File ~/anaconda3/envs/CS132-quarto/lib/python3.9/site-packages/numpy/linalg/linalg.py:561,</span> in <span class="ni">inv</span><span class="nt">(a)</span>
-<span class="g g-Whitespace">    </span><span class="mi">559</span> <span class="n">signature</span> <span class="o">=</span> <span class="s1">&#39;D-&gt;D&#39;</span> <span class="k">if</span> <span class="n">isComplexType</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;d-&gt;d&#39;</span>
-<span class="g g-Whitespace">    </span><span class="mi">560</span> <span class="n">extobj</span> <span class="o">=</span> <span class="n">get_linalg_error_extobj</span><span class="p">(</span><span class="n">_raise_linalgerror_singular</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">561</span> <span class="n">ainv</span> <span class="o">=</span> <span class="n">_umath_linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">signature</span><span class="o">=</span><span class="n">signature</span><span class="p">,</span> <span class="n">extobj</span><span class="o">=</span><span class="n">extobj</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">562</span> <span class="k">return</span> <span class="n">wrap</span><span class="p">(</span><span class="n">ainv</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">result_t</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+File <span class="ansi-green-fg">~/anaconda3/envs/CS132-quarto/lib/python3.9/site-packages/numpy/linalg/linalg.py:561</span>, in <span class="ansi-cyan-fg">inv</span><span class="ansi-blue-fg">(a)</span>
+<span class="ansi-green-fg ansi-bold">    559</span> signature <span style="color:rgb(98,98,98)">=</span> <span style="color:rgb(175,0,0)">'</span><span style="color:rgb(175,0,0)">D-&gt;D</span><span style="color:rgb(175,0,0)">'</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> isComplexType(t) <span style="font-weight:bold;color:rgb(0,135,0)">else</span> <span style="color:rgb(175,0,0)">'</span><span style="color:rgb(175,0,0)">d-&gt;d</span><span style="color:rgb(175,0,0)">'</span>
+<span class="ansi-green-fg ansi-bold">    560</span> extobj <span style="color:rgb(98,98,98)">=</span> get_linalg_error_extobj(_raise_linalgerror_singular)
+<span class="ansi-green-fg">--&gt; 561</span> ainv <span style="color:rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">_umath_linalg</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">inv</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">a</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">signature</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">signature</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">extobj</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">extobj</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg ansi-bold">    562</span> <span style="font-weight:bold;color:rgb(0,135,0)">return</span> wrap(ainv<span style="color:rgb(98,98,98)">.</span>astype(result_t, copy<span style="color:rgb(98,98,98)">=</span><span style="font-weight:bold;color:rgb(0,135,0)">False</span>))
 
-<span class="nn">File ~/anaconda3/envs/CS132-quarto/lib/python3.9/site-packages/numpy/linalg/linalg.py:112,</span> in <span class="ni">_raise_linalgerror_singular</span><span class="nt">(err, flag)</span>
-<span class="g g-Whitespace">    </span><span class="mi">111</span> <span class="k">def</span> <span class="nf">_raise_linalgerror_singular</span><span class="p">(</span><span class="n">err</span><span class="p">,</span> <span class="n">flag</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">112</span>     <span class="k">raise</span> <span class="n">LinAlgError</span><span class="p">(</span><span class="s2">&quot;Singular matrix&quot;</span><span class="p">)</span>
+File <span class="ansi-green-fg">~/anaconda3/envs/CS132-quarto/lib/python3.9/site-packages/numpy/linalg/linalg.py:112</span>, in <span class="ansi-cyan-fg">_raise_linalgerror_singular</span><span class="ansi-blue-fg">(err, flag)</span>
+<span class="ansi-green-fg ansi-bold">    111</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span> <span style="color:rgb(0,0,255)">_raise_linalgerror_singular</span>(err, flag):
+<span class="ansi-green-fg">--&gt; 112</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> LinAlgError(<span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">Singular matrix</span><span style="color:rgb(175,0,0)">"</span>)
 
-<span class="ne">LinAlgError</span>: Singular matrix
-</pre></div>
+<span class="ansi-red-fg">LinAlgError</span>: Singular matrix</pre>
 </div>
 </div>
 </div>
+</div>
+<div class="fragment">
 <p>The right way to handle this is:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">2.</span><span class="p">,</span><span class="mf">4.</span><span class="p">],[</span><span class="mf">2.</span><span class="p">,</span><span class="mf">4.</span><span class="p">]])</span>
-<span class="k">try</span><span class="p">:</span>
-    <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-<span class="k">except</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Oops, looks like A is singular!&#39;</span><span class="p">)</span>
-</pre></div>
 </div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Oops, looks like A is singular!
-</pre></div>
+<div class="fragment">
+<div id="7554718d" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array([[<span class="fl">2.</span>,<span class="fl">4.</span>],[<span class="fl">2.</span>,<span class="fl">4.</span>]])</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    np.linalg.inv(A)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> np.linalg.LinAlgError:</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Oops, looks like A is singular!'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Oops, looks like A is singular!</code></pre>
 </div>
 </div>
 </div>
 </section>
 </section>
-<section id="using-the-matrix-inverse-to-solve-a-linear-system">
-<h2>Using the Matrix Inverse to Solve a Linear System<a class="headerlink" href="#using-the-matrix-inverse-to-solve-a-linear-system" title="Permalink to this heading">#</a></h2>
+<section id="using-the-matrix-inverse-to-solve-a-linear-system" class="level2">
+<h2 class="anchored" data-anchor-id="using-the-matrix-inverse-to-solve-a-linear-system">Using the Matrix Inverse to Solve a Linear System</h2>
+<div class="fragment">
 <p>Solve the system:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{array}{rcl}
+<p><span class="math display">\[\begin{array}{rcl}
 3x_1 +4x_2 &amp;=&amp; 3\\
 5x_1 +6x_2 &amp;=&amp; 7
-\end{array}\end{split}\]</div>
-<p>Rewrite this system as <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}:\)</span></p>
-<div class="math notranslate nohighlight">
-\[\begin{split} \left[\begin{array}{rr}3&amp;4\\5&amp;6\end{array}\right] {\bf x} = \left[\begin{array}{r}3\\7\end{array}\right].\end{split}\]</div>
-<p>The determinant of <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(3(6)-4(5) = -2,\)</span> which is nonzero, so <span class="math notranslate nohighlight">\(A\)</span> has an inverse.</p>
-<p>According to our <span class="math notranslate nohighlight">\(2\times 2\)</span> formula, the inverse of <span class="math notranslate nohighlight">\(A\)</span> is:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split} A^{-1} = \frac{1}{-2}\left[\begin{array}{rr}6&amp;-4\\-5&amp;3\end{array}\right] = \left[\begin{array}{rr}-3&amp;2\\5/2&amp;-3/2\end{array}\right].\end{split}\]</div>
+\end{array}\]</span></p>
+</div>
+<div class="fragment">
+<p>Rewrite this system as <span class="math inline">\(A{\bf x} = {\bf b}:\)</span></p>
+<p><span class="math display">\[ \left[\begin{array}{rr}3&amp;4\\5&amp;6\end{array}\right] {\bf x} = \left[\begin{array}{r}3\\7\end{array}\right].\]</span></p>
+</div>
+<div class="fragment">
+<p>The determinant of <span class="math inline">\(A\)</span> is <span class="math inline">\(3(6)-4(5) = -2,\)</span> which is nonzero, so <span class="math inline">\(A\)</span> has an inverse.</p>
+<p>According to our <span class="math inline">\(2\times 2\)</span> formula, the inverse of <span class="math inline">\(A\)</span> is:</p>
+<p><span class="math display">\[ A^{-1} = \frac{1}{-2}\left[\begin{array}{rr}6&amp;-4\\-5&amp;3\end{array}\right] = \left[\begin{array}{rr}-3&amp;2\\5/2&amp;-3/2\end{array}\right].\]</span></p>
+</div>
+<div class="fragment">
 <p>So the solution is:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split} {\bf x} = A^{-1}{\bf b} = \left[\begin{array}{rr}-3&amp;2\\5/2&amp;-3/2\end{array}\right]\left[\begin{array}{r}3\\7\end{array}\right] = \left[\begin{array}{r}5\\-3\end{array}\right].\end{split}\]</div>
+<p><span class="math display">\[ {\bf x} = A^{-1}{\bf b} = \left[\begin{array}{rr}-3&amp;2\\5/2&amp;-3/2\end{array}\right]\left[\begin{array}{r}3\\7\end{array}\right] = \left[\begin{array}{r}5\\-3\end{array}\right].\]</span></p>
+</div>
 </section>
-<section id="algebra-of-matrix-inverses">
-<h2>Algebra of Matrix Inverses<a class="headerlink" href="#algebra-of-matrix-inverses" title="Permalink to this heading">#</a></h2>
+<section id="algebra-of-matrix-inverses" class="level2">
+<h2 class="anchored" data-anchor-id="algebra-of-matrix-inverses">Algebra of Matrix Inverses</h2>
+<div class="fragment">
 <p><strong>Theorem.</strong></p>
-<ul class="simple">
-<li><p>If <span class="math notranslate nohighlight">\(A\)</span> is an invertible matrix, then <span class="math notranslate nohighlight">\(A^{-1}\)</span> is invertible, and</p></li>
+<ul>
+<li>If <span class="math inline">\(A\)</span> is an invertible matrix, then <span class="math inline">\(A^{-1}\)</span> is invertible, and</li>
 </ul>
-<div class="math notranslate nohighlight">
-\[(A^{-1})^{-1} = A.\]</div>
-<ul class="simple">
-<li><p>If <span class="math notranslate nohighlight">\(A\)</span> is an invertible matrix, then so is <span class="math notranslate nohighlight">\(A^T,\)</span> and the inverse of <span class="math notranslate nohighlight">\(A^T\)</span> is the transpose of <span class="math notranslate nohighlight">\(A^{-1}.\)</span></p></li>
+<p><span class="math display">\[(A^{-1})^{-1} = A.\]</span></p>
+</div>
+<div class="fragment">
+<ul>
+<li>If <span class="math inline">\(A\)</span> is an invertible matrix, then so is <span class="math inline">\(A^T,\)</span> and the inverse of <span class="math inline">\(A^T\)</span> is the transpose of <span class="math inline">\(A^{-1}.\)</span></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[(A^T)^{-1} = (A^{-1})^T.\]</div>
-<ul class="simple">
-<li><p>If <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are <span class="math notranslate nohighlight">\(n\times n\)</span> invertible matrices, then so is <span class="math notranslate nohighlight">\(AB,\)</span> and the inverse of <span class="math notranslate nohighlight">\(AB\)</span> is the product of the inverses of <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> in the reverse order.</p></li>
+<p><span class="math display">\[(A^T)^{-1} = (A^{-1})^T.\]</span></p>
+</div>
+<div class="fragment">
+<ul>
+<li>If <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are <span class="math inline">\(n\times n\)</span> invertible matrices, then so is <span class="math inline">\(AB,\)</span> and the inverse of <span class="math inline">\(AB\)</span> is the product of the inverses of <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> in the reverse order.</li>
 </ul>
-<div class="math notranslate nohighlight">
-\[(AB)^{-1} = B^{-1}A^{-1}.\]</div>
-<p>The first two are straightforward.  Let’s verify the last one because it shows some common calculation patterns:</p>
-<div class="math notranslate nohighlight">
-\[(AB)(B^{-1}A^{-1})\]</div>
-<div class="math notranslate nohighlight">
-\[=A(BB^{-1})A^{-1}\]</div>
-<div class="math notranslate nohighlight">
-\[=AIA^{-1}\]</div>
-<div class="math notranslate nohighlight">
-\[=AA^{-1}\]</div>
-<div class="math notranslate nohighlight">
-\[=I.\]</div>
+<p><span class="math display">\[(AB)^{-1} = B^{-1}A^{-1}.\]</span></p>
+</div>
+<div class="fragment">
+<p>The first two are straightforward. Let’s verify the last one because it shows some common calculation patterns:</p>
+<p><span class="math display">\[(AB)(B^{-1}A^{-1})\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[=A(BB^{-1})A^{-1}\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[=AIA^{-1}\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[=AA^{-1}\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[=I.\]</span></p>
+</div>
 </section>
-<section id="the-invertible-matrix-theorem">
-<h2>The Invertible Matrix Theorem<a class="headerlink" href="#the-invertible-matrix-theorem" title="Permalink to this heading">#</a></h2>
-<p>Earlier we saw that if a matrix <span class="math notranslate nohighlight">\(A\)</span> is invertible, then <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> has a unique solution for any <span class="math notranslate nohighlight">\({\bf b}\)</span>.</p>
-<p>This suggests a deep connection between the invertibility of <span class="math notranslate nohighlight">\(A\)</span> and the nature of the linear system <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}.\)</span></p>
+<section id="the-invertible-matrix-theorem" class="level2">
+<h2 class="anchored" data-anchor-id="the-invertible-matrix-theorem">The Invertible Matrix Theorem</h2>
+<p>Earlier we saw that if a matrix <span class="math inline">\(A\)</span> is invertible, then <span class="math inline">\(A{\bf x} = {\bf b}\)</span> has a unique solution for any <span class="math inline">\({\bf b}\)</span>.</p>
+<p>This suggests a deep connection between the invertibility of <span class="math inline">\(A\)</span> and the nature of the linear system <span class="math inline">\(A{\bf x} = {\bf b}.\)</span></p>
+<div class="fragment">
 <p>In fact, we are now at the point where we can collect together in a fairly complete way much of what we have learned about matrices and linear systems.</p>
 <p>This remarkable collection of ten interrelated properties is called the <strong>Invertible Matrix Theorem (IMT).</strong></p>
-<p><strong>Invertible Matrix Theorem.</strong>  Let <span class="math notranslate nohighlight">\(A\)</span> by a square <span class="math notranslate nohighlight">\(n\times n\)</span> matrix.</p>
+</div>
+<div class="fragment">
+<p><strong>Invertible Matrix Theorem.</strong> Let <span class="math inline">\(A\)</span> be a square <span class="math inline">\(n\times n\)</span> matrix.</p>
 <p>Then the following statements are equivalent; that is, they are either <strong>all true</strong> or <strong>all false</strong>:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(A\)</span> is an invertible matrix.</p></li>
-</ul>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(A^T\)</span> is an invertible matrix.</p>
+</div>
+<div class="fragment">
 <ul>
-<li><p>Proof by direct construction: <span class="math notranslate nohighlight">\((A^T)^{-1} = (A^{-1})^T.\)</span></p></li>
+<li><span class="math inline">\(A\)</span> is an invertible matrix.</li>
 </ul>
-</li>
-</ul>
-<ul class="simple">
-<li><p>The equation <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> has a unique solution for each <span class="math notranslate nohighlight">\({\bf b}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n.\)</span></p>
+</div>
+<div class="fragment">
 <ul>
-<li><p>As already mentioned, we proved this above.</p></li>
-</ul>
-</li>
-</ul>
-<ul class="simple">
-<li><p>A is row equivalent to the identity matrix.</p>
+<li><span class="math inline">\(A^T\)</span> is an invertible matrix.
 <ul>
-<li><p>If <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> has a unique solution for any <span class="math notranslate nohighlight">\({\bf b},\)</span> then the reduced row echelon form of <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(I\)</span>.</p></li>
+<li>Proof by direct construction: <span class="math inline">\((A^T)^{-1} = (A^{-1})^T.\)</span></li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<ul class="simple">
-<li><p>A has <span class="math notranslate nohighlight">\(n\)</span> pivot positions.</p>
+</div>
+<div class="fragment">
 <ul>
-<li><p>Follows directly from the previous statement.</p></li>
-</ul>
-</li>
-</ul>
-<ul class="simple">
-<li><p>The equation <span class="math notranslate nohighlight">\(A{\bf x} = {\bf 0}\)</span> has only the trivial solution.</p>
+<li>The equation <span class="math inline">\(A{\bf x} = {\bf b}\)</span> has a unique solution for each <span class="math inline">\({\bf b}\)</span> in <span class="math inline">\(\mathbb{R}^n.\)</span>
 <ul>
-<li><p>If <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> has a unique solution for any <span class="math notranslate nohighlight">\({\bf b},\)</span> then the unique solution for <span class="math notranslate nohighlight">\({\bf b} = {\bf 0}\)</span> must be <span class="math notranslate nohighlight">\({\bf 0.}\)</span></p></li>
+<li>As already mentioned, we proved this above.</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<ul class="simple">
-<li><p>The columns of <span class="math notranslate nohighlight">\(A\)</span> form a linearly independent set.</p>
+</div>
+<div class="fragment">
 <ul>
-<li><p>Follows directly the previous statement and the definition of linear independence.</p></li>
-</ul>
-</li>
-</ul>
-<ul class="simple">
-<li><p>The columns of <span class="math notranslate nohighlight">\(A\)</span> span <span class="math notranslate nohighlight">\(\mathbb{R}^n.\)</span></p>
+<li>A is row equivalent to the identity matrix.
 <ul>
-<li><p>For any <span class="math notranslate nohighlight">\({\bf b} \in \mathbb{R}^n,\)</span> there is a set of coefficients <span class="math notranslate nohighlight">\({\bf x}\)</span> which can be used to construct <span class="math notranslate nohighlight">\({\bf b}\)</span> from the columns of <span class="math notranslate nohighlight">\(A.\)</span></p></li>
+<li>If <span class="math inline">\(A{\bf x} = {\bf b}\)</span> has a unique solution for any <span class="math inline">\({\bf b},\)</span> then the reduced row echelon form of <span class="math inline">\(A\)</span> is <span class="math inline">\(I\)</span>.</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<ul class="simple">
-<li><p>The linear transformation <span class="math notranslate nohighlight">\({\bf x} \mapsto A{\bf x}\)</span> maps <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> onto <span class="math notranslate nohighlight">\(\mathbb{R}^n.\)</span></p>
+</div>
+<div class="fragment">
 <ul>
-<li><p>Follows directly from the previous statement.</p></li>
-</ul>
-</li>
-</ul>
-<ul class="simple">
-<li><p>The linear transformation <span class="math notranslate nohighlight">\({\bf x} \mapsto A{\bf x}\)</span> is one-to-one.</p>
+<li>A has <span class="math inline">\(n\)</span> pivot positions.
 <ul>
-<li><p>Follows directly from the fact that <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> has a unique solution for any <span class="math notranslate nohighlight">\({\bf b}.\)</span></p></li>
+<li>Follows directly from the previous statement.</li>
+</ul></li>
 </ul>
-</li>
+</div>
+<div class="fragment">
+<ul>
+<li>The equation <span class="math inline">\(A{\bf x} = {\bf 0}\)</span> has only the trivial solution.
+<ul>
+<li>If <span class="math inline">\(A{\bf x} = {\bf b}\)</span> has a unique solution for any <span class="math inline">\({\bf b},\)</span> then the unique solution for <span class="math inline">\({\bf b} = {\bf 0}\)</span> must be <span class="math inline">\({\bf 0.}\)</span></li>
+</ul></li>
 </ul>
-<p>The arguments above show that if <span class="math notranslate nohighlight">\(A\)</span> is invertible, then all the other statements are true.</p>
-<p>In fact, the converse holds as well: if <span class="math notranslate nohighlight">\(A\)</span> is not invertible, then all the other statements are false.</p>
+</div>
+<div class="fragment">
+<ul>
+<li>The columns of <span class="math inline">\(A\)</span> form a linearly independent set.
+<ul>
+<li>Follows directly the previous statement and the definition of linear independence.</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>The columns of <span class="math inline">\(A\)</span> span <span class="math inline">\(\mathbb{R}^n.\)</span>
+<ul>
+<li>For any <span class="math inline">\({\bf b} \in \mathbb{R}^n,\)</span> there is a set of coefficients <span class="math inline">\({\bf x}\)</span> which can be used to construct <span class="math inline">\({\bf b}\)</span> from the columns of <span class="math inline">\(A.\)</span></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>The linear transformation <span class="math inline">\({\bf x} \mapsto A{\bf x}\)</span> maps <span class="math inline">\(\mathbb{R}^n\)</span> onto <span class="math inline">\(\mathbb{R}^n.\)</span>
+<ul>
+<li>Follows directly from the previous statement.</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>The linear transformation <span class="math inline">\({\bf x} \mapsto A{\bf x}\)</span> is one-to-one.
+<ul>
+<li>Follows directly from the fact that <span class="math inline">\(A{\bf x} = {\bf b}\)</span> has a unique solution for any <span class="math inline">\({\bf b}.\)</span></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<p>The arguments above show that if <span class="math inline">\(A\)</span> is invertible, then all the other statements are true.</p>
+<p>In fact, the converse holds as well: if <span class="math inline">\(A\)</span> is not invertible, then all the other statements are false.</p>
 <p>(We will skip the proof of the converse, but it’s not difficult.)</p>
+</div>
 <p>This theorem has wide-ranging implications.</p>
-<p>It divides the set of all <span class="math notranslate nohighlight">\(n\times n\)</span> matrices into two disjoint classes:</p>
-<ol class="arabic simple">
-<li><p>the invertible (nonsingular) matrices, and</p></li>
-<li><p>the noninvertible (singular) matrices.</p></li>
+<p>It divides the set of all <span class="math inline">\(n\times n\)</span> matrices into two disjoint classes:</p>
+<ol type="1">
+<li>the invertible (nonsingular) matrices, and</li>
+<li>the noninvertible (singular) matrices.</li>
 </ol>
+<div class="fragment">
 <p>The power of the IMT lies in the conections it provides among so many important concepts.</p>
-<p>For example, notice how it connects linear independence of the columns of a matrix <span class="math notranslate nohighlight">\(A\)</span> to the existence of solutions to equations of the form <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}.\)</span></p>
+<p>For example, notice how it connects linear independence of the columns of a matrix <span class="math inline">\(A\)</span> to the existence of solutions to equations of the form <span class="math inline">\(A{\bf x} = {\bf b}.\)</span></p>
 <p>This allows us to bring many tools to bear as needed to solve a problem.</p>
+</div>
+<div class="fragment">
 <p><strong>Example.</strong></p>
-<p>Decide if <span class="math notranslate nohighlight">\(A\)</span> is invertible:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}A = \left[\begin{array}{rrr}1&amp;0&amp;-2\\3&amp;1&amp;-2\\-5&amp;-1&amp;9\end{array}\right].\end{split}\]</div>
+<p>Decide if <span class="math inline">\(A\)</span> is invertible:</p>
+<p><span class="math display">\[A = \left[\begin{array}{rrr}1&amp;0&amp;-2\\3&amp;1&amp;-2\\-5&amp;-1&amp;9\end{array}\right].\]</span></p>
+</div>
+<div class="fragment">
 <p><strong>Solution.</strong></p>
-<div class="math notranslate nohighlight">
-\[\begin{split}A \sim \left[\begin{array}{rrr}1&amp;0&amp;-2\\0&amp;1&amp;4\\0&amp;-1&amp;-1\end{array}\right] \sim \left[\begin{array}{rrr}1&amp;0&amp;-2\\0&amp;1&amp;4\\0&amp;0&amp;3\end{array}\right].\end{split}\]</div>
-<p><span class="math notranslate nohighlight">\(A\)</span> has three pivot positions and hence is invertible, by the IMT.</p>
+<p><span class="math display">\[A \sim \left[\begin{array}{rrr}1&amp;0&amp;-2\\0&amp;1&amp;4\\0&amp;-1&amp;-1\end{array}\right] \sim \left[\begin{array}{rrr}1&amp;0&amp;-2\\0&amp;1&amp;4\\0&amp;0&amp;3\end{array}\right].\]</span></p>
+<p><span class="math inline">\(A\)</span> has three pivot positions and hence is invertible, by the IMT.</p>
+</div>
+<div class="fragment">
 <p><strong>Example.</strong></p>
-<p>Decide if <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> has a solution for all <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split} A = \left[\begin{array}{rr}3 &amp; 7\\-6 &amp; -14\end{array}\right].\end{split}\]</div>
+<p>Decide if <span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span> has a solution for all <span class="math inline">\(\mathbf{b}\)</span>:</p>
+<p><span class="math display">\[ A = \left[\begin{array}{rr}3 &amp; 7\\-6 &amp; -14\end{array}\right].\]</span></p>
+</div>
+<div class="fragment">
 <p><strong>Solution.</strong></p>
-<p>The determinant of <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\((3 \cdot -14) - (7 \cdot -6) = 0\)</span>.</p>
-<p>So <span class="math notranslate nohighlight">\(A\)</span> is not invertible, so <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> does <strong>not</strong> have a solution for all <span class="math notranslate nohighlight">\(\mathbf{b}\)</span>.</p>
+<p>The determinant of <span class="math inline">\(A\)</span> is <span class="math inline">\((3 \cdot -14) - (7 \cdot -6) = 0\)</span>.</p>
+<p>So <span class="math inline">\(A\)</span> is not invertible, so <span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span> does <strong>not</strong> have a solution for all <span class="math inline">\(\mathbf{b}\)</span>.</p>
+</div>
 <p><strong>Note.</strong></p>
-<p>Keep in mind: while the IMT is quite powerful, it does not completely settle issues that arise with respect to <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}.\)</span></p>
+<p>Keep in mind: while the IMT is quite powerful, it does not completely settle issues that arise with respect to <span class="math inline">\(A{\bf x} = {\bf b}.\)</span></p>
 <p>This is because <strong>it only applies to square matrices.</strong></p>
-<p>So if <span class="math notranslate nohighlight">\(A\)</span> is nonsquare, then we can’t use the IMT to conclude anything about the existence or nonexistence of solutions to <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}.\)</span></p>
+<p>So if <span class="math inline">\(A\)</span> is nonsquare, then we can’t use the IMT to conclude anything about the existence or nonexistence of solutions to <span class="math inline">\(A{\bf x} = {\bf b}.\)</span></p>
 </section>
-<section id="invertible-linear-transformations">
-<h2>Invertible Linear Transformations<a class="headerlink" href="#invertible-linear-transformations" title="Permalink to this heading">#</a></h2>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/fd975e92d335fbb09ba2663273a45fb94514c38a196962d3f5a827dd3a118f60.png" src="_images/fd975e92d335fbb09ba2663273a45fb94514c38a196962d3f5a827dd3a118f60.png" />
-</div>
-</div>
-<p>A linear transformation <span class="math notranslate nohighlight">\(T: \mathbb{R}^n \rightarrow \mathbb{R}^n\)</span> is <strong>invertible</strong> if there exists a function <span class="math notranslate nohighlight">\(S: \mathbb{R}^n \rightarrow \mathbb{R}^n\)</span> such that</p>
-<div class="math notranslate nohighlight">
-\[ S(T({\bf x})) = {\bf x}\;\;\;\mbox{for all}\;{\bf x}\in\mathbb{R}^n,\]</div>
+<section id="invertible-linear-transformations" class="level2">
+<h2 class="anchored" data-anchor-id="invertible-linear-transformations">Invertible Linear Transformations</h2>
+<p><img src="mages/L10 F1.png" class="img-fluid" width="350"></p>
+<div class="fragment">
+<p>A linear transformation <span class="math inline">\(T: \mathbb{R}^n \rightarrow \mathbb{R}^n\)</span> is <strong>invertible</strong> if there exists a function <span class="math inline">\(S: \mathbb{R}^n \rightarrow \mathbb{R}^n\)</span> such that</p>
+<p><span class="math display">\[ S(T({\bf x})) = {\bf x}\;\;\;\text{for all}\;{\bf x}\in\mathbb{R}^n,\]</span></p>
 <p>and</p>
-<div class="math notranslate nohighlight">
-\[ T(S({\bf x})) = {\bf x}\;\;\;\mbox{for all}\;{\bf x}\in\mathbb{R}^n.\]</div>
+<p><span class="math display">\[ T(S({\bf x})) = {\bf x}\;\;\;\text{for all}\;{\bf x}\in\mathbb{R}^n.\]</span></p>
+</div>
+<div class="fragment">
 <p><strong>Theorem.</strong></p>
-<p>Let <span class="math notranslate nohighlight">\(T: \mathbb{R}^n \rightarrow \mathbb{R}^n\)</span> be a linear transformation and let <span class="math notranslate nohighlight">\(A\)</span> be the standard matrix for <span class="math notranslate nohighlight">\(T\)</span>.</p>
-<p>Then <span class="math notranslate nohighlight">\(T\)</span> is invertible if and only if <span class="math notranslate nohighlight">\(A\)</span> is an invertible matrix.</p>
-<p>In that case the linear transformation <span class="math notranslate nohighlight">\(S\)</span> given by <span class="math notranslate nohighlight">\(S({\bf x}) = A^{-1}{\bf x}\)</span> is the unique function satisfying the definition.</p>
+<p>Let <span class="math inline">\(T: \mathbb{R}^n \rightarrow \mathbb{R}^n\)</span> be a linear transformation and let <span class="math inline">\(A\)</span> be the standard matrix for <span class="math inline">\(T\)</span>.</p>
+<p>Then <span class="math inline">\(T\)</span> is invertible if and only if <span class="math inline">\(A\)</span> is an invertible matrix.</p>
+<p>In that case the linear transformation <span class="math inline">\(S\)</span> given by <span class="math inline">\(S({\bf x}) = A^{-1}{\bf x}\)</span> is the unique function satisfying the definition.</p>
+</div>
 <p>Let’s look at some invertible and non-invertible linear transformations.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">square</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]])</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-    <span class="p">[[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> 
-     <span class="p">[</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-<span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
-<span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">square</span><span class="p">)</span>
-<span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">square</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<span class="n">Latex</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Horizontal Contraction&#39;</span><span class="p">)</span>
-</pre></div>
+<div class="fragment">
+<div id="f6c76bed" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>square <span class="op">=</span> np.array([[<span class="fl">0.0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>],[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>]])</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array(</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    [[<span class="fl">0.5</span>, <span class="dv">0</span>], </span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>     [  <span class="dv">0</span>, <span class="dv">1</span>]])</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(A)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>dm.plotSetup()</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>dm.plotSquare(square)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>dm.plotSquare(A <span class="op">@</span> square,<span class="st">'r'</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>Latex(<span class="vs">r'Horizontal Contraction'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[0.5 0. ]
+ [0.  1. ]]</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>&lt;IPython.core.display.Latex object&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L10MatrixInverse_files/figure-html/cell-6-output-3.png" width="477" height="476" class="figure-img"></p>
+</figure>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[0.5 0. ]
- [0.  1. ]]
-</pre></div>
-</div>
-<div class="output text_latex math notranslate nohighlight">
-\[Horizontal Contraction\]</div>
-<img alt="_images/7a57d8d048bdfed740f7d7dbd4385fc6a0d514e06c4fe2a032a2277bc67d0abd.png" src="_images/7a57d8d048bdfed740f7d7dbd4385fc6a0d514e06c4fe2a032a2277bc67d0abd.png" />
 </div>
 </div>
-<p>Here <span class="math notranslate nohighlight">\(A = \left[\begin{array}{rr}0.5&amp;0\\0&amp;1\end{array}\right].\)</span>  Its determinant is <span class="math notranslate nohighlight">\(1(0.5)-0(0) = 0.5,\)</span> so this linear transformation is invertible.</p>
+<div class="fragment">
+<p>Here <span class="math inline">\(A = \left[\begin{array}{rr}0.5&amp;0\\0&amp;1\end{array}\right].\)</span> Its determinant is <span class="math inline">\(1(0.5)-0(0) = 0.5,\)</span> so this linear transformation is invertible.</p>
 <p>Its inverse is:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split} \frac{1}{0.5}\left[\begin{array}{rr}1&amp;0\\0&amp;0.5\end{array}\right] = \left[\begin{array}{rr}2&amp;0\\0&amp;1\end{array}\right].\end{split}\]</div>
-<p>Clearly, just as <span class="math notranslate nohighlight">\(A\)</span> contracted the <span class="math notranslate nohighlight">\(x_1\)</span> direction by 0.5, <span class="math notranslate nohighlight">\(A^{-1}\)</span> will expand the <span class="math notranslate nohighlight">\(x_1\)</span> direction by 2.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-    <span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],</span>
-     <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
-<span class="n">dm</span><span class="o">.</span><span class="n">plotSetup</span><span class="p">()</span>
-<span class="n">dm</span><span class="o">.</span><span class="n">plotSquare</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">square</span><span class="p">)</span>
-<span class="n">Latex</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Projection onto the $x_2$ axis&#39;</span><span class="p">)</span>
-</pre></div>
+<p><span class="math display">\[ \frac{1}{0.5}\left[\begin{array}{rr}1&amp;0\\0&amp;0.5\end{array}\right] = \left[\begin{array}{rr}2&amp;0\\0&amp;1\end{array}\right].\]</span></p>
+</div>
+<div class="fragment">
+<p>Clearly, just as <span class="math inline">\(A\)</span> contracted the <span class="math inline">\(x_1\)</span> direction by 0.5, <span class="math inline">\(A^{-1}\)</span> will expand the <span class="math inline">\(x_1\)</span> direction by 2.</p>
+</div>
+<div id="86a0a771" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    [[<span class="dv">0</span>,<span class="dv">0</span>],</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>     [<span class="dv">0</span>,<span class="dv">1</span>]])</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>dm.plotSetup()</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>dm.plotSquare(A <span class="op">@</span> square)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>Latex(<span class="vs">r'Projection onto the $x_2$ axis'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>&lt;IPython.core.display.Latex object&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L10MatrixInverse_files/figure-html/cell-7-output-2.png" width="477" height="476" class="figure-img"></p>
+</figure>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_latex math notranslate nohighlight">
-\[Projection onto the $x_2$ axis\]</div>
-<img alt="_images/b5f3f961fc22139a567a5c670976a9215d151bd1878ed9f798bbf3cd1cfc1293.png" src="_images/b5f3f961fc22139a567a5c670976a9215d151bd1878ed9f798bbf3cd1cfc1293.png" />
 </div>
-</div>
-<p>Here <span class="math notranslate nohighlight">\(A = \left[\begin{array}{rr}0&amp;0\\0&amp;1\end{array}\right].\)</span></p>
+<div class="fragment">
+<p>Here <span class="math inline">\(A = \left[\begin{array}{rr}0&amp;0\\0&amp;1\end{array}\right].\)</span></p>
 <p>Its determinant is zero, so this linear transformation is <strong>not</strong> invertible.</p>
-<p>By the IMT, there are many equivalent ways to look at this:</p>
-<ul class="simple">
-<li><p>The mapping <span class="math notranslate nohighlight">\(T\)</span> is not onto <span class="math notranslate nohighlight">\(\mathbb{R}^2.\)</span> (Only a subset of <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span> can be output by <span class="math notranslate nohighlight">\(T\)</span>).</p></li>
-<li><p>The mapping <span class="math notranslate nohighlight">\(T\)</span> is not one-to-one.  (There are many values <span class="math notranslate nohighlight">\({\bf x}\)</span> that give the same <span class="math notranslate nohighlight">\(A{\bf x}.\)</span>)</p></li>
-<li><p><span class="math notranslate nohighlight">\(A\)</span> does not have 2 pivots.</p></li>
-<li><p>The columns of <span class="math notranslate nohighlight">\(A\)</span> do not span <span class="math notranslate nohighlight">\(\mathbb{R}^2.\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(A\mathbf{x} = 0\)</span> has a non-trivial solution.</p></li>
+</div>
+<div class="fragment">
+<p>By the IMT, there are many equivalent ways to describe this linear transformation:</p>
+<ul>
+<li>The mapping <span class="math inline">\(T\)</span> is not onto <span class="math inline">\(\mathbb{R}^2.\)</span> (Only a subset of <span class="math inline">\(\mathbb{R}^2\)</span> can be output by <span class="math inline">\(T\)</span>).</li>
+<li>The mapping <span class="math inline">\(T\)</span> is not one-to-one. (There are many values <span class="math inline">\({\bf x}\)</span> that give the same <span class="math inline">\(A{\bf x}.\)</span>)</li>
+<li><span class="math inline">\(A\)</span> does not have 2 pivots.</li>
+<li>The columns of <span class="math inline">\(A\)</span> do not span <span class="math inline">\(\mathbb{R}^2.\)</span></li>
+<li><span class="math inline">\(A\mathbf{x} = 0\)</span> has a non-trivial solution.</li>
 </ul>
+</div>
 <p>Here is another example:</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/dc4ce127b668adf95de0624dda83c05aa105c4417ddc59820f546414495dfca5.png" src="_images/dc4ce127b668adf95de0624dda83c05aa105c4417ddc59820f546414495dfca5.png" />
+<div class="fragment">
+<div id="248cd216" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L10MatrixInverse_files/figure-html/cell-8-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
 </div>
 </div>
-<p>In this figure, we are looking at how the red points <span class="math notranslate nohighlight">\((x_1, x_2)\)</span> are mapped to the green points under the transformation</p>
-<div class="math notranslate nohighlight">
-\[\begin{split} \left[\begin{array}{r} x_1 \\ x_2 \end{array}\right]  \mapsto \left[\begin{array}{rr} 1.04 &amp; 0.52 \\ 0.52 &amp; 0.26 \end{array}\right]\left[\begin{array}{r} x_1 \\ x_2 \end{array}\right].\end{split}\]</div>
+</div>
+<p>In this figure, we are looking at how the red points <span class="math inline">\((x_1, x_2)\)</span> are mapped to the green points under the transformation</p>
+<p><span class="math display">\[ \left[\begin{array}{r} x_1 \\ x_2 \end{array}\right]  \mapsto \left[\begin{array}{rr} 1.04 &amp; 0.52 \\ 0.52 &amp; 0.26 \end{array}\right]\left[\begin{array}{r} x_1 \\ x_2 \end{array}\right].\]</span></p>
+</div>
+<div class="fragment">
 <p>We notice a few things:</p>
-<ul class="simple">
-<li><p>The green points appear to lie along a line</p></li>
-<li><p>There are cases where more than one red point maps to the same green point</p></li>
+<ul>
+<li>The green points appear to lie along a line</li>
+<li>There are cases where more than one red point maps to the same green point</li>
 </ul>
 <p>How do these two facts relate to:</p>
-<ul class="simple">
-<li><p>The determinant of the matrix?</p></li>
-<li><p>The invertibility of the transformation?</p></li>
+<ul>
+<li>The determinant of the matrix?</li>
+<li>The invertibility of the transformation?</li>
 </ul>
+</div>
 </section>
-<section id="font-color-blue-further-reading-font">
-<h2><font color = "blue"> Further Reading </font><a class="headerlink" href="#font-color-blue-further-reading-font" title="Permalink to this heading">#</a></h2>
+<section id="further-reading" class="level2">
+<h2 class="anchored" data-anchor-id="further-reading"><font color="blue"> Further Reading </font></h2>
 <p>This material is not required, but may interest you.</p>
-<section id="ill-conditioned-matrices">
-<h3>Ill-Conditioned Matrices<a class="headerlink" href="#ill-conditioned-matrices" title="Permalink to this heading">#</a></h3>
+<section id="ill-conditioned-matrices" class="level3">
+<h3 class="anchored" data-anchor-id="ill-conditioned-matrices">Ill-Conditioned Matrices</h3>
 <p>The notion of a matrix inverse has some complications when used in practice.</p>
 <p>As we’ve noted, numerical computations are not always exact.</p>
-<p>In particular, we often find that <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">-</span> <span class="pre">b(a/b)</span></code> does not evaluate to exactly zero on a computer.</p>
+<p>In particular, we often find that <code>a - b(a/b)</code> does not evaluate to exactly zero on a computer.</p>
 <p>For similar reasons, a matrix which is actually singular may not appear to be so when used in a computation.</p>
 <p>This happens because, for example, the determinant does not evaluate to exactly zero, even though it should.</p>
 <p>Recall that when we were implementing Gaussian elimination, we established a rule:</p>
-<p>If <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">-</span> <span class="pre">b(a/b)</span> <span class="pre">&lt;</span> <span class="pre">epsilon</span></code> for sufficiently small <code class="docutils literal notranslate"><span class="pre">epsilon</span></code>, we would treat that quantity as if it were zero.</p>
+<p>If <code>a - b(a/b) &lt; epsilon</code> for sufficiently small <code>epsilon</code>, we would treat that quantity as if it were zero.</p>
 <p>We need an equivalent rule for matrices, so that we recognize when matrices are “effectively singular.”</p>
-<p>When a matrix <span class="math notranslate nohighlight">\(A\)</span> is “effectively singular” we should not try to solve <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span>.</p>
+<p>When a matrix <span class="math inline">\(A\)</span> is “effectively singular” we should not try to solve <span class="math inline">\(A{\bf x} = {\bf b}\)</span>.</p>
 <p>The value we use for this purpose is called the <strong>condition number.</strong></p>
 <p>Every matrix has a condition number.</p>
 <p>The larger the condition number of a matrix, the closer the matrix is to being singular.</p>
 <p>A <strong>singular</strong> matrix has an <strong>infinite</strong> condition number.</p>
 <p>At the other extreme, the condition number of the identity matrix is 1, which is the smallest possible value.</p>
 <p><strong>Here is the point:</strong> a matrix with a very large condition number will <strong>behave much like a singular matrix</strong> in practice.</p>
-<p>Specifically: one should not try to solve linear systems by computer when the matrix <span class="math notranslate nohighlight">\(A\)</span> has a very large condition number.</p>
+<p>Specifically: one should not try to solve linear systems by computer when the matrix <span class="math inline">\(A\)</span> has a very large condition number.</p>
 <p>How large is large?</p>
-<p>It depends, but as a rule of thumb a condition number of <span class="math notranslate nohighlight">\(10^8\)</span> or greater would be considered a large condition number.</p>
+<p>It depends, but as a rule of thumb a condition number of <span class="math inline">\(10^8\)</span> or greater would be considered a large condition number.</p>
 <p>If a matrix has a large condition number, we might say that it is “effectively singular.”</p>
 <p>The most common way to put this is that the matrix is “ill-conditioned”.</p>
 <p>A matrix that has a large condition number can behave almost like it is singular.</p>
-<p>We know that if <span class="math notranslate nohighlight">\(A\)</span> is a singular matrix, then <span class="math notranslate nohighlight">\(A{\bf x}={\bf b}\)</span> does not have a unique solution.</p>
-<p>If on the other hand <span class="math notranslate nohighlight">\(A\)</span> is not singular, but is ill-conditioned, then solving <span class="math notranslate nohighlight">\(A{\bf x}={\bf b}\)</span> can be very inaccurate.</p>
-<p>A small change in <span class="math notranslate nohighlight">\({\bf b}\)</span> (such as might be introduced by limited precision in your computer) will result in a huge change to the solution, <span class="math notranslate nohighlight">\({\bf x}\)</span>.</p>
+<p>We know that if <span class="math inline">\(A\)</span> is a singular matrix, then <span class="math inline">\(A{\bf x}={\bf b}\)</span> does not have a unique solution.</p>
+<p>If on the other hand <span class="math inline">\(A\)</span> is not singular, but is ill-conditioned, then solving <span class="math inline">\(A{\bf x}={\bf b}\)</span> can be very inaccurate.</p>
+<p>A small change in <span class="math inline">\({\bf b}\)</span> (such as might be introduced by limited precision in your computer) will result in a huge change to the solution, <span class="math inline">\({\bf x}\)</span>.</p>
 </section>
-<section id="demonstration-of-ill-conditioning">
-<h3>Demonstration of Ill-Conditioning<a class="headerlink" href="#demonstration-of-ill-conditioning" title="Permalink to this heading">#</a></h3>
+<section id="demonstration-of-ill-conditioning" class="level3">
+<h3 class="anchored" data-anchor-id="demonstration-of-ill-conditioning">Demonstration of Ill-Conditioning</h3>
 <p>Here is a demonstration of why this is a problem.</p>
 <p>Here is a matrix that is singular:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}M = \left[\begin{array}{rr}1&amp;2\\2&amp;4\end{array}\right].\end{split}\]</div>
+<p><span class="math display">\[M = \left[\begin{array}{rr}1&amp;2\\2&amp;4\end{array}\right].\]</span></p>
 <p>You can see that it is singular because the second column is a multiple of the first column, so</p>
-<ul class="simple">
-<li><p>the determinant is zero</p></li>
-<li><p>the columns are linearly dependent</p></li>
-<li><p>there is only one pivot position</p></li>
-<li><p>etc.  (see the IMT!)</p></li>
+<ul>
+<li>the determinant is zero</li>
+<li>the columns are linearly dependent</li>
+<li>there is only one pivot position</li>
+<li>etc. (see the IMT!)</li>
 </ul>
 <p>Here is a matrix that is <em>almost</em> singular:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}A = \left[\begin{array}{ll}1&amp;2.0000000001\\2&amp;4\end{array}\right].\end{split}\]</div>
+<p><span class="math display">\[A = \left[\begin{array}{ll}1&amp;2.0000000001\\2&amp;4\end{array}\right].\]</span></p>
 <p>The second column is not a multiple of the first column, so technically this matrix is not singular.</p>
 <p>But the second column is <em>almost</em> a multiple of the first column.</p>
 <p>The determinant is -0.0000000002</p>
 <p>You could say the determinant is “almost zero”.</p>
 <p>This matrix is ill-conditioned.</p>
-<p>Now let’s solve <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> using the ill-conditioned matrix <span class="math notranslate nohighlight">\(A.\)</span></p>
-<p>First, let’s consider when <span class="math notranslate nohighlight">\({\bf b} = \left[\begin{array}{r}1\\2\end{array}\right].\)</span></p>
-<p>Solving  <span class="math notranslate nohighlight">\(A{\bf x} = \left[\begin{array}{r}1\\2\end{array}\right]\)</span> we get <span class="math notranslate nohighlight">\({\bf x} = \left[\begin{array}{r}1\\0\end{array}\right].\)</span></p>
-<p>Now, let’s change <span class="math notranslate nohighlight">\({\bf b}\)</span> just a <strong>little bit,</strong> and solved again.</p>
-<p>Let’s set <span class="math notranslate nohighlight">\({\bf b} = \left[\begin{array}{l}1\\2.01\end{array}\right].\)</span></p>
-<p>Solving  <span class="math notranslate nohighlight">\(A{\bf x} = \left[\begin{array}{l}1\\2.01\end{array}\right]\)</span> we get <span class="math notranslate nohighlight">\({\bf x} = \left[\begin{array}{r}100000000\\-50000000\end{array}\right].\)</span></p>
-<p>Notice how a small change in <span class="math notranslate nohighlight">\({\bf b}\)</span> resulted in a huge change in <span class="math notranslate nohighlight">\({\bf x}.\)</span></p>
+<p>Now let’s solve <span class="math inline">\(A{\bf x} = {\bf b}\)</span> using the ill-conditioned matrix <span class="math inline">\(A.\)</span></p>
+<p>First, let’s consider when <span class="math inline">\({\bf b} = \left[\begin{array}{r}1\\2\end{array}\right].\)</span></p>
+<p>Solving <span class="math inline">\(A{\bf x} = \left[\begin{array}{r}1\\2\end{array}\right]\)</span> we get <span class="math inline">\({\bf x} = \left[\begin{array}{r}1\\0\end{array}\right].\)</span></p>
+<p>Now, let’s change <span class="math inline">\({\bf b}\)</span> just a <strong>little bit,</strong> and solve again.</p>
+<p>Let’s set <span class="math inline">\({\bf b} = \left[\begin{array}{l}1\\2.01\end{array}\right].\)</span></p>
+<p>Solving <span class="math inline">\(A{\bf x} = \left[\begin{array}{l}1\\2.01\end{array}\right]\)</span> we get <span class="math inline">\({\bf x} = \left[\begin{array}{r}100000000\\-50000000\end{array}\right].\)</span></p>
+<p>Notice how a small change in <span class="math inline">\({\bf b}\)</span> resulted in a huge change in <span class="math inline">\({\bf x}.\)</span></p>
 <p>This is <strong>very bad!</strong></p>
 <p>It means that we cannot trust the solution – it could be wildly wrong due to small errors in the input!</p>
-<p>This is happening because the matrix <span class="math notranslate nohighlight">\(A\)</span> is ill-conditioned – it has a large condition number.</p>
-<p>In fact the condition number of <span class="math notranslate nohighlight">\(A\)</span> is about 12,500,000,000.</p>
+<p>This is happening because the matrix <span class="math inline">\(A\)</span> is ill-conditioned – it has a large condition number.</p>
+<p>In fact the condition number of <span class="math inline">\(A\)</span> is about 12,500,000,000.</p>
 <p>Now, this situation would not be a problem … if you were always dealing with exact quantities in your computer.</p>
-<p>But you are <font color=blue>not.</font></p>
+<p>But you are <font color="blue">not.</font></p>
 <p>Every floating point number has limited precision – a limited number of digits that can be stored.</p>
 <p>As a result, there can be a small error in the value of any number stored in the computer.</p>
 <p>This is not normally a problem – you would not typically notice it.</p>
-<p>But if you are solving a system with a large condition number, the small error in <span class="math notranslate nohighlight">\({\bf b}\)</span> can get expanded in a large error in <span class="math notranslate nohighlight">\({\bf x}\)</span>.</p>
-<p>The error can be so large that the value you get for <span class="math notranslate nohighlight">\({\bf x}\)</span> is <strong>completely wrong.</strong></p>
-<p>To compute the condition number of a matrix <code class="docutils literal notranslate"><span class="pre">A</span></code> in <code class="docutils literal notranslate"><span class="pre">Python/numpy</span></code>, use <code class="docutils literal notranslate"><span class="pre">np.linalg.cond(A)</span></code>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.0000000001</span><span class="p">],[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
-<span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">cond</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-</pre></div>
+<p>But if you are solving a system with a large condition number, the small error in <span class="math inline">\({\bf b}\)</span> can get expanded in a large error in <span class="math inline">\({\bf x}\)</span>.</p>
+<p>The error can be so large that the value you get for <span class="math inline">\({\bf x}\)</span> is <strong>completely wrong.</strong></p>
+<p>To compute the condition number of a matrix <code>A</code> in <code>Python/numpy</code>, use <code>np.linalg.cond(A)</code>.</p>
+<div id="6faafce7" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="fl">2.0000000001</span>],[<span class="dv">2</span>, <span class="dv">4</span>]])</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>np.linalg.cond(A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>125000145095.44151</code></pre>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>125000145095.44151
-</pre></div>
-</div>
-</div>
-</div>
-</section>
+
+
 </section>
 </section>
 
-    <script type="text/x-thebe-config">
-    {
-        requestKernel: true,
-        binderOptions: {
-            repo: "binder-examples/jupyter-stacks-datascience",
-            ref: "master",
-        },
-        codeMirrorConfig: {
-            theme: "abcdef",
-            mode: "python"
-        },
-        kernelOptions: {
-            name: "python3",
-            path: "./."
-        },
-        predefinedOutput: true
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
     }
-    </script>
-    <script>kernelName = 'python3'</script>
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
 
-                </article>
-              
-
-              
-              
-              
-              
-                <footer class="prev-next-footer">
-                  
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="L09MatrixOperations.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Matrix Algebra</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="L11MarkovChains.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Markov Chains</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-the-matrix-inverse">Computing the Matrix Inverse</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-2-times-2-case">The <span class="math notranslate nohighlight">\(2\times 2\)</span> case</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#matrices-larger-than-2-times-2">Matrices larger than <span class="math notranslate nohighlight">\(2 \times 2\)</span>.</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-computational-view">The Computational View</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-matrix-inverse-to-solve-a-linear-system">Using the Matrix Inverse to Solve a Linear System</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#algebra-of-matrix-inverses">Algebra of Matrix Inverses</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-invertible-matrix-theorem">The Invertible Matrix Theorem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#invertible-linear-transformations">Invertible Linear Transformations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#font-color-blue-further-reading-font"><font color="blue"> Further Reading </font></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ill-conditioned-matrices">Ill-Conditioned Matrices</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#demonstration-of-ill-conditioning">Demonstration of Ill-Conditioning</a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
 
-</div></div>
-              
-            
-          </div>
-          <footer class="bd-footer-content">
-            
-<div class="bd-footer-content__inner container">
-  
-  <div class="footer-item">
-    
-<p class="component-author">
-By Mark Crovella.  Portions are based on Lay, 'Linear Algebra and its Applications'
-</p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-</div>
-          </footer>
-        
-
-      </main>
-    </div>
-  </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
-
-  <footer class="bd-footer">
-  </footer>
-  </body>
-</html>
+</body></html>

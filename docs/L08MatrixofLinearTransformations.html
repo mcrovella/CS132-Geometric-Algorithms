@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>l08matrixoflineartransformations – Geometric Algorithms</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fec4eca8e712537310c7ebcc1543822c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked slimcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L08MatrixofLinearTransformations.html">The Matrix of a Linear Transformation</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./images/DiagramAR-icon.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./landing_page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L01LinearEquations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L02Numerics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(Getting Serious About) Numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L03RowReductions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gaussian Elimination</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L04VectorEquations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vector Equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L05Axb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L06LinearIndependence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Independence</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L07LinearTransformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Transformations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L08MatrixofLinearTransformations.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">The Matrix of a Linear Transformation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L09MatrixOperations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Matrix Algebra</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L10MatrixInverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Inverse of a Matrix</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L11MarkovChains.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Markov Chains</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L12MatrixFactorizations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Matrix Factorizations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L13ComputerGraphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Computer Graphics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L14Subspaces.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Subspaces</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L15DimensionRank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dimension and Rank</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L16Eigenvectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Eigenvectors and Eigenvalues</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L17CharacteristicEqn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Characteristic Equation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L18Diagonalization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diagonalization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L19PageRank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PageRank</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L20Orthogonality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analytic Geometry in <span class="math inline">\(\mathbb{R}^n\)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L21OrthogonalSets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Orthogonal Sets and Projection</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L22LeastSquares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Least Squares</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L23LinearModels.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Models</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L24SymmetricMatrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Symmetric Matrices</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L25SVD.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Singular Value Decomposition</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L26ApplicationsOfSVD.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Applications of the SVD</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-matrix-of-a-linear-transformation" id="toc-the-matrix-of-a-linear-transformation" class="nav-link active" data-scroll-target="#the-matrix-of-a-linear-transformation">The Matrix of a Linear Transformation</a></li>
+  <li><a href="#geometric-linear-transformations-of-mathbbr2" id="toc-geometric-linear-transformations-of-mathbbr2" class="nav-link" data-scroll-target="#geometric-linear-transformations-of-mathbbr2">Geometric Linear Transformations of <span class="math inline">\(\mathbb{R}^2\)</span></a></li>
+  <li><a href="#area-is-scaled-by-the-determinant" id="toc-area-is-scaled-by-the-determinant" class="nav-link" data-scroll-target="#area-is-scaled-by-the-determinant">Area is Scaled by the Determinant</a></li>
+  <li><a href="#existence-and-uniqueness" id="toc-existence-and-uniqueness" class="nav-link" data-scroll-target="#existence-and-uniqueness">Existence and Uniqueness</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+
+
+
+
+<!--
+This comment somehow suppresses the title page
+-->
+<section id="the-matrix-of-a-linear-transformation" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="the-matrix-of-a-linear-transformation">The Matrix of a Linear Transformation</h2>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Many parts of this page are based on <em>Linear Algebra and its Applications,</em> by David C. Lay</p>
+</div></div><p>In the last lecture we introduced the idea of a <strong>linear transformation</strong>:</p>
+<p><img src="images/L7 F4.jpg" class="img-fluid" width="650"></p>
+<div class="fragment">
+<p>We have seen that every matrix multiplication is a linear transformation from vectors to vectors.</p>
+</div>
+<div class="fragment">
+<p>But, are there any other possible linear transformations from vectors to vectors?</p>
+</div>
+<div class="fragment">
+<p>No.&nbsp;</p>
+<p>In other words, the reverse statement is also true:</p>
+<blockquote class="blockquote">
+<p><font color="blue"> every linear transformation from vectors to vectors is a matrix multiplication. </font></p>
+</blockquote>
+</div>
+<p>We’ll now prove this fact.</p>
+<p>We’ll do it <strong>constructively</strong>, meaning we’ll actually show how to find the matrix corresponding to any given linear transformation <span class="math inline">\(T\)</span>.</p>
+<div class="fragment">
+<p><strong>Theorem.</strong> Let <span class="math inline">\(T: \mathbb{R}^n \rightarrow \mathbb{R}^m\)</span> be a linear transformation. Then there is (always) a unique matrix <span class="math inline">\(A\)</span> such that:</p>
+<p><span class="math display">\[ T({\bf x}) = A{\bf x} \;\;\; \text{for all}\; {\bf x} \in \mathbb{R}^n.\]</span></p>
+</div>
+<div class="fragment">
+<p>In fact, <span class="math inline">\(A\)</span> is the <span class="math inline">\(m \times n\)</span> matrix whose <span class="math inline">\(j\)</span>th column is the vector <span class="math inline">\(T({\bf e_j})\)</span>, where <span class="math inline">\({\bf e_j}\)</span> is the <span class="math inline">\(j\)</span>th column of the identity matrix in <span class="math inline">\(\mathbb{R}^n\)</span>:</p>
+<p><span class="math display">\[A = \left[T({\bf e_1}) \dots T({\bf e_n})\right].\]</span></p>
+<p><span class="math inline">\(A\)</span> is called the <em>standard matrix</em> of <span class="math inline">\(T\)</span>.</p>
+</div>
+<div class="fragment">
+<p><strong>Proof.</strong> Write</p>
+<p><span class="math display">\[{\bf x} = I{\bf x} = \left[{\bf e_1} \dots {\bf e_n}\right]\bf x\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[ = x_1{\bf e_1} + \dots + x_n{\bf e_n}.\]</span></p>
+</div>
+<div class="fragment">
+<p>In other words, for any <span class="math inline">\(\mathbf{x}\)</span>, we can always expand it as:</p>
+<p><span class="math display">\[ \mathbf{x}
+\;= \;\;\;\;\;
+\begin{bmatrix}
+1 &amp; 0 &amp; \dots &amp; 0 \\
+0 &amp; 1 &amp; \dots &amp; 0\\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots\\
+0 &amp; 0 &amp; \dots &amp; 1
+\end{bmatrix} \; \begin{bmatrix}x_1\\x_2\\ \vdots \\ x_n\end{bmatrix}
+\;\;\;\;\;= \;\;\;\;\;
+\begin{bmatrix} x_1 \\ 0 \\ \vdots \\ 0 \end{bmatrix} +
+\begin{bmatrix} 0 \\ x_2 \\ \vdots \\ 0 \end{bmatrix} +
+\dots +
+\begin{bmatrix} 0 \\ 0 \\ \vdots \\ x_n \end{bmatrix} \]</span></p>
+</div>
+<div class="fragment">
+<p>Because <span class="math inline">\(T\)</span> is linear, we have:</p>
+<p><span class="math display">\[ T({\bf x}) = T(x_1{\bf e_1} + \dots + x_n{\bf e_n})\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[ = x_1T({\bf e_1}) + \dots + x_nT({\bf e_n})\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[ = \left[T({\bf e_1}) \dots T({\bf e_n})\right] \, \left[\begin{array}{r}x_1\\\vdots\\x_n\end{array}\right] = A{\bf x}.\]</span></p>
+</div>
+<div class="fragment">
+<p>So … we see that the ideas of <strong>matrix multiplication</strong> and <strong>linear transformation</strong> are essentially equivalent when applied to vectors.</p>
+<p>Every matrix multiplication is a linear transformation, and every linear transformation from vectors to vectors is a matrix multiplication.</p>
+<p><strong>However</strong>, term <em>linear transformation</em> focuses on a <strong>property</strong> of the mapping, while the term <em>matrix multiplication</em> focuses on how such a mapping is <strong>implemented.</strong></p>
+</div>
+<p>This proof shows us an important idea:</p>
+<p><font color="blue"> To find the standard matrix of a linear transformation, ask what the transformation does to the columns of <span class="math inline">\(I\)</span>.</font></p>
+<p>In other words, if <span class="math inline">\(T(\mathbf{x}) = A\mathbf{x}\)</span>, then:</p>
+<p><span class="math display">\[A = \left[T({\bf e_1}) \dots T({\bf e_n})\right].\]</span></p>
+<p>This gives us a way to compute the standard matrix of a transformation.</p>
+<p>Now, in <span class="math inline">\(\mathbb{R}^2\)</span>, <span class="math inline">\(I = \left[\begin{array}{cc}1&amp;0\\0&amp;1\end{array}\right]\)</span>. So:</p>
+<p><span class="math display">\[\mathbf{e_1} = \left[\begin{array}{c}1\\0\end{array}\right]\;\;\text{and}\;\;\mathbf{e_2} = \left[\begin{array}{c}0\\1\end{array}\right].\]</span></p>
+<p>So to find the matrix of any given linear transformation of vectors in <span class="math inline">\(\mathbb{R}^2\)</span>, we only have to know what that transformation does to these two points:</p>
+<div id="4a01ca4a" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-3-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>This is a <strong>hugely</strong> powerful tool.</p>
+<p>Let’s say we start from some given linear transformation; we can use this idea to find the matrix that implements that linear transformation.</p>
+<div class="fragment">
+<p>For example, let’s consider rotation about the origin as a kind of transformation.</p>
+<div id="44dcf606" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-4-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>First things first: Is rotation a <strong>linear</strong> transformation?</p>
+</div>
+<div class="fragment">
+<p>Recall that a for a transformation to be linear, it must be true that <span class="math inline">\(T(\mathbf{u} + \mathbf{v}) = T(\mathbf{u}) + T(\mathbf{v}).\)</span></p>
+</div>
+<div class="fragment">
+<p>I’m going to show you a “geometric proof.”</p>
+<p>This figure shows that “the rotation of <span class="math inline">\(\mathbf{u+v}\)</span> is the sum of the rotation of <span class="math inline">\(\mathbf{u}\)</span> and the rotation of <span class="math inline">\(\mathbf{v}\)</span>”.</p>
+<div id="93a1e02f" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-5-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>OK, so rotation is a linear transformation.</p>
+<p>Let’s see how to <strong>compute</strong> the linear transformation that is a rotation.</p>
+<div class="fragment">
+<p><strong>Specifically:</strong> Let <span class="math inline">\(T: \mathbb{R}^2 \rightarrow \mathbb{R}^2\)</span> be the transformation that rotates each point in <span class="math inline">\(\mathbb{R}^2\)</span> about the origin through an angle <span class="math inline">\(\theta\)</span>, with counterclockwise rotation for a positive angle.</p>
+<p>Let’s find the standard matrix <span class="math inline">\(A\)</span> of this transformation.</p>
+</div>
+<div class="fragment">
+<p><strong>Solution.</strong> The columns of <span class="math inline">\(I\)</span> are <span class="math inline">\({\bf e_1} = \left[\begin{array}{r}1\\0\end{array}\right]\)</span> and <span class="math inline">\({\bf e_2} = \left[\begin{array}{r}0\\1\end{array}\right].\)</span></p>
+</div>
+<div class="fragment">
+<p>Referring to the diagram below, we can see that <span class="math inline">\(\left[\begin{array}{r}1\\0\end{array}\right]\)</span> rotates into <span class="math inline">\(\left[\begin{array}{r}\cos\theta\\\sin\theta\end{array}\right],\)</span> and <span class="math inline">\(\left[\begin{array}{r}0\\1\end{array}\right]\)</span> rotates into <span class="math inline">\(\left[\begin{array}{r}-\sin\theta\\\cos\theta\end{array}\right].\)</span></p>
+<div id="e2be62de" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-6-output-1.png" width="659" height="340" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>So by the Theorem above,</p>
+<p><span class="math display">\[ A = \left[\begin{array}{rr}\cos\theta&amp;-\sin\theta\\\sin\theta&amp;\cos\theta\end{array}\right].\]</span></p>
+</div>
+<p>To demonstrate the use of a rotation matrix, let’s rotate the following shape:</p>
+<div id="963467b9" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>dm.plotSetup()</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>note <span class="op">=</span> dm.mnote()</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>dm.plotShape(note)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-7-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>The variable <code>note</code> is a array of 26 vectors in <span class="math inline">\(\mathbb{R}^2\)</span> that define its shape.</p>
+<p>In other words, it is a 2 <span class="math inline">\(\times\)</span> 26 matrix.</p>
+</div>
+<div class="fragment">
+<p>To rotate <code>note</code> we need to multiply each column of <code>note</code> by the rotation matrix <span class="math inline">\(A\)</span>.</p>
+<p>In Python this can be performed using the <code>@</code> operator.</p>
+<p>That is, if <code>A</code> and <code>B</code> are matrices,</p>
+<p><code>A @ B</code></p>
+<p>will multiply <code>A</code> by every column of <code>B,</code> and the resulting vectors will be formed into a matrix.</p>
+<div id="28e9e45b" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dm.plotSetup()</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>angle <span class="op">=</span> <span class="dv">90</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> (angle<span class="op">/</span><span class="dv">180</span>) <span class="op">*</span> np.pi</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    [[np.cos(theta), <span class="op">-</span>np.sin(theta)],</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>     [np.sin(theta), np.cos(theta)]])</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>rnote <span class="op">=</span> A <span class="op">@</span> note</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>dm.plotShape(rnote)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-8-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="geometric-linear-transformations-of-mathbbr2" class="level2">
+<h2 class="anchored" data-anchor-id="geometric-linear-transformations-of-mathbbr2">Geometric Linear Transformations of <span class="math inline">\(\mathbb{R}^2\)</span></h2>
+<p>Let’s use our understanding of how to construct linear transformations to look at some specific linear transformations of <span class="math inline">\(\mathbb{R}^2\)</span> to <span class="math inline">\(\mathbb{R}^2\)</span>.</p>
+<div class="fragment">
+<p>First, let’s recall the linear transformation</p>
+<p><span class="math display">\[T(\mathbf{x}) = r\mathbf{x}.\]</span></p>
+<p>With <span class="math inline">\(r &gt; 1\)</span>, this is a dilation. It moves every vector further from the origin.</p>
+</div>
+<div class="fragment">
+<p>Let’s say the dilation is by a factor of 2.5.</p>
+<p>To construct the matrix <span class="math inline">\(A\)</span> that implements this transformation, we ask: where do <span class="math inline">\({\bf e_1}\)</span> and <span class="math inline">\({\bf e_2}\)</span> go?</p>
+</div>
+<div class="fragment">
+<div id="c90f9f53" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-9-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Under the action of <span class="math inline">\(A\)</span>, <span class="math inline">\(\mathbf{e_1}\)</span> goes to <span class="math inline">\(\left[\begin{array}{c}2.5\\0\end{array}\right]\)</span> and <span class="math inline">\(\mathbf{e_2}\)</span> goes to <span class="math inline">\(\left[\begin{array}{c}0\\2.5\end{array}\right]\)</span>.</p>
+</div>
+<div class="fragment">
+<p>So the matrix <span class="math inline">\(A\)</span> must be <span class="math inline">\(\left[\begin{array}{cc}2.5&amp;0\\0&amp;2.5\end{array}\right]\)</span>.</p>
+</div>
+<div class="fragment">
+<p>Let’s test this out:</p>
+<div id="d6bbda61" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>square <span class="op">=</span> np.array(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    [[<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>],</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>     [<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>]])</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array(</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    [[<span class="fl">2.5</span>, <span class="dv">0</span>],</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>     [<span class="dv">0</span>, <span class="fl">2.5</span>]])</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>display(Latex(<span class="vs">rf"$A = </span><span class="sc">{</span>ltx_array_fmt(A, <span class="st">'</span><span class="sc">{:1.1f}</span><span class="st">'</span>)<span class="sc">}</span><span class="vs">$"</span>))</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>dm.plotSetup()</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>dm.plotSquare(square)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>dm.plotSquare(A <span class="op">@</span> square,<span class="st">'r'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(A = \begin{bmatrix}
+  2.5 &amp;  0.0\\
+  0.0 &amp;  2.5
+\end{bmatrix}\)</span></p>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-10-output-2.png" width="477" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div id="f8978e56" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>dm.plotSetup(<span class="op">-</span><span class="dv">7</span>,<span class="dv">7</span>,<span class="op">-</span><span class="dv">7</span>, <span class="dv">7</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>dm.plotShape(note)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>dm.plotShape(A <span class="op">@</span> note,<span class="st">'r'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-11-output-1.png" width="463" height="463" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>OK, now let’s reflect through the <span class="math inline">\(x_1\)</span> axis. Where do <span class="math inline">\({\bf e_1}\)</span> and <span class="math inline">\({\bf e_2}\)</span> go?</p>
+</div>
+<div class="fragment">
+<div id="7fb0bacd" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-12-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div id="8fee6605" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    [[<span class="dv">1</span>,  <span class="dv">0</span>],</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>     [<span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>]])</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>display(Latex(<span class="vs">rf"$A = </span><span class="sc">{</span>ltx_array_fmt(A, <span class="st">'</span><span class="sc">{:d}</span><span class="st">'</span>)<span class="sc">}</span><span class="vs">$"</span>))</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>dm.plotSetup()</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>dm.plotSquare(square)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>dm.plotSquare(A <span class="op">@</span> square,<span class="st">'r'</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="vs">r'Reflection through the $x_1$ axis'</span>, size <span class="op">=</span> <span class="dv">20</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(A = \begin{bmatrix}
+  1  &amp;  0 \\
+  0  &amp; -1
+\end{bmatrix}\)</span></p>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-13-output-2.png" width="477" height="500" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div id="eff00c00" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dm.plotSetup()</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>dm.plotShape(note)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>dm.plotShape(A <span class="op">@</span> note,<span class="st">'r'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-14-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>What about reflection through the <span class="math inline">\(x_2\)</span> axis?</p>
+</div>
+<div class="fragment">
+<div id="5f9f4ac3" class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(A = \begin{bmatrix}
+-1  &amp;   0 \\
+   0  &amp;   1
+\end{bmatrix}\)</span></p>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-15-output-2.png" width="477" height="500" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div id="b92599e8" class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-16-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>What about reflection through the line <span class="math inline">\(x_1 = x_2\)</span>?</p>
+</div>
+<div class="fragment">
+<div id="3f01b47f" class="cell" data-execution_count="16">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(A = \begin{bmatrix}
+  0  &amp;  1 \\
+  1  &amp;  0
+\end{bmatrix}\)</span></p>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-17-output-2.png" width="477" height="500" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div id="71efacdf" class="cell" data-execution_count="17">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-18-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>What about reflection through the line <span class="math inline">\(x_1 = -x_2\)</span>?</p>
+</div>
+<div class="fragment">
+<div id="9a2386bf" class="cell" data-execution_count="18">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(A = \begin{bmatrix}
+  0  &amp; -1 \\
+-1  &amp;  0
+\end{bmatrix}\)</span></p>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-19-output-2.png" width="505" height="500" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="d4f81455" class="cell" data-execution_count="19">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-20-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>What about reflection through the origin?</p>
+</div>
+<div class="fragment">
+<div id="bd5772df" class="cell" data-execution_count="20">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(A = \begin{bmatrix}
+-1  &amp;  0 \\
+  0  &amp; -1
+\end{bmatrix}\)</span></p>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-21-output-2.png" width="477" height="499" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="143bfa43" class="cell" data-execution_count="21">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-22-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div id="7b30f0c7" class="cell" data-execution_count="22">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(A = \begin{bmatrix}
+  0.45 &amp;  0.00\\
+  0.00 &amp;  1.00
+\end{bmatrix}\)</span></p>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-23-output-2.png" width="477" height="499" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="51665486" class="cell" data-execution_count="23">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-24-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div id="94673936" class="cell" data-execution_count="24">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(A = \begin{bmatrix}
+  1.0 &amp;  0.0\\
+-1.5 &amp;  1.0
+\end{bmatrix}\)</span></p>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-25-output-2.png" width="477" height="499" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="bf5ff303" class="cell" data-execution_count="25">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-26-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>Now let’s look at a particular kind of transformation called a <strong>projection</strong>.</p>
+<p>Imagine we took any given point and ‘dropped’ it onto the <span class="math inline">\(x_1\)</span>-axis.</p>
+<div class="fragment">
+<div id="2ec64815" class="cell" data-execution_count="26">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(A = \begin{bmatrix}
+  1  &amp;  0 \\
+  0  &amp;  0
+\end{bmatrix}\)</span></p>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-27-output-2.png" width="477" height="500" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>What happens to the <strong>shape</strong> of the point set?</p>
+</div>
+<div class="fragment">
+<div id="3924a3a8" class="cell" data-execution_count="27">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-28-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div id="bb1b8abd" class="cell" data-execution_count="28">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(A = \begin{bmatrix}
+  0  &amp;  0 \\
+  0  &amp;  1
+\end{bmatrix}\)</span></p>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-29-output-2.png" width="477" height="500" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div id="3d4de953" class="cell" data-execution_count="29">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-30-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="area-is-scaled-by-the-determinant" class="level2">
+<h2 class="anchored" data-anchor-id="area-is-scaled-by-the-determinant">Area is Scaled by the Determinant</h2>
+<div class="fragment">
+<p>Notice that in some of the transformations above, the “size” of a shape grows or shrinks.</p>
+<p>Let’s look at how area (or volume) of a shape is affected by a linear transformation.</p>
+<div id="e978cf28" class="cell" data-execution_count="30">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(A = \begin{bmatrix}
+  0  &amp;  0 \\
+  0  &amp;  1
+\end{bmatrix}\)</span></p>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-31-output-2.png" width="477" height="500" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>In this transformation, each unit of area in the blue shape is transformed to a smaller region in the red shape.</p>
+<p>So to understand how area changes, it suffices to ask what happens to the unit square (or hypercube):</p>
+</div>
+<div class="fragment">
+<div id="13757483" class="cell" data-execution_count="31">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-32-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>Let’s denote the matrix of our linear transformation as:</p>
+<p><span class="math display">\[ A = \begin{bmatrix} a &amp; b \\ c &amp; d \end{bmatrix} \]</span></p>
+<div class="fragment">
+<p>Then, here is what happens to the unit square:</p>
+<div id="bc3a51a5" class="cell" data-execution_count="32">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-33-output-1.png" width="481" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Now, let’s determine the area of the blue diamond in terms of <span class="math inline">\(a, b, c\)</span>, and <span class="math inline">\(d\)</span>.</p>
+</div>
+<div class="fragment">
+<p>To do that, we’ll use this diagram:</p>
+<div id="89eb7bc2" class="cell" data-execution_count="33">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-34-output-1.png" width="481" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Each of the triangles and rectangles has an area we can determine in terms of <span class="math inline">\(a, b, c\)</span> and <span class="math inline">\(d\)</span>.</p>
+</div>
+<div class="fragment">
+<p>The large rectangle has sides <span class="math inline">\((a+b)\)</span> and <span class="math inline">\((c+d)\)</span>, so its area is:</p>
+<p><span class="math display">\[ (a+b)(c+d) = ac + ad + bc + bd. \]</span></p>
+</div>
+<div class="fragment">
+<p>From this large rectangle we need to subtract:</p>
+<ul>
+<li><span class="math inline">\(bd\)</span> (red triangles),</li>
+<li><span class="math inline">\(ac\)</span> (gray triangles), and</li>
+<li><span class="math inline">\(2bc\)</span> (green rectangles).</li>
+</ul>
+</div>
+<div class="fragment">
+<p>So the area of the blue diamond is:</p>
+<p><span class="math display">\[ (ac + ad + bc + bd) - (bd + ac + 2bc) \]</span></p>
+<p><span class="math display">\[ = ad - bc \]</span></p>
+</div>
+<div class="fragment">
+<p>So we conclude that when we use a linear transformation</p>
+<p><span class="math display">\[ A = \begin{bmatrix} a &amp; b \\ c &amp; d \end{bmatrix} \]</span></p>
+<p>the <strong>area of a unit square</strong> (or any shape) <strong>is scaled by a factor of <span class="math inline">\(ad - bc\)</span>.</strong></p>
+</div>
+<div class="fragment">
+<p>This quantity is a fundamental property of the matrix <span class="math inline">\(A\)</span>.</p>
+<p>So, we give it a name: it is the <strong>determinant</strong> of <span class="math inline">\(A\)</span>.</p>
+<p>We denote it as</p>
+<p><span class="math display">\[\det(A)\]</span></p>
+</div>
+<div class="fragment">
+<p>So, for a <span class="math inline">\(2\times 2\)</span> matrix <span class="math inline">\(A = \begin{bmatrix} a &amp; b \\ c &amp; d \end{bmatrix}\)</span>,</p>
+<p><span class="math display">\[\det(A) = ad-bc.\]</span></p>
+</div>
+<div class="fragment">
+<p>However, the determinant can be defined for <strong>any</strong> <span class="math inline">\(n\times n\)</span> (square) matrix.</p>
+<p>For a square matrix <span class="math inline">\(A\)</span> larger than <span class="math inline">\(2\times 2\)</span>, the determinant tells us how the <strong>volume</strong> of a unit (hyper)cube is scaled when it is linearly transformed by <span class="math inline">\(A\)</span>.</p>
+</div>
+<div class="fragment">
+<p>We will learn how to compute determinants for larger matrices in a later lecture.</p>
+</div>
+<p>There are important cases in which the determinant of a matrix is <strong>zero.</strong></p>
+<div class="fragment">
+<p>When does it happen that <span class="math inline">\(\det(A) = 0\)</span>?</p>
+<p>Consider when <span class="math inline">\(A\)</span> is the matrix of a projection:</p>
+</div>
+<div class="fragment">
+<div id="8d3f0106" class="cell" data-execution_count="34">
+<div class="cell-output cell-output-display cell-output-markdown">
+<p><span class="math inline">\(A = \begin{bmatrix}
+  1  &amp;  0 \\
+  0  &amp;  0
+\end{bmatrix}\)</span></p>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-35-output-2.png" width="477" height="500" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>The unit square has been collapsed onto the <span class="math inline">\(x\)</span>-axis, resulting in a shape with area of zero.</p>
+<p>This is confirmed by the determinant, which is</p>
+<p><span class="math display">\[ \det\left(\begin{bmatrix}1 &amp; 0 \\ 0 &amp; 0\end{bmatrix}\right) = (1 \cdot 0) - (0 \cdot 0) = 0.\]</span></p>
+</div>
+</section>
+<section id="existence-and-uniqueness" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="existence-and-uniqueness">Existence and Uniqueness</h2>
+<p>Notice that some of these transformations map multiple inputs to the same output, and some are incapable of generating certain outputs.</p>
+<p>For example, the <strong>projections</strong> above can send multiple different points to the same point.</p>
+<p>We need some terminology to understand these properties of linear transformations.</p>
+<div class="fragment">
+<p><strong>Definition.</strong> A mapping <span class="math inline">\(T: \mathbb{R}^n \rightarrow \mathbb{R}^m\)</span> is said to be <strong>onto</strong> <span class="math inline">\(\mathbb{R}^m\)</span> if each <span class="math inline">\(\mathbf{b}\)</span> in <span class="math inline">\(\mathbb{R}^m\)</span> is the image of <em>at least one</em> <span class="math inline">\(\mathbf{x}\)</span> in <span class="math inline">\(\mathbb{R}^n\)</span>.</p>
+<p>In other words, <span class="math inline">\(T\)</span> is <strong>onto</strong> if every element of its codomain is in its range.</p>
+</div>
+<div class="fragment">
+<p>Another (important) way of thinking about this is that <span class="math inline">\(T\)</span> is <strong>onto</strong> if there is a solution <span class="math inline">\(\mathbf{x}\)</span> of</p>
+<p><span class="math display">\[T(\mathbf{x}) = \mathbf{b}\]</span></p>
+<p>for all possible <span class="math inline">\(\mathbf{b}.\)</span></p>
+<p>This is asking an <strong>existence</strong> question about a solution of the equation <span class="math inline">\(T(\mathbf{x}) = \mathbf{b}\)</span> for all <span class="math inline">\(\mathbf{b}.\)</span></p>
+</div>
+<p><img src="images/L7 F4.jpg" class="img-fluid" width="650"></p>
+<p>Here, we see that <span class="math inline">\(T\)</span> maps points in <span class="math inline">\(\mathbb{R}^2\)</span> to a plane lying <strong>within</strong> <span class="math inline">\(\mathbb{R}^3\)</span>.</p>
+<p>That is, the range of <span class="math inline">\(T\)</span> is a strict subset of the codomain of <span class="math inline">\(T\)</span>.</p>
+<p>So <span class="math inline">\(T\)</span> is <strong>not onto</strong> <span class="math inline">\(\mathbb{R}^3\)</span>.</p>
+<p><img src="images/L7 F3.jpg" class="img-fluid" width="650"></p>
+<p>In this case, for every point in <span class="math inline">\(\mathbb{R}^2\)</span>, there is an <span class="math inline">\(\mathbf{x}\)</span> that maps to that point.</p>
+<p>So, the range of <span class="math inline">\(T\)</span> is equal to the codomain of <span class="math inline">\(T\)</span>.</p>
+<p>So <span class="math inline">\(T\)</span> is <strong>onto</strong> <span class="math inline">\(\mathbb{R}^2\)</span>.</p>
+<p>Here is an example of the reflection transformation. The red points are the images of the blue points.</p>
+<p>What about this transformation? Is it onto <span class="math inline">\(\mathbb{R}^2\)</span>?</p>
+<div id="ab3eca94" class="cell" data-execution_count="35">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-36-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Here is an example of the projection transformation. The red points (which all lie on the <span class="math inline">\(x\)</span>-axis) are the images of the blue points.</p>
+<p>What about this transformation? Is it onto <span class="math inline">\(\mathbb{R}^2\)</span>?</p>
+<div id="3569f789" class="cell" data-execution_count="36">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L08MatrixofLinearTransformations_files/figure-html/cell-37-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Definition.</strong> A mapping <span class="math inline">\(T: \mathbb{R}^n \rightarrow \mathbb{R}^m\)</span> is said to be <strong>one-to-one</strong> if each <span class="math inline">\(\mathbf{b}\)</span> in <span class="math inline">\(\mathbb{R}^m\)</span> is the image of <em>at most one</em> <span class="math inline">\(\mathbf{x}\)</span> in <span class="math inline">\(\mathbb{R}^n\)</span>.</p>
+<div class="fragment">
+<p>If <span class="math inline">\(T\)</span> is one-to-one, then for each <span class="math inline">\(\mathbf{b},\)</span> the equation <span class="math inline">\(T(\mathbf{x}) = \mathbf{b}\)</span> has either a unique solution, or none at all.</p>
+<p>This is asking a <strong>uniqueness</strong> question about a solution of the equation <span class="math inline">\(T(\mathbf{x}) = \mathbf{b}\)</span> for all <span class="math inline">\(\mathbf{b}\)</span>.</p>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Image from <em>Linear Algebra and its Applications,</em> by David C. Lay</p>
+</div></div><div class="fragment">
+<p><img src="images/Lay-fig-1-9-4.jpeg" class="img-fluid" width="650"></p>
+</div>
+<div class="fragment">
+<p>Let’s examine the relationship between these ideas and some previous definitions.</p>
+<p>If for all <span class="math inline">\(\mathbf{b}\)</span>, <span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span> is consistent, is <span class="math inline">\(T(\mathbf{x}) = A\mathbf{x}\)</span> onto? one-to-one?</p>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(T(\mathbf{x})\)</span> is onto. <span class="math inline">\(T(\mathbf{x})\)</span> may or may not be one-to-one. If the system has multiple solutions for some <span class="math inline">\(\mathbf{b}\)</span>, <span class="math inline">\(T(\mathbf{x})\)</span> is not one-to-one.</li>
+</ul>
+</div>
+<p>If for all <span class="math inline">\(\mathbf{b}\)</span>, <span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span> is consistent and has a unique solution, is <span class="math inline">\(T(\mathbf{x}) = A\mathbf{x}\)</span> onto? one-to-one?</p>
+<div class="fragment">
+<ul>
+<li>Yes to both.</li>
+</ul>
+</div>
+<p>If it is not the case that for all <span class="math inline">\(\mathbf{b}\)</span>, <span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span> is consistent, is <span class="math inline">\(T(\mathbf{x}) = A\mathbf{x}\)</span> onto? one-to-one?</p>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(T(\mathbf{x})\)</span> is <strong>not</strong> onto. <span class="math inline">\(T(\mathbf{x})\)</span> may or may not be one-to-one.</li>
+</ul>
+</div>
+<p>If <span class="math inline">\(T(\mathbf{x}) = A\mathbf{x}\)</span> is onto, is <span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span> consistent for all <span class="math inline">\(\mathbf{b}\)</span>? Is the solution unique for all <span class="math inline">\(\mathbf{b}\)</span>?</p>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span> is consistent for all <span class="math inline">\(\mathbf{b}\)</span>. The solution may not be unique for any <span class="math inline">\(\mathbf{b}\)</span>.</li>
+</ul>
+</div>
+<p>If <span class="math inline">\(T(\mathbf{x}) = A\mathbf{x}\)</span> is one-to-one, is <span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span> consistent for all <span class="math inline">\(\mathbf{b}\)</span>? Is the solution unique for all <span class="math inline">\(\mathbf{b}\)</span>?</p>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span> may or may not be consistent for all <span class="math inline">\(\mathbf{b}\)</span>. For any <span class="math inline">\(\mathbf{b}\)</span>, if there is a solution, it is unique.</li>
+</ul>
+</div>
+
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
