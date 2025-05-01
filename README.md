@@ -20,6 +20,8 @@ available on request.
 
 __Course Versions__
 
+* Spring 2025 - converted to quarto for both slides and book.  Support
+  for DiagramAR is dropped. 
 * Spring 2021 - current version.  All figures can now be visualized in
    augmented reality via DiagramAR, available for iOS and Android.  App
    now loads from menus rather than primarily from QR codes.  Printed
@@ -35,25 +37,10 @@ __Course Versions__
 
 __Software Used__
 
-Each workbook can be presented as a slideshow in Jupyter notebook using the 
-[RISE](https://github.com/damianavila/RISE) package, by
-@damianavila.  This is how I give the lectures, typically modifying the
-code during the lecture to illustrate points or explore ideas that come
-up.
+Both book and slides are generated from common `.qmd` files using quarto. 
 
-I use some
-[notebook extensions](https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/)
-to neaten and simplify the notebooks.  For the best presentation
-experience, enable the "RISE," "Hide input," and
-"split cells" extensions. 
-
-Most 3D diagrams in the notes can be viewed in augmented reality via the
-iPhone/Android app
-[iOS](https://apps.apple.com/us/app/diagramar/id1484987191), [Android](https://play.google.com/store/apps/details?id=com.crovella.diagramar).    The DiagramAR
-team includes Dennis Henneman (principal developer), Xiqiao Chen
-(designer), Dayong Wu (developer) and
-Mark Crovella (project lead).
-
+To generate the book: `make book`.   To generate slides: `quarto render
+--profile slides`. 
 
 
 
