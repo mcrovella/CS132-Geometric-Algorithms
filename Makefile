@@ -2,7 +2,7 @@
 
 figures:
 figures: ## run all notebooks in order to regenerate all figures
-	jupyter nbconvert --to notebook --inplace --execute *.ipynb
+        #jupyter nbconvert --to notebook --inplace --execute *.ipynb
 
 book:
 book: ## compile the book but do not publish it
@@ -11,11 +11,12 @@ book: ## compile the book but do not publish it
         # -W make warning treated as errors
         # -n nitpick generate warnings for all missing links
         # --keep-going despite -W don't stop delay errors till the end
-	jupyter-book build --keep-going .
+        # jupyter-book build --keep-going .
+	quarto render --profile web
 
 pushbook:
 pushbook: ## publish the last compiled book
-	rsync -avb _build/html/ docs
+	rsync -avb _site/ docs
 	git add docs
 	git commit -m 'book update'
 	git push

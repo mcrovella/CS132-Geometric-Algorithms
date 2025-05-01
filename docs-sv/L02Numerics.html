@@ -1,0 +1,1058 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>(Getting Serious About) Numbers &#8212; Linear Algebra, Geometry, and Computation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'L02Numerics';</script>
+    <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Gaussian Elimination" href="L03RowReductions.html" />
+    <link rel="prev" title="Linear Equations" href="L01LinearEquations.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="landing-page.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/DiagramAR-icon.png" class="logo__image only-light" alt="Linear Algebra, Geometry, and Computation - Home"/>
+    <script>document.write(`<img src="_static/DiagramAR-icon.png" class="logo__image only-dark" alt="Linear Algebra, Geometry, and Computation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="landing-page.html">
+                    Preface
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="L01LinearEquations.html">Linear Equations</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">(Getting Serious About) Numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L03RowReductions.html">Gaussian Elimination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L04VectorEquations.html">Vector Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L05Axb.html"><span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="L06LinearIndependence.html">Linear Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L07LinearTransformations.html">Linear Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L08MatrixofLinearTranformation.html">The Matrix of a Linear Transformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L09MatrixOperations.html">Matrix Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L10MatrixInverse.html">The Inverse of a Matrix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L11MarkovChains.html">Markov Chains</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L12MatrixFactorizations.html">Matrix Factorizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L13ComputerGraphics.html">Computer Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L14Subspaces.html">Subspaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L15DimensionRank.html">Dimension and Rank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L16Eigenvectors.html">Eigenvectors and Eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L17CharacteristicEqn.html">The Characteristic Equation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L18Diagonalization.html">Diagonalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L19PageRank.html">PageRank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L20Orthogonality.html">Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="L21OrthogonalSets.html">Orthogonal Sets and Projection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L22LeastSquares.html">Least Squares</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L23LinearModels.html">Linear Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L24SymmetricMatrices.html">Symmetric Matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L25SVD.html">The Singular Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L26ApplicationsOfSVD.html">Applications of the SVD</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/L02Numerics.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>(Getting Serious About) Numbers</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#representations">Representations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integers">Integers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#real-numbers-and-floating-point-representations">Real Numbers and Floating-Point Representations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-relative-error-of-a-real-number-stored-in-a-computer">The Relative Error of a Real Number stored in a Computer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implications-of-representation-error">Implications of Representation Error</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#special-values">Special Values</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-computation-vs-mechanical-computation"><em>Mathematical</em> Computation vs. <em>Mechanical</em> Computation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#principle-1-do-not-compare-floating-point-numbers-for-equality">Principle 1: Do not compare floating point numbers for equality</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#principle-2-beware-of-ill-conditioned-problems">Principle 2: Beware of ill-conditioned problems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#principle-3-relative-error-can-be-magnified-during-subtractions">Principle 3: Relative error can be magnified during subtractions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <div class="cell tag_remove-input docutils container">
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="getting-serious-about-numbers">
+<h1>(Getting Serious About) Numbers<a class="headerlink" href="#getting-serious-about-numbers" title="Permalink to this heading">#</a></h1>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>Photo Credit:
+<a href="https://commons.wikimedia.org/wiki/File:William_Kahan_2008_(cropped).jpg">George M. Bergman</a>, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, via Wikimedia Commons</p>
+</aside>
+<center>
+<a class="reference internal image-reference" href="_images/William_Kahan_2008_(cropped).jpeg"><img alt="Figure" src="_images/William_Kahan_2008_(cropped).jpeg" style="width: 200px;" /></a>
+<div>
+    <b>William Kahan,</b> creator of the IEEE-754 standard.
+<div>
+Turing Award Winner, 1989
+</center><blockquote>
+<div><p>I have a number in my head <br>
+Though I don’t know why it’s there<br>
+When numbers get serious<br>
+You see their shape everywhere</p>
+<p>Paul Simon</p>
+</div></blockquote>
+<p>One of the themes of this course will be shifting between mathematical and computational views of various concepts.</p>
+<p>Today we need to talk about why the answers we get from computers can be different from the answers we get mathematically</p>
+<p>– for the same question!</p>
+<p>The root of the problem has to do with how <strong>numbers</strong> are manipulated in a computer.</p>
+<p>In other words, how numbers are <strong>represented.</strong></p>
+<section id="representations">
+<h2>Representations<a class="headerlink" href="#representations" title="Permalink to this heading">#</a></h2>
+<p>A number is a mathematical concept – an abstract idea.</p>
+<blockquote>
+<div><p>God made the integers, <br>all else is the work of man.</p>
+<p>Leopold Kronecker (1823 - 1891)</p>
+</div></blockquote>
+<p>In a computer we assign <strong>bit patterns</strong> to correspond to certain numbers.</p>
+<p>We say the bit pattern is the number’s <em>representation.</em></p>
+<p>For example the number ‘3.14’ might have the representation ‘01000000010010001111010111000011’.</p>
+<p>For reasons of efficiency, we use a fixed number of bits for these representations.   In most computers nowadays we use <strong>64 bits</strong> to represent a number.</p>
+<p>Let’s look at some number representations and see what they imply about computations.</p>
+</section>
+<section id="integers">
+<h2>Integers<a class="headerlink" href="#integers" title="Permalink to this heading">#</a></h2>
+<p>Kronecker believed that integers were the only ‘true’ numbers.</p>
+<p>And for the most part, using integers in a computer is not complicated.</p>
+<p>Integer representation is essentially the same as binary numerals.</p>
+<p>For example, in a 64-bit computer, the representation of the concept of ‘seven’ would be ‘0..0111’ (with 61 zeros in the front).</p>
+<p>There is a size limit on the largest value that can be stored as an integer, but it’s so big we don’t need to concern ourselves with it in this course.</p>
+<p>So for our purposes, an integer can be stored exactly.</p>
+<p>In other words, there is an 1-1 correspondence between every (computational) representation and the corresponding (mathematical) integer.</p>
+<p>So, what happens when we compute with integers?</p>
+<p>For (reasonably sized) integers, computation is <strong>exact</strong> …. as long as it only involves <strong>addition, subtraction, and multiplication.</strong></p>
+<p>In other words, there are no errors introduced when adding, subtracting or multiplying integers.</p>
+<p>However, it is a different story when we come to division, because the integers are not closed under division.</p>
+<p>For example, 2/3 is not an integer.   … It is, however, a <strong>real</strong> number.</p>
+</section>
+<section id="real-numbers-and-floating-point-representations">
+<h2>Real Numbers and Floating-Point Representations<a class="headerlink" href="#real-numbers-and-floating-point-representations" title="Permalink to this heading">#</a></h2>
+<p>Representing a real number in a computer is a <strong>much</strong> more complicated matter.</p>
+<p>In fact, for many decades after electronic computers were developed, there was no accepted “best” way to do this!</p>
+<p>Eventually (in the 1980s) a widely accepted standard emerged, called IEEE-754.  This is what almost all computers now use.</p>
+<p>The style of representation used is called <strong>floating point.</strong></p>
+<p>Conceptually, it is similar to “scientific notation.”</p>
+<div class="math notranslate nohighlight">
+\[123456 = \underbrace{1.23456}_{\text{significand}}\times {\underbrace{10}_{\text{base}}}^{\overbrace{5}^{exponent}}\]</div>
+<p>Except that it is encoded in binary:</p>
+<div class="math notranslate nohighlight">
+\[17 = \underbrace{1.0001}_{\text{significand}}\times {\underbrace{2}_{\text{base}}}^{\overbrace{4}^{exponent}}\]</div>
+<p>The sign, significand, and exponent are all contained within the 64 bits.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>By Codekaizen (Own work) [<a href="http://www.gnu.org/copyleft/fdl.html">GFDL</a> or <a href="http://creativecommons.org/licenses/by-sa/4.0-3.0-2.5-2.0-1.0">CC BY-SA 4.0-3.0-2.5-2.0-1.0</a>], <a href="https://commons.wikimedia.org/wiki/File%3AIEEE_754_Double_Floating_Point_Format.svg">via Wikimedia Commons</a></p>
+</aside>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/a692296b5d505d382bb69a4e78ec0e3f7cc83eb46d212f8e0cadac126b7c6e17.png" src="_images/a692296b5d505d382bb69a4e78ec0e3f7cc83eb46d212f8e0cadac126b7c6e17.png" />
+</div>
+</div>
+<p>Because only a fixed number of bits are used, <strong>most real numbers cannot be represented exactly in a computer.</strong></p>
+<p>Another way of saying this is that, usually, a floating point number is an approximation of some particular real number.</p>
+<p>Generally when we try to store a real number in a computer, <strong>what we wind up storing is the closest floating point number that the computer can represent.</strong></p>
+<section id="the-relative-error-of-a-real-number-stored-in-a-computer">
+<h3>The Relative Error of a Real Number stored in a Computer<a class="headerlink" href="#the-relative-error-of-a-real-number-stored-in-a-computer" title="Permalink to this heading">#</a></h3>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can experiment with floating point representations to see how errors arise using <a class="reference external" href="https://baseconvert.com/ieee-754-floating-point">this interactive tool</a>.</p>
+</div>
+</aside>
+<p>The way to think about working with floating point (in fact, how the hardware actually does it) is:</p>
+<ol class="arabic simple">
+<li><p>Represent each input as the <strong>nearest</strong> representable floating point number.</p></li>
+<li><p>Compute the result exactly from the floating point representations.</p></li>
+<li><p>Return the <strong>nearest</strong> representable floating point number to the result.</p></li>
+</ol>
+<p>What does “<strong>nearest</strong>” mean?   Long story short, it means “round to the nearest representable value.”</p>
+<p>Let’s say we have a particular real number <span class="math notranslate nohighlight">\(r\)</span> and we represent it as a floating point value <span class="math notranslate nohighlight">\(f\)</span>.</p>
+<p>Then <span class="math notranslate nohighlight">\(r = f + \epsilon\)</span> where <span class="math notranslate nohighlight">\(\epsilon\)</span> is the amount that <span class="math notranslate nohighlight">\(r\)</span> was rounded when represented as <span class="math notranslate nohighlight">\(f\)</span>.</p>
+<p>So <span class="math notranslate nohighlight">\(\epsilon\)</span> is the difference between the value we want, and the value we get.</p>
+<p>How big can this difference be?  Let’s say <span class="math notranslate nohighlight">\(f\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[f = \underbrace{1.010...01}_\text{53 bits}\times 2^n\]</div>
+<p>Then <span class="math notranslate nohighlight">\(|\epsilon|\)</span> must be smaller than</p>
+<div class="math notranslate nohighlight">
+\[|\epsilon| &lt; \underbrace{0.000...01}_\text{53 bits}\times 2^n.\]</div>
+<p>So as a <em>relative error</em>,</p>
+<div class="math notranslate nohighlight">
+\[ \text{relative error} = \frac{|\epsilon|}{f} &lt; \frac{{0.000...01}\times 2^n}{\underbrace{1.000...00}_\text{53 bits}\times 2^n} = 2^{-52} \approx 10^{-16}\]</div>
+<p>This value <span class="math notranslate nohighlight">\(10^{-16}\)</span> is an important one to remember.</p>
+<p>It is approximately <strong>the relative error that can be introduced any time a real number is stored in a computer.</strong></p>
+<p>Another way of thinking about this is that you <strong>only have about 16 digits of accuracy</strong> in a floating point number.</p>
+</section>
+<section id="implications-of-representation-error">
+<h3>Implications of Representation Error<a class="headerlink" href="#implications-of-representation-error" title="Permalink to this heading">#</a></h3>
+<p>Problems arise when we work with floating point numbers and confuse them with real numbers.</p>
+<p>It is important to remember that most of the time we are not storing the real number exactly, but only a floating point number that is close to it.</p>
+<p>Let’s look at some examples.  First:</p>
+<div class="math notranslate nohighlight">
+\[ \left( \frac{1}{8} \cdot 8 \right) - 1 \]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ((1/8)*8)-1</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">8</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">)</span><span class="o">-</span><span class="n">c</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>It turns out that 1/8, 8, and 1 can all be stored exactly in IEEE-754 floating point format.</p>
+<p>So, we are</p>
+<ul class="simple">
+<li><p>storing the inputs exactly (1/8, 8 and 1)</p></li>
+<li><p>computing the results exactly (by definition of IEEE-754), yielding <span class="math notranslate nohighlight">\((1/8) \cdot 8 = 1\)</span></p></li>
+<li><p>and representing the result exactly (zero)</p></li>
+</ul>
+<p>OK, here is another example:</p>
+<div class="math notranslate nohighlight">
+\[ \left( \frac{1}{7} \cdot 7 \right) - 1 \]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ((1/7)*7)-1</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">7</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="n">c</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here the situation is different.</p>
+<p>1/7 can <strong>not</strong> be stored exactly in IEEE-754 floating point format.</p>
+<p>In binary, 1/7 is <span class="math notranslate nohighlight">\(0.001\overline{001}\)</span>, an infinitely repeating pattern that obviously cannot be represented as a finite sequence of bits.</p>
+<p>Nonetheless, the computation <span class="math notranslate nohighlight">\((1/7) \cdot 7\)</span> still yields exactly 1.0.</p>
+<p>Why? Because the rounding of <span class="math notranslate nohighlight">\(0.001\overline{001}\)</span> to its closest floating point representation, when multiplied by 7, yields a value whose closest floating point representation is 1.0.</p>
+<p>Now, let’s do something that seems very similar:</p>
+<div class="math notranslate nohighlight">
+\[ \left( \frac{1}{70} \cdot 7 \right) - 0.1 \]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">70</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">-</span> <span class="n">c</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-1.3877787807814457e-17
+</pre></div>
+</div>
+</div>
+</div>
+<p>In this case, both 1/70 and 0.1 <strong>cannot</strong> be stored exactly.</p>
+<p>More importantly, the process of rounding 1/70 to its closest floating point representation, then multiplying by 7, yields a number whose closest floating point representation is <strong>not</strong> 0.1</p>
+<p>However, that floating point representation is very <strong>close</strong> to 0.1.</p>
+<p>Let’s look at the difference: -1.3877787807814457e-17.</p>
+<p>This is about <span class="math notranslate nohighlight">\(-1 \cdot 10^{-17}\)</span>.</p>
+<p>In other words, about -0.00000000000000001</p>
+<p>Compared to 0.1, this is a very small number.  The relative error is about:</p>
+<div class="math notranslate nohighlight">
+\[ \frac{|-0.00000000000000001|}{0.1} \]</div>
+<p>which is about <span class="math notranslate nohighlight">\(10^{-16}.\)</span></p>
+<p>This suggests that when a floating point calculation is not exact, the error (in a relative sense) is usually very small.</p>
+<p>Notice also that in our example the size of the relative error is about <span class="math notranslate nohighlight">\(10^{-16}\)</span>.</p>
+<p>Recall that the significand in IEEE-754 uses 52 bits.</p>
+<p>Now, note that <span class="math notranslate nohighlight">\(2^{-52} \approx 10^{-16}\)</span>.</p>
+<p>There’s our “sixteen digits of accuracy” principle again.</p>
+</section>
+<section id="special-values">
+<h3>Special Values<a class="headerlink" href="#special-values" title="Permalink to this heading">#</a></h3>
+<p>There are three kinds of special values defined by IEEE-754:</p>
+<ol class="arabic simple">
+<li><p>NaN, which means “Not a Number”</p></li>
+<li><p>Infinity – both positive and negative</p></li>
+<li><p>Zero – both positive and negative.</p></li>
+</ol>
+<p><strong>NaN</strong> and <strong>Inf</strong> behave about as you’d expect.</p>
+<p>If you get one of these values in a computation you should be able to reason about how it happened.   Note that these are values, and can be assigned to variables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nm/m_437v6x2qj7_7k4k5wjbk9r000s6y/T/ipykernel_99122/3438155168.py:1: RuntimeWarning: invalid value encountered in sqrt
+  np.sqrt(-1)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>nan
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">var</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nm/m_437v6x2qj7_7k4k5wjbk9r000s6y/T/ipykernel_99122/329155313.py:1: RuntimeWarning: divide by zero encountered in log
+  var = np.log(0)
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-inf
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span><span class="o">/</span><span class="n">var</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.0
+</pre></div>
+</div>
+</div>
+</div>
+<p>As far as we are concerned, there is no difference between positive and negative zero.   You can ignore the minus sign in front of a negative zero.  (If you are curious why there is a negative zero, see the online notes.)</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The reason for having a negative and positive zero is the following.</p>
+<p>Remember that, due to the limitations of floating point representation, we can only store the <strong>nearest representable</strong> number to the one we’d like to store.</p>
+<p>So, let’s say we try to store a number <span class="math notranslate nohighlight">\(x\)</span> that is very close to zero. To be specific, let <span class="math notranslate nohighlight">\(|x| &lt; 2.2 \times 10^{-308}\)</span>.  Then the closest floating point representation is zero, so that is what is stored.   This is known as “underflow”.</p>
+<p>But … the number <span class="math notranslate nohighlight">\(x\)</span> that we were <em>trying</em> to store could have been positive or negative.   So the standard defines a positive and negative zero. The sign of zero tells us when underflow occurred, “which direction” the underflow came from.</p>
+<p>This can be useful in some numerical algorithms.</p>
+</div>
+</aside>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">var</span> <span class="o">+</span> <span class="mi">7</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>nan
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">var</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+<span class="n">var</span> <span class="o">+</span> <span class="mi">7</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>inf
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="mathematical-computation-vs-mechanical-computation">
+<h2><em>Mathematical</em> Computation vs. <em>Mechanical</em> Computation<a class="headerlink" href="#mathematical-computation-vs-mechanical-computation" title="Permalink to this heading">#</a></h2>
+<p>In a mathematical theorem, working with (idealized) numbers, it is always true that:</p>
+<p>If</p>
+<div class="math notranslate nohighlight">
+\[c = 1/a\]</div>
+<p>then</p>
+<div class="math notranslate nohighlight">
+\[abc = b.\]</div>
+<p>In other words,</p>
+<div class="math notranslate nohighlight">
+\[(ab)/a = b.\]</div>
+<p>Let’s test whether this is always true in actual computation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mi">7</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">10</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">a</span>
+<span class="n">a</span><span class="o">*</span><span class="n">c</span><span class="o">*</span><span class="n">b</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span><span class="o">*</span><span class="n">c</span><span class="o">*</span><span class="n">a</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.09999999999999999
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">*</span><span class="n">c</span><span class="o">*</span><span class="n">b</span> <span class="o">==</span> <span class="n">b</span><span class="o">*</span><span class="n">c</span><span class="o">*</span><span class="n">a</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+<p>Here is another example:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.1</span> <span class="o">+</span> <span class="mf">0.1</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.30000000000000004
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.3</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5.551115123125783e-17
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>What does all this mean for us in practice?</strong></p>
+<p>I will now give you three principles to keep in mind when computing with floating point numbers.</p>
+<section id="principle-1-do-not-compare-floating-point-numbers-for-equality">
+<h3>Principle 1: Do not compare floating point numbers for equality<a class="headerlink" href="#principle-1-do-not-compare-floating-point-numbers-for-equality" title="Permalink to this heading">#</a></h3>
+<p>Two floating point computations that <em>should</em> yield the same result mathematically, may not do so due to rounding error.</p>
+<p>However, in general, if two numbers should be equal, the relative error of the difference in the floating point should be small.</p>
+<p>So, instead of asking whether two floating numbers are equal, we should ask whether the relative error of their difference is small.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">r1</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span> <span class="o">*</span> <span class="n">c</span>
+<span class="n">r2</span> <span class="o">=</span> <span class="n">b</span> <span class="o">*</span> <span class="n">c</span> <span class="o">*</span> <span class="n">a</span>
+<span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">r1</span><span class="o">-</span><span class="n">r2</span><span class="p">)</span><span class="o">/</span><span class="n">r1</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.3877787807814457e-16
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>finfo(resolution=1e-15, min=-1.7976931348623157e+308, max=1.7976931348623157e+308, dtype=float64)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">r1</span> <span class="o">==</span> <span class="n">r2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>False
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">r1</span> <span class="o">-</span>  <span class="n">r2</span><span class="p">)</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">([</span><span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">])</span> <span class="o">&lt;</span> <span class="n">np</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">resolution</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>This test is needed often enough that <code class="docutils literal notranslate"><span class="pre">numpy</span></code> has a function that implements it:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">r1</span><span class="p">,</span> <span class="n">r2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+</pre></div>
+</div>
+</div>
+</div>
+<p>So another way to state Rule 1 for our purposes is:</p>
+<p>… <strong>always</strong> use <code class="docutils literal notranslate"><span class="pre">np.isclose()</span></code> to compare floating point numbers for equality!</p>
+<p>Next, we will generalize this idea a bit:</p>
+<p>beyond the fact that numbers that should be equal, may not be in practice,</p>
+<p>we can also observe that it can be hard to be accurate about the <strong>difference</strong> between two numbers that are <strong>nearly</strong> equal.  This leads to the next two principles.</p>
+</section>
+<section id="principle-2-beware-of-ill-conditioned-problems">
+<h3>Principle 2: Beware of ill-conditioned problems<a class="headerlink" href="#principle-2-beware-of-ill-conditioned-problems" title="Permalink to this heading">#</a></h3>
+<p>An <strong>ill-conditioned</strong> problem is one in which the outputs depend in a very sensitive manner on the inputs.</p>
+<p>That is, a small change in the inputs can yield a very large change in the outputs.</p>
+<p>The simplest example is computing <span class="math notranslate nohighlight">\(1/(a-b)\)</span>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;r1 is </span><span class="si">{</span><span class="n">r1</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;r2 is very close to r1&#39;</span><span class="p">)</span>
+<span class="n">r3</span> <span class="o">=</span> <span class="n">r1</span> <span class="o">+</span> <span class="mf">0.0001</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;r3 is 0.1001&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>r1 is 0.1
+r2 is very close to r1
+r3 is 0.1001
+</pre></div>
+</div>
+</div>
+</div>
+<p>Let’s look at</p>
+<div class="math notranslate nohighlight">
+\[ \frac{1}{r1 - r2} \text{ versus } \frac{1}{r3-r2} \]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;1/(r1 - r2) = </span><span class="si">{</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">r1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">r2</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;1/(r3 - r2) = </span><span class="si">{</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">r3</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">r2</span><span class="p">)</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1/(r1 - r2) = 7.205759403792794e+16
+1/(r3 - r2) = 9999.999999998327
+</pre></div>
+</div>
+</div>
+</div>
+<p>If <span class="math notranslate nohighlight">\(a\)</span> is close to <span class="math notranslate nohighlight">\(b\)</span>, small changes in either make a big difference in the output.</p>
+<p>Because the inputs to your problem may not be exact, if the problem is ill-conditioned, the outputs may be wrong by a large amount.</p>
+<p>Later on we will see that the notion of ill-conditioning applies to matrix problems too, and in particular comes up when we solve certain problems involving matrices.</p>
+</section>
+<section id="principle-3-relative-error-can-be-magnified-during-subtractions">
+<h3>Principle 3: Relative error can be magnified during subtractions<a class="headerlink" href="#principle-3-relative-error-can-be-magnified-during-subtractions" title="Permalink to this heading">#</a></h3>
+<p>Two numbers, each with small relative error, can yield a value with large relative error if subtracted.</p>
+<p>Let’s say we represent a = 1.2345 as 1.2345002 – the relative error is 0.0000002.</p>
+<p>Let’s say we represent b = 1.234  as 1.2340001 – the relative error is 0.0000001.</p>
+<p>Now, subtract a - b: the result is .0005001.</p>
+<p>What is the relative error?  0.005001 - 0.005 / 0.005 = 0.0002</p>
+<p>The relative error of the result is 1000 times larger than the relative error of the inputs.</p>
+<p>Here’s an example in practice:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="mf">1.23456789</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mf">1.2345678</span>
+<span class="nb">print</span><span class="p">(</span><span class="mf">0.00000009</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9e-08
+8.999999989711682e-08
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="o">-</span><span class="mf">0.00000009</span><span class="p">)</span><span class="o">/</span> <span class="mf">0.00000009</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.1431464011915431e-09
+</pre></div>
+</div>
+</div>
+</div>
+<p>We know the relative error in the inputs is on the order of <span class="math notranslate nohighlight">\(10^{-16}\)</span>, but the relative error of the output is on the order of <span class="math notranslate nohighlight">\(10^{-9}\)</span> – i.e., a million times larger.</p>
+</section>
+<section id="further-reading">
+<h3>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Further information about how Python handles issues around floating point is at <a class="reference external" href="https://docs.python.org/3/tutorial/floatingpoint.html">Floating Point Arithmetic: Issues and Limitations</a>.</p></li>
+<li><p>An excellent, in-depth introduction to floating point is <a class="reference external" href="https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html">What Every Computer Scientist Should Know About Floating-Point Arithmetic</a>.</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="L01LinearEquations.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Linear Equations</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="L03RowReductions.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Gaussian Elimination</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#representations">Representations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integers">Integers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#real-numbers-and-floating-point-representations">Real Numbers and Floating-Point Representations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-relative-error-of-a-real-number-stored-in-a-computer">The Relative Error of a Real Number stored in a Computer</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implications-of-representation-error">Implications of Representation Error</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#special-values">Special Values</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mathematical-computation-vs-mechanical-computation"><em>Mathematical</em> Computation vs. <em>Mechanical</em> Computation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#principle-1-do-not-compare-floating-point-numbers-for-equality">Principle 1: Do not compare floating point numbers for equality</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#principle-2-beware-of-ill-conditioned-problems">Principle 2: Beware of ill-conditioned problems</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#principle-3-relative-error-can-be-magnified-during-subtractions">Principle 3: Relative error can be magnified during subtractions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#further-reading">Further Reading</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mark Crovella.  Portions are based on Lay, 'Linear Algebra and its Applications'
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
