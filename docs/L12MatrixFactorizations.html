@@ -1,1172 +1,777 @@
+
+
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.37">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>l12matrixfactorizations – Geometric Algorithms</title>
-<style>
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
-  vertical-align: middle;
-}
-</style>
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Matrix Factorizations &#8212; Linear Algebra, Geometry, and Computation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'L12MatrixFactorizations';</script>
+    <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Computer Graphics" href="L13ComputerGraphics.html" />
+    <link rel="prev" title="Markov Chains" href="L11MarkovChains.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="landing-page.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/DiagramAR-icon.png" class="logo__image only-light" alt="Linear Algebra, Geometry, and Computation - Home"/>
+    <script>document.write(`<img src="_static/DiagramAR-icon.png" class="logo__image only-dark" alt="Linear Algebra, Geometry, and Computation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="landing-page.html">
+                    Preface
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="L01LinearEquations.html">Linear Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L02Numerics.html">(Getting Serious About) Numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L03RowReductions.html">Gaussian Elimination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L04VectorEquations.html">Vector Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L05Axb.html"><span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="L06LinearIndependence.html">Linear Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L07LinearTransformations.html">Linear Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L08MatrixofLinearTranformation.html">The Matrix of a Linear Transformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L09MatrixOperations.html">Matrix Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L10MatrixInverse.html">The Inverse of a Matrix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L11MarkovChains.html">Markov Chains</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Matrix Factorizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L13ComputerGraphics.html">Computer Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L14Subspaces.html">Subspaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L15DimensionRank.html">Dimension and Rank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L16Eigenvectors.html">Eigenvectors and Eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L17CharacteristicEqn.html">The Characteristic Equation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L18Diagonalization.html">Diagonalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L19PageRank.html">PageRank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L20Orthogonality.html">Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="L21OrthogonalSets.html">Orthogonal Sets and Projection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L22LeastSquares.html">Least Squares</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L23LinearModels.html">Linear Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L24SymmetricMatrices.html">Symmetric Matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L25SVD.html">The Singular Value Decomposition</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L26ApplicationsOfSVD.html">Applications of the SVD</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-fec4eca8e712537310c7ebcc1543822c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
-  "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
-  }
-}</script>
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+<div class="sbt-scroll-pixel-helper"></div>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/L12MatrixFactorizations.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
 </script>
 
-<link rel="stylesheet" href="styles.css">
-</head>
 
-<body class="nav-sidebar docked slimcontent">
-
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L12MatrixFactorizations.html">Matrix Factorizations</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
-<!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./images/DiagramAR-icon.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
-      </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./landing_page.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L01LinearEquations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Linear Equations</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L02Numerics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">(Getting Serious About) Numbers</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L03RowReductions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Gaussian Elimination</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L04VectorEquations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Vector Equations</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L05Axb.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L06LinearIndependence.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Linear Independence</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L07LinearTransformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Linear Transformations</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L08MatrixofLinearTransformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">The Matrix of a Linear Transformation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L09MatrixOperations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Matrix Algebra</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L10MatrixInverse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">The Inverse of a Matrix</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L11MarkovChains.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Markov Chains</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L12MatrixFactorizations.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Matrix Factorizations</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L13ComputerGraphics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Computer Graphics</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L14Subspaces.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Subspaces</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L15DimensionRank.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dimension and Rank</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L16Eigenvectors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Eigenvectors and Eigenvalues</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L17CharacteristicEqn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">The Characteristic Equation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L18Diagonalization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Diagonalization</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L19PageRank.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">PageRank</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L20Orthogonality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Analytic Geometry in <span class="math inline">\(\mathbb{R}^n\)</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L21OrthogonalSets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Orthogonal Sets and Projection</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L22LeastSquares.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Least Squares</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L23LinearModels.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Linear Models</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L24SymmetricMatrices.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Symmetric Matrices</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L25SVD.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">The Singular Value Decomposition</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L26ApplicationsOfSVD.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Applications of the SVD</span></a>
-  </div>
-</li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#matrix-factorizations" id="toc-matrix-factorizations" class="nav-link active" data-scroll-target="#matrix-factorizations">Matrix Factorizations</a></li>
-  <li><a href="#a-rationale-for-the-lu-factorization" id="toc-a-rationale-for-the-lu-factorization" class="nav-link" data-scroll-target="#a-rationale-for-the-lu-factorization">A Rationale for the LU Factorization</a></li>
-  <li><a href="#elementary-matrices" id="toc-elementary-matrices" class="nav-link" data-scroll-target="#elementary-matrices">Elementary Matrices</a>
-  <ul class="collapse">
-  <li><a href="#finding-the-elementary-matrix" id="toc-finding-the-elementary-matrix" class="nav-link" data-scroll-target="#finding-the-elementary-matrix">Finding the Elementary Matrix</a></li>
-  </ul></li>
-  <li><a href="#the-lu-factorization" id="toc-the-lu-factorization" class="nav-link" data-scroll-target="#the-lu-factorization">The LU Factorization</a>
-  <ul class="collapse">
-  <li><a href="#finding-l" id="toc-finding-l" class="nav-link" data-scroll-target="#finding-l">Finding <span class="math inline">\(L\)</span></a></li>
-  </ul></li>
-  <li><a href="#using-the-lu-factorization" id="toc-using-the-lu-factorization" class="nav-link" data-scroll-target="#using-the-lu-factorization">Using the LU Factorization</a></li>
-  <li><a href="#pivoting" id="toc-pivoting" class="nav-link" data-scroll-target="#pivoting">Pivoting</a></li>
-  </ul>
-</nav>
-    </div>
-<!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
-
-
-
-
-<!--
-This comment somehow suppresses the title page
--->
-<section id="matrix-factorizations" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="matrix-factorizations">Matrix Factorizations</h2>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p>Many parts of this page are based on <em>Linear Algebra and its Applications,</em> by David C. Lay</p>
-</div></div><p>Just as multiplication can be generalized from scalars to matrices, the notion of a factorization can also be generalized from scalars to matrices.</p>
-<p>A <em>factorization</em> of a matrix <span class="math inline">\(A\)</span> is an equation that expresses <span class="math inline">\(A\)</span> as a product of two or more matrices.</p>
-<p><span class="math display">\[A = BC.\]</span></p>
-<div class="fragment">
-<p>The essential difference with what we have done so far is that we have been given factors (<span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span>) and then computed <span class="math inline">\(A\)</span>.</p>
-<p>In a factorization problem, you are given <span class="math inline">\(A\)</span>, and you want to find <span class="math inline">\(B\)</span> and <span class="math inline">\(C\)</span> – that meet some conditions.</p>
+  
 </div>
-<div class="fragment">
-<p>There are a number of reasons one may want to factor a matrix.</p>
-<ul>
-<li>Recasting <span class="math inline">\(A\)</span> into a form that makes computing with <span class="math inline">\(A\)</span> faster.</li>
-<li>Recasting <span class="math inline">\(A\)</span> into a form that makes working with <span class="math inline">\(A\)</span> easier.</li>
-<li>Recasting <span class="math inline">\(A\)</span> into a form that exposes important properties of <span class="math inline">\(A\)</span>.</li>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Matrix Factorizations</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-rationale-for-the-lu-factorization">A Rationale for the LU Factorization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elementary-matrices">Elementary Matrices</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-the-elementary-matrix">Finding the Elementary Matrix</a></li>
 </ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lu-factorization">The LU Factorization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-l">Finding <span class="math notranslate nohighlight">\(L\)</span></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-lu-factorization">Using the LU Factorization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pivoting">Pivoting</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
 </div>
-<div class="fragment">
-<p>Today we’ll work with one particular factorization that addesses the first case. Later one we’ll study factorizations that address the other two cases.</p>
-</div>
-<div class="fragment">
-<p>The factorization we will study is called the <strong>LU Factorization.</strong> It is worth studying in its own right, and because it introduces the idea of factorizations, which we will study again later on.</p>
-</div>
-</section>
-<section id="a-rationale-for-the-lu-factorization" class="level2">
-<h2 class="anchored" data-anchor-id="a-rationale-for-the-lu-factorization">A Rationale for the LU Factorization</h2>
-<div class="fragment">
-<p>Consider the following problem. You are given <span class="math inline">\(A \in \mathbb{R}^{n\times n}\)</span> and <span class="math inline">\(B \in \mathbb{R}^{n\times p}\)</span>.</p>
-<p>You seek <span class="math inline">\(X \in \mathbb{R}^{n\times p}\)</span> such that:</p>
-<p><span class="math display">\[ AX = B. \]</span></p>
-<p>In other words, instead of the usual <span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span>, now <span class="math inline">\(X\)</span> and <span class="math inline">\(B\)</span> are matrices.</p>
-</div>
-<div class="fragment">
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="matrix-factorizations">
+<h1>Matrix Factorizations<a class="headerlink" href="#matrix-factorizations" title="Permalink to this heading">#</a></h1>
+<p>Just as muiltiplication can be generalized from scalars to matrices, the notion of a factorization can also be generalized from scalars to matrices.</p>
+<p>A <em>factorization</em> of a matrix <span class="math notranslate nohighlight">\(A\)</span> is an equation that expresses <span class="math notranslate nohighlight">\(A\)</span> as a product of two or more matrices.</p>
+<div class="math notranslate nohighlight">
+\[A = BC.\]</div>
+<p>The essential difference with what we have done so far is that we have been given factors (<span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(C\)</span>) and then computed <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>In a factorization problem, you are given <span class="math notranslate nohighlight">\(A\)</span>, and you want to find <span class="math notranslate nohighlight">\(B\)</span> and <span class="math notranslate nohighlight">\(C\)</span> – that meet some conditions.</p>
+<p>There are a number of reasons one may want to factor a matrix.</p>
+<ul class="simple">
+<li><p>Recasting <span class="math notranslate nohighlight">\(A\)</span> into a form that makes computing with <span class="math notranslate nohighlight">\(A\)</span> faster.</p></li>
+<li><p>Recasting <span class="math notranslate nohighlight">\(A\)</span> into a form that makes working with <span class="math notranslate nohighlight">\(A\)</span> easier.</p></li>
+<li><p>Recasting <span class="math notranslate nohighlight">\(A\)</span> into a form that exposes important properties of <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+</ul>
+<p>Today we’ll work with one particular factorization that addesses the first case.   Later one we’ll study factorizations that address the other two cases.</p>
+<p>The factorization we will study is called the <strong>LU Factorization.</strong>  It is worth studying in its own right, and because it introduces the idea of factorizations, which we will study again later on.</p>
+<section id="a-rationale-for-the-lu-factorization">
+<h2>A Rationale for the LU Factorization<a class="headerlink" href="#a-rationale-for-the-lu-factorization" title="Permalink to this heading">#</a></h2>
+<p>Consider the following problem.  You are given <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{n\times n}\)</span> and <span class="math notranslate nohighlight">\(B \in \mathbb{R}^{n\times p}\)</span>.</p>
+<p>You seek <span class="math notranslate nohighlight">\(X \in \mathbb{R}^{n\times p}\)</span> such that:</p>
+<div class="math notranslate nohighlight">
+\[ AX = B. \]</div>
+<p>In other words, instead of the usual <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span>, now <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are matrices.</p>
 <p>By the rules of matrix multiplication, we can break this problem up.</p>
-<p>Let <span class="math inline">\(X = [\mathbf{x_1} \mathbf{x_2} \dots \mathbf{x_p}],\)</span> and <span class="math inline">\(B = [\mathbf{b_1} \mathbf{b_2} \dots \mathbf{b_p}]\)</span>.</p>
+<p>Let <span class="math notranslate nohighlight">\(X = [\mathbf{x_1} \mathbf{x_2} \dots \mathbf{x_p}],\)</span> and <span class="math notranslate nohighlight">\(B = [\mathbf{b_1} \mathbf{b_2} \dots \mathbf{b_p}]\)</span>.</p>
 <p>Then:</p>
-<p><span class="math display">\[A{\bf x_1} = {\bf b_1}\]</span> <span class="math display">\[A{\bf x_2} = {\bf b_2}\]</span> <span class="math display">\[\dots\]</span> <span class="math display">\[A{\bf x_p} = {\bf b_p}\]</span></p>
-</div>
-<div class="fragment">
-<p>In other words, there are <span class="math inline">\(p\)</span> linear systems to solve.</p>
+<div class="math notranslate nohighlight">
+\[A{\bf x_1} = {\bf b_1}\]</div>
+<div class="math notranslate nohighlight">
+\[A{\bf x_2} = {\bf b_2}\]</div>
+<div class="math notranslate nohighlight">
+\[\dots\]</div>
+<div class="math notranslate nohighlight">
+\[A{\bf x_p} = {\bf b_p}\]</div>
+<p>In other words, there are <span class="math notranslate nohighlight">\(p\)</span> linear systems to solve.</p>
 <p>Each linear system is conceptually a separate problem.</p>
-<p>Note however that every linear system has the <strong>same <span class="math inline">\(A\)</span> matrix.</strong></p>
-</div>
-<div class="fragment">
-<p>Naturally, you could solve these systems by first computing <span class="math inline">\(A^{-1}\)</span> and then computing:</p>
-<p><span class="math display">\[{\bf x_1} = A^{-1}{\bf b_1}\]</span> <span class="math display">\[{\bf x_2} = A^{-1}{\bf b_2}\]</span> <span class="math display">\[\dots\]</span> <span class="math display">\[{\bf x_p} = A^{-1}{\bf b_p}\]</span></p>
+<p>Note however that every linear system has the <strong>same <span class="math notranslate nohighlight">\(A\)</span> matrix.</strong></p>
+<p>Naturally, you could solve these systems by first computing <span class="math notranslate nohighlight">\(A^{-1}\)</span> and then computing:</p>
+<div class="math notranslate nohighlight">
+\[{\bf x_1} = A^{-1}{\bf b_1}\]</div>
+<div class="math notranslate nohighlight">
+\[{\bf x_2} = A^{-1}{\bf b_2}\]</div>
+<div class="math notranslate nohighlight">
+\[\dots\]</div>
+<div class="math notranslate nohighlight">
+\[{\bf x_p} = A^{-1}{\bf b_p}\]</div>
 <p>Or, more concisely:</p>
-<p><span class="math display">\[ X = A^{-1}B \]</span></p>
-</div>
-<p>What is the computational cost of using the matrix inverse to solve <span class="math inline">\(AX = B\)</span>?</p>
-<p>As <a href="https://mcrovella.github.io/CS132-Geometric-Algorithms/L10MatrixInverse.html#matrices-larger-than-2-times-2">discussed earlier</a> the operation count of matrix inversion is <span class="math inline">\(\sim 2n^3\)</span> flops</p>
+<div class="math notranslate nohighlight">
+\[ X = A^{-1}B \]</div>
+<p>What is the computational cost of using the matrix inverse to solve <span class="math notranslate nohighlight">\(AX = B\)</span>?</p>
+<p>As <a class="reference external" href="https://mcrovella.github.io/CS132-Geometric-Algorithms/L10MatrixInverse.html#matrices-larger-than-2-times-2">discussed earlier</a> the operation count of matrix inversion is  <span class="math notranslate nohighlight">\(\sim 2n^3\)</span> flops</p>
 <p>… that is, three times as many as Gaussian Elimination.</p>
 <p>This cost will dominate the process.</p>
-<div class="fragment">
 <p>Alternatively, we could perform Gaussian Elimination on each of the separate systems.</p>
-<p>This is probably worse, because <a href="https://mcrovella.github.io/CS132-Geometric-Algorithms/L03RowReductions.html#the-cost-of-gaussian-elimination">then we have to perform <span class="math inline">\(\sim p \cdot \frac{2}{3}n^3\)</span> flops.</a></p>
-<p>Assuming <span class="math inline">\(p &gt; 3\)</span>, using Gaussian Elimination on each system means doing more work than if we invert <span class="math inline">\(A\)</span>.</p>
-</div>
+<p>This is probably worse, because <a class="reference external" href="https://mcrovella.github.io/CS132-Geometric-Algorithms/L03RowReductions.html#the-cost-of-gaussian-elimination">then we have to perform <span class="math notranslate nohighlight">\(\sim p \cdot \frac{2}{3}n^3\)</span> flops.</a></p>
+<p>Assuming <span class="math notranslate nohighlight">\(p &gt; 3\)</span>, using Gaussian Elimination on each system means doing more work than if we invert <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>What if we could solve all these systems while performing Gaussian Elimination only <strong>once?</strong></p>
 <p>That would be a win, as it would cut our running time by a factor of 3 compared to using the matrix inverse.</p>
-<div class="fragment">
 <p>The LU factorization allows us to do exactly this.</p>
-</div>
-<div class="fragment">
-<p>Today we will explore the LU factorization. We will see that LU factorization has a close connection to Gaussian Elimination.</p>
+<p>Today we will explore the LU factorization.   We will see that LU factorization has a close connection to Gaussian Elimination.</p>
 <p>In fact, I hope that when we are done, you will see Gaussian Elimination in a new way, namely:</p>
-<blockquote class="blockquote">
-<p><strong>Gaussian Elimination is really a matrix factorization!</strong></p>
-</blockquote>
-</div>
-<div class="fragment">
+<blockquote>
+<div><p><strong>Gaussian Elimination is really a matrix factorization!</strong></p>
+</div></blockquote>
 <p>Before we start to discuss the LU factorization, we need to introduce a powerful tool for performing factorizations, called <em>elementary matrices.</em></p>
-</div>
 </section>
-<section id="elementary-matrices" class="level2">
-<h2 class="anchored" data-anchor-id="elementary-matrices">Elementary Matrices</h2>
-<div class="fragment">
+<section id="elementary-matrices">
+<h2>Elementary Matrices<a class="headerlink" href="#elementary-matrices" title="Permalink to this heading">#</a></h2>
 <p>Recall from the first and second lectures that the row reduction process consists of repeated applications of elementary row operations:</p>
-<ul>
-<li>Exchange two rows</li>
-<li>Multiply a row by a constant</li>
-<li>Add a multiple of one row to another</li>
+<ul class="simple">
+<li><p>Exchange two rows</p></li>
+<li><p>Multiply a row by a constant</p></li>
+<li><p>Add a multiple of one row to another</p></li>
 </ul>
-</div>
-<div class="fragment">
 <p>Now that we have much more theoretical machinery in our toolbox, we can make an important observation:</p>
-<p><strong>Every elementary row operation on <span class="math inline">\(A\)</span> can be performed by multiplying <span class="math inline">\(A\)</span> by a suitable matrix.</strong></p>
-</div>
-<div class="fragment">
+<p><strong>Every elementary row operation on <span class="math notranslate nohighlight">\(A\)</span> can be performed by multiplying <span class="math notranslate nohighlight">\(A\)</span> by a suitable matrix.</strong></p>
 <p>That is, an elementary row operation is a linear transformation!</p>
-</div>
-<p>Furthermore, the matrices that implement elementary row operations are particularly simple. They are called <strong>elementary matrices.</strong></p>
-<div class="fragment">
+<p>Furthermore, the matrices that implement elementary row operations are particularly simple.  They are called <strong>elementary matrices.</strong></p>
 <p>An elementary matrix is one that is obtained by <strong>performing a single elementary row operation on the identity matrix.</strong></p>
-</div>
-<p><strong>Example.</strong> Let</p>
-<p><span class="math display">\[E_1 = \left[\begin{array}{rrr}1&amp;0&amp;0\\0&amp;1&amp;0\\-4&amp;0&amp;1\end{array}\right],\;\; E_2 = \left[\begin{array}{rrr}0&amp;1&amp;0\\1&amp;0&amp;0\\0&amp;0&amp;1\end{array}\right],\;\; E_3 = \left[\begin{array}{rrr}1&amp;0&amp;0\\0&amp;1&amp;0\\0&amp;0&amp;5\end{array}\right].\]</span></p>
-<p>Let’s see what each matrix does to an arbitrary matrix <span class="math inline">\(A = \left[\begin{array}{rrr}a&amp;b&amp;c\\d&amp;e&amp;f\\g&amp;h&amp;i\end{array}\right].\)</span></p>
-<div class="fragment">
-<p><span class="math display">\[ E_1A = \left[\begin{array}{rrr}a&amp;b&amp;c\\d&amp;e&amp;f\\g-4a&amp;h-4b&amp;i-4c\end{array}\right]. \]</span></p>
-</div>
-<div class="fragment">
-<p><span class="math display">\[ E_2A = \left[\begin{array}{rrr}d&amp;e&amp;f\\a&amp;b&amp;c\\g&amp;h&amp;i\end{array}\right].\]</span></p>
-</div>
-<div class="fragment">
-<p><span class="math display">\[ E_3A = \left[\begin{array}{rrr}a&amp;b&amp;c\\d&amp;e&amp;f\\5g&amp;5h&amp;5i\end{array}\right].\]</span></p>
-</div>
-<div class="fragment">
-<p>Clearly, left-multiplication by <span class="math inline">\(E_1\)</span> will add -4 times row 1 to row 3 (for any matrix <span class="math inline">\(A\)</span>).</p>
-</div>
-<section id="finding-the-elementary-matrix" class="level3">
-<h3 class="anchored" data-anchor-id="finding-the-elementary-matrix">Finding the Elementary Matrix</h3>
-<div class="fragment">
+<p><strong>Example.</strong>  Let</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}E_1 = \left[\begin{array}{rrr}1&amp;0&amp;0\\0&amp;1&amp;0\\-4&amp;0&amp;1\end{array}\right],\;\; E_2 = \left[\begin{array}{rrr}0&amp;1&amp;0\\1&amp;0&amp;0\\0&amp;0&amp;1\end{array}\right],\;\; E_3 = \left[\begin{array}{rrr}1&amp;0&amp;0\\0&amp;1&amp;0\\0&amp;0&amp;5\end{array}\right].\end{split}\]</div>
+<p>Let’s see what each matrix does to an arbitrary matrix <span class="math notranslate nohighlight">\(A = \left[\begin{array}{rrr}a&amp;b&amp;c\\d&amp;e&amp;f\\g&amp;h&amp;i\end{array}\right].\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split} E_1A = \left[\begin{array}{rrr}a&amp;b&amp;c\\d&amp;e&amp;f\\g-4a&amp;h-4b&amp;i-4c\end{array}\right]. \end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} E_2A = \left[\begin{array}{rrr}d&amp;e&amp;f\\a&amp;b&amp;c\\g&amp;h&amp;i\end{array}\right].\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} E_3A = \left[\begin{array}{rrr}a&amp;b&amp;c\\d&amp;e&amp;f\\5g&amp;5h&amp;5i\end{array}\right].\end{split}\]</div>
+<p>Clearly, left-multiplication by <span class="math notranslate nohighlight">\(E_1\)</span> will add -4 times row 1 to row 3 (for any matrix <span class="math notranslate nohighlight">\(A\)</span>).</p>
+<section id="finding-the-elementary-matrix">
+<h3>Finding the Elementary Matrix<a class="headerlink" href="#finding-the-elementary-matrix" title="Permalink to this heading">#</a></h3>
 <p>In fact, you can look at this as follows.</p>
-<p>Assume that some matrix <span class="math inline">\(E\)</span> exists that implements the operation “add -4 times row 1 to row 3.”</p>
-</div>
-<div class="fragment">
-<p>Now, for any matrix, <span class="math inline">\(EI = E\)</span> by the definition of <span class="math inline">\(I\)</span>.</p>
-</div>
-<div class="fragment">
+<p>Assume that some matrix <span class="math notranslate nohighlight">\(E\)</span> exists that implements the operation “add -4 times row 1 to row 3.”</p>
+<p>Now, for any matrix, <span class="math notranslate nohighlight">\(EI = E\)</span> by the definition of <span class="math notranslate nohighlight">\(I\)</span>.</p>
 <p>But note that this equation also says:</p>
-<p>“the matrix (<span class="math inline">\(E\)</span>) that implements the operation ‘add -4 times row 1 to row 3’ is the one you get by performing this operation on <span class="math inline">\(I\)</span>”</p>
-</div>
+<p>“the matrix (<span class="math notranslate nohighlight">\(E\)</span>) that implements the operation ‘add -4 times row 1 to row 3’ is the one you get by performing this operation on <span class="math notranslate nohighlight">\(I\)</span>”</p>
 <p>Thus we have the following:</p>
-<p><strong>Fact.</strong> If an elementary row operation is performed on an <span class="math inline">\(m\times n\)</span> matrix <span class="math inline">\(A,\)</span> the resulting matrix can be written as <span class="math inline">\(EA\)</span>, where the <span class="math inline">\(m\times m\)</span> matrix <span class="math inline">\(E\)</span> is created by performing the same row operation on <span class="math inline">\(I_m\)</span>.</p>
-<div class="fragment">
+<p><strong>Fact.</strong> If an elementary row operation is performed on an <span class="math notranslate nohighlight">\(m\times n\)</span> matrix <span class="math notranslate nohighlight">\(A,\)</span> the resulting matrix can be written as <span class="math notranslate nohighlight">\(EA\)</span>, where the <span class="math notranslate nohighlight">\(m\times m\)</span> matrix <span class="math notranslate nohighlight">\(E\)</span> is created by performing the same row operation on <span class="math notranslate nohighlight">\(I_m\)</span>.</p>
 <p>This is actually a special case of a general rule we already know:</p>
-<blockquote class="blockquote">
-<p>to compute the standard matrix of a linear transformation, ask what that transformation does to the identity matrix.</p>
-</blockquote>
-</div>
+<blockquote>
+<div><p>to compute the standard matrix of a linear transformation, ask what that transformation does to the identity matrix.</p>
+</div></blockquote>
 <p>One more thing: is an elementary matrix invertible?</p>
 <p>Clearly, <strong>yes:</strong> any row reduction operation can be reversed by another (related) row reduction operation.</p>
 <p>So every row reduction is an invertible linear transformation – so <strong>every elementary matrix is invertible.</strong></p>
 </section>
 </section>
-<section id="the-lu-factorization" class="level2">
-<h2 class="anchored" data-anchor-id="the-lu-factorization">The LU Factorization</h2>
-<div class="fragment">
+<section id="the-lu-factorization">
+<h2>The LU Factorization<a class="headerlink" href="#the-lu-factorization" title="Permalink to this heading">#</a></h2>
 <p>Now, we will introduce the factorization</p>
-<p><span class="math display">\[ A = LU.\]</span></p>
-<p>Note that we don’t need to consider only square matrices <span class="math inline">\(A\)</span>.</p>
-<p>LU decomposition (like Gaussian Elimination) works for a matrix <span class="math inline">\(A\)</span> having any shape.</p>
-</div>
-<p>An LU factorization of <span class="math inline">\(A\)</span> constructs two matrices that have this structure:</p>
-<p><span class="math display">\[A = \begin{array}{cc}
+<div class="math notranslate nohighlight">
+\[ A = LU.\]</div>
+<p>Note that we don’t need to consider only square matrices <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>LU decomposition (like Gaussian Elimination) works for a matrix <span class="math notranslate nohighlight">\(A\)</span> having any shape.</p>
+<p>An LU factorization of <span class="math notranslate nohighlight">\(A\)</span> constructs two matrices that have this structure:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A = \begin{array}{cc}
 \left[\begin{array}{cccc}1&amp;0&amp;0&amp;0\\ *&amp;1&amp;0&amp;0\\ *&amp;*&amp;1&amp;0\\ *&amp;*&amp;*&amp;1\end{array}\right]&amp;
 \left[\begin{array}{ccccc}\blacksquare&amp;*&amp;*&amp;*&amp;*\\0&amp;\blacksquare&amp;*&amp;*&amp;*\\0&amp;0&amp;0&amp;\blacksquare&amp;*\\0&amp;0&amp;0&amp;0&amp;0\end{array}\right]\\
 L&amp;U\\
 \end{array}
-\]</span></p>
-<p>Stars (<span class="math inline">\(*\)</span>) denote arbitrary entries, and blocks (<span class="math inline">\(\blacksquare\)</span>) denote nonzero entries.</p>
-<div class="fragment">
+\end{split}\]</div>
+<p>Stars (<span class="math notranslate nohighlight">\(*\)</span>) denote arbitrary entries, and blocks (<span class="math notranslate nohighlight">\(\blacksquare\)</span>) denote nonzero entries.</p>
 <p>These two matrices each have a special structure.</p>
-</div>
-<div class="fragment">
-<p>First of all, <span class="math inline">\(U\)</span> is in row echelon form, and it has the same shape as <span class="math inline">\(A\)</span>.<br>
-This is the “upper” matrix (hence its name <span class="math inline">\(U\)</span>).</p>
-</div>
-<div class="fragment">
-<p>Second, <span class="math inline">\(L\)</span> is a lower triangular square matrix, and it has 1s on the diagonal.<br>
-This is called a <strong>unit lower triangular</strong> matrix (hence its name <span class="math inline">\(L\)</span>).</p>
-</div>
-<p>The fact that <span class="math inline">\(U\)</span> is in row echelon form may suggest to you (correctly!) that we could get it from <span class="math inline">\(A\)</span> by a sequence of row operations.</p>
-<p>For now, let us suppose that the row reductions that convert <span class="math inline">\(A\)</span> to <span class="math inline">\(U\)</span> only add a multiple of one row to another row <strong>below</strong> it.</p>
-<div class="fragment">
+<p>First of all, <span class="math notranslate nohighlight">\(U\)</span> is in row echelon form, and it has the same shape as <span class="math notranslate nohighlight">\(A\)</span>.   This is the “upper” matrix (hence its name <span class="math notranslate nohighlight">\(U\)</span>).</p>
+<p>Second, <span class="math notranslate nohighlight">\(L\)</span> is a lower triangular square matrix, and it has 1s on the diagonal.   This is called a <strong>unit lower triangular</strong> matrix (hence its name <span class="math notranslate nohighlight">\(L\)</span>).</p>
+<p>The fact that <span class="math notranslate nohighlight">\(U\)</span> is in row echelon form may suggest to you (correctly!) that we could get it from <span class="math notranslate nohighlight">\(A\)</span> by a sequence of row operations.</p>
+<p>For now, let us suppose that the row reductions that convert <span class="math notranslate nohighlight">\(A\)</span> to <span class="math notranslate nohighlight">\(U\)</span> only add a multiple of one row to another row <strong>below</strong> it.</p>
 <p>Now, if you consider an elementary matrix that implements such a row reduction, you will see that it will have 1s on the diagonal, and an additional entry somewhere below the diagonal.</p>
-</div>
-<div class="fragment">
-<p>For example, recall <span class="math inline">\(E_1\)</span> above:</p>
-<p><span class="math display">\[E_1 = \left[\begin{array}{rrr}1&amp;0&amp;0\\0&amp;1&amp;0\\-4&amp;0&amp;1\end{array}\right]\]</span></p>
-<p><span class="math display">\[ E_1A = \left[\begin{array}{rrr}a&amp;b&amp;c\\d&amp;e&amp;f\\g-4a&amp;h-4b&amp;i-4c\end{array}\right]. \]</span></p>
-</div>
-<div class="fragment">
+<p>For example, recall <span class="math notranslate nohighlight">\(E_1\)</span> above:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}E_1 = \left[\begin{array}{rrr}1&amp;0&amp;0\\0&amp;1&amp;0\\-4&amp;0&amp;1\end{array}\right]\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split} E_1A = \left[\begin{array}{rrr}a&amp;b&amp;c\\d&amp;e&amp;f\\g-4a&amp;h-4b&amp;i-4c\end{array}\right]. \end{split}\]</div>
 <p>In other words, this sort of elementary matrix would actually be a unit lower triangular matrix.</p>
-</div>
-<p>So if there is a sequence of row operations that convert <span class="math inline">\(A\)</span> to <span class="math inline">\(U\)</span>, then there is a sequence of unit lower triangular elementary matrices <span class="math inline">\(E_1, E_2, \dots, E_p\)</span> such that</p>
-<p><span class="math display">\[E_p\cdots E_2 E_1A = U.\]</span></p>
-<div class="fragment">
-<p>Remember the order that the linear transformations are occurring. It is the same as:</p>
-<p><span class="math display">\[(E_p (\cdots (E_2 (E_1A)))) = U.\]</span></p>
+<p>So if there is a sequence of row operations that convert <span class="math notranslate nohighlight">\(A\)</span> to <span class="math notranslate nohighlight">\(U\)</span>, then there is a sequence of unit lower triangular elementary matrices <span class="math notranslate nohighlight">\(E_1, E_2, \dots, E_p\)</span> such that</p>
+<div class="math notranslate nohighlight">
+\[E_p\cdots E_2 E_1A = U.\]</div>
+<p>Remember the order that the linear transformations are occurring.  It is the same as:</p>
+<div class="math notranslate nohighlight">
+\[(E_p (\cdots (E_2 (E_1A)))) = U.\]</div>
 <p>But we can also think of this product as:</p>
-<p><span class="math display">\[(E_p \cdots E_1) A = U.\]</span></p>
-</div>
-<div class="fragment">
+<div class="math notranslate nohighlight">
+\[(E_p \cdots E_1) A = U.\]</div>
 <p>Now, we know that all elementary matrices are invertible, and the product of invertible matrices is invertible, so:</p>
-<p><span class="math display">\[A = (E_p\cdots E_1)^{-1} U.\]</span></p>
+<div class="math notranslate nohighlight">
+\[A = (E_p\cdots E_1)^{-1} U.\]</div>
 <p>If we define</p>
-<p><span class="math display">\[L = (E_p\cdots E_1)^{-1}\]</span></p>
+<div class="math notranslate nohighlight">
+\[L = (E_p\cdots E_1)^{-1}\]</div>
 <p>Then</p>
-<p><span class="math display">\[ A = LU.\]</span></p>
-</div>
-<div class="fragment">
+<div class="math notranslate nohighlight">
+\[ A = LU.\]</div>
 <p>It’s not hard to show that the product of unit lower triangular matrices is unit lower triangular.</p>
 <p>It’s also true that the inverse of a unit lower triangular matrix is unit lower triangular.</p>
-</div>
-<div class="fragment">
-<p>So we can conclude that <span class="math inline">\(L,\)</span> as constructed from <span class="math inline">\((E_p\cdots E_1)^{-1}\)</span>, is unit lower triangular.</p>
-<p>Hence, we have defined the LU decomposition based on Gaussian Elimination.</p>
-</div>
-<p>So: we have rewritten the Gaussian Elimination of <span class="math inline">\(A\)</span> as:</p>
-<p><span class="math display">\[U = L^{-1}A.\]</span></p>
-<p>We’ve shown that <span class="math inline">\(U\)</span> is in row echelon form, and was obtained from <span class="math inline">\(A\)</span> by a sequence of elementary row operations.</p>
-<p>And we’ve shown that the <span class="math inline">\(L\)</span> so defined is unit lower triangular.</p>
-<div class="fragment">
-<p>Let’s take stock of what this all means: the LU decomposition is a way of capturing the application of Gaussian Elimination to <span class="math inline">\(A\)</span>.</p>
+<p>So we can conclude that <span class="math notranslate nohighlight">\(L,\)</span> as constructed from <span class="math notranslate nohighlight">\((E_p\cdots E_1)^{-1}\)</span>, is unit lower triangular.</p>
+<p>Hence, we have defined the  LU decomposition based on Gaussian Elimination.</p>
+<p>So: we have rewritten the Gaussian Elimination of <span class="math notranslate nohighlight">\(A\)</span> as:</p>
+<div class="math notranslate nohighlight">
+\[U = L^{-1}A.\]</div>
+<p>We’ve shown that <span class="math notranslate nohighlight">\(U\)</span> is in row echelon form, and was obtained from <span class="math notranslate nohighlight">\(A\)</span> by a sequence of elementary row operations.</p>
+<p>And we’ve shown that the <span class="math notranslate nohighlight">\(L\)</span> so defined is unit lower triangular.</p>
+<p>Let’s take stock of what this all means: the LU decomposition is a way of capturing the application of Gaussian Elimination to <span class="math notranslate nohighlight">\(A\)</span>.</p>
 <p>It incorporates both the process of performing Gaussian Elimination, and the result:</p>
-<p><span class="math inline">\(L^{-1}\)</span> captures the row reductions that transform <span class="math inline">\(A\)</span> to row echelon form.</p>
-<p><span class="math inline">\(U\)</span> is the row echelon form of <span class="math inline">\(A\)</span>.</p>
-</div>
-<div class="fragment">
-<p>Note however that we have assumed that the Gaussian Elimination procedure only used certain row reductions – in particular, no row interchanges.<br>
-(We’ll deal with row interchanges later.)</p>
-</div>
-<section id="finding-l" class="level3">
-<h3 class="anchored" data-anchor-id="finding-l">Finding <span class="math inline">\(L\)</span></h3>
-<div class="fragment">
-<p>Recall that the motivation for developing the LU decomposition is that it is more efficient than matrix inversion.<br>
-So we don’t want to have to invert <span class="math inline">\(L^{-1}\)</span> in the standard way in order to find <span class="math inline">\(L\)</span>.</p>
-</div>
-<div class="fragment">
-<p>There is an algorithm that does this, and using it one can invert <span class="math inline">\(L^{-1}\)</span> efficiently.</p>
-<p>The basic idea is that <span class="math inline">\(L^{-1}\)</span> is a sequence of elementary row operations, and the inverse of <span class="math inline">\(L^{-1}\)</span> is the matrix <span class="math inline">\(L\)</span> that gives <span class="math inline">\(L^{-1}L = I.\)</span></p>
-<p>So if we examine the sequence of elementary row operations, we can efficiently determine what <span class="math inline">\(L\)</span> will give <span class="math inline">\(I\)</span> under those row operations.</p>
-</div>
-<div class="fragment">
+<p><span class="math notranslate nohighlight">\(L^{-1}\)</span> captures the row reductions that transform <span class="math notranslate nohighlight">\(A\)</span> to row echelon form.</p>
+<p><span class="math notranslate nohighlight">\(U\)</span> is the row echelon form of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>Note however that we have assumed that the Gaussian Elimination procedure only used certain row reductions – in particular, no row interchanges.    (We’ll deal with row interchanges later.)</p>
+<section id="finding-l">
+<h3>Finding <span class="math notranslate nohighlight">\(L\)</span><a class="headerlink" href="#finding-l" title="Permalink to this heading">#</a></h3>
+<p>Recall that the motivation for developing the LU decomposition is that it is more efficient than matrix inversion.   So we don’t want to have to invert <span class="math notranslate nohighlight">\(L^{-1}\)</span> in the standard way in order to find <span class="math notranslate nohighlight">\(L\)</span>.</p>
+<p>There is an algorithm that does this, and using it one can invert <span class="math notranslate nohighlight">\(L^{-1}\)</span> efficiently.</p>
+<p>The basic idea is that <span class="math notranslate nohighlight">\(L^{-1}\)</span> is a sequence of elementary row operations, and the inverse of <span class="math notranslate nohighlight">\(L^{-1}\)</span> is the matrix <span class="math notranslate nohighlight">\(L\)</span> that gives <span class="math notranslate nohighlight">\(L^{-1}L = I.\)</span></p>
+<p>So if we examine the sequence of elementary row operations, we can efficiently determine what <span class="math notranslate nohighlight">\(L\)</span> will give <span class="math notranslate nohighlight">\(I\)</span> under those row operations.</p>
 <p>This gives the following algorithm for LU factorization:</p>
-<ul>
-<li>Reduce <span class="math inline">\(A\)</span> to an echelon form <span class="math inline">\(U\)</span> by a sequence of row replacement operations, if possible.</li>
-<li>Place entries in <span class="math inline">\(L\)</span> such that the <em>same sequence of row operations</em> reduces <span class="math inline">\(L\)</span> to <span class="math inline">\(I\)</span>.</li>
+<ul class="simple">
+<li><p>Reduce <span class="math notranslate nohighlight">\(A\)</span> to an echelon form <span class="math notranslate nohighlight">\(U\)</span> by a sequence of row replacement operations, if possible.</p></li>
+<li><p>Place entries in <span class="math notranslate nohighlight">\(L\)</span> such that the <em>same sequence of row operations</em> reduces <span class="math notranslate nohighlight">\(L\)</span> to <span class="math notranslate nohighlight">\(I\)</span>.</p></li>
 </ul>
-</div>
-<div class="fragment">
-<p>Here is the key observation: the step of reducing <span class="math inline">\(A\)</span> to echelon form is simply Gaussian Elimination. If the second step can be done efficiently, then the whole LU factorization doesn’t take any longer than Gaussian Elimination itself.</p>
-<p>The fact is that constructing <span class="math inline">\(L\)</span> <strong>can</strong> be done efficiently by a simple modification of Gaussian Elimination.</p>
-<p>This leads to the important conclusion: the <strong>operation count of LU decomposition is only <span class="math inline">\(\sim \frac{2}{3}n^3.\)</span></strong></p>
-</div>
+<p>Here is the key observation: the step of reducing <span class="math notranslate nohighlight">\(A\)</span> to echelon form is simply Gaussian Elimination.    If the second step can be done efficiently, then the whole LU factorization doesn’t take any longer than Gaussian Elimination itself.</p>
+<p>The fact is that constructing <span class="math notranslate nohighlight">\(L\)</span> <strong>can</strong> be done efficiently by a simple modification of Gaussian Elimination.</p>
+<p>This leads to the important conclusion: the <strong>operation count of LU decomposition is only <span class="math notranslate nohighlight">\(\sim \frac{2}{3}n^3.\)</span></strong></p>
 </section>
 </section>
-<section id="using-the-lu-factorization" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="using-the-lu-factorization">Using the LU Factorization</h2>
+<section id="using-the-lu-factorization">
+<h2>Using the LU Factorization<a class="headerlink" href="#using-the-lu-factorization" title="Permalink to this heading">#</a></h2>
 <p>Let’s return to the motivation for developing the LU factorization.</p>
 <p>We’ve seen that performing LU decomposition is essentially equivalent to performing Gaussian Elimination, and as such, it doesn’t take time much longer than Gaussian Elimination.</p>
-<div class="fragment">
-<p>Now we want to show that, using the LU decomposition, that the system <span class="math inline">\(A{\bf x} = {\bf b}\)</span> can be solved for any <span class="math inline">\({\bf b}\)</span> in time that is proportional to <span class="math inline">\(n^2\)</span>.</p>
-</div>
-<div class="fragment">
-<p>Informally, what we are going to do is to use <span class="math inline">\(L\)</span> to do a special, very efficient version of the forward step of Gaussian Elimination, and then use <span class="math inline">\(U\)</span> in the usual way to do backsubstitution.</p>
-</div>
-<div class="fragment">
+<p>Now we want to show that, using the LU decomposition, that the system <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> can be solved for any <span class="math notranslate nohighlight">\({\bf b}\)</span> in time that is proportional to <span class="math notranslate nohighlight">\(n^2\)</span>.</p>
+<p>Informally, what we are going to do is to use <span class="math notranslate nohighlight">\(L\)</span> to do a special, very efficient version of the forward step of Gaussian Elimination, and then use <span class="math notranslate nohighlight">\(U\)</span> in the usual way to do backsubstitution.</p>
 <p>We can write these two steps concisely as follows:</p>
-<p>When <span class="math inline">\(A = LU\)</span>, the equation <span class="math inline">\(A{\bf x} = {\bf b}\)</span> can be written as <span class="math inline">\(L(U{\bf x}) = {\bf b}.\)</span></p>
-<p>Let’s take this apart, and write <span class="math inline">\({\bf y}\)</span> for <span class="math inline">\(U{\bf x}\)</span>. Then we can find <span class="math inline">\({\bf x}\)</span> by solving the pair of equations:</p>
-<p><span class="math display">\[L{\bf y} = {\bf b},\]</span> <span class="math display">\[U{\bf x} = {\bf y}.\]</span></p>
-</div>
-<div class="fragment">
-<p>The idea is that we first solve <span class="math inline">\(L{\bf y} = {\bf b}\)</span> for <span class="math inline">\({\bf y},\)</span> then solve <span class="math inline">\(U{\bf x} = {\bf y}\)</span> for <span class="math inline">\({\bf x}.\)</span></p>
+<p>When <span class="math notranslate nohighlight">\(A = LU\)</span>, the equation <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span> can be written as <span class="math notranslate nohighlight">\(L(U{\bf x}) = {\bf b}.\)</span></p>
+<p>Let’s take this apart, and write <span class="math notranslate nohighlight">\({\bf y}\)</span> for <span class="math notranslate nohighlight">\(U{\bf x}\)</span>.  Then we can find <span class="math notranslate nohighlight">\({\bf x}\)</span> by solving the pair of equations:</p>
+<div class="math notranslate nohighlight">
+\[L{\bf y} = {\bf b},\]</div>
+<div class="math notranslate nohighlight">
+\[U{\bf x} = {\bf y}.\]</div>
+<p>The idea is that we first solve <span class="math notranslate nohighlight">\(L{\bf y} = {\bf b}\)</span> for <span class="math notranslate nohighlight">\({\bf y},\)</span> then solve <span class="math notranslate nohighlight">\(U{\bf x} = {\bf y}\)</span> for <span class="math notranslate nohighlight">\({\bf x}.\)</span></p>
 <p>In a sense, this corresponds to first performing the forward step of Gaussian Elimination (but in a specially streamlined, efficient way) and then performing the backwards (backsubstitution) step in the usual (efficient) fashion.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/5cb9d67bdfd8f0cefa4f81416ababe35349a54119a3c279bd0b8ab36619cca4e.jpg" src="_images/5cb9d67bdfd8f0cefa4f81416ababe35349a54119a3c279bd0b8ab36619cca4e.jpg" />
 </div>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p>Image credit: <em>Linear Algebra and its Applications,</em> by David C. Lay</p>
-</div></div><div class="fragment ctrd">
-<p><img src="images/Lay-fig-2-5-2.jpeg" class="img-fluid" width="550"></p>
 </div>
-<div class="fragment">
-<p>The key observation: <strong>each equation is fast to solve</strong> because <span class="math inline">\(L\)</span> and <span class="math inline">\(U\)</span> are each <strong>triangular.</strong></p>
-</div>
+<p>The key observation: <strong>each equation is fast to solve</strong> because <span class="math notranslate nohighlight">\(L\)</span> and <span class="math notranslate nohighlight">\(U\)</span> are each <strong>triangular.</strong></p>
 <p><strong>Example.</strong></p>
-<p>Given the following LU decomposition of <span class="math inline">\(A\)</span>:</p>
-<p><span class="math display">\[A = \left[\begin{array}{rrrr}3&amp;-7&amp;-2&amp;2\\-3&amp;5&amp;1&amp;0\\6&amp;-4&amp;0&amp;-5\\-9&amp;5&amp;-5&amp;12\end{array}\right] =
+<p>Given the following LU decomposition of <span class="math notranslate nohighlight">\(A\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}A = \left[\begin{array}{rrrr}3&amp;-7&amp;-2&amp;2\\-3&amp;5&amp;1&amp;0\\6&amp;-4&amp;0&amp;-5\\-9&amp;5&amp;-5&amp;12\end{array}\right] = 
 \left[\begin{array}{rrrr}1&amp;0&amp;0&amp;0\\-1&amp;1&amp;0&amp;0\\2&amp;-5&amp;1&amp;0\\-3&amp;8&amp;3&amp;1\end{array}\right]
-\left[\begin{array}{rrrr}3&amp;-7&amp;-2&amp;2\\0&amp;-2&amp;-1&amp;2\\0&amp;0&amp;-1&amp;1\\0&amp;0&amp;0&amp;-1\end{array}\right] = LU\]</span></p>
-<div class="fragment">
-<p>Use this LU factorization of <span class="math inline">\(A\)</span> to solve <span class="math inline">\(A{\bf x} = {\bf b}\)</span>, where <span class="math inline">\({\bf b} = \left[\begin{array}{r}-9\\5\\7\\11\end{array}\right].\)</span></p>
-</div>
-<div class="fragment">
-<p><strong>Solution.</strong> To solve <span class="math inline">\(L{\bf y} = {\bf b},\)</span> note that the arithmetic takes place only in the augmented column (column 5). The zeros below each pivot in <span class="math inline">\(L\)</span> are created automatically by the choice of row operations.</p>
-<p><span class="math display">\[[L\;\; {\bf b}] = \left[\begin{array}{rrrrr}1&amp;0&amp;0&amp;0&amp;-9\\-1&amp;1&amp;0&amp;0&amp;5\\2&amp;-5&amp;1&amp;0&amp;7\\-3&amp;8&amp;3&amp;1&amp;11\end{array}\right] \sim
-\left[\begin{array}{rrrrr}1&amp;0&amp;0&amp;0&amp;-9\\0&amp;1&amp;0&amp;0&amp;-4\\0&amp;0&amp;1&amp;0&amp;5\\0&amp;0&amp;0&amp;1&amp;1\end{array}\right] = [I\;{\bf y}].\]</span></p>
-</div>
-<div class="fragment">
-<p>Next, for <span class="math inline">\(U{\bf x} = {\bf y}\)</span> (the “backward” phase) the row reduction is again streamlined:</p>
-<p><span class="math display">\[[U\;\;{\bf y}] =  \left[\begin{array}{rrrrr}3&amp;-7&amp;-2&amp;2&amp;-9\\0&amp;-2&amp;-1&amp;2&amp;-4\\0&amp;0&amp;-1&amp;1&amp;5\\0&amp;0&amp;0&amp;-1&amp;1\end{array}\right] \sim
-\left[\begin{array}{rrrrr}1&amp;0&amp;0&amp;0&amp;3\\0&amp;1&amp;0&amp;0&amp;4\\0&amp;0&amp;1&amp;0&amp;-6\\0&amp;0&amp;0&amp;1&amp;-1\end{array}\right].\]</span></p>
-</div>
+\left[\begin{array}{rrrr}3&amp;-7&amp;-2&amp;2\\0&amp;-2&amp;-1&amp;2\\0&amp;0&amp;-1&amp;1\\0&amp;0&amp;0&amp;-1\end{array}\right] = LU\end{split}\]</div>
+<p>Use this LU factorization of <span class="math notranslate nohighlight">\(A\)</span> to solve <span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span>, where <span class="math notranslate nohighlight">\({\bf b} = \left[\begin{array}{r}-9\\5\\7\\11\end{array}\right].\)</span></p>
+<p><strong>Solution.</strong>  To solve <span class="math notranslate nohighlight">\(L{\bf y} = {\bf b},\)</span> note that the arithmetic takes place only in the augmented column (column 5).   The zeros below each pivot in <span class="math notranslate nohighlight">\(L\)</span> are created automatically by the choice of row operations.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}[L\;\; {\bf b}] = \left[\begin{array}{rrrrr}1&amp;0&amp;0&amp;0&amp;-9\\-1&amp;1&amp;0&amp;0&amp;5\\2&amp;-5&amp;1&amp;0&amp;7\\-3&amp;8&amp;3&amp;1&amp;11\end{array}\right] \sim
+\left[\begin{array}{rrrrr}1&amp;0&amp;0&amp;0&amp;-9\\0&amp;1&amp;0&amp;0&amp;-4\\0&amp;0&amp;1&amp;0&amp;5\\0&amp;0&amp;0&amp;1&amp;1\end{array}\right] = [I\;{\bf y}].\end{split}\]</div>
+<p>Next, for <span class="math notranslate nohighlight">\(U{\bf x} = {\bf y}\)</span> (the “backward” phase) the row reduction is again streamlined:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}[U\;\;{\bf y}] =  \left[\begin{array}{rrrrr}3&amp;-7&amp;-2&amp;2&amp;-9\\0&amp;-2&amp;-1&amp;2&amp;-4\\0&amp;0&amp;-1&amp;1&amp;5\\0&amp;0&amp;0&amp;-1&amp;1\end{array}\right] \sim
+\left[\begin{array}{rrrrr}1&amp;0&amp;0&amp;0&amp;3\\0&amp;1&amp;0&amp;0&amp;4\\0&amp;0&amp;1&amp;0&amp;-6\\0&amp;0&amp;0&amp;1&amp;-1\end{array}\right].\end{split}\]</div>
 <p><strong>Operation Count Analysis.</strong></p>
-<p>Both the forward and backward phases of solving a system as <span class="math inline">\(L(U{\bf x}) = {\bf b}\)</span> have flop counts of <span class="math inline">\(\sim 2n^2\)</span>.</p>
-<p>Therefore to solve <span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span> using <span class="math inline">\(LU\mathbf{x} = \mathbf{b}\)</span>, the dominating step is doing the factorization <span class="math inline">\(A = LU\)</span>.</p>
-<p>We’ve seen that the factorization step is essentially Gaussian Elimination, and therefore requires <span class="math inline">\(\sim\frac{2}{3}n^3\)</span> flops.</p>
-<div class="fragment">
+<p>Both the forward and backward phases of solving a system as <span class="math notranslate nohighlight">\(L(U{\bf x}) = {\bf b}\)</span> have flop counts of <span class="math notranslate nohighlight">\(\sim 2n^2\)</span>.</p>
+<p>Therefore to solve <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> using <span class="math notranslate nohighlight">\(LU\mathbf{x} = \mathbf{b}\)</span>, the dominating step is doing the factorization <span class="math notranslate nohighlight">\(A = LU\)</span>.</p>
+<p>We’ve seen that the factorization step is essentially Gaussian Elimination, and therefore requires <span class="math notranslate nohighlight">\(\sim\frac{2}{3}n^3\)</span> flops.</p>
 <p>Now, to return to our original problem.</p>
 <p>To solve</p>
-<p><span class="math display">\[AX = B\]</span></p>
-<p>where <span class="math inline">\(A\)</span> is <span class="math inline">\(n\times n\)</span>, and both <span class="math inline">\(X\)</span> and <span class="math inline">\(B\)</span> have <span class="math inline">\(p\)</span> columns,</p>
-<ul>
-<li>By matrix inversion of <span class="math inline">\(A\)</span> requires <span class="math inline">\(\sim 2n^3 + 2p n^2\)</span> flops</li>
-<li>By LU factorization of <span class="math inline">\(A\)</span> requires <span class="math inline">\(\sim \frac{2}{3}n^3 + 2p n^2\)</span> flops</li>
+<div class="math notranslate nohighlight">
+\[AX = B\]</div>
+<p>where <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(n\times n\)</span>, and both <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(B\)</span> have <span class="math notranslate nohighlight">\(p\)</span> columns,</p>
+<ul class="simple">
+<li><p>By matrix inversion of <span class="math notranslate nohighlight">\(A\)</span> requires <span class="math notranslate nohighlight">\(\sim 2n^3 + 2p n^2\)</span> flops</p></li>
+<li><p>By LU factorization of <span class="math notranslate nohighlight">\(A\)</span> requires <span class="math notranslate nohighlight">\(\sim \frac{2}{3}n^3 + 2p n^2\)</span> flops</p></li>
 </ul>
-</div>
-<div class="fragment">
-<p>Hence we have found that by using the LU decomposition, one can solve a series of systems all involving the same <span class="math inline">\(A\)</span> in <span class="math inline">\(\sim\frac{2}{3}n^3\)</span> flops,</p>
-<p>while doing Gaussian Elimination would require <span class="math inline">\(\sim\frac{2}{3}n^3\)</span> flops <strong>for each system</strong>,</p>
-<p>and using the matrix inverse would require <span class="math inline">\(\sim2n^3\)</span> flops to invert the matrix.</p>
-</div>
+<p>Hence we have found that by using the LU decomposition, one can solve a series of systems all involving the same <span class="math notranslate nohighlight">\(A\)</span> in <span class="math notranslate nohighlight">\(\sim\frac{2}{3}n^3\)</span> flops,</p>
+<p>while doing Gaussian Elimination would require <span class="math notranslate nohighlight">\(\sim\frac{2}{3}n^3\)</span> flops <strong>for each system</strong>,</p>
+<p>and using the matrix inverse would require <span class="math notranslate nohighlight">\(\sim2n^3\)</span> flops to invert the matrix.</p>
 </section>
-<section id="pivoting" class="level2">
-<h2 class="anchored" data-anchor-id="pivoting">Pivoting</h2>
-<div class="fragment">
-<p>Up until now we have assumed that the Gaussian Elimination we used to define <span class="math inline">\(U\)</span> only involves adding a multiple of a row to a row below it.</p>
-</div>
-<div class="fragment">
+<section id="pivoting">
+<h2>Pivoting<a class="headerlink" href="#pivoting" title="Permalink to this heading">#</a></h2>
+<p>Up until now we have assumed that the Gaussian Elimination we used to define <span class="math notranslate nohighlight">\(U\)</span> only involves adding a multiple of a row to a row below it.</p>
 <p>However, in real situations, we sometime need to exchange two rows.</p>
 <p>One reason is, as we know, that if the current row has a zero in the pivot position, we need to exchange it with a row that does not have a zero in the pivot position.</p>
 <p>But there is another, more subtle reason having to do with numerical accuracy.</p>
-</div>
-<div class="fragment">
 <p>We make the following observation: in general, we would like to avoid <strong>dividing by a small number.</strong></p>
-<p>Here is why. Consider the problem of computing <span class="math inline">\(a/b\)</span> where <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> are scalars.</p>
-</div>
-<div class="fragment">
-<p>Let’s say there is some small error in the value of <span class="math inline">\(a\)</span>, call it <span class="math inline">\(\epsilon.\)</span></p>
-<p>That means that what we are really computing is <span class="math inline">\((a+\epsilon)/b = a/b + \epsilon/b\)</span>.</p>
-<p>Note that <span class="math inline">\(a/b\)</span> is the correct value, but that what we compute is off by <span class="math inline">\(\epsilon/b\)</span>. Now, if <span class="math inline">\(b\)</span> is a very small number, then the error in the result (<span class="math inline">\(\epsilon/b\)</span>) will be large.</p>
-</div>
-<div class="fragment">
+<p>Here is why.   Consider the problem of computing <span class="math notranslate nohighlight">\(a/b\)</span> where <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> are scalars.</p>
+<p>Let’s say there is some small error in the value of <span class="math notranslate nohighlight">\(a\)</span>, call it <span class="math notranslate nohighlight">\(\epsilon.\)</span></p>
+<p>That means that what we are really computing is <span class="math notranslate nohighlight">\((a+\epsilon)/b = a/b + \epsilon/b\)</span>.</p>
+<p>Note that <span class="math notranslate nohighlight">\(a/b\)</span> is the correct value, but that what we compute is off by <span class="math notranslate nohighlight">\(\epsilon/b\)</span>.  Now, if <span class="math notranslate nohighlight">\(b\)</span> is a very small number, then the error in the result (<span class="math notranslate nohighlight">\(\epsilon/b\)</span>) will be large.</p>
 <p>Hence we would like to avoid dividing by small numbers whenever possible.</p>
 <p>Now: note that in performing Gaussian Elimination, we divide each row by the value of its pivot.</p>
 <p>What this suggests is that we would like to avoid having small pivots.</p>
-</div>
-<div class="fragment">
-<p>There is a simple way to address this. In processing any particular row, we can avoid having a small pivot by interchanging the current row with one of those below it.</p>
-</div>
-<div class="fragment">
-<p>We would like to exchange the current row with the row that <strong>has the largest absolute value of its pivot.</strong> This algorithmic technique is called “partial pivoting.”</p>
-</div>
-<div class="fragment">
-<p>Now, a row interchange is an elementary row operation, and can be implemented by an elementary matrix. This elementary matrix is the identity with its corresponding rows interchanged.</p>
-<p>An elementary matrix that exchanges rows is called a <em>permutation</em> matrix. The product of permutation matrices is a permutation matrix.</p>
-<p>Hence, the net result of all the partial pivoting done during Gaussian Elimination can be expressed in a single permutation matrix <span class="math inline">\(P\)</span>.</p>
-</div>
-<div class="fragment">
-<p>This means that the final factorization of <span class="math inline">\(A\)</span> is:</p>
-<p><span class="math display">\[A = P L U.\]</span></p>
-</div>
-<div class="fragment">
+<p>There is a simple way to address this.   In processing any particular row, we can avoid having a small pivot by interchanging the current row with one of those below it.</p>
+<p>We would like to exchange the current row with the row that <strong>has the largest absolute value of its pivot.</strong>  This algorithmic technique is called “partial pivoting.”</p>
+<p>Now, a row interchange is an elementary row operation, and can be implemented by an elementary matrix.  This elementary matrix is the identity with its corresponding rows interchanged.</p>
+<p>An elementary matrix that exchanges rows is called a <em>permutation</em> matrix.  The product of permutation matrices is a permutation matrix.</p>
+<p>Hence, the net result of all the partial pivoting done during Gaussian Elimination can be expressed in a single permutation matrix <span class="math notranslate nohighlight">\(P\)</span>.</p>
+<p>This means that the final factorization of <span class="math notranslate nohighlight">\(A\)</span> is:</p>
+<div class="math notranslate nohighlight">
+\[A = P L U.\]</div>
 <p>You can read this equation two ways:</p>
-<ol type="1">
-<li><span class="math inline">\(A\)</span> is the product of a unit lower triangular matrix <span class="math inline">\(L\)</span> and an echelon form matrix <span class="math inline">\(U\)</span>, and the rows of their product have been reordered according to the permulation <span class="math inline">\(P\)</span>. This is <span class="math inline">\(A = P(LU).\)</span></li>
-<li><span class="math inline">\(A\)</span> is the product of a <em>permuted</em> lower triangular matrix <span class="math inline">\(PL\)</span> and an echelon form matrix <span class="math inline">\(U\)</span>. This is <span class="math inline">\(A = (PL)U.\)</span></li>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(A\)</span> is the product of a unit lower triangular matrix <span class="math notranslate nohighlight">\(L\)</span> and an echelon form matrix <span class="math notranslate nohighlight">\(U\)</span>, and the rows of their product have been reordered according to the permulation <span class="math notranslate nohighlight">\(P\)</span>.  This is <span class="math notranslate nohighlight">\(A = P(LU).\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(A\)</span> is the product of a <em>permuted</em> lower triangular matrix <span class="math notranslate nohighlight">\(PL\)</span> and an echelon form matrix <span class="math notranslate nohighlight">\(U\)</span>.  This is <span class="math notranslate nohighlight">\(A = (PL)U.\)</span></p></li>
 </ol>
-</div>
-<div class="fragment">
-
-</div>
-<div class="fragment">
-
-</div>
-<div class="fragment">
-
-</div>
-<div class="fragment">
-
-</div>
-<div class="fragment">
-
-</div>
-<div class="fragment">
-
-</div>
-<div class="fragment">
-
-</div>
-<div class="fragment">
-
-</div>
-<div class="fragment">
-
-</div>
-<div class="fragment">
-
-</div>
-<div class="fragment">
-
-</div>
-<div class="fragment">
-
-</div>
-<div class="fragment">
-
-</div>
-<div class="fragment">
-
-</div>
-<div class="fragment">
-
-</div>
-<div class="fragment">
-
-</div>
-<div class="fragment">
-
-</div>
-<div class="fragment">
-
-</div>
-<div class="fragment">
-
-</div>
-
-
+</section>
 </section>
 
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
     }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
-        return container.innerHTML
-      } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
-      });
-    }
-  }
-});
-</script>
-</div> <!-- /content -->
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="L11MarkovChains.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Markov Chains</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="L13ComputerGraphics.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Computer Graphics</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#a-rationale-for-the-lu-factorization">A Rationale for the LU Factorization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#elementary-matrices">Elementary Matrices</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-the-elementary-matrix">Finding the Elementary Matrix</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-lu-factorization">The LU Factorization</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-l">Finding <span class="math notranslate nohighlight">\(L\)</span></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-the-lu-factorization">Using the LU Factorization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pivoting">Pivoting</a></li>
+</ul>
+  </nav></div>
 
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mark Crovella.  Portions are based on Lay, 'Linear Algebra and its Applications'
+</p>
 
-</body></html>
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

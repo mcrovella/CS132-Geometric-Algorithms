@@ -1,1336 +1,885 @@
+
+
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
-
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.37">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>l26applicationsofsvd – Geometric Algorithms</title>
-<style>
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
-  vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-</style>
+<html lang="en" data-content_root="" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Applications of the SVD &#8212; Linear Algebra, Geometry, and Computation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'L26ApplicationsOfSVD';</script>
+    <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="The Singular Value Decomposition" href="L25SVD.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="landing-page.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/DiagramAR-icon.png" class="logo__image only-light" alt="Linear Algebra, Geometry, and Computation - Home"/>
+    <script>document.write(`<img src="_static/DiagramAR-icon.png" class="logo__image only-dark" alt="Linear Algebra, Geometry, and Computation - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="landing-page.html">
+                    Preface
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="L01LinearEquations.html">Linear Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L02Numerics.html">(Getting Serious About) Numbers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L03RowReductions.html">Gaussian Elimination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L04VectorEquations.html">Vector Equations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L05Axb.html"><span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="L06LinearIndependence.html">Linear Independence</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L07LinearTransformations.html">Linear Transformations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L08MatrixofLinearTranformation.html">The Matrix of a Linear Transformation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L09MatrixOperations.html">Matrix Algebra</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L10MatrixInverse.html">The Inverse of a Matrix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L11MarkovChains.html">Markov Chains</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L12MatrixFactorizations.html">Matrix Factorizations</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L13ComputerGraphics.html">Computer Graphics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L14Subspaces.html">Subspaces</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L15DimensionRank.html">Dimension and Rank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L16Eigenvectors.html">Eigenvectors and Eigenvalues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L17CharacteristicEqn.html">The Characteristic Equation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L18Diagonalization.html">Diagonalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L19PageRank.html">PageRank</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L20Orthogonality.html">Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span></a></li>
+<li class="toctree-l1"><a class="reference internal" href="L21OrthogonalSets.html">Orthogonal Sets and Projection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L22LeastSquares.html">Least Squares</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L23LinearModels.html">Linear Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L24SymmetricMatrices.html">Symmetric Matrices</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L25SVD.html">The Singular Value Decomposition</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Applications of the SVD</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-fec4eca8e712537310c7ebcc1543822c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
-  "limit": 50,
-  "keyboard-shortcut": [
-    "f",
-    "/",
-    "s"
-  ],
-  "show-item-context": false,
-  "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-text-placeholder": "",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
-  }
-}</script>
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+<div class="sbt-scroll-pixel-helper"></div>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/L26ApplicationsOfSVD.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
 </script>
 
-<link rel="stylesheet" href="styles.css">
-</head>
 
-<body class="nav-sidebar docked slimcontent">
-
-<div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top">
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L26ApplicationsOfSVD.html">Applications of the SVD</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
     </div>
-  </nav>
-</header>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
-<!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./images/DiagramAR-icon.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
-      </a>
-      </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Applications of the SVD</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-of-svd">Recap of SVD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approximating-a-matrix">Approximating a Matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#signal-compression">Signal Compression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dimensionality-reduction">Dimensionality Reduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#principal-component-analysis">Principal Component Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-using-pca">Visualization using PCA</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wrapup">Wrapup</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
         </div>
-        </div>
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./landing_page.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Preface</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L01LinearEquations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Linear Equations</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L02Numerics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">(Getting Serious About) Numbers</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L03RowReductions.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Gaussian Elimination</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L04VectorEquations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Vector Equations</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L05Axb.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L06LinearIndependence.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Linear Independence</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L07LinearTransformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Linear Transformations</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L08MatrixofLinearTransformations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">The Matrix of a Linear Transformation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L09MatrixOperations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Matrix Algebra</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L10MatrixInverse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">The Inverse of a Matrix</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L11MarkovChains.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Markov Chains</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L12MatrixFactorizations.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Matrix Factorizations</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L13ComputerGraphics.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Computer Graphics</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L14Subspaces.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Subspaces</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L15DimensionRank.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dimension and Rank</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L16Eigenvectors.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Eigenvectors and Eigenvalues</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L17CharacteristicEqn.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">The Characteristic Equation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L18Diagonalization.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Diagonalization</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L19PageRank.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">PageRank</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L20Orthogonality.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Analytic Geometry in <span class="math inline">\(\mathbb{R}^n\)</span></span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L21OrthogonalSets.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Orthogonal Sets and Projection</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L22LeastSquares.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Least Squares</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L23LinearModels.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Linear Models</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L24SymmetricMatrices.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Symmetric Matrices</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L25SVD.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">The Singular Value Decomposition</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./L26ApplicationsOfSVD.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Applications of the SVD</span></a>
-  </div>
-</li>
-    </ul>
     </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
-<!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#applications-of-the-svd" id="toc-applications-of-the-svd" class="nav-link active" data-scroll-target="#applications-of-the-svd">Applications of the SVD</a></li>
-  <li><a href="#recap-of-svd" id="toc-recap-of-svd" class="nav-link" data-scroll-target="#recap-of-svd">Recap of SVD</a></li>
-  <li><a href="#approximating-a-matrix" id="toc-approximating-a-matrix" class="nav-link" data-scroll-target="#approximating-a-matrix">Approximating a Matrix</a></li>
-  <li><a href="#signal-compression" id="toc-signal-compression" class="nav-link" data-scroll-target="#signal-compression">Signal Compression</a></li>
-  <li><a href="#dimensionality-reduction" id="toc-dimensionality-reduction" class="nav-link" data-scroll-target="#dimensionality-reduction">Dimensionality Reduction</a></li>
-  <li><a href="#principal-component-analysis" id="toc-principal-component-analysis" class="nav-link" data-scroll-target="#principal-component-analysis">Principal Component Analysis</a></li>
-  <li><a href="#visualization-using-pca" id="toc-visualization-using-pca" class="nav-link" data-scroll-target="#visualization-using-pca">Visualization using PCA</a></li>
-  <li><a href="#section-14" id="toc-section-14" class="nav-link" data-scroll-target="#section-14"></a></li>
-  </ul>
-</nav>
-    </div>
-<!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
-
-
-
-
-<!--
-This comment somehow suppresses the title page
--->
-<section id="applications-of-the-svd" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="applications-of-the-svd">Applications of the SVD</h2>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><img src="images/Duchamp_-_Nude_Descending_a_Staircase.jpg" alt="Nude Descending a Staircase by Marcel Duchamp" height="550"></p>
-</div><div class="column" style="width:50%;">
-<p>In “Nude Descending a Staircase” Marcel Duchamp captures a four-dimensional object on a two-dimensional canvas. Accomplishing this without losing essential information is called <em>dimensionality reduction.</em></p>
-</div>
 </div>
 
-<div class="no-row-height column-margin column-container"><div class="">
-<p><a href="https://en.wikipedia.org/w/index.php?curid=3922548"><em>Nude Descending a Staircase</em> by Marcel Duchamp (1887-1968) - Philadelphia Museum of Art, PD-US</a></p>
-</div></div><div class="ctrd">
-<p><img src="images/440px-Wenger_EvoGrip_S17.JPG" class="img-fluid" width="440"></p>
-</div>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p>Image from <a href="https://en.wikipedia.org/wiki/Swiss_Army_knife">Wikipedia</a></p>
-</div></div><blockquote class="blockquote">
-<p>The Singular Value Decomposition is the <strong>“Swiss Army Knife”</strong> and the <strong>“Rolls Royce”</strong> of matrix decompositions.</p>
-</blockquote>
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<p>By Marcel Duchamp (1887-1968) - Philadelphia Museum of Art, PD-US, <a class="reference external" href="https://en.wikipedia.org/w/index.php?curid=3922548">https://en.wikipedia.org/w/index.php?curid=3922548</a></p>
+</aside>
+<section class="tex2jax_ignore mathjax_ignore" id="applications-of-the-svd">
+<h1>Applications of the SVD<a class="headerlink" href="#applications-of-the-svd" title="Permalink to this heading">#</a></h1>
+<!-- image credit: https://en.wikipedia.org/wiki/Swiss_Army_knife -->
+<center>
+<a class="reference internal image-reference" href="_images/Duchamp_-_Nude_Descending_a_Staircase.jpg"><img alt="Figure" src="_images/Duchamp_-_Nude_Descending_a_Staircase.jpg" style="width: 400px;" /></a>
+</center>
+<p>In “Nude Descending a Staircase” Marcel Duchamp captures a four-dimensional object on a two-dimensional canvas.  Accomplishing this without losing essential information is called <em>dimensionality reduction.</em></p>
+<!-- image credit: https://en.wikipedia.org/wiki/Swiss_Army_knife -->
+<center>
+<a class="reference internal image-reference" href="_images/440px-Wenger_EvoGrip_S17.JPG"><img alt="Figure" src="_images/440px-Wenger_EvoGrip_S17.JPG" style="width: 440px;" /></a>
+</center>
+<blockquote>
+<div><p>The Singular Value Decomposition is the <strong>“Swiss Army Knife”</strong> and the <strong>“Rolls Royce”</strong> of matrix decompositions.</p>
+</div></blockquote>
 <p>– Diane O’Leary</p>
 <p>Today we will concern ourselves with the “Swiss Army Knife” aspect of the SVD.</p>
 <p>Our focus today will be on applications to data analysis.</p>
 <p>So today we will be thinking of matrices as <strong>data</strong>.</p>
 <p>(Rather than thinking of matrices as linear operators.)</p>
-<div class="ctrd">
-<p><img src="https://imgs.xkcd.com/comics/assigning_numbers.png" height="450"></p>
-</div>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p>Image Credit: <a href="https://imgs.xkcd.com/comics/assigning_numbers.png">xkcd</a></p>
-</div></div><p>As a specific example, here is a typical data matrix. This matrix could be the result of measuring a collection of data objects, and noting a set of features for each object.</p>
-<p><span class="math display">\[{\text{$m$ data objects}}\left\{\begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\right.\;\;\overbrace{\left[\begin{array}{ccccc}
+<!-- image credit: https://xkcd.com/2610/ -->
+<center>
+<a class="reference internal image-reference" href="https://imgs.xkcd.com/comics/assigning_numbers.png"><img alt="Figure" src="https://imgs.xkcd.com/comics/assigning_numbers.png" style="width: 450px;" /></a>
+</center><p>As a specific example, here is a typical data matrix.   This matrix could be the result of measuring a collection of data objects, and noting a set of features for each object.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}{\mbox{$m$ data objects}}\left\{\begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\right.\;\;\overbrace{\left[\begin{array}{ccccc}
 \begin{array}{c}a_{11}\\\vdots\\a_{i1}\\\vdots\\a_{m1}\end{array}&amp;
 \begin{array}{c}\dots\\\ddots\\\dots\\\ddots\\\dots\end{array}&amp;
 \begin{array}{c}a_{1j}\\\vdots\\a_{ij}\\\vdots\\a_{mj}\end{array}&amp;
 \begin{array}{c}\dots\\\ddots\\\dots\\\ddots\\\dots\end{array}&amp;
 \begin{array}{c}a_{1n}\\\vdots\\a_{in}\\\vdots\\a_{mn}\end{array}
-\end{array}\right]}^{n \text{~features}}\]</span></p>
-<div class="fragment">
+\end{array}\right]}^{\mbox{$n$ features}}\end{split}\]</div>
 <p>For example, rows could be people, and columns could be movie ratings.</p>
 <p>Or rows could be documents, and columns could be words within the documents.</p>
-</div>
-</section>
-<section id="recap-of-svd" class="level2">
-<h2 class="anchored" data-anchor-id="recap-of-svd">Recap of SVD</h2>
-<div class="fragment">
 <p>To start discussing the set of tools that SVD provides for analyzing data, let’s remind ourselves what the SVD is.</p>
-</div>
-<div class="fragment">
+<section id="recap-of-svd">
+<h2>Recap of SVD<a class="headerlink" href="#recap-of-svd" title="Permalink to this heading">#</a></h2>
 <p>Today we’ll work exclusively with the reduced SVD.</p>
-<p>Here it is again, for the case where <span class="math inline">\(A\)</span> is <span class="math inline">\(m \times n\)</span>, and <span class="math inline">\(A\)</span> has rank <span class="math inline">\(r\)</span>.</p>
-<p>In that case, the reduced SVD looks like this, with singular values on the diagonal of <span class="math inline">\(\Sigma\)</span>:</p>
-<p><span class="math inline">\(\tiny {\small m}\left\{\begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\right.\;\;\overbrace{\left[\begin{array}{cccc}\begin{array}{c}\vdots\\\vdots\\{\bf a_1}\\\vdots\\\vdots\end{array}&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_2}\\\vdots\\\vdots\end{array}&amp;\dots&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_n}\\\vdots\\\vdots\end{array}\\\end{array}\right]}^{\small n} =
-\overbrace{\left[\begin{array}{ccc}\vdots&amp;&amp;\vdots\\\vdots&amp;&amp;\vdots\\\mathbf{u}_1&amp;\cdots&amp;\mathbf{u}_r\\\vdots&amp;&amp;\vdots\\\vdots&amp;&amp;\vdots\end{array}\right]}^{\small r}
+<p>Here it is again, for the case where <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(m \times n\)</span>, and <span class="math notranslate nohighlight">\(A\)</span> has rank <span class="math notranslate nohighlight">\(r\)</span>.</p>
+<p>In that case, the reduced SVD looks like this, with singular values on the diagonal of <span class="math notranslate nohighlight">\(\Sigma\)</span>:</p>
+<p><span class="math notranslate nohighlight">\(m\left\{\begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\right.\;\;\overbrace{\left[\begin{array}{cccc}\begin{array}{c}\vdots\\\vdots\\{\bf a_1}\\\vdots\\\vdots\end{array}&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_2}\\\vdots\\\vdots\end{array}&amp;\dots&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_n}\\\vdots\\\vdots\end{array}\\\end{array}\right]}^{\Large n} =
+\overbrace{\left[\begin{array}{ccc}\vdots&amp;&amp;\vdots\\\vdots&amp;&amp;\vdots\\\mathbf{u}_1&amp;\cdots&amp;\mathbf{u}_r\\\vdots&amp;&amp;\vdots\\\vdots&amp;&amp;\vdots\end{array}\right]}^{\large r}
 \times
-\overbrace{\left[\begin{array}{ccc}\sigma_1&amp; &amp;\\&amp;\ddots&amp;\\&amp;&amp;\sigma_r\end{array}\right]}^{\small r}
+\left[\begin{array}{ccc}\sigma_1&amp; &amp;\\&amp;\ddots&amp;\\&amp;&amp;\sigma_r\end{array}\right]
 \times
-\overbrace{\left[\begin{array}{ccccc}\dots&amp;\dots&amp;\mathbf{v}_1&amp;\dots&amp;\dots\\&amp;&amp;\vdots&amp;&amp;\\\dots&amp;\dots&amp;\mathbf{v}_r&amp;\dots&amp;\dots\end{array}\right]}^{\small n}\)</span></p>
-</div>
-<div class="fragment">
-<p><span class="math display">\[\Large\overset{m\,\times\, n}{A^{\vphantom{T}}} = \overset{m\,\times\, r}{U^{\vphantom{T}}}\;\;\overset{r\,\times\, r}{\Sigma^{\vphantom{T}}}\;\;\overset{r\,\times\, n}{V^T}\]</span></p>
-</div>
-<!---don't need this
-
-::: {.fragment}
-Note that for the reduced version, both $U$ and $V$ have orthonormal columns.    This means that:
-
-$$ U^TU = I $$
-
-and 
-
-$$ V^TV = I. $$
-
-(However, $U$ and $V$ are not square in this version, so they are not orthogonal matrices.)
-:::
--->
+\left[\begin{array}{ccccc}\dots&amp;\dots&amp;\mathbf{v}_1&amp;\dots&amp;\dots\\&amp;&amp;\vdots&amp;&amp;\\\dots&amp;\dots&amp;\mathbf{v}_r&amp;\dots&amp;\dots\end{array}\right]\)</span></p>
+<div class="math notranslate nohighlight">
+\[\Large\overset{m\,\times\, n}{A^{\vphantom{T}}} = \overset{m\,\times\, r}{U^{\vphantom{T}}}\;\;\overset{r\,\times\, r}{\Sigma^{\vphantom{T}}}\;\;\overset{r\,\times\, n}{V^T}\]</div>
+<p>Note that for the reduced version, both <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span> have orthonormal columns.    This means that:</p>
+<div class="math notranslate nohighlight">
+\[ U^TU = I \]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[ V^TV = I. \]</div>
+<p>(However, <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span> are not square in this version, so they are not orthogonal matrices.)</p>
+<p>Recall as well, that the route to the SVD starting by asking “What unit vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> maximizes <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert\)</span>”?</p>
+<p>We found that the answer is <span class="math notranslate nohighlight">\(\mathbf{v_1}\)</span>, the first row of <span class="math notranslate nohighlight">\(V^T\)</span>.</p>
+<p>You should be able to see that the SVD of <span class="math notranslate nohighlight">\(A^T\)</span> is <span class="math notranslate nohighlight">\(V\Sigma U^T\)</span>.</p>
+<p>So, we can make the corresponding observation that the unit vector that maximizes <span class="math notranslate nohighlight">\(\Vert A^T\mathbf{x}\Vert\)</span> is <span class="math notranslate nohighlight">\(\mathbf{u_1}\)</span>, the first column of <span class="math notranslate nohighlight">\(U\)</span>.</p>
 </section>
-<section id="approximating-a-matrix" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="approximating-a-matrix">Approximating a Matrix</h2>
-<div class="fragment">
+<section id="approximating-a-matrix">
+<h2>Approximating a Matrix<a class="headerlink" href="#approximating-a-matrix" title="Permalink to this heading">#</a></h2>
 <p>To understand the power of SVD for analyzing data, it helps to think of it as a tool for <strong>approximating one matrix by another, simpler, matrix.</strong></p>
-</div>
-<div class="fragment">
 <p>To talk about when one matrix <strong>approximates</strong> another, we need a “length” for matrices.</p>
-</div>
-<div class="fragment">
 <p>We will use the <strong>Frobenius norm</strong>.</p>
 <p>The Frobenius norm is just the usual vector norm, treating the matrix as if it were a vector.</p>
-<p>In other words, the definition of the Frobenius norm of <span class="math inline">\(A\)</span>, denoted <span class="math inline">\(\Vert A\Vert_F\)</span>, is:</p>
-<p><span class="math display">\[\Vert A\Vert_F = \sqrt{\sum a_{ij}^2}.\]</span></p>
-</div>
+<p>In other words, the definition of the Frobenius norm of <span class="math notranslate nohighlight">\(A\)</span>, denoted <span class="math notranslate nohighlight">\(\Vert A\Vert_F\)</span>, is:</p>
+<div class="math notranslate nohighlight">
+\[\Vert A\Vert_F = \sqrt{\sum a_{ij}^2}.\]</div>
 <p>The approximations we’ll discuss are <strong>low-rank</strong> approximations.</p>
-<p>Recall that the rank of a matrix <span class="math inline">\(A\)</span> is the largest number of linearly independent columns of <span class="math inline">\(A\)</span>.</p>
-<p>Or, equivalently, the dimension of <span class="math inline">\(\operatorname{Col} A\)</span>.</p>
-<div class="fragment">
-<p>Let’s define the <strong>rank-<span class="math inline">\(k\)</span> approximation</strong> to <span class="math inline">\(A\)</span>:</p>
-<p>When <span class="math inline">\(k &lt; \operatorname{Rank}A\)</span>, the rank-<span class="math inline">\(k\)</span> approximation to <span class="math inline">\(A\)</span> is the closest rank-<span class="math inline">\(k\)</span> matrix to <span class="math inline">\(A\)</span>, i.e.,</p>
-<p><span class="math display">\[A^{(k)} =\arg \min_{\operatorname{Rank}B = k} \Vert A-B\Vert_F.\]</span></p>
-</div>
-<p>Why is a rank-<span class="math inline">\(k\)</span> approximation valuable?</p>
-<div class="fragment">
-<p>The reason is that a rank-<span class="math inline">\(k\)</span> matrix may take up <strong>much</strong> less space than the original <span class="math inline">\(A\)</span>.</p>
-<p><span class="math inline">\(\small {\normalsize m}\left\{\begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\right.\;\;\overbrace{\left[\begin{array}{cccc}\begin{array}{c}\vdots\\\vdots\\{\bf a_1}\\\vdots\\\vdots\end{array}&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_2}\\\vdots\\\vdots\end{array}&amp;\dots&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_n}\\\vdots\\\vdots\end{array}\\\end{array}\right]}^{\normalsize n} =
-\overbrace{\left[\begin{array}{cc}\vdots&amp;\vdots\\\vdots&amp;\vdots\\\sigma_1\mathbf{u}_1&amp;\sigma_k\mathbf{u}_k\\\vdots&amp;\vdots\\\vdots&amp;\vdots\end{array}\right]}^{\normalsize k}
+<p>Recall that the rank of a matrix <span class="math notranslate nohighlight">\(A\)</span> is the largest number of linearly independent columns of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>Or, equivalently, the dimension of <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span>.</p>
+<p>Let’s define the <strong>rank-<span class="math notranslate nohighlight">\(k\)</span> approximation</strong> to <span class="math notranslate nohighlight">\(A\)</span>:</p>
+<p>When <span class="math notranslate nohighlight">\(k &lt; \operatorname{Rank}A\)</span>, the rank-<span class="math notranslate nohighlight">\(k\)</span> approximation to <span class="math notranslate nohighlight">\(A\)</span> is the closest rank-<span class="math notranslate nohighlight">\(k\)</span> matrix to <span class="math notranslate nohighlight">\(A\)</span>, i.e.,</p>
+<div class="math notranslate nohighlight">
+\[A^{(k)} =\arg \min_{\operatorname{Rank}B = k} \Vert A-B\Vert_F.\]</div>
+<p>Why is a rank-<span class="math notranslate nohighlight">\(k\)</span> approximation valuable?</p>
+<p>The reason is that a rank-<span class="math notranslate nohighlight">\(k\)</span> matrix may take up <strong>much</strong> less space than the original <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(m\left\{\begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\right.\;\;\overbrace{\left[\begin{array}{cccc}\begin{array}{c}\vdots\\\vdots\\{\bf a_1}\\\vdots\\\vdots\end{array}&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_2}\\\vdots\\\vdots\end{array}&amp;\dots&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_n}\\\vdots\\\vdots\end{array}\\\end{array}\right]}^{\large n} =
+\overbrace{\left[\begin{array}{cc}\vdots&amp;\vdots\\\vdots&amp;\vdots\\\sigma_1\mathbf{u}_1&amp;\sigma_k\mathbf{u}_k\\\vdots&amp;\vdots\\\vdots&amp;\vdots\end{array}\right]}^{\large k}
 \times
-\overbrace{\left[\begin{array}{ccc}\dots&amp;\mathbf{v}_1&amp;\dots\\\dots&amp;\mathbf{v}_k&amp;\dots\end{array}\right]}^{\normalsize n}\)</span></p>
-<p>Notice that:</p>
-<ul>
-<li><span class="math inline">\(A\)</span> takes space <span class="math inline">\(mn\)</span></li>
-<li>but the rank-<span class="math inline">\(k\)</span> approximation only takes space <span class="math inline">\((m+n)k\)</span>.</li>
-</ul>
+\left[\begin{array}{ccccc}\dots&amp;\dots&amp;\mathbf{v}_1&amp;\dots&amp;\dots\\\dots&amp;\dots&amp;\mathbf{v}_k&amp;\dots&amp;\dots\end{array}\right]\)</span></p>
+<p>The rank-<span class="math notranslate nohighlight">\(k\)</span> approximation takes up space <span class="math notranslate nohighlight">\((m+n)k\)</span> while <span class="math notranslate nohighlight">\(A\)</span> itself takes space <span class="math notranslate nohighlight">\(mn\)</span>.</p>
+<p>For example, if <span class="math notranslate nohighlight">\(k=10\)</span> and <span class="math notranslate nohighlight">\(m = n = 1000\)</span>, then the rank-<span class="math notranslate nohighlight">\(k\)</span> approximation takes space <span class="math notranslate nohighlight">\(20000/1000000 = 2\%\)</span> of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<aside class="margin sidebar">
+<p class="sidebar-title"></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The fact that the SVD finds the <em>best</em> rank-<span class="math notranslate nohighlight">\(k\)</span> approximation to any matrix is called the Eckart-Young-Mirsky Theorem.  You can find a proof of the theorem <a class="reference external" href="https://en.wikipedia.org/wiki/Low-rank_approximation">here</a>.  In fact it is true for the Frobenius norm (the norm we are using here) as well as another matrix norm, the <em>spectral</em> norm.</p>
+<p>More good resources on how to understand SVD as a data approximation method are <a class="reference external" href="https://www.jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/">here</a> and <a class="reference external" href="https://liorpachter.wordpress.com/2014/05/26/what-is-principal-component-analysis/">here</a>.</p>
 </div>
-<div class="fragment">
-<p>For example, if A is <span class="math inline">\(1000 \times 1000\)</span>, and <span class="math inline">\(k=10\)</span>, then</p>
-<ul>
-<li>A takes space <span class="math inline">\(1000000\)</span></li>
-<li>while the rank-<span class="math inline">\(k\)</span> approximation takes space <span class="math inline">\(20000\)</span>,</li>
-</ul>
-<p>So the rank-<span class="math inline">\(k\)</span> approximation is just 2% the size of <span class="math inline">\(A\)</span>.</p>
-</div>
-
-<div class="no-row-height column-margin column-container"><div class="">
-<p>The fact that the SVD finds the <em>best</em> rank-<span class="math inline">\(k\)</span> approximation to any matrix is called the Eckart-Young-Mirsky Theorem. You can find a proof of the theorem <a href="https://en.wikipedia.org/wiki/Low-rank_approximation">here</a>. In fact it is true for the Frobenius norm (the norm we are using here) as well as another matrix norm, the <em>spectral</em> norm.</p>
-<p>More good resources on how to understand SVD as a data approximation method are <a href="https://www.jeremykun.com/2016/04/18/singular-value-decomposition-part-1-perspectives-on-linear-algebra/">here</a> and <a href="https://liorpachter.wordpress.com/2014/05/26/what-is-principal-component-analysis/">here</a>.</p>
-</div></div><p>The key to using the SVD for matrix approximation is as follows:</p>
-<div class="ctrd">
-<p><font color="blue"><b>The best rank-<em>k</em> approximation to any matrix can be found via the SVD.</b></font></p>
-</div>
-<div class="fragment">
-<p>In fact, for an <span class="math inline">\(m\times n\)</span> matrix <span class="math inline">\(A\)</span>, the SVD does two things:</p>
-<p>&nbsp; 1. It gives the best rank-<span class="math inline">\(k\)</span> approximation to <span class="math inline">\(A\)</span> for <strong>every</strong> <span class="math inline">\(k\)</span> up to the rank of <span class="math inline">\(A\)</span>.</p>
-<p>&nbsp; 2. It gives the <strong>distance</strong> of the best rank-<span class="math inline">\(k\)</span> approximation <span class="math inline">\(A^{(k)}\)</span> from <span class="math inline">\(A\)</span> for each <span class="math inline">\(k\)</span>.</p>
-</div>
-<div class="fragment">
-<p>When we say “best”, we mean in terms of Frobenius norm <span class="math inline">\(\Vert A-A^{(k)}\Vert_F\)</span>,</p>
-<p>and by distance we mean the same quantity, <span class="math inline">\(\Vert A-A^{(k)}\Vert_F\)</span>.</p>
-</div>
-<p>How do we use SVD to find the best rank-<span class="math inline">\(k\)</span> approximation to <span class="math inline">\(A\)</span>?</p>
-<div class="fragment">
+</aside>
+<p>The key to using the SVD for matrix approximation is as follows:</p>
+<center><font color = "blue"><b>The best rank-<em>k</em> approximation to any matrix can be found via the SVD.</b></font></center><p>In fact, for an <span class="math notranslate nohighlight">\(m\times n\)</span> matrix <span class="math notranslate nohighlight">\(A\)</span>, the SVD does two things:</p>
+<ol class="arabic simple">
+<li><p>It gives the best rank-<span class="math notranslate nohighlight">\(k\)</span> approximation to <span class="math notranslate nohighlight">\(A\)</span> for <strong>every</strong> <span class="math notranslate nohighlight">\(k\)</span> up to the rank of <span class="math notranslate nohighlight">\(A\)</span>.</p></li>
+<li><p>It gives the <strong>distance</strong> of the best rank-<span class="math notranslate nohighlight">\(k\)</span> approximation <span class="math notranslate nohighlight">\(A^{(k)}\)</span> from <span class="math notranslate nohighlight">\(A\)</span> for each <span class="math notranslate nohighlight">\(k\)</span>.</p></li>
+</ol>
+<p>When we say “best”, we mean in terms of Frobenius norm <span class="math notranslate nohighlight">\(\Vert A-A^{(k)}\Vert_F\)</span>,</p>
+<p>and by distance we mean the same quantity, <span class="math notranslate nohighlight">\(\Vert A-A^{(k)}\Vert_F\)</span>.</p>
+<p>How do we use SVD to find the best rank-<span class="math notranslate nohighlight">\(k\)</span> approximation to <span class="math notranslate nohighlight">\(A\)</span>?</p>
 <p>Conceptually, we “throw away” the portions of the SVD having the smallest singular values.</p>
-</div>
-<div class="fragment">
 <p>More specifically: in terms of the singular value decomposition,</p>
-<p><span class="math display">\[ A = U\Sigma V^T, \]</span></p>
-<p>the best rank-<span class="math inline">\(k\)</span> approximation to <span class="math inline">\(A\)</span> is formed by taking</p>
-<ul>
-<li><span class="math inline">\(U' =\)</span> the <span class="math inline">\(k\)</span> leftmost columns of <span class="math inline">\(U\)</span>,</li>
-<li><span class="math inline">\(\Sigma ' =\)</span> the <span class="math inline">\(k\times k\)</span> upper left submatrix of <span class="math inline">\(\Sigma\)</span>, and</li>
-<li><span class="math inline">\((V')^T=\)</span> the <span class="math inline">\(k\)</span> upper rows of <span class="math inline">\(V^T\)</span>,</li>
+<div class="math notranslate nohighlight">
+\[ A = U\Sigma V^T, \]</div>
+<p>the best rank-<span class="math notranslate nohighlight">\(k\)</span> approximation to <span class="math notranslate nohighlight">\(A\)</span> is formed by taking</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(U' =\)</span> the <span class="math notranslate nohighlight">\(k\)</span> leftmost columns of <span class="math notranslate nohighlight">\(U\)</span>,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Sigma ' =\)</span> the <span class="math notranslate nohighlight">\(k\times k\)</span> upper left submatrix of <span class="math notranslate nohighlight">\(\Sigma\)</span>, and</p></li>
+<li><p><span class="math notranslate nohighlight">\((V')^T=\)</span> the <span class="math notranslate nohighlight">\(k\)</span> upper rows of <span class="math notranslate nohighlight">\(V^T\)</span>,</p></li>
 </ul>
 <p>and constructing</p>
-<p><span class="math display">\[A^{(k)} = U'\Sigma'(V')^T.\]</span></p>
-</div>
-<div class="fragment">
-<p>The distance (in Frobenius norm) of the best rank-<span class="math inline">\(k\)</span> approximation <span class="math inline">\(A^{(k)}\)</span> from <span class="math inline">\(A\)</span> is equal to</p>
-<p><span class="math display">\[\sqrt{\sum_{i=k+1}^r\sigma^2_i}.\]</span></p>
-</div>
-<div class="fragment">
-<p>Notice that this quantity is summing over the singular values <strong>beyond</strong> <span class="math inline">\(k\)</span>.</p>
-</div>
-<div class="fragment">
-<p>What this means is that if, beyond some <span class="math inline">\(k\)</span>, all of the singular values are small, then <strong><span class="math inline">\(A\)</span> can be closely approximated by a rank-<span class="math inline">\(k\)</span> matrix.</strong></p>
-</div>
+<div class="math notranslate nohighlight">
+\[A^{(k)} = U'\Sigma'(V')^T.\]</div>
+<p>The distance (in Frobenius norm) of the best rank-<span class="math notranslate nohighlight">\(k\)</span> approximation <span class="math notranslate nohighlight">\(A^{(k)}\)</span> from <span class="math notranslate nohighlight">\(A\)</span> is equal to <span class="math notranslate nohighlight">\(\sqrt{\sum_{i=k+1}^r\sigma^2_i}\)</span>.</p>
+<p>Notice that this quantity is summing over the singular values <strong>beyond</strong> <span class="math notranslate nohighlight">\(k\)</span>.</p>
+<p>What this means is that if, beyond some <span class="math notranslate nohighlight">\(k\)</span>, all of the singular values are small, then <strong><span class="math notranslate nohighlight">\(A\)</span> can be closely approximated by a rank-<span class="math notranslate nohighlight">\(k\)</span> matrix.</strong></p>
 </section>
-<section id="signal-compression" class="level2">
-<h2 class="anchored" data-anchor-id="signal-compression">Signal Compression</h2>
-<div class="fragment">
-<p>When working with measurement data, ie measurements of real-world objects, we find that data is often <strong>approximately low-rank.</strong></p>
+<section id="signal-compression">
+<h2>Signal Compression<a class="headerlink" href="#signal-compression" title="Permalink to this heading">#</a></h2>
+<p>When working with measurement data, ie measurements of real-world objects, we find that data is often  <strong>approximately low-rank.</strong></p>
 <p>In other words, a matrix of measurements can often be well approximated by a low-rank matrix.</p>
-</div>
-<div class="fragment">
 <p>Classic examples include</p>
-<ul>
-<li>measurements of human abilities - eg, psychology</li>
-<li>measurements of human preferences – eg, movie ratings, social networks</li>
-<li>images, movies, sound recordings</li>
-<li>genomics, biological data</li>
-<li>medical records</li>
-<li>text documents</li>
+<ul class="simple">
+<li><p>measurements of human abilities - eg, psychology</p></li>
+<li><p>measurements of human preferences – eg, movie ratings, social networks</p></li>
+<li><p>images, movies, sound recordings</p></li>
+<li><p>genomics, biological data</p></li>
+<li><p>medical records</p></li>
+<li><p>text documents</p></li>
 </ul>
-</div>
 <p>For example, here is a photo.</p>
-<p>We can think of this as a <span class="math inline">\(512\times 512\)</span> matrix <span class="math inline">\(A\)</span> whose entries are grayscale values (numbers between 0 and 1).</p>
-<div class="ctrd">
-<div id="b7c647c9" class="cell" data-execution_count="2">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L26ApplicationsOfSVD_files/figure-html/cell-3-output-1.png" width="500" height="490" class="figure-img"></p>
-</figure>
+<p>We can think of this as a <span class="math notranslate nohighlight">\(512\times 512\)</span> matrix <span class="math notranslate nohighlight">\(A\)</span> whose entries are grayscale values (numbers between 0 and 1).</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/89703f22d6bbe854bedbecad191348133c55e34d9a599caab93c810e37ee756f.png" src="_images/89703f22d6bbe854bedbecad191348133c55e34d9a599caab93c810e37ee756f.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="fragment">
 <p>Let’s look at the singular values of this matrix.</p>
-<p>We compute <span class="math inline">\(A = U\Sigma V^T\)</span> and look at the values on the diagonal of <span class="math inline">\(\Sigma\)</span>.</p>
+<p>We compute <span class="math notranslate nohighlight">\(A = U\Sigma V^T\)</span> and look at the values on the diagonal of <span class="math notranslate nohighlight">\(\Sigma\)</span>.</p>
 <p>This is often called the matrix’s “spectrum.”</p>
-</div>
-<div class="fragment">
-<div class="ctrd">
-<div id="c14ee05d" class="cell" data-execution_count="3">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L26ApplicationsOfSVD_files/figure-html/cell-4-output-1.png" width="574" height="384" class="figure-img"></p>
-</figure>
-</div>
-</div>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/d9088bc4f281b551a9981a85f2a957c45f26b6221b1a2bf9124809c5a878ef02.png" src="_images/d9088bc4f281b551a9981a85f2a957c45f26b6221b1a2bf9124809c5a878ef02.png" />
 </div>
 </div>
 <p>What is this telling us?</p>
-<p>Most of the singular values of <span class="math inline">\(A\)</span> are quite small.</p>
-<p>Only the first few singular values are large – up to, say, <span class="math inline">\(k\)</span> = 40.</p>
-</div>
-<div class="fragment">
-<p>Remember that the error we get when we use a rank-<span class="math inline">\(k\)</span> approximation is</p>
-<p><span class="math display">\[\Vert A-A^{(k)}\Vert_F = \sqrt{\sum_{i=k+1}^r\sigma^2_i}.\]</span></p>
-<p>So we can use the singular values of <span class="math inline">\(A\)</span> to compute the relative error over a range of possible approximations <span class="math inline">\(A^{(k)}\)</span>.</p>
-</div>
-<div class="fragment">
-<div class="ctrd">
-<div id="49bcc834" class="cell" data-execution_count="4">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L26ApplicationsOfSVD_files/figure-html/cell-5-output-1.png" width="528" height="405" class="figure-img"></p>
-</figure>
+<p>Most of the singular values of <span class="math notranslate nohighlight">\(A\)</span> are quite small.</p>
+<p>Only the first few singular values are large – up to, say, <span class="math notranslate nohighlight">\(k\)</span> = 40.</p>
+<p>Remember that the error we get when we use a rank-<span class="math notranslate nohighlight">\(k\)</span> approximation is</p>
+<div class="math notranslate nohighlight">
+\[\Vert A-A^{(k)}\Vert_F = \sqrt{\sum_{i=k+1}^r\sigma^2_i}.\]</div>
+<p>So we can use the singular values of <span class="math notranslate nohighlight">\(A\)</span> to compute the relative error over a range of possible approximations <span class="math notranslate nohighlight">\(A^{(k)}\)</span>.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/eac3dbf0bd6ce42934489bc25f32bbf65a86a9a5b2381fbe800a00a42e2f57e6.png" src="_images/eac3dbf0bd6ce42934489bc25f32bbf65a86a9a5b2381fbe800a00a42e2f57e6.png" />
 </div>
 </div>
-</div>
-</div>
-<p>This matrix <span class="math inline">\(A\)</span> has rank of 512.</p>
-<p>But the error when we approximate <span class="math inline">\(A\)</span> by a rank 40 matrix is only around 10%.</p>
-<p>We say that the <strong>effective</strong> rank of <span class="math inline">\(A\)</span> is low (perhaps 40).</p>
-</div>
-<div class="fragment">
-<p>Let’s find the closest rank-40 matrix to <span class="math inline">\(A\)</span> and view it.</p>
+<p>This matrix <span class="math notranslate nohighlight">\(A\)</span> has rank of 512.</p>
+<p>But the error when we approximate <span class="math notranslate nohighlight">\(A\)</span> by a rank 40 matrix is only around 10%.</p>
+<p>We say that the <strong>effective</strong> rank of <span class="math notranslate nohighlight">\(A\)</span> is low (perhaps 40).</p>
+<p>Let’s find the closest rank-40 matrix to <span class="math notranslate nohighlight">\(A\)</span> and view it.</p>
 <p>We can do this quite easily using the SVD.</p>
-<p>We simply construct our approximation of <span class="math inline">\(A\)</span> using only the first 40 columns of <span class="math inline">\(U\)</span> and top 40 rows of <span class="math inline">\(V^T\)</span>.</p>
-</div>
-<div class="fragment">
-<p><span class="math display">\[U\Sigma V^T = A\]</span></p>
-<p><span class="math display">\[A^{(k)} = U'\Sigma'(V')^T.\]</span></p>
-</div>
-<div class="fragment">
-<div class="ctrd">
-<div id="23ba8ca4" class="cell" data-execution_count="5">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L26ApplicationsOfSVD_files/figure-html/cell-6-output-1.png" width="729" height="387" class="figure-img"></p>
-</figure>
+<p>We simply construct our approximation of <span class="math notranslate nohighlight">\(A\)</span> using only the first 40 columns of <span class="math notranslate nohighlight">\(U\)</span> and top 40 rows of <span class="math notranslate nohighlight">\(V^T\)</span>.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/9716ac61f956d6c0c03197b180fba210891e34f14d98d075a2007b981266ffc9.png" src="_images/9716ac61f956d6c0c03197b180fba210891e34f14d98d075a2007b981266ffc9.png" />
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="fragment">
 <p>Note that the rank-40 boat takes up only 40/512 = <strong>8% of the space of the original image!</strong></p>
-</div>
-<div class="ctrd">
-<div id="8688a041" class="cell" data-execution_count="6">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L26ApplicationsOfSVD_files/figure-html/cell-7-output-1.png" width="729" height="387" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div class="ctrd">
-<div id="c7c62794" class="cell" data-execution_count="7">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L26ApplicationsOfSVD_files/figure-html/cell-8-output-1.png" width="729" height="387" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div class="ctrd">
-<div id="0106b915" class="cell" data-execution_count="8">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L26ApplicationsOfSVD_files/figure-html/cell-9-output-1.png" width="729" height="387" class="figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
 <p>This general principle is what makes image, video, and sound compression effective.</p>
 <p>When you</p>
-<ul>
-<li>watch HDTV, or</li>
-<li>listen to an MP3, or</li>
-<li>look at a JPEG image,</li>
+<ul class="simple">
+<li><p>watch HDTV, or</p></li>
+<li><p>listen to an MP3, or</p></li>
+<li><p>look at a JPEG image,</p></li>
 </ul>
 <p>these signals have been compressed using the fact that they are <strong>effectively low-rank</strong> matrices.</p>
-<div class="fragment">
 <p>As you can see from the example of the boat image, it is often possible to compress such signals enormously, leading to an immense savings of storage space and transmission bandwidth.</p>
 <p>In fact the entire premise of the show “Silicon Valley” is based on this fact :)</p>
-</div>
 </section>
-<section id="dimensionality-reduction" class="level2">
-<h2 class="anchored" data-anchor-id="dimensionality-reduction">Dimensionality Reduction</h2>
-<div class="fragment">
+<section id="dimensionality-reduction">
+<h2>Dimensionality Reduction<a class="headerlink" href="#dimensionality-reduction" title="Permalink to this heading">#</a></h2>
 <p>Another way to think about what we just did is “dimensionality reduction”.</p>
-</div>
-<div class="fragment">
 <p>Consider this common situation:</p>
-<p><span class="math inline">\({\text{m objects}}\left\{\begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\right.\;\;\overbrace{\left[\begin{array}{ccccc}
+<p><span class="math notranslate nohighlight">\({\mbox{m objects}}\left\{\begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\right.\;\;\overbrace{\left[\begin{array}{ccccc}
 \begin{array}{c}a_{11}\\\vdots\\a_{i1}\\\vdots\\a_{m1}\end{array}&amp;
 \begin{array}{c}\dots\\\ddots\\\dots\\\ddots\\\dots\end{array}&amp;
 \begin{array}{c}a_{1j}\\\vdots\\a_{ij}\\\vdots\\a_{mj}\end{array}&amp;
 \begin{array}{c}\dots\\\ddots\\\dots\\\ddots\\\dots\end{array}&amp;
 \begin{array}{c}a_{1n}\\\vdots\\a_{in}\\\vdots\\a_{mn}\end{array}
-\end{array}\right]}^{\text{n features}} =
+\end{array}\right]}^{\mbox{n features}} =
 \overbrace{\left[\begin{array}{ccc}\vdots&amp;&amp;\vdots\\\vdots&amp;&amp;\vdots\\\mathbf{u}_1&amp;\cdots&amp;\mathbf{u}_k\\\vdots&amp;&amp;\vdots\\\vdots&amp;&amp;\vdots\end{array}\right]}^{\large k}
 \times
 \left[\begin{array}{ccc}\sigma_1&amp; &amp;\\&amp;\ddots&amp;\\&amp;&amp;\sigma_k\end{array}\right]
 \times
 \left[\begin{array}{ccccc}\dots&amp;\dots&amp;\mathbf{v}_1&amp;\dots&amp;\dots\\&amp;&amp;\vdots&amp;&amp;\\\dots&amp;\dots&amp;\mathbf{v}_k&amp;\dots&amp;\dots\end{array}\right]\)</span></p>
-</div>
-<div class="fragment">
-<p>The <span class="math inline">\(U\)</span> matrix has a row for each data object.</p>
-<p>Notice that the original data objects had <span class="math inline">\(n\)</span> features, but each row of <span class="math inline">\(U\)</span> only has <span class="math inline">\(k\)</span> entries.</p>
-</div>
-<div class="fragment">
-<p>Despite that, a row of <span class="math inline">\(U\)</span> can still provide most of the information in the corresponding row of <span class="math inline">\(A\)</span></p>
-<p>(To see that, note that we can approximately recover the original row by simply multiplying the row of <span class="math inline">\(U\)</span> by <span class="math inline">\(\Sigma V^T\)</span>).</p>
-<p>So we have <strong>reduced the dimension</strong> of our data objects – from <span class="math inline">\(n\)</span> down to <span class="math inline">\(k\)</span> – without losing much of the information they contain.</p>
-</div>
+<p>The <span class="math notranslate nohighlight">\(U\)</span> matrix has a row for each data object.</p>
+<p>Notice that the original data objects had <span class="math notranslate nohighlight">\(n\)</span> features, but each row of <span class="math notranslate nohighlight">\(U\)</span> only has <span class="math notranslate nohighlight">\(k\)</span> entries.</p>
+<p>Despite that, a row of <span class="math notranslate nohighlight">\(U\)</span> can still provide most of the information in the corresponding row of <span class="math notranslate nohighlight">\(A\)</span></p>
+<p>(To see that, note that we can approximately recover the original row by simply multiplying the row of <span class="math notranslate nohighlight">\(U\)</span> by <span class="math notranslate nohighlight">\(\Sigma V^T\)</span>).</p>
+<p>So we have <strong>reduced the dimension</strong> of our data objects – from <span class="math notranslate nohighlight">\(n\)</span> down to <span class="math notranslate nohighlight">\(k\)</span> – without losing much of the information they contain.</p>
 </section>
-<section id="principal-component-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="principal-component-analysis">Principal Component Analysis</h2>
-<div class="fragment">
+<section id="principal-component-analysis">
+<h2>Principal Component Analysis<a class="headerlink" href="#principal-component-analysis" title="Permalink to this heading">#</a></h2>
 <p>This kind of dimensionality reduction can be done in an <strong>optimal</strong> way.</p>
 <p>The method for doing it is called <strong>Principal Component Analysis</strong> (or PCA).</p>
-</div>
-<div class="fragment">
 <p>What does <strong>optimal</strong> mean in this context?</p>
 <p>Here we use a statistical criterion: a dimensionality reduction that captures the maximum <strong>variance</strong> in the data.</p>
-</div>
-<div class="fragment">
-<p>Here is a simple example.</p>
-<p>Consider the points below, which live in <span class="math inline">\(\mathbb{R}^2\)</span>.</p>
-<div class="ctrd">
-<div id="1557f4d5" class="cell" data-execution_count="9">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L26ApplicationsOfSVD_files/figure-html/cell-10-output-1.png" width="466" height="463" class="figure-img"></p>
-</figure>
+<p>Here is a classic example.</p>
+<p>Consider the points below, which live in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>.</p>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/a01822eccb84f5271e1e9bd2728345bac4b28e5a4e64f873291d7f331279930a.png" src="_images/a01822eccb84f5271e1e9bd2728345bac4b28e5a4e64f873291d7f331279930a.png" />
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>Now, although the points are in <span class="math inline">\(\mathbb{R}^2\)</span>, they seem to show effective low-rank.</p>
+<p>Now, although the points are in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>, they seem to show effective low-rank.</p>
 <p>That is, it might not be a bad approximation to replace each point by a point in a 1-D dimensional space, that is, along a line.</p>
-</div>
-<div class="fragment">
-<p>What line should we choose? We will choose the line such that the <strong>sum of the distances of the points to the line is minimized.</strong></p>
+<p>What line should we choose?   We will choose the line such that the <strong>sum of the distances of the points to the line is minimized.</strong></p>
 <p>The points, projected on this line, will capture the maximum variance in the data (because the remaining errors are minimized).</p>
-</div>
-<div class="fragment">
 <p>What would happen if we used SVD at this point, and kept only rank-1 approximation to the data?</p>
 <p>This would be the 1-D <strong>subspace</strong> that approximates the data best in Frobenius norm.</p>
-</div>
-<div class="fragment">
 <p>However the variance in the data is defined with respect to the data mean, so we need to mean-center the data first, before using SVD.</p>
 <p>That is, without mean centering, SVD finds the best 1-D subspace, not the best line though the data (which might not pass through the origin).</p>
-</div>
-<div class="fragment">
 <p>So to capture the best line through the data, we first move the data points to the origin:</p>
-<div class="ctrd">
-<div id="a4d1633a" class="cell" data-execution_count="10">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L26ApplicationsOfSVD_files/figure-html/cell-11-output-1.png" width="466" height="463" class="figure-img"></p>
-</figure>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/650e2ee9451b08fc06dc443a5f9e3ed795daffc263c81f684b41469a8e78d157.png" src="_images/650e2ee9451b08fc06dc443a5f9e3ed795daffc263c81f684b41469a8e78d157.png" />
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="fragment">
 <p>Now we use SVD to construct the best 1-D approximation of the mean-centered data:</p>
-<div class="ctrd">
-<div id="7d2f9cb8" class="cell" data-execution_count="11">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L26ApplicationsOfSVD_files/figure-html/cell-12-output-1.png" width="466" height="491" class="figure-img"></p>
-</figure>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/fa6704f59322f99a35e4b0928d0de6ab7011b722e1cba55620d913d8126babb4.png" src="_images/fa6704f59322f99a35e4b0928d0de6ab7011b722e1cba55620d913d8126babb4.png" />
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="fragment">
 <p>This method is called <strong>Principal Component Analysis.</strong></p>
 <p>In summary, PCA consists of:</p>
-<p>&nbsp; 1. Mean center the data, and</p>
-<p>&nbsp; 2. Reduce the dimension of the mean-centered data via SVD.</p>
-</div>
-<div class="fragment">
+<ol class="arabic simple">
+<li><p>Mean center the data, and</p></li>
+<li><p>Reduce the dimension of the mean-centered data via SVD.</p></li>
+</ol>
 <p>It winds up constructing the <strong>best low dimensional approximation of the data</strong> in terms of variance.</p>
-</div>
-<div class="fragment">
 <p>This is equivalent to projecting the data onto the subspace that captures the maximum variance in the data.</p>
-<p>That is, each point is replaced by a point in <span class="math inline">\(k\)</span> dimensional space such that the total error (distances between points and their replacements) is minimized.</p>
-</div>
+<p>That is, each point is replaced by a point in <span class="math notranslate nohighlight">\(k\)</span> dimensional space such that the total error (distances between points and their replacements) is minimized.</p>
 </section>
-<section id="visualization-using-pca" class="level2">
-<h2 class="anchored" data-anchor-id="visualization-using-pca">Visualization using PCA</h2>
-<div class="fragment">
+<section id="visualization-using-pca">
+<h2>Visualization using PCA<a class="headerlink" href="#visualization-using-pca" title="Permalink to this heading">#</a></h2>
 <p>I’ll now show an extended example to give you a sense of the power of PCA.</p>
-</div>
-<div class="fragment">
 <p>Let’s analyze some really high-dimensional data: <strong>documents.</strong></p>
 <p>A common way to represent documents is using the bag-of-words model.</p>
 <p>In this matrix, rows are documents, columns are words, and entries count how many time a word appears in a document.</p>
 <p>This is called a <em>document-term matrix.</em></p>
-</div>
-<div class="fragment">
-<p><span class="math display">\[{\text{$m$ documents}}\left\{\begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\right.\;\;\overbrace{\left[\begin{array}{ccccc}
+<div class="math notranslate nohighlight">
+\[\begin{split}{\mbox{$m$ documents}}\left\{\begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\right.\;\;\overbrace{\left[\begin{array}{ccccc}
 \begin{array}{c}a_{11}\\\vdots\\a_{i1}\\\vdots\\a_{m1}\end{array}&amp;
 \begin{array}{c}\dots\\\ddots\\\dots\\\ddots\\\dots\end{array}&amp;
 \begin{array}{c}a_{1j}\\\vdots\\a_{ij}\\\vdots\\a_{mj}\end{array}&amp;
 \begin{array}{c}\dots\\\ddots\\\dots\\\ddots\\\dots\end{array}&amp;
 \begin{array}{c}a_{1n}\\\vdots\\a_{in}\\\vdots\\a_{mn}\end{array}
-\end{array}\right]}^{\text{$n$ terms}}\]</span></p>
-</div>
-<div class="fragment">
+\end{array}\right]}^{\mbox{$n$ terms}}\end{split}\]</div>
 <p>We are touching on a broad topic, called Latent Semantic Analysis, which is essentially the application of linear algebra to document analysis.</p>
 <p>You can learn about Latent Semantic Analysis in other courses in data science or natural language processing.</p>
-</div>
 <p>Our text documents are going to be posts from certain discussion forums called “newsgroups”.</p>
-<p>We will collect posts from three groups: <code>comp.os.ms-windows.misc</code>, <code>sci.space</code>, and <code>rec.sport.baseball</code>.</p>
-<p>I am going to skip over some details. However, all the code is here, so you can explore it on your own if you like.</p>
-<div class="fragment">
-<div id="505cf399" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> fetch_20newsgroups</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>categories <span class="op">=</span> [<span class="st">'comp.os.ms-windows.misc'</span>, <span class="st">'sci.space'</span>, <span class="st">'rec.sport.baseball'</span>]</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>news_data <span class="op">=</span> fetch_20newsgroups(subset<span class="op">=</span><span class="st">'train'</span>, categories<span class="op">=</span>categories)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_extraction.text <span class="im">import</span> TfidfVectorizer</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>vectorizer <span class="op">=</span> TfidfVectorizer(stop_words<span class="op">=</span><span class="st">'english'</span>, min_df<span class="op">=</span><span class="dv">4</span>, max_df<span class="op">=</span><span class="fl">0.8</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>dtm <span class="op">=</span> vectorizer.fit_transform(news_data.data).todense()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<div id="ca9fc167" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'The size of our document-term matrix is </span><span class="sc">{}</span><span class="st">'</span>.<span class="bu">format</span>(dtm.shape))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>The size of our document-term matrix is (1781, 9409)</code></pre>
+<p>We will collect posts from three groups:
+<code class="docutils literal notranslate"><span class="pre">comp.os.ms-windows.misc</span></code>, <code class="docutils literal notranslate"><span class="pre">sci.space</span></code>, and <code class="docutils literal notranslate"><span class="pre">rec.sport.baseball</span></code>.</p>
+<p>I am going to skip over some details.  However, all the code is in this notebook, so you can explore it on your own if you like.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">fetch_20newsgroups</span>
+<span class="n">categories</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;comp.os.ms-windows.misc&#39;</span><span class="p">,</span> <span class="s1">&#39;sci.space&#39;</span><span class="p">,</span> <span class="s1">&#39;rec.sport.baseball&#39;</span><span class="p">]</span>
+<span class="n">news_data</span> <span class="o">=</span> <span class="n">fetch_20newsgroups</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="n">categories</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="kn">import</span> <span class="n">TfidfVectorizer</span>
+<span class="n">vectorizer</span> <span class="o">=</span> <span class="n">TfidfVectorizer</span><span class="p">(</span><span class="n">stop_words</span><span class="o">=</span><span class="s1">&#39;english&#39;</span><span class="p">,</span> <span class="n">min_df</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">max_df</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">dtm</span> <span class="o">=</span> <span class="n">vectorizer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">news_data</span><span class="o">.</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">todense</span><span class="p">()</span>
+</pre></div>
 </div>
 </div>
 </div>
-<div class="fragment">
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;The size of our document-term matrix is </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dtm</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The size of our document-term matrix is (1781, 9409)
+</pre></div>
+</div>
+</div>
+</div>
 <p>So we have 1781 documents, and there are 9409 different words that are contained in the documents.</p>
 <p>We can think of each document as a vector in 9409-dimensional space.</p>
-</div>
-<div class="fragment">
 <p>Let us apply PCA to the document-term matrix.</p>
-</div>
-<div class="fragment">
 <p>First, we mean center the data.</p>
-<div id="882a7650" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>centered_dtm <span class="op">=</span> dtm <span class="op">-</span> np.mean(dtm, axis<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">centered_dtm</span> <span class="o">=</span> <span class="n">dtm</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dtm</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
 </div>
 </div>
-<div class="fragment">
+</div>
 <p>Now we compute the SVD of the mean-centered data:</p>
-<div id="2e929005" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>u, s, vt <span class="op">=</span> np.linalg.svd(centered_dtm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">u</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">vt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">svd</span><span class="p">(</span><span class="n">centered_dtm</span><span class="p">)</span>
+</pre></div>
 </div>
 </div>
-<div class="fragment">
+</div>
 <p>Now, we use PCA to visualize the set of documents.</p>
 <p>Our visualization will be in two dimensions.</p>
 <p>This is pretty extreme …</p>
 <p>– we are taking points in 9409-dimensional space and projecting them into a subspace of only two dimensions!</p>
-</div>
-<div class="fragment">
-<div class="ctrd">
-<div id="c9f5ece5" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>Xk <span class="op">=</span> u <span class="op">@</span> np.diag(s)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>,<span class="dv">1</span>,figsize<span class="op">=</span>(<span class="dv">7</span>,<span class="dv">6</span>))</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>plt.scatter(np.ravel(Xk[:,<span class="dv">0</span>]), np.ravel(Xk[:,<span class="dv">1</span>]), </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                    s<span class="op">=</span><span class="dv">20</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, marker<span class="op">=</span><span class="st">'D'</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'2D Visualization of Documents via PCA'</span>, size<span class="op">=</span><span class="dv">20</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L26ApplicationsOfSVD_files/figure-html/cell-17-output-1.png" width="582" height="514" class="figure-img"></p>
-</figure>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/b1f5cfd534336fa3bd32e45bd6d81731b8c91951a5dea68175f58acfa479ddc7.png" src="_images/b1f5cfd534336fa3bd32e45bd6d81731b8c91951a5dea68175f58acfa479ddc7.png" />
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="fragment">
 <p>This visualization shows that our collection of documents has considerable internal structure.</p>
 <p>In particular, based on word frequency, it appears that there are three general groups of documents.</p>
-</div>
-<div class="fragment">
 <p>As you might guess, this is because the discussion topics of the document sets are different:</p>
-<div class="ctrd">
-<div id="edfb1399" class="cell" data-execution_count="17">
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="L26ApplicationsOfSVD_files/figure-html/cell-18-output-1.png" width="721" height="514" class="figure-img"></p>
-</figure>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="_images/8c81f94a909f8ff6b04622ca10f5013d171a0944b2816cdfef124ee73e419d07.png" src="_images/8c81f94a909f8ff6b04622ca10f5013d171a0944b2816cdfef124ee73e419d07.png" />
 </div>
 </div>
-</div>
-</div>
-</div>
-</section>
-<section id="section-14" class="level2">
-<h2 class="anchored" data-anchor-id="section-14"></h2>
 <p><strong>In summary:</strong></p>
+<ul class="simple">
+<li><p>Data often arrives in high dimension</p>
 <ul>
-<li>Data often arrives in high dimension
-<ul>
-<li>for example, the documents above are points in <span class="math inline">\(\mathbb{R}^{9049}\)</span></li>
-</ul></li>
-<li>However, the <strong>structure</strong> in data can be relatively low-dimensional
-<ul>
-<li>in our example, we can see structure in just two dimensions!</li>
-</ul></li>
-<li>PCA allows us to find the low-dimensional structure in data
-<ul>
-<li>in a way that is optimal in some sense</li>
-</ul></li>
+<li><p>for example, the documents above are points in <span class="math notranslate nohighlight">\(\mathbb{R}^{9049}\)</span></p></li>
 </ul>
-
-
+</li>
+<li><p>However, the <strong>structure</strong> in data can be relatively low-dimensional</p>
+<ul>
+<li><p>in our example, we can see structure in just two dimensions!</p></li>
+</ul>
+</li>
+<li><p>PCA allows us to find the low-dimensional structure in data</p>
+<ul>
+<li><p>in a way that is optimal in some sense</p></li>
+</ul>
+</li>
+</ul>
+<p>For this reason, PCA is a <strong>very</strong> commonly used tool in data analysis.</p>
+<section id="wrapup">
+<h3>Wrapup<a class="headerlink" href="#wrapup" title="Permalink to this heading">#</a></h3>
+<center>
+<a class="reference internal image-reference" href="_images/in-conclusion.jpg"><img alt="Figure" src="_images/in-conclusion.jpg" style="width: 750px;" /></a>
+</center><p>We have reached the end!</p>
+<p>Of course, this is not really the end … more like the beginning.</p>
+<p>If we had more time, we’d talk about how linear algebra informs the study of graphs, the methods of machine learning, data mining, and many more topics.</p>
+<p>So this is just where we have to stop.</p>
+<blockquote>
+<div><p>As long as Algebra and Geometry have been separated, their progress has been slow and their usages limited; but when these two sciences were reunited, they lent each other mutual strength and walked together with a rapid step towards perfection.</p>
+<p>— Count Joseph-Louis de Lagrange</p>
+</div></blockquote>
+<p>We have looked at the richness of linear algebra from many angles.</p>
+<p>We have seen that the simple linear system <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> leads to a whole collection of interesting questions, questions that have unfolded step by step over the course of the semester.</p>
+<p>But we have also seen that we can extract the idea of matrix out of a linear system, and consider it as an object in its own right.</p>
+<p>Considered on their own, matrices can be seen as linear operators, giving us tools for computer graphics and the solution of dynamical systems and linear equations.</p>
+<p>We have also seen that matrices can be seen as data objects, whose linear algebraic properties expose useful facts about the data.</p>
+<p>There are many courses you can go on to from here, which will rely on your understanding of linear algebra:</p>
+<ul class="simple">
+<li><p>CS 365 Foundations of Data Science</p></li>
+<li><p>CS 440 Intro to Artificial Intelligence</p></li>
+<li><p>CS 480 Intro to Computer Graphics</p></li>
+<li><p>CS 505 Intro to Natural Language Processing</p></li>
+<li><p>CS 506 Tools for Data Science</p></li>
+<li><p>CS 507 Intro to Optimization in ML</p></li>
+<li><p>CS 523 Deep Learning</p></li>
+<li><p>CS 530 Advanced Algorithms</p></li>
+<li><p>CS 531 Advanced Optimization Algorithms</p></li>
+<li><p>CS 533 Spectral Methods</p></li>
+<li><p>CS 542 Machine Learning</p></li>
+<li><p>CS 565 Algorithmic Data Mining</p></li>
+<li><p>CS 581 Computational Fabrication</p></li>
+<li><p>CS 583 Audio Computation</p></li>
+</ul>
+<p>In each of these you will use and build on your knowledge of linear algebra.</p>
+<p>Enjoy!</p>
+</section>
+</section>
 </section>
 
-<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
-<script id="quarto-html-after-body" type="application/javascript">
-window.document.addEventListener("DOMContentLoaded", function (event) {
-  const toggleBodyColorMode = (bsSheetEl) => {
-    const mode = bsSheetEl.getAttribute("data-mode");
-    const bodyEl = window.document.querySelector("body");
-    if (mode === "dark") {
-      bodyEl.classList.add("quarto-dark");
-      bodyEl.classList.remove("quarto-light");
-    } else {
-      bodyEl.classList.add("quarto-light");
-      bodyEl.classList.remove("quarto-dark");
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
     }
-  }
-  const toggleBodyColorPrimary = () => {
-    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-    if (bsSheetEl) {
-      toggleBodyColorMode(bsSheetEl);
-    }
-  }
-  toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
-  const onCopySuccess = function(e) {
-    // button target
-    const button = e.trigger;
-    // don't keep focus
-    button.blur();
-    // flash "checked"
-    button.classList.add('code-copy-button-checked');
-    var currentTitle = button.getAttribute("title");
-    button.setAttribute("title", "Copied!");
-    let tooltip;
-    if (window.bootstrap) {
-      button.setAttribute("data-bs-toggle", "tooltip");
-      button.setAttribute("data-bs-placement", "left");
-      button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
-          customClass: "code-copy-button-tooltip",
-          offset: [0, -8]});
-      tooltip.show();    
-    }
-    setTimeout(function() {
-      if (tooltip) {
-        tooltip.hide();
-        button.removeAttribute("data-bs-title");
-        button.removeAttribute("data-bs-toggle");
-        button.removeAttribute("data-bs-placement");
-      }
-      button.setAttribute("title", currentTitle);
-      button.classList.remove('code-copy-button-checked');
-    }, 1000);
-    // clear code selection
-    e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
-  });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-    const config = {
-      allowHTML: true,
-      maxWidth: 500,
-      delay: 100,
-      arrow: false,
-      appendTo: function(el) {
-          return el.parentElement;
-      },
-      interactive: true,
-      interactiveBorder: 10,
-      theme: 'quarto',
-      placement: 'bottom-start',
-    };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
-    window.tippy(el, config); 
-  }
-  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-  for (var i=0; i<noterefs.length; i++) {
-    const ref = noterefs[i];
-    tippyHover(ref, function() {
-      // use id or data attribute instead here
-      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-      try { href = new URL(href).hash; } catch {}
-      const id = href.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
-        return container.innerHTML
-      } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
-    });
-  }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            div.style.left = 0;
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
-  const findCites = (el) => {
-    const parentEl = el.parentElement;
-    if (parentEl) {
-      const cites = parentEl.dataset.cites;
-      if (cites) {
-        return {
-          el,
-          cites: cites.split(' ')
-        };
-      } else {
-        return findCites(el.parentElement)
-      }
-    } else {
-      return undefined;
-    }
-  };
-  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-  for (var i=0; i<bibliorefs.length; i++) {
-    const ref = bibliorefs[i];
-    const citeInfo = findCites(ref);
-    if (citeInfo) {
-      tippyHover(citeInfo.el, function() {
-        var popup = window.document.createElement('div');
-        citeInfo.cites.forEach(function(cite) {
-          var citeDiv = window.document.createElement('div');
-          citeDiv.classList.add('hanging-indent');
-          citeDiv.classList.add('csl-entry');
-          var biblioDiv = window.document.getElementById('ref-' + cite);
-          if (biblioDiv) {
-            citeDiv.innerHTML = biblioDiv.innerHTML;
-          }
-          popup.appendChild(citeDiv);
-        });
-        return popup.innerHTML;
-      });
-    }
-  }
-});
-</script>
-</div> <!-- /content -->
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="L25SVD.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">The Singular Value Decomposition</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-of-svd">Recap of SVD</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#approximating-a-matrix">Approximating a Matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#signal-compression">Signal Compression</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dimensionality-reduction">Dimensionality Reduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#principal-component-analysis">Principal Component Analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualization-using-pca">Visualization using PCA</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wrapup">Wrapup</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
 
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Mark Crovella.  Portions are based on Lay, 'Linear Algebra and its Applications'
+</p>
 
-</body></html>
+  </div>
+  
+  <div class="footer-item">
+    
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
