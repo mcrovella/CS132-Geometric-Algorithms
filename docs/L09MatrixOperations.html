@@ -1,913 +1,1244 @@
-
-
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<html lang="en" data-content_root="" >
+<title>l09matrixoperations – Geometric Algorithms</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
 
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Matrix Algebra &#8212; Linear Algebra, Geometry, and Computation</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
-  </script>
-  
-  <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fec4eca8e712537310c7ebcc1543822c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 
-  
-  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-  
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
-
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
 </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'L09MatrixOperations';</script>
-    <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="The Inverse of a Matrix" href="L10MatrixInverse.html" />
-    <link rel="prev" title="The Matrix of a Linear Transformation" href="L08MatrixofLinearTranformation.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
-  </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-  
-  
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+<link rel="stylesheet" href="styles.css">
+</head>
 
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
-<form class="bd-search d-flex align-items-center"
-      action="search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
-  
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
-    </header>
-  
+<body class="nav-sidebar docked slimcontent">
 
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
-      
-      
-      
-      <div class="bd-sidebar-primary bd-sidebar">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-    
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-
-  
-
-<a class="navbar-brand logo" href="landing-page.html">
-  
-  
-  
-  
-  
-    
-    
-      
-    
-    
-    <img src="_static/DiagramAR-icon.png" class="logo__image only-light" alt="Linear Algebra, Geometry, and Computation - Home"/>
-    <script>document.write(`<img src="_static/DiagramAR-icon.png" class="logo__image only-dark" alt="Linear Algebra, Geometry, and Computation - Home"/>`);</script>
-  
-  
-</a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item navbar-nav active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="landing-page.html">
-                    Preface
-                </a>
-            </li>
-        </ul>
-        <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="L01LinearEquations.html">Linear Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L02Numerics.html">(Getting Serious About) Numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L03RowReductions.html">Gaussian Elimination</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L04VectorEquations.html">Vector Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L05Axb.html"><span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span></a></li>
-<li class="toctree-l1"><a class="reference internal" href="L06LinearIndependence.html">Linear Independence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L07LinearTransformations.html">Linear Transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L08MatrixofLinearTranformation.html">The Matrix of a Linear Transformation</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Matrix Algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L10MatrixInverse.html">The Inverse of a Matrix</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L11MarkovChains.html">Markov Chains</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L12MatrixFactorizations.html">Matrix Factorizations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L13ComputerGraphics.html">Computer Graphics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L14Subspaces.html">Subspaces</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L15DimensionRank.html">Dimension and Rank</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L16Eigenvectors.html">Eigenvectors and Eigenvalues</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L17CharacteristicEqn.html">The Characteristic Equation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L18Diagonalization.html">Diagonalization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L19PageRank.html">PageRank</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L20Orthogonality.html">Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span></a></li>
-<li class="toctree-l1"><a class="reference internal" href="L21OrthogonalSets.html">Orthogonal Sets and Projection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L22LeastSquares.html">Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L23LinearModels.html">Linear Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L24SymmetricMatrices.html">Symmetric Matrices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L25SVD.html">The Singular Value Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L26ApplicationsOfSVD.html">Applications of the SVD</a></li>
-</ul>
-
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L09MatrixOperations.html">Matrix Algebra</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
-</nav></div>
-    </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-  </div>
-  
-  <div id="rtd-footer-container"></div>
-
-
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./images/DiagramAR-icon.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
       </div>
-      
-      <main id="main-content" class="bd-main">
-        
-        
-
-<div class="sbt-scroll-pixel-helper"></div>
-
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <span class="fa-solid fa-bars"></span>
-</label></div>
-      
-    </div>
-  
-  
-    <div class="header-article-items__end">
-      
-        <div class="header-article-item">
-
-<div class="article-header-buttons">
-
-
-<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms" target="_blank"
-   class="btn btn-sm btn-source-repository-button"
-   title="Source repository"
-   data-bs-placement="bottom" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-
-</a>
-
-
-
-
-
-
-<div class="dropdown dropdown-download-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
-    <i class="fas fa-download"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="_sources/L09MatrixOperations.ipynb" target="_blank"
-   class="btn btn-sm btn-download-source-button dropdown-item"
-   title="Download source file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="btn__text-container">.ipynb</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li>
-<button onclick="window.print()"
-  class="btn btn-sm btn-download-pdf-button dropdown-item"
-  title="Print to PDF"
-  data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="btn__text-container">.pdf</span>
-</button>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
-<button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
-  title="Fullscreen mode"
-  data-bs-placement="bottom" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-
-
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
-
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
-</div></div>
-      
-    </div>
-  
-</div>
-</div>
-              
-              
-
-<div id="jb-print-docs-body" class="onlyprint">
-    <h1>Matrix Algebra</h1>
-    <!-- Table of contents -->
-    <div id="print-main-content">
-        <div id="jb-print-toc">
-            
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#composing-linear-transformations">Composing Linear Transformations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-multiplication">Matrix Multiplication</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-inner-product-view-of-matrix-multiplication">The Inner Product View of Matrix Multiplication</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Matrix Algebra</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#powers-of-a-matrix">Powers of a Matrix</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-transpose-of-a-matrix">The Transpose of a Matrix</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-computational-viewpoint">The Computational Viewpoint</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complexity">Complexity</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#order-matters">Order matters!</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallelization">Parallelization</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-importance-of-libraries">The Importance of Libraries</a></li>
-</ul>
-</li>
-</ul>
-            </nav>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./landing_page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L01LinearEquations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L02Numerics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(Getting Serious About) Numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L03RowReductions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gaussian Elimination</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L04VectorEquations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vector Equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L05Axb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L06LinearIndependence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Independence</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L07LinearTransformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Transformations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L08MatrixofLinearTransformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Matrix of a Linear Transformation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L09MatrixOperations.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Matrix Algebra</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L10MatrixInverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Inverse of a Matrix</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L11MarkovChains.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Markov Chains</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L12MatrixFactorizations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Matrix Factorizations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L13ComputerGraphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Computer Graphics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L14Subspaces.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Subspaces</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L15DimensionRank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dimension and Rank</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L16Eigenvectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Eigenvectors and Eigenvalues</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L17CharacteristicEqn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Characteristic Equation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L18Diagonalization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diagonalization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L19PageRank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PageRank</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L20Orthogonality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analytic Geometry in <span class="math inline">\(\mathbb{R}^n\)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L21OrthogonalSets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Orthogonal Sets and Projection</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L22LeastSquares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Least Squares</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L23LinearModels.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Models</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L24SymmetricMatrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Symmetric Matrices</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L25SVD.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Singular Value Decomposition</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L26ApplicationsOfSVD.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Applications of the SVD</span></a>
+  </div>
+</li>
+    </ul>
     </div>
-</div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#matrix-algebra" id="toc-matrix-algebra" class="nav-link active" data-scroll-target="#matrix-algebra">Matrix Algebra</a></li>
+  <li><a href="#composing-linear-transformations" id="toc-composing-linear-transformations" class="nav-link" data-scroll-target="#composing-linear-transformations">Composing Linear Transformations</a></li>
+  <li><a href="#matrix-multiplication" id="toc-matrix-multiplication" class="nav-link" data-scroll-target="#matrix-multiplication">Matrix Multiplication</a></li>
+  <li><a href="#the-inner-product-view-of-matrix-multiplication" id="toc-the-inner-product-view-of-matrix-multiplication" class="nav-link" data-scroll-target="#the-inner-product-view-of-matrix-multiplication">The Inner Product View of Matrix Multiplication</a></li>
+  <li><a href="#matrix-algebra-1" id="toc-matrix-algebra-1" class="nav-link" data-scroll-target="#matrix-algebra-1">Matrix Algebra</a></li>
+  <li><a href="#powers-of-a-matrix" id="toc-powers-of-a-matrix" class="nav-link" data-scroll-target="#powers-of-a-matrix">Powers of a Matrix</a></li>
+  <li><a href="#the-transpose-of-a-matrix" id="toc-the-transpose-of-a-matrix" class="nav-link" data-scroll-target="#the-transpose-of-a-matrix">The Transpose of a Matrix</a></li>
+  <li><a href="#the-computational-viewpoint" id="toc-the-computational-viewpoint" class="nav-link" data-scroll-target="#the-computational-viewpoint">The Computational Viewpoint</a>
+  <ul class="collapse">
+  <li><a href="#complexity" id="toc-complexity" class="nav-link" data-scroll-target="#complexity">Complexity</a></li>
+  <li><a href="#order-matters" id="toc-order-matters" class="nav-link" data-scroll-target="#order-matters">Order matters!</a></li>
+  <li><a href="#parallelization" id="toc-parallelization" class="nav-link" data-scroll-target="#parallelization">Parallelization</a></li>
+  <li><a href="#the-importance-of-libraries" id="toc-the-importance-of-libraries" class="nav-link" data-scroll-target="#the-importance-of-libraries">The Importance of Libraries</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
-              
-                
-<div id="searchbox"></div>
-                <article class="bd-article">
-                  
-  <section class="tex2jax_ignore mathjax_ignore" id="matrix-algebra">
-<h1>Matrix Algebra<a class="headerlink" href="#matrix-algebra" title="Permalink to this heading">#</a></h1>
-<p>Today we will talk about multiplying matrices:</p>
-<ul class="simple">
-<li><p>How do you multiply matrices?</p></li>
-<li><p>What does the product of two matrices mean?</p></li>
-<li><p>What algebraic rules apply to matrix multiplication?</p></li>
-<li><p>What is the computational cost of matrix multiplication?</p></li>
+
+
+
+<!--
+This comment somehow suppresses the title page
+-->
+<section id="matrix-algebra" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="matrix-algebra">Matrix Algebra</h2>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Many parts of this page are based on <em>Linear Algebra and its Applications,</em> by David C. Lay</p>
+</div></div><p>Today we will talk about multiplying matrices:</p>
+<ul>
+<li>How do you multiply matrices?</li>
+<li>What does the product of two matrices mean?</li>
+<li>What algebraic rules apply to matrix multiplication?</li>
+<li>What is the computational cost of matrix multiplication?</li>
 </ul>
-<p><a title="Herbert Beraud (1845–1896) / Public domain" href="https://commons.wikimedia.org/wiki/File:Arthur_Cayley.jpg"><a class="reference internal" href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Arthur_Cayley.jpg/256px-Arthur_Cayley.jpg"><img alt="Arthur Cayley" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Arthur_Cayley.jpg/256px-Arthur_Cayley.jpg" style="width: 256px;" /></a></a></p>
+<p><a title="Herbert Beraud (1845–1896) / Public domain" href="https://commons.wikimedia.org/wiki/File:Arthur_Cayley.jpg"><img width="256" alt="Arthur Cayley" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Arthur_Cayley.jpg/256px-Arthur_Cayley.jpg"></a></p>
 <p>Early in his life, Arthur Cayley practiced law to support his passion for mathematics. During his time as a practicing lawyer, he published over 200 papers on mathematics. Finally at the age of 42 he got a position at Cambridge University and took a big pay cut so he could become a full-time mathematician. He said he never regretted the choice. Cayley often said, “I love my subject.”</p>
 <p>In 1855-1857 Cayley formed the theory of matrices, and came up with a way to multiply matrices. As we’ll see, it is not the most obvious thing to do, but it was quickly realized that it was the “right” way. Cayley came about this idea by first thinking about linear transformations, and how to compose linear transformations. So that’s where we’ll start.</p>
-<section id="composing-linear-transformations">
-<h2>Composing Linear Transformations<a class="headerlink" href="#composing-linear-transformations" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="composing-linear-transformations" class="level2">
+<h2 class="anchored" data-anchor-id="composing-linear-transformations">Composing Linear Transformations</h2>
 <p>Let’s start our discussion by recalling the linear transformation we called <strong>reflection through the origin.</strong></p>
+<div class="fragment">
 <p>Here is a picture of what this transformation does to a shape:</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/828a94db5c1880c9d94fc6ed80a66d5ad31aec2371df418dc5ade5863b249547.png" src="_images/828a94db5c1880c9d94fc6ed80a66d5ad31aec2371df418dc5ade5863b249547.png" />
+<div id="50cbd8b6" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L09MatrixOperations_files/figure-html/cell-3-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
 </div>
 </div>
-<p>We determined that the matrix <span class="math notranslate nohighlight">\(C = \left[\begin{array}{rr}-1&amp;0\\0&amp;-1\end{array}\right]\)</span> implements this linear transformation.</p>
+</div>
+</div>
+<div class="fragment">
+<p>We determined that the matrix <span class="math inline">\(C = \left[\begin{array}{rr}-1&amp;0\\0&amp;-1\end{array}\right]\)</span> implements this linear transformation.</p>
+</div>
+<div class="fragment">
 <p>But notice that we could have accomplished this another way:</p>
-<ul class="simple">
-<li><p>First reflect through the <span class="math notranslate nohighlight">\(x_1\)</span> axis</p></li>
-<li><p>Then reflect through the <span class="math notranslate nohighlight">\(x_2\)</span> axis</p></li>
+<ul>
+<li>First reflect through the <span class="math inline">\(x_1\)</span> axis</li>
+<li>Then reflect through the <span class="math inline">\(x_2\)</span> axis</li>
 </ul>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/83fe9fad77ae6ce64724c8b7b6eee9948fed941e7d01bd6bcfe95bd263c300f1.png" src="_images/83fe9fad77ae6ce64724c8b7b6eee9948fed941e7d01bd6bcfe95bd263c300f1.png" />
+</div>
+<div class="fragment">
+<div id="2a2b45d5" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L09MatrixOperations_files/figure-html/cell-4-output-1.png" width="477" height="476" class="figure-img"></p>
+</figure>
 </div>
 </div>
-<p>As we saw, to reflect a point through the <span class="math notranslate nohighlight">\(x_1\)</span> axis, we multiply it by matrix <span class="math notranslate nohighlight">\(A = \left[\begin{array}{rr}1&amp;0\\0&amp;-1\end{array}\right]\)</span>.</p>
-<p>Likewise, to reflect a point through the <span class="math notranslate nohighlight">\(x_2\)</span> axis, we multiply it by matrix <span class="math notranslate nohighlight">\(B = \left[\begin{array}{rr}-1&amp;0\\0&amp;1\end{array}\right]\)</span>.</p>
-<p>So, another way to reflect point <span class="math notranslate nohighlight">\({\bf u}\)</span> through the origin would be:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\({\bf v} = A{\bf u}\)</span></p></li>
-<li><p>Followed by <span class="math notranslate nohighlight">\({\bf w} = B{\bf v}.\)</span></p></li>
+</div>
+</div>
+<div class="fragment">
+<p>As we saw, to reflect a point through the <span class="math inline">\(x_1\)</span> axis, we multiply it by matrix <span class="math inline">\(A = \left[\begin{array}{rr}1&amp;0\\0&amp;-1\end{array}\right]\)</span>.</p>
+<p>Likewise, to reflect a point through the <span class="math inline">\(x_2\)</span> axis, we multiply it by matrix <span class="math inline">\(B = \left[\begin{array}{rr}-1&amp;0\\0&amp;1\end{array}\right]\)</span>.</p>
+</div>
+<div class="fragment">
+<p>So, another way to reflect point <span class="math inline">\({\bf u}\)</span> through the origin would be:</p>
+<ul>
+<li><span class="math inline">\({\bf v} = A{\bf u}\)</span></li>
+<li>Followed by <span class="math inline">\({\bf w} = B{\bf v}.\)</span></li>
 </ul>
-<p>In other words, <span class="math notranslate nohighlight">\({\bf w} = B(A{\bf u}).\)</span></p>
+</div>
+<div class="fragment">
+<p>In other words, <span class="math inline">\({\bf w} = B(A{\bf u}).\)</span></p>
+</div>
+<div class="fragment">
 <p>What we are doing here is called <strong>composing</strong> transformations.</p>
 <p>In a composition of transformations, we take the output of one transformation as input for another transformation.</p>
+</div>
+<div class="fragment">
 <p>Now, here is the key point:</p>
-<p><font color=blue>It is clear that <span class="math notranslate nohighlight">\(B(A{\bf x})\)</span> and <span class="math notranslate nohighlight">\(C{\bf x}\)</span> are the <strong>same</strong> linear transformation.</font></p>
-<p>So, using <span class="math notranslate nohighlight">\(C\)</span> we can go directly to the solution using one multiplication, rather than having to multiply twice (once for <span class="math notranslate nohighlight">\(A\)</span> and once for <span class="math notranslate nohighlight">\(B\)</span>).</p>
-<p>So a natural question is: given <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>, could we find <span class="math notranslate nohighlight">\(C\)</span> directly?</p>
-<p>In other words, for any <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>, could we find <span class="math notranslate nohighlight">\(C\)</span> such that:</p>
-<div class="math notranslate nohighlight">
-\[ A(B{\bf x}) = C{\bf x}? \]</div>
-<p>Let’s determine how to find <span class="math notranslate nohighlight">\(C\)</span> given <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B.\)</span></p>
-<p>If <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(m \times n\)</span>, <span class="math notranslate nohighlight">\(B\)</span> is <span class="math notranslate nohighlight">\(n \times p\)</span>, and <span class="math notranslate nohighlight">\({\bf x} \in \mathbb{R}^p,\)</span> denote the columns of <span class="math notranslate nohighlight">\(B\)</span> by <span class="math notranslate nohighlight">\({\bf b_1},\dots,{\bf b_p},\)</span> and the entries in <span class="math notranslate nohighlight">\({\bf x}\)</span> by <span class="math notranslate nohighlight">\(x_1, \dots, x_p.\)</span></p>
+<p><font color="blue">It is clear that <span class="math inline">\(B(A{\bf x})\)</span> and <span class="math inline">\(C{\bf x}\)</span> are the <strong>same</strong> linear transformation.</font></p>
+<p>So, using <span class="math inline">\(C\)</span> we can go directly to the solution using one multiplication, rather than having to multiply twice (once for <span class="math inline">\(A\)</span> and once for <span class="math inline">\(B\)</span>).</p>
+</div>
+<p>So a natural question is: given <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, could we find <span class="math inline">\(C\)</span> directly?</p>
+<p>In other words, for any <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, could we find <span class="math inline">\(C\)</span> such that:</p>
+<p><span class="math display">\[ A(B{\bf x}) = C{\bf x}? \]</span></p>
+<div class="fragment">
+<p>Let’s determine how to find <span class="math inline">\(C\)</span> given <span class="math inline">\(A\)</span> and <span class="math inline">\(B.\)</span></p>
+</div>
+<div class="fragment">
+<p>If <span class="math inline">\(A\)</span> is <span class="math inline">\(m \times n\)</span>, <span class="math inline">\(B\)</span> is <span class="math inline">\(n \times p\)</span>, and <span class="math inline">\({\bf x} \in \mathbb{R}^p,\)</span> denote the columns of <span class="math inline">\(B\)</span> by <span class="math inline">\({\bf b_1},\dots,{\bf b_p},\)</span> and the entries in <span class="math inline">\({\bf x}\)</span> by <span class="math inline">\(x_1, \dots, x_p.\)</span></p>
+</div>
+<div class="fragment">
 <p>Then:</p>
-<div class="math notranslate nohighlight">
-\[ B{\bf x} = x_1{\bf b_1} + \dots + x_p {\bf b_p}. \]</div>
+<p><span class="math display">\[ B{\bf x} = x_1{\bf b_1} + \dots + x_p {\bf b_p}. \]</span></p>
+</div>
+<div class="fragment">
 <p>and:</p>
-<div class="math notranslate nohighlight">
-\[A(B{\bf x}) = A(x_1{\bf b_1} + \dots + x_p {\bf b_p})\]</div>
+<p><span class="math display">\[A(B{\bf x}) = A(x_1{\bf b_1} + \dots + x_p {\bf b_p})\]</span></p>
+</div>
+<div class="fragment">
 <p>Since matrix-vector multiplication is a linear transformation:</p>
-<div class="math notranslate nohighlight">
-\[ = x_1A{\bf b_1} + \dots + x_pA{\bf b_p}. \]</div>
-<p>So the vector <span class="math notranslate nohighlight">\(A(B{\bf x})\)</span> is a linear combination of the vectors <span class="math notranslate nohighlight">\(A{\bf b_1}, \dots, A{\bf b_p},\)</span> using the entries in <span class="math notranslate nohighlight">\({\bf x}\)</span> as weights.</p>
-<p>A linear combination of vectors is the same as a matrix-vector multiplication.   In matrix terms, this linear combination is written:</p>
-<div class="math notranslate nohighlight">
-\[ A(B{\bf x}) = [A{\bf b_1} \; \dots \; A{\bf b_p}] {\bf x}.\]</div>
-<p>So this matrix <font color=blue><span class="math notranslate nohighlight">\([A{\bf b_1} \; \dots \; A{\bf b_p}]\)</span></font> is what we are looking for!</p>
+<p><span class="math display">\[ = x_1A{\bf b_1} + \dots + x_pA{\bf b_p}. \]</span></p>
+</div>
+<div class="fragment">
+<p>So the vector <span class="math inline">\(A(B{\bf x})\)</span> is a linear combination of the vectors <span class="math inline">\(A{\bf b_1}, \dots, A{\bf b_p},\)</span> using the entries in <span class="math inline">\({\bf x}\)</span> as weights.</p>
+</div>
+<div class="fragment">
+<p>A linear combination of vectors is the same as a matrix-vector multiplication. In matrix terms, this linear combination is written:</p>
+<p><span class="math display">\[ A(B{\bf x}) = [A{\bf b_1} \; \dots \; A{\bf b_p}] {\bf x}.\]</span></p>
+</div>
+<div class="fragment">
+<p>So this matrix <font color="blue"><span class="math inline">\([A{\bf b_1} \; \dots \; A{\bf b_p}]\)</span></font> is what we are looking for!</p>
+</div>
 </section>
-<section id="matrix-multiplication">
-<h2>Matrix Multiplication<a class="headerlink" href="#matrix-multiplication" title="Permalink to this heading">#</a></h2>
-<p><strong>Definition.</strong>  If <span class="math notranslate nohighlight">\(A\)</span> is an <span class="math notranslate nohighlight">\(m \times n\)</span> matrix and <span class="math notranslate nohighlight">\(B\)</span> is <span class="math notranslate nohighlight">\(n \times p\)</span> matrix with columns <span class="math notranslate nohighlight">\({\bf b_1},\dots,{\bf b_p},\)</span> then the product <span class="math notranslate nohighlight">\(AB\)</span> is defined as the <span class="math notranslate nohighlight">\(m \times p\)</span> matrix whose columns are <span class="math notranslate nohighlight">\(A{\bf b_1}, \dots, A{\bf b_p}.\)</span>  That is,</p>
-<div class="math notranslate nohighlight">
-\[ AB = A[{\bf b_1} \; \dots \; {\bf b_p}] = [A{\bf b_1} \; \dots \; A{\bf b_p}]. \]</div>
-<p>This definition means that for any <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> for which <span class="math notranslate nohighlight">\(AB\)</span> is defined, then if <span class="math notranslate nohighlight">\(C\)</span> = <span class="math notranslate nohighlight">\(AB\)</span>,</p>
-<div class="math notranslate nohighlight">
-\[ C{\bf x} = A(B{\bf x}). \]</div>
-<p>That is: <font color=blue><em>multiplication of matrices</em> </font> corresponds to <font color=blue><em>composition of linear transformations.</em> </font></p>
-<p>Note that when <span class="math notranslate nohighlight">\(C = AB\)</span>, <span class="math notranslate nohighlight">\(C{\bf x}\)</span> is a vector <em>in the span of the columns of <span class="math notranslate nohighlight">\(A.\)</span></em></p>
-<p><strong>Example.</strong>  Compute <span class="math notranslate nohighlight">\(AB\)</span> where <span class="math notranslate nohighlight">\(A = \left[\begin{array}{rr}2&amp;3\\1&amp;-5\end{array}\right]\)</span> and <span class="math notranslate nohighlight">\(B = \left[\begin{array}{rrr}4&amp;3&amp;6\\1&amp;-2&amp;3\end{array}\right].\)</span></p>
-<p><strong>Solution.</strong> Write <span class="math notranslate nohighlight">\(B = \left[{\bf b_1}\;{\bf b_2}\;{\bf b_3}\right],\)</span> and compute:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split} A{\bf b_1} = \left[\begin{array}{rr}2&amp;3\\1&amp;-5\end{array}\right]\left[\begin{array}{r}4\\1\end{array}\right],\;\;\;
+<section id="matrix-multiplication" class="level2">
+<h2 class="anchored" data-anchor-id="matrix-multiplication">Matrix Multiplication</h2>
+<div class="fragment">
+<p><strong>Definition.</strong> If <span class="math inline">\(A\)</span> is an <span class="math inline">\(m \times n\)</span> matrix and <span class="math inline">\(B\)</span> is <span class="math inline">\(n \times p\)</span> matrix with columns <span class="math inline">\({\bf b_1},\dots,{\bf b_p},\)</span> then the product <span class="math inline">\(AB\)</span> is defined as the <span class="math inline">\(m \times p\)</span> matrix whose columns are <span class="math inline">\(A{\bf b_1}, \dots, A{\bf b_p}.\)</span> That is,</p>
+<p><span class="math display">\[ AB = A[{\bf b_1} \; \dots \; {\bf b_p}] = [A{\bf b_1} \; \dots \; A{\bf b_p}]. \]</span></p>
+</div>
+<div class="fragment">
+<p>This definition means that for any <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> for which <span class="math inline">\(AB\)</span> is defined, then if <span class="math inline">\(C\)</span> = <span class="math inline">\(AB\)</span>,</p>
+<p><span class="math display">\[ C{\bf x} = A(B{\bf x}). \]</span></p>
+</div>
+<div class="fragment">
+<p>That is: <font color="blue"><em>multiplication of matrices</em> </font> corresponds to <font color="blue"><em>composition of linear transformations.</em> </font></p>
+</div>
+<div class="fragment">
+<p>Note that when <span class="math inline">\(C = AB\)</span>, <span class="math inline">\(C{\bf x}\)</span> is a vector <em>in the span of the columns of</em> <span class="math inline">\(A.\)</span></p>
+</div>
+<p><strong>Example.</strong> Compute <span class="math inline">\(AB\)</span> where <span class="math inline">\(A = \left[\begin{array}{rr}2&amp;3\\1&amp;-5\end{array}\right]\)</span> and <span class="math inline">\(B = \left[\begin{array}{rrr}4&amp;3&amp;6\\1&amp;-2&amp;3\end{array}\right].\)</span></p>
+<div class="fragment">
+<p><strong>Solution.</strong> Write <span class="math inline">\(B = \left[{\bf b_1}\;{\bf b_2}\;{\bf b_3}\right],\)</span> and compute:</p>
+<p><span class="math display">\[ A{\bf b_1} = \left[\begin{array}{rr}2&amp;3\\1&amp;-5\end{array}\right]\left[\begin{array}{r}4\\1\end{array}\right],\;\;\;
 A{\bf b_2} = \left[\begin{array}{rr}2&amp;3\\1&amp;-5\end{array}\right]\left[\begin{array}{r}3\\-2\end{array}\right],\;\;\;
-A{\bf b_3} = \left[\begin{array}{rr}2&amp;3\\1&amp;-5\end{array}\right]\left[\begin{array}{r}6\\3\end{array}\right],\end{split}\]</div>
-<div class="math notranslate nohighlight">
-\[\begin{split} = \left[\begin{array}{r}11\\-1\end{array}\right]\;\;\;\left[\begin{array}{r}0\\13\end{array}\right]\;\;\;\left[\begin{array}{r}21\\-9\end{array}\right].\end{split}\]</div>
+A{\bf b_3} = \left[\begin{array}{rr}2&amp;3\\1&amp;-5\end{array}\right]\left[\begin{array}{r}6\\3\end{array}\right],\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[ = \left[\begin{array}{r}11\\-1\end{array}\right]\;\;\;\left[\begin{array}{r}0\\13\end{array}\right]\;\;\;\left[\begin{array}{r}21\\-9\end{array}\right].\]</span></p>
+</div>
+<div class="fragment">
 <p>So:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split} AB = \left[A{\bf b_1}\;A{\bf b_2}\;A{\bf b_3}\right] = \left[\begin{array}{rrr}11&amp;0&amp;21\\-1&amp;13&amp;-9\end{array}\right].\end{split}\]</div>
-<p><strong>Example.</strong> Verify that reflection through the <span class="math notranslate nohighlight">\(x_1\)</span> axis followed by reflection through the <span class="math notranslate nohighlight">\(x_2\)</span> axis is the same as reflection through the origin.</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\left[\begin{array}{rr}-1&amp;0\\0&amp;1\end{array}\right]\left[\begin{array}{rr}1&amp;0\\0&amp;-1\end{array}\right] = \left[\begin{array}{rr}~&amp;~\\~&amp;~\end{array}\right].\end{split}\]</div>
-<div class="math notranslate nohighlight">
-\[\begin{split}\left[\begin{array}{rr}-1&amp;0\\0&amp;1\end{array}\right]\left[\begin{array}{rr}1&amp;0\\0&amp;-1\end{array}\right] = \left[\begin{array}{rr}-1&amp;0\\0&amp;-1\end{array}\right].\end{split}\]</div>
+<p><span class="math display">\[ AB = \left[A{\bf b_1}\;A{\bf b_2}\;A{\bf b_3}\right] = \left[\begin{array}{rrr}11&amp;0&amp;21\\-1&amp;13&amp;-9\end{array}\right].\]</span></p>
+</div>
+<p><strong>Example.</strong> Verify that reflection through the <span class="math inline">\(x_1\)</span> axis followed by reflection through the <span class="math inline">\(x_2\)</span> axis is the same as reflection through the origin.</p>
+<div class="fragment">
+<p><span class="math display">\[\left[\begin{array}{rr}-1&amp;0\\0&amp;1\end{array}\right]\left[\begin{array}{rr}1&amp;0\\0&amp;-1\end{array}\right] = \left[\begin{array}{rr}~&amp;~\\~&amp;~\end{array}\right].\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\left[\begin{array}{rr}-1&amp;0\\0&amp;1\end{array}\right]\left[\begin{array}{rr}1&amp;0\\0&amp;-1\end{array}\right] = \left[\begin{array}{rr}-1&amp;0\\0&amp;-1\end{array}\right].\]</span></p>
+</div>
+<div class="fragment">
 <p>Note that this is a valid proof because <strong>every linear transformation of vectors is defined by its standard matrix.</strong></p>
-<p><strong>Example.</strong>  If <span class="math notranslate nohighlight">\(A\)</span> is a <span class="math notranslate nohighlight">\(3 \times 5\)</span> matrix, and <span class="math notranslate nohighlight">\(B\)</span> is a <span class="math notranslate nohighlight">\(5 \times 2\)</span> matrix, what are the sizes of <span class="math notranslate nohighlight">\(AB\)</span> and <span class="math notranslate nohighlight">\(BA\)</span>, if they are defined?</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{array}{cccc}A&amp;B&amp;=&amp;AB\\
+</div>
+<p><strong>Example.</strong> If <span class="math inline">\(A\)</span> is a <span class="math inline">\(3 \times 5\)</span> matrix, and <span class="math inline">\(B\)</span> is a <span class="math inline">\(5 \times 2\)</span> matrix, what are the sizes of <span class="math inline">\(AB\)</span> and <span class="math inline">\(BA\)</span>, if they are defined?</p>
+<div class="fragment">
+<p><span class="math display">\[\begin{array}{cccc}A&amp;B&amp;=&amp;AB\\
 3\times 5&amp;5 \times 2&amp;&amp; 3 \times 2\\
-\left[\begin{array}{rrrrr}*&amp;*&amp;*&amp;*&amp;*\\ *&amp;*&amp;*&amp;*&amp;*\\ *&amp;*&amp;*&amp;*&amp;*\end{array}\right] &amp; 
-\left[\begin{array}{rr}*&amp;*\\ *&amp;*\\ *&amp;*\\ *&amp;*\\ *&amp;*\end{array}\right] &amp; 
+\left[\begin{array}{rrrrr}*&amp;*&amp;*&amp;*&amp;*\\ *&amp;*&amp;*&amp;*&amp;*\\ *&amp;*&amp;*&amp;*&amp;*\end{array}\right] &amp;
+\left[\begin{array}{rr}*&amp;*\\ *&amp;*\\ *&amp;*\\ *&amp;*\\ *&amp;*\end{array}\right] &amp;
 = &amp;
 \left[\begin{array}{rr}*&amp;*\\ *&amp;*\\ *&amp;*\end{array}\right]
-\end{array}\end{split}\]</div>
-<p>What about <span class="math notranslate nohighlight">\(BA\)</span>?</p>
-<p>It is <font color=blue>not defined, </font> because the number of columns of <span class="math notranslate nohighlight">\(B\)</span> does not match the number of rows of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+\end{array}\]</span></p>
+</div>
+<div class="fragment">
+<p>What about <span class="math inline">\(BA\)</span>?</p>
+</div>
+<div class="fragment">
+<p>It is <font color="blue">not defined, </font> because the number of columns of <span class="math inline">\(B\)</span> does not match the number of rows of <span class="math inline">\(A\)</span>.</p>
+</div>
+<div class="fragment">
 <p><strong>Facts.</strong></p>
-<p>If <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(m\times n\)</span>, and <span class="math notranslate nohighlight">\(B\)</span> is <span class="math notranslate nohighlight">\(p \times q\)</span>, then <span class="math notranslate nohighlight">\(AB\)</span> is defined if and only if <span class="math notranslate nohighlight">\(n = p\)</span>.   If <span class="math notranslate nohighlight">\(AB\)</span> is defined, then it is <span class="math notranslate nohighlight">\(m \times q\)</span>.</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{array}{cccc}A&amp;B&amp;=&amp;AB\\
+<p>If <span class="math inline">\(A\)</span> is <span class="math inline">\(m\times n\)</span>, and <span class="math inline">\(B\)</span> is <span class="math inline">\(p \times q\)</span>, then <span class="math inline">\(AB\)</span> is defined if and only if <span class="math inline">\(n = p\)</span>. If <span class="math inline">\(AB\)</span> is defined, then it is <span class="math inline">\(m \times q\)</span>.</p>
+<p><span class="math display">\[\begin{array}{cccc}A&amp;B&amp;=&amp;AB\\
 3\times \fbox{5}&amp;\fbox{5} \times 2&amp;&amp; 3 \times 2\\
-\end{array}\end{split}\]</div>
+\end{array}\]</span></p>
+</div>
 </section>
-<section id="the-inner-product-view-of-matrix-multiplication">
-<h2>The Inner Product View of Matrix Multiplication<a class="headerlink" href="#the-inner-product-view-of-matrix-multiplication" title="Permalink to this heading">#</a></h2>
-<p>Recall that the inner product of two vectors <span class="math notranslate nohighlight">\({\bf u}\)</span> and <span class="math notranslate nohighlight">\({\bf v}\)</span> is <span class="math notranslate nohighlight">\(\sum_k u_k v_k.\)</span></p>
-<p>Also recall that one way to define the matrix vector product is <span class="math notranslate nohighlight">\((A{\bf x})_i =\)</span> inner product of <span class="math notranslate nohighlight">\({\bf x}\)</span> and row <span class="math notranslate nohighlight">\(i\)</span> of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<section id="the-inner-product-view-of-matrix-multiplication" class="level2">
+<h2 class="anchored" data-anchor-id="the-inner-product-view-of-matrix-multiplication">The Inner Product View of Matrix Multiplication</h2>
+<p>Recall that the inner product of two vectors <span class="math inline">\({\bf u}\)</span> and <span class="math inline">\({\bf v}\)</span> is <span class="math inline">\(\sum_k u_k v_k.\)</span></p>
+<p>Also recall that one way to define the matrix vector product is <span class="math inline">\((A{\bf x})_i =\)</span> inner product of <span class="math inline">\({\bf x}\)</span> and row <span class="math inline">\(i\)</span> of <span class="math inline">\(A\)</span>.</p>
+<div class="fragment">
 <p>This immediately shows another way to think of matrix multiplication:</p>
-<p><span class="math notranslate nohighlight">\((AB)_{ij} =\)</span> inner product of row <span class="math notranslate nohighlight">\(i\)</span> of <span class="math notranslate nohighlight">\(A\)</span> and column <span class="math notranslate nohighlight">\(j\)</span> of <span class="math notranslate nohighlight">\(B\)</span></p>
-<p><span class="math notranslate nohighlight">\((AB)_{ij} = \sum_k A_{ik}B_{kj}.\)</span></p>
-<p><strong>Example.</strong> Start with the same matrices as the last example, <span class="math notranslate nohighlight">\(A = \left[\begin{array}{rr}2&amp;3\\1&amp;-5\end{array}\right]\)</span> and <span class="math notranslate nohighlight">\(B = \left[\begin{array}{rrr}4&amp;3&amp;6\\1&amp;-2&amp;3\end{array}\right].\)</span>  Compute the entry in row 1 and column 3 of <span class="math notranslate nohighlight">\(C\)</span>.</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}AB = \left[\begin{array}{rr}\fbox{2} &amp; \fbox{3}\\1&amp;-5\end{array}\right]
-\left[\begin{array}{rrr}4&amp;3&amp;\fbox{6}\\1&amp;-2&amp;\fbox{3}\end{array}\right] = 
-\left[\begin{array}{rrc}*&amp;*&amp;2(6)+3(3)\\ *&amp;*&amp;*\end{array}\right] = 
-\left[\begin{array}{rrr}*&amp;*&amp;21\\ *&amp;*&amp;*\end{array}\right].\end{split}\]</div>
+<p><span class="math inline">\((AB)_{ij} =\)</span> inner product of row <span class="math inline">\(i\)</span> of <span class="math inline">\(A\)</span> and column <span class="math inline">\(j\)</span> of <span class="math inline">\(B\)</span></p>
+<p><span class="math inline">\((AB)_{ij} = \sum_k A_{ik}B_{kj}.\)</span></p>
+</div>
+<div class="fragment">
+<p><strong>Example.</strong> Start with the same matrices as the last example, <span class="math inline">\(A = \left[\begin{array}{rr}2&amp;3\\1&amp;-5\end{array}\right]\)</span> and <span class="math inline">\(B = \left[\begin{array}{rrr}4&amp;3&amp;6\\1&amp;-2&amp;3\end{array}\right].\)</span> Compute the entry in row 1 and column 3 of <span class="math inline">\(C\)</span>.</p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[AB = \left[\begin{array}{rr}\fbox{2} &amp; \fbox{3}\\1&amp;-5\end{array}\right]
+\left[\begin{array}{rrr}4&amp;3&amp;\fbox{6}\\1&amp;-2&amp;\fbox{3}\end{array}\right] =
+\left[\begin{array}{rrc}*&amp;*&amp;2(6)+3(3)\\ *&amp;*&amp;*\end{array}\right] =
+\left[\begin{array}{rrr}*&amp;*&amp;21\\ *&amp;*&amp;*\end{array}\right].\]</span></p>
 <p>This agrees with the result of the last example, and we could reproduce the whole solution by repeating this for each element of the result matrix.</p>
+</div>
 </section>
-<section id="id1">
-<h2>Matrix Algebra<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
-<p>We’ve defined multiplication of two matrices.   What about addition of two matrices?</p>
-<p>This is straightfoward: if <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are the same shape, we get <span class="math notranslate nohighlight">\(A + B\)</span> by adding the corresponding elements.  (Just like adding vectors.)</p>
+<section id="matrix-algebra-1" class="level2">
+<h2 class="anchored" data-anchor-id="matrix-algebra-1">Matrix Algebra</h2>
+<p>We’ve defined multiplication of two matrices. What about addition of two matrices?</p>
+<div class="fragment">
+<p>This is straightfoward: if <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are the same shape, we get <span class="math inline">\(A + B\)</span> by adding the corresponding elements. (Just like adding vectors.)</p>
 <p>That is,</p>
-<div class="math notranslate nohighlight">
-\[(A + B)_{ij} = A_{ij} + B_{ij}.\]</div>
-<p>If <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> are not the same shape, <span class="math notranslate nohighlight">\(A + B\)</span> is undefined.</p>
+<p><span class="math display">\[(A + B)_{ij} = A_{ij} + B_{ij}.\]</span></p>
+<p>If <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are not the same shape, <span class="math inline">\(A + B\)</span> is undefined.</p>
+</div>
+<div class="fragment">
 <p>Furthermore, we define scalar-matrix multiplication just as for vectors:</p>
-<div class="math notranslate nohighlight">
-\[ (rA)_{ij} = r(A_{ij}).\]</div>
+<p><span class="math display">\[ (rA)_{ij} = r(A_{ij}).\]</span></p>
+</div>
+<div class="fragment">
 <p>So, just as we did for vectors, we can show that the standard properties of addition apply, and that scalar multiplication distributes over addition:</p>
-<ol class="arabic simple">
-<li><p><span class="math notranslate nohighlight">\(A +  B = B + A\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\((A + B) + C = A + (B + C)\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(A + 0 = A\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(r(A + B) = rA + rB\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\((r + s)A = rA + sA\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\(r(sA) = (rs)A\)</span></p></li>
+<ol type="1">
+<li><span class="math inline">\(A +  B = B + A\)</span></li>
+<li><span class="math inline">\((A + B) + C = A + (B + C)\)</span></li>
+<li><span class="math inline">\(A + 0 = A\)</span></li>
+<li><span class="math inline">\(r(A + B) = rA + rB\)</span></li>
+<li><span class="math inline">\((r + s)A = rA + sA\)</span></li>
+<li><span class="math inline">\(r(sA) = (rs)A\)</span></li>
 </ol>
-<p>Furthermore, we find that <font color=blue><strong>some</strong> </font> (but not all!) of the familiar properties of multiplication apply to matrix multiplication (assume that all sums and products are defined):</p>
-<ol class="arabic simple">
-<li><p><span class="math notranslate nohighlight">\(A(BC) = (AB)C\)</span></p>
-<ul class="simple">
-<li><p>multiplication of matrices is associative</p></li>
-</ul>
-</li>
-<li><p><span class="math notranslate nohighlight">\(A(B+C) = AB + AC\)</span></p>
-<ul class="simple">
-<li><p>multiplication on the left distributes over addition</p></li>
-</ul>
-</li>
-<li><p><span class="math notranslate nohighlight">\((B+C)A = BA + CA\)</span></p>
-<ul class="simple">
-<li><p>multiplication on the right distributes over addition</p></li>
-</ul>
-</li>
-<li><p><span class="math notranslate nohighlight">\(r(AB) = (rA)B = A(rB)\)</span></p>
-<ul class="simple">
-<li><p>for any scalar <span class="math notranslate nohighlight">\(r\)</span></p></li>
-</ul>
-</li>
-<li><p><span class="math notranslate nohighlight">\(I A = A = AI\)</span></p></li>
+</div>
+<div class="fragment">
+<p>Furthermore, we find that <font color="blue"><strong>some</strong> </font> (but not all!) of the familiar properties of multiplication apply to matrix multiplication (assume that all sums and products are defined):</p>
+<ol type="1">
+<li><span class="math inline">\(A(BC) = (AB)C\)</span>
+<ul>
+<li>multiplication of matrices is associative</li>
+</ul></li>
+<li><span class="math inline">\(A(B+C) = AB + AC\)</span>
+<ul>
+<li>multiplication on the left distributes over addition</li>
+</ul></li>
+<li><span class="math inline">\((B+C)A = BA + CA\)</span>
+<ul>
+<li>multiplication on the right distributes over addition</li>
+</ul></li>
+<li><span class="math inline">\(r(AB) = (rA)B = A(rB)\)</span>
+<ul>
+<li>for any scalar <span class="math inline">\(r\)</span></li>
+</ul></li>
+<li><span class="math inline">\(I A = A = AI\)</span></li>
 </ol>
-<p>Note that property 1 means that we can write <span class="math notranslate nohighlight">\(ABC\)</span> without bothering about parentheses.</p>
+</div>
+<div class="fragment">
+<p>Note that property 1 means that we can write <span class="math inline">\(ABC\)</span> without bothering about parentheses.</p>
+</div>
 <p><strong>Now, here is where things get different!</strong></p>
-<ul class="simple">
-<li><p>In general, <span class="math notranslate nohighlight">\(AB\)</span> is <strong>not</strong> equal to <span class="math notranslate nohighlight">\(BA\)</span>.  Multiplication is <font color="blue"><B>not commutative!</B></font></p>
+<div class="fragment">
 <ul>
-<li><p>Consider <span class="math notranslate nohighlight">\(A = \left[\begin{array}{rr}1 &amp; 1\\1&amp;1\end{array}\right]\)</span> and <span class="math notranslate nohighlight">\(B = \left[\begin{array}{rr}1 &amp; 1\\1&amp;2\end{array}\right].\)</span></p></li>
+<li><p>In general, <span class="math inline">\(AB\)</span> is <strong>not</strong> equal to <span class="math inline">\(BA\)</span>. Multiplication is <font color="blue"><b>not commutative!</b></font></p>
+<ul>
+<li>Consider <span class="math inline">\(A = \left[\begin{array}{rr}1 &amp; 1\\1&amp;1\end{array}\right]\)</span> and <span class="math inline">\(B = \left[\begin{array}{rr}1 &amp; 1\\1&amp;2\end{array}\right].\)</span></li>
+</ul></li>
 </ul>
+</div>
+<div class="fragment">
+<ul>
+<li>In fact, even if <span class="math inline">\(AB\)</span> is defined, <span class="math inline">\(BA\)</span> may not be defined.<br>
 </li>
 </ul>
-<ul class="simple">
-<li><p>In fact, even if <span class="math notranslate nohighlight">\(AB\)</span> is defined, <span class="math notranslate nohighlight">\(BA\)</span> may not be defined.</p></li>
-</ul>
-<ul class="simple">
-<li><p>On the other hand, sometimes <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> <strong>do</strong> commute.</p>
+</div>
+<div class="fragment">
 <ul>
-<li><p>Consider <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> as the reflections through the <span class="math notranslate nohighlight">\(x_1\)</span> and <span class="math notranslate nohighlight">\(x_2\)</span> axis. Then <span class="math notranslate nohighlight">\(AB\)</span> and <span class="math notranslate nohighlight">\(BA\)</span> both implement reflection through the origin (i.e., the same transformation.) So in this case <span class="math notranslate nohighlight">\(AB = BA\)</span>.</p></li>
-</ul>
-</li>
-</ul>
-<ul class="simple">
-<li><p>You cannot, in general, cancel out matrices in a multiplication.   That is, <font color=blue>if <span class="math notranslate nohighlight">\(AC = AB\)</span>, it does not follow that <span class="math notranslate nohighlight">\(C = B\)</span>.  </font></p>
+<li>On the other hand, sometimes <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> <strong>do</strong> commute.
 <ul>
-<li><p>Consider the case where <span class="math notranslate nohighlight">\(A\)</span> is the projection onto one of the axes.</p></li>
+<li>Consider <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> as the reflections through the <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> axis. Then <span class="math inline">\(AB\)</span> and <span class="math inline">\(BA\)</span> both implement reflection through the origin (i.e., the same transformation.) So in this case <span class="math inline">\(AB = BA\)</span>.</li>
+</ul></li>
 </ul>
-</li>
-</ul>
-<ul class="simple">
-<li><p>If <span class="math notranslate nohighlight">\(AB\)</span> is the zero matrix, you cannot in general conclude that either <span class="math notranslate nohighlight">\(A\)</span> or <span class="math notranslate nohighlight">\(B\)</span> must be a zero matrix.</p>
+</div>
+<div class="fragment">
 <ul>
-<li><p>Consider <span class="math notranslate nohighlight">\(A = \left[\begin{array}{rr}1 &amp; 0\\0&amp;0\end{array}\right]\)</span> and <span class="math notranslate nohighlight">\(B = \left[\begin{array}{rr}0 &amp; 0\\0&amp;1\end{array}\right].\)</span></p></li>
+<li>You cannot, in general, cancel out matrices in a multiplication. That is, <font color="blue">if <span class="math inline">\(AC = AB\)</span>, it does not follow that <span class="math inline">\(C = B\)</span>. </font>
+<ul>
+<li>Consider the case where <span class="math inline">\(A\)</span> is the projection onto one of the axes.</li>
+</ul></li>
 </ul>
-</li>
+</div>
+<div class="fragment">
+<ul>
+<li>If <span class="math inline">\(AB\)</span> is the zero matrix, you cannot in general conclude that either <span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span> must be a zero matrix.
+<ul>
+<li>Consider <span class="math inline">\(A = \left[\begin{array}{rr}1 &amp; 0\\0&amp;0\end{array}\right]\)</span> and <span class="math inline">\(B = \left[\begin{array}{rr}0 &amp; 0\\0&amp;1\end{array}\right].\)</span></li>
+</ul></li>
 </ul>
-<p><strong>Study and remember these rules.  You will use them!</strong></p>
+</div>
+<div class="fragment">
+<p><strong>Study and remember these rules. You will use them!</strong></p>
+</div>
 </section>
-<section id="powers-of-a-matrix">
-<h2>Powers of a Matrix<a class="headerlink" href="#powers-of-a-matrix" title="Permalink to this heading">#</a></h2>
-<p>Equipped now with matrix-matrix multiplication, we can define the powers of a matrix in a straightforward way.  For an integer <span class="math notranslate nohighlight">\(k &gt; 0\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[ A^k = \overbrace{A\cdots A}^k.\]</div>
-<p>Obviously, <span class="math notranslate nohighlight">\(A\)</span> must be a square matrix for <span class="math notranslate nohighlight">\(A^k\)</span> to be defined.</p>
-<p>What should <span class="math notranslate nohighlight">\(A^0\)</span> be?</p>
-<p><span class="math notranslate nohighlight">\(A^0{\bf x}\)</span> should be the result of multiplying <span class="math notranslate nohighlight">\({\bf x}\)</span> with <span class="math notranslate nohighlight">\(A\)</span> zero times.   So we define <span class="math notranslate nohighlight">\(A^0 = I\)</span>.</p>
+<section id="powers-of-a-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="powers-of-a-matrix">Powers of a Matrix</h2>
+<p>Equipped now with matrix-matrix multiplication, we can define the powers of a matrix in a straightforward way. For an integer <span class="math inline">\(k &gt; 0\)</span>:</p>
+<p><span class="math display">\[ A^k = \overbrace{A\cdots A}^k.\]</span></p>
+<p>Obviously, <span class="math inline">\(A\)</span> must be a square matrix for <span class="math inline">\(A^k\)</span> to be defined.</p>
+<div class="fragment">
+<p>What should <span class="math inline">\(A^0\)</span> be?</p>
+<p><span class="math inline">\(A^0{\bf x}\)</span> should be the result of multiplying <span class="math inline">\({\bf x}\)</span> with <span class="math inline">\(A\)</span> zero times. So we define <span class="math inline">\(A^0 = I\)</span>.</p>
+</div>
 </section>
-<section id="the-transpose-of-a-matrix">
-<h2>The Transpose of a Matrix<a class="headerlink" href="#the-transpose-of-a-matrix" title="Permalink to this heading">#</a></h2>
-<p>Given an <span class="math notranslate nohighlight">\(m \times n\)</span> matrix <span class="math notranslate nohighlight">\(A,\)</span> the <em>transpose</em> of <span class="math notranslate nohighlight">\(A\)</span> is the matrix we get by interchanging its rows and columns.</p>
-<p>It is denoted <span class="math notranslate nohighlight">\(A^T\)</span>.   Its shape is <span class="math notranslate nohighlight">\(n \times m\)</span>.</p>
+<section id="the-transpose-of-a-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="the-transpose-of-a-matrix">The Transpose of a Matrix</h2>
+<p>Given an <span class="math inline">\(m \times n\)</span> matrix <span class="math inline">\(A,\)</span> the <em>transpose</em> of <span class="math inline">\(A\)</span> is the matrix we get by interchanging its rows and columns.</p>
+<p>It is denoted <span class="math inline">\(A^T\)</span>. Its shape is <span class="math inline">\(n \times m\)</span>.</p>
+<div class="fragment">
 <p>For example, if:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<p><span class="math display">\[
 \begin{array}{ccc}
 A = \left[\begin{array}{rr}a&amp;b\\c&amp;d\end{array}\right],&amp;
 B = \left[\begin{array}{rr}-5&amp;2\\1&amp;-3\\0&amp;4\end{array}\right],&amp;
 C = \left[\begin{array}{rrrr}1&amp;1&amp;1&amp;1\\-3&amp;5&amp;-2&amp;7\end{array}\right]
 \end{array}
-\end{split}\]</div>
+\]</span></p>
 <p>Then:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<p><span class="math display">\[
 \begin{array}{ccc}
 A^T = \left[\begin{array}{rr}a&amp;c\\b&amp;d\end{array}\right],&amp;
 B^T = \left[\begin{array}{rrr}-5&amp;1&amp;0\\2&amp;-3&amp;4\end{array}\right],&amp;
 C^T = \left[\begin{array}{rr}1&amp;-3\\1&amp;5\\1&amp;-2\\1&amp;7\end{array}\right]
 \end{array}
-\end{split}\]</div>
+\]</span></p>
+</div>
+<div class="fragment">
 <p>The definition can be stated succinctly:</p>
-<div class="math notranslate nohighlight">
-\[A^T_{ij} = A_{ji}.\]</div>
+<p><span class="math display">\[A^T_{ij} = A_{ji}.\]</span></p>
+</div>
+<div class="fragment">
 <p><strong>Rules for Transposes:</strong></p>
-<ol class="arabic simple">
-<li><p><span class="math notranslate nohighlight">\((A^T)^T = A\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\((A + B)^T = A^T + B^T\)</span></p></li>
-<li><p>For any scalar <span class="math notranslate nohighlight">\(r\)</span>, <span class="math notranslate nohighlight">\((rA)^T = r(A^T)\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\((AB)^T = B^TA^T\)</span></p></li>
+<ol type="1">
+<li><span class="math inline">\((A^T)^T = A\)</span></li>
+<li><span class="math inline">\((A + B)^T = A^T + B^T\)</span></li>
+<li>For any scalar <span class="math inline">\(r\)</span>, <span class="math inline">\((rA)^T = r(A^T)\)</span></li>
+<li><span class="math inline">\((AB)^T = B^TA^T\)</span></li>
 </ol>
 <p>The first three are pretty obvious.</p>
 <p>The last one is a bit different. <strong>Memorize it.</strong> You will use it: the transpose of a product is the product of the transposes <strong>in reverse order</strong>.</p>
-<p><strong>Question:</strong> For a vector in <span class="math notranslate nohighlight">\({\bf x} \in \mathbb{R}^n\)</span>, what is <span class="math notranslate nohighlight">\({\bf x}^T\)</span>?</p>
-<p><strong>Answer:</strong> For the purposes of the definition, we treat <span class="math notranslate nohighlight">\({\bf x}\)</span> as a <span class="math notranslate nohighlight">\(n \times 1\)</span> matrix.  So its transpose is an <span class="math notranslate nohighlight">\(1\times n\)</span> matrix, i.e., a matrix with a single row.</p>
-<p><strong>Question:</strong> For two vectors <span class="math notranslate nohighlight">\({\bf x}\)</span> and <span class="math notranslate nohighlight">\({\bf y}\)</span>, what is <span class="math notranslate nohighlight">\({\bf x}^T {\bf y}\)</span>?</p>
-<p><strong>Answer:</strong> By the definition of matrix-vector multiplication,  <span class="math notranslate nohighlight">\({\bf x}^T {\bf y} = \sum_{i=1}^n x_i y_i.\)</span></p>
-<p>That is, <span class="math notranslate nohighlight">\({\bf x}^T {\bf y}\)</span> is the <strong>inner product</strong> of <span class="math notranslate nohighlight">\({\bf x}\)</span> and <span class="math notranslate nohighlight">\({\bf y}\)</span>.  This simple construction is a very useful one to remember.</p>
+</div>
+<p><strong>Question:</strong> For a vector in <span class="math inline">\({\bf x} \in \mathbb{R}^n\)</span>, what is <span class="math inline">\({\bf x}^T\)</span>?</p>
+<div class="fragment">
+<p><strong>Answer:</strong> For the purposes of the definition, we treat <span class="math inline">\({\bf x}\)</span> as a <span class="math inline">\(n \times 1\)</span> matrix. So its transpose is an <span class="math inline">\(1\times n\)</span> matrix, i.e., a matrix with a single row.</p>
+</div>
+<div class="fragment">
+<p><strong>Question:</strong> For two vectors <span class="math inline">\({\bf x}\)</span> and <span class="math inline">\({\bf y}\)</span>, what is <span class="math inline">\({\bf x}^T {\bf y}\)</span>?</p>
+</div>
+<div class="fragment">
+<p><strong>Answer:</strong> By the definition of matrix-vector multiplication, <span class="math inline">\({\bf x}^T {\bf y} = \sum_{i=1}^n x_i y_i.\)</span></p>
+<p>That is, <span class="math inline">\({\bf x}^T {\bf y}\)</span> is the <strong>inner product</strong> of <span class="math inline">\({\bf x}\)</span> and <span class="math inline">\({\bf y}\)</span>. This simple construction is a very useful one to remember.</p>
+</div>
 </section>
-<section id="the-computational-viewpoint">
-<h2>The Computational Viewpoint<a class="headerlink" href="#the-computational-viewpoint" title="Permalink to this heading">#</a></h2>
+<section id="the-computational-viewpoint" class="level2">
+<h2 class="anchored" data-anchor-id="the-computational-viewpoint">The Computational Viewpoint</h2>
+<div class="fragment">
 <p>You recall in the last lecture I said that in Python/numpy:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>C = A @ B
-</pre></div>
-</div>
+<pre><code>C = A @ B</code></pre>
 <p>was the same as:</p>
-<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>for i in range(k):
+<pre><code>for i in range(k):
     C[:,k] = AxIP(A, B[:,k])
-</pre></div>
+    </code></pre>
+<p>So now you know: <code>A @ B</code> is really <em>matrix multiplication</em> of <code>A</code> and <code>B.</code> :)</p>
 </div>
-<p>So now you know: <code class="docutils literal notranslate"><span class="pre">A</span> <span class="pre">&#64;</span> <span class="pre">B</span></code> is really <em>matrix multiplication</em> of <code class="docutils literal notranslate"><span class="pre">A</span></code> and <code class="docutils literal notranslate"><span class="pre">B.</span></code> :)</p>
-<p>Matrix multiplication is a mainstay of computing.  Thousands of applications rely heavily on matrix multiplication.</p>
+<div class="fragment">
+<p>Matrix multiplication is a mainstay of computing. Thousands of applications rely heavily on matrix multiplication.</p>
 <p>Some examples include:</p>
-<ul class="simple">
-<li><p>Computer graphics and animation</p></li>
-<li><p>Google’s algorithm for ranking search results</p></li>
-<li><p>Modeling mechanical structures such as aircraft and buildings</p></li>
-<li><p>Compressing and decompressing audio signals</p></li>
-<li><p>Weather modeling and prediction</p></li>
-<li><p>Modeling quantum computing</p></li>
+<ul>
+<li>Computer graphics and animation</li>
+<li>Google’s algorithm for ranking search results</li>
+<li>Modeling mechanical structures such as aircraft and buildings</li>
+<li>Compressing and decompressing audio signals</li>
+<li>Weather modeling and prediction</li>
+<li>Modeling quantum computing</li>
 </ul>
 <p>So minimizing the time required to do matrix multiplication is immensely important.</p>
-<section id="complexity">
-<h3>Complexity<a class="headerlink" href="#complexity" title="Permalink to this heading">#</a></h3>
+</div>
+<section id="complexity" class="level3">
+<h3 class="anchored" data-anchor-id="complexity">Complexity</h3>
 <p>What is the computational complexity of matrix multiplication?</p>
-<p>For two <span class="math notranslate nohighlight">\(n \times n\)</span> matrices, consider the definition that uses inner product:</p>
-<div class="math notranslate nohighlight">
-\[ (AB)_{ij} = \sum_{k=1}^n A_{ik}B_{kj}.\]</div>
-<p>So each element of the product <span class="math notranslate nohighlight">\(AB\)</span> requires <span class="math notranslate nohighlight">\(n\)</span> multiplications and <span class="math notranslate nohighlight">\(n\)</span> additions.</p>
-<p>There are <span class="math notranslate nohighlight">\(n^2\)</span> elements of <span class="math notranslate nohighlight">\(AB\)</span>, so the overall computation requires</p>
-<div class="math notranslate nohighlight">
-\[2n \cdot n^2 = 2n^3\]</div>
+<div class="fragment">
+<p>For two <span class="math inline">\(n \times n\)</span> matrices, consider the definition that uses inner product:</p>
+<p><span class="math display">\[ (AB)_{ij} = \sum_{k=1}^n A_{ik}B_{kj}.\]</span></p>
+</div>
+<div class="fragment">
+<p>So each element of the product <span class="math inline">\(AB\)</span> requires <span class="math inline">\(n\)</span> multiplications and <span class="math inline">\(n\)</span> additions.</p>
+<p>There are <span class="math inline">\(n^2\)</span> elements of <span class="math inline">\(AB\)</span>, so the overall computation requires</p>
+<p><span class="math display">\[2n \cdot n^2 = 2n^3\]</span></p>
 <p>operations.</p>
-<p>That’s not particularly good news; for two matrices of size 10,000 <span class="math notranslate nohighlight">\(\times\)</span> 10,000 (which is not particularly large in practice), this is 2 trillion operations (2 teraflops).</p>
+</div>
+<div class="fragment">
+<p>That’s not particularly good news; for two matrices of size 10,000 <span class="math inline">\(\times\)</span> 10,000 (which is not particularly large in practice), this is 2 trillion operations (2 teraflops).</p>
+</div>
+<div class="fragment">
 <p>What is the computational complexity of matrix-vector multiplication?</p>
-<p>We know that matrix-vector multiplication requires <span class="math notranslate nohighlight">\(n\)</span> inner products, each of size <span class="math notranslate nohighlight">\(n\)</span>.</p>
+<p>We know that matrix-vector multiplication requires <span class="math inline">\(n\)</span> inner products, each of size <span class="math inline">\(n\)</span>.</p>
 <p>So, matrix-vector multiplication requires</p>
-<div class="math notranslate nohighlight">
-\[2n^2\]</div>
+<p><span class="math display">\[2n^2\]</span></p>
 <p>operations.</p>
+</div>
 </section>
-<section id="order-matters">
-<h3>Order matters!<a class="headerlink" href="#order-matters" title="Permalink to this heading">#</a></h3>
+<section id="order-matters" class="level3">
+<h3 class="anchored" data-anchor-id="order-matters">Order matters!</h3>
 <p>When you look at a mathematical expression involving matrices, think <strong>carefully</strong> about what it means and how you might efficiently compute it.</p>
+<div class="fragment">
 <p><strong>For example:</strong></p>
-<p>What is the most efficient way to compute <span class="math notranslate nohighlight">\(A^2{\bf x}\)</span>?</p>
+<p>What is the most efficient way to compute <span class="math inline">\(A^2{\bf x}\)</span>?</p>
 <p>Here are your choices:</p>
-<ol class="arabic simple">
-<li><p>First compute <span class="math notranslate nohighlight">\(A^2\)</span>, then compute <span class="math notranslate nohighlight">\((A^2){\bf x}\)</span></p></li>
-<li><p>First compute <span class="math notranslate nohighlight">\(A{\bf x}\)</span>, then compute <span class="math notranslate nohighlight">\(A(A{\bf x})\)</span></p></li>
-</ol>
-<ol class="arabic simple">
-<li><p>First compute <span class="math notranslate nohighlight">\(A^2\)</span>, then compute <span class="math notranslate nohighlight">\((A^2){\bf x}\)</span>:</p></li>
-</ol>
-<div class="math notranslate nohighlight">
-\[2n^3 + 2n^2.\]</div>
-<ol class="arabic simple" start="2">
-<li><p>First compute <span class="math notranslate nohighlight">\(A{\bf x}\)</span>, then compute <span class="math notranslate nohighlight">\(A(A{\bf x})\)</span>:</p></li>
-</ol>
-<div class="math notranslate nohighlight">
-\[2 \cdot 2n^2 = 4n^2.\]</div>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="fragment">
+<p>First compute <span class="math inline">\(A^2\)</span>, then compute <span class="math inline">\((A^2){\bf x}\)</span></p>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="fragment">
+<p>First compute <span class="math inline">\(A{\bf x}\)</span>, then compute <span class="math inline">\(A(A{\bf x})\)</span></p>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="fragment">
+<p><span class="math display">\[2n^3 + 2n^2\]</span></p>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="fragment">
+<p><span class="math display">\[2 \cdot 2n^2 = 4n^2\]</span></p>
+</div>
+</div>
+</div>
+<div class="fragment">
 <p>Again, if we are working with a square matrix with 10,000 rows, then</p>
-<ol class="arabic simple">
-<li><p><span class="math notranslate nohighlight">\((A^2){\bf x}\)</span> requires 2 Trillion flops</p></li>
-<li><p><span class="math notranslate nohighlight">\(A(A{\bf x})\)</span> requires 4 Million flops</p></li>
-</ol>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="fragment">
+<p><span class="math inline">\((A^2){\bf x}\)</span> requires 2 Trillion flops</p>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="fragment">
+<p><span class="math inline">\(A(A{\bf x})\)</span> requires 400 Million flops</p>
+</div>
+</div>
+</div>
+<div class="fragment ctrd">
 <p>Which would you choose? :)</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># source: https://www.imaginationstationtoledo.org/education-resources/diy-activities/what-does-a-trillion-dollars-look-like/</span>
-<span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/one_mill_a-295x300.jpg&quot;</span><span class="p">,</span> <span class="n">height</span>
-<span class="o">=</span> <span class="mi">250</span><span class="p">))</span> <span class="p">;</span>  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;One Million Pennies&#39;</span><span class="p">)</span>
-</pre></div>
 </div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="fragment">
+<p><img src="images/one_trillion_a-300x217.jpg" height="250"></p>
+<p>One Trillion Pennies</p>
 </div>
-</details>
-<div class="cell_output docutils container">
-<img alt="_images/1173394a99ce9aec5f0b97b5d79c16fafd98ba922dd495fa214639cfee8400aa.jpg" src="_images/1173394a99ce9aec5f0b97b5d79c16fafd98ba922dd495fa214639cfee8400aa.jpg" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>One Million Pennies
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/one_trillion_a-300x217.jpg&quot;</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">435</span><span class="p">))</span> <span class="p">;</span>  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;One Trillion Pennies&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</details>
-<div class="cell_output docutils container">
-<img alt="_images/9b607df986fac11bac15b0b2b6c61e6095dc3059c55557ac493ced4f7fa53483.jpg" src="_images/9b607df986fac11bac15b0b2b6c61e6095dc3059c55557ac493ced4f7fa53483.jpg" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>One Trillion Pennies
-</pre></div>
+</div><div class="column" style="width:50%;">
+<div class="fragment">
+<p><img src="images/one_mill_a-295x300.jpg" height="250"></p>
+<p>One Million Pennies</p>
 </div>
 </div>
 </div>
 </section>
-<section id="parallelization">
-<h3>Parallelization<a class="headerlink" href="#parallelization" title="Permalink to this heading">#</a></h3>
+<section id="parallelization" class="level3">
+<h3 class="anchored" data-anchor-id="parallelization">Parallelization</h3>
 <p>Although matrix multiplication is computationally demanding, it has a wonderful property: it is <em>highly parallel</em>.</p>
 <p>That is, the computation needed for each element does not require computing the other elements.</p>
 <p>(This is not true, for example, for Gaussian elimination; think about the role of a pivot.)</p>
-<p>This means that if we have multiple processors, and each has access to <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span>, the work can be divided up very cleanly.</p>
-<p>For example, let’s say you have <span class="math notranslate nohighlight">\(n\)</span> processors.   Then each processor can independently compute one column of the result, without needing to know anything about what the other processors are doing.</p>
-<p>Specifically, processor <span class="math notranslate nohighlight">\(i\)</span> can compute its column as <span class="math notranslate nohighlight">\(A{\bf b_i}\)</span>.</p>
-<p>In that case, since all processors are working in parallel, the elapsed time is reduced from <span class="math notranslate nohighlight">\(2n^3\)</span> down to <span class="math notranslate nohighlight">\(2n^2.\)</span></p>
-<p>Even better, say you have <span class="math notranslate nohighlight">\(n^2\)</span> processors.</p>
-<p>Then each processor can compute a single element of the result,
-<span class="math notranslate nohighlight">\((AB)_{ij}\)</span> as <span class="math notranslate nohighlight">\(\sum_{k=1}^n A_{ik}B_{kj}\)</span>.</p>
-<p>Then the elapsed time is reduced all the way down to <span class="math notranslate nohighlight">\(2n\)</span>.</p>
-<p>This sort of strategy is used for huge computations like web search and weather modeling.</p>
+<div class="fragment">
+<p>This means that if we have multiple processors, and each has access to <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>, the work can be divided up very cleanly.</p>
+<p>For example, let’s say you have <span class="math inline">\(n\)</span> processors. Then each processor can independently compute one column of the result, without needing to know anything about what the other processors are doing.</p>
+<p>Specifically, processor <span class="math inline">\(i\)</span> can compute its column as <span class="math inline">\(A{\bf b_i}\)</span>.</p>
+<p>In that case, since all processors are working in parallel, the elapsed time is reduced from <span class="math inline">\(2n^3\)</span> down to <span class="math inline">\(2n^2.\)</span></p>
+</div>
 </section>
-<section id="the-importance-of-libraries">
-<h3>The Importance of Libraries<a class="headerlink" href="#the-importance-of-libraries" title="Permalink to this heading">#</a></h3>
+<section id="the-importance-of-libraries" class="level3">
+<h3 class="anchored" data-anchor-id="the-importance-of-libraries">The Importance of Libraries</h3>
 <p>The pervasive use of matrix multiplication in science and engineering means that very efficient and carefully constructed libraries have been developed for it.</p>
 <p>Important issues for high performance include:</p>
-<ul class="simple">
-<li><p>how are the matrix elements actually laid out in memory?</p></li>
-<li><p>what is the order in which matrix elements are accessed?</p></li>
-<li><p>what are the architectural details of the computer you are using?</p>
 <ul>
-<li><p>memories, caches, number of processors, etc</p></li>
-</ul>
-</li>
+<li>how are the matrix elements actually laid out in memory?</li>
+<li>what is the order in which matrix elements are accessed?</li>
+<li>what are the architectural details of the computer you are using?
+<ul>
+<li>memories, caches, number of processors, etc</li>
+</ul></li>
 </ul>
 <p>The premier library is called <strong>LAPACK.</strong></p>
 <p>LAPACK has been developed over the past 40 years and is updated frequently to tune it for new computer hardware.</p>
+<div class="fragment">
 <p>Python’s “numpy” uses LAPACK under the hood for its matrix computations.</p>
 <p>Hence, even though Python is an interpreted language, for doing intensive matrix computations it is very fast, just as fast as compiled code.</p>
-</section>
+</div>
+
+
 </section>
 </section>
 
-    <script type="text/x-thebe-config">
-    {
-        requestKernel: true,
-        binderOptions: {
-            repo: "binder-examples/jupyter-stacks-datascience",
-            ref: "master",
-        },
-        codeMirrorConfig: {
-            theme: "abcdef",
-            mode: "python"
-        },
-        kernelOptions: {
-            name: "python3",
-            path: "./."
-        },
-        predefinedOutput: true
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
     }
-    </script>
-    <script>kernelName = 'python3'</script>
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
 
-                </article>
-              
-
-              
-              
-              
-              
-                <footer class="prev-next-footer">
-                  
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="L08MatrixofLinearTranformation.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">The Matrix of a Linear Transformation</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="L10MatrixInverse.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">The Inverse of a Matrix</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#composing-linear-transformations">Composing Linear Transformations</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matrix-multiplication">Matrix Multiplication</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-inner-product-view-of-matrix-multiplication">The Inner Product View of Matrix Multiplication</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Matrix Algebra</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#powers-of-a-matrix">Powers of a Matrix</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-transpose-of-a-matrix">The Transpose of a Matrix</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-computational-viewpoint">The Computational Viewpoint</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#complexity">Complexity</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#order-matters">Order matters!</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#parallelization">Parallelization</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-importance-of-libraries">The Importance of Libraries</a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
 
-</div></div>
-              
-            
-          </div>
-          <footer class="bd-footer-content">
-            
-<div class="bd-footer-content__inner container">
-  
-  <div class="footer-item">
-    
-<p class="component-author">
-By Mark Crovella.  Portions are based on Lay, 'Linear Algebra and its Applications'
-</p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-</div>
-          </footer>
-        
-
-      </main>
-    </div>
-  </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
-
-  <footer class="bd-footer">
-  </footer>
-  </body>
-</html>
+</body></html>

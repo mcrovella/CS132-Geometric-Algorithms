@@ -1,667 +1,731 @@
-
-
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<html lang="en" data-content_root="" >
+<title>l19pagerank – Geometric Algorithms</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
 
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>PageRank &#8212; Linear Algebra, Geometry, and Computation</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
-  </script>
-  
-  <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fec4eca8e712537310c7ebcc1543822c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 
-  
-  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-  
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
-
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
 </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'L19PageRank';</script>
-    <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Analytic Geometry in \(\mathbb{R}^n\)" href="L20Orthogonality.html" />
-    <link rel="prev" title="Diagonalization" href="L18Diagonalization.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
-  </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-  
-  
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+<link rel="stylesheet" href="styles.css">
+</head>
 
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
-<form class="bd-search d-flex align-items-center"
-      action="search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
-  
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
-    </header>
-  
+<body class="nav-sidebar docked slimcontent">
 
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
-      
-      
-      
-      <div class="bd-sidebar-primary bd-sidebar">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-    
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-
-  
-
-<a class="navbar-brand logo" href="landing-page.html">
-  
-  
-  
-  
-  
-    
-    
-      
-    
-    
-    <img src="_static/DiagramAR-icon.png" class="logo__image only-light" alt="Linear Algebra, Geometry, and Computation - Home"/>
-    <script>document.write(`<img src="_static/DiagramAR-icon.png" class="logo__image only-dark" alt="Linear Algebra, Geometry, and Computation - Home"/>`);</script>
-  
-  
-</a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item navbar-nav active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="landing-page.html">
-                    Preface
-                </a>
-            </li>
-        </ul>
-        <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="L01LinearEquations.html">Linear Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L02Numerics.html">(Getting Serious About) Numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L03RowReductions.html">Gaussian Elimination</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L04VectorEquations.html">Vector Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L05Axb.html"><span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span></a></li>
-<li class="toctree-l1"><a class="reference internal" href="L06LinearIndependence.html">Linear Independence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L07LinearTransformations.html">Linear Transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L08MatrixofLinearTranformation.html">The Matrix of a Linear Transformation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L09MatrixOperations.html">Matrix Algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L10MatrixInverse.html">The Inverse of a Matrix</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L11MarkovChains.html">Markov Chains</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L12MatrixFactorizations.html">Matrix Factorizations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L13ComputerGraphics.html">Computer Graphics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L14Subspaces.html">Subspaces</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L15DimensionRank.html">Dimension and Rank</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L16Eigenvectors.html">Eigenvectors and Eigenvalues</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L17CharacteristicEqn.html">The Characteristic Equation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L18Diagonalization.html">Diagonalization</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">PageRank</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L20Orthogonality.html">Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span></a></li>
-<li class="toctree-l1"><a class="reference internal" href="L21OrthogonalSets.html">Orthogonal Sets and Projection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L22LeastSquares.html">Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L23LinearModels.html">Linear Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L24SymmetricMatrices.html">Symmetric Matrices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L25SVD.html">The Singular Value Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L26ApplicationsOfSVD.html">Applications of the SVD</a></li>
-</ul>
-
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L19PageRank.html">PageRank</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
-</nav></div>
-    </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-  </div>
-  
-  <div id="rtd-footer-container"></div>
-
-
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./images/DiagramAR-icon.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
       </div>
-      
-      <main id="main-content" class="bd-main">
-        
-        
-
-<div class="sbt-scroll-pixel-helper"></div>
-
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <span class="fa-solid fa-bars"></span>
-</label></div>
-      
-    </div>
-  
-  
-    <div class="header-article-items__end">
-      
-        <div class="header-article-item">
-
-<div class="article-header-buttons">
-
-
-<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms" target="_blank"
-   class="btn btn-sm btn-source-repository-button"
-   title="Source repository"
-   data-bs-placement="bottom" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-
-</a>
-
-
-
-
-
-
-<div class="dropdown dropdown-download-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
-    <i class="fas fa-download"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="_sources/L19PageRank.ipynb" target="_blank"
-   class="btn btn-sm btn-download-source-button dropdown-item"
-   title="Download source file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="btn__text-container">.ipynb</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li>
-<button onclick="window.print()"
-  class="btn btn-sm btn-download-pdf-button dropdown-item"
-  title="Print to PDF"
-  data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="btn__text-container">.pdf</span>
-</button>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
-<button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
-  title="Fullscreen mode"
-  data-bs-placement="bottom" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-
-
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
-
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
-</div></div>
-      
-    </div>
-  
-</div>
-</div>
-              
-              
-
-<div id="jb-print-docs-body" class="onlyprint">
-    <h1>PageRank</h1>
-    <!-- Table of contents -->
-    <div id="print-main-content">
-        <div id="jb-print-toc">
-            
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-history">The History</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-walks">Random Walks</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#absorbing-boundaries">Absorbing Boundaries</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-walks-on-undirected-graphs">Random Walks on Undirected Graphs</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-walks-on-directed-graphs">Random Walks on Directed Graphs</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">PageRank</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example.</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1">Step 1.</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2">Step 2.</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3">Step 3.</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4">Step 4.</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-pagerank-the-power-method">Computing PageRank: the Power Method</a></li>
-</ul>
-            </nav>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./landing_page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L01LinearEquations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L02Numerics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(Getting Serious About) Numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L03RowReductions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gaussian Elimination</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L04VectorEquations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vector Equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L05Axb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L06LinearIndependence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Independence</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L07LinearTransformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Transformations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L08MatrixofLinearTransformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Matrix of a Linear Transformation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L09MatrixOperations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Matrix Algebra</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L10MatrixInverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Inverse of a Matrix</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L11MarkovChains.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Markov Chains</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L12MatrixFactorizations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Matrix Factorizations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L13ComputerGraphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Computer Graphics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L14Subspaces.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Subspaces</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L15DimensionRank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dimension and Rank</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L16Eigenvectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Eigenvectors and Eigenvalues</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L17CharacteristicEqn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Characteristic Equation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L18Diagonalization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diagonalization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L19PageRank.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">PageRank</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L20Orthogonality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analytic Geometry in <span class="math inline">\(\mathbb{R}^n\)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L21OrthogonalSets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Orthogonal Sets and Projection</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L22LeastSquares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Least Squares</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L23LinearModels.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Models</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L24SymmetricMatrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Symmetric Matrices</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L25SVD.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Singular Value Decomposition</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L26ApplicationsOfSVD.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Applications of the SVD</span></a>
+  </div>
+</li>
+    </ul>
     </div>
-</div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#pagerank" id="toc-pagerank" class="nav-link active" data-scroll-target="#pagerank">PageRank</a></li>
+  <li><a href="#the-history" id="toc-the-history" class="nav-link" data-scroll-target="#the-history">The History</a></li>
+  <li><a href="#random-walks" id="toc-random-walks" class="nav-link" data-scroll-target="#random-walks">Random Walks</a>
+  <ul class="collapse">
+  <li><a href="#absorbing-boundaries" id="toc-absorbing-boundaries" class="nav-link" data-scroll-target="#absorbing-boundaries">Absorbing Boundaries</a></li>
+  <li><a href="#random-walks-on-undirected-graphs" id="toc-random-walks-on-undirected-graphs" class="nav-link" data-scroll-target="#random-walks-on-undirected-graphs">Random Walks on Undirected Graphs</a></li>
+  <li><a href="#random-walks-on-directed-graphs" id="toc-random-walks-on-directed-graphs" class="nav-link" data-scroll-target="#random-walks-on-directed-graphs">Random Walks on Directed Graphs</a></li>
+  </ul></li>
+  <li><a href="#pagerank-1" id="toc-pagerank-1" class="nav-link" data-scroll-target="#pagerank-1">PageRank</a>
+  <ul class="collapse">
+  <li><a href="#example." id="toc-example." class="nav-link" data-scroll-target="#example.">Example.</a></li>
+  </ul></li>
+  <li><a href="#computing-pagerank-the-power-method" id="toc-computing-pagerank-the-power-method" class="nav-link" data-scroll-target="#computing-pagerank-the-power-method">Computing PageRank: the Power Method</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
-              
-                
-<div id="searchbox"></div>
-                <article class="bd-article">
-                  
-  <section class="tex2jax_ignore mathjax_ignore" id="pagerank">
-<h1>PageRank<a class="headerlink" href="#pagerank" title="Permalink to this heading">#</a></h1>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/738ad040ca8b94e19fb738b9fb833b642e44e8629ca3e3d2e3aaff0e605ffc39.jpg" src="_images/738ad040ca8b94e19fb738b9fb833b642e44e8629ca3e3d2e3aaff0e605ffc39.jpg" />
-<div class="output text_html"><b>Larry Page and Sergey Brin</b></div></div>
+
+
+
+<!--
+This comment somehow suppresses the title page
+-->
+<section id="pagerank" class="level2">
+<h2 class="anchored" data-anchor-id="pagerank">PageRank</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="ctrd">
+<p><img src="images/Page-et-Brin.jpeg" height="400"></p>
+<p><strong>Larry Page</strong> and <strong>Sergey Brin</strong></p>
 </div>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/6ed112ea541217509c04342733e3b1116d36f23c034c3f258be6fa1e9537fca3.png" src="_images/6ed112ea541217509c04342733e3b1116d36f23c034c3f258be6fa1e9537fca3.png" />
+</div><div class="column" style="width:45%;">
+<div class="ctrd">
+<p><img src="images/pagrank-paper.png" height="400"></p>
+<p>The <strong>PageRank</strong> paper</p>
 </div>
 </div>
-<section id="the-history">
-<h2>The History<a class="headerlink" href="#the-history" title="Permalink to this heading">#</a></h2>
+</div>
+</section>
+<section id="the-history" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="the-history">The History</h2>
 <p>Today we’ll study an algorithm that is probably important in your life: Google’s PageRank.</p>
-<p>Let’s set the stage.</p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Many parts of this page are based on <em>Linear Algebra and its Applications,</em> by David C. Lay</p>
+</div></div><p>Let’s set the stage.</p>
 <p>The World Wide Web started becoming widely used in 1994.</p>
 <p>By 1998 the Web had become an indispensable information resource.</p>
-<p>However, the problem of effectively searching the Web for relevant information was not well addressed.  A number of large search engines were available, with names that are now forgotten: <em>Alta Vista, Lycos, Excite,</em> and others.</p>
+<p>However, the problem of effectively searching the Web for relevant information was not well addressed. A number of large search engines were available, with names that are now forgotten: <em>Alta Vista, Lycos, Excite,</em> and others.</p>
+<div class="fragment">
 <p>At present, most of them are no longer in existence, because Google emerged in 1998 and came to dominate Web search almost overnight.</p>
 <p>How did this happen?</p>
+</div>
 <p>As background: a typical search engine uses a two-step process to retrieve pages related to a user’s query.</p>
-<p>In
-the first step, basic text processing is done to find all documents that contain the query terms.
-Due to the massive size of the Web, this first step can result in thousands to millions of retrieved pages related to the query.</p>
+<p>In the first step, basic text processing is done to find all documents that contain the query terms. Due to the massive size of the Web, this first step can result in thousands to millions of retrieved pages related to the query.</p>
 <p>Some of these pages are important, but most are not.</p>
-<p>The problem that Google solved better than it competitors is deciding the <strong>ordering</strong> in which the resulting search results are presented.  This is crucial: a user wants to find the “correct” or “best” item at the top of the search results.</p>
-<p>By displaying the most relevant pages at the top of the list returned each query, Google makes its search results very useful. The algorithm that gave Google this advantage is called PageRank.</p>
+<div class="fragment">
+<p>The problem that Google solved better than it competitors is deciding the <strong>ordering</strong> in which the resulting search results are presented. This is crucial: a user wants to find the “correct” or “best” item at the top of the search results.</p>
+<p>By displaying the most relevant pages at the top of the list returned each query, Google makes its search results very useful. The algorithm that gave Google this advantage is called <strong>PageRank.</strong></p>
+</div>
 <p><strong>The Insight</strong></p>
-<p>Around 1998, the limitations of standard search engines, which just used term frequency, we becoming apparent.   A number of researchers were thinking about using additional sources of information to “rate” pages.</p>
+<p>Around 1998, the limitations of standard search engines, which just used term frequency, we becoming apparent. A number of researchers were thinking about using additional sources of information to “rate” pages.</p>
+<div class="fragment">
 <p>The key idea that a number of researchers hit on was this: <em>links are endorsements.</em></p>
-<p>When a first page contains a link to a second page, that is an indication that the author of the first page thinks the second page is worth looking at.  If the first and second pages both contain the same query terms, it is likely that the second page is an important page with respect to that query term.</p>
+<p>When a first page contains a link to a second page, that is an indication that the author of the first page thinks the second page is worth looking at. If the first and second pages both contain the same query terms, it is likely that the second page is an important page with respect to that query term.</p>
+</div>
+<div class="fragment">
 <p>Consider a set of web pages, for a single query term (say “car manufacturers”) with this linking structure:</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/b196be5efb27854d5bd4b6d80ad19b4a60aa947ae335b8de481acdac617c784e.jpg" src="_images/b196be5efb27854d5bd4b6d80ad19b4a60aa947ae335b8de481acdac617c784e.jpg" />
+<p><img src="images/hub-authority.jpg" class="img-fluid" width="300"></p>
 </div>
+<div class="fragment">
+<p>It may be clear that the links between pages contain useful information. But what is the best way to extract that information in the form of rankings?</p>
 </div>
-<p>It may be clear that the links between pages contain useful information.  But what is the best way to extract that information in the form of rankings?</p>
 <p>Here is the strategy that Brin and Page used:</p>
 <p>From <strong>“The anatomy of a large-scale hypertextual Web search engine”</strong> (1998):</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/9274e9e93e8a08b482d342a2047ed341272468e1bf1e00d09f4ce8d53028576c.png" src="_images/9274e9e93e8a08b482d342a2047ed341272468e1bf1e00d09f4ce8d53028576c.png" />
+<div class="ctrd">
+<p><img src="images/pagerank-quote.png" class="img-fluid" width="550"></p>
 </div>
-</div>
+<div class="fragment">
 <p>Today we’ll study this algorithm, see how to implement it, and understand that what it is really about is Markov Chains and eigenvectors.</p>
+</div>
 </section>
-<section id="random-walks">
-<h2>Random Walks<a class="headerlink" href="#random-walks" title="Permalink to this heading">#</a></h2>
+<section id="random-walks" class="level2">
+<h2 class="anchored" data-anchor-id="random-walks">Random Walks</h2>
 <p>We start with the notion of a <strong>random walk.</strong></p>
+<div class="fragment">
 <p>A random walk is a model of many sorts of processes that occur on graphs.</p>
-<p>Let us fix a graph <span class="math notranslate nohighlight">\(G\)</span>.  A random walk models the movement of an object on this graph.</p>
-<p>We assume that the object moves from node to node in <span class="math notranslate nohighlight">\(G\)</span>, one move per time step <span class="math notranslate nohighlight">\(t.\)</span>  At time <span class="math notranslate nohighlight">\(t\)</span> the object is at node <span class="math notranslate nohighlight">\(k\)</span> (say) and at the next time <span class="math notranslate nohighlight">\(t+1\)</span> it moves to another node chosen <strong>at random</strong> from among the outgoing edges.</p>
-<p>For our initial discussion, we will assume that <span class="math notranslate nohighlight">\(G\)</span> is the line graph:</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/6b0076bb6d1a81fb0933f129844455c56b9e866dc645605ed876d021a6d42274.jpg" src="_images/6b0076bb6d1a81fb0933f129844455c56b9e866dc645605ed876d021a6d42274.jpg" />
+<p>Let us fix a graph <span class="math inline">\(G\)</span>. A random walk models the movement of an object on this graph.</p>
 </div>
+<div class="fragment">
+<p>We assume that the object moves from node to node in <span class="math inline">\(G\)</span>, one move per time step <span class="math inline">\(t.\)</span> At time <span class="math inline">\(t\)</span> the object is at node <span class="math inline">\(k\)</span> (say) and at the next time <span class="math inline">\(t+1\)</span> it moves to another node chosen <strong>at random</strong> from among the outgoing edges.</p>
 </div>
-<p>This is a graph in which each node is connected to two neighbors.  It’s natural to identify the nodes with the integers <span class="math notranslate nohighlight">\(k = 1,\dots,n.\)</span></p>
-<p>An example application of this model would be a waiting line (or ‘queue’) like at a grocery store.  The current node corresponds to the number of people in the queue.   Given some number of people in the queue, only one of two things happens: either a person leaves the queue or a person joins the queue.</p>
+<p>For our initial discussion, we will assume that <span class="math inline">\(G\)</span> is the line graph:</p>
+<p><img src="images/Lay-fig-10-3.jpg" class="img-fluid" width="650"></p>
+<div class="fragment">
+<p>This is a graph in which each node is connected to two neighbors. It’s natural to identify the nodes with the integers <span class="math inline">\(k = 1,\dots,n.\)</span></p>
+</div>
+<div class="fragment">
+<p>An example application of this model would be a waiting line (or ‘queue’) like at a grocery store. The current node corresponds to the number of people in the queue. Given some number of people in the queue, only one of two things happens: either a person leaves the queue or a person joins the queue.</p>
 <p>In fact, this sort of model is used for jobs running in a CPU – it is studied in CS350.</p>
-<p>To complete the definition, what happens at the endpoints of the graph (nodes 1 and <span class="math notranslate nohighlight">\(n\)</span>) must be specified.</p>
-<p>One possibility is for the walker to remain fixed at that location.   This is called a <strong>random walk with absorbing boundaries.</strong></p>
-<p>Another possibility is for the walker to bounce back one unit when an endpoint is reached.   This is called a <strong>random walk with reflecting boundaries.</strong></p>
-<p>We can also set a particular probability <span class="math notranslate nohighlight">\(1-p\)</span> of moving “to the right” (from <span class="math notranslate nohighlight">\(k\)</span> to <span class="math notranslate nohighlight">\(k+1\)</span>) and <span class="math notranslate nohighlight">\(p\)</span> of moving “to the left” (from <span class="math notranslate nohighlight">\(k\)</span> to <span class="math notranslate nohighlight">\(k-1\)</span>).</p>
-<p>Now, here is a key idea:</p>
-<p><font color="blue"><center>We can describe a <strong>random walk</strong> on <em>G</em> as a <strong>Markov chain.</strong></center></font></p>
+</div>
+<p>To complete the definition, what happens at the endpoints of the graph (nodes 1 and <span class="math inline">\(n\)</span>) must be specified.</p>
+<div class="fragment">
+<p>One possibility is for the walker to remain fixed at that location. This is called a <strong>random walk with absorbing boundaries.</strong></p>
+</div>
+<div class="fragment">
+<p>Another possibility is for the walker to bounce back one unit when an endpoint is reached. This is called a <strong>random walk with reflecting boundaries.</strong></p>
+</div>
+<div class="fragment">
+<p>We can also set a particular probability <span class="math inline">\(1-p\)</span> of moving “to the right” (from <span class="math inline">\(k\)</span> to <span class="math inline">\(k+1\)</span>) and <span class="math inline">\(p\)</span> of moving “to the left” (from <span class="math inline">\(k\)</span> to <span class="math inline">\(k-1\)</span>).</p>
+</div>
+<p>Now, here is a cool idea:</p>
+<div class="ctrd">
+<p><font color="blue">We can describe a random walk on <span class="math inline">\(G\)</span> as a <strong>Markov chain.</strong></font></p>
+</div>
+<div class="fragment">
 <p>The way to interpret the steady-state of the Markov chain in terms of the random walk is:</p>
-<p>Let the chain (random walk) start in the given state.  At some long time in the future, make an observation of the state that the chain is in.   Then the steady-state distribution gives, for each state, the probability that the chain is in that state when we make our observation.</p>
+<p>Let the chain (random walk) start in the given state. At some long time in the future, make an observation of the state that the chain is in. Then the steady-state distribution gives, for each state, the probability that the chain is in that state when we make our observation.</p>
+</div>
 <p>As a reminder, recall these facts about a Markov Chain.</p>
-<p>For a Markov Chain having transition matrix <span class="math notranslate nohighlight">\(P\)</span>:</p>
-<ul class="simple">
-<li><p>The largest eigenvalue of <span class="math notranslate nohighlight">\(P\)</span> is 1.</p></li>
-<li><p>If <span class="math notranslate nohighlight">\(P\)</span> is regular, then</p>
+<p>For a Markov Chain having transition matrix <span class="math inline">\(P\)</span>:</p>
 <ul>
-<li><p>There is only one eigenvalue equal to 1</p></li>
-<li><p>The chain will converge to the corresponding eigenvector as its <em>unique steady-state.</em></p></li>
+<li>The largest eigenvalue of <span class="math inline">\(P\)</span> is 1.</li>
+<li>If <span class="math inline">\(P\)</span> is regular, then
+<ul>
+<li>There is only one eigenvalue equal to 1</li>
+<li>The chain will converge to the corresponding eigenvector as its <em>unique steady-state.</em></li>
+</ul></li>
+<li>“<span class="math inline">\(P\)</span> is regular” means that for some <span class="math inline">\(k&gt;0\)</span>, all entries in <span class="math inline">\(P^k\)</span> are nonzero.</li>
 </ul>
-</li>
-<li><p>“<span class="math notranslate nohighlight">\(P\)</span> is regular” means that for some <span class="math notranslate nohighlight">\(k&gt;0\)</span>, all entries in <span class="math notranslate nohighlight">\(P^k\)</span> are nonzero.</p></li>
-</ul>
-<section id="absorbing-boundaries">
-<h3>Absorbing Boundaries<a class="headerlink" href="#absorbing-boundaries" title="Permalink to this heading">#</a></h3>
-<p><strong>Example.</strong>  A random walk on <span class="math notranslate nohighlight">\(\{0,1,2,3,4\}\)</span> with absorbing boundaries has a transition matrix of</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}P=\begin{bmatrix}1&amp;p&amp;0&amp;0&amp;0\\0&amp;0&amp;p&amp;0&amp;0\\0&amp;1-p&amp;0&amp;p&amp;0\\0&amp;0&amp;1-p&amp;0&amp;0\\0&amp;0&amp;0&amp;1-p&amp;1\end{bmatrix}\end{split}\]</div>
-<center>
-<a class="reference internal image-reference" href="_images/Lay-fig-10-3.jpg"><img alt="Figure" src="_images/Lay-fig-10-3.jpg" style="width: 650px;" /></a>
-</center><p><strong>Example.</strong> (“Gambler’s Ruin”).   Consider a very simple casino game.  A gambler (with some money to lose) flips a coin and calls heads or tails.  If the gambler is correct, she wins a dollar.  If she is wrong, she loses a dollar.  The gambler will quit the game when she has either won <span class="math notranslate nohighlight">\(n-1\)</span> dollars or lost all of her money.</p>
-<p>Suppose that <span class="math notranslate nohighlight">\(n=5\)</span> and the gambler starts with $2.  The gambler’s winnings must move up or down one dollar with each coin flip, and once the gambler’s winnings reach 0 or 4, they do not change any more since the gambler has quit the game.</p>
-<p>Such a process may be modeled as a random walk on <span class="math notranslate nohighlight">\(\{0,1,2,3,4\}\)</span> with absorbing boundaries.   Since a move up or down is equally likely in this case, <span class="math notranslate nohighlight">\(p = 1/2\)</span>.</p>
-<p>This transition matrix is not regular.  Why?  Consider column 1.</p>
+<section id="absorbing-boundaries" class="level3">
+<h3 class="anchored" data-anchor-id="absorbing-boundaries">Absorbing Boundaries</h3>
+<div class="fragment">
+<p><strong>Example.</strong> A random walk on <span class="math inline">\(\{0,1,2,3,4\}\)</span> with absorbing boundaries has a transition matrix of</p>
+<p><span class="math display">\[P=\begin{bmatrix}1&amp;p&amp;0&amp;0&amp;0\\0&amp;0&amp;p&amp;0&amp;0\\0&amp;1-p&amp;0&amp;p&amp;0\\0&amp;0&amp;1-p&amp;0&amp;0\\0&amp;0&amp;0&amp;1-p&amp;1\end{bmatrix}\]</span></p>
+<div class="ctrd">
+<p><img src="images/Lay-fig-10-3.jpg" class="img-fluid" width="650"></p>
+</div>
+</div>
+<p><strong>Example.</strong> (“Gambler’s Ruin”). Consider a very simple casino game. A gambler (with some money to lose) flips a coin and calls heads or tails. If the gambler is correct, she wins a dollar. If she is wrong, she loses a dollar. The gambler will quit the game when she has either won <span class="math inline">\(n-1\)</span> dollars or lost all of her money.</p>
+<div class="fragment">
+<p>Suppose that <span class="math inline">\(n=5\)</span> and the gambler starts with $2. The gambler’s winnings must move up or down one dollar with each coin flip, and once the gambler’s winnings reach 0 or 4, they do not change any more since the gambler has quit the game.</p>
+</div>
+<div class="fragment">
+<p>Such a process may be modeled as a random walk on <span class="math inline">\(\{0,1,2,3,4\}\)</span> with absorbing boundaries. Since a move up or down is equally likely in this case, <span class="math inline">\(p = 1/2\)</span>.</p>
+</div>
+<div class="fragment">
+<p>This transition matrix is not regular. Why? Consider column 1.</p>
+</div>
+<div class="fragment">
 <p>There is not a unique steady-state to which the chain surely converges.</p>
-<p>However, it turns out there are <strong>two</strong> steady-states, each corresponding to absorption at one boundary, and the chain will surely converge to one or the other.</p>
-<p>In other words, in this case, there are two different eigenvectors corresponding to the eigenvalue 1.</p>
+<p>However, it turns out there are <strong>two</strong> long-term possibilities for the walker, each corresponding to absorption at one boundary, and the walker will surely get stuck at one or the other.</p>
+<p>In other words, in this case, there are two different eigenvectors corresponding to the eigenvalue 1. So the dimension of this eigenspace is two.</p>
 <p>In terms of our problem, this means that the gambler eventually either wins or loses (as opposed to going up and down for an arbitrarily long time).</p>
+</div>
 <p>Using slightly more advanced methods, we can predict the <strong>probabilities</strong> of landing in one steady-state or the other.</p>
-<p>For example, if <span class="math notranslate nohighlight">\(p=0.45\)</span>, we find that the probability that the gambler will lose all her money to be <span class="math notranslate nohighlight">\(0.4\)</span>.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="mf">0.45</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-    <span class="p">[</span><span class="mi">1</span><span class="p">,</span>   <span class="n">p</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>   <span class="n">p</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>   <span class="n">p</span><span class="p">,</span>   <span class="mi">0</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span><span class="p">],</span>
-    <span class="p">[</span><span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span>   <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">,</span>   <span class="mi">1</span><span class="p">]</span>
-<span class="p">])</span>
-<span class="n">B</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
-    <span class="n">B</span> <span class="o">=</span> <span class="n">A</span> <span class="o">@</span> <span class="n">B</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">B</span> <span class="o">@</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
-</pre></div>
+<p>For example, if <span class="math inline">\(p=0.45\)</span>, we find that the probability that the gambler will lose all her money to be <span class="math inline">\(0.4\)</span>.</p>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div id="d4514fde" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="fl">0.45</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array([</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>,   p,   <span class="dv">0</span>,   <span class="dv">0</span>,   <span class="dv">0</span>],</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">0</span>,   <span class="dv">0</span>,   p,   <span class="dv">0</span>,   <span class="dv">0</span>],</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">0</span>, <span class="dv">1</span><span class="op">-</span>p,   <span class="dv">0</span>,   p,   <span class="dv">0</span>],</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">0</span>,   <span class="dv">0</span>, <span class="dv">1</span><span class="op">-</span>p,   <span class="dv">0</span>,   <span class="dv">0</span>],</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">0</span>,   <span class="dv">0</span>,   <span class="dv">0</span>, <span class="dv">1</span><span class="op">-</span>p,   <span class="dv">1</span>]</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> np.linalg.matrix_power(A, <span class="dv">100</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>steady_state <span class="op">=</span> B <span class="op">@</span> np.array([<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width:45%;">
+<div id="7ce54b6a" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L19PageRank_files/figure-html/cell-4-output-1.png" width="440" height="242" class="figure-img"></p>
+</figure>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[4.00990099e-01 2.41809000e-16 0.00000000e+00 2.95544333e-16
- 5.99009901e-01]
-</pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="random-walks-on-undirected-graphs">
-<h3>Random Walks on Undirected Graphs<a class="headerlink" href="#random-walks-on-undirected-graphs" title="Permalink to this heading">#</a></h3>
+<section id="random-walks-on-undirected-graphs" class="level3">
+<h3 class="anchored" data-anchor-id="random-walks-on-undirected-graphs">Random Walks on Undirected Graphs</h3>
+<div class="fragment">
 <p>Now let’s consider a random walk on a more interesting graph:</p>
 <!-- image credit: Lay 5th edition.  Should re-do this using networkx (see 506 notes) -->
-<center>
-<a class="reference internal image-reference" href="_images/Lay-fig-10-4.jpg"><img alt="Figure" src="_images/Lay-fig-10-4.jpg" style="width: 300px;" /></a>
-</center><p>This graph is <strong>undirected</strong> – each edge can be followed in either direction.</p>
+<div class="ctrd">
+<p><img src="images/Lay-fig-10-4.jpg" class="img-fluid" width="350"></p>
+</div>
+</div>
+<div class="fragment">
+<p>This graph is <strong>undirected</strong> – each edge can be followed in either direction.</p>
 <p>Again, at each node there is an equal probability of departing to any adjacent node.</p>
+</div>
+<div class="fragment">
 <p>The transition matrix associated with a random walk on this graph is</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}P = \begin{bmatrix}
+<p><span class="math display">\[P = \begin{bmatrix}
 0&amp;1/3&amp;1/4&amp;0&amp;0&amp;0&amp;0\\
 1/2&amp;0&amp;1/4&amp;0&amp;1/2&amp;0&amp;0\\
 1/2&amp;1/3&amp;0&amp;1&amp;0&amp;1/3&amp;0\\
 0&amp;0&amp;1/4&amp;0&amp;0&amp;0&amp;0\\
 0&amp;1/3&amp;0&amp;0&amp;0&amp;1/3&amp;0\\
 0&amp;0&amp;1/4&amp;0&amp;1/2&amp;0&amp;1\\
-0&amp;0&amp;0&amp;0&amp;0&amp;1/3&amp;0\end{bmatrix}\end{split}\]</div>
-<p>It turns out that this matrix is regular (<span class="math notranslate nohighlight">\(P^3\)</span> has no zero entries.)</p>
+0&amp;0&amp;0&amp;0&amp;0&amp;1/3&amp;0\end{bmatrix}\]</span></p>
+<p>It turns out that this matrix is regular (<span class="math inline">\(P^3\)</span> has no zero entries.)</p>
 <p>Hence, the associated Markov Chain converges to a single steady state.</p>
+</div>
+<div class="fragment">
 <p>The eigenvector corresponding to the eigenvalue of 1 is the steady-state of the Markov Chain.</p>
-<p>Hence we can find that the steady-state is <span class="math notranslate nohighlight">\(\frac{1}{16}\begin{bmatrix}2\\3\\4\\1\\2\\3\\1\end{bmatrix}.\)</span></p>
-<p>That is, the probability of bring in node 1 at steady state is 2/16;  the probability of being in node 2 is 3/16;  the probability of being in node 3 is 4/16, etc.</p>
-<p>Now, look at <span class="math notranslate nohighlight">\(G\)</span> again, and compare it to its steady-state distribution.   Notice anything?</p>
+<p>Hence we can find that the steady-state is <span class="math inline">\(\frac{1}{16}\begin{bmatrix}2\\3\\4\\1\\2\\3\\1\end{bmatrix}.\)</span></p>
+<p>That is, the probability of bring in node 1 at steady state is 2/16; the probability of being in node 2 is 3/16; the probability of being in node 3 is 4/16, etc.</p>
+</div>
+<p>Now, look at <span class="math inline">\(G\)</span> again, and compare it to its steady-state distribution. Notice anything?</p>
+<div class="columns">
+<div class="column" style="width:45%;">
 <!-- image credit: Lay 5th edition.  Should re-do this using networkx (see 506 notes) -->
-<center>
-<a class="reference internal image-reference" href="_images/Lay-fig-10-4.jpg"><img alt="Figure" src="_images/Lay-fig-10-4.jpg" style="width: 300px;" /></a>
-</center><p>The steady-state distribution is proportional to the number of edges attached to the node.</p>
+<p><img src="images/Lay-fig-10-4.jpg" class="img-fluid" width="350"></p>
+</div><div class="column" style="width:25%;">
+<p><span class="math display">\[\frac{1}{16}\begin{bmatrix}2\\3\\4\\1\\2\\3\\1\end{bmatrix}\]</span></p>
+</div>
+</div>
+<div class="fragment">
+<p>The steady-state distribution is proportional to the number of edges attached to the node.</p>
 <p>The number of edges connected to a node is called the node <strong>degree</strong>.</p>
+</div>
+<div class="fragment">
 <p>This is not a coincidence!</p>
 <p>In fact it can be <strong>proved</strong> that the steady-state distribution of a random walk on an undirected graph is proportional to node degree.</p>
 <p>That is, the probability of being at a particular node at steady state is proportional to that node’s degree.</p>
 <p>This is really amazing!</p>
+</div>
 </section>
-<section id="random-walks-on-directed-graphs">
-<h3>Random Walks on Directed Graphs<a class="headerlink" href="#random-walks-on-directed-graphs" title="Permalink to this heading">#</a></h3>
+<section id="random-walks-on-directed-graphs" class="level3">
+<h3 class="anchored" data-anchor-id="random-walks-on-directed-graphs">Random Walks on Directed Graphs</h3>
+<div class="fragment">
 <p>More interesting behavior arises when we walk randomly on a <strong>directed</strong> graph.</p>
-<p>In this graph, all edges are “one-way streets” – nodes are joined not by lines but by arrows.   The chain can move from vertex to vertex, but only in the directions allowed by the arrows.</p>
+<p>In this graph, all edges are “one-way streets” – nodes are joined not by lines but by arrows. The chain can move from vertex to vertex, but only in the directions allowed by the arrows.</p>
+</div>
+<div class="fragment">
 <p>An example of a directed graph is</p>
-<!-- image credit: Deeper into PageRank -->
-<center>
-<a class="reference internal image-reference" href="_images/deeper-pagerank-fig.jpg"><img alt="Figure" src="_images/deeper-pagerank-fig.jpg" style="width: 250px;" /></a>
-</center><p>The transition matrix for this graph is:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}P = \begin{bmatrix}
+<div class="ctrd">
+<p><img src="images/deeper-pagerank-fig.jpg" height="350"></p>
+</div>
+</div>
+<div class="fragment">
+<p>The transition matrix for this graph is:</p>
+<p><span class="math display">\[P = \begin{bmatrix}
 0&amp;0&amp;1/3&amp;0&amp;0&amp;0\\
 1/2&amp;0&amp;1/3&amp;0&amp;0&amp;0\\
 1/2&amp;0&amp;0&amp;0&amp;0&amp;0\\
 0&amp;0&amp;0&amp;0&amp;1/2&amp;1\\
 0&amp;0&amp;1/3&amp;1/2&amp;0&amp;0\\
 0&amp;0&amp;0&amp;1/2&amp;1/2&amp;0
-\end{bmatrix}\end{split}\]</div>
-<p>We can conclude that this matrix is <strong>not</strong> regular.   Why?</p>
+\end{bmatrix}\]</span></p>
+</div>
+<div class="fragment">
+<p>We can conclude that this matrix is <strong>not</strong> regular. Why?</p>
+</div>
+<div class="fragment">
 <p>One reason we can conclude this is the column of zeros (column 2).</p>
-<p>Any power of <span class="math notranslate nohighlight">\(P\)</span> will preserve this column of zeros.</p>
+<p>Any power of <span class="math inline">\(P\)</span> will preserve this column of zeros.</p>
+</div>
 </section>
 </section>
-<section id="id1">
-<h2>PageRank<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
+<section id="pagerank-1" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="pagerank-1">PageRank</h2>
 <p>There are many ways to use link structure to infer which pages are most important.</p>
 <p>There was a lot of experimentation in the late 1990s with various methods.</p>
+<div class="fragment">
 <p>Here are some examples of link structures found in the Web.</p>
 <p>Each node is a Web page, and each edge is a link from one Web page to another.</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/b588333c4835bc0c5121ec030fd8a7bd40083207160cc404fef5c4d2025f1dd1.png" src="_images/b588333c4835bc0c5121ec030fd8a7bd40083207160cc404fef5c4d2025f1dd1.png" />
-<img alt="_images/dcffecae1cc07c109abfc177de9957f351f1c67b389db438a4472ed4fe7b9402.png" src="_images/dcffecae1cc07c109abfc177de9957f351f1c67b389db438a4472ed4fe7b9402.png" />
+<div class="columns">
+<div class="column" style="width:45%;">
+<p><img src="images/tomlinson-1.png" height="350"></p>
+</div><div class="column" style="width:45%;">
+<p><img src="images/tomlinson-2.png" height="350"></p>
+</div>
 </div>
 </div>
 <p>Why did Page and Brin settle on the <strong>random walk</strong> as the basis for their approach?</p>
 <p>In fact, the intuiution they started from was simpler:</p>
-<center>Their insight was just to say that <font color = "blue">a page is 'important' if many 'important' pages link to it.</font> </center><p>More precisely, this definition of ‘importance’ is:</p>
-<div class="math notranslate nohighlight">
-\[\small\text{Importance of page $i$} = \sum_j \mbox{(Importance of page $j$)}\cdot\mbox{(Probability of going from page $j$ to page $i$.)}\]</div>
+<div class="ctrd">
+<p>Their insight was just to say that <font color="blue">a page is ‘important’ if many ‘important’ pages link to it.</font></p>
+</div>
+<div class="fragment">
+<p>More precisely, this definition of ‘importance’ is:</p>
+<p><span class="math display">\[\small\text{Importance of page $i$} = \\
+\sum_j \text{(Importance of page $j$)}\cdot\text{(Probability of going from page $j$ to page $i$.)}\]</span></p>
+</div>
+<div class="fragment">
 <p>This is a very intuitive definition of importance.</p>
 <p>There is a bit of a issue however – it is self-referential!</p>
 <p>The ‘importance’ of a page appears on both sides of the equation.</p>
 <p>How can we solve this equation to get a fixed ‘importance’ for a given page?</p>
+</div>
 <p>Answering this question is where the random walk comes in.</p>
-<p>Let’s define a vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> to hold importance:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split} \mathbf{x} = \begin{bmatrix}\text{importance of page 1}\\\text{importance of page 2}\\\vdots\\\text{importance of page n}\end{bmatrix} \end{split}\]</div>
-<p>And let’s define <span class="math notranslate nohighlight">\(P\)</span> as the transition matrix of the Markov Chain defined by the link structure of the pages:</p>
-<div class="math notranslate nohighlight">
-\[ P_{ij} = \text{probability of going from page } j \text{ to page } i \text{ in a random walk}\]</div>
+<div class="fragment">
+<p>Let’s define a vector <span class="math inline">\(\mathbf{x}\)</span> to hold importance:</p>
+<p><span class="math display">\[ \mathbf{x} = \begin{bmatrix}\text{importance of page 1}\\\text{importance of page 2}\\\vdots\\\text{importance of page n}\end{bmatrix} \]</span></p>
+</div>
+<div class="fragment">
+<p>And let’s define <span class="math inline">\(P\)</span> as the transition matrix of the Markov Chain defined by the link structure of the pages:</p>
+<p><span class="math display">\[ P_{ij} = \text{probability of going from page } j \text{ to page } i \text{ in a random walk}\]</span></p>
+</div>
+<div class="fragment">
 <p>What Page and Brin observed was that this equation</p>
-<div class="math notranslate nohighlight">
-\[\small\mbox{Importance of page $i$} = \sum_j \mbox{(Importance of page $j$)}\cdot\mbox{(Probability of going from page $j$ to page $i$.)}\]</div>
+<p><span class="math display">\[\small\text{Importance of page $i$} = \]</span> <span class="math display">\[ \sum_j \text{(Importance of page $j$)}\cdot\text{(Probability of going from page $j$ to page $i$.)}\]</span></p>
+</div>
+<div class="fragment">
 <p>is the same as:</p>
-<div class="math notranslate nohighlight">
-\[\mathbf{x} = P\mathbf{x}\]</div>
-<p>Which is the equation defining the steady state of the Markov chain <span class="math notranslate nohighlight">\(P\)</span>.</p>
+<p><span class="math display">\[\mathbf{x} = P\mathbf{x}\]</span></p>
+</div>
+<div class="fragment">
+<p>Which is the equation defining the steady state of the Markov chain <span class="math inline">\(P\)</span>.</p>
+</div>
 <p>Now we are ready to understand what Page and Brin were saying in 1998:</p>
-<blockquote>
-<div><p>PageRank can be thought of as a model of user behavior. We assume there is a “random surfer” who is given a web page at random and keeps clicking on links, never hitting “back” but eventually gets bored and starts on another random page. The probability that the random surfer visits a page is its PageRank.</p>
-</div></blockquote>
+<blockquote class="blockquote">
+<p>PageRank can be thought of as a model of user behavior. We assume there is a “random surfer” who is given a web page at random and keeps clicking on links, never hitting “back” but eventually gets bored and starts on another random page. The probability that the random surfer visits a page is its PageRank.</p>
+</blockquote>
+<div class="fragment">
 <p>What they are implying is that a random surfer should visit important pages more often and unimportant pages less often.</p>
+</div>
 <p>The way to interpret this precisely is:</p>
-<ol class="arabic simple">
-<li><p>Form the graph that encodes the connections between Web pages that are retrieved for a particular query.</p></li>
-</ol>
-<ol class="arabic simple" start="2">
-<li><p>Construct a Markov chain that corresponds to a random walk on this graph.</p></li>
-</ol>
-<ol class="arabic simple" start="3">
-<li><p>Rank-order the pages according to their probability in the Markov chain’s steady state.</p></li>
-</ol>
-<p>There is a nice visualization <a class="reference external" href="https://twitter.com/i/status/1326404289997103104">here</a>.</p>
+<p>&nbsp; 1. Form the graph that encodes the connections between Web pages that are retrieved for a particular query.</p>
+<div class="fragment">
+<p>&nbsp; 2. Construct a Markov chain that corresponds to a random walk on this graph.</p>
+</div>
+<div class="fragment">
+<p>&nbsp; 3. Rank-order the pages according to their probability in the Markov chain’s steady state.</p>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>There is a nice visualization <a href="https://twitter.com/i/status/1326404289997103104">here</a>.</p>
+</div></div><div class="fragment">
 <p>So let’s try to make this work and see what happens.</p>
-<section id="example">
-<h3>Example.<a class="headerlink" href="#example" title="Permalink to this heading">#</a></h3>
+</div>
+<section id="example." class="level3">
+<h3 class="anchored" data-anchor-id="example.">Example.</h3>
 <p>Assume a set of Web pages have been selected based on a text query, eg, pages related to “personal 737 jets.”</p>
 <p>These pages have various links between them, as represented by this graph:</p>
-<!-- image credit: Deeper into PageRank -->
-<center>
-<a class="reference internal image-reference" href="_images/deeper-pagerank-fig.jpg"><img alt="Figure" src="_images/deeper-pagerank-fig.jpg" style="width: 250px;" /></a>
-</center><p>Construct the unique steady-state distribution for a random walk on this graph, if it exists.  That is, construct the PageRank for this set of Web pages.</p>
-<p><strong>Solution.</strong></p>
+<div class="ctrd">
+<p><img src="images/deeper-pagerank-fig.jpg" height="350"></p>
+</div>
+<div class="fragment">
+<p>Let’s construct the unique steady-state distribution for a random walk on this graph, if it exists. That is, we will construct the PageRank for this set of Web pages.</p>
+</div>
+<div class="fragment">
 <p>The key question we must ask is <strong>whether a unique steady state exists.</strong></p>
-<section id="step-1">
-<h4>Step 1.<a class="headerlink" href="#step-1" title="Permalink to this heading">#</a></h4>
-<p>Assume there are <span class="math notranslate nohighlight">\(n\)</span> pages to be ranked.  Construct an <span class="math notranslate nohighlight">\(n\times n\)</span> transition matrix for the Markov chain.</p>
+</div>
+<section id="step-1." class="level4">
+<h4 class="anchored" data-anchor-id="step-1.">Step 1.</h4>
+<p>Assume there are <span class="math inline">\(n\)</span> pages to be ranked. Construct an <span class="math inline">\(n\times n\)</span> transition matrix for the Markov chain.</p>
 <p>Set the Markov chain transitions so that each outgoing link from a node has equal probability of being taken.</p>
+<div class="fragment">
 <p>We have already seen the transition matrix for this graph:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}P = \begin{bmatrix}
+<p><span class="math display">\[P = \begin{bmatrix}
 0&amp;0&amp;1/3&amp;0&amp;0&amp;0\\
 1/2&amp;0&amp;1/3&amp;0&amp;0&amp;0\\
 1/2&amp;0&amp;0&amp;0&amp;0&amp;0\\
 0&amp;0&amp;0&amp;0&amp;1/2&amp;1\\
 0&amp;0&amp;1/3&amp;1/2&amp;0&amp;0\\
 0&amp;0&amp;0&amp;1/2&amp;1/2&amp;0
-\end{bmatrix}\end{split}\]</div>
-<p>We have observed that this transition matrix is <strong>not</strong> regular, because for any <span class="math notranslate nohighlight">\(P^k, k&gt;0,\)</span> the second column will  be zero.</p>
+\end{bmatrix}\]</span></p>
+<p>We have observed that this transition matrix is <strong>not</strong> regular, because for any <span class="math inline">\(P^k, k&gt;0,\)</span> the second column will be zero.</p>
+</div>
+<div class="fragment">
 <p>To address this, let’s ask why it happens.</p>
-<p>The reason that column 2 of <span class="math notranslate nohighlight">\(P\)</span> is zero is that the Web page corresponding to node 2 has no links embedded in it, so there is nowhere to go from this page.   Of course this will happen a lot in an arbitrary collection of Web pages.</p>
-<p>Note that Page and Brin say that the random surfer will occasionally “start on another random page.”   In other words, it seems reasonable that when reaching a page with no embedded links, the surfer chooses another page at random.</p>
-<p>So this motivates the first adjustment to <span class="math notranslate nohighlight">\(P\)</span>:</p>
+<p>The reason that column 2 of <span class="math inline">\(P\)</span> is zero is that the Web page corresponding to node 2 has no links embedded in it, so there is nowhere to go from this page. Of course this will happen a lot in an arbitrary collection of Web pages.</p>
+</div>
+<div class="fragment">
+<p>Note that Page and Brin say that the random surfer will occasionally “start on another random page.” In other words, it seems reasonable that when reaching a page with no embedded links, the surfer chooses another page at random.</p>
+<p>So this motivates the first adjustment to <span class="math inline">\(P\)</span>:</p>
+</div>
 </section>
-<section id="step-2">
-<h4>Step 2.<a class="headerlink" href="#step-2" title="Permalink to this heading">#</a></h4>
-<p>Form the matrix <span class="math notranslate nohighlight">\(P'\)</span> as follows:  for each column in <span class="math notranslate nohighlight">\(P\)</span> that is entirely zeros, replace it with a column in which each entry is <span class="math notranslate nohighlight">\(1/n\)</span>.</p>
+<section id="step-2." class="level4">
+<h4 class="anchored" data-anchor-id="step-2.">Step 2.</h4>
+<p>Form the matrix <span class="math inline">\(P'\)</span> as follows: for each column in <span class="math inline">\(P\)</span> that is entirely zeros, replace it with a column in which each entry is <span class="math inline">\(1/n\)</span>.</p>
 <p>In our example:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}P = \begin{bmatrix}
+<p><span class="math display">\[\tiny P = \begin{bmatrix}
 0&amp;0&amp;1/3&amp;0&amp;0&amp;0\\
 1/2&amp;0&amp;1/3&amp;0&amp;0&amp;0\\
 1/2&amp;0&amp;0&amp;0&amp;0&amp;0\\
@@ -677,35 +741,43 @@ P' = \begin{bmatrix}
 0&amp;1/n&amp;1/3&amp;1/2&amp;0&amp;0\\
 0&amp;1/n&amp;0&amp;1/2&amp;1/2&amp;0
 \end{bmatrix}\;\;=\;\;
- \begin{bmatrix}
+\begin{bmatrix}
 0&amp;1/6&amp;1/3&amp;0&amp;0&amp;0\\
 1/2&amp;1/6&amp;1/3&amp;0&amp;0&amp;0\\
 1/2&amp;1/6&amp;0&amp;0&amp;0&amp;0\\
 0&amp;1/6&amp;0&amp;0&amp;1/2&amp;1\\
 0&amp;1/6&amp;1/3&amp;1/2&amp;0&amp;0\\
 0&amp;1/6&amp;0&amp;1/2&amp;1/2&amp;0
-\end{bmatrix}\end{split}\]</div>
-<p>Nonetheless, even after this change, <span class="math notranslate nohighlight">\(P'\)</span> can fail to be regular.</p>
+\end{bmatrix}\]</span></p>
+<div class="fragment">
+<p>Nonetheless, even after this change, <span class="math inline">\(P'\)</span> can fail to be regular.</p>
 <p>In other words, for an arbitrary set of web pages, there is no guarantee that their transition matrix will be regular.</p>
+</div>
+<div class="fragment">
 <p>Once again, let’s read the words of Page and Brin closely: the surfer “eventually gets bored and starts on another random page.”</p>
+</div>
 </section>
-<section id="step-3">
-<h4>Step 3.<a class="headerlink" href="#step-3" title="Permalink to this heading">#</a></h4>
+<section id="step-3." class="level4">
+<h4 class="anchored" data-anchor-id="step-3.">Step 3.</h4>
 <p>In practice this means that there a small probability that the surfer will jump from any page to any other page at random.</p>
-<p>Let’s call this small probability <span class="math notranslate nohighlight">\(\alpha.\)</span></p>
-<p>We can’t just add <span class="math notranslate nohighlight">\(\alpha\)</span> to every entry in <span class="math notranslate nohighlight">\(P'\)</span>, because then the columns of the new matrix would not sum to 1.</p>
-<p>Instead we decrease each entry in <span class="math notranslate nohighlight">\(P'\)</span> by a factor of <span class="math notranslate nohighlight">\((1-\alpha)\)</span>, and then add <span class="math notranslate nohighlight">\({\alpha}/{n}\)</span> to it.</p>
-<p>So we compute the final transition matrix <span class="math notranslate nohighlight">\(P''\)</span> as:</p>
-<div class="math notranslate nohighlight">
-\[P''_{ij} = (1-\alpha)P'_{ij} + \frac{\alpha}{n}.\]</div>
+<p>Let’s call this small probability <span class="math inline">\(\alpha.\)</span></p>
+<div class="fragment">
+<p>We can’t just add <span class="math inline">\(\alpha\)</span> to every entry in <span class="math inline">\(P'\)</span>, because then the columns of the new matrix would not sum to 1.</p>
+</div>
+<div class="fragment">
+<p>Instead we decrease each entry in <span class="math inline">\(P'\)</span> by a factor of <span class="math inline">\((1-\alpha)\)</span>, and then add <span class="math inline">\({\alpha}/{n}\)</span> to it.</p>
+<p>So we compute the final transition matrix <span class="math inline">\(P''\)</span> as:</p>
+<p><span class="math display">\[P''_{ij} = (1-\alpha)P'_{ij} + \frac{\alpha}{n}.\]</span></p>
+</div>
+<div class="fragment">
 <p>We can write this as a matrix equation:</p>
-<div class="math notranslate nohighlight">
-\[P'' = (1-\alpha)P' + \frac{\alpha}{n} \mathbf{1}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{1}\)</span> is an <span class="math notranslate nohighlight">\(n\times n\)</span> matrix of 1’s.</p>
-<p>In our example, let’s say that <span class="math notranslate nohighlight">\(\alpha = 1/10\)</span> (in reality it would be smaller).  So <span class="math notranslate nohighlight">\(\alpha/n = 1/60.\)</span></p>
+<p><span class="math display">\[P'' = (1-\alpha)P' + \frac{\alpha}{n} \mathbf{1}\]</span></p>
+<p>where <span class="math inline">\(\mathbf{1}\)</span> is an <span class="math inline">\(n\times n\)</span> matrix of 1’s.</p>
+</div>
+<div class="fragment">
+<p>In our example, let’s say that <span class="math inline">\(\alpha = 1/10\)</span> (in reality it would be smaller). So <span class="math inline">\(\alpha/n = 1/60.\)</span></p>
 <p>Then:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split} P' \begin{bmatrix}
+<p><span class="math display">\[ \tiny P' \begin{bmatrix}
 0&amp;1/6&amp;1/3&amp;0&amp;0&amp;0\\
 1/2&amp;1/6&amp;1/3&amp;0&amp;0&amp;0\\
 1/2&amp;1/6&amp;0&amp;0&amp;0&amp;0\\
@@ -719,334 +791,653 @@ P' = \begin{bmatrix}
 1/60&amp;1/6&amp;1/60&amp;1/60&amp;7/15&amp;11/12\\
 1/60&amp;1/6&amp;19/60&amp;7/15&amp;1/60&amp;1/60\\
 1/60&amp;1/6&amp;1/60&amp;7/15&amp;7/15&amp;1/60
-\end{bmatrix}\end{split}\]</div>
-<p>Obviously, <span class="math notranslate nohighlight">\(P''\)</span> is regular, because all its entries are positive (they are at least <span class="math notranslate nohighlight">\(\alpha/n.\)</span>)</p>
-<p><span class="math notranslate nohighlight">\(P''\)</span> is the Markov Chain that Brin and Page defined, and which is used by PageRank to rank pages in response to a Google search.</p>
+\end{bmatrix}\]</span></p>
+</div>
+<div class="fragment">
+<p>Obviously, <span class="math inline">\(P''\)</span> is regular, because all its entries are positive (they are at least <span class="math inline">\(\alpha/n.\)</span>)</p>
+</div>
+<div class="fragment">
+<p><span class="math inline">\(P''\)</span> is the Markov Chain that Brin and Page defined, and which is used by PageRank to rank pages in response to a Google search.</p>
+</div>
 </section>
-<section id="step-4">
-<h4>Step 4.<a class="headerlink" href="#step-4" title="Permalink to this heading">#</a></h4>
-<p>Compute the steady-state of <span class="math notranslate nohighlight">\(P''\)</span>, and rank pages according to their magnitude in the resulting vector.</p>
-<p>We can do this by solving <span class="math notranslate nohighlight">\(P''\mathbf{x} = \mathbf{x}\)</span>, or we can compute the eigenvectors of <span class="math notranslate nohighlight">\(P''\)</span> and use the eigenvector that corresponds to <span class="math notranslate nohighlight">\(\lambda = 1.\)</span></p>
-<p>For the example <span class="math notranslate nohighlight">\(P''\)</span>, we find that the steady-state vector is:</p>
-<p><span class="math notranslate nohighlight">\(\mathbf{x} = \begin{bmatrix}0.037\\0.054\\0.041\\0.375\\0.206\\0.286\end{bmatrix}\)</span></p>
+<section id="step-4." class="level4">
+<h4 class="anchored" data-anchor-id="step-4.">Step 4.</h4>
+<p>Compute the steady-state of <span class="math inline">\(P''\)</span>, and rank pages according to their magnitude in the resulting vector.</p>
+<p>We can do this by solving <span class="math inline">\(P''\mathbf{x} = \mathbf{x}\)</span>, or we can compute the eigenvectors of <span class="math inline">\(P''\)</span> and use the eigenvector that corresponds to <span class="math inline">\(\lambda = 1.\)</span></p>
+<div class="fragment">
+<p>For the example <span class="math inline">\(P''\)</span>, we find that the steady-state vector is:</p>
+<p><span class="math inline">\(\mathbf{x} = \begin{bmatrix}0.037\\0.054\\0.041\\0.375\\0.206\\0.286\end{bmatrix}\)</span></p>
+</div>
+<div class="fragment">
 <p>So the final ranking of pages is: 4, 6, 5, 2, 3, 1.</p>
 <p>This is the order that PageRank would display its results, with page 4 at the top of the list.</p>
+</div>
 <p>Let’s see how to do <strong>Step 4</strong> in Python:</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here is the P&#39;&#39; matrix as computed in steps 1 through 3.</span>
-<span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
-<span class="p">[</span><span class="mf">1.</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span> <span class="mf">1.</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mf">19.</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span> <span class="mf">1.</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span> <span class="mf">1.</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span>  <span class="mf">1.</span><span class="o">/</span><span class="mi">60</span><span class="p">],</span>
-<span class="p">[</span><span class="mf">7.</span><span class="o">/</span><span class="mi">15</span><span class="p">,</span> <span class="mf">1.</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mf">19.</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span> <span class="mf">1.</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span> <span class="mf">1.</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span>  <span class="mf">1.</span><span class="o">/</span><span class="mi">60</span><span class="p">],</span>
-<span class="p">[</span><span class="mf">7.</span><span class="o">/</span><span class="mi">15</span><span class="p">,</span> <span class="mf">1.</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span>  <span class="mf">1.</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span> <span class="mf">1.</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span> <span class="mf">1.</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span>  <span class="mf">1.</span><span class="o">/</span><span class="mi">60</span><span class="p">],</span>
-<span class="p">[</span><span class="mf">1.</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span> <span class="mf">1.</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span>  <span class="mf">1.</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span> <span class="mf">1.</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span> <span class="mf">7.</span><span class="o">/</span><span class="mi">15</span><span class="p">,</span> <span class="mf">11.</span><span class="o">/</span><span class="mi">12</span><span class="p">],</span>
-<span class="p">[</span><span class="mf">1.</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span> <span class="mf">1.</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mf">19.</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span> <span class="mf">7.</span><span class="o">/</span><span class="mi">15</span><span class="p">,</span> <span class="mf">1.</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span>  <span class="mf">1.</span><span class="o">/</span><span class="mi">60</span><span class="p">],</span>
-<span class="p">[</span><span class="mf">1.</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span> <span class="mf">1.</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span>  <span class="mf">1.</span><span class="o">/</span><span class="mi">60</span><span class="p">,</span> <span class="mf">7.</span><span class="o">/</span><span class="mi">15</span><span class="p">,</span> <span class="mf">7.</span><span class="o">/</span><span class="mi">15</span><span class="p">,</span>  <span class="mf">1.</span><span class="o">/</span><span class="mi">60</span><span class="p">]</span>
-<span class="p">])</span>
-<span class="n">eigenvalues</span><span class="p">,</span> <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">P</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">eigenvalues</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[ 1.          0.61008601 -0.08958752 -0.37049849 -0.45       -0.45      ]
-</pre></div>
+<div class="fragment">
+<div id="d0fe1608" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here is the P'' matrix as computed in steps 1 through 3.</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>P <span class="op">=</span> np.array([</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>[<span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>, <span class="fl">1.</span><span class="op">/</span><span class="dv">6</span>, <span class="fl">19.</span><span class="op">/</span><span class="dv">60</span>, <span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>, <span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>,  <span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>],</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>[<span class="fl">7.</span><span class="op">/</span><span class="dv">15</span>, <span class="fl">1.</span><span class="op">/</span><span class="dv">6</span>, <span class="fl">19.</span><span class="op">/</span><span class="dv">60</span>, <span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>, <span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>,  <span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>],</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>[<span class="fl">7.</span><span class="op">/</span><span class="dv">15</span>, <span class="fl">1.</span><span class="op">/</span><span class="dv">6</span>,  <span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>, <span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>, <span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>,  <span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>],</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>[<span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>, <span class="fl">1.</span><span class="op">/</span><span class="dv">6</span>,  <span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>, <span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>, <span class="fl">7.</span><span class="op">/</span><span class="dv">15</span>, <span class="fl">11.</span><span class="op">/</span><span class="dv">12</span>],</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>[<span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>, <span class="fl">1.</span><span class="op">/</span><span class="dv">6</span>, <span class="fl">19.</span><span class="op">/</span><span class="dv">60</span>, <span class="fl">7.</span><span class="op">/</span><span class="dv">15</span>, <span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>,  <span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>],</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>[<span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>, <span class="fl">1.</span><span class="op">/</span><span class="dv">6</span>,  <span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>, <span class="fl">7.</span><span class="op">/</span><span class="dv">15</span>, <span class="fl">7.</span><span class="op">/</span><span class="dv">15</span>,  <span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>]</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>])</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>eigenvalues, eigenvectors <span class="op">=</span> np.linalg.eig(P)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.real(eigenvalues))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[ 1.          0.61008601 -0.08958752 -0.37049849 -0.45       -0.45      ]</code></pre>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># find the location of the largest eigenvalue (1), </span>
-<span class="c1"># by computing the indices that would sort the eigenvalues</span>
-<span class="c1"># from smallest to largest</span>
-<span class="n">indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">eigenvalues</span><span class="p">)</span>
-<span class="c1"># and take the index of the largest eigenvalue</span>
-<span class="n">principal</span> <span class="o">=</span> <span class="n">indices</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">principal</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0
-</pre></div>
+<div class="fragment">
+<div id="32cc22bc" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find the location of the largest eigenvalue (1), </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># by computing the indices that would sort the eigenvalues</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># from smallest to largest</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>indices <span class="op">=</span> np.argsort(eigenvalues)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># and take the index of the largest eigenvalue</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>principal <span class="op">=</span> indices[<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(principal)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0</code></pre>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># using the index of the largest eigenvalue, extract</span>
-<span class="c1"># the corresponding eigenvector (the steady state vector)</span>
-<span class="n">steadyState</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">eigenvectors</span><span class="p">[:,</span><span class="n">principal</span><span class="p">])</span>
-<span class="n">steadyState</span> <span class="o">=</span> <span class="n">steadyState</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">steadyState</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">steadyState</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.03721197 0.05395735 0.04150565 0.37508082 0.20599833 0.28624589]
-</pre></div>
+<div class="fragment">
+<div id="65a696cf" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using the index of the largest eigenvalue, extract</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the corresponding eigenvector (the steady state vector)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>steadyState <span class="op">=</span> np.real(eigenvectors[:,principal])</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>steadyState <span class="op">=</span> steadyState<span class="op">/</span>np.<span class="bu">sum</span>(steadyState)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(steadyState)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[0.03721197 0.05395735 0.04150565 0.37508082 0.20599833 0.28624589]</code></pre>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># find the order of the pages in the steady state vector</span>
-<span class="c1"># this function sorts from smallest to largest (reverse of what we want)</span>
-<span class="n">reverseOrder</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">steadyState</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">reverseOrder</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0 2 1 4 5 3]
-</pre></div>
+<div class="fragment">
+<div id="7dec9d25" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find the order of the pages in the steady state vector</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># this function sorts from smallest to largest (reverse of what we want)</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>reverseOrder <span class="op">=</span> np.argsort(steadyState)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(reverseOrder)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[0 2 1 4 5 3]</code></pre>
 </div>
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># reverse the order to get the most important page first</span>
-<span class="c1"># and add one to convert from zero indexing to indexing of example</span>
-<span class="n">order</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="n">reverseOrder</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;final order = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">order</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;importance = </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">steadyState</span><span class="p">[</span><span class="n">order</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
-</pre></div>
+<div class="fragment">
+<div id="cc057f4d" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reverse the order to get the most important page first</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and add one to convert from zero indexing to indexing of example</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> reverseOrder[::<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'final order = </span><span class="sc">{}</span><span class="st">'</span>.<span class="bu">format</span>(order))</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'importance = </span><span class="sc">{}</span><span class="st">'</span>.<span class="bu">format</span>(steadyState[order<span class="op">-</span><span class="dv">1</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>final order = [4 6 5 2 3 1]
+importance = [0.37508082 0.28624589 0.20599833 0.05395735 0.04150565 0.03721197]</code></pre>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>final order = [4 6 5 2 3 1]
-importance = [0.37508082 0.28624589 0.20599833 0.05395735 0.04150565 0.03721197]
-</pre></div>
+<div class="ctrd">
+<p><img src="images/deeper-pagerank-fig.jpg" height="350"></p>
 </div>
 </div>
-</div>
-<!-- image credit: Deeper into PageRank -->
-<center>
-<a class="reference internal image-reference" href="_images/deeper-pagerank-fig.jpg"><img alt="Figure" src="_images/deeper-pagerank-fig.jpg" style="width: 250px;" /></a>
-</center></section>
 </section>
 </section>
-<section id="computing-pagerank-the-power-method">
-<h2>Computing PageRank: the Power Method<a class="headerlink" href="#computing-pagerank-the-power-method" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="computing-pagerank-the-power-method" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="computing-pagerank-the-power-method">Computing PageRank: the Power Method</h2>
 <p>From a mathematical standpoint, we are done!</p>
+<div class="fragment">
 <p>However, from a Computer Science standpoint, there are still some issues.</p>
-<p>The most significant issue is simply this: PageRank results must be provided <strong>very quickly.</strong>   Search engines are in competition and speed is a competitive advantage.</p>
+</div>
+<div class="fragment">
+<p>The most significant issue is simply this: PageRank results must be provided <strong>very quickly.</strong> Search engines are in competition and speed is a competitive advantage.</p>
+</div>
+<div class="fragment">
 <p>Here is an example Google search:</p>
-<div class="cell tag_hide-input docutils container">
-<details class="hide above-input">
-<summary aria-label="Toggle hidden content">
-<span class="collapsed">Show code cell source</span>
-<span class="expanded">Hide code cell source</span>
-</summary>
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">display</span><span class="p">(</span><span class="n">Image</span><span class="p">(</span><span class="s2">&quot;images/sample-google-search.jpg&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1000</span><span class="p">))</span>
-</pre></div>
+<div class="ctrd">
+<p><img src="images/sample-google-search.jpg" class="img-fluid" width="550"></p>
 </div>
 </div>
-</details>
-<div class="cell_output docutils container">
-<img alt="_images/f1206e89cfd318bbb842123e343feb0d37a5e4f3369a5964aeb8ef926765e641.jpg" src="_images/f1206e89cfd318bbb842123e343feb0d37a5e4f3369a5964aeb8ef926765e641.jpg" />
-</div>
-</div>
+<div class="fragment">
 <p>Notice that the search returned about 400,000 results!</p>
-<p>Recall that using Gaussian elimination to solve <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> takes <span class="math notranslate nohighlight">\(\sim \frac{2}{3}n^3\)</span> operations.</p>
-<p>In this case, apparently <span class="math notranslate nohighlight">\(n = 400,000.\)</span></p>
+</div>
+<div class="fragment">
+<p>Recall that using Gaussian elimination to solve <span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span> takes <span class="math inline">\(\sim \frac{2}{3}n^3\)</span> operations.</p>
+</div>
+<div class="fragment">
+<p>In this case, apparently <span class="math inline">\(n = 400,000.\)</span></p>
 <p>So computing the PageRank in the straightforward way we’ve described would take about 42,667,000,000,000,000 operations.</p>
 <p>Assuming a 2GHz CPU, that’s on the order of <strong>eight months.</strong></p>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<div id="cb4236f0" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>((<span class="fl">2.</span><span class="op">/</span><span class="dv">3</span>)<span class="op">*</span>(<span class="dv">400000</span><span class="op">**</span><span class="dv">3</span>))<span class="op">/</span>((<span class="dv">2</span><span class="op">*</span><span class="dv">10</span><span class="op">**</span><span class="dv">9</span>)<span class="op">*</span>(<span class="dv">3600</span><span class="op">*</span><span class="dv">24</span><span class="op">*</span><span class="dv">30</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>8.23045267489712</code></pre>
+</div>
+</div>
+</div></div><div class="fragment">
 <p>We need a faster way to compute the PageRank!</p>
-<p>Here is an important point: we only need the <strong>principal</strong> eigenvector. (The one corresponding to <span class="math notranslate nohighlight">\(\lambda = 1\)</span>).</p>
-<p>Let’s review how a Markov chain gets to steady state.  As we discussed at the end of the lecture on the characteristic equation, the state of the chain at any step <span class="math notranslate nohighlight">\(k\)</span> is given by</p>
-<div class="math notranslate nohighlight">
-\[{\bf x_k} = c_1{\bf v_1}\lambda_1^k + c_2{\bf v_2}\lambda_2^k + \dots + c_n{\bf v_n}\lambda_n^k.\]</div>
-<p>Let’s assume that <span class="math notranslate nohighlight">\(\lambda_1\)</span> is the eigenvalue 1.  If the chain converges to steady sate, then we know that all eigenvalues other than <span class="math notranslate nohighlight">\(\lambda_1\)</span> are less than 1 in magnitude.</p>
-<p>Of course, if <span class="math notranslate nohighlight">\(|\lambda_i| &lt; 1,\)</span></p>
-<div class="math notranslate nohighlight">
-\[\lim_{k\rightarrow\infty} \lambda_i^k = 0.\]</div>
+</div>
+<p>Here is an important insight: we only need the <strong>principal</strong> eigenvector. (The one corresponding to <span class="math inline">\(\lambda = 1\)</span>).</p>
+<div class="fragment">
+<p>Let’s review how a Markov chain gets to steady state. As we discussed at the end of the lecture on the characteristic equation, the state of the chain at any step <span class="math inline">\(k\)</span> is given by</p>
+<p><span class="math display">\[{\bf x_k} = c_1{\bf v_1}\lambda_1^k + c_2{\bf v_2}\lambda_2^k + \dots + c_n{\bf v_n}\lambda_n^k.\]</span></p>
+</div>
+<div class="fragment">
+<p>Let’s assume that <span class="math inline">\(\lambda_1\)</span> is the eigenvalue 1. If the chain converges to steady sate, then we know that all eigenvalues other than <span class="math inline">\(\lambda_1\)</span> are less than 1 in magnitude.</p>
+<p>Of course, if <span class="math inline">\(|\lambda_i| &lt; 1,\)</span></p>
+<p><span class="math display">\[\lim_{k\rightarrow\infty} \lambda_i^k = 0.\]</span></p>
+</div>
+<div class="fragment">
 <p>So:</p>
-<div class="math notranslate nohighlight">
-\[\lim_{k\rightarrow\infty}{\bf x_k} = c_1{\bf v_1}.\]</div>
-<p>Note that <span class="math notranslate nohighlight">\(c_1\)</span> is just a constant that doesn’t affect the relative sizes of the components of <span class="math notranslate nohighlight">\({\mathbf{x}_k}\)</span> in the limit of large <span class="math notranslate nohighlight">\(k.\)</span></p>
+<p><span class="math display">\[\lim_{k\rightarrow\infty}{\bf x_k} = c_1{\bf v_1}.\]</span></p>
+<p>Note that <span class="math inline">\(c_1\)</span> is just a constant that doesn’t affect the relative sizes of the components of <span class="math inline">\({\mathbf{x}_k}\)</span> in the limit of large <span class="math inline">\(k.\)</span></p>
+</div>
+<div class="fragment">
 <p>This is another way of stating that the Markov chain goes to steady state <strong>no matter what the starting state is.</strong></p>
+</div>
 <p>This observation suggests another way to compute the steady state of the chain:</p>
-<ol class="arabic simple">
-<li><p>Start from a <strong>random</strong> state <span class="math notranslate nohighlight">\(\mathbf{x}_0\)</span>.</p></li>
-<li><p>Compute <span class="math notranslate nohighlight">\(\mathbf{x}_{k+1} = A\mathbf{x}_k\)</span> for <span class="math notranslate nohighlight">\(k = 0,1,2,3,\dots\)</span></p></li>
+<ol type="1">
+<li>Start from a <strong>random</strong> state <span class="math inline">\(\mathbf{x}_0\)</span>.</li>
+<li>Compute <span class="math inline">\(\mathbf{x}_{k+1} = A\mathbf{x}_k\)</span> for <span class="math inline">\(k = 0,1,2,3,\dots\)</span></li>
 </ol>
+<div class="fragment">
 <p>How do we know when to stop in Step 2?</p>
-<p>Since we are looking for steady-state, we can stop when the difference between <span class="math notranslate nohighlight">\(\mathbf{x}_{k+1}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}_k\)</span> is small.</p>
+<p>Since we are looking for steady-state, we can stop when the difference between <span class="math inline">\(\mathbf{x}_{k+1}\)</span> and <span class="math inline">\(\mathbf{x}_k\)</span> is small.</p>
+</div>
+<div class="fragment">
 <p>This is called the <strong>power method.</strong></p>
+</div>
+<div class="fragment">
 <p>Why is this a better method?</p>
-<p>Keep in mind that the number of flops in matrix-vector multiplication is <span class="math notranslate nohighlight">\(\sim 2n^2\)</span>.</p>
-<p>This is compared to <span class="math notranslate nohighlight">\(\sim \frac{2}{3}n^3\)</span> for solving the system (finding the eigenvector directly).</p>
+</div>
+<div class="fragment">
+<p>Keep in mind that the number of flops in matrix-vector multiplication is <span class="math inline">\(\sim 2n^2\)</span>.</p>
+<p>This is compared to <span class="math inline">\(\sim \frac{2}{3}n^3\)</span> for solving the system (finding the eigenvector directly).</p>
+</div>
+<div class="fragment">
 <p>Let’s say that after computing</p>
-<div class="math notranslate nohighlight">
-\[\mathbf{x}_1 = A \mathbf{x}_0\]</div>
-<div class="math notranslate nohighlight">
-\[\mathbf{x}_2 = A \mathbf{x}_1\]</div>
-<div class="math notranslate nohighlight">
-\[\mathbf{x}_3 = A \mathbf{x}_2\]</div>
-<div class="math notranslate nohighlight">
-\[\mathbf{x}_4 = A \mathbf{x}_3\]</div>
-<div class="math notranslate nohighlight">
-\[\mathbf{x}_5 = A \mathbf{x}_4\]</div>
-<div class="math notranslate nohighlight">
-\[\mathbf{x}_6 = A \mathbf{x}_5\]</div>
-<div class="math notranslate nohighlight">
-\[\mathbf{x}_7 = A \mathbf{x}_6\]</div>
-<div class="math notranslate nohighlight">
-\[\mathbf{x}_8 = A \mathbf{x}_7\]</div>
-<div class="math notranslate nohighlight">
-\[\mathbf{x}_9 = A \mathbf{x}_8\]</div>
-<div class="math notranslate nohighlight">
-\[\mathbf{x}_{10} = A \mathbf{x}_9\]</div>
-<p>we find that <span class="math notranslate nohighlight">\(\mathbf{x}_{10}\)</span> is sufficiently close to <span class="math notranslate nohighlight">\(\mathbf{x}_9.\)</span></p>
+<p><span class="math display">\[\mathbf{x}_1 = A \mathbf{x}_0\]</span></p>
+<p><span class="math display">\[\mathbf{x}_2 = A \mathbf{x}_1\]</span></p>
+<p><span class="math display">\[\mathbf{x}_3 = A \mathbf{x}_2\]</span></p>
+<p><span class="math display">\[\mathbf{x}_4 = A \mathbf{x}_3\]</span></p>
+<p><span class="math display">\[\mathbf{x}_5 = A \mathbf{x}_4\]</span></p>
+<p><span class="math display">\[\mathbf{x}_6 = A \mathbf{x}_5\]</span></p>
+<p><span class="math display">\[\mathbf{x}_7 = A \mathbf{x}_6\]</span></p>
+<p><span class="math display">\[\mathbf{x}_8 = A \mathbf{x}_7\]</span></p>
+<p><span class="math display">\[\mathbf{x}_9 = A \mathbf{x}_8\]</span></p>
+<p><span class="math display">\[\mathbf{x}_{10} = A \mathbf{x}_9\]</span></p>
+<p>we find that <span class="math inline">\(\mathbf{x}_{10}\)</span> is sufficiently close to <span class="math inline">\(\mathbf{x}_9.\)</span></p>
+</div>
+<div class="fragment">
 <p>How much work did we do?</p>
-<p>We did 10 matrix-vector multiplications, or <span class="math notranslate nohighlight">\(20n^2\)</span> flops.</p>
+<p>We did 10 matrix-vector multiplications, or <span class="math inline">\(20n^2\)</span> flops.</p>
+</div>
+<div class="fragment">
 <p>So the power method is</p>
-<div class="math notranslate nohighlight">
-\[\frac{\frac{2}{3}n^3}{20n^2} = \frac{n}{30}\]</div>
+<p><span class="math display">\[\frac{\frac{2}{3}n^3}{20n^2} = \frac{n}{30}\]</span></p>
 <p>times faster than the direct method.</p>
-<p>For our example, <span class="math notranslate nohighlight">\(n/30 = 13,333\)</span>.  So this trick reduces the running time from <strong>8 months</strong> down to <strong>27 minutes.</strong></p>
-<p>This is an example of an <strong>iterative</strong> method.  Iterative methods are often the preferred approach for solving linear algebra problems in the real world.</p>
+</div>
+<div class="fragment">
+<p>For our example, <span class="math inline">\(n/30 = 13,333\)</span>. So this trick reduces the running time from <strong>8 months</strong> down to <strong>27 minutes.</strong></p>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<div id="560efd24" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span><span class="op">*</span><span class="fl">400000.</span><span class="op">**</span><span class="dv">2</span><span class="op">/</span>((<span class="dv">2</span><span class="op">*</span><span class="dv">10</span><span class="op">**</span><span class="dv">9</span>)<span class="op">*</span>(<span class="dv">60</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>26.666666666666668</code></pre>
+</div>
+</div>
+</div></div><p>This is an example of an <strong>iterative</strong> method. Iterative methods are often the preferred approach for solving linear algebra problems in the real world.</p>
+<div class="fragment">
 <p>One final thing: how exactly do we decide when to stop iterating in the power method?</p>
-<p>One simple way is to add up the differences of the components of <span class="math notranslate nohighlight">\(\mathbf{x}_{k+1}-\mathbf{x}_k\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[ s = \sum_{i=1}^n |\mathbf{x}_{k+1,i} - \mathbf{x}_{k,i}| \]</div>
-<p>and compare it to the sum of the components of <span class="math notranslate nohighlight">\(\mathbf{x}_k\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[ d = \sum_{i=1}^n |\mathbf{x}_{k,i}| \]</div>
-<p>If <span class="math notranslate nohighlight">\(s/d\)</span> is small (say, less than 0.001) then we can conclude that <span class="math notranslate nohighlight">\(\mathbf{x}_{k+1}\)</span> is close enough to <span class="math notranslate nohighlight">\(\mathbf{x}_k\)</span> for us to stop iterating.</p>
-<p>So the power method is fast, making it the algorithm of choice for a company like Google.  It is also easy to implement, and easy to parallelize across multiple machines.</p>
-</section>
+</div>
+<div class="fragment">
+<p>One simple way is to add up the differences of the components of <span class="math inline">\(\mathbf{x}_{k+1}-\mathbf{x}_k\)</span>:</p>
+<p><span class="math display">\[ s = \sum_{i=1}^n |\mathbf{x}_{k+1,i} - \mathbf{x}_{k,i}| \]</span></p>
+</div>
+<div class="fragment">
+<p>and compare it to the sum of the components of <span class="math inline">\(\mathbf{x}_k\)</span>:</p>
+<p><span class="math display">\[ d = \sum_{i=1}^n |\mathbf{x}_{k,i}| \]</span></p>
+</div>
+<div class="fragment">
+<p>If <span class="math inline">\(s/d\)</span> is small (say, less than 0.001) then we can conclude that <span class="math inline">\(\mathbf{x}_{k+1}\)</span> is close enough to <span class="math inline">\(\mathbf{x}_k\)</span> for us to stop iterating.</p>
+</div>
+<div class="fragment">
+<p>So the power method is fast, making it the algorithm of choice for a company like Google. It is also easy to implement, and easy to parallelize across multiple machines.</p>
+</div>
+
+
 </section>
 
-    <script type="text/x-thebe-config">
-    {
-        requestKernel: true,
-        binderOptions: {
-            repo: "binder-examples/jupyter-stacks-datascience",
-            ref: "master",
-        },
-        codeMirrorConfig: {
-            theme: "abcdef",
-            mode: "python"
-        },
-        kernelOptions: {
-            name: "python3",
-            path: "./."
-        },
-        predefinedOutput: true
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
     }
-    </script>
-    <script>kernelName = 'python3'</script>
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
 
-                </article>
-              
-
-              
-              
-              
-              
-                <footer class="prev-next-footer">
-                  
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="L18Diagonalization.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Diagonalization</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="L20Orthogonality.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span></p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-history">The History</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#random-walks">Random Walks</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#absorbing-boundaries">Absorbing Boundaries</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-walks-on-undirected-graphs">Random Walks on Undirected Graphs</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-walks-on-directed-graphs">Random Walks on Directed Graphs</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">PageRank</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example.</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1">Step 1.</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2">Step 2.</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3">Step 3.</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4">Step 4.</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#computing-pagerank-the-power-method">Computing PageRank: the Power Method</a></li>
-</ul>
-  </nav></div>
 
-</div></div>
-              
-            
-          </div>
-          <footer class="bd-footer-content">
-            
-<div class="bd-footer-content__inner container">
-  
-  <div class="footer-item">
-    
-<p class="component-author">
-By Mark Crovella.  Portions are based on Lay, 'Linear Algebra and its Applications'
-</p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-</div>
-          </footer>
-        
-
-      </main>
-    </div>
-  </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
-
-  <footer class="bd-footer">
-  </footer>
-  </body>
-</html>
+</body></html>
