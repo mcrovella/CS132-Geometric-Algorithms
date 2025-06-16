@@ -1,401 +1,347 @@
-
-
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<html lang="en" data-content_root="" >
+<title>l20orthogonality – Geometric Algorithms</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
 
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Analytic Geometry in \(\mathbb{R}^n\) &#8212; Linear Algebra, Geometry, and Computation</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
-  </script>
-  
-  <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fec4eca8e712537310c7ebcc1543822c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 
-  
-  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-  
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
-
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
 </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'L20Orthogonality';</script>
-    <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Orthogonal Sets and Projection" href="L21OrthogonalSets.html" />
-    <link rel="prev" title="PageRank" href="L19PageRank.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
-  </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-  
-  
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+<link rel="stylesheet" href="styles.css">
+</head>
 
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
-<form class="bd-search d-flex align-items-center"
-      action="search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
-  
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
-    </header>
-  
+<body class="nav-sidebar docked slimcontent">
 
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
-      
-      
-      
-      <div class="bd-sidebar-primary bd-sidebar">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-    
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-
-  
-
-<a class="navbar-brand logo" href="landing-page.html">
-  
-  
-  
-  
-  
-    
-    
-      
-    
-    
-    <img src="_static/DiagramAR-icon.png" class="logo__image only-light" alt="Linear Algebra, Geometry, and Computation - Home"/>
-    <script>document.write(`<img src="_static/DiagramAR-icon.png" class="logo__image only-dark" alt="Linear Algebra, Geometry, and Computation - Home"/>`);</script>
-  
-  
-</a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item navbar-nav active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="landing-page.html">
-                    Preface
-                </a>
-            </li>
-        </ul>
-        <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="L01LinearEquations.html">Linear Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L02Numerics.html">(Getting Serious About) Numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L03RowReductions.html">Gaussian Elimination</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L04VectorEquations.html">Vector Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L05Axb.html"><span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span></a></li>
-<li class="toctree-l1"><a class="reference internal" href="L06LinearIndependence.html">Linear Independence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L07LinearTransformations.html">Linear Transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L08MatrixofLinearTranformation.html">The Matrix of a Linear Transformation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L09MatrixOperations.html">Matrix Algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L10MatrixInverse.html">The Inverse of a Matrix</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L11MarkovChains.html">Markov Chains</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L12MatrixFactorizations.html">Matrix Factorizations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L13ComputerGraphics.html">Computer Graphics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L14Subspaces.html">Subspaces</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L15DimensionRank.html">Dimension and Rank</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L16Eigenvectors.html">Eigenvectors and Eigenvalues</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L17CharacteristicEqn.html">The Characteristic Equation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L18Diagonalization.html">Diagonalization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L19PageRank.html">PageRank</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span></a></li>
-<li class="toctree-l1"><a class="reference internal" href="L21OrthogonalSets.html">Orthogonal Sets and Projection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L22LeastSquares.html">Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L23LinearModels.html">Linear Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L24SymmetricMatrices.html">Symmetric Matrices</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L25SVD.html">The Singular Value Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L26ApplicationsOfSVD.html">Applications of the SVD</a></li>
-</ul>
-
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L20Orthogonality.html">Analytic Geometry in <span class="math inline">\(\mathbb{R}^n\)</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
-</nav></div>
-    </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-  </div>
-  
-  <div id="rtd-footer-container"></div>
-
-
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./images/DiagramAR-icon.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
       </div>
-      
-      <main id="main-content" class="bd-main">
-        
-        
-
-<div class="sbt-scroll-pixel-helper"></div>
-
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <span class="fa-solid fa-bars"></span>
-</label></div>
-      
-    </div>
-  
-  
-    <div class="header-article-items__end">
-      
-        <div class="header-article-item">
-
-<div class="article-header-buttons">
-
-
-<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms" target="_blank"
-   class="btn btn-sm btn-source-repository-button"
-   title="Source repository"
-   data-bs-placement="bottom" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-
-</a>
-
-
-
-
-
-
-<div class="dropdown dropdown-download-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
-    <i class="fas fa-download"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="_sources/L20Orthogonality.ipynb" target="_blank"
-   class="btn btn-sm btn-download-source-button dropdown-item"
-   title="Download source file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="btn__text-container">.ipynb</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li>
-<button onclick="window.print()"
-  class="btn btn-sm btn-download-pdf-button dropdown-item"
-  title="Print to PDF"
-  data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="btn__text-container">.pdf</span>
-</button>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
-<button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
-  title="Fullscreen mode"
-  data-bs-placement="bottom" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-
-
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
-
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
-</div></div>
-      
-    </div>
-  
-</div>
-</div>
-              
-              
-
-<div id="jb-print-docs-body" class="onlyprint">
-    <h1>Analytic Geometry in \mathbb{R}^n</h1>
-    <!-- Table of contents -->
-    <div id="print-main-content">
-        <div id="jb-print-toc">
-            
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-challenge-extending-geometric-intuition-to-high-dimension">The Challenge: Extending Geometric Intuition to High Dimension</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inner-product-review">Inner Product (Review)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-norm">Vector Norm</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normalization-to-unit-length">Normalization to Unit Length</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distance">Distance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#orthogonality">Orthogonality</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-angle-between-two-vectors">The Angle Between Two Vectors</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-application-cosine-similarity">Example Application: Cosine Similarity.</a></li>
-</ul>
-</li>
-</ul>
-            </nav>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./landing_page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L01LinearEquations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L02Numerics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(Getting Serious About) Numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L03RowReductions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gaussian Elimination</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L04VectorEquations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vector Equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L05Axb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L06LinearIndependence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Independence</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L07LinearTransformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Transformations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L08MatrixofLinearTransformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Matrix of a Linear Transformation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L09MatrixOperations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Matrix Algebra</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L10MatrixInverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Inverse of a Matrix</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L11MarkovChains.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Markov Chains</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L12MatrixFactorizations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Matrix Factorizations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L13ComputerGraphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Computer Graphics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L14Subspaces.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Subspaces</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L15DimensionRank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dimension and Rank</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L16Eigenvectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Eigenvectors and Eigenvalues</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L17CharacteristicEqn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Characteristic Equation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L18Diagonalization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diagonalization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L19PageRank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PageRank</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L20Orthogonality.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Analytic Geometry in <span class="math inline">\(\mathbb{R}^n\)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L21OrthogonalSets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Orthogonal Sets and Projection</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L22LeastSquares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Least Squares</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L23LinearModels.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Models</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L24SymmetricMatrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Symmetric Matrices</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L25SVD.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Singular Value Decomposition</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L26ApplicationsOfSVD.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Applications of the SVD</span></a>
+  </div>
+</li>
+    </ul>
     </div>
-</div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#analytic-geometry-in-mathbbrn" id="toc-analytic-geometry-in-mathbbrn" class="nav-link active" data-scroll-target="#analytic-geometry-in-mathbbrn">Analytic Geometry in <span class="math inline">\(\mathbb{R}^n\)</span></a></li>
+  <li><a href="#the-challenge-extending-geometric-intuition-to-high-dimension" id="toc-the-challenge-extending-geometric-intuition-to-high-dimension" class="nav-link" data-scroll-target="#the-challenge-extending-geometric-intuition-to-high-dimension">The Challenge: Extending Geometric Intuition to High Dimension</a></li>
+  <li><a href="#inner-product-review" id="toc-inner-product-review" class="nav-link" data-scroll-target="#inner-product-review">Inner Product (Review)</a></li>
+  <li><a href="#vector-norm" id="toc-vector-norm" class="nav-link" data-scroll-target="#vector-norm">Vector Norm</a>
+  <ul class="collapse">
+  <li><a href="#normalization-to-unit-length" id="toc-normalization-to-unit-length" class="nav-link" data-scroll-target="#normalization-to-unit-length">Normalization to Unit Length</a></li>
+  </ul></li>
+  <li><a href="#distance" id="toc-distance" class="nav-link" data-scroll-target="#distance">Distance</a></li>
+  <li><a href="#orthogonality" id="toc-orthogonality" class="nav-link" data-scroll-target="#orthogonality">Orthogonality</a></li>
+  <li><a href="#the-angle-between-two-vectors" id="toc-the-angle-between-two-vectors" class="nav-link" data-scroll-target="#the-angle-between-two-vectors">The Angle Between Two Vectors</a>
+  <ul class="collapse">
+  <li><a href="#example-application-cosine-similarity." id="toc-example-application-cosine-similarity." class="nav-link" data-scroll-target="#example-application-cosine-similarity.">Example Application: Cosine Similarity.</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
-              
-                
-<div id="searchbox"></div>
-                <article class="bd-article">
-                  
-  <section class="tex2jax_ignore mathjax_ignore" id="analytic-geometry-in-mathbb-r-n">
-<h1>Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span><a class="headerlink" href="#analytic-geometry-in-mathbb-r-n" title="Permalink to this heading">#</a></h1>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/fc15baa03beeb7db8f68c47b5fc0b78dfbbae38a44c64bb23c3b6b03b24b87cb.jpg" src="_images/fc15baa03beeb7db8f68c47b5fc0b78dfbbae38a44c64bb23c3b6b03b24b87cb.jpg" />
+
+
+
+<!--
+This comment somehow suppresses the title page
+-->
+<section id="analytic-geometry-in-mathbbrn" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="analytic-geometry-in-mathbbrn">Analytic Geometry in <span class="math inline">\(\mathbb{R}^n\)</span></h2>
+<div class="columns">
+<div class="column" style="width:45%;">
+<div class="ctrd">
+<p><img src="images/SC-night.jpg" class="img-fluid" width="450"></p>
 </div>
+</div><div class="column" style="width:45%;">
+<div class="ctrd">
+<p><img src="images/orthogonal-def.png" class="img-fluid" width="450"></p>
 </div>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/fd314ec0f0a34ffbe0952eb5544329822857e29f8721c54f0f2cb292610aa56a.png" src="_images/fd314ec0f0a34ffbe0952eb5544329822857e29f8721c54f0f2cb292610aa56a.png" />
 </div>
 </div>
 <p>Transcript of oral arguments before the US Supreme Court, <em>Briscoe v. Virginia,</em> January 11, 2010:</p>
@@ -411,444 +357,922 @@ document.write(`
 <p><em>(Laughter.)</em></p>
 <p><em>JUSTICE KENNEDY: I knew this case presented us a problem.</em></p>
 <p><em>(Laughter.)</em></p>
-<section id="the-challenge-extending-geometric-intuition-to-high-dimension">
-<h2>The Challenge: Extending Geometric Intuition to High Dimension<a class="headerlink" href="#the-challenge-extending-geometric-intuition-to-high-dimension" title="Permalink to this heading">#</a></h2>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Many parts of this page are based on <em>Linear Algebra and its Applications,</em> by David C. Lay</p>
+</div></div></section>
+<section id="the-challenge-extending-geometric-intuition-to-high-dimension" class="level2">
+<h2 class="anchored" data-anchor-id="the-challenge-extending-geometric-intuition-to-high-dimension">The Challenge: Extending Geometric Intuition to High Dimension</h2>
+<div class="fragment">
 <p>Our challenge today is to begin to lay down the elements of <strong>analytic geometry</strong>.</p>
 <p>The concepts we deal with today will be familiar to you.</p>
+</div>
+<div class="fragment">
 <p>Our goal is not to introduce new ideas, but to cast old ideas into greater <strong>generality.</strong></p>
 <p>In particular, we will take familiar notions and reformulate them in terms of vectors …</p>
 <p>… vectors in <strong>arbitrary</strong> dimension.</p>
-<p>Let’s start with a simple example in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>.</p>
-<p>How would you determine the angle <span class="math notranslate nohighlight">\(\theta\)</span> below?</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/afcb34e06dd572e09700aec27881e0a6f85dc64e0fe6c8b6d14485b48e699f34.png" src="_images/afcb34e06dd572e09700aec27881e0a6f85dc64e0fe6c8b6d14485b48e699f34.png" />
+</div>
+<div class="fragment">
+<p>Let’s start with a simple example in <span class="math inline">\(\mathbb{R}^2\)</span>.</p>
+<p>How would you determine the angle <span class="math inline">\(\theta\)</span> below?</p>
+<div class="ctrd">
+<div id="b54a4033" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L20Orthogonality_files/figure-html/cell-3-output-1.png" width="499" height="268" class="figure-img"></p>
+</figure>
 </div>
 </div>
-<p>This is fairly easy.   Probably we’d take out a protractor and use it to measure <span class="math notranslate nohighlight">\(\theta\)</span>.</p>
-<p>OK, let’s go up one dimension, to <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>.</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/d9af8808bc46e040880dc735ff53478e105dd82d53ca0e36bb98455fc2a1f31d.png" src="_images/d9af8808bc46e040880dc735ff53478e105dd82d53ca0e36bb98455fc2a1f31d.png" />
 </div>
 </div>
+</div>
+<div class="fragment">
+<p>This is fairly easy. Probably we’d take out a protractor and use it to measure <span class="math inline">\(\theta\)</span>.</p>
+</div>
+<div class="fragment">
+<p>OK, let’s go up one dimension, to <span class="math inline">\(\mathbb{R}^3\)</span>.</p>
+<div class="ctrd">
+<div id="309b1513" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L20Orthogonality_files/figure-html/cell-4-output-1.png" width="483" height="526" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
 <p>This seems a little more challenging, but we could probably do it.</p>
-<p>Let’s go up one dimension, to <span class="math notranslate nohighlight">\(\mathbb{R}^4\)</span>:</p>
+<p>Let’s go up one dimension, to <span class="math inline">\(\mathbb{R}^4\)</span>:</p>
+</div>
+<div class="fragment">
 <p>This seems hard!</p>
+</div>
 <p>What we need are ways to capture simple notions:</p>
-<ul class="simple">
-<li><p>length,</p></li>
-<li><p>distance,</p></li>
-<li><p>orthogonality (perpendicularity), and</p></li>
-<li><p>angle.</p></li>
+<ul>
+<li>length,</li>
+<li>distance,</li>
+<li>orthogonality (perpendicularity), and</li>
+<li>angle.</li>
 </ul>
-<p>However we need to take these notions that are familiar from our 3D world and see how to define them for spaces of arbitrary dimension, ie, <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
+<p>However we need to take these notions that are familiar from our 3D world and see how to define them for spaces of arbitrary dimension, ie, <span class="math inline">\(\mathbb{R}^n\)</span>.</p>
 <p>Interestingly, it turns out that these notions (length, distance, perpendicularity, angle) <strong>all</strong> depend on one key notion: the <strong>inner product</strong>.</p>
 <p>In fact, the notion is so important that we refer to a vector space for which there is an inner product as an <strong>inner product space.</strong></p>
+<div class="fragment">
 <p>So let’s briefly return to and review the <strong>inner product.</strong></p>
+</div>
 </section>
-<section id="inner-product-review">
-<h2>Inner Product (Review)<a class="headerlink" href="#inner-product-review" title="Permalink to this heading">#</a></h2>
-<p>Recall that we consider vectors such as <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> to be <span class="math notranslate nohighlight">\(n\times1\)</span> matrices.</p>
-<p>Then <span class="math notranslate nohighlight">\(\mathbf{u}^T\mathbf{v}\)</span> is a scalar, called the <strong>inner product</strong> of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}.\)</span></p>
+<section id="inner-product-review" class="level2">
+<h2 class="anchored" data-anchor-id="inner-product-review">Inner Product (Review)</h2>
+<div class="fragment">
+<p>Recall that we consider vectors such as <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> in <span class="math inline">\(\mathbb{R}^n\)</span> to be <span class="math inline">\(n\times1\)</span> matrices.</p>
+<p>Then <span class="math inline">\(\mathbf{u}^T\mathbf{v}\)</span> is a scalar, called the <strong>inner product</strong> of <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}.\)</span></p>
 <p>You will also see this called the <strong>dot product</strong>.</p>
-<p>It is sometimes written as <span class="math notranslate nohighlight">\(\mathbf{u} \mathbf{\cdot} \mathbf{v}\)</span>, or <span class="math notranslate nohighlight">\(&lt;\mathbf{u}, \mathbf{v}&gt;\)</span></p>
-<p>but we will always write  <span class="math notranslate nohighlight">\(\mathbf{u}^T\mathbf{v}.\)</span></p>
-<p>The inner product is the sum of the componentwise product of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>.</p>
-<p>If <span class="math notranslate nohighlight">\(\mathbf{u} = \begin{bmatrix}u_1\\u_2\\\vdots\\u_n\end{bmatrix}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v} = \begin{bmatrix}v_1\\v_2\\\vdots\\v_n\end{bmatrix},\)</span> then the inner product of <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> is:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\mathbf{u}^T\mathbf{v} = \begin{bmatrix}u_1&amp;u_2&amp;\dots&amp;u_n\end{bmatrix}\begin{bmatrix}v_1\\v_2\\\vdots\\v_n\end{bmatrix} = u_1v_1 + u_2v_2 + \dots + u_nv_n = \sum_{i=1}^n u_iv_i.\end{split}\]</div>
+<p>It is sometimes written as <span class="math inline">\(\mathbf{u} \mathbf{\cdot} \mathbf{v}\)</span>, or <span class="math inline">\(\langle \mathbf{u}, \mathbf{v}\rangle\)</span></p>
+<p>but we will always write <span class="math inline">\(\mathbf{u}^T\mathbf{v}.\)</span></p>
+</div>
+<div class="fragment">
+<p>The inner product is the sum of the componentwise product of <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span>.</p>
+</div>
+<div class="fragment">
+<p>If <span class="math inline">\(\mathbf{u} = \begin{bmatrix}u_1\\u_2\\\vdots\\u_n\end{bmatrix}\)</span> and <span class="math inline">\(\mathbf{v} = \begin{bmatrix}v_1\\v_2\\\vdots\\v_n\end{bmatrix},\)</span> then the inner product of <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> is:</p>
+<p><span class="math display">\[\mathbf{u}^T\mathbf{v} = \begin{bmatrix}u_1&amp;u_2&amp;\dots&amp;u_n\end{bmatrix}\begin{bmatrix}v_1\\v_2\\\vdots\\v_n\end{bmatrix} = u_1v_1 + u_2v_2 + \dots + u_nv_n = \sum_{i=1}^n u_iv_i.\]</span></p>
+</div>
 <p>Let’s remind ourselves of the properties of the inner product:</p>
-<p><strong>Theorem.</strong>  Let <span class="math notranslate nohighlight">\(\mathbf{u}\)</span>,<span class="math notranslate nohighlight">\(\mathbf{v}\)</span>, and <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> be vectors in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, and let <span class="math notranslate nohighlight">\(c\)</span> be a scalar.  Then:</p>
-<ol class="arabic simple">
-<li><p><span class="math notranslate nohighlight">\(\mathbf{u}^T\mathbf{v} = \mathbf{v}^T\mathbf{u}\)</span></p></li>
-</ol>
-<p>Inner product is symmetric.  Note that these two expressions are the transpose of each other – but of course the transpose of a scalar is itself!</p>
-<ol class="arabic simple" start="2">
-<li><p><span class="math notranslate nohighlight">\((\mathbf{u}+\mathbf{v})^T\mathbf{w} = \mathbf{u}^T\mathbf{w} + \mathbf{v}^T\mathbf{w}\)</span></p></li>
-<li><p><span class="math notranslate nohighlight">\((c\mathbf{u})^T\mathbf{v} = c(\mathbf{u}^T\mathbf{v}) = \mathbf{u}^T(c\mathbf{v})\)</span></p></li>
-</ol>
+<div class="fragment">
+<p><strong>Theorem.</strong> Let <span class="math inline">\(\mathbf{u}\)</span>,<span class="math inline">\(\mathbf{v}\)</span>, and <span class="math inline">\(\mathbf{w}\)</span> be vectors in <span class="math inline">\(\mathbb{R}^n\)</span>, and let <span class="math inline">\(c\)</span> be a scalar. Then:</p>
+<p>&nbsp; 1. <span class="math inline">\(\mathbf{u}^T\mathbf{v} = \mathbf{v}^T\mathbf{u}\)</span></p>
+<p>Inner product is symmetric. Note that these two expressions are the transpose of each other – but of course the transpose of a scalar is itself!</p>
+</div>
+<div class="fragment">
+<p>&nbsp; 2. <span class="math inline">\((\mathbf{u}+\mathbf{v})^T\mathbf{w} = \mathbf{u}^T\mathbf{w} + \mathbf{v}^T\mathbf{w}\)</span></p>
+<p>&nbsp; 3. <span class="math inline">\((c\mathbf{u})^T\mathbf{v} = c(\mathbf{u}^T\mathbf{v}) = \mathbf{u}^T(c\mathbf{v})\)</span></p>
 <p>Inner product is <strong>linear</strong> in <strong>each term.</strong></p>
-<ol class="arabic simple" start="4">
-<li><p><span class="math notranslate nohighlight">\(\mathbf{u}^T\mathbf{u} \geq 0,\;\;\;\mbox{and}\;\mathbf{u}^T\mathbf{u} = 0\;\mbox{if and only if}\;\mathbf{u} = 0\)</span></p></li>
-</ol>
+</div>
+<div class="fragment">
+<p>&nbsp; 4. <span class="math inline">\(\mathbf{u}^T\mathbf{u} \geq 0,\;\;\;\text{and}\;\mathbf{u}^T\mathbf{u} = 0\;\text{if and only if}\;\mathbf{u} = 0\)</span></p>
 <p>Inner product of a vector with itself is <strong>never negative.</strong></p>
+</div>
+<div class="fragment">
 <p>The first three are restatements of facts about matrix-vector products.</p>
 <p>The last one is straightforward, but important.</p>
+</div>
+<div class="fragment">
 <p>Now, given that review, let’s start talking about geometry.</p>
+</div>
 </section>
-<section id="vector-norm">
-<h2>Vector Norm<a class="headerlink" href="#vector-norm" title="Permalink to this heading">#</a></h2>
+<section id="vector-norm" class="level2">
+<h2 class="anchored" data-anchor-id="vector-norm">Vector Norm</h2>
 <p>OK, armed with the inner product, let’s get started.</p>
 <p>Our first question will be: How do we measure the <strong>length</strong> of a vector?</p>
-<p>Let’s say we are in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>.  Then the length follows directly from the Pythagorean theorem:</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/7dc3b43203e563b32023fd1e775f2255b89e9b2ad495f21f89b6489a35422047.png" src="_images/7dc3b43203e563b32023fd1e775f2255b89e9b2ad495f21f89b6489a35422047.png" />
+<div class="fragment">
+<p>Let’s say we are in <span class="math inline">\(\mathbb{R}^2\)</span>. Then the length follows directly from the Pythagorean theorem:</p>
+<div class="ctrd">
+<div id="de5679c7" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L20Orthogonality_files/figure-html/cell-5-output-1.png" width="628" height="476" class="figure-img"></p>
+</figure>
 </div>
 </div>
-<p>What happens when we move to <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span>?</p>
+</div>
+</div>
+</div>
+<p>What happens when we move to <span class="math inline">\(\mathbb{R}^3\)</span>?</p>
+<div class="fragment">
 <p>It turns out we need to apply the Pythagorean Theorem an additional time:</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/69241dd70b063faec3fb5d1ecedeaead08fabd80cb0edb08c398a4b8eda41868.png" src="_images/69241dd70b063faec3fb5d1ecedeaead08fabd80cb0edb08c398a4b8eda41868.png" />
+<div class="ctrd">
+<div id="091ac3f0" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L20Orthogonality_files/figure-html/cell-6-output-1.png" width="463" height="520" class="figure-img"></p>
+</figure>
 </div>
 </div>
-<p>So the length of a vector in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> is</p>
-<div class="math notranslate nohighlight">
-\[ \sqrt{v_1^2 + v_2^2 + \dots + v_n^2} = \sqrt{\sum_{i=1}^n{v_i}^2}\]</div>
-<p>Now let’s express this in a way that <strong>does not require writing the individual components</strong> of <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>.</p>
-<p>We notice that the above expression for the length of <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> is the same as:</p>
-<div class="math notranslate nohighlight">
-\[\sqrt{\mathbf{v}^T\mathbf{v}}.\]</div>
-<p>Notice that this is always defined because <span class="math notranslate nohighlight">\(\mathbf{v}^T\mathbf{v}\)</span> is nonnegative.</p>
+</div>
+</div>
+</div>
+<p>So the length of a vector in <span class="math inline">\(\mathbb{R}^n\)</span> is</p>
+<p><span class="math display">\[ \sqrt{v_1^2 + v_2^2 + \dots + v_n^2} = \sqrt{\sum_{i=1}^n{v_i}^2}\]</span></p>
+<div class="fragment">
+<p>Now let’s express this in a way that <strong>does not require writing the individual components</strong> of <span class="math inline">\(\mathbf{v}\)</span>.</p>
+</div>
+<div class="fragment">
+<p>We notice that the above expression for the length of <span class="math inline">\(\mathbf{v}\)</span> is the same as:</p>
+<p><span class="math display">\[\sqrt{\mathbf{v}^T\mathbf{v}}.\]</span></p>
+<p>Notice that this is always defined because <span class="math inline">\(\mathbf{v}^T\mathbf{v}\)</span> is nonnegative.</p>
+</div>
 <p>Length is such a fundamental concept that we introduce a special notation and name for it.</p>
-<p><strong>Definition.</strong> The <strong>norm</strong> of <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> is the nonnegative scalar <span class="math notranslate nohighlight">\(\Vert\mathbf{v}\Vert\)</span> defined by</p>
-<div class="math notranslate nohighlight">
-\[\Vert\mathbf{v}\Vert = \sqrt{\mathbf{v}^T\mathbf{v}} = \sqrt{\sum_{i=1}^n{v_i}^2}.\]</div>
-<section id="normalization-to-unit-length">
-<h3>Normalization to Unit Length<a class="headerlink" href="#normalization-to-unit-length" title="Permalink to this heading">#</a></h3>
-<p>For any scalar <span class="math notranslate nohighlight">\(c\)</span>, the length of <span class="math notranslate nohighlight">\(c\mathbf{v}\)</span> is <span class="math notranslate nohighlight">\(|c|\)</span> times the length of <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>.  That is,</p>
-<div class="math notranslate nohighlight">
-\[\Vert c\mathbf{v}\Vert = \vert c\vert\Vert\mathbf{v}\Vert.\]</div>
-<p>So, for example, <span class="math notranslate nohighlight">\(\Vert(-2)\mathbf{v}\Vert = 2\Vert \mathbf{v}\Vert\)</span>.</p>
+<p><strong>Definition.</strong> The <strong>norm</strong> of <span class="math inline">\(\mathbf{v}\)</span> is the nonnegative scalar <span class="math inline">\(\Vert\mathbf{v}\Vert\)</span> defined by</p>
+<p><span class="math display">\[\Vert\mathbf{v}\Vert = \sqrt{\mathbf{v}^T\mathbf{v}} = \sqrt{\sum_{i=1}^n{v_i}^2}.\]</span></p>
+<section id="normalization-to-unit-length" class="level3">
+<h3 class="anchored" data-anchor-id="normalization-to-unit-length">Normalization to Unit Length</h3>
+<p>For any scalar <span class="math inline">\(c\)</span>, the length of <span class="math inline">\(c\mathbf{v}\)</span> is <span class="math inline">\(|c|\)</span> times the length of <span class="math inline">\(\mathbf{v}\)</span>. That is,</p>
+<p><span class="math display">\[\Vert c\mathbf{v}\Vert = \vert c\vert\Vert\mathbf{v}\Vert.\]</span></p>
+<div class="fragment">
+<p>So, for example, <span class="math inline">\(\Vert(-2)\mathbf{v}\Vert = 2\Vert \mathbf{v}\Vert\)</span>.</p>
+</div>
+<div class="fragment">
 <p>A vector of length 1 is called a <strong>unit vector</strong>.</p>
-<p>If we divide a nonzero vector <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> by its length – that is, multiply by <span class="math notranslate nohighlight">\(1/\Vert\mathbf{v}\Vert\)</span> – we obtain a unit vector <span class="math notranslate nohighlight">\(\mathbf{u}\)</span>.</p>
-<p>We say that we have <em>normalized</em> <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>, and that <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> is <em>in the same direction</em> as <span class="math notranslate nohighlight">\(\mathbf{v}.\)</span></p>
-<p><strong>Example.</strong>  Let <span class="math notranslate nohighlight">\(\mathbf{v} = \begin{bmatrix}1\\-2\\2\\0\end{bmatrix}.\)</span>  Find the unit vector <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> in the same direction as <span class="math notranslate nohighlight">\(\mathbf{v}.\)</span></p>
+</div>
+<div class="fragment">
+<p>If we divide a nonzero vector <span class="math inline">\(\mathbf{v}\)</span> by its length – that is, multiply by <span class="math inline">\(1/\Vert\mathbf{v}\Vert\)</span> – we obtain a unit vector <span class="math inline">\(\mathbf{u}\)</span>.</p>
+<p>We say that we have <em>normalized</em> <span class="math inline">\(\mathbf{v}\)</span>, and that <span class="math inline">\(\mathbf{u}\)</span> is <em>in the same direction</em> as <span class="math inline">\(\mathbf{v}.\)</span></p>
+</div>
+<p><strong>Example.</strong> Let <span class="math inline">\(\mathbf{v} = \begin{bmatrix}1\\-2\\2\\0\end{bmatrix}.\)</span> Find the unit vector <span class="math inline">\(\mathbf{u}\)</span> in the same direction as <span class="math inline">\(\mathbf{v}.\)</span></p>
+<div class="fragment">
 <p><strong>Solution.</strong></p>
-<p>First, compute the length of <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[\Vert\mathbf{v}\Vert^2 = \mathbf{v}^T\mathbf{v} = (1)^2 + (-2)^2 + (2)^2 + (0)^2 = 9\]</div>
-<div class="math notranslate nohighlight">
-\[\Vert\mathbf{v}\Vert = \sqrt{9} = 3\]</div>
-<p>Then multiply <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> by <span class="math notranslate nohighlight">\(1/\Vert\mathbf{v}\Vert\)</span> to obtain</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\mathbf{u} = \frac{1}{\Vert\mathbf{v}\Vert}\mathbf{v} = \frac{1}{3}\mathbf{v} = \frac{1}{3}\begin{bmatrix}1\\-2\\2\\0\end{bmatrix} = \begin{bmatrix}1/3\\-2/3\\2/3\\0\end{bmatrix}\end{split}\]</div>
-<p>It’s important to note that we can’t actually visualize <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> but we can still reason geometrically about it as a unit vector.</p>
+<p>First, compute the length of <span class="math inline">\(\mathbf{v}\)</span>:</p>
+<p><span class="math display">\[\Vert\mathbf{v}\Vert^2 = \mathbf{v}^T\mathbf{v} = (1)^2 + (-2)^2 + (2)^2 + (0)^2 = 9\]</span></p>
+<p><span class="math display">\[\Vert\mathbf{v}\Vert = \sqrt{9} = 3\]</span></p>
+</div>
+<div class="fragment">
+<p>Then multiply <span class="math inline">\(\mathbf{v}\)</span> by <span class="math inline">\(1/\Vert\mathbf{v}\Vert\)</span> to obtain</p>
+<p><span class="math display">\[\mathbf{u} = \frac{1}{\Vert\mathbf{v}\Vert}\mathbf{v} = \frac{1}{3}\mathbf{v} = \frac{1}{3}\begin{bmatrix}1\\-2\\2\\0\end{bmatrix} = \begin{bmatrix}1/3\\-2/3\\2/3\\0\end{bmatrix}\]</span></p>
+</div>
+<div class="fragment">
+<p>It’s important to note that we can’t actually visualize <span class="math inline">\(\mathbf{u}\)</span> but we can still reason geometrically about it as a unit vector.</p>
+</div>
+<div class="fragment">
 <p>For example, we can talk about (2D) circles, (3D) spheres, four-dimensional spheres, five-dimensional spheres, etc.</p>
+</div>
 </section>
 </section>
-<section id="distance">
-<h2>Distance<a class="headerlink" href="#distance" title="Permalink to this heading">#</a></h2>
-<p>It’s very useful to be able to talk about the <strong>distance</strong> between two points (or vectors) in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
+<section id="distance" class="level2">
+<h2 class="anchored" data-anchor-id="distance">Distance</h2>
+<div class="fragment">
+<p>It’s very useful to be able to talk about the <strong>distance</strong> between two points (or vectors) in <span class="math inline">\(\mathbb{R}^n\)</span>.</p>
+</div>
+<div class="fragment">
 <p>We can start from basics:</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/952f81d8a91359d35745f3697e55c37cc7e834c9eccc7439f2bbf266fee29fa1.png" src="_images/952f81d8a91359d35745f3697e55c37cc7e834c9eccc7439f2bbf266fee29fa1.png" />
+<div class="ctrd">
+<div id="330b0fd8" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L20Orthogonality_files/figure-html/cell-7-output-1.png" width="763" height="167" class="figure-img"></p>
+</figure>
 </div>
 </div>
-<p>On the number line (ie, <span class="math notranslate nohighlight">\(\mathbb{R}^1\)</span>), the distance between two points <span class="math notranslate nohighlight">\(a\)</span> and <span class="math notranslate nohighlight">\(b\)</span> is <span class="math notranslate nohighlight">\(\vert a-b\vert\)</span>.</p>
-<p>The same is true in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
-<p><strong>Definition.</strong>  For <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n,\)</span> the <strong>distance between <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>,</strong> written as <span class="math notranslate nohighlight">\(\mbox{dist}(\mathbf{u},\mathbf{v}),\)</span> is the length of the vector <span class="math notranslate nohighlight">\(\mathbf{u}-\mathbf{v}\)</span>.  That is,</p>
-<div class="math notranslate nohighlight">
-\[\mbox{dist}(\mathbf{u},\mathbf{v}) = \Vert\mathbf{u}-\mathbf{v}\Vert.\]</div>
-<p>This definition agrees with the usual formulas for the Euclidean distance between two points.  The usual formula is</p>
-<div class="math notranslate nohighlight">
-\[\mbox{dist}(\mathbf{u},\mathbf{v}) = \sqrt{(u_1-v_1)^2 + (u_2-v_2)^2 + \dots + (u_n-v_n)^2}.\]</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>On the number line (ie, <span class="math inline">\(\mathbb{R}^1\)</span>), the distance between two points <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span> is <span class="math inline">\(\vert a-b\vert\)</span>.</p>
+</div>
+<div class="fragment">
+<p>The same is true in <span class="math inline">\(\mathbb{R}^n\)</span>.</p>
+</div>
+<p><strong>Definition.</strong> For <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> in <span class="math inline">\(\mathbb{R}^n,\)</span> the <strong>distance between <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span>,</strong> written as <span class="math inline">\(\operatorname{dist}(\mathbf{u},\mathbf{v}),\)</span> is the length of the vector <span class="math inline">\(\mathbf{u}-\mathbf{v}\)</span>. That is,</p>
+<p><span class="math display">\[\operatorname{dist}(\mathbf{u},\mathbf{v}) = \Vert\mathbf{u}-\mathbf{v}\Vert.\]</span></p>
+<div class="fragment">
+<p>This definition agrees with the usual formulas for the Euclidean distance between two points. The usual formula is</p>
+<p><span class="math display">\[\operatorname{dist}(\mathbf{u},\mathbf{v}) = \sqrt{(u_1-v_1)^2 + (u_2-v_2)^2 + \dots + (u_n-v_n)^2}.\]</span></p>
+</div>
+<div class="fragment">
 <p>Which you can see is equal to</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\Vert\mathbf{u}-\mathbf{v}\Vert = \sqrt{(\mathbf{u}-\mathbf{v})^T(\mathbf{u}-\mathbf{v})} = \sqrt{\begin{bmatrix}u_1-v_1&amp;u_2-v_2&amp;\dots&amp;u_n-v_n\end{bmatrix}\begin{bmatrix}u_1-v_1\\u_2-v_2\\\vdots\\u_n-v_n\end{bmatrix}}\end{split}\]</div>
+<p><span class="math display">\[\Vert\mathbf{u}-\mathbf{v}\Vert = \sqrt{(\mathbf{u}-\mathbf{v})^T(\mathbf{u}-\mathbf{v})} = \sqrt{\begin{bmatrix}u_1-v_1\dots&amp;u_n-v_n\end{bmatrix}\begin{bmatrix}u_1-v_1\\\vdots\\u_n-v_n\end{bmatrix}}\]</span></p>
+</div>
 <p>There is a geometric view as well.</p>
-<p>For example, consider the vectors <span class="math notranslate nohighlight">\(\mathbf{u} = \begin{bmatrix}7\\1\end{bmatrix}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v} = \begin{bmatrix}3\\2\end{bmatrix}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>.</p>
-<p>Then one can see that the distance from <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> to <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> is the same as the length of the vector <span class="math notranslate nohighlight">\(\mathbf{u}-\mathbf{v}\)</span>.</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/db1b6afce8ad67496b7908328aa4a3184946a918419a2ae8fe61a78a9ab1b9c6.png" src="_images/db1b6afce8ad67496b7908328aa4a3184946a918419a2ae8fe61a78a9ab1b9c6.png" />
+<div class="fragment">
+<p>For example, consider the vectors <span class="math inline">\(\mathbf{u} = \begin{bmatrix}7\\1\end{bmatrix}\)</span> and <span class="math inline">\(\mathbf{v} = \begin{bmatrix}3\\2\end{bmatrix}\)</span> in <span class="math inline">\(\mathbb{R}^2\)</span>.</p>
+<p>Then one can see that the distance from <span class="math inline">\(\mathbf{u}\)</span> to <span class="math inline">\(\mathbf{v}\)</span> is the same as the length of the vector <span class="math inline">\(\mathbf{u}-\mathbf{v}\)</span>.</p>
+<div class="ctrd">
+<div id="67811a89" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L20Orthogonality_files/figure-html/cell-8-output-1.png" width="395" height="402" class="figure-img"></p>
+</figure>
 </div>
 </div>
+</div>
+</div>
+</div>
+<div class="fragment">
 <p>This shows that the distance between two vectors is the length of their difference.</p>
-<div class="toggle docutils container">
-<p>Question Time!  Q 20.1</p>
 </div>
 </section>
-<section id="orthogonality">
-<h2>Orthogonality<a class="headerlink" href="#orthogonality" title="Permalink to this heading">#</a></h2>
-<p>Now we turn to another familiar notion from 2D geometry, which we’ll generalize to <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>: the notion of being <strong>perpendicular.</strong></p>
+<section id="orthogonality" class="level2">
+<h2 class="anchored" data-anchor-id="orthogonality">Orthogonality</h2>
+<div class="fragment">
+<p>Now we turn to another familiar notion from 2D geometry, which we’ll generalize to <span class="math inline">\(\mathbb{R}^n\)</span>: <br> the notion of being <strong>perpendicular.</strong></p>
+</div>
+<div class="fragment">
 <p>Once again, we seek a way to express perpendicularity of two vectors, regardless of the dimension they live in.</p>
+</div>
+<div class="fragment">
 <p>We will say that two vectors are perpendicular if they form a right angle at the origin.</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/d9f78400e349da05fd8b23a9ba74bb5c4acd3cc9dc26ff6079c71f90e7f9e4fa.png" src="_images/d9f78400e349da05fd8b23a9ba74bb5c4acd3cc9dc26ff6079c71f90e7f9e4fa.png" />
+<div class="ctrd">
+<div id="e704a9aa" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L20Orthogonality_files/figure-html/cell-9-output-1.png" width="348" height="342" class="figure-img"></p>
+</figure>
 </div>
 </div>
-<p>Draw the line connecting <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>.</p>
-<p>Then <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> are perpendicular if and only if they make a right triangle with the origin.</p>
-<p>So <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> are perpendicular if and only if the Pythagorean Theorem is satisified for this triangle.</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/95fcb0608059d206797d536e4f7ca1b9c68040a77a11dd663b49154caf08d7c1.png" src="_images/95fcb0608059d206797d536e4f7ca1b9c68040a77a11dd663b49154caf08d7c1.png" />
 </div>
 </div>
+</div>
+<div class="fragment">
+<p>Let’s draw a line connecting <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span>.</p>
+<p>Then <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> are perpendicular if and only if they make a right triangle with the origin.</p>
+<p>So <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> are perpendicular if and only if the Pythagorean Theorem is satisified for this triangle.</p>
+<div class="ctrd">
+<div id="dbdffe97" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L20Orthogonality_files/figure-html/cell-10-output-1.png" width="348" height="342" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
 <p>What is the length of the red side of the triangle?</p>
-<p>According to the definitions we’ve developed today, it is <span class="math notranslate nohighlight">\(\Vert \mathbf{u} - \mathbf{v} \Vert\)</span>.</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/8f2ad2198aff4838243f5bc31dc5caa805395f4f8d7805db23261f7816baf244.png" src="_images/8f2ad2198aff4838243f5bc31dc5caa805395f4f8d7805db23261f7816baf244.png" />
+<p>According to the definitions we’ve developed today, it is <span class="math inline">\(\Vert \mathbf{u} - \mathbf{v} \Vert\)</span>.</p>
+<div class="ctrd">
+<div id="72b46e57" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L20Orthogonality_files/figure-html/cell-11-output-1.png" width="348" height="342" class="figure-img"></p>
+</figure>
 </div>
 </div>
+</div>
+</div>
+</div>
+<div class="fragment">
 <p>So the blue and green lines are perpendicular if and only if:</p>
-<div class="math notranslate nohighlight">
-\[ \Vert \mathbf{u} - \mathbf{v} \Vert^2 = \Vert \mathbf{u} \Vert^2 + \Vert \mathbf{v} \Vert^2\]</div>
+<p><span class="math display">\[ \Vert \mathbf{u} - \mathbf{v} \Vert^2 = \Vert \mathbf{u} \Vert^2 + \Vert \mathbf{v} \Vert^2\]</span></p>
+</div>
+<div class="fragment">
 <p>Let’s see what this implies from an algebraic standpoint.</p>
-<p>First let’s simplify the expression for squared distance from <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> to <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[[\mbox{dist}(\mathbf{u},\mathbf{v})]^2 = \Vert\mathbf{u}-\mathbf{v}\Vert^2\]</div>
-<div class="math notranslate nohighlight">
-\[ = (\mathbf{u}-\mathbf{v})^T(\mathbf{u}-\mathbf{v})\]</div>
-<div class="math notranslate nohighlight">
-\[ = (\mathbf{u}^T-\mathbf{v}^T)(\mathbf{u}-\mathbf{v})\]</div>
-<div class="math notranslate nohighlight">
-\[ = \mathbf{u}^T(\mathbf{u}-\mathbf{v}) - \mathbf{v}^T(\mathbf{u}-\mathbf{v})\]</div>
-<div class="math notranslate nohighlight">
-\[ = \mathbf{u}^T\mathbf{u} - \mathbf{u}^T\mathbf{v} - \mathbf{v}^T\mathbf{u} + \mathbf{v}^T\mathbf{v}\]</div>
-<p>Now, remember that inner product is symmetric, ie, <span class="math notranslate nohighlight">\(\mathbf{u}^T\mathbf{v} = \mathbf{v}^T\mathbf{u}\)</span>, so</p>
-<div class="math notranslate nohighlight">
-\[ = \mathbf{u}^T\mathbf{u} + \mathbf{v}^T\mathbf{v} - 2\mathbf{u}^T\mathbf{v}\]</div>
-<div class="math notranslate nohighlight">
-\[ = \Vert\mathbf{u}\Vert^2 + \Vert\mathbf{v}\Vert^2 - 2\mathbf{u}^T\mathbf{v}\]</div>
+</div>
+<div class="fragment">
+<p>First let’s simplify the expression for squared distance from <span class="math inline">\(\mathbf{u}\)</span> to <span class="math inline">\(\mathbf{v}\)</span>:</p>
+<p><span class="math display">\[[\operatorname{dist}(\mathbf{u},\mathbf{v})]^2 = \Vert\mathbf{u}-\mathbf{v}\Vert^2\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[ = (\mathbf{u}-\mathbf{v})^T(\mathbf{u}-\mathbf{v})\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[ = (\mathbf{u}^T-\mathbf{v}^T)(\mathbf{u}-\mathbf{v})\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[ = \mathbf{u}^T(\mathbf{u}-\mathbf{v}) - \mathbf{v}^T(\mathbf{u}-\mathbf{v})\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[ = \mathbf{u}^T\mathbf{u} - \mathbf{u}^T\mathbf{v} - \mathbf{v}^T\mathbf{u} + \mathbf{v}^T\mathbf{v}\]</span></p>
+</div>
+<div class="fragment">
+<p>Now, remember that inner product is symmetric, ie, <span class="math inline">\(\mathbf{u}^T\mathbf{v} = \mathbf{v}^T\mathbf{u}\)</span>, so</p>
+<p><span class="math display">\[ = \mathbf{u}^T\mathbf{u} + \mathbf{v}^T\mathbf{v} - 2\mathbf{u}^T\mathbf{v}\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[ = \Vert\mathbf{u}\Vert^2 + \Vert\mathbf{v}\Vert^2 - 2\mathbf{u}^T\mathbf{v}\]</span></p>
+</div>
+<div class="fragment">
 <p>Now, let’s go back to the Pythagorean Theorem.</p>
-<p><span class="math notranslate nohighlight">\(  \mathbf{u}\)</span> and <span class="math notranslate nohighlight">\( \mathbf{v} \)</span> are perpendicular if and only if:</p>
-<div class="math notranslate nohighlight">
-\[ \Vert \mathbf{u} - \mathbf{v} \Vert^2 = \Vert \mathbf{u} \Vert^2 + \Vert \mathbf{v} \Vert^2\]</div>
+<p><span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> are perpendicular if and only if:</p>
+<p><span class="math display">\[ \Vert \mathbf{u} - \mathbf{v} \Vert^2 = \Vert \mathbf{u} \Vert^2 + \Vert \mathbf{v} \Vert^2\]</span></p>
+</div>
+<div class="fragment">
 <p>But we’ve seen that this means:</p>
-<div class="math notranslate nohighlight">
-\[ \Vert\mathbf{u}\Vert^2 + \Vert\mathbf{v}\Vert^2 - 2\mathbf{u}^T\mathbf{v}= \Vert \mathbf{u} \Vert^2 + \Vert \mathbf{v} \Vert^2\]</div>
-<p>So now we can define perpendicularity in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>:</p>
-<p><strong>Definition.</strong>  Two vectors <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> are <strong>orthogonal</strong> to each other if <span class="math notranslate nohighlight">\(\mathbf{u}^T\mathbf{v} = 0.\)</span></p>
+<p><span class="math display">\[ \Vert\mathbf{u}\Vert^2 + \Vert\mathbf{v}\Vert^2 - 2\mathbf{u}^T\mathbf{v}= \Vert \mathbf{u} \Vert^2 + \Vert \mathbf{v} \Vert^2\]</span></p>
+</div>
+<p>So now we can define perpendicularity in <span class="math inline">\(\mathbb{R}^n\)</span>:</p>
+<p><strong>Definition.</strong> Two vectors <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> in <span class="math inline">\(\mathbb{R}^n\)</span> are <strong>orthogonal</strong> to each other if <span class="math inline">\(\mathbf{u}^T\mathbf{v} = 0.\)</span></p>
+<div class="fragment">
 <p>As you can see, we have introduced a new term for this notion: <strong>orthogonal</strong>.</p>
 <p>So when we are referring to vectors, <strong>orthogonal</strong> means the same thing as <strong>perpendicular</strong>.</p>
-<div class="toggle docutils container">
-<p>Question Time!   Q20.2</p>
 </div>
 </section>
-<section id="the-angle-between-two-vectors">
-<h2>The Angle Between Two Vectors<a class="headerlink" href="#the-angle-between-two-vectors" title="Permalink to this heading">#</a></h2>
+<section id="the-angle-between-two-vectors" class="level2">
+<h2 class="anchored" data-anchor-id="the-angle-between-two-vectors">The Angle Between Two Vectors</h2>
+<div class="fragment">
 <p>There is an important connection between the inner product of two vectors and the <strong>angle</strong> between them.</p>
 <p>This connection is very useful (eg, in thinking about data mining operations).</p>
+</div>
+<div class="fragment">
 <p>We start from the <strong>law of cosines:</strong></p>
-<div class="math notranslate nohighlight">
-\[ c^2 = a^2 + b^2 - 2ab\cos\theta\]</div>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/705b22831f24f444071064c48f9123fc7bb64675caad8a4c3c44623d9b13e3b2.png" src="_images/705b22831f24f444071064c48f9123fc7bb64675caad8a4c3c44623d9b13e3b2.png" />
+<p><span class="math display">\[ c^2 = a^2 + b^2 - 2ab\cos\theta\]</span></p>
+<div class="ctrd">
+<div id="ea23a0d3" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L20Orthogonality_files/figure-html/cell-12-output-1.png" width="466" height="241" class="figure-img"></p>
+</figure>
 </div>
 </div>
-<p>Now let’s interpret this law in terms of vectors <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Now let’s interpret this law in terms of vectors <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span>.</p>
 <p>Once again, it is the angle that these vectors make at the origin that we are concerned with:</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/dd33b285b1a14c43ed92c4b78abe6e996cbb6eb7569aab04f94081802e51fc42.png" src="_images/dd33b285b1a14c43ed92c4b78abe6e996cbb6eb7569aab04f94081802e51fc42.png" />
+<div class="ctrd">
+<div id="53ffd303" class="cell" data-execution_count="12">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L20Orthogonality_files/figure-html/cell-13-output-1.png" width="480" height="254" class="figure-img"></p>
+</figure>
 </div>
 </div>
+</div>
+</div>
+</div>
+<div class="fragment">
 <p>Applying the law of cosines we get:</p>
-<div class="math notranslate nohighlight">
-\[\Vert\mathbf{u}-\mathbf{v}\Vert^2 = \Vert\mathbf{u}\Vert^2 + \Vert\mathbf{v}\Vert^2 - 2\Vert\mathbf{u}\Vert\Vert\mathbf{v}\Vert\cos\theta\]</div>
+<p><span class="math display">\[\Vert\mathbf{u}-\mathbf{v}\Vert^2 = \Vert\mathbf{u}\Vert^2 + \Vert\mathbf{v}\Vert^2 - 2\Vert\mathbf{u}\Vert\Vert\mathbf{v}\Vert\cos\theta\]</span></p>
+</div>
+<div class="fragment">
 <p>Now, previously we calculated that:</p>
-<div class="math notranslate nohighlight">
-\[  \Vert\mathbf{u}-\mathbf{v}\Vert^2 = (\mathbf{u}-\mathbf{v})^T(\mathbf{u}-\mathbf{v})\]</div>
-<div class="math notranslate nohighlight">
-\[ = \Vert\mathbf{u}\Vert^2 + \Vert\mathbf{v}\Vert^2 - 2\mathbf{u}^T\mathbf{v}\]</div>
+<p><span class="math display">\[  \Vert\mathbf{u}-\mathbf{v}\Vert^2 = (\mathbf{u}-\mathbf{v})^T(\mathbf{u}-\mathbf{v})\]</span></p>
+<p><span class="math display">\[ = \Vert\mathbf{u}\Vert^2 + \Vert\mathbf{v}\Vert^2 - 2\mathbf{u}^T\mathbf{v}\]</span></p>
+</div>
+<div class="fragment">
 <p>Which means that</p>
-<div class="math notranslate nohighlight">
-\[ 2\mathbf{u}^T\mathbf{v} = 2\Vert\mathbf{u}\Vert\Vert\mathbf{v}\Vert\cos\theta\]</div>
+<p><span class="math display">\[ 2\mathbf{u}^T\mathbf{v} = 2\Vert\mathbf{u}\Vert\Vert\mathbf{v}\Vert\cos\theta\]</span></p>
+</div>
+<div class="fragment">
 <p>So</p>
-<div class="math notranslate nohighlight">
-\[ \mathbf{u}^T\mathbf{v} = \Vert\mathbf{u}\Vert\Vert\mathbf{v}\Vert\cos\theta\]</div>
+<p><span class="math display">\[ \mathbf{u}^T\mathbf{v} = \Vert\mathbf{u}\Vert\Vert\mathbf{v}\Vert\cos\theta\]</span></p>
+</div>
+<div class="fragment">
 <p>This is a <strong>very</strong> important connection between the notion of inner product and trigonometry.</p>
-<p>As a quick check, note that if <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> are nonzero, and <span class="math notranslate nohighlight">\(\mathbf{u}^T\mathbf{v} = 0\)</span>, then <span class="math notranslate nohighlight">\(\cos\theta = 0.\)</span></p>
-<p>In other words, the angle between <span class="math notranslate nohighlight">\(\mathbf{u}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}\)</span> is 90 degrees (or 270 degrees).  So this agrees with our definition of orthogonality.</p>
+</div>
+<div class="fragment">
+<p>As a quick check, note that if <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> are nonzero, and <span class="math inline">\(\mathbf{u}^T\mathbf{v} = 0\)</span>, then <span class="math inline">\(\cos\theta = 0.\)</span></p>
+<p>In other words, the angle between <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> is 90 degrees (or 270 degrees). So this agrees with our definition of orthogonality.</p>
+</div>
 <p>One implication in particular concerns <strong>unit vectors.</strong></p>
-<div class="math notranslate nohighlight">
-\[ \mathbf{u}^T\mathbf{v} = \Vert\mathbf{u}\Vert\Vert\mathbf{v}\Vert\cos\theta\]</div>
+<p><span class="math display">\[ \mathbf{u}^T\mathbf{v} = \Vert\mathbf{u}\Vert\Vert\mathbf{v}\Vert\cos\theta\]</span></p>
+<div class="fragment">
 <p>So</p>
-<div class="math notranslate nohighlight">
-\[ \frac{\mathbf{u}^T\mathbf{v}}{\Vert\mathbf{u}\Vert\Vert\mathbf{v}\Vert} = \cos\theta\]</div>
-<div class="math notranslate nohighlight">
-\[ \frac{\mathbf{u}^T}{\Vert\mathbf{u}\Vert}\frac{\mathbf{v}}{\Vert\mathbf{v}\Vert} = \cos\theta\]</div>
-<p>Note that <span class="math notranslate nohighlight">\(\frac{\mathbf{u}}{\Vert\mathbf{u}\Vert}\)</span> and <span class="math notranslate nohighlight">\(\frac{\mathbf{v}}{\Vert\mathbf{v}\Vert}\)</span> are unit vectors.</p>
+<p><span class="math display">\[ \frac{\mathbf{u}^T\mathbf{v}}{\Vert\mathbf{u}\Vert\Vert\mathbf{v}\Vert} = \cos\theta\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[ \frac{\mathbf{u}^T}{\Vert\mathbf{u}\Vert}\frac{\mathbf{v}}{\Vert\mathbf{v}\Vert} = \cos\theta\]</span></p>
+</div>
+<div class="fragment">
+<p>Note that <span class="math inline">\(\frac{\mathbf{u}}{\Vert\mathbf{u}\Vert}\)</span> and <span class="math inline">\(\frac{\mathbf{v}}{\Vert\mathbf{v}\Vert}\)</span> are unit vectors.</p>
+</div>
+<div class="fragment">
 <p>So we have the very simple rule, that for two <strong>unit</strong> vectors, their inner product is the cosine of the angle between them!</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/514ad5e82bc13755c80fe3b4e7fcc116e2613f4e0993b694aec61347a9ee96d8.png" src="_images/514ad5e82bc13755c80fe3b4e7fcc116e2613f4e0993b694aec61347a9ee96d8.png" />
+</div>
+<div class="ctrd">
+<div id="7f638b8b" class="cell" data-execution_count="13">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L20Orthogonality_files/figure-html/cell-14-output-1.png" width="614" height="315" class="figure-img"></p>
+</figure>
 </div>
 </div>
-<p>Here <span class="math notranslate nohighlight">\(\mathbf{u} = \begin{bmatrix}0.95\\0.31\end{bmatrix},\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v} = \begin{bmatrix}0.20\\0.98\end{bmatrix}.\)</span></p>
-<p>So <span class="math notranslate nohighlight">\(\mathbf{u}^T\mathbf{v} = (0.95\cdot 0.20) + (0.31 \cdot 0.98) = 0.5\)</span></p>
-<p>So <span class="math notranslate nohighlight">\(\cos\theta = 0.5.\)</span></p>
-<p>So <span class="math notranslate nohighlight">\(\theta = 60\)</span> degrees.</p>
+</div>
+</div>
+<div class="fragment">
+<p>Here <span class="math inline">\(\mathbf{u} = \begin{bmatrix}0.95\\0.31\end{bmatrix},\)</span> and <span class="math inline">\(\mathbf{v} = \begin{bmatrix}0.20\\0.98\end{bmatrix}.\)</span></p>
+<p>So <span class="math inline">\(\mathbf{u}^T\mathbf{v} = (0.95\cdot 0.20) + (0.31 \cdot 0.98) = 0.5\)</span></p>
+<p>So <span class="math inline">\(\cos\theta = 0.5.\)</span></p>
+<p>So <span class="math inline">\(\theta = 60\)</span> degrees.</p>
+</div>
 <p><strong>Example.</strong> Find the angle formed by the vectors:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\mathbf{u} = \begin{bmatrix}1\\3\\-7\\-2\end{bmatrix} \;\;\mbox{and}\;\; \mathbf{v} = \begin{bmatrix}8\\-2\\4\\6\end{bmatrix}\end{split}\]</div>
+<p><span class="math display">\[\mathbf{u} = \begin{bmatrix}1\\3\\-7\\-2\end{bmatrix} \;\;\text{and}\;\; \mathbf{v} = \begin{bmatrix}8\\-2\\4\\6\end{bmatrix}\]</span></p>
+<div class="fragment">
 <p><strong>Solution.</strong></p>
 <p>First normalize the vectors:</p>
-<div class="math notranslate nohighlight">
-\[\Vert\mathbf{u}\Vert = \sqrt{1^2 + 3^2 + (-7)^2 + (-2)^2} = 7.93 \]</div>
-<div class="math notranslate nohighlight">
-\[\Vert\mathbf{v}\Vert = \sqrt{8^2 + (-2)^2 + 4^2 + 6^2} = 10.95 \]</div>
+<p><span class="math display">\[\Vert\mathbf{u}\Vert = \sqrt{1^2 + 3^2 + (-7)^2 + (-2)^2} = 7.93 \]</span> <span class="math display">\[\Vert\mathbf{v}\Vert = \sqrt{8^2 + (-2)^2 + 4^2 + 6^2} = 10.95 \]</span></p>
+</div>
+<div class="fragment">
 <p>So</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\frac{\mathbf{u}}{\Vert\mathbf{u}\Vert} = \begin{bmatrix}0.13\\0.38\\-0.88\\-0.25\end{bmatrix}
-\;\;\mbox{and}\;\;\frac{\mathbf{v}}{\Vert\mathbf{v}\Vert} = \begin{bmatrix}0.73\\-0.18\\0.36\\0.54\end{bmatrix}\end{split}\]</div>
-<p>Then calculate the cosine of the angle between them:</p>
-<div class="math notranslate nohighlight">
-\[\cos\theta = \frac{\mathbf{u}^T}{\Vert\mathbf{u}\Vert}\frac{\mathbf{v}}{\Vert\mathbf{v}\Vert}\]</div>
-<div class="math notranslate nohighlight">
-\[ = (0.13\cdot0.73)+(0.38\cdot -0.18)+(-0.88\cdot 0.36)+(-0.25\cdot0.54)\]</div>
-<div class="math notranslate nohighlight">
-\[= -0.44\]</div>
+<p><span class="math display">\[\frac{\mathbf{u}}{\Vert\mathbf{u}\Vert} = \begin{bmatrix}0.13\\0.38\\-0.88\\-0.25\end{bmatrix}
+\;\;\text{and}\;\;\frac{\mathbf{v}}{\Vert\mathbf{v}\Vert} = \begin{bmatrix}0.73\\-0.18\\0.36\\0.54\end{bmatrix}\]</span></p>
+</div>
+<div class="fragment">
+<p>So</p>
+<p><span class="math display">\[\frac{\mathbf{u}}{\Vert\mathbf{u}\Vert} = \begin{bmatrix}0.13\\0.38\\-0.88\\-0.25\end{bmatrix}
+\;\;\text{and}\;\;\frac{\mathbf{v}}{\Vert\mathbf{v}\Vert} = \begin{bmatrix}0.73\\-0.18\\0.36\\0.54\end{bmatrix}\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[ = (0.13\cdot0.73)+(0.38\cdot -0.18)+(-0.88\cdot 0.36)+(-0.25\cdot0.54)\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[= -0.44\]</span></p>
+</div>
+<div class="fragment">
 <p>Then:</p>
-<div class="math notranslate nohighlight">
-\[\theta = \cos^{-1}(-0.44)\]</div>
-<div class="math notranslate nohighlight">
-\[= 116\;\mbox{degrees.}\]</div>
-<section id="example-application-cosine-similarity">
-<h3>Example Application: Cosine Similarity.<a class="headerlink" href="#example-application-cosine-similarity" title="Permalink to this heading">#</a></h3>
+<p><span class="math display">\[\theta = \cos^{-1}(-0.44)\]</span></p>
+<p><span class="math display">\[= 116\;\text{degrees.}\]</span></p>
+</div>
+<section id="example-application-cosine-similarity." class="level3">
+<h3 class="anchored" data-anchor-id="example-application-cosine-similarity.">Example Application: Cosine Similarity.</h3>
 <p>A typical example where these techniques are valuable arises in data science.</p>
-<p>Let’s say we are given two documents <span class="math notranslate nohighlight">\(d_1\)</span> and <span class="math notranslate nohighlight">\(d_2\)</span>.  Each is a collection of “words.”</p>
+<p>Let’s say we are given two documents <span class="math inline">\(d_1\)</span> and <span class="math inline">\(d_2\)</span>. Each is a collection of “words.”</p>
 <p>For a goal such as information retrieval, we’d like to know whether the two documents are “similar”.</p>
+<div class="fragment">
 <p>One common way to formalize similarity is to say that documents are similar if the sets of words they contain are similar.</p>
-<p>We can measure this as follows: Construct a vector <span class="math notranslate nohighlight">\(\mathbf{x}_1\)</span> that counts the frequency of occurrence of certain words in <span class="math notranslate nohighlight">\(d_1\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split} \begin{bmatrix}
+</div>
+<div class="fragment">
+<p>We can measure this as follows: Construct a vector <span class="math inline">\(\mathbf{x}_1\)</span> that counts the frequency of occurrence of certain words in <span class="math inline">\(d_1\)</span>:</p>
+<p><span class="math display">\[ \begin{bmatrix}
 dog\\ car \\ house \\ \dots \\ door
 \end{bmatrix} \;\; \rightarrow \;\;
 \begin{bmatrix}
 3\\ 7 \\ 4 \\ \dots \\ 20
-\end{bmatrix} \end{split}\]</div>
-<p>Do the same thing for <span class="math notranslate nohighlight">\(d_2\)</span>, yielding <span class="math notranslate nohighlight">\(\mathbf{x_2}\)</span>.</p>
-<p>What we have done is taken individual documents and represented them as vectors <span class="math notranslate nohighlight">\(\mathbf{x}_1\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}_2\)</span> in a very high dimensional space, <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>.</p>
-<p>Here <span class="math notranslate nohighlight">\(n\)</span> could be 10,000 or more.</p>
+\end{bmatrix} \]</span></p>
+<p>Do the same thing for <span class="math inline">\(d_2\)</span>, yielding <span class="math inline">\(\mathbf{x_2}\)</span>.</p>
+</div>
+<div class="fragment">
+<p>What we have done is taken individual documents and represented them as vectors <span class="math inline">\(\mathbf{x}_1\)</span> and <span class="math inline">\(\mathbf{x}_2\)</span> in a very high dimensional space, <span class="math inline">\(\mathbb{R}^n\)</span>.</p>
+<p>Here <span class="math inline">\(n\)</span> could be 10,000 or more.</p>
+</div>
+<div class="fragment">
 <p>Now, to ask whether the two documents are similar, we simply ask “do their vectors point in the same general direction?”</p>
+</div>
+<div class="fragment">
 <p>And, despite the fact that we are in a very high dimensional space which we cannot visualize, we can nonetheless answer the question easily.</p>
 <p>The angle between the two document-vectors is simply:</p>
-<div class="math notranslate nohighlight">
-\[\theta_{1,2} = \cos^{-1}\frac{\mathbf{x_1}^T}{\Vert\mathbf{x_1}\Vert}\frac{\mathbf{x_2}}{\Vert\mathbf{x_2}\Vert}\]</div>
-</section>
+<p><span class="math display">\[\theta_{1,2} = \cos^{-1}\frac{\mathbf{x_1}^T}{\Vert\mathbf{x_1}\Vert}\frac{\mathbf{x_2}}{\Vert\mathbf{x_2}\Vert}\]</span></p>
+</div>
+
+
 </section>
 </section>
 
-    <script type="text/x-thebe-config">
-    {
-        requestKernel: true,
-        binderOptions: {
-            repo: "binder-examples/jupyter-stacks-datascience",
-            ref: "master",
-        },
-        codeMirrorConfig: {
-            theme: "abcdef",
-            mode: "python"
-        },
-        kernelOptions: {
-            name: "python3",
-            path: "./."
-        },
-        predefinedOutput: true
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
     }
-    </script>
-    <script>kernelName = 'python3'</script>
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
 
-                </article>
-              
-
-              
-              
-              
-              
-                <footer class="prev-next-footer">
-                  
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="L19PageRank.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">PageRank</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="L21OrthogonalSets.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Orthogonal Sets and Projection</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-challenge-extending-geometric-intuition-to-high-dimension">The Challenge: Extending Geometric Intuition to High Dimension</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#inner-product-review">Inner Product (Review)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-norm">Vector Norm</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#normalization-to-unit-length">Normalization to Unit Length</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distance">Distance</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#orthogonality">Orthogonality</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-angle-between-two-vectors">The Angle Between Two Vectors</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-application-cosine-similarity">Example Application: Cosine Similarity.</a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
 
-</div></div>
-              
-            
-          </div>
-          <footer class="bd-footer-content">
-            
-<div class="bd-footer-content__inner container">
-  
-  <div class="footer-item">
-    
-<p class="component-author">
-By Mark Crovella.  Portions are based on Lay, 'Linear Algebra and its Applications'
-</p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-</div>
-          </footer>
-        
-
-      </main>
-    </div>
-  </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
-
-  <footer class="bd-footer">
-  </footer>
-  </body>
-</html>
+</body></html>

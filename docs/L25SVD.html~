@@ -1,841 +1,1212 @@
-
-
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<html lang="en" data-content_root="" >
+<title>l25svd – Geometric Algorithms</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
 
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>The Singular Value Decomposition &#8212; Linear Algebra, Geometry, and Computation</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
-  </script>
-  
-  <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-fec4eca8e712537310c7ebcc1543822c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 
-  
-  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-  
-  <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
-
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/clipboard.min.js"></script>
-    <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
-    <script>let toggleHintShow = 'Click to show';</script>
-    <script>let toggleHintHide = 'Click to hide';</script>
-    <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
 </script>
-    <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'L25SVD';</script>
-    <link rel="shortcut icon" href="_static/DiagramAR-icon.png"/>
-    <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Applications of the SVD" href="L26ApplicationsOfSVD.html" />
-    <link rel="prev" title="Symmetric Matrices" href="L24SymmetricMatrices.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
-  </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-  
-  
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <div id="pst-scroll-pixel-helper"></div>
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+<link rel="stylesheet" href="styles.css">
+</head>
 
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
-<form class="bd-search d-flex align-items-center"
-      action="search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
-  
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
-    </header>
-  
+<body class="nav-sidebar docked slimcontent">
 
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
-      
-      
-      
-      <div class="bd-sidebar-primary bd-sidebar">
-        
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-    
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-
-  
-
-<a class="navbar-brand logo" href="landing-page.html">
-  
-  
-  
-  
-  
-    
-    
-      
-    
-    
-    <img src="_static/DiagramAR-icon.png" class="logo__image only-light" alt="Linear Algebra, Geometry, and Computation - Home"/>
-    <script>document.write(`<img src="_static/DiagramAR-icon.png" class="logo__image only-dark" alt="Linear Algebra, Geometry, and Computation - Home"/>`);</script>
-  
-  
-</a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item navbar-nav active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="landing-page.html">
-                    Preface
-                </a>
-            </li>
-        </ul>
-        <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="L01LinearEquations.html">Linear Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L02Numerics.html">(Getting Serious About) Numbers</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L03RowReductions.html">Gaussian Elimination</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L04VectorEquations.html">Vector Equations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L05Axb.html"><span class="math notranslate nohighlight">\(A{\bf x} = {\bf b}\)</span></a></li>
-<li class="toctree-l1"><a class="reference internal" href="L06LinearIndependence.html">Linear Independence</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L07LinearTransformations.html">Linear Transformations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L08MatrixofLinearTranformation.html">The Matrix of a Linear Transformation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L09MatrixOperations.html">Matrix Algebra</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L10MatrixInverse.html">The Inverse of a Matrix</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L11MarkovChains.html">Markov Chains</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L12MatrixFactorizations.html">Matrix Factorizations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L13ComputerGraphics.html">Computer Graphics</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L14Subspaces.html">Subspaces</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L15DimensionRank.html">Dimension and Rank</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L16Eigenvectors.html">Eigenvectors and Eigenvalues</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L17CharacteristicEqn.html">The Characteristic Equation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L18Diagonalization.html">Diagonalization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L19PageRank.html">PageRank</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L20Orthogonality.html">Analytic Geometry in <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span></a></li>
-<li class="toctree-l1"><a class="reference internal" href="L21OrthogonalSets.html">Orthogonal Sets and Projection</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L22LeastSquares.html">Least Squares</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L23LinearModels.html">Linear Models</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L24SymmetricMatrices.html">Symmetric Matrices</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">The Singular Value Decomposition</a></li>
-<li class="toctree-l1"><a class="reference internal" href="L26ApplicationsOfSVD.html">Applications of the SVD</a></li>
-</ul>
-
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./L25SVD.html">The Singular Value Decomposition</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
-</nav></div>
-    </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-  </div>
-  
-  <div id="rtd-footer-container"></div>
-
-
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./images/DiagramAR-icon.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
       </div>
-      
-      <main id="main-content" class="bd-main">
-        
-        
-
-<div class="sbt-scroll-pixel-helper"></div>
-
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <span class="fa-solid fa-bars"></span>
-</label></div>
-      
-    </div>
-  
-  
-    <div class="header-article-items__end">
-      
-        <div class="header-article-item">
-
-<div class="article-header-buttons">
-
-
-<a href="https://github.com/mcrovella/CS132-Geometric-Algorithms" target="_blank"
-   class="btn btn-sm btn-source-repository-button"
-   title="Source repository"
-   data-bs-placement="bottom" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-
-</a>
-
-
-
-
-
-
-<div class="dropdown dropdown-download-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
-    <i class="fas fa-download"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="_sources/L25SVD.ipynb" target="_blank"
-   class="btn btn-sm btn-download-source-button dropdown-item"
-   title="Download source file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="btn__text-container">.ipynb</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li>
-<button onclick="window.print()"
-  class="btn btn-sm btn-download-pdf-button dropdown-item"
-  title="Print to PDF"
-  data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="btn__text-container">.pdf</span>
-</button>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
-<button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
-  title="Fullscreen mode"
-  data-bs-placement="bottom" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-expand"></i>
-  </span>
-
-</button>
-
-
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
-
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
-</div></div>
-      
-    </div>
-  
-</div>
-</div>
-              
-              
-
-<div id="jb-print-docs-body" class="onlyprint">
-    <h1>The Singular Value Decomposition</h1>
-    <!-- Table of contents -->
-    <div id="print-main-content">
-        <div id="jb-print-toc">
-            
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximizing-vert-a-mathbf-x-vert">Maximizing <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert\)</span></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vert-a-mathbf-x-vert-2-is-a-quadratic-form"><span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert^2\)</span> is a Quadratic Form</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-singular-values-of-a-matrix">The Singular Values of a Matrix</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-eigenvectors-of-a-ta-lead-to-an-orthogonal-basis-for-operatorname-col-a">The Eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span> Lead To an Orthogonal Basis for <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">The Singular Value Decomposition</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-reduced-svd-and-the-pseudoinverse">The Reduced SVD and the Pseudoinverse</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-pseudoinverse">The Pseudoinverse</a></li>
-</ul>
-</li>
-</ul>
-            </nav>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./landing_page.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L01LinearEquations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L02Numerics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">(Getting Serious About) Numbers</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L03RowReductions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gaussian Elimination</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L04VectorEquations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Vector Equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L05Axb.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L06LinearIndependence.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Independence</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L07LinearTransformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Transformations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L08MatrixofLinearTransformations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Matrix of a Linear Transformation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L09MatrixOperations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Matrix Algebra</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L10MatrixInverse.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Inverse of a Matrix</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L11MarkovChains.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Markov Chains</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L12MatrixFactorizations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Matrix Factorizations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L13ComputerGraphics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Computer Graphics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L14Subspaces.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Subspaces</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L15DimensionRank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dimension and Rank</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L16Eigenvectors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Eigenvectors and Eigenvalues</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L17CharacteristicEqn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Characteristic Equation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L18Diagonalization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Diagonalization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L19PageRank.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PageRank</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L20Orthogonality.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Analytic Geometry in <span class="math inline">\(\mathbb{R}^n\)</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L21OrthogonalSets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Orthogonal Sets and Projection</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L22LeastSquares.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Least Squares</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L23LinearModels.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Models</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L24SymmetricMatrices.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Symmetric Matrices</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L25SVD.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">The Singular Value Decomposition</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./L26ApplicationsOfSVD.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Applications of the SVD</span></a>
+  </div>
+</li>
+    </ul>
     </div>
-</div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-singular-value-decomposition" id="toc-the-singular-value-decomposition" class="nav-link active" data-scroll-target="#the-singular-value-decomposition">The Singular Value Decomposition</a></li>
+  <li><a href="#maximizing-vert-amathbfxvert" id="toc-maximizing-vert-amathbfxvert" class="nav-link" data-scroll-target="#maximizing-vert-amathbfxvert">Maximizing <span class="math inline">\(\Vert A\mathbf{x}\Vert\)</span></a>
+  <ul class="collapse">
+  <li><a href="#vert-amathbfxvert2-is-a-quadratic-form" id="toc-vert-amathbfxvert2-is-a-quadratic-form" class="nav-link" data-scroll-target="#vert-amathbfxvert2-is-a-quadratic-form"><span class="math inline">\(\Vert A\mathbf{x}\Vert^2\)</span> is a Quadratic Form</a></li>
+  </ul></li>
+  <li><a href="#the-singular-values-of-a-matrix" id="toc-the-singular-values-of-a-matrix" class="nav-link" data-scroll-target="#the-singular-values-of-a-matrix">The Singular Values of a Matrix</a>
+  <ul class="collapse">
+  <li><a href="#the-eigenvectors-of-ata-lead-to-an-orthogonal-basis-for-operatornamecol-a" id="toc-the-eigenvectors-of-ata-lead-to-an-orthogonal-basis-for-operatornamecol-a" class="nav-link" data-scroll-target="#the-eigenvectors-of-ata-lead-to-an-orthogonal-basis-for-operatornamecol-a">The Eigenvectors of <span class="math inline">\(A^TA\)</span> Lead To an Orthogonal Basis for <span class="math inline">\(\operatorname{Col} A\)</span></a></li>
+  </ul></li>
+  <li><a href="#the-singular-value-decomposition-1" id="toc-the-singular-value-decomposition-1" class="nav-link" data-scroll-target="#the-singular-value-decomposition-1">The Singular Value Decomposition</a></li>
+  <li><a href="#the-reduced-svd-and-the-pseudoinverse" id="toc-the-reduced-svd-and-the-pseudoinverse" class="nav-link" data-scroll-target="#the-reduced-svd-and-the-pseudoinverse">The Reduced SVD and the Pseudoinverse</a>
+  <ul class="collapse">
+  <li><a href="#the-pseudoinverse" id="toc-the-pseudoinverse" class="nav-link" data-scroll-target="#the-pseudoinverse">The Pseudoinverse</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
-              
-                
-<div id="searchbox"></div>
-                <article class="bd-article">
-                  
-  <section class="tex2jax_ignore mathjax_ignore" id="the-singular-value-decomposition">
-<h1>The Singular Value Decomposition<a class="headerlink" href="#the-singular-value-decomposition" title="Permalink to this heading">#</a></h1>
-<!-- https://bringatrailer.com/listing/1964-rolls-royce-james-young-phanton-v-limosine/ -->
-<br>
-<br>
-<center>
-<a class="reference internal image-reference" href="_images/rolls-royce.jpg"><img alt="figure" src="_images/rolls-royce.jpg" style="width: 650px;" /></a>
-</center><p>Today we’ll begin our study of the most useful matrix decomposition in applied Linear Algebra.</p>
+
+
+
+<!--
+This comment somehow suppresses the title page
+-->
+<section id="the-singular-value-decomposition" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="the-singular-value-decomposition">The Singular Value Decomposition</h2>
+<p><img src="images/rolls-royce.jpg" class="img-fluid" alt="A Rolls-Royce" width="650"></p>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Many parts of this page are based on <em>Linear Algebra and its Applications,</em> by David C. Lay</p>
+</div></div><p>Today we’ll begin our study of the most useful matrix decomposition in applied Linear Algebra.</p>
 <p>Pretty exciting, eh?</p>
-<blockquote>
-<div><p>The Singular Value Decomposition is the <strong>“Swiss Army Knife”</strong> and the <strong>“Rolls Royce”</strong> of matrix decompositions.</p>
-</div></blockquote>
+<div class="fragment">
+<blockquote class="blockquote">
+<p>The Singular Value Decomposition is the <strong>“Swiss Army Knife”</strong> and the <strong>“Rolls Royce”</strong> of matrix decompositions.</p>
+</blockquote>
 <p>– Diane O’Leary</p>
+</div>
+<div class="fragment">
 <p>The singular value decomposition is a matrix factorization.</p>
 <p>Now, the first thing to know is that <strong>EVERY</strong> matrix has a singular value decomposition.</p>
-<section id="maximizing-vert-a-mathbf-x-vert">
-<h2>Maximizing <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert\)</span><a class="headerlink" href="#maximizing-vert-a-mathbf-x-vert" title="Permalink to this heading">#</a></h2>
+</div>
+</section>
+<section id="maximizing-vert-amathbfxvert" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="maximizing-vert-amathbfxvert">Maximizing <span class="math inline">\(\Vert A\mathbf{x}\Vert\)</span></h2>
+<div class="fragment">
 <p>The singular value decomposition (let’s just call it SVD) is based on a very simple question:</p>
-<p>Let’s say you are given an arbitrary matrix <span class="math notranslate nohighlight">\(A\)</span>, which does not need to be square.</p>
+</div>
+<div class="fragment">
+<p>Let’s say you are given an arbitrary matrix <span class="math inline">\(A\)</span>, which does not need to be square.</p>
+</div>
+<div class="fragment">
 <p>Here is the question:</p>
-<p>Among all unit vectors, what is the vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> that maximizes <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert\)</span>?</p>
-<p>In other words, in which direction does <span class="math notranslate nohighlight">\(A\)</span> create the largest output vector from a unit input?</p>
+<p>Among all unit vectors, what is the vector <span class="math inline">\(\mathbf{x}\)</span> that maximizes <span class="math inline">\(\Vert A\mathbf{x}\Vert\)</span>?</p>
+</div>
+<div class="fragment">
+<p>In other words, in which direction does <span class="math inline">\(A\)</span> create the largest output vector from a unit input?</p>
+</div>
 <p>To set the stage to answer this question, let’s review a few facts.</p>
-<p>You recall that the eigenvalues of a <strong>square</strong> matrix <span class="math notranslate nohighlight">\(A\)</span> measure the amount that <span class="math notranslate nohighlight">\(A\)</span> “stretches or shrinks” certain special vectors (the eigenvectors).</p>
-<p>For example, for a square <span class="math notranslate nohighlight">\(A\)</span>, if <span class="math notranslate nohighlight">\(A\mathbf{x} = \lambda\mathbf{x}\)</span> and <span class="math notranslate nohighlight">\(\Vert \mathbf{x}\Vert = 1,\)</span> then</p>
-<div class="math notranslate nohighlight">
-\[\Vert A\mathbf{x}\Vert = \Vert\lambda\mathbf{x}\Vert = |\lambda|\,\Vert\mathbf{x}\Vert = |\lambda|.\]</div>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/3cd90729a4911428375d292b2149ea28bce611168800e7a6c1bde9a32389c449.png" src="_images/3cd90729a4911428375d292b2149ea28bce611168800e7a6c1bde9a32389c449.png" />
+<p>You recall that the eigenvalues of a <strong>square</strong> matrix <span class="math inline">\(A\)</span> measure the amount that <span class="math inline">\(A\)</span> “stretches or shrinks” certain special vectors (the eigenvectors).</p>
+<div class="fragment">
+<p>For example, for a square <span class="math inline">\(A\)</span>, if <span class="math inline">\(A\mathbf{x} = \lambda\mathbf{x}\)</span> and <span class="math inline">\(\Vert \mathbf{x}\Vert = 1,\)</span> then</p>
+<p><span class="math display">\[\Vert A\mathbf{x}\Vert = \Vert\lambda\mathbf{x}\Vert = |\lambda|\,\Vert\mathbf{x}\Vert = |\lambda|.\]</span></p>
+</div>
+<div class="fragment">
+<div class="ctrd">
+<div id="8b3ba7d5" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L25SVD_files/figure-html/cell-3-output-1.png" width="490" height="492" class="figure-img"></p>
+</figure>
 </div>
 </div>
-<p>The <strong>largest</strong> value of <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert\)</span> is the long axis of the ellipse.  Clearly there is some <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> that is mapped to that point by <span class="math notranslate nohighlight">\(A\)</span>.   That <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> is what we want to find.</p>
+</div>
+</div>
+<p>The <strong>largest</strong> value of <span class="math inline">\(\Vert A\mathbf{x}\Vert\)</span> is the long axis of the ellipse. Clearly there is some <span class="math inline">\(\mathbf{x}\)</span> that is mapped to that point by <span class="math inline">\(A\)</span>. That <span class="math inline">\(\mathbf{x}\)</span> is what we want to find.</p>
+</div>
+<div class="fragment">
 <p>And let’s make clear that we can apply this idea to <strong>arbitrary</strong> (non-square) matrices.</p>
-<p>Here is an example that shows that we can still ask the question of what unit <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> maximizes <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert\)</span> even when <span class="math notranslate nohighlight">\(A\)</span> is not square.</p>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>Image credit: <em>Linear Algebra and its Applications,</em> by David C. Lay</p>
+</div></div><p>Here is an example that shows that we can still ask the question of what unit <span class="math inline">\(\mathbf{x}\)</span> maximizes <span class="math inline">\(\Vert A\mathbf{x}\Vert\)</span> even when <span class="math inline">\(A\)</span> is not square.</p>
 <p>For example:</p>
-<p>If <span class="math notranslate nohighlight">\(A = \begin{bmatrix}4&amp;11&amp;14\\8&amp;7&amp;-2\end{bmatrix},\)</span></p>
-<p>then the linear transformation <span class="math notranslate nohighlight">\(\mathbf{x} \mapsto A\mathbf{x}\)</span> maps the unit sphere <span class="math notranslate nohighlight">\(\{\mathbf{x} : \Vert \mathbf{x} \Vert = 1\}\)</span> in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> onto an ellipse in <span class="math notranslate nohighlight">\(\mathbb{R}^2\)</span>, as shown here:</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/bf3f01b36eb51cd5c54e611384ee891aa3ab1d8c96fb8ac26cfc39559a0da5eb.jpg" src="_images/bf3f01b36eb51cd5c54e611384ee891aa3ab1d8c96fb8ac26cfc39559a0da5eb.jpg" />
-</div>
-</div>
-<section id="vert-a-mathbf-x-vert-2-is-a-quadratic-form">
-<h3><span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert^2\)</span> is a Quadratic Form<a class="headerlink" href="#vert-a-mathbf-x-vert-2-is-a-quadratic-form" title="Permalink to this heading">#</a></h3>
+<p>If <span class="math inline">\(A = \begin{bmatrix}4&amp;11&amp;14\\8&amp;7&amp;-2\end{bmatrix},\)</span></p>
+<p>then the linear transformation <span class="math inline">\(\mathbf{x} \mapsto A\mathbf{x}\)</span> maps the unit sphere <span class="math inline">\(\{\mathbf{x} : \Vert \mathbf{x} \Vert = 1\}\)</span> in <span class="math inline">\(\mathbb{R}^3\)</span> onto an ellipse in <span class="math inline">\(\mathbb{R}^2\)</span>, as shown here:</p>
+<p><img src="images/Lay-fig-7-4-1.jpg" class="img-fluid" alt="Multiplication by A" width="650"></p>
+<section id="vert-amathbfxvert2-is-a-quadratic-form" class="level3">
+<h3 class="anchored" data-anchor-id="vert-amathbfxvert2-is-a-quadratic-form"><span class="math inline">\(\Vert A\mathbf{x}\Vert^2\)</span> is a Quadratic Form</h3>
+<div class="fragment">
 <p>Now, here is a way to answer our question:</p>
-<p><strong>Problem.</strong> Find the unit vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> at which the length <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert\)</span> is maximized, and compute this maximum length.</p>
+<p><strong>Problem.</strong> Find the unit vector <span class="math inline">\(\mathbf{x}\)</span> at which the length <span class="math inline">\(\Vert A\mathbf{x}\Vert\)</span> is maximized, and compute this maximum length.</p>
+</div>
+<div class="fragment">
 <p><strong>Solution.</strong></p>
-<p>The quantity <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert^2\)</span> is maximized at the same <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> that maximizes <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert\)</span>, and <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert^2\)</span> is easier to study.</p>
-<p>So let’s ask to find the unit vector <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> at which <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert^2\)</span> is maximized.</p>
+<p>The quantity <span class="math inline">\(\Vert A\mathbf{x}\Vert^2\)</span> is maximized at the same <span class="math inline">\(\mathbf{x}\)</span> that maximizes <span class="math inline">\(\Vert A\mathbf{x}\Vert\)</span>, and <span class="math inline">\(\Vert A\mathbf{x}\Vert^2\)</span> is easier to study.</p>
+<p>So let’s ask to find the unit vector <span class="math inline">\(\mathbf{x}\)</span> at which <span class="math inline">\(\Vert A\mathbf{x}\Vert^2\)</span> is maximized.</p>
+</div>
+<div class="fragment">
 <p>Observe that</p>
-<div class="math notranslate nohighlight">
-\[ \Vert A\mathbf{x}\Vert^2 = (A\mathbf{x})^T(A\mathbf{x}) \]</div>
-<div class="math notranslate nohighlight">
-\[ = \mathbf{x}^TA^TA\mathbf{x} \]</div>
-<div class="math notranslate nohighlight">
-\[ = \mathbf{x}^T(A^TA)\mathbf{x} \]</div>
-<p>Now, <span class="math notranslate nohighlight">\(A^TA\)</span> is a symmetric matrix.</p>
-<p>So we see that <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert^2 = \mathbf{x}^TA^TA\mathbf{x}\)</span> is a quadratic form!</p>
-<p>… and we are seeking to maximize it subject to the constraint <span class="math notranslate nohighlight">\(\Vert \mathbf{x}\Vert = 1\)</span>.</p>
-<p>As we learned in the last lecture, the maximum value of a quadratic form, subject to the constraint that <span class="math notranslate nohighlight">\(\Vert\mathbf{x}\Vert = 1\)</span>, is the largest eigenvalue of the symmetric matrix.</p>
-<p>So the maximum value of <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert^2\)</span> subject to <span class="math notranslate nohighlight">\(\Vert\mathbf{x}\Vert = 1\)</span> is <span class="math notranslate nohighlight">\(\lambda_1\)</span>, the largest eigenvalue of <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
-<p>Also, the maximum is attained at a unit eigenvector of <span class="math notranslate nohighlight">\(A^TA\)</span> corresponding to <span class="math notranslate nohighlight">\(\lambda_1\)</span>.</p>
-<p>For the matrix <span class="math notranslate nohighlight">\(A\)</span> in the 2 <span class="math notranslate nohighlight">\(\times\)</span> 3 example,</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}A^TA = \begin{bmatrix}4&amp;8\\11&amp;7\\14&amp;-2\end{bmatrix} \,\begin{bmatrix}4&amp;11&amp;14\\8&amp;7&amp;-2\end{bmatrix} = \begin{bmatrix}80&amp;100&amp;40\\100&amp;170&amp;140\\40&amp;140&amp;200\end{bmatrix}.\end{split}\]</div>
-<p>The eigenvalues of <span class="math notranslate nohighlight">\(A^TA\)</span> are <span class="math notranslate nohighlight">\(\lambda_1 = 360, \lambda_2 = 90,\)</span> and <span class="math notranslate nohighlight">\(\lambda_3 = 0.\)</span></p>
+<p><span class="math display">\[ \Vert A\mathbf{x}\Vert^2 = (A\mathbf{x})^T(A\mathbf{x}) \]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[ = \mathbf{x}^TA^TA\mathbf{x} \]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[ = \mathbf{x}^T(A^TA)\mathbf{x} \]</span></p>
+</div>
+<div class="fragment">
+<p>Now, <span class="math inline">\(A^TA\)</span> is a symmetric matrix.</p>
+<p>So we see that <span class="math inline">\(\Vert A\mathbf{x}\Vert^2 = \mathbf{x}^TA^TA\mathbf{x}\)</span> is a quadratic form!</p>
+<p>… and we are seeking to maximize it subject to the constraint <span class="math inline">\(\Vert \mathbf{x}\Vert = 1\)</span>.</p>
+</div>
+<div class="fragment">
+<p>As we learned in the last lecture, the maximum value of a quadratic form, subject to the constraint that <span class="math inline">\(\Vert\mathbf{x}\Vert = 1\)</span>, is the largest eigenvalue of the symmetric matrix.</p>
+<p>So the maximum value of <span class="math inline">\(\Vert A\mathbf{x}\Vert^2\)</span> subject to <span class="math inline">\(\Vert\mathbf{x}\Vert = 1\)</span> is <span class="math inline">\(\lambda_1\)</span>, the largest eigenvalue of <span class="math inline">\(A^TA\)</span>.</p>
+<p>Also, the maximum is attained at a unit eigenvector of <span class="math inline">\(A^TA\)</span> corresponding to <span class="math inline">\(\lambda_1\)</span>.</p>
+</div>
+<p>For the matrix <span class="math inline">\(A\)</span> in the 2 <span class="math inline">\(\times\)</span> 3 example,</p>
+<p><span class="math display">\[A^TA = \begin{bmatrix}4&amp;8\\11&amp;7\\14&amp;-2\end{bmatrix} \,\begin{bmatrix}4&amp;11&amp;14\\8&amp;7&amp;-2\end{bmatrix} = \begin{bmatrix}80&amp;100&amp;40\\100&amp;170&amp;140\\40&amp;140&amp;200\end{bmatrix}.\]</span></p>
+<div class="fragment">
+<p>The eigenvalues of <span class="math inline">\(A^TA\)</span> are <span class="math inline">\(\lambda_1 = 360, \lambda_2 = 90,\)</span> and <span class="math inline">\(\lambda_3 = 0.\)</span></p>
 <p>The corresponding unit eigenvectors are, respectively,</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\mathbf{v}_1 = \begin{bmatrix}1/3\\2/3\\2/3\end{bmatrix}, \mathbf{v}_2 = \begin{bmatrix}-2/3\\-1/3\\2/3\end{bmatrix}, \mathbf{v}_3 = \begin{bmatrix}2/3\\-2/3\\1/3\end{bmatrix}.  \end{split}\]</div>
-<p>For <span class="math notranslate nohighlight">\(\Vert\mathbf{x}\Vert = 1\)</span>, the maximum value of <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert\)</span> is <span class="math notranslate nohighlight">\(\Vert A\mathbf{v}_1\Vert = \sqrt{360}.\)</span></p>
-<p>This example shows that the key to understanding the effect of <span class="math notranslate nohighlight">\(A\)</span> on the unit sphere in <span class="math notranslate nohighlight">\(\mathbb{R}^3\)</span> is to examime the quadratic form <span class="math notranslate nohighlight">\(\mathbf{x}^T(A^TA)\mathbf{x}.\)</span></p>
-<p>We can also go back to our 2 <span class="math notranslate nohighlight">\(\times\)</span> 2 example.</p>
-<p>Let’s plot the eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
-<div class="cell tag_remove-input docutils container">
-<div class="cell_output docutils container">
-<img alt="_images/039acc2540c9b1cd64602de560f6e42c9e4fed316fdffdbc8c176f3de0a16221.png" src="_images/039acc2540c9b1cd64602de560f6e42c9e4fed316fdffdbc8c176f3de0a16221.png" />
+<p><span class="math display">\[\mathbf{v}_1 = \begin{bmatrix}1/3\\2/3\\2/3\end{bmatrix}, \mathbf{v}_2 = \begin{bmatrix}-2/3\\-1/3\\2/3\end{bmatrix}, \mathbf{v}_3 = \begin{bmatrix}2/3\\-2/3\\1/3\end{bmatrix}.  \]</span></p>
+</div>
+<div class="fragment">
+<p>For <span class="math inline">\(\Vert\mathbf{x}\Vert = 1\)</span>, the maximum value of <span class="math inline">\(\Vert A\mathbf{x}\Vert\)</span> is <span class="math inline">\(\Vert A\mathbf{v}_1\Vert = \sqrt{360}.\)</span></p>
+</div>
+<div class="fragment">
+<p>This example shows that the key to understanding the effect of <span class="math inline">\(A\)</span> on the unit sphere in <span class="math inline">\(\mathbb{R}^3\)</span> is to examime the quadratic form <span class="math inline">\(\mathbf{x}^T(A^TA)\mathbf{x}.\)</span></p>
+</div>
+<p>We can also go back to our 2 <span class="math inline">\(\times\)</span> 2 example.</p>
+<p>Let’s plot the eigenvectors of <span class="math inline">\(A^TA\)</span>.</p>
+<div class="fragment">
+<div class="ctrd">
+<div id="893d5b68" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="L25SVD_files/figure-html/cell-4-output-1.png" width="490" height="495" class="figure-img"></p>
+</figure>
 </div>
 </div>
-<p>We see that the eigenvector corresponding to the largest eigenvalue of <span class="math notranslate nohighlight">\(A^TA\)</span> indeed shows us where <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert\)</span> is maximized – where the ellipse is longest.</p>
-<p>Also, the other eigenvector of <span class="math notranslate nohighlight">\(A^TA\)</span> shows us where the ellipse is narrowest.</p>
-<p>In fact, the entire geometric behavior of the transformation <span class="math notranslate nohighlight">\(\mathbf{x}\mapsto A\mathbf{x}\)</span> is captured by the quadratic form <span class="math notranslate nohighlight">\(\mathbf{x}^TA^TA\mathbf{x}\)</span>.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>We see that the eigenvector corresponding to the largest eigenvalue of <span class="math inline">\(A^TA\)</span> indeed shows us where <span class="math inline">\(\Vert A\mathbf{x}\Vert\)</span> is maximized – where the ellipse is longest.</p>
+<p>Also, the other eigenvector of <span class="math inline">\(A^TA\)</span> shows us where the ellipse is narrowest.</p>
+</div>
+<div class="fragment">
+<p>In fact, the entire geometric behavior of the transformation <span class="math inline">\(\mathbf{x}\mapsto A\mathbf{x}\)</span> is captured by the quadratic form <span class="math inline">\(\mathbf{x}^TA^TA\mathbf{x}\)</span>.</p>
+</div>
 </section>
 </section>
-<section id="the-singular-values-of-a-matrix">
-<h2>The Singular Values of a Matrix<a class="headerlink" href="#the-singular-values-of-a-matrix" title="Permalink to this heading">#</a></h2>
-<p>Let’s continue to consider <span class="math notranslate nohighlight">\(A\)</span> to be an arbitrary <span class="math notranslate nohighlight">\(m\times n\)</span> matrix.</p>
-<p>Notice that even though <span class="math notranslate nohighlight">\(A\)</span> is not square in general, <span class="math notranslate nohighlight">\(A^TA\)</span> is square and <strong>symmetric.</strong></p>
-<p>So, there is a lot we can say about <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
-<p>In particular, since <span class="math notranslate nohighlight">\(A^TA\)</span> is symmetric, it can be <strong>orthogonally diagonalized</strong> (as we saw in the last lecture).</p>
-<p>So let <span class="math notranslate nohighlight">\(\{\mathbf{v}_1, \dots, \mathbf{v}_n\}\)</span> be an orthonormal basis for <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> consisting of eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span>, and let <span class="math notranslate nohighlight">\(\lambda_1, \dots, \lambda_n\)</span> be the corresponding eigenvalues of <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
-<p>Then, for any eigenvector <span class="math notranslate nohighlight">\(\mathbf{v}_i\)</span>,</p>
-<div class="math notranslate nohighlight">
-\[ \Vert A\mathbf{v}_i\Vert^2 = (A\mathbf{v}_i)^T A\mathbf{v}_i = \mathbf{v}_i^T A^TA\mathbf{v}_i \]</div>
-<div class="math notranslate nohighlight">
-\[ = \mathbf{v}_i^T(\lambda_i)\mathbf{v}_i \]</div>
-<p>(since <span class="math notranslate nohighlight">\(\mathbf{v}_i\)</span> is an eigenvector of <span class="math notranslate nohighlight">\(A^TA\)</span>)</p>
-<div class="math notranslate nohighlight">
-\[ = \lambda_i\]</div>
-<p>(since <span class="math notranslate nohighlight">\(\mathbf{v}_i\)</span> is a unit vector.)</p>
-<p>Now any expression <span class="math notranslate nohighlight">\(\Vert\cdot\Vert^2\)</span> is nonnegative.</p>
-<p>So the eigenvalues of <span class="math notranslate nohighlight">\(A^TA\)</span> are all nonnegative.</p>
-<p>That is: <span class="math notranslate nohighlight">\(A^TA\)</span> is <strong>positive semidefinite.</strong></p>
+<section id="the-singular-values-of-a-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="the-singular-values-of-a-matrix">The Singular Values of a Matrix</h2>
+<div class="fragment">
+<p>Let’s continue to consider <span class="math inline">\(A\)</span> to be an arbitrary <span class="math inline">\(m\times n\)</span> matrix.</p>
+<p>Notice that even though <span class="math inline">\(A\)</span> is not square in general, <span class="math inline">\(A^TA\)</span> is square and <strong>symmetric.</strong></p>
+<p>So, there is a lot we can say about <span class="math inline">\(A^TA\)</span>.</p>
+<p>In particular, since <span class="math inline">\(A^TA\)</span> is symmetric, it can be <strong>orthogonally diagonalized</strong> (as we saw in the last lecture).</p>
+</div>
+<div class="fragment">
+<p>So let <span class="math inline">\(\{\mathbf{v}_1, \dots, \mathbf{v}_n\}\)</span> be an orthonormal basis for <span class="math inline">\(\mathbb{R}^n\)</span> consisting of eigenvectors of <span class="math inline">\(A^TA\)</span>, and let <span class="math inline">\(\lambda_1, \dots, \lambda_n\)</span> be the corresponding eigenvalues of <span class="math inline">\(A^TA\)</span>.</p>
+</div>
+<div class="fragment">
+<p>Then, for any eigenvector <span class="math inline">\(\mathbf{v}_i\)</span>,</p>
+<p><span class="math display">\[ \Vert A\mathbf{v}_i\Vert^2 = (A\mathbf{v}_i)^T A\mathbf{v}_i = \mathbf{v}_i^T A^TA\mathbf{v}_i \]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[ = \mathbf{v}_i^T(\lambda_i)\mathbf{v}_i \]</span> (since <span class="math inline">\(\mathbf{v}_i\)</span> is an eigenvector of <span class="math inline">\(A^TA\)</span>)</p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[ = \lambda_i\]</span> (since <span class="math inline">\(\mathbf{v}_i\)</span> is a unit vector.)</p>
+</div>
+<div class="fragment">
+<p>Now any expression <span class="math inline">\(\Vert\cdot\Vert^2\)</span> is nonnegative.</p>
+<p>So the eigenvalues of <span class="math inline">\(A^TA\)</span> are all nonnegative.</p>
+<p>That is: <span class="math inline">\(A^TA\)</span> is <strong>positive semidefinite.</strong></p>
+</div>
+<div class="fragment">
 <p>We can therefore renumber the eigenvalues so that</p>
-<div class="math notranslate nohighlight">
-\[\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n \geq 0.\]</div>
-<p><strong>Definition.</strong> The <strong>singular values</strong> of <span class="math notranslate nohighlight">\(A\)</span> are the square roots of the eigenvalues of <span class="math notranslate nohighlight">\(A^TA\)</span>.  They are denoted by <span class="math notranslate nohighlight">\(\sigma_1,\dots,\sigma_n,\)</span> and they are arranged in decreasing order.</p>
-<p>That is, <span class="math notranslate nohighlight">\(\sigma_i = \sqrt{\lambda_i}\)</span> for <span class="math notranslate nohighlight">\(i = 1,\dots,n.\)</span></p>
-<p>By the above argument, <strong>the singular values of <span class="math notranslate nohighlight">\(A\)</span> are the lengths of the vectors <span class="math notranslate nohighlight">\(A\mathbf{v}_1, \dots, A\mathbf{v}_n.\)</span></strong></p>
-<section id="the-eigenvectors-of-a-ta-lead-to-an-orthogonal-basis-for-operatorname-col-a">
-<h3>The Eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span> Lead To an Orthogonal Basis for <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span><a class="headerlink" href="#the-eigenvectors-of-a-ta-lead-to-an-orthogonal-basis-for-operatorname-col-a" title="Permalink to this heading">#</a></h3>
-<p>Now: we know that vectors <span class="math notranslate nohighlight">\(\mathbf{v}_1, \dots, \mathbf{v}_n\)</span> are an orthogonal set because they are eigenvectors of the symmetric matrix <span class="math notranslate nohighlight">\(A^TA\)</span>.</p>
-<p>However, it’s <strong>also</strong> the case that <span class="math notranslate nohighlight">\(A\mathbf{v}_1, \dots, A\mathbf{v}_n\)</span> are an orthogonal set.</p>
+<p><span class="math display">\[\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n \geq 0.\]</span></p>
+</div>
+<p><strong>Definition.</strong> The <strong>singular values</strong> of <span class="math inline">\(A\)</span> are the square roots of the eigenvalues of <span class="math inline">\(A^TA\)</span>. They are denoted by <span class="math inline">\(\sigma_1,\dots,\sigma_n,\)</span> and they are arranged in decreasing order.</p>
+<p>That is, <span class="math inline">\(\sigma_i = \sqrt{\lambda_i}\)</span> for <span class="math inline">\(i = 1,\dots,n.\)</span></p>
+<div class="fragment">
+<p>By the above argument, <strong>the singular values of <span class="math inline">\(A\)</span> are the lengths of the vectors <span class="math inline">\(A\mathbf{v}_1, \dots, A\mathbf{v}_n.\)</span></strong></p>
+</div>
+<section id="the-eigenvectors-of-ata-lead-to-an-orthogonal-basis-for-operatornamecol-a" class="level3">
+<h3 class="anchored" data-anchor-id="the-eigenvectors-of-ata-lead-to-an-orthogonal-basis-for-operatornamecol-a">The Eigenvectors of <span class="math inline">\(A^TA\)</span> Lead To an Orthogonal Basis for <span class="math inline">\(\operatorname{Col} A\)</span></h3>
+<div class="fragment">
+<p>Now: we know that vectors <span class="math inline">\(\mathbf{v}_1, \dots, \mathbf{v}_n\)</span> are an orthogonal set because they are eigenvectors of the symmetric matrix <span class="math inline">\(A^TA\)</span>.</p>
+<p>However, it’s <strong>also</strong> the case that <span class="math inline">\(A\mathbf{v}_1, \dots, A\mathbf{v}_n\)</span> are an orthogonal set.</p>
 <p><font color="blue">This fact is key to the SVD.</font></p>
-<p>It is not obvious at first that <span class="math notranslate nohighlight">\(A\mathbf{v}_1, \dots, A\mathbf{v}_n\)</span> are an orthogonal set!</p>
+</div>
+<div class="fragment">
+<p>It is not obvious at first that <span class="math inline">\(A\mathbf{v}_1, \dots, A\mathbf{v}_n\)</span> are an orthogonal set!</p>
 <p>But it is true – let’s prove it (and a bit more).</p>
-<p><strong>Theorem.</strong> Suppose <span class="math notranslate nohighlight">\(\{\mathbf{v}_1, \dots, \mathbf{v}_n\}\)</span> is an orthonormal basis of <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span> consisting of eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span>, arranged so that the corresponding eigenvalues of <span class="math notranslate nohighlight">\(A^TA\)</span> satisfy <span class="math notranslate nohighlight">\(\lambda_1 \geq \cdots \geq \lambda_n,\)</span> and suppose <span class="math notranslate nohighlight">\(A\)</span> has <span class="math notranslate nohighlight">\(r\)</span> nonzero singular values.</p>
-<p>Then <span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span> is an orthogonal basis for <span class="math notranslate nohighlight">\(\operatorname{Col}\ A,\)</span> and rank <span class="math notranslate nohighlight">\(A = r\)</span>.</p>
-<p>Note how surprising this is: while <span class="math notranslate nohighlight">\(\{\mathbf{v}_1, \dots, \mathbf{v}_n\}\)</span> are a basis for <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span> is a subspace of <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span>.</p>
+</div>
+<div class="ctrd">
+<div class="fragment">
+<p><img src="images/Fig25-1.png" class="img-fluid" alt="U and V" width="650"></p>
+</div>
+</div>
+<p><strong>Theorem.</strong> Suppose <span class="math inline">\(\{\mathbf{v}_1, \dots, \mathbf{v}_n\}\)</span> is an orthonormal basis of <span class="math inline">\(\mathbb{R}^n\)</span> consisting of eigenvectors of <span class="math inline">\(A^TA\)</span>, arranged so that the corresponding eigenvalues of <span class="math inline">\(A^TA\)</span> satisfy <span class="math inline">\(\lambda_1 \geq \cdots \geq \lambda_n,\)</span> and suppose <span class="math inline">\(A\)</span> has <span class="math inline">\(r\)</span> nonzero singular values.</p>
+<p>Then <span class="math inline">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span> is an orthogonal basis for <span class="math inline">\(\operatorname{Col}\ A,\)</span> and rank <span class="math inline">\(A = r\)</span>.</p>
+<div class="fragment">
+<p>Note how surprising this is: while <span class="math inline">\(\{\mathbf{v}_1, \dots, \mathbf{v}_n\}\)</span> are a basis for <span class="math inline">\(\mathbb{R}^n\)</span>, <span class="math inline">\(\operatorname{Col} A\)</span> is a subspace of <span class="math inline">\(\mathbb{R}^m\)</span>.</p>
 <p>Nonetheless,</p>
-<ul class="simple">
-<li><p>two eigenvectors <span class="math notranslate nohighlight">\(\mathbf{v}_i\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}_j \in \mathbb{R}^n\)</span> are orthogonal, and</p></li>
-<li><p><strong>their images</strong> <span class="math notranslate nohighlight">\(A\mathbf{v}_i\)</span> and <span class="math notranslate nohighlight">\(A\mathbf{v}_j \in \mathbb{R}^m\)</span> are also orthogonal.</p></li>
+<ul>
+<li>two eigenvectors <span class="math inline">\(\mathbf{v}_i\)</span> and <span class="math inline">\(\mathbf{v}_j \in \mathbb{R}^n\)</span> are orthogonal, and</li>
+<li><strong>their images</strong> <span class="math inline">\(A\mathbf{v}_i\)</span> and <span class="math inline">\(A\mathbf{v}_j \in \mathbb{R}^m\)</span> are also orthogonal.</li>
 </ul>
-<p><strong>Proof.</strong>   What we need to do is establish that <span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span> is an orthogonal linearly independent set whose span is <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>.</p>
-<p>Because <span class="math notranslate nohighlight">\(\mathbf{v}_i\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}_j\)</span> are orthogonal for <span class="math notranslate nohighlight">\(i\neq j\)</span>,</p>
-<div class="math notranslate nohighlight">
-\[ (A\mathbf{v}_i)^T(A\mathbf{v}_j) = \mathbf{v}_i^TA^TA\mathbf{v}_j = \mathbf{v}_i^T(\lambda_j \mathbf{v}_j) = 0.\]</div>
-<p>So <span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_n\}\)</span> is an orthogonal set.</p>
-<p>Furthermore, since the lengths of the vectors <span class="math notranslate nohighlight">\(A\mathbf{v}_1, \dots, A\mathbf{v}_n\)</span> are the singular values of <span class="math notranslate nohighlight">\(A\)</span>, and since there are <span class="math notranslate nohighlight">\(r\)</span> nonzero singular values, <span class="math notranslate nohighlight">\(A\mathbf{v}_i \neq {\mathbf 0}\)</span> if and only if <span class="math notranslate nohighlight">\(1 \leq i \leq r.\)</span></p>
-<p>So <span class="math notranslate nohighlight">\(A\mathbf{v}_1, \dots, A\mathbf{v}_r\)</span> are a <strong>linearly independent</strong> set (because they are orthogonal and all nonzero), and clearly they are each in <span class="math notranslate nohighlight">\(\operatorname{Col}\ A\)</span>.</p>
-<p>Finally, we just need to show that <span class="math notranslate nohighlight">\(\operatorname{Span}\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span> = <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span>.</p>
-<p>To do this we’ll show that for any <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> in <span class="math notranslate nohighlight">\(\operatorname{Col}\ A\)</span>, we can write <span class="math notranslate nohighlight">\(\mathbf{y}\)</span> in terms of <span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span>:</p>
-<p>Say <span class="math notranslate nohighlight">\(\mathbf{y} = A\mathbf{x}.\)</span></p>
-<p>Because <span class="math notranslate nohighlight">\(\{\mathbf{v}_1, \dots, \mathbf{v}_n\}\)</span> is a basis for <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, we can write <span class="math notranslate nohighlight">\(\mathbf{x} = c_1\mathbf{v}_1 + \dots + c_n\mathbf{v}_n,\)</span> so</p>
-<div class="math notranslate nohighlight">
-\[\mathbf{y} = A\mathbf{x} = c_1A\mathbf{v}_1 + \dots + c_rA\mathbf{v}_r + \dots + c_nA\mathbf{v}_n.\]</div>
-<div class="math notranslate nohighlight">
-\[ = c_1A\mathbf{v}_1 + \dots + c_rA\mathbf{v}_r. \]</div>
-<p>(because <span class="math notranslate nohighlight">\(A\mathbf{v}_i = {\mathbf 0}\)</span> for <span class="math notranslate nohighlight">\(i &gt; r\)</span>).</p>
-<p>In summary: <span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span> is an (orthogonal) linearly independent set whose span is <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span>, so it is an (orthogonal) basis for <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span>.</p>
-<p>Notice that we have also proved that <span class="math notranslate nohighlight">\(\operatorname{rank} A = \dim\operatorname{Col} A = r.\)</span></p>
-<p>In other words, if <span class="math notranslate nohighlight">\(A\)</span> has <span class="math notranslate nohighlight">\(r\)</span> nonzero singular values, <span class="math notranslate nohighlight">\(A\)</span> has rank <span class="math notranslate nohighlight">\(r\)</span>.</p>
+</div>
+<div class="fragment">
+<p><strong>Proof.</strong> What we need to do is establish that <span class="math inline">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span> is an orthogonal linearly independent set whose span is <span class="math inline">\(\operatorname{Col}A\)</span>.</p>
+<p>Because <span class="math inline">\(\mathbf{v}_i\)</span> and <span class="math inline">\(\mathbf{v}_j\)</span> are orthogonal for <span class="math inline">\(i\neq j\)</span>,</p>
+<p><span class="math display">\[ (A\mathbf{v}_i)^T(A\mathbf{v}_j) = \mathbf{v}_i^TA^TA\mathbf{v}_j = \mathbf{v}_i^T(\lambda_j \mathbf{v}_j) = 0.\]</span></p>
+<p>So <span class="math inline">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_n\}\)</span> is an orthogonal set.</p>
+</div>
+<div class="fragment">
+<p>Furthermore, since the lengths of the vectors <span class="math inline">\(A\mathbf{v}_1, \dots, A\mathbf{v}_n\)</span> are the singular values of <span class="math inline">\(A\)</span>, and since there are <span class="math inline">\(r\)</span> nonzero singular values, <span class="math inline">\(A\mathbf{v}_i \neq {\mathbf 0}\)</span> if and only if <span class="math inline">\(1 \leq i \leq r.\)</span></p>
+<p>So <span class="math inline">\(A\mathbf{v}_1, \dots, A\mathbf{v}_r\)</span> are a <strong>linearly independent</strong> set (because they are orthogonal and all nonzero), and clearly they are each in <span class="math inline">\(\operatorname{Col}\ A\)</span>.</p>
+</div>
+<div class="fragment">
+<p>Finally, we just need to show that <span class="math inline">\(\operatorname{Span}\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span> = <span class="math inline">\(\operatorname{Col} A\)</span>.</p>
+</div>
+<div class="fragment">
+<p>To do this we’ll show that for any <span class="math inline">\(\mathbf{y}\)</span> in <span class="math inline">\(\operatorname{Col}\ A\)</span>, we can write <span class="math inline">\(\mathbf{y}\)</span> in terms of <span class="math inline">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span>:</p>
+<p>Say <span class="math inline">\(\mathbf{y} = A\mathbf{x}.\)</span></p>
+</div>
+<div class="fragment">
+<p>Because <span class="math inline">\(\{\mathbf{v}_1, \dots, \mathbf{v}_n\}\)</span> is a basis for <span class="math inline">\(\mathbb{R}^n\)</span>, we can write <span class="math inline">\(\mathbf{x} = c_1\mathbf{v}_1 + \dots + c_n\mathbf{v}_n,\)</span> so</p>
+<p><span class="math display">\[\mathbf{y} = A\mathbf{x} = c_1A\mathbf{v}_1 + \dots + c_rA\mathbf{v}_r + \dots + c_nA\mathbf{v}_n.\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[ = c_1A\mathbf{v}_1 + \dots + c_rA\mathbf{v}_r. \]</span> (because <span class="math inline">\(A\mathbf{v}_i = {\mathbf 0}\)</span> for <span class="math inline">\(i &gt; r\)</span>).</p>
+</div>
+<div class="fragment">
+<p>In summary: <span class="math inline">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span> is an (orthogonal) linearly independent set whose span is <span class="math inline">\(\operatorname{Col} A\)</span>, so it is an (orthogonal) basis for <span class="math inline">\(\operatorname{Col} A\)</span>.</p>
+</div>
+<div class="fragment">
+<p>Notice that we have also proved that <span class="math inline">\(\operatorname{rank} A = \dim\operatorname{Col} A = r.\)</span></p>
+<p>In other words, if <span class="math inline">\(A\)</span> has <span class="math inline">\(r\)</span> nonzero singular values, <span class="math inline">\(A\)</span> has rank <span class="math inline">\(r\)</span>.</p>
+</div>
 </section>
 </section>
-<section id="id1">
-<h2>The Singular Value Decomposition<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
-<p>What we have just proved is that the eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span> are rather special.</p>
-<p>Note that, thinking of <span class="math notranslate nohighlight">\(A\)</span> as a linear operator:</p>
-<ul class="simple">
-<li><p>its domain is <span class="math notranslate nohighlight">\(\mathbb{R}^n\)</span>, and</p></li>
-<li><p>its range is <span class="math notranslate nohighlight">\(\operatorname{Col} A.\)</span></p></li>
+<section id="the-singular-value-decomposition-1" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="the-singular-value-decomposition-1">The Singular Value Decomposition</h2>
+<div class="fragment">
+<p>What we have just proved is that the eigenvectors of <span class="math inline">\(A^TA\)</span> are rather special.</p>
+<p>Note that, thinking of <span class="math inline">\(A\)</span> as a linear operator:</p>
+<ul>
+<li>its domain is <span class="math inline">\(\mathbb{R}^n\)</span>, and</li>
+<li>its range is <span class="math inline">\(\operatorname{Col} A.\)</span></li>
 </ul>
+</div>
+<div class="fragment">
 <p>So we have just proved that</p>
-<ul class="simple">
-<li><p>the set <span class="math notranslate nohighlight">\(\{\mathbf{v}_i\}\)</span> is an orthogonal basis for the domain of <span class="math notranslate nohighlight">\(A\)</span>, for <span class="math notranslate nohighlight">\(i = 1,\dots, n\)</span> and</p></li>
-<li><p>the set <span class="math notranslate nohighlight">\(\{A\mathbf{v}_i\}\)</span> is an orthogonal basis for the range of <span class="math notranslate nohighlight">\(A\)</span>, for <span class="math notranslate nohighlight">\(i = 1,\dots, r\)</span>.</p></li>
+<ul>
+<li>the set <span class="math inline">\(\{\mathbf{v}_i\}\)</span> is an orthogonal basis for the domain of <span class="math inline">\(A\)</span>, for <span class="math inline">\(i = 1,\dots, n\)</span> and</li>
+<li>the set <span class="math inline">\(\{A\mathbf{v}_i\}\)</span> is an orthogonal basis for the range of <span class="math inline">\(A\)</span>, for <span class="math inline">\(i = 1,\dots, r\)</span>.</li>
 </ul>
 <p>Now we can define the SVD.</p>
-<p><strong>Theorem.</strong> Let <span class="math notranslate nohighlight">\(A\)</span> be an <span class="math notranslate nohighlight">\(m\times n\)</span> matrix with rank <span class="math notranslate nohighlight">\(r\)</span>.  Then there exists an <span class="math notranslate nohighlight">\(m\times n\)</span> matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> whose diagonal entries are the first <span class="math notranslate nohighlight">\(r\)</span> singular values of <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(\sigma_1 \geq \sigma_2 \geq \dots \geq \sigma_r &gt; 0,\)</span> and there exists an <span class="math notranslate nohighlight">\(m\times m\)</span> orthogonal matrix <span class="math notranslate nohighlight">\(U\)</span> and an <span class="math notranslate nohighlight">\(n\times n\)</span> orthogonal matrix <span class="math notranslate nohighlight">\(V\)</span> such that</p>
-<div class="math notranslate nohighlight">
-\[ A = U\Sigma V^T \]</div>
-<p>Any factorization <span class="math notranslate nohighlight">\(A = U\Sigma V^T,\)</span> with <span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span> orthogonal and <span class="math notranslate nohighlight">\(\Sigma\)</span> a diagonal matrix is called a <strong>singular value decomposition (SVD)</strong> of <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<p>The columns of <span class="math notranslate nohighlight">\(U\)</span> are called the <strong>left singular vectors</strong> and the columns of <span class="math notranslate nohighlight">\(V\)</span> are called the <strong>right singular vectors</strong> of <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<p><strong>Aside</strong>: regarding the “Rolls Royce” property, consider how elegant this structure is.</p>
-<p>In particular:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(A\)</span> is an arbitrary matrix</p></li>
-<li><p><span class="math notranslate nohighlight">\(U\)</span> and <span class="math notranslate nohighlight">\(V\)</span> are both <strong>orthogonal</strong> matrices</p></li>
-<li><p><span class="math notranslate nohighlight">\(\Sigma\)</span> is a <strong>diagonal</strong> matrix</p></li>
-<li><p>all singular values are <strong>positive or zero</strong></p></li>
-<li><p>there are as many <strong>positive</strong> singular values as the rank of <span class="math notranslate nohighlight">\(A\)</span></p>
-<ul>
-<li><p>(not part of the theorem but we’ll see it is true)</p></li>
-</ul>
-</li>
-</ul>
-<!-- image credit: https://bringatrailer.com/listing/1964-rolls-royce-james-young-phanton-v-limosine/ -->
-<center>
-<a class="reference internal image-reference" href="_images/rolls-royce.jpg"><img alt="Figure" src="_images/rolls-royce.jpg" style="width: 350px;" /></a>
-</center><p>We have built up enough tools now that the proof is quite straightforward.</p>
-<p><strong>Proof.</strong>  Let <span class="math notranslate nohighlight">\(\lambda_i\)</span> and <span class="math notranslate nohighlight">\(\mathbf{v}_i\)</span> be the eigenvalues and eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span>, and <span class="math notranslate nohighlight">\(\sigma_i = \sqrt{\lambda_i}\)</span>.</p>
-<p>The starting point is to use the fact that we just proved:</p>
-<p><span class="math notranslate nohighlight">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span> is an orthogonal basis for <span class="math notranslate nohighlight">\(\operatorname{Col}\ A.\)</span></p>
-<p>Next, let us normalize each <span class="math notranslate nohighlight">\(A\mathbf{v}_i\)</span> to obtain an orthonormal basis <span class="math notranslate nohighlight">\(\{\mathbf{u}_1,\dots,\mathbf{u}_r\}\)</span>, where</p>
-<div class="math notranslate nohighlight">
-\[ \mathbf{u}_i = \frac{1}{\Vert A\mathbf{v}_i\Vert}A\mathbf{v}_i = \frac{1}{\sigma_i}A\mathbf{v}_i \]</div>
-<p>Then</p>
-<div class="math notranslate nohighlight">
-\[ A\mathbf{v}_i = \sigma_i\mathbf{u}_i\;\;\;\;(1 \leq i \leq r)\]</div>
-<aside class="margin sidebar">
-<p class="sidebar-title"></p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you have an orthogonal basis for a subspace, and you want to extend it to an orthogonal basis for
-the entire space, you can do it by a straightforward procedure called the <em>Gram-Schmidt process.</em>  We
-aren’t covering it in this course, but that is what you would use here to extend the set
-<span class="math notranslate nohighlight">\(\{\mathbf{u}_{1} \dots \mathbf{u}_r\}\)</span> to the set
-<span class="math notranslate nohighlight">\(\{\mathbf{u}_{1} \dots \mathbf{u}_m\}\)</span>.</p>
 </div>
-</aside>
-<p>Now the rank of <span class="math notranslate nohighlight">\(A\)</span> (which is <span class="math notranslate nohighlight">\(r\)</span>) may be less than <span class="math notranslate nohighlight">\(m\)</span>.</p>
-<p>In that case, add additional orthonormal vectors <span class="math notranslate nohighlight">\(\{\mathbf{u}_{r+1} \dots \mathbf{u}_m\}\)</span> to the set so that they span <span class="math notranslate nohighlight">\(\mathbb{R}^m\)</span>.</p>
+<p><strong>Theorem.</strong> Let <span class="math inline">\(A\)</span> be an <span class="math inline">\(m\times n\)</span> matrix with rank <span class="math inline">\(r\)</span>. Then there exists an <span class="math inline">\(m\times n\)</span> matrix <span class="math inline">\(\Sigma\)</span> whose diagonal entries are the first <span class="math inline">\(r\)</span> singular values of <span class="math inline">\(A\)</span>, <span class="math inline">\(\sigma_1 \geq \sigma_2 \geq \dots \geq \sigma_r &gt; 0,\)</span> and there exists an <span class="math inline">\(m\times m\)</span> orthogonal matrix <span class="math inline">\(U\)</span> and an <span class="math inline">\(n\times n\)</span> orthogonal matrix <span class="math inline">\(V\)</span> such that</p>
+<p><span class="math display">\[ A = U\Sigma V^T \]</span></p>
+<div class="fragment">
+<p>Any factorization <span class="math inline">\(A = U\Sigma V^T,\)</span> with <span class="math inline">\(U\)</span> and <span class="math inline">\(V\)</span> orthogonal and <span class="math inline">\(\Sigma\)</span> a diagonal matrix is called a <strong>singular value decomposition (SVD)</strong> of <span class="math inline">\(A\)</span>.</p>
+<p>The columns of <span class="math inline">\(U\)</span> are called the <strong>left singular vectors</strong> and the columns of <span class="math inline">\(V\)</span> are called the <strong>right singular vectors</strong> of <span class="math inline">\(A\)</span>.</p>
+</div>
+<p><strong>Aside</strong>: regarding the “Rolls Royce” property, consider how elegant this structure is:</p>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(A\)</span> is an arbitrary matrix</li>
+<li><span class="math inline">\(U\)</span> and <span class="math inline">\(V\)</span> are both <strong>orthogonal</strong> matrices</li>
+<li><span class="math inline">\(\Sigma\)</span> is a <strong>diagonal</strong> matrix</li>
+<li>all singular values are <strong>positive or zero</strong></li>
+<li>there are as many <strong>positive</strong> singular values as the rank of <span class="math inline">\(A\)</span>
+<ul>
+<li>(not part of the theorem but we’ll see it is true)</li>
+</ul></li>
+</ul>
+<div class="ctrd">
+<p><img src="images/rolls-royce.jpg" class="img-fluid" alt="A Rolls-Royce" width="450"></p>
+</div>
+</div>
+<p>We have built up enough tools now that the proof is quite straightforward.</p>
+<p><strong>Proof.</strong> Let <span class="math inline">\(\lambda_i\)</span> and <span class="math inline">\(\mathbf{v}_i\)</span> be the eigenvalues and eigenvectors of <span class="math inline">\(A^TA\)</span>, and <span class="math inline">\(\sigma_i = \sqrt{\lambda_i}\)</span>.</p>
+<div class="fragment">
+<p>The starting point is to use the fact that we just proved:</p>
+<p><span class="math inline">\(\{A\mathbf{v}_1, \dots, A\mathbf{v}_r\}\)</span> is an orthogonal basis for <span class="math inline">\(\operatorname{Col}\ A.\)</span></p>
+</div>
+<div class="fragment">
+<p>Next, let us normalize each <span class="math inline">\(A\mathbf{v}_i\)</span> to obtain an orthonormal basis <span class="math inline">\(\{\mathbf{u}_1,\dots,\mathbf{u}_r\}\)</span>, where</p>
+<p><span class="math display">\[ \mathbf{u}_i = \frac{1}{\Vert A\mathbf{v}_i\Vert}A\mathbf{v}_i = \frac{1}{\sigma_i}A\mathbf{v}_i \]</span></p>
+</div>
+<div class="fragment">
+<p>Then</p>
+<p><span class="math display">\[ A\mathbf{v}_i = \sigma_i\mathbf{u}_i\;\;\;\;(1 \leq i \leq r)\]</span></p>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
+<p>If you have an orthogonal basis for a subspace, and you want to extend it to an orthogonal basis for the entire space, you can do it by a straightforward procedure called the <em>Gram-Schmidt process.</em> We aren’t covering it in this course, but that is what you would use here to extend the set <span class="math inline">\(\{\mathbf{u}_{1} \dots \mathbf{u}_r\}\)</span> to the set <span class="math inline">\(\{\mathbf{u}_{1} \dots \mathbf{u}_m\}\)</span>.</p>
+</div></div><div class="fragment">
+<p>Now the rank of <span class="math inline">\(A\)</span> (which is <span class="math inline">\(r\)</span>) may be less than <span class="math inline">\(m\)</span>.</p>
+<p>In that case, add additional orthonormal vectors <span class="math inline">\(\{\mathbf{u}_{r+1} \dots \mathbf{u}_m\}\)</span> to the set so that they span <span class="math inline">\(\mathbb{R}^m\)</span>.</p>
+</div>
+<div class="fragment">
 <p>Now collect the vectors into matrices.</p>
-<div class="math notranslate nohighlight">
-\[ U = \begin{bmatrix}\mathbf{u}_1&amp;\cdots&amp;\mathbf{u}_m\end{bmatrix}\]</div>
+<p><span class="math display">\[ U = \begin{bmatrix}\mathbf{u}_1&amp;\cdots&amp;\mathbf{u}_m\end{bmatrix}\]</span></p>
 <p>and</p>
-<div class="math notranslate nohighlight">
-\[ V = \begin{bmatrix}\mathbf{v}_1&amp;\cdots&amp;\mathbf{v}_n\end{bmatrix}\]</div>
-<p>Recall that these matrices are orthogonal because the <span class="math notranslate nohighlight">\(\{\mathbf{v_i}\}\)</span> are orthogonal and the <span class="math notranslate nohighlight">\(\{A\mathbf{v_i}\}\)</span>  are orthogonal, as we previously proved.</p>
+<p><span class="math display">\[ V = \begin{bmatrix}\mathbf{v}_1&amp;\cdots&amp;\mathbf{v}_n\end{bmatrix}\]</span></p>
+<p>Recall that these matrices are orthogonal because the <span class="math inline">\(\{\mathbf{v_i}\}\)</span> are orthogonal and the <span class="math inline">\(\{A\mathbf{v_i}\}\)</span> are orthogonal, as we previously proved.</p>
+</div>
+<div class="fragment">
 <p>So</p>
-<div class="math notranslate nohighlight">
-\[ AV = [A\mathbf{v}_1\;\cdots\;A\mathbf{v}_r\;\overbrace{\mathbf{0}\cdots\mathbf{0}}^{n-r}]\]</div>
-<div class="math notranslate nohighlight">
-\[ = [\sigma_1\mathbf{u}_1\;\cdots\;\sigma_r\mathbf{u}_r\;\overbrace{\mathbf{0}\;\cdots\;\mathbf{0}}^{n-r}] = U\Sigma. \]</div>
-<p>(keeping in mind that <span class="math notranslate nohighlight">\(U\)</span> is <span class="math notranslate nohighlight">\(m\times m\)</span> and <span class="math notranslate nohighlight">\(\Sigma\)</span> is <span class="math notranslate nohighlight">\(m\times n\)</span>.)</p>
+<p><span class="math display">\[ AV = [A\mathbf{v}_1\;\cdots\;A\mathbf{v}_r\;\overbrace{\mathbf{0}\cdots\mathbf{0}}^{n-r}]\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[ = [\sigma_1\mathbf{u}_1\;\cdots\;\sigma_r\mathbf{u}_r\;\overbrace{\mathbf{0}\;\cdots\;\mathbf{0}}^{n-r}] = U\Sigma. \]</span></p>
+<p>(keeping in mind that <span class="math inline">\(U\)</span> is <span class="math inline">\(m\times m\)</span> and <span class="math inline">\(\Sigma\)</span> is <span class="math inline">\(m\times n\)</span>.)</p>
+</div>
+<div class="fragment">
 <p>So</p>
-<div class="math notranslate nohighlight">
-\[ AV = U\Sigma\]</div>
+<p><span class="math display">\[ AV = U\Sigma\]</span></p>
+</div>
+<div class="fragment">
 <p>So:</p>
-<div class="math notranslate nohighlight">
-\[AVV^T = U\Sigma V^T\]</div>
-<p>And because <span class="math notranslate nohighlight">\(V\)</span> is an orthogonal matrix:</p>
-<div class="math notranslate nohighlight">
-\[ A = U\Sigma V^T\]</div>
+<p><span class="math display">\[AVV^T = U\Sigma V^T\]</span></p>
+<p>And because <span class="math inline">\(V\)</span> is an orthogonal matrix:</p>
+<p><span class="math display">\[ A = U\Sigma V^T\]</span></p>
+</div>
 </section>
-<section id="the-reduced-svd-and-the-pseudoinverse">
-<h2>The Reduced SVD and the Pseudoinverse<a class="headerlink" href="#the-reduced-svd-and-the-pseudoinverse" title="Permalink to this heading">#</a></h2>
+<section id="the-reduced-svd-and-the-pseudoinverse" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="the-reduced-svd-and-the-pseudoinverse">The Reduced SVD and the Pseudoinverse</h2>
+<div class="fragment">
 <p>Let’s step back to get a sense of how the SVD decomposes a matrix.</p>
-<p>Let’s say <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(m\times n\)</span> with <span class="math notranslate nohighlight">\(m&lt;n\)</span>.</p>
-<p>(The situation when <span class="math notranslate nohighlight">\(m&gt;n\)</span> follows similarly).</p>
-<p>The SVD looks like this, with singular values on the diagonal of <span class="math notranslate nohighlight">\(\Sigma\)</span>:</p>
-<center>
-<a class="reference internal image-reference" href="_images/L25-F1.png"><img alt="Figure" src="_images/L25-F1.png" style="width: 650px;" /></a>
-</center><p>Now, let’s assume that the number of nonzero singular values <span class="math notranslate nohighlight">\(r\)</span> is less than <span class="math notranslate nohighlight">\(m\)</span>.</p>
+<p>Let’s say <span class="math inline">\(A\)</span> is <span class="math inline">\(m\times n\)</span> with <span class="math inline">\(m&lt;n\)</span>.</p>
+<p>(The situation when <span class="math inline">\(m&gt;n\)</span> follows similarly).</p>
+</div>
+<div class="fragment">
+<p>The SVD looks like this, with singular values on the diagonal of <span class="math inline">\(\Sigma\)</span>:</p>
+<div class="ctrd">
+<p><img src="images/L25-F1.png" class="img-fluid" width="650"></p>
+</div>
+</div>
+<div class="fragment">
+<p>Now, let’s assume that the number of nonzero singular values <span class="math inline">\(r\)</span> is less than <span class="math inline">\(m\)</span>.</p>
 <p>Again, other cases would be similar.</p>
-<center>
-<a class="reference internal image-reference" href="_images/L25-F2.png"><img alt="Figure" src="_images/L25-F2.png" style="width: 850px;" /></a>
-</center><p>In many cases we are only concerned with representing <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<p>That is, we don’t need <span class="math notranslate nohighlight">\(U\)</span> or <span class="math notranslate nohighlight">\(V\)</span> to be orthogonal (square) matrices.</p>
-<p>Then, to compute <span class="math notranslate nohighlight">\(A\)</span>, we only need the <span class="math notranslate nohighlight">\(r\)</span> leftmost columns of <span class="math notranslate nohighlight">\(U\)</span>, and the <span class="math notranslate nohighlight">\(r\)</span> upper rows of <span class="math notranslate nohighlight">\(V^T\)</span>.</p>
-<p>That’s because all the other values on the diagonal of <span class="math notranslate nohighlight">\(\Sigma\)</span> are zero, so they don’t contribute anything to <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<center>
-<a class="reference internal image-reference" href="_images/L25-F3.png"><img alt="Figure" src="_images/L25-F3.png" style="width: 850px;" /></a>
-</center><p>So we often work with the <strong>reduced SVD</strong> of <span class="math notranslate nohighlight">\(A\)</span>:</p>
-<p><span class="math notranslate nohighlight">\(m\left\{\begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\right.\;\;\overbrace{\left[\begin{array}{cccc}\begin{array}{c}\vdots\\\vdots\\{\bf a_1}\\\vdots\\\vdots\end{array}&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_2}\\\vdots\\\vdots\end{array}&amp;\dots&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_n}\\\vdots\\\vdots\end{array}\\\end{array}\right]}^{\Large n} =
+<div class="ctrd">
+<p><img src="images/L25-F2.png" class="img-fluid" width="650"></p>
+</div>
+</div>
+<div class="fragment">
+<p>In many cases we are only concerned with representing <span class="math inline">\(A\)</span>.</p>
+<p>That is, we don’t need <span class="math inline">\(U\)</span> or <span class="math inline">\(V\)</span> to be orthogonal (square) matrices.</p>
+<p>Then, to compute <span class="math inline">\(A\)</span>, we only need the <span class="math inline">\(r\)</span> leftmost columns of <span class="math inline">\(U\)</span>, and the <span class="math inline">\(r\)</span> upper rows of <span class="math inline">\(V^T\)</span>.</p>
+<p>That’s because all the other values on the diagonal of <span class="math inline">\(\Sigma\)</span> are zero, so they don’t contribute anything to <span class="math inline">\(A\)</span>.</p>
+<div class="ctrd">
+<p><img src="images/L25-F3.png" class="img-fluid" width="650"></p>
+</div>
+</div>
+<div class="fragment">
+<p>So we often work with the <strong>reduced SVD</strong> of <span class="math inline">\(A\)</span>:</p>
+<p><span class="math inline">\(\small \begin{array}{c}\;\\\;\\\;\\\;\\\;\end{array}\;\;\overbrace{\left[\begin{array}{ccc}\begin{array}{c}\vdots\\\vdots\\{\bf a_1}\\\vdots\\\vdots\end{array}&amp;\dots&amp;\begin{array}{c}\vdots\\\vdots\\{\bf a_n}\\\vdots\\\vdots\end{array}\\\end{array}\right]}^{\Large n} =
 \overbrace{\left[\begin{array}{ccc}\vdots&amp;&amp;\vdots\\\vdots&amp;&amp;\vdots\\\mathbf{u}_1&amp;\cdots&amp;\mathbf{u}_r\\\vdots&amp;&amp;\vdots\\\vdots&amp;&amp;\vdots\end{array}\right]}^{\large r}
 \times
 \left[\begin{array}{ccc}\sigma_1&amp; &amp;\\&amp;\ddots&amp;\\&amp;&amp;\sigma_r\end{array}\right]
 \times
-\left[\begin{array}{ccccc}\dots&amp;\dots&amp;\mathbf{v}_1&amp;\dots&amp;\dots\\&amp;&amp;\vdots&amp;&amp;\\\dots&amp;\dots&amp;\mathbf{v}_r&amp;\dots&amp;\dots\end{array}\right]\)</span></p>
-<div class="math notranslate nohighlight">
-\[\Large\overset{m\,\times\, n}{A^{\vphantom{T}}} = \overset{m\,\times\, r}{U^{\vphantom{T}}}\;\;\overset{r\,\times\, r}{\Sigma^{\vphantom{T}}}\;\;\overset{r\,\times\, n}{V^T}\]</div>
-<p>Note that in the reduced SVD, <span class="math notranslate nohighlight">\(\Sigma\)</span> has all nonzero entries on its diagonal, so it can be inverted.</p>
-<p>However, we still have that <span class="math notranslate nohighlight">\(A = U\Sigma V^T\)</span>.</p>
-<section id="the-pseudoinverse">
-<h3>The Pseudoinverse<a class="headerlink" href="#the-pseudoinverse" title="Permalink to this heading">#</a></h3>
-<p>Consider the case where we are working with the reduced SVD of <span class="math notranslate nohighlight">\(A\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[A = U\Sigma V^T.\]</div>
-<p>In the reduced SVD, <span class="math notranslate nohighlight">\(\Sigma\)</span> is invertible (it is a diagonal matrix with all positive entries on the diagonal).</p>
-<p>Using this decomposition we can define an important matrix corresponding to <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<div class="math notranslate nohighlight">
-\[A^+ = V \Sigma^{-1} U^T\]</div>
-<p>This matrix <span class="math notranslate nohighlight">\(A^+\)</span> is called the <strong>pseudoinverse</strong> of <span class="math notranslate nohighlight">\(A\)</span>.</p>
+\left[\begin{array}{ccc}\dots&amp;\mathbf{v}_1&amp;\dots\\&amp;\vdots&amp;\\\dots&amp;\mathbf{v}_r&amp;\dots\end{array}\right]\)</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\Large\overset{m\,\times\, n}{A^{\vphantom{T}}} = \overset{m\,\times\, r}{U^{\vphantom{T}}}\;\;\overset{r\,\times\, r}{\Sigma^{\vphantom{T}}}\;\;\overset{r\,\times\, n}{V^T}\]</span></p>
+</div>
+<div class="fragment">
+<p>Note that in the reduced SVD, <span class="math inline">\(\Sigma\)</span> has all nonzero entries on its diagonal, so it can be inverted.</p>
+<p>However, we still have that <span class="math inline">\(A = U\Sigma V^T\)</span>.</p>
+</div>
+<section id="the-pseudoinverse" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="the-pseudoinverse">The Pseudoinverse</h3>
+<div class="fragment">
+<p>Consider the case where we are working with the reduced SVD of <span class="math inline">\(A\)</span>:</p>
+<p><span class="math display">\[A = U\Sigma V^T.\]</span></p>
+<p>In the reduced SVD, <span class="math inline">\(\Sigma\)</span> is invertible (it is a diagonal matrix with all positive entries on the diagonal).</p>
+</div>
+<div class="fragment">
+<p>Using this decomposition we can define an important matrix corresponding to <span class="math inline">\(A\)</span>.</p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[A^+ = V \Sigma^{-1} U^T\]</span></p>
+</div>
+<div class="fragment">
+<p>This matrix <span class="math inline">\(A^+\)</span> is called the <strong>pseudoinverse</strong> of <span class="math inline">\(A\)</span>.</p>
 <p>(Sometimes called the Moore-Penrose pseudoinverse).</p>
-<p>Obviously, <span class="math notranslate nohighlight">\(A\)</span> cannot have an inverse, because it is not even square (let alone invertible) in general.</p>
-<p>So why is <span class="math notranslate nohighlight">\(A^+\)</span> called the pseudoinverse?</p>
-<p>Let’s go back to our favorite equation, <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span>, specifically in the case where there are no solutions.</p>
-<p>In that case, we can find least-squares solutions by finding <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> such that <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}}\)</span> is the projection of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> onto <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>.</p>
-<p>And, <strong>if <span class="math notranslate nohighlight">\(A^TA\)</span> is invertible,</strong> that <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> is given by</p>
-<div class="math notranslate nohighlight">
-\[ \mathbf{\hat{x}} = (A^TA)^{-1}A^T\mathbf{b}\]</div>
-<p>But, what if <span class="math notranslate nohighlight">\(A^TA\)</span> is not invertible?</p>
+</div>
+<div class="fragment">
+<p>Obviously, <span class="math inline">\(A\)</span> cannot have an inverse, because it is not even square (let alone invertible) in general.</p>
+<p>So why is <span class="math inline">\(A^+\)</span> called the pseudoinverse?</p>
+</div>
+<div class="fragment">
+<p>Let’s go back to our favorite equation, <span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span>, specifically in the case where there are no solutions.</p>
+<p>In that case, we can find least-squares solutions by finding <span class="math inline">\(\mathbf{\hat{x}}\)</span> such that <span class="math inline">\(A\mathbf{\hat{x}}\)</span> is the projection of <span class="math inline">\(\mathbf{b}\)</span> onto <span class="math inline">\(\operatorname{Col}A\)</span>.</p>
+<p>And, <strong>if <span class="math inline">\(A^TA\)</span> is invertible,</strong> that <span class="math inline">\(\mathbf{\hat{x}}\)</span> is given by</p>
+<p><span class="math display">\[ \mathbf{\hat{x}} = (A^TA)^{-1}A^T\mathbf{b}\]</span></p>
+</div>
+<div class="fragment">
+<p>But, what if <span class="math inline">\(A^TA\)</span> is not invertible?</p>
 <p>There are still least-square solutions, but now there are an infinite number.</p>
 <p>What if we just want to find <strong>one</strong> of them?</p>
+</div>
+<div class="fragment">
 <p>We can do that using the pseudoinverse:</p>
-<div class="math notranslate nohighlight">
-\[\mathbf{\hat{x}} = A^+ \mathbf{b}\]</div>
-<p>Why does this work?  Let’s see.</p>
-<p>If we define <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> this way, then what is <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}}\)</span>?</p>
-<div class="math notranslate nohighlight">
-\[A\mathbf{\hat{x}} = AA^+ \mathbf{b}\]</div>
-<div class="math notranslate nohighlight">
-\[ = (U\Sigma V^T)(V\Sigma^{-1}U^T)\mathbf{b}\]</div>
-<div class="math notranslate nohighlight">
-\[ = U\Sigma\Sigma^{-1}U^T\mathbf{b}\]</div>
-<div class="math notranslate nohighlight">
-\[ = UU^T\mathbf{b}\]</div>
-<p>Now, <span class="math notranslate nohighlight">\(U\)</span> is an orthonormal basis for <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>.</p>
-<p>And, <span class="math notranslate nohighlight">\(U^T\mathbf{b}\)</span> are the coefficients of the projection of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> onto each column of <span class="math notranslate nohighlight">\(U\)</span>, since the columns are unit length.</p>
-<p>So, <span class="math notranslate nohighlight">\(UU^T\mathbf{b}\)</span> is the projection of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> onto <span class="math notranslate nohighlight">\(\operatorname{Col}A\)</span>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<p><span class="math display">\[\mathbf{\hat{x}} = A^+ \mathbf{b}\]</span></p>
+</div>
+<div class="fragment">
+<p>Why does this work? Let’s see.</p>
+<p>If we define <span class="math inline">\(\mathbf{\hat{x}}\)</span> this way, then what is <span class="math inline">\(A\mathbf{\hat{x}}\)</span>?</p>
+<p><span class="math display">\[A\mathbf{\hat{x}} = AA^+ \mathbf{b}\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[ = (U\Sigma V^T)(V\Sigma^{-1}U^T)\mathbf{b}\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[ = U\Sigma\Sigma^{-1}U^T\mathbf{b}\]</span></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[ = UU^T\mathbf{b}\]</span></p>
+</div>
+<div class="fragment">
+<p>Now, <span class="math inline">\(U\)</span> is an orthonormal basis for <span class="math inline">\(\operatorname{Col}A\)</span>.</p>
+<p>And, <span class="math inline">\(U^T\mathbf{b}\)</span> are the coefficients of the projection of <span class="math inline">\(\mathbf{b}\)</span> onto each column of <span class="math inline">\(U\)</span>, since the columns are unit length.</p>
+<p>So, <span class="math inline">\(UU^T\mathbf{b}\)</span> is the projection of <span class="math inline">\(\mathbf{b}\)</span> onto <span class="math inline">\(\operatorname{Col}A\)</span>.</p>
+</div>
+
+<div class="no-row-height column-margin column-container"><div class="">
 <p>To see why this is true, recall that when we project onto an orthogonal basis, the projection is especially easy.</p>
-<p>Let’s say that <span class="math notranslate nohighlight">\(\mathbf{u}_1\)</span> and <span class="math notranslate nohighlight">\(\mathbf{u}_2\)</span> form an orthogonal basis for some subspace.  Then the projection of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> onto that subspace is very simple:</p>
-<div class="math notranslate nohighlight">
-\[ \hat{\mathbf{b}} = \frac{\mathbf{u}_1^T\mathbf{b}}{\mathbf{u}_1^T\mathbf{u}_1}\mathbf{u}_1 + \frac{\mathbf{u}_2^T\mathbf{b}}{\mathbf{u}_2^T\mathbf{u}_2}\mathbf{u}_2. \]</div>
-<p>Now, how does this become <span class="math notranslate nohighlight">\(UU^T\mathbf{b}\)</span>?   Say that  <span class="math notranslate nohighlight">\(\mathbf{u}_1\)</span> and <span class="math notranslate nohighlight">\(\mathbf{u}_2\)</span> are the columns of <span class="math notranslate nohighlight">\(U\)</span>.</p>
-<p><span class="math notranslate nohighlight">\(U\)</span> is an orthonormal matrix, so <span class="math notranslate nohighlight">\(\mathbf{u}_1\)</span> and <span class="math notranslate nohighlight">\(\mathbf{u}_2\)</span> are unit vectors, so <span class="math notranslate nohighlight">\(\mathbf{u}_1^T\mathbf{u}_1 = 1\)</span> and <span class="math notranslate nohighlight">\(\mathbf{u}_2^T\mathbf{u}_2 = 1\)</span>.</p>
+<p>Let’s say that <span class="math inline">\(\mathbf{u}_1\)</span> and <span class="math inline">\(\mathbf{u}_2\)</span> form an orthogonal basis for some subspace. Then the projection of <span class="math inline">\(\mathbf{b}\)</span> onto that subspace is very simple:</p>
+<p><span class="math display">\[ \hat{\mathbf{b}} = \frac{\mathbf{u}_1^T\mathbf{b}}{\mathbf{u}_1^T\mathbf{u}_1}\mathbf{u}_1 + \frac{\mathbf{u}_2^T\mathbf{b}}{\mathbf{u}_2^T\mathbf{u}_2}\mathbf{u}_2. \]</span></p>
+<p>Now, how does this become <span class="math inline">\(UU^T\mathbf{b}\)</span>? Say that <span class="math inline">\(\mathbf{u}_1\)</span> and <span class="math inline">\(\mathbf{u}_2\)</span> are the columns of <span class="math inline">\(U\)</span>.</p>
+<p><span class="math inline">\(U\)</span> is an orthonormal matrix, so <span class="math inline">\(\mathbf{u}_1\)</span> and <span class="math inline">\(\mathbf{u}_2\)</span> are unit vectors, so <span class="math inline">\(\mathbf{u}_1^T\mathbf{u}_1 = 1\)</span> and <span class="math inline">\(\mathbf{u}_2^T\mathbf{u}_2 = 1\)</span>.</p>
 <p>So</p>
-<div class="math notranslate nohighlight">
-\[ \hat{\mathbf{b}} = \mathbf{u}_1^T\mathbf{b}\mathbf{u}_1 + \mathbf{u}_2^T\mathbf{b}\mathbf{u}_2. \]</div>
-<p>Note that <span class="math notranslate nohighlight">\(\mathbf{u}_1^T\mathbf{b}\)</span> and <span class="math notranslate nohighlight">\(\mathbf{u}_2^T\mathbf{b}\)</span> are scalar quantities, which we can collect into a vector, that can be expressed as <span class="math notranslate nohighlight">\(U^T\mathbf{b}\)</span>.</p>
-<p>And multiplying that vector by <span class="math notranslate nohighlight">\(U\)</span> gives us the projection above:</p>
-<div class="math notranslate nohighlight">
-\[ \hat{\mathbf{b}} = \mathbf{u}_1^T\mathbf{b}\mathbf{u}_1 + \mathbf{u}_2^T\mathbf{b}\mathbf{u}_2  = UU^T\mathbf{b}. \]</div>
+<p><span class="math display">\[ \hat{\mathbf{b}} = \mathbf{u}_1^T\mathbf{b}\mathbf{u}_1 + \mathbf{u}_2^T\mathbf{b}\mathbf{u}_2. \]</span></p>
+<p>Note that <span class="math inline">\(\mathbf{u}_1^T\mathbf{b}\)</span> and <span class="math inline">\(\mathbf{u}_2^T\mathbf{b}\)</span> are scalar quantities, which we can collect into a vector, that can be expressed as <span class="math inline">\(U^T\mathbf{b}\)</span>.</p>
+<p>And multiplying that vector by <span class="math inline">\(U\)</span> gives us the projection above:</p>
+<p><span class="math display">\[ \hat{\mathbf{b}} = \mathbf{u}_1^T\mathbf{b}\mathbf{u}_1 + \mathbf{u}_2^T\mathbf{b}\mathbf{u}_2  = UU^T\mathbf{b}. \]</span></p>
+</div></div><div class="fragment">
+<p>So, <span class="math inline">\(\mathbf{\hat{x}} = A^+ \mathbf{b}\)</span> is a least squares solution of <span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span>,</p>
+<p>because <span class="math inline">\(A\mathbf{\hat{x}}\)</span> is the projection of <span class="math inline">\(\mathbf{b}\)</span> onto the column space of <span class="math inline">\(A\)</span>.</p>
 </div>
-<p>So, <span class="math notranslate nohighlight">\(\mathbf{\hat{x}} = A^+ \mathbf{b}\)</span> is a least squares solution of <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span>,</p>
-<p>because <span class="math notranslate nohighlight">\(A\mathbf{\hat{x}}\)</span> is the projection of <span class="math notranslate nohighlight">\(\mathbf{b}\)</span> onto the column space of <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<p>And this is true <strong>even when <span class="math notranslate nohighlight">\(A^TA\)</span> is not invertible</strong>,</p>
-<p>ie, this formula works for <strong>any</strong> <span class="math notranslate nohighlight">\(A\)</span>.</p>
-<p>Remember, any <span class="math notranslate nohighlight">\(A\)</span> has an SVD, and so any <span class="math notranslate nohighlight">\(A\)</span> has a pseudoinverse!</p>
-<p>Using these facts, we can now think of the least squares solution set of <span class="math notranslate nohighlight">\(A\mathbf{x} = \mathbf{b}\)</span> in a particularly simple way.</p>
-<p>It is always the case for any least-squares solution <span class="math notranslate nohighlight">\(\mathbf{\hat{x}}\)</span> that:</p>
-<div class="math notranslate nohighlight">
-\[\mathbf{\hat{x}} = A^+ \mathbf{b} + \mathbf{z}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf{z}\)</span> is <strong>a vector in the nullspace of <span class="math notranslate nohighlight">\(A\)</span></strong>.</p>
+<div class="fragment">
+<p>And this is true <strong>even when <span class="math inline">\(A^TA\)</span> is not invertible</strong>,</p>
+<p>ie, this formula works for <strong>any</strong> <span class="math inline">\(A\)</span>.</p>
+<p>Remember, any <span class="math inline">\(A\)</span> has an SVD, and so any <span class="math inline">\(A\)</span> has a pseudoinverse!</p>
+</div>
+<div class="fragment">
+<p>Using these facts, we can now think of the least squares solution set of <span class="math inline">\(A\mathbf{x} = \mathbf{b}\)</span> in a particularly simple way.</p>
+<p>It is always the case for any least-squares solution <span class="math inline">\(\mathbf{\hat{x}}\)</span> that:</p>
+<p><span class="math display">\[\mathbf{\hat{x}} = A^+ \mathbf{b} + \mathbf{z}\]</span></p>
+<p>where <span class="math inline">\(\mathbf{z}\)</span> is <strong>a vector in the nullspace of <span class="math inline">\(A\)</span></strong>.</p>
+</div>
+<div class="fragment">
 <p>Hence we can write the set of all least-squares solutions in a particuarly clear way:</p>
-<div class="math notranslate nohighlight">
-\[\{\hat{\mathbf{x}}\} = \{A^+ \mathbf{b} + \mathbf{z}\,|\,\mathbf{z} \in \operatorname{Nul} A\}.\]</div>
-<p>When <span class="math notranslate nohighlight">\(A\)</span> has dependent columns, then it has a nontrivial nullspace, and the above expression gives the infinite set of least-squares solutions.</p>
-<p>When <span class="math notranslate nohighlight">\(A\)</span> has independent columns, then its nullspace consists only of <span class="math notranslate nohighlight">\(\mathbf{0}\)</span>, and the above expression gives the unique least-squares solution.</p>
-</section>
+<p><span class="math display">\[\{\hat{\mathbf{x}}\} = \{A^+ \mathbf{b} + \mathbf{z}\,|\,\mathbf{z} \in \operatorname{Nul} A\}.\]</span></p>
+</div>
+<div class="fragment">
+<p>When <span class="math inline">\(A\)</span> has dependent columns, then it has a nontrivial nullspace, and the above expression gives the infinite set of least-squares solutions.</p>
+<p>When <span class="math inline">\(A\)</span> has independent columns, then its nullspace consists only of <span class="math inline">\(\mathbf{0}\)</span>, and the above expression gives the unique least-squares solution.</p>
+</div>
+
+
 </section>
 </section>
 
-    <script type="text/x-thebe-config">
-    {
-        requestKernel: true,
-        binderOptions: {
-            repo: "binder-examples/jupyter-stacks-datascience",
-            ref: "master",
-        },
-        codeMirrorConfig: {
-            theme: "abcdef",
-            mode: "python"
-        },
-        kernelOptions: {
-            name: "python3",
-            path: "./."
-        },
-        predefinedOutput: true
+<a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
     }
-    </script>
-    <script>kernelName = 'python3'</script>
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
 
-                </article>
-              
-
-              
-              
-              
-              
-                <footer class="prev-next-footer">
-                  
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="L24SymmetricMatrices.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Symmetric Matrices</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="L26ApplicationsOfSVD.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Applications of the SVD</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
-</div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximizing-vert-a-mathbf-x-vert">Maximizing <span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert\)</span></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vert-a-mathbf-x-vert-2-is-a-quadratic-form"><span class="math notranslate nohighlight">\(\Vert A\mathbf{x}\Vert^2\)</span> is a Quadratic Form</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-singular-values-of-a-matrix">The Singular Values of a Matrix</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-eigenvectors-of-a-ta-lead-to-an-orthogonal-basis-for-operatorname-col-a">The Eigenvectors of <span class="math notranslate nohighlight">\(A^TA\)</span> Lead To an Orthogonal Basis for <span class="math notranslate nohighlight">\(\operatorname{Col} A\)</span></a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">The Singular Value Decomposition</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-reduced-svd-and-the-pseudoinverse">The Reduced SVD and the Pseudoinverse</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-pseudoinverse">The Pseudoinverse</a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
 
-</div></div>
-              
-            
-          </div>
-          <footer class="bd-footer-content">
-            
-<div class="bd-footer-content__inner container">
-  
-  <div class="footer-item">
-    
-<p class="component-author">
-By Mark Crovella.  Portions are based on Lay, 'Linear Algebra and its Applications'
-</p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-</div>
-          </footer>
-        
-
-      </main>
-    </div>
-  </div>
-  
-  <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
-
-  <footer class="bd-footer">
-  </footer>
-  </body>
-</html>
+</body></html>
