@@ -31,6 +31,13 @@ This comment somehow suppresses the title page
 ##
 :::
 
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Many parts of this page are based on _Linear Algebra and its
+Applications,_ by David C. Lay
+:::
+::::
+
 Today we deepen our study of geometry.
 
 In the last lecture we focused on points, lines, and angles.
@@ -798,14 +805,36 @@ ax.plot([0,z[0]],[0,z[1]],'g-');
 
 ### Important Properties of $\hat{\mathbf{y}}$
 
+:::: {.content-hidden when-profile="slides"}
+::: {.column-margin}
+Here is a proof that the closest point on the line to $\mathbf{y}$ is given by the projection of $\mathbf{y}$ onto the line.
+
+Let $\mathbf{q} = \alpha \mathbf{u}$. The squared distance from $\mathbf{y}$ to $\mathbf{q}$ is $\Vert \mathbf{y}-\mathbf{q}\Vert^2 = \Vert \mathbf{y}-\alpha\mathbf{u}\Vert^2$. 
+
+Expanding this, $\Vert \mathbf{y}-\alpha\mathbf{u}\Vert^2 =$ 
+$\mathbf{y}^T\mathbf{y} - 2\alpha(\mathbf{y}^T\mathbf{u}) + \alpha^2(\mathbf{u}^T\mathbf{u}).$
+
+This is a quadratic function in $\alpha$.   To minimize it, we take the derivative with respect to $\alpha$:
+$\frac{d}{d\alpha} [\mathbf{y}^T\mathbf{y} - 2\alpha(\mathbf{y}^T\mathbf{u}) + \alpha^2(\mathbf{u}^T\mathbf{u})]$ $= -2(\mathbf{y}^T\mathbf{u}) + 2\alpha(\mathbf{u}^T\mathbf{u})$.
+
+Setting the derivative to zero gives $\alpha = \frac{\mathbf{y}^T\mathbf{u}}{\mathbf{u}^T\mathbf{u}}.$
+
+Therefore the closest point to $\mathbf{y}$ on the line $\operatorname{Span}\{\mathbf{u}\}$ is $\frac{\mathbf{y}^T\mathbf{u}}{\mathbf{u}^T\mathbf{u}} \mathbf{u}$, namely, the orthogonal projection of $\mathbf{y}$ onto $\operatorname{Span}\{\mathbf{u}\}$. 
+:::
+::::
+
 __The closest point.__
 
-Recall from geometry that given a line and a point $P$, the closest point on the line to $P$ is given by the perpendicular from $P$ to the line.
+Recall from geometry that given a line and a point $\mathbf{y}$, the closest point on the line to $\mathbf{y}$ is given by the perpendicular from $\mathbf{y}$ to the line.
+
+:::: {.content-hidden when-profile="slides"}
+There is a short proof in the margin.
+::::
 
 So this gives an important interpretation of $\hat{\mathbf{y}}$: it is __the closest point to $\mathbf{y}$ in the subspace $L$.__
 
 ::: {.fragment}
-__The distance from $\mathbf{y}$ to $L$__
+__The distance from $\mathbf{y}$ to $L$.__
 
 The distance from $\mathbf{y}$ to $L$ is the length of the perpendicular from $\mathbf{y}$ to its orthogonal projection on $L$, namely $\hat{\mathbf{y}}$.
 
@@ -821,7 +850,7 @@ $$\Vert\mathbf{y}-\hat{\mathbf{y}}\Vert = \sqrt{(-1)^2 + 2^2} = \sqrt{5}.$$
 ## Projections find Coordinates in an Orthogonal Basis
 
 ::: {.fragment}
-Earlier today, we saw that when we decompose a vector $\mathbf{y}$ into a linear combination of vectors $\{\mathbf{u}_1,\dots,\mathbf{u}_p\}$ in a orthogonal basis, we have
+Earlier in this lectureopen, we saw that when we decompose a vector $\mathbf{y}$ into a linear combination of vectors $\{\mathbf{u}_1,\dots,\mathbf{u}_p\}$ in a orthogonal basis, we have
 
 $$\mathbf{y} = c_1\mathbf{u}_1 + \dots + c_p\mathbf{u}_p$$
 
