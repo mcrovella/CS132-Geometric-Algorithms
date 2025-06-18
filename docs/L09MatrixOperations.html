@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -35,10 +35,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-fec4eca8e712537310c7ebcc1543822c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -296,6 +296,12 @@ window.Quarto = {
  <span class="menu-text">Applications of the SVD</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./postscript.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Postscript</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -324,7 +330,7 @@ window.Quarto = {
 </nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
@@ -353,11 +359,11 @@ This comment somehow suppresses the title page
 <p>Let’s start our discussion by recalling the linear transformation we called <strong>reflection through the origin.</strong></p>
 <div class="fragment">
 <p>Here is a picture of what this transformation does to a shape:</p>
-<div id="5aa13325" class="cell" data-execution_count="2">
+<div id="190784b0" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="L09MatrixOperations_files/figure-html/cell-3-output-1.png" width="477" height="476" class="figure-img"></p>
+<p><img src="L09MatrixOperations_files/figure-revealjs/cell-3-output-1.png" width="477" height="476" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -374,11 +380,11 @@ This comment somehow suppresses the title page
 </ul>
 </div>
 <div class="fragment">
-<div id="0624420e" class="cell" data-execution_count="3">
+<div id="e894c16e" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="L09MatrixOperations_files/figure-html/cell-4-output-1.png" width="477" height="476" class="figure-img"></p>
+<p><img src="L09MatrixOperations_files/figure-revealjs/cell-4-output-1.png" width="477" height="476" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -901,8 +907,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1013,7 +1017,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

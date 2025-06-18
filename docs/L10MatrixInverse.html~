@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.37">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,10 +69,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-fec4eca8e712537310c7ebcc1543822c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -364,7 +364,7 @@ window.Quarto = {
 </nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content page-columns page-full" id="quarto-document-content">
 
 
 
@@ -560,7 +560,7 @@ This comment somehow suppresses the title page
 <p>To invert a matrix in <code>Python/numpy,</code> use the function <code>np.linalg.inv().</code> For example:</p>
 </div>
 <div class="fragment">
-<div id="8d5187d0" class="cell" data-execution_count="2">
+<div id="7b0c17d4" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array(</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    [[ <span class="fl">2.0</span>, <span class="fl">5.0</span>],</span>
@@ -580,7 +580,7 @@ B =
 </div>
 <p>What do you think happens if you call <code>np.linalg.inv()</code> on a matrix that is not invertible?</p>
 <div class="fragment">
-<div id="84f85988" class="cell" data-execution_count="3">
+<div id="37304697" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array([[<span class="fl">2.</span>,<span class="fl">4.</span>],[<span class="fl">2.</span>,<span class="fl">4.</span>]])</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>np.linalg.inv(A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-error">
@@ -591,15 +591,16 @@ Cell <span class="ansi-green-fg">In[3], line 2</span>
 <span class="ansi-green-fg ansi-bold">      1</span> A <span style="color:rgb(98,98,98)">=</span> np<span style="color:rgb(98,98,98)">.</span>array([[<span style="color:rgb(98,98,98)">2.</span>,<span style="color:rgb(98,98,98)">4.</span>],[<span style="color:rgb(98,98,98)">2.</span>,<span style="color:rgb(98,98,98)">4.</span>]])
 <span class="ansi-green-fg">----&gt; 2</span> <span class="ansi-yellow-bg">np</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">linalg</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">inv</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">A</span><span class="ansi-yellow-bg">)</span>
 
-File <span class="ansi-green-fg">~/anaconda3/envs/CS132-quarto/lib/python3.9/site-packages/numpy/linalg/linalg.py:561</span>, in <span class="ansi-cyan-fg">inv</span><span class="ansi-blue-fg">(a)</span>
-<span class="ansi-green-fg ansi-bold">    559</span> signature <span style="color:rgb(98,98,98)">=</span> <span style="color:rgb(175,0,0)">'</span><span style="color:rgb(175,0,0)">D-&gt;D</span><span style="color:rgb(175,0,0)">'</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> isComplexType(t) <span style="font-weight:bold;color:rgb(0,135,0)">else</span> <span style="color:rgb(175,0,0)">'</span><span style="color:rgb(175,0,0)">d-&gt;d</span><span style="color:rgb(175,0,0)">'</span>
-<span class="ansi-green-fg ansi-bold">    560</span> extobj <span style="color:rgb(98,98,98)">=</span> get_linalg_error_extobj(_raise_linalgerror_singular)
-<span class="ansi-green-fg">--&gt; 561</span> ainv <span style="color:rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">_umath_linalg</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">inv</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">a</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">signature</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">signature</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">extobj</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">extobj</span><span class="ansi-yellow-bg">)</span>
-<span class="ansi-green-fg ansi-bold">    562</span> <span style="font-weight:bold;color:rgb(0,135,0)">return</span> wrap(ainv<span style="color:rgb(98,98,98)">.</span>astype(result_t, copy<span style="color:rgb(98,98,98)">=</span><span style="font-weight:bold;color:rgb(0,135,0)">False</span>))
+File <span class="ansi-green-fg">~/miniconda3/envs/quarto/lib/python3.12/site-packages/numpy/linalg/_linalg.py:615</span>, in <span class="ansi-cyan-fg">inv</span><span class="ansi-blue-fg">(a)</span>
+<span class="ansi-green-fg ansi-bold">    612</span> signature <span style="color:rgb(98,98,98)">=</span> <span style="color:rgb(175,0,0)">'</span><span style="color:rgb(175,0,0)">D-&gt;D</span><span style="color:rgb(175,0,0)">'</span> <span style="font-weight:bold;color:rgb(0,135,0)">if</span> isComplexType(t) <span style="font-weight:bold;color:rgb(0,135,0)">else</span> <span style="color:rgb(175,0,0)">'</span><span style="color:rgb(175,0,0)">d-&gt;d</span><span style="color:rgb(175,0,0)">'</span>
+<span class="ansi-green-fg ansi-bold">    613</span> <span style="font-weight:bold;color:rgb(0,135,0)">with</span> errstate(call<span style="color:rgb(98,98,98)">=</span>_raise_linalgerror_singular, invalid<span style="color:rgb(98,98,98)">=</span><span style="color:rgb(175,0,0)">'</span><span style="color:rgb(175,0,0)">call</span><span style="color:rgb(175,0,0)">'</span>,
+<span class="ansi-green-fg ansi-bold">    614</span>               over<span style="color:rgb(98,98,98)">=</span><span style="color:rgb(175,0,0)">'</span><span style="color:rgb(175,0,0)">ignore</span><span style="color:rgb(175,0,0)">'</span>, divide<span style="color:rgb(98,98,98)">=</span><span style="color:rgb(175,0,0)">'</span><span style="color:rgb(175,0,0)">ignore</span><span style="color:rgb(175,0,0)">'</span>, under<span style="color:rgb(98,98,98)">=</span><span style="color:rgb(175,0,0)">'</span><span style="color:rgb(175,0,0)">ignore</span><span style="color:rgb(175,0,0)">'</span>):
+<span class="ansi-green-fg">--&gt; 615</span>     ainv <span style="color:rgb(98,98,98)">=</span> <span class="ansi-yellow-bg">_umath_linalg</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">.</span><span class="ansi-yellow-bg">inv</span><span class="ansi-yellow-bg">(</span><span class="ansi-yellow-bg">a</span><span class="ansi-yellow-bg">,</span><span class="ansi-yellow-bg"> </span><span class="ansi-yellow-bg">signature</span><span style="color:rgb(98,98,98)" class="ansi-yellow-bg">=</span><span class="ansi-yellow-bg">signature</span><span class="ansi-yellow-bg">)</span>
+<span class="ansi-green-fg ansi-bold">    616</span> <span style="font-weight:bold;color:rgb(0,135,0)">return</span> wrap(ainv<span style="color:rgb(98,98,98)">.</span>astype(result_t, copy<span style="color:rgb(98,98,98)">=</span><span style="font-weight:bold;color:rgb(0,135,0)">False</span>))
 
-File <span class="ansi-green-fg">~/anaconda3/envs/CS132-quarto/lib/python3.9/site-packages/numpy/linalg/linalg.py:112</span>, in <span class="ansi-cyan-fg">_raise_linalgerror_singular</span><span class="ansi-blue-fg">(err, flag)</span>
-<span class="ansi-green-fg ansi-bold">    111</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span> <span style="color:rgb(0,0,255)">_raise_linalgerror_singular</span>(err, flag):
-<span class="ansi-green-fg">--&gt; 112</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> LinAlgError(<span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">Singular matrix</span><span style="color:rgb(175,0,0)">"</span>)
+File <span class="ansi-green-fg">~/miniconda3/envs/quarto/lib/python3.12/site-packages/numpy/linalg/_linalg.py:104</span>, in <span class="ansi-cyan-fg">_raise_linalgerror_singular</span><span class="ansi-blue-fg">(err, flag)</span>
+<span class="ansi-green-fg ansi-bold">    103</span> <span style="font-weight:bold;color:rgb(0,135,0)">def</span> <span style="color:rgb(0,0,255)">_raise_linalgerror_singular</span>(err, flag):
+<span class="ansi-green-fg">--&gt; 104</span>     <span style="font-weight:bold;color:rgb(0,135,0)">raise</span> LinAlgError(<span style="color:rgb(175,0,0)">"</span><span style="color:rgb(175,0,0)">Singular matrix</span><span style="color:rgb(175,0,0)">"</span>)
 
 <span class="ansi-red-fg">LinAlgError</span>: Singular matrix</pre>
 </div>
@@ -610,7 +611,7 @@ File <span class="ansi-green-fg">~/anaconda3/envs/CS132-quarto/lib/python3.9/sit
 <p>The right way to handle this is:</p>
 </div>
 <div class="fragment">
-<div id="7554718d" class="cell" data-execution_count="4">
+<div id="6dcf7d94" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array([[<span class="fl">2.</span>,<span class="fl">4.</span>],[<span class="fl">2.</span>,<span class="fl">4.</span>]])</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    np.linalg.inv(A)</span>
@@ -831,7 +832,7 @@ File <span class="ansi-green-fg">~/anaconda3/envs/CS132-quarto/lib/python3.9/sit
 </div>
 <p>Let’s look at some invertible and non-invertible linear transformations.</p>
 <div class="fragment">
-<div id="f6c76bed" class="cell" data-execution_count="5">
+<div id="ed95cfd8" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>square <span class="op">=</span> np.array([[<span class="fl">0.0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>],[<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>]])</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array(</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    [[<span class="fl">0.5</span>, <span class="dv">0</span>], </span>
@@ -865,7 +866,7 @@ File <span class="ansi-green-fg">~/anaconda3/envs/CS132-quarto/lib/python3.9/sit
 <div class="fragment">
 <p>Clearly, just as <span class="math inline">\(A\)</span> contracted the <span class="math inline">\(x_1\)</span> direction by 0.5, <span class="math inline">\(A^{-1}\)</span> will expand the <span class="math inline">\(x_1\)</span> direction by 2.</p>
 </div>
-<div id="86a0a771" class="cell" data-execution_count="6">
+<div id="06bcbf7e" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array(</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    [[<span class="dv">0</span>,<span class="dv">0</span>],</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>     [<span class="dv">0</span>,<span class="dv">1</span>]])</span>
@@ -899,7 +900,7 @@ File <span class="ansi-green-fg">~/anaconda3/envs/CS132-quarto/lib/python3.9/sit
 </div>
 <p>Here is another example:</p>
 <div class="fragment">
-<div id="248cd216" class="cell" data-execution_count="7">
+<div id="1c2e974c" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -992,11 +993,11 @@ File <span class="ansi-green-fg">~/anaconda3/envs/CS132-quarto/lib/python3.9/sit
 <p>But if you are solving a system with a large condition number, the small error in <span class="math inline">\({\bf b}\)</span> can get expanded in a large error in <span class="math inline">\({\bf x}\)</span>.</p>
 <p>The error can be so large that the value you get for <span class="math inline">\({\bf x}\)</span> is <strong>completely wrong.</strong></p>
 <p>To compute the condition number of a matrix <code>A</code> in <code>Python/numpy</code>, use <code>np.linalg.cond(A)</code>.</p>
-<div id="6faafce7" class="cell" data-execution_count="8">
+<div id="38f64070" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="fl">2.0000000001</span>],[<span class="dv">2</span>, <span class="dv">4</span>]])</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>np.linalg.cond(A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>125000145095.44151</code></pre>
+<pre><code>np.float64(125000556673.43701)</code></pre>
 </div>
 </div>
 
@@ -1087,6 +1088,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1197,6 +1200,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
