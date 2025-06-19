@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,10 +69,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-fec4eca8e712537310c7ebcc1543822c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -330,6 +330,12 @@ window.Quarto = {
  <span class="menu-text">Applications of the SVD</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./postscript.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Postscript</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -357,7 +363,7 @@ window.Quarto = {
 </nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
 
@@ -501,7 +507,7 @@ This comment somehow suppresses the title page
 <p>For example, if <span class="math inline">\(p=0.45\)</span>, we find that the probability that the gambler will lose all her money to be <span class="math inline">\(0.4\)</span>.</p>
 <div class="columns">
 <div class="column" style="width:45%;">
-<div id="452a1976" class="cell" data-execution_count="2">
+<div id="3adbeae8" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="fl">0.45</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.array([</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>,   p,   <span class="dv">0</span>,   <span class="dv">0</span>,   <span class="dv">0</span>],</span>
@@ -516,11 +522,11 @@ This comment somehow suppresses the title page
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>steady_state <span class="op">=</span> B <span class="op">@</span> np.array([<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column" style="width:45%;">
-<div id="4114057d" class="cell" data-execution_count="3">
+<div id="fbd1ce01" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="L19PageRank_files/figure-html/cell-4-output-1.png" width="440" height="242" class="figure-img"></p>
+<p><img src="L19PageRank_files/figure-revealjs/cell-4-output-1.png" width="440" height="242" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -814,7 +820,7 @@ P' = \begin{bmatrix}
 </div>
 <p>Let’s see how to do <strong>Step 4</strong> in Python:</p>
 <div class="fragment">
-<div id="50d9619f" class="cell" data-execution_count="4">
+<div id="1d5a1779" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Here is the P'' matrix as computed in steps 1 through 3.</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>P <span class="op">=</span> np.array([</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>[<span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>, <span class="fl">1.</span><span class="op">/</span><span class="dv">6</span>, <span class="fl">19.</span><span class="op">/</span><span class="dv">60</span>, <span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>, <span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>,  <span class="fl">1.</span><span class="op">/</span><span class="dv">60</span>],</span>
@@ -832,7 +838,7 @@ P' = \begin{bmatrix}
 </div>
 </div>
 <div class="fragment">
-<div id="e5c16ec6" class="cell" data-execution_count="5">
+<div id="bd073a69" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find the location of the largest eigenvalue (1), </span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># by computing the indices that would sort the eigenvalues</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># from smallest to largest</span></span>
@@ -846,7 +852,7 @@ P' = \begin{bmatrix}
 </div>
 </div>
 <div class="fragment">
-<div id="e005dd5b" class="cell" data-execution_count="6">
+<div id="ad842b35" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># using the index of the largest eigenvalue, extract</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the corresponding eigenvector (the steady state vector)</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>steadyState <span class="op">=</span> np.real(eigenvectors[:,principal])</span>
@@ -858,7 +864,7 @@ P' = \begin{bmatrix}
 </div>
 </div>
 <div class="fragment">
-<div id="d42cc1c5" class="cell" data-execution_count="7">
+<div id="5288f937" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># find the order of the pages in the steady state vector</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># this function sorts from smallest to largest (reverse of what we want)</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>reverseOrder <span class="op">=</span> np.argsort(steadyState)</span>
@@ -869,7 +875,7 @@ P' = \begin{bmatrix}
 </div>
 </div>
 <div class="fragment">
-<div id="02df10fd" class="cell" data-execution_count="8">
+<div id="8c6a84aa" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># reverse the order to get the most important page first</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># and add one to convert from zero indexing to indexing of example</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>order <span class="op">=</span> <span class="dv">1</span> <span class="op">+</span> reverseOrder[::<span class="op">-</span><span class="dv">1</span>]</span>
@@ -915,7 +921,7 @@ importance = [0.37508082 0.28624589 0.20599833 0.05395735 0.04150565 0.03721197]
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<div id="598dfc9c" class="cell" data-execution_count="9">
+<div id="5dc779ed" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>((<span class="fl">2.</span><span class="op">/</span><span class="dv">3</span>)<span class="op">*</span>(<span class="dv">400000</span><span class="op">**</span><span class="dv">3</span>))<span class="op">/</span>((<span class="dv">2</span><span class="op">*</span><span class="dv">10</span><span class="op">**</span><span class="dv">9</span>)<span class="op">*</span>(<span class="dv">3600</span><span class="op">*</span><span class="dv">24</span><span class="op">*</span><span class="dv">30</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>8.23045267489712</code></pre>
@@ -989,7 +995,7 @@ importance = [0.37508082 0.28624589 0.20599833 0.05395735 0.04150565 0.03721197]
 </div>
 
 <div class="no-row-height column-margin column-container"><div class="">
-<div id="4a7bd6b7" class="cell" data-execution_count="10">
+<div id="fe026c4c" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span><span class="op">*</span><span class="fl">400000.</span><span class="op">**</span><span class="dv">2</span><span class="op">/</span>((<span class="dv">2</span><span class="op">*</span><span class="dv">10</span><span class="op">**</span><span class="dv">9</span>)<span class="op">*</span>(<span class="dv">60</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>26.666666666666668</code></pre>
@@ -1100,8 +1106,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1212,7 +1216,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
