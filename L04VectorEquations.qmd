@@ -46,7 +46,7 @@ Applications,_ by David C. Lay
 :::
 ::::
 
-## Vectors
+## A Shift in Perspective
 
 ::: {.fragment}
 We're going to expand our view of what a linear system can represent.   
@@ -66,9 +66,7 @@ To make this fundamental shift we need to introduce the idea of a __vector__.  W
 We'll then return to thinking about a linear system -- now interpreted as a _vector_ equation -- in the next lecture.
 :::
 
-::: {.content-visible when-profile="slides"}
-##
-:::
+## Vectors
 
 A matrix with only one column is called a __column vector__, or simply a __vector__.
 
@@ -260,7 +258,7 @@ for f in factors:
 ax.arrow(0,0,6,2,head_width=0.2, head_length=0.2, length_includes_head = True)
 ax.arrow(0,0,-4.5,-1.5,head_width=0.2, head_length=0.2,length_includes_head = True)
 for f in range(len(factors)):
-    ax.text(3.0*factors[f]+0.2, factors[f]-0.5, r'{}$\bf v$'.format(ftext[f]), size=20)
+    ax.text(3.0*factors[f]+0.2, factors[f]-0.5, r'{}$\bf v$'.format(ftext[f]), size=14)
 print('');
 ```
 :::
@@ -276,8 +274,8 @@ fig = ut.three_d_figure((4, 1), 'Multiplying a vector by a scalar', 0, 4, 0, 6, 
 plt.close()
 fig.plotCube([2, 2, 3])
 fig.plotCube([4, 4, 6])
-fig.text(2, 2, 3, r'$\bf v$', 'v', size=18)
-fig.text(4.1, 4.1, 6.1, r'$2\bf v$', '2v', size=18, color='k')
+fig.text(2, 2, 3, r'$\bf v$', 'v', size=14)
+fig.text(4.1, 4.1, 6.1, r'$2\bf v$', '2v', size=14, color='k')
 fig.plotLine([[0, 0, 0], [4, 4, 6]], 'r', '--')
 fig.plotPoint(4, 4, 6, 'r')
 fig.plotPoint(2, 2, 3, 'r')
@@ -305,7 +303,7 @@ Question Time!   Q4.1
 
 ## The Algebra of $\mathbb{R}^n$
 
-We've defined a new object (the vector), and it has certain algebraic properties.
+We've defined a new mathematical object (the vector), and it has certain algebraic properties.
 
 ::: {.fragment}
 1. ${\bf u} + {\bf v} = {\bf v} + {\bf u}$
@@ -438,10 +436,10 @@ plt.close()
 a1 = [1, -2, -5]
 a2 = [2, 5, 6]
 b = [7, 4, -3]
-fig.text(a1[0]+0.2, a1[1]+0.2, a1[2]+0.2, r'$\bf a_1$', 'a1', size=18)
-fig.text(a2[0]+0.2, a2[1]+0.2, a2[2]+0.2, r'$\bf a_2$', 'a2', size=18)
-fig.text(b[0], b[1], b[2], r'$\bf b$', 'b', size=18)
-fig.text(0.2, 0.2, 0.2, r'$\bf 0$', '0', size=18)
+fig.text(a1[0]+0.2, a1[1]+0.2, a1[2]+0.2, r'$\bf a_1$', 'a1', size=14)
+fig.text(a2[0]+0.2, a2[1]+0.2, a2[2]+0.2, r'$\bf a_2$', 'a2', size=14)
+fig.text(b[0], b[1], b[2], r'$\bf b$', 'b', size=14)
+fig.text(0.2, 0.2, 0.2, r'$\bf 0$', '0', size=14)
 fig.plotPoint(a1[0], a1[1], a1[2], 'b')
 fig.plotPoint(a2[0], a2[1], a2[2], 'b')
 fig.plotPoint(b[0], b[1], b[2], 'r')
@@ -527,17 +525,17 @@ plt.close()
 a1 = [1, -2, -5]
 a2 = [2, 5, 6]
 b = [7, 4, -3]
-fig.text(a1[0]+0.2, a1[1]+0.2, a1[2]+0.2, r'$\bf a_1$', 'a1', size=18)
-fig.text(a2[0]+0.2, a2[1]+0.2, a2[2]+0.2, r'$\bf a_2$', 'a2', size=18)
-fig.text(b[0]+0.2, b[1]+0.2, b[2]+0.2, r'$\mathbf{b} = 3\mathbf{a_1} + 2\mathbf{a_2}$', 'b = 3 a1 + 2 a2', size=18)
-fig.text(0.2, 0.2, 0.2, r'$\bf 0$', '0', size=18)
+fig.text(a1[0]+0.2, a1[1]+0.2, a1[2]+0.2, r'$\bf a_1$', 'a1', size=14)
+fig.text(a2[0]+0.2, a2[1]+0.2, a2[2]+0.2, r'$\bf a_2$', 'a2', size=14)
+fig.text(b[0]+0.2, b[1]+0.2, b[2]+0.2, r'$\mathbf{b} = 3\mathbf{a_1} + 2\mathbf{a_2}$', 'b = 3 a1 + 2 a2', size=14)
+fig.text(0.2, 0.2, 0.2, r'$\bf 0$', '0', size=14)
 fig.plotPoint(a1[0], a1[1], a1[2], 'b')
 fig.plotPoint(a2[0], a2[1], a2[2], 'b')
 fig.plotPoint(b[0], b[1], b[2], 'r')
 fig.plotPoint(0, 0, 0, 'b')
 fig.ax.quiver(0, 0, 0, a1[0], a1[1], a1[2], length = 3, arrow_length_ratio = 0.15, lw = 2)
 fig.ax.quiver(3 * a1[0], 3 * a1[1], 3 * a1[2], a2[0], a2[1], a2[2], length = 2, arrow_length_ratio = 0.15, lw = 2)
-fig.text(3*a1[0]+0.3, 3*a1[1]+0.3, 3*a1[2]+0.3, r'$3\bf a_1$', '3 a1', size=18)
+fig.text(3*a1[0]+0.3, 3*a1[1]+0.3, 3*a1[2]+0.3, r'$3\bf a_1$', '3 a1', size=14)
 fig.set_title(r'$3\mathbf{a_1} + 2\mathbf{a_2} = \mathbf{b}$')
 fig.ax.view_init(azim = 0, elev = 22)
 fig.save()
